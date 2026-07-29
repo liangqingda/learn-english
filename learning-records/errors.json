@@ -172,6 +172,23 @@
       "last_reviewed_at": null
     },
     {
+      "id": "errors:passive-clause-needs-be",
+      "title": "完整被动语态需要 be 动词",
+      "explanation": "从句中 information 是 confirm 的承受者，因此完整被动语态应为 is confirmed；不能省略助动词 is。",
+      "source": "We will continue on your applications after all information confirmed.",
+      "example": "We will proceed with your application after all the information is confirmed.",
+      "tags": [
+        "passive-voice"
+      ],
+      "first_learned_at": "2026-07-29T21:06:51+08:00",
+      "last_learned_at": "2026-07-29T21:06:51+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
       "id": "errors:past-narrative-main-verb-tense",
       "title": "过去叙事中的主句使用过去时",
       "explanation": "叙述已经发生的欢迎动作时，主句谓语应使用一般过去时 welcomed，而不是一般现在时 welcome。",
@@ -221,6 +238,40 @@
       "review_count": 1,
       "high_score_streak": 1,
       "last_reviewed_at": "2026-07-29T12:38:04+08:00"
+    },
+    {
+      "id": "errors:proceed-to-infinitive",
+      "title": "proceed to 后接动词原形",
+      "explanation": "表示“接着做下一件事”时使用 proceed to + 动词原形，不能直接把动词接在 proceed 后面。",
+      "source": "Once your name is called, please proceed enter the interview room.",
+      "example": "Once your name is called, please proceed to enter the interview room.",
+      "tags": [
+        "verb-pattern"
+      ],
+      "first_learned_at": "2026-07-29T21:06:51+08:00",
+      "last_learned_at": "2026-07-29T21:06:51+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
+      "id": "errors:proceed-with-noun",
+      "title": "proceed with 后接事情或流程",
+      "explanation": "表示继续办理某件事情或执行某项计划时，使用 proceed with + 名词，如 proceed with your application。",
+      "source": "We will continue on your applications after all information confirmed.",
+      "example": "We will proceed with your application after all the information is confirmed.",
+      "tags": [
+        "verb-pattern"
+      ],
+      "first_learned_at": "2026-07-29T21:06:51+08:00",
+      "last_learned_at": "2026-07-29T21:06:51+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
     },
     {
       "id": "errors:relative-clause-after-friend-lived-near",
