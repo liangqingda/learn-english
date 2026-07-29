@@ -2,6 +2,23 @@
   "category": "grammar",
   "items": [
     {
+      "id": "grammar:continue-proceed-complement-patterns",
+      "title": "continue 与 proceed 的后接结构",
+      "explanation": "continue doing 与 continue to do 通常都表示继续做某事；continue with 后接名词。proceed to 后接地点或动词原形，proceed with 后接事情或计划。",
+      "source": "continue doing, continue to do, continue with, proceed to, proceed with",
+      "example": "After a short break, we continued discussing the plan.",
+      "tags": [
+        "verb-pattern"
+      ],
+      "first_learned_at": "2026-07-29T20:31:09+08:00",
+      "last_learned_at": "2026-07-29T20:31:09+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
       "id": "grammar:may-condition-if",
       "title": "may + 动词与 if 条件从句",
       "explanation": "may suffer 表示可能发生；if 引导条件从句，说明产生这种可能结果的条件。一般事实或现实可能条件中，if 从句常用一般现在时。",
