@@ -66,6 +66,21 @@
       "last_reviewed_at": "2026-07-29T14:48:01+08:00"
     },
     {
+      "id": "errors:company-headquarters-not-head",
+      "title": "公司总部常用 headquarters",
+      "explanation": "表达“公司总部”通常用 headquarters，而不是 head；head 更常指人或身体部位。",
+      "source": "The company has several office in the east, but the head is in Chigaco.",
+      "example": "The company has several offices in the East, but its headquarters is in Chicago.",
+      "tags": [],
+      "first_learned_at": "2026-07-29T15:09:17+08:00",
+      "last_learned_at": "2026-07-29T15:09:17+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
       "id": "errors:former-residence-needs-past-tense",
       "title": "以前住在某地要用过去表达",
       "explanation": "中文“以前/过去住在某地”强调过去状态，英语通常用 lived in 或 used to live in；不要用一般现在时 live in 表示过去居住。",
@@ -147,6 +162,21 @@
       ],
       "first_learned_at": "2026-07-29T13:50:00+08:00",
       "last_learned_at": "2026-07-29T13:50:00+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
+      "id": "errors:several-plus-plural-count-noun",
+      "title": "several 后接可数名词复数",
+      "explanation": "several 表示“几个”，后面接可数名词复数；因此应说 several offices，而不是 several office。",
+      "source": "The company has several office in the east, but the head is in Chigaco.",
+      "example": "The company has several offices in the East.",
+      "tags": [],
+      "first_learned_at": "2026-07-29T15:09:17+08:00",
+      "last_learned_at": "2026-07-29T15:09:17+08:00",
       "learned_count": 1,
       "mastery_score": 0,
       "review_count": 0,
