@@ -51,23 +51,6 @@
       "review_count": 1,
       "high_score_streak": 1,
       "last_reviewed_at": "2026-07-28T22:38:46+08:00"
-    },
-    {
-      "id": "grammar:review-noun-verb-usage",
-      "title": "review 的名词与动词用法",
-      "explanation": "review 可直接作及物动词接宾语，也可作可数名词；表达复习某内容通常说 review something，不加介词。",
-      "source": "review",
-      "example": "Let us review the report before the meeting.",
-      "tags": [
-        "parts-of-speech"
-      ],
-      "first_learned_at": "2026-07-29T07:31:01+08:00",
-      "last_learned_at": "2026-07-29T07:31:01+08:00",
-      "learned_count": 1,
-      "mastery_score": 0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null
     }
   ]
 }
