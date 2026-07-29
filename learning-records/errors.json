@@ -105,6 +105,23 @@
       "last_reviewed_at": "2026-07-29T13:24:28+08:00"
     },
     {
+      "id": "errors:learn-about-possessive-history",
+      "title": "了解某地历史的自然表达",
+      "explanation": "“了解某地的历史”使用 learn about the history of a place 或 learn about the place’s history，不能说 get the history this city。",
+      "source": "follow guide to get the history this city",
+      "example": "They followed the guide to learn about the city's history.",
+      "tags": [
+        "expression"
+      ],
+      "first_learned_at": "2026-07-29T21:09:22+08:00",
+      "last_learned_at": "2026-07-29T21:09:22+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
       "id": "errors:los-angeles-english-place-name",
       "title": "洛杉矶的英文地名表达",
       "explanation": "中文地名“洛杉矶”在英语中应使用标准英文名 Los Angeles，不能按汉语拼音写成 luoshanji；专有名词的两个单词都要大写。",
@@ -165,6 +182,23 @@
       ],
       "first_learned_at": "2026-07-29T20:41:18+08:00",
       "last_learned_at": "2026-07-29T20:41:18+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
+      "id": "errors:narrative-past-tense-consistency",
+      "title": "过去叙事中的时态不一致",
+      "explanation": "同一段已发生的连续事件应保持一般过去时；前句使用 read 表示过去时后，后句应使用 turned 和 followed。",
+      "source": "After entering exhibit, they close their phone and follow guide",
+      "example": "After entering the exhibition hall, they turned off their phones and followed the guide.",
+      "tags": [
+        "tense"
+      ],
+      "first_learned_at": "2026-07-29T21:09:22+08:00",
+      "last_learned_at": "2026-07-29T21:09:22+08:00",
       "learned_count": 1,
       "mastery_score": 0,
       "review_count": 0,
@@ -308,6 +342,23 @@
       "last_reviewed_at": null
     },
     {
+      "id": "errors:singular-count-noun-missing-article",
+      "title": "单数可数名词前遗漏限定词",
+      "explanation": "museum、guide 等单数可数名词通常不能裸用，需要根据语境添加 a、the 或其他限定词。",
+      "source": "Students carefully read safety requirements before visiting museum. After entering exhibit, they close their phone and follow guide to get the history this city.",
+      "example": "Before visiting the museum, the students read the safety instructions.",
+      "tags": [
+        "article"
+      ],
+      "first_learned_at": "2026-07-29T21:09:21+08:00",
+      "last_learned_at": "2026-07-29T21:09:21+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
       "id": "errors:traffic-light-time-clause",
       "title": "用时间从句表达交通灯变色",
       "explanation": "表达“绿灯亮后”时，通常说 when/after the light turns green，而不是 after green light；light 前需要限定词，并用 turns green 表达状态变化。",
@@ -318,6 +369,23 @@
       ],
       "first_learned_at": "2026-07-29T20:27:33+08:00",
       "last_learned_at": "2026-07-29T20:27:33+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
+      "id": "errors:turn-off-electronic-device-collocation",
+      "title": "关闭电子设备应使用 turn off",
+      "explanation": "表示关闭手机等电子设备通常使用 turn off，而不是 close；多人各自的手机通常用复数 their phones。",
+      "source": "they close their phone",
+      "example": "They turned off their phones before the tour began.",
+      "tags": [
+        "collocation"
+      ],
+      "first_learned_at": "2026-07-29T21:09:22+08:00",
+      "last_learned_at": "2026-07-29T21:09:22+08:00",
       "learned_count": 1,
       "mastery_score": 0,
       "review_count": 0,
