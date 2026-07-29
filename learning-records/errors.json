@@ -2,6 +2,23 @@
   "category": "errors",
   "items": [
     {
+      "id": "errors:arrive-from-origin",
+      "title": "用 arrive from 表示出发地",
+      "explanation": "arrive from + 地点表示“从某地抵达”；arrive in + 大地点表示“抵达某地”。表达从波士顿来应使用 arrived from Boston。",
+      "source": "They welcome the traveler who had just arrived in Boston.",
+      "example": "They welcomed the traveler who had just arrived from Boston.",
+      "tags": [
+        "preposition"
+      ],
+      "first_learned_at": "2026-07-29T20:34:14+08:00",
+      "last_learned_at": "2026-07-29T20:34:14+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
       "id": "errors:back-east-geographic-direction",
       "title": "back east 的地域方向误用",
       "explanation": "back east 通常指美国东部，不能用来描述从纽约前往位于美国西部的洛杉矶；该语境应使用 travel west 或直接说 travel to Los Angeles。",
@@ -114,6 +131,40 @@
       ],
       "first_learned_at": "2026-07-29T15:41:43+08:00",
       "last_learned_at": "2026-07-29T15:41:43+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
+      "id": "errors:past-narrative-main-verb-tense",
+      "title": "过去叙事中的主句使用过去时",
+      "explanation": "叙述已经发生的欢迎动作时，主句谓语应使用一般过去时 welcomed，而不是一般现在时 welcome。",
+      "source": "They welcome the traveler who had just arrived in Boston.",
+      "example": "They welcomed the traveler who had just arrived from Boston.",
+      "tags": [
+        "past-tense"
+      ],
+      "first_learned_at": "2026-07-29T20:34:14+08:00",
+      "last_learned_at": "2026-07-29T20:34:14+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
+      "id": "errors:past-perfect-requires-past-participle",
+      "title": "过去完成时使用过去分词",
+      "explanation": "过去完成时结构是 had + 过去分词；fly 的过去式是 flew，过去分词是 flown，因此应说 had flown。",
+      "source": "She was nervous because she had never flew on a plane before that trip.",
+      "example": "She was nervous because she had never flown on a plane before that trip.",
+      "tags": [
+        "past-perfect"
+      ],
+      "first_learned_at": "2026-07-29T20:34:14+08:00",
+      "last_learned_at": "2026-07-29T20:34:14+08:00",
       "learned_count": 1,
       "mastery_score": 0,
       "review_count": 0,
