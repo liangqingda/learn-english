@@ -2,21 +2,6 @@
   "category": "errors",
   "items": [
     {
-      "id": "errors:after-used-as-connector-before-past-verb",
-      "title": "after 不能直接作连词式副词连接过去式动词",
-      "explanation": "英语里 after 通常作介词或连词，不能像 later/afterward 那样直接放在 and 后连接 moved；表达“后来搬到……”应说 and later moved 或 and then moved。",
-      "source": "He lived back east for years and after moved to California.",
-      "example": "He lived back east for years and later moved to California.",
-      "tags": [],
-      "first_learned_at": "2026-07-29T14:31:27+08:00",
-      "last_learned_at": "2026-07-29T14:31:27+08:00",
-      "learned_count": 1,
-      "mastery_score": 0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null
-    },
-    {
       "id": "errors:back-east-geographic-direction",
       "title": "back east 的地域方向误用",
       "explanation": "back east 通常指美国东部，不能用来描述从纽约前往位于美国西部的洛杉矶；该语境应使用 travel west 或直接说 travel to Los Angeles。",
