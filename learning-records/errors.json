@@ -116,6 +116,24 @@
       "last_reviewed_at": "2026-07-29T12:47:18+08:00"
     },
     {
+      "id": "errors:misunderstand-go-out-with-as-literal-exit",
+      "title": "误把 go out with someone 理解为字面外出",
+      "explanation": "在恋爱或嫉妒等语境中，go out with someone 通常表示和某人约会或谈恋爱，不能按字面理解为和某人出去或从某处出去。",
+      "source": "1. A; 2. 不是，表示从她办公室出去了",
+      "example": "Tom got jealous because Lisa was going out with someone from her office.",
+      "tags": [
+        "dating",
+        "phrases"
+      ],
+      "first_learned_at": "2026-07-29T15:41:43+08:00",
+      "last_learned_at": "2026-07-29T15:41:43+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
       "id": "errors:plural-grandparents-translation",
       "title": "grandparents 的复数对应",
       "explanation": "中文“祖父母”通常对应复数 grandparents；描述两位祖辈时不能使用单数 grandparent。",

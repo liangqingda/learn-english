@@ -30,10 +30,10 @@
       "first_learned_at": "2026-07-28T22:11:44+08:00",
       "last_learned_at": "2026-07-28T22:11:44+08:00",
       "learned_count": 1,
-      "mastery_score": 0,
-      "review_count": 0,
+      "mastery_score": 5.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null
+      "last_reviewed_at": "2026-07-29T15:41:35+08:00"
     },
     {
       "id": "phrases:old-timers",
