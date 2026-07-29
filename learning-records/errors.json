@@ -2,6 +2,23 @@
   "category": "errors",
   "items": [
     {
+      "id": "errors:after-event-noun-phrase",
+      "title": "用 after + 名词短语表达事件之后",
+      "explanation": "表示“午饭后、短暂休息后”时，自然表达是 after lunch、after a short rest 或 after a short break；after lunching 很少这样说，after short resting 也不自然。",
+      "source": "After lunching, we proceeded to visit the factory. / After short resting, she continue on performing.",
+      "example": "After a short rest, she continued with her presentation.",
+      "tags": [
+        "time-expression"
+      ],
+      "first_learned_at": "2026-07-29T21:19:14+08:00",
+      "last_learned_at": "2026-07-29T21:19:14+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
       "id": "errors:arrive-from-origin",
       "title": "用 arrive from 表示出发地",
       "explanation": "arrive from + 地点表示“从某地抵达”；arrive in + 大地点表示“抵达某地”。表达从波士顿来应使用 arrived from Boston。",
@@ -63,6 +80,23 @@
       ],
       "first_learned_at": "2026-07-29T20:27:33+08:00",
       "last_learned_at": "2026-07-29T20:27:33+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
+      "id": "errors:continue-with-noun",
+      "title": "continue with 后接名词",
+      "explanation": "表示继续某项活动、流程或内容时，可使用 continue with + 名词，如 continue with the presentation；continue on performing 不符合本句要求。",
+      "source": "After short resting, she continue on performing.",
+      "example": "After a short rest, she continued with her presentation.",
+      "tags": [
+        "verb-pattern"
+      ],
+      "first_learned_at": "2026-07-29T21:19:14+08:00",
+      "last_learned_at": "2026-07-29T21:19:14+08:00",
       "learned_count": 1,
       "mastery_score": 0,
       "review_count": 0,
@@ -272,6 +306,23 @@
       "review_count": 1,
       "high_score_streak": 1,
       "last_reviewed_at": "2026-07-29T12:38:04+08:00"
+    },
+    {
+      "id": "errors:presentation-vs-performing",
+      "title": "用 presentation 表示演示或汇报",
+      "explanation": "presentation 是“演示、汇报”的名词；performing 表示表演或执行动作，不能直接替代 presentation。",
+      "source": "After short resting, she continue on performing.",
+      "example": "After a short rest, she continued with her presentation.",
+      "tags": [
+        "word-choice"
+      ],
+      "first_learned_at": "2026-07-29T21:19:16+08:00",
+      "last_learned_at": "2026-07-29T21:19:16+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
     },
     {
       "id": "errors:proceed-to-infinitive",
