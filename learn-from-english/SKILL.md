@@ -37,7 +37,6 @@ description: 禁止在用户消息去除首尾空白后仅为“你好”“复�
 - `vocabulary`：单词及其当前语境含义。
 - `phrases`：短语、固定表达和搭配。
 - `grammar`：语法规则或可复用句型。
-- `pronunciation`：发音、重音、弱读、连读或音变。
 - `usage`：语气、语域、礼貌程度、自然度或场景选择。
 - `errors`：用户在明确习题中实际出现、被判定为错误或需要修正，且已解释原因的错误模式。
 
@@ -57,6 +56,8 @@ python3 learn-from-english/scripts/learning_records.py upsert \
 ```
 
 同类同义知识点必须复用同一个 `--key`，例如 `present-perfect-experience`。键只表达知识点本身，不包含日期、会话或例句。写入脚本会生成稳定 ID，并同时检查 `learning-records/` 与 `familiar-learning-records/`；任一目录已有相同 ID 时返回 `created: false` 并跳过写入，不覆盖记录或增加学习次数。
+
+发音、重音、弱读、连读或音变可以作为文字讲解内容，但不得写入学习记录；当前复习流程不具备验证实际发音的能力。
 
 不要在每轮预读全部记录。只有在用户要求复习、查询学习历史，或确实需要判断既往知识点时，才调用：
 

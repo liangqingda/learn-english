@@ -20,7 +20,6 @@ CATEGORIES = (
     "vocabulary",
     "phrases",
     "grammar",
-    "pronunciation",
     "usage",
     "errors",
 )
@@ -67,10 +66,10 @@ REVIEW_PATHS = (
         "categories": ("vocabulary", "phrases"),
     },
     {
-        "id": "pronunciation-usage",
-        "icon": "🎧",
-        "label": "练习发音、语气和场景选择",
-        "categories": ("pronunciation", "usage"),
+        "id": "usage",
+        "icon": "🌍",
+        "label": "复习语气、自然度和场景选择",
+        "categories": ("usage",),
     },
 )
 

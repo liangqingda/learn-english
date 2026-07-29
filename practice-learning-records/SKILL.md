@@ -19,7 +19,7 @@ python3 learn-from-english/scripts/learning_records.py menu
 
 - `errors` + `grammar`：复习掌握不稳的知识点，并巩固学过的语法和句型。
 - `vocabulary` + `phrases`：复习词汇、搭配和固定表达。
-- `pronunciation` + `usage`：练习发音、语气和场景选择。
+- `usage`：复习语气、自然度和场景选择。
 
 使用自然、简洁的话术，例如：
 
@@ -30,7 +30,7 @@ python3 learn-from-english/scripts/learning_records.py menu
 
 1. 🧩 复习掌握不稳的知识点、语法和句型（8 条）
 2. 📚 复习词汇、搭配和固定表达（8 条）
-3. 🎧 练习发音、语气和场景选择（4 条）
+3. 🌍 复习语气、自然度和场景选择（4 条）
 4. 🧪 做一道基于学习记录的四六级规格纯文本习题
 5. 🎭 用学过的英语开展一个真实场景对话
 ```
@@ -47,7 +47,7 @@ python3 learn-from-english/scripts/learning_records.py menu
 3. 🎭 开始一段咖啡店点单的场景对话
 ```
 
-用户选择查看记录时，运行 `summary --include-familiar` 展示六个分类的数量，然后再次提供符合 `AGENTS.md` 的菜单；选择习题时按仓库级四六级出题规则生成一道不依赖历史记录的纯文本题目；选择场景对话时直接开始对应的角色对话。不得编造知识点填充空菜单。
+用户选择查看记录时，运行 `summary --include-familiar` 展示五个分类的数量，然后再次提供符合 `AGENTS.md` 的菜单；选择习题时按仓库级四六级出题规则生成一道不依赖历史记录的纯文本题目；选择场景对话时直接开始对应的角色对话。不得编造知识点填充空菜单。
 
 ## 处理数字选择
 
@@ -78,7 +78,6 @@ python3 learn-from-english/scripts/learning_records.py next-review \
   --category grammar \
   --category vocabulary \
   --category phrases \
-  --category pronunciation \
   --category usage \
   --random
 ```
@@ -92,7 +91,9 @@ python3 learn-from-english/scripts/learning_records.py next-review \
 - 错误记录：给相似的新句子，让用户纠错或改写。
 - 语法记录：从造句、纠错、改写、补全、语境选择、翻译等形式中，按当前知识点选择适合的题型组合；不设固定优先题型，相邻两轮不要使用完全相同的组合。
 - 词汇与短语：组合选词填空、搭配判断、释义辨析或新场景造句。
-- 发音与语用：组合重音或音节判断、语气辨析和场景表达选择。
+- 语用记录：组合语气辨析、自然度判断和场景表达选择。
+
+不要创建发音练习或尝试根据文字回答评价用户的实际发音；复习范围只包括脚本支持的五类记录。
 
 每次从记录中抽到题并开始题组时，回复必须先给出仓库级要求的 H4 标题。只在“新抽出记录并呈现题目”的回复中显示来源标注；基于当前题目的后续讲解、答案评价、错题解释、菜单重开或知识点完整讲解，不再重复显示 `Picked from...`。不要把来源标注放在标题下方或练习正文之前；将来源标注放在回复底部的归因信息块中，格式为 `*Picked from xxx*`。底部归因信息块必须先用一条 Markdown 分割线 `---` 与正文和菜单隔开，然后依次放置来源标注和仓库级要求的 skill attribution，且 skill attribution 仍为绝对最后一行。若同一回复还需要仓库级 commit notice，将 commit notice 放在来源标注之后、skill attribution 之前。`xxx` 必须写明实际抽题来源：普通复习库写 `learning-records/<category>`；已标熟复习写 `familiar-learning-records/<category>`；从合并入口或随机继续复习抽到具体记录后，也按返回记录的实际 `category` 标注，不写合并入口名称。
 

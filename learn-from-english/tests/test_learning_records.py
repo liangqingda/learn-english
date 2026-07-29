@@ -291,7 +291,6 @@ class LearningRecordsTest(unittest.TestCase):
                 {"category": "vocabulary", "count": 1},
                 {"category": "phrases", "count": 1},
                 {"category": "grammar", "count": 1},
-                {"category": "pronunciation", "count": 1},
                 {"category": "usage", "count": 1},
                 {"category": "errors", "count": 2},
             ],
