@@ -19,6 +19,23 @@
       "last_reviewed_at": "2026-07-29T13:58:06+08:00"
     },
     {
+      "id": "phrases:continue-on",
+      "title": "continue on：继续前行",
+      "explanation": "continue on 表示沿当前路线继续前行；on 强调向前延续，但在部分语境中只用 continue 也足够。",
+      "source": "A green light on a traffic signal means your car can continue on",
+      "example": "Continue on for another two miles.",
+      "tags": [
+        "movement"
+      ],
+      "first_learned_at": "2026-07-29T20:19:15+08:00",
+      "last_learned_at": "2026-07-29T20:19:15+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
       "id": "phrases:go-out-with-romantic-dating",
       "title": "go out with someone：与某人约会",
       "explanation": "go out with someone 在恋爱语境中表示与某人约会或谈恋爱，不只是一起外出；上下文决定其含义。",

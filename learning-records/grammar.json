@@ -19,6 +19,23 @@
       "last_reviewed_at": "2026-07-28T23:09:18+08:00"
     },
     {
+      "id": "grammar:mean-that-object-clause",
+      "title": "mean 后接宾语从句",
+      "explanation": "mean 后可直接接省略 that 的宾语从句，说明某个标志、事实或行为所表示的含义。",
+      "source": "A green light on a traffic signal means your car can continue on",
+      "example": "A flashing light means you should slow down.",
+      "tags": [
+        "sentence-pattern"
+      ],
+      "first_learned_at": "2026-07-29T20:19:15+08:00",
+      "last_learned_at": "2026-07-29T20:19:15+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
       "id": "grammar:past-perfect-before-past-reference",
       "title": "过去完成时表示过去参照点之前",
       "explanation": "had just arrived 表示“刚刚到达”发生在 used it to describe 这一过去行为之前；just 强调时间间隔很短。",
