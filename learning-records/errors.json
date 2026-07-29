@@ -133,23 +133,6 @@
       "last_reviewed_at": "2026-07-29T12:38:04+08:00"
     },
     {
-      "id": "errors:plural-parents-reference",
-      "title": "parents 的复数形式",
-      "explanation": "中文“父母”指两位家长时，英语通常用复数 parents；不能写成单数 parent 后再用 they 指代。",
-      "source": "My parent lived in New York, but they are living in Los Geles now.",
-      "example": "My parents lived in New York, but they live in Los Angeles now.",
-      "tags": [
-        "number-agreement"
-      ],
-      "first_learned_at": "2026-07-29T12:32:48+08:00",
-      "last_learned_at": "2026-07-29T12:32:48+08:00",
-      "learned_count": 1,
-      "mastery_score": 8.0,
-      "review_count": 1,
-      "high_score_streak": 1,
-      "last_reviewed_at": "2026-07-29T13:05:45+08:00"
-    },
-    {
       "id": "errors:relative-clause-after-friend-lived-near",
       "title": "用定语从句或现在分词修饰 friend",
       "explanation": "修饰 a friend 时，不能直接说 a friend lived near；应使用定语从句 a friend who lives nearby，或现在分词短语 a friend living nearby。",
