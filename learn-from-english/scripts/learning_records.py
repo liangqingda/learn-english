@@ -631,6 +631,7 @@ def review_path_count(path: dict[str, Any], counts: dict[str, int]) -> int:
 
 def build_review_menu(args: argparse.Namespace) -> dict[str, Any]:
     counts = category_counts()
+    regular_total = sum(counts.values())
     familiar_count = len(list_familiar_records(argparse.Namespace()))
     active_paths = [
         {
@@ -646,6 +647,7 @@ def build_review_menu(args: argparse.Namespace) -> dict[str, Any]:
         return {
             "state": "empty",
             "counts": counts,
+            "regular_total": regular_total,
             "familiar_count": familiar_count,
             "options": [
                 {
@@ -720,6 +722,7 @@ def build_review_menu(args: argparse.Namespace) -> dict[str, Any]:
     return {
         "state": "ready",
         "counts": counts,
+        "regular_total": regular_total,
         "familiar_count": familiar_count,
         "options": options,
     }

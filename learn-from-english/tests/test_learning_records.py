@@ -324,6 +324,7 @@ class LearningRecordsTest(unittest.TestCase):
         menu = records.build_review_menu(argparse.Namespace())
 
         self.assertEqual(menu["state"], "ready")
+        self.assertEqual(menu["regular_total"], 3)
         self.assertLessEqual(len(menu["options"]), 5)
         option_ids = [option["id"] for option in menu["options"]]
         self.assertIn("cet-practice", option_ids)
@@ -339,6 +340,7 @@ class LearningRecordsTest(unittest.TestCase):
         menu = records.build_review_menu(argparse.Namespace())
 
         self.assertEqual(menu["state"], "empty")
+        self.assertEqual(menu["regular_total"], 0)
         self.assertEqual([option["id"] for option in menu["options"]], [
             "status",
             "cet-practice",

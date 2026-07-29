@@ -134,7 +134,7 @@ python3 learn-from-english/scripts/learning_records.py familiar-review \
 
 评分为 10 分时，命令会把记录从 `familiar-learning-records/` 中直接删除；命令返回 `deleted: true` 时，告诉用户该已标熟知识点已经完全掌握，已从已标熟记录中移除。分数低于 8 时，命令会把记录移回 `learning-records/`、清零连续高分次数并更新时间，告诉用户该知识点需要重新巩固，已移回普通复习列表。分数大于或等于 8 且低于 10 时，记录继续留在 `familiar-learning-records/`，命令会更新 `mastery_score`、`review_count` 和 `last_reviewed_at`；告诉用户本次复习通过。不能对已标熟记录使用普通的 `review` 命令。
 
-每次完成并评分一轮普通或已标熟复习后，先运行 `python3 learn-from-english/scripts/learning_records.py menu` 读取最新入口数量，再在回复末尾按仓库根目录 `AGENTS.md` 的英语学习菜单规则提供快捷选项。该菜单必须包含“继续复习”作为第一项，用于从普通复习库随机抽取下一条记录，并标注普通复习库当前总数 `（N 条）`；`N` 必须使用 `menu.counts` 中各普通分类数量之和，不能使用合并入口数量或自行估算。菜单还必须包含 `🔁 复习已标熟的知识点（N 条）`，其中 `N` 必须使用 `menu` 返回的 `familiar_count` 或已标熟入口自身的 `count`，像首次复习菜单一样标注数量。菜单还必须同时包含与当前知识点相关的 `🧪 四六级规格习题` 和 `🎭 场景对话`，并为每个菜单项使用不同的语义图标；因为已标熟入口固定使用 `🔁`，不要再给“继续复习”使用 `🔁`。例如：
+每次完成并评分一轮普通或已标熟复习后，先运行 `python3 learn-from-english/scripts/learning_records.py menu` 读取最新入口数量，再在回复末尾按仓库根目录 `AGENTS.md` 的英语学习菜单规则提供快捷选项。该菜单必须包含“继续复习”作为第一项，用于从普通复习库随机抽取下一条记录，并标注普通复习库当前总数 `（N 条）`；`N` 必须使用 `menu.regular_total`，不能使用合并入口数量、单个入口数量或自行估算；只有旧脚本没有返回 `regular_total` 时，才退回使用 `menu.counts` 中各普通分类数量之和。菜单还必须包含 `🔁 复习已标熟的知识点（N 条）`，其中 `N` 必须使用 `menu` 返回的 `familiar_count` 或已标熟入口自身的 `count`，像首次复习菜单一样标注数量。菜单还必须同时包含与当前知识点相关的 `🧪 四六级规格习题` 和 `🎭 场景对话`，并为每个菜单项使用不同的语义图标；因为已标熟入口固定使用 `🔁`，不要再给“继续复习”使用 `🔁`。例如：
 
 ```text
 ➡️ 接下来可以回复数字：
