@@ -2,6 +2,21 @@
   "category": "errors",
   "items": [
     {
+      "id": "errors:after-used-as-connector-before-clause",
+      "title": "after 不宜直接当 later 连接后续动作",
+      "explanation": "表达“后来……”时，after 不能直接替代 later/then/afterward 来承接后续动作；自然说法是 but later settled 或 but then settled。",
+      "source": "They comes from back east first, but after they settle down in yalisang.",
+      "example": "They originally came from back east, but later settled in Arizona.",
+      "tags": [],
+      "first_learned_at": "2026-07-29T14:48:01+08:00",
+      "last_learned_at": "2026-07-29T14:48:01+08:00",
+      "learned_count": 1,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-07-29T16:47:17+08:00"
+    },
+    {
       "id": "errors:missing-for-after-wait",
       "title": "wait 后遗漏介词 for",
       "explanation": "表示等待某人或某物时应使用 wait for somebody/something，不能直接使用 wait somebody。",
