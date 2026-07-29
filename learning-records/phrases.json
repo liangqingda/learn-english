@@ -1,0 +1,73 @@
+{
+  "category": "phrases",
+  "items": [
+    {
+      "id": "phrases:back-east-us",
+      "title": "back east",
+      "explanation": "从美国西部或中部的视角指美国东部；back 带有回望来处或既有地域视角的意味，通常不译为“回到东部”。",
+      "source": "Old-timers used it to describe a man who had just arrived from one of the big cities back east",
+      "example": "She grew up back east but now lives in Arizona.",
+      "tags": [
+        "regional-expression"
+      ],
+      "first_learned_at": "2026-07-28T20:36:08+08:00",
+      "last_learned_at": "2026-07-28T20:36:08+08:00",
+      "learned_count": 1,
+      "mastery_score": 6.0,
+      "review_count": 2,
+      "high_score_streak": 0,
+      "last_reviewed_at": "2026-07-29T13:58:06+08:00"
+    },
+    {
+      "id": "phrases:go-out-with-romantic-dating",
+      "title": "go out with someone：与某人约会",
+      "explanation": "go out with someone 在恋爱语境中表示与某人约会或谈恋爱，不只是一起外出；上下文决定其含义。",
+      "source": "A young man may suffer from the green-eyed monster if his girlfriend begins going out with someone else",
+      "example": "Is she going out with Daniel?",
+      "tags": [
+        "dating"
+      ],
+      "first_learned_at": "2026-07-28T22:11:44+08:00",
+      "last_learned_at": "2026-07-28T22:11:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
+      "id": "phrases:old-timers",
+      "title": "old-timers",
+      "explanation": "指在某地生活很久、熟悉当地旧事和传统的人；语气较口语，不只是泛指老人。",
+      "source": "Old-timers used it to describe a man who had just arrived from one of the big cities back east",
+      "example": "The old-timers still remember when this road was unpaved.",
+      "tags": [
+        "colloquial"
+      ],
+      "first_learned_at": "2026-07-28T20:36:08+08:00",
+      "last_learned_at": "2026-07-28T20:36:08+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
+      "id": "phrases:review-common-collocations",
+      "title": "review 的常见搭配",
+      "explanation": "高频搭配包括 review notes（复习笔记）、review a document（审查文件）、write a review（写评论）和 under review（正在审查中）。",
+      "source": "review",
+      "example": "The application is still under review.",
+      "tags": [
+        "collocation"
+      ],
+      "first_learned_at": "2026-07-29T07:31:01+08:00",
+      "last_learned_at": "2026-07-29T07:31:01+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    }
+  ]
+}

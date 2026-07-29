@@ -1,0 +1,4 @@
+interface:
+  display_name: "英语知识点复习"
+  short_description: "复习知识点、评分归档，并支持继续随机抽题"
+  default_prompt: "使用 $practice-learning-records 复习我的知识点，并根据回答更新掌握状态。"

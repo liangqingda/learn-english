@@ -1,0 +1,4 @@
+interface:
+  display_name: "英语输入学习教练"
+  short_description: "从用户发送的真实英语内容中提炼知识点并引导持续练习"
+  default_prompt: "使用 $learn-from-english 讲解我发送的英语，并提供可回复数字选择的后续学习路径。"

@@ -1,0 +1,60 @@
+{
+  "category": "errors",
+  "items": [
+    {
+      "id": "errors:missing-for-after-wait",
+      "title": "wait 后遗漏介词 for",
+      "explanation": "表示等待某人或某物时应使用 wait for somebody/something，不能直接使用 wait somebody。",
+      "source": "I am waiting a friend who lives near.",
+      "example": "I am waiting for a friend who lives nearby.",
+      "tags": [
+        "preposition",
+        "verb-pattern"
+      ],
+      "first_learned_at": "2026-07-28T22:44:09+08:00",
+      "last_learned_at": "2026-07-28T22:44:09+08:00",
+      "learned_count": 1,
+      "mastery_score": 8.0,
+      "review_count": 2,
+      "high_score_streak": 2,
+      "last_reviewed_at": "2026-07-29T13:49:51+08:00"
+    },
+    {
+      "id": "errors:no-in-before-back-east",
+      "title": "back east 前不加 in",
+      "explanation": "back east 本身可作地点副词短语，表示“在/向美国东部那边”，前面通常不再加 in；应说 lived back east，而不是 lived in back east。",
+      "source": "After living in back east for years, I moved eastward to visit my sister.",
+      "example": "After living back east for years, I moved west to start a new job.",
+      "tags": [
+        "adverbial-phrase",
+        "preposition",
+        "regional-expression"
+      ],
+      "first_learned_at": "2026-07-29T14:06:35+08:00",
+      "last_learned_at": "2026-07-29T14:06:35+08:00",
+      "learned_count": 1,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-07-29T14:31:27+08:00"
+    },
+    {
+      "id": "errors:place-name-spelling-shenzhen",
+      "title": "地名 Shenzhen 的拼写",
+      "explanation": "英文城市名 Shenzhen 要拼作 Shenzhen，不要写成 ShenShen。",
+      "source": "She lived in Beijing, but now she lives in ShenShen.",
+      "example": "She lived in Beijing, but now she lives in Shenzhen.",
+      "tags": [
+        "proper-noun",
+        "spelling"
+      ],
+      "first_learned_at": "2026-07-29T13:24:36+08:00",
+      "last_learned_at": "2026-07-29T13:24:36+08:00",
+      "learned_count": 1,
+      "mastery_score": 9.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-07-29T13:44:28+08:00"
+    }
+  ]
+}

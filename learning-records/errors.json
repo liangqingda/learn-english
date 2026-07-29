@@ -1,0 +1,142 @@
+{
+  "category": "errors",
+  "items": [
+    {
+      "id": "errors:after-used-as-connector-before-past-verb",
+      "title": "after 不能直接作连词式副词连接过去式动词",
+      "explanation": "英语里 after 通常作介词或连词，不能像 later/afterward 那样直接放在 and 后连接 moved；表达“后来搬到……”应说 and later moved 或 and then moved。",
+      "source": "He lived back east for years and after moved to California.",
+      "example": "He lived back east for years and later moved to California.",
+      "tags": [],
+      "first_learned_at": "2026-07-29T14:31:27+08:00",
+      "last_learned_at": "2026-07-29T14:31:27+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
+      "id": "errors:back-east-geographic-direction",
+      "title": "back east 的地域方向误用",
+      "explanation": "back east 通常指美国东部，不能用来描述从纽约前往位于美国西部的洛杉矶；该语境应使用 travel west 或直接说 travel to Los Angeles。",
+      "source": "She lives in New York and travels to Los Angeles back east every summer.",
+      "example": "She lives in New York and travels west to Los Angeles every summer.",
+      "tags": [
+        "regional-expression"
+      ],
+      "first_learned_at": "2026-07-28T23:17:51+08:00",
+      "last_learned_at": "2026-07-28T23:17:51+08:00",
+      "learned_count": 1,
+      "mastery_score": 7.0,
+      "review_count": 1,
+      "high_score_streak": 0,
+      "last_reviewed_at": "2026-07-29T07:12:47+08:00"
+    },
+    {
+      "id": "errors:but-clause-needs-finite-verb",
+      "title": "but 后并列分句需要谓语动词",
+      "explanation": "but 连接两个完整分句时，后半句需要有限谓语；不能只写 but living，应写 but they later settled 或 but now live。",
+      "source": "My grandparent comes from back east, but living in ...",
+      "example": "My grandparents came from back east, but they later settled in Arizona.",
+      "tags": [
+        "sentence-structure"
+      ],
+      "first_learned_at": "2026-07-28T23:17:51+08:00",
+      "last_learned_at": "2026-07-28T23:17:51+08:00",
+      "learned_count": 1,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-07-29T12:32:41+08:00"
+    },
+    {
+      "id": "errors:former-residence-needs-past-tense",
+      "title": "以前住在某地要用过去表达",
+      "explanation": "中文“以前/过去住在某地”强调过去状态，英语通常用 lived in 或 used to live in；不要用一般现在时 live in 表示过去居住。",
+      "source": "My parents live in New York, but now they live in Los Angeles.",
+      "example": "My parents used to live in New York, but now they live in Los Angeles.",
+      "tags": [
+        "past-reference",
+        "tense"
+      ],
+      "first_learned_at": "2026-07-29T13:05:55+08:00",
+      "last_learned_at": "2026-07-29T13:05:55+08:00",
+      "learned_count": 1,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-07-29T13:24:28+08:00"
+    },
+    {
+      "id": "errors:los-angeles-english-place-name",
+      "title": "洛杉矶的英文地名表达",
+      "explanation": "中文地名“洛杉矶”在英语中应使用标准英文名 Los Angeles，不能按汉语拼音写成 luoshanji；专有名词的两个单词都要大写。",
+      "source": "She works in luoshanji, but she visits her parents back east every year.",
+      "example": "She works in Los Angeles, but she visits her parents back east every year.",
+      "tags": [
+        "proper-noun"
+      ],
+      "first_learned_at": "2026-07-29T07:13:02+08:00",
+      "last_learned_at": "2026-07-29T07:13:02+08:00",
+      "learned_count": 1,
+      "mastery_score": 6.0,
+      "review_count": 1,
+      "high_score_streak": 0,
+      "last_reviewed_at": "2026-07-29T12:47:18+08:00"
+    },
+    {
+      "id": "errors:plural-grandparents-translation",
+      "title": "grandparents 的复数对应",
+      "explanation": "中文“祖父母”通常对应复数 grandparents；描述两位祖辈时不能使用单数 grandparent。",
+      "source": "My grandparent comes from back east, but living in ...",
+      "example": "My grandparents came from back east.",
+      "tags": [
+        "number-agreement"
+      ],
+      "first_learned_at": "2026-07-28T23:17:51+08:00",
+      "last_learned_at": "2026-07-28T23:17:51+08:00",
+      "learned_count": 1,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-07-29T12:38:04+08:00"
+    },
+    {
+      "id": "errors:plural-parents-reference",
+      "title": "parents 的复数形式",
+      "explanation": "中文“父母”指两位家长时，英语通常用复数 parents；不能写成单数 parent 后再用 they 指代。",
+      "source": "My parent lived in New York, but they are living in Los Geles now.",
+      "example": "My parents lived in New York, but they live in Los Angeles now.",
+      "tags": [
+        "number-agreement"
+      ],
+      "first_learned_at": "2026-07-29T12:32:48+08:00",
+      "last_learned_at": "2026-07-29T12:32:48+08:00",
+      "learned_count": 1,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-07-29T13:05:45+08:00"
+    },
+    {
+      "id": "errors:relative-clause-after-friend-lived-near",
+      "title": "用定语从句或现在分词修饰 friend",
+      "explanation": "修饰 a friend 时，不能直接说 a friend lived near；应使用定语从句 a friend who lives nearby，或现在分词短语 a friend living nearby。",
+      "source": "I am waiting for a friend lived near.",
+      "example": "I am waiting for a friend who lives nearby.",
+      "tags": [
+        "clause",
+        "participle",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-07-29T13:50:00+08:00",
+      "last_learned_at": "2026-07-29T13:50:00+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    }
+  ]
+}

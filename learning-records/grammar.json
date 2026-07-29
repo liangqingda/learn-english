@@ -1,0 +1,73 @@
+{
+  "category": "grammar",
+  "items": [
+    {
+      "id": "grammar:may-condition-if",
+      "title": "may + 动词与 if 条件从句",
+      "explanation": "may suffer 表示可能发生；if 引导条件从句，说明产生这种可能结果的条件。一般事实或现实可能条件中，if 从句常用一般现在时。",
+      "source": "A young man may suffer from the green-eyed monster if his girlfriend begins going out with someone else",
+      "example": "You may feel nervous if you speak in public for the first time.",
+      "tags": [
+        "conditionals"
+      ],
+      "first_learned_at": "2026-07-28T22:11:44+08:00",
+      "last_learned_at": "2026-07-28T22:11:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 9.0,
+      "review_count": 2,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-07-28T23:09:18+08:00"
+    },
+    {
+      "id": "grammar:past-perfect-before-past-reference",
+      "title": "过去完成时表示过去参照点之前",
+      "explanation": "had just arrived 表示“刚刚到达”发生在 used it to describe 这一过去行为之前；just 强调时间间隔很短。",
+      "source": "Old-timers used it to describe a man who had just arrived from one of the big cities back east",
+      "example": "They welcomed a traveler who had just arrived from Boston.",
+      "tags": [
+        "past-perfect"
+      ],
+      "first_learned_at": "2026-07-28T20:36:08+08:00",
+      "last_learned_at": "2026-07-28T20:36:08+08:00",
+      "learned_count": 1,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-07-28T22:09:16+08:00"
+    },
+    {
+      "id": "grammar:relative-clause-who-person",
+      "title": "who 引导限定性定语从句",
+      "explanation": "who had just arrived... 修饰 a man，用来说明这是怎样的一个人。",
+      "source": "Old-timers used it to describe a man who had just arrived from one of the big cities back east",
+      "example": "I spoke to a woman who had recently moved here.",
+      "tags": [
+        "relative-clause"
+      ],
+      "first_learned_at": "2026-07-28T20:36:08+08:00",
+      "last_learned_at": "2026-07-28T20:36:08+08:00",
+      "learned_count": 1,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-07-28T22:38:46+08:00"
+    },
+    {
+      "id": "grammar:review-noun-verb-usage",
+      "title": "review 的名词与动词用法",
+      "explanation": "review 可直接作及物动词接宾语，也可作可数名词；表达复习某内容通常说 review something，不加介词。",
+      "source": "review",
+      "example": "Let us review the report before the meeting.",
+      "tags": [
+        "parts-of-speech"
+      ],
+      "first_learned_at": "2026-07-29T07:31:01+08:00",
+      "last_learned_at": "2026-07-29T07:31:01+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    }
+  ]
+}
