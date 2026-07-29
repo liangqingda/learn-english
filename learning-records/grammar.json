@@ -53,6 +53,23 @@
       "last_reviewed_at": null
     },
     {
+      "id": "grammar:participial-phrase-logical-subject",
+      "title": "分词短语的逻辑主语",
+      "explanation": "句首分词短语没有明写主语时，其动作的执行者通常必须与主句主语一致；否则容易形成悬垂修饰语。",
+      "source": "After reviewing the safety report, officials have decided to proceed with the project next Monday.",
+      "example": "After checking the map, we chose a different route.",
+      "tags": [
+        "non-finite-verb"
+      ],
+      "first_learned_at": "2026-07-29T20:54:01+08:00",
+      "last_learned_at": "2026-07-29T20:54:01+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
       "id": "grammar:past-perfect-before-past-reference",
       "title": "过去完成时表示过去参照点之前",
       "explanation": "had just arrived 表示“刚刚到达”发生在 used it to describe 这一过去行为之前；just 强调时间间隔很短。",
