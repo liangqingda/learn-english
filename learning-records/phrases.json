@@ -68,23 +68,6 @@
       "review_count": 1,
       "high_score_streak": 0,
       "last_reviewed_at": "2026-07-30T10:36:04+08:00"
-    },
-    {
-      "id": "phrases:review-common-collocations",
-      "title": "review 的常见搭配",
-      "explanation": "高频搭配包括 review notes（复习笔记）、review a document（审查文件）、write a review（写评论）和 under review（正在审查中）。",
-      "source": "review",
-      "example": "The application is still under review.",
-      "tags": [
-        "collocation"
-      ],
-      "first_learned_at": "2026-07-29T07:31:01+08:00",
-      "last_learned_at": "2026-07-29T07:31:01+08:00",
-      "learned_count": 1,
-      "mastery_score": 0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null
     }
   ]
 }

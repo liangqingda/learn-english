@@ -19,6 +19,24 @@
       "last_reviewed_at": "2026-07-30T10:01:24+08:00"
     },
     {
+      "id": "errors:application-vs-applicant-for-request-or-submission",
+      "title": "application 与 applicant 的混淆",
+      "explanation": "application 是“申请、申请表、申请材料”；applicant 是“申请人”。当主语是正在被审查的申请时，应说 My application is still under review.",
+      "source": "My applicant is still under review.",
+      "example": "My application is still under review.",
+      "tags": [
+        "collocation",
+        "vocabulary"
+      ],
+      "first_learned_at": "2026-07-30T12:37:06+08:00",
+      "last_learned_at": "2026-07-30T12:37:06+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
       "id": "errors:arrive-from-origin",
       "title": "用 arrive from 表示出发地",
       "explanation": "arrive from + 地点表示“从某地抵达”；arrive in + 大地点表示“抵达某地”。表达从波士顿来应使用 arrived from Boston。",
