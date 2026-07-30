@@ -84,12 +84,12 @@ def _initial_options(counts: dict[str, Any]) -> list[dict[str, Any]]:
                 count=counts["totals"]["familiar"],
             )
         )
-    if counts["totals"]["mastered"] and not options:
+    if counts["totals"]["mastered"]:
         options.append(
             _option(
                 "mastered-review",
                 "🏆",
-                "抽查已完全掌握的知识点",
+                "复习已掌握的知识点",
                 "popular",
                 kind="mastered-review",
                 count=counts["totals"]["mastered"],
