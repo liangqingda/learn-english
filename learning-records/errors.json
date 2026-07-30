@@ -416,6 +416,21 @@
       "last_reviewed_at": null
     },
     {
+      "id": "errors:proceed-not-followed-by-gerund",
+      "title": "proceed 后不接动名词",
+      "explanation": "proceed 表示“继续前行”时是不及物动词，不能直接接 driving 这类动名词；可说 you may proceed，或用 proceed through/to + 名词。",
+      "source": "The light is green, so you may proceed driving.",
+      "example": "The light is green, so you may proceed through the intersection.",
+      "tags": [],
+      "first_learned_at": "2026-07-30T13:13:50+08:00",
+      "last_learned_at": "2026-07-30T13:13:50+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
       "id": "errors:proceed-to-infinitive",
       "title": "proceed to 后接动词原形",
       "explanation": "表示“接着做下一件事”时使用 proceed to + 动词原形，不能直接把动词接在 proceed 后面。",
