@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 1,
+  "revision": 2,
   "records": {
     "errors:after-event-noun-phrase": {
       "id": "errors:after-event-noun-phrase",
@@ -51,7 +51,7 @@
     "errors:application-vs-applicant-for-request-or-submission": {
       "id": "errors:application-vs-applicant-for-request-or-submission",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "application 与 applicant 的混淆",
       "explanation": "application 是“申请、申请表、申请材料”；applicant 是“申请人”。当主语是正在被审查的申请时，应说 My application is still under review.",
       "source": "My applicant is still under review.",
@@ -63,14 +63,21 @@
       "first_learned_at": "2026-07-30T12:37:06+08:00",
       "last_learned_at": "2026-07-30T12:37:06+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-07-30T21:34:35+08:00",
+      "next_review_at": "2026-08-06T21:34:35+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-07-30T21:34:35+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:arrive-from-origin": {
       "id": "errors:arrive-from-origin",
@@ -1022,6 +1029,29 @@
       "tags": [],
       "first_learned_at": "2026-07-29T15:09:17+08:00",
       "last_learned_at": "2026-07-29T15:09:17+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:singular-application-mistaken-as-plural-applications": {
+      "id": "errors:singular-application-mistaken-as-plural-applications",
+      "category": "errors",
+      "status": "learning",
+      "title": "把单数“申请”误写成复数 applications",
+      "explanation": "中文“我的申请”通常指一份申请材料，英文应使用单数 application，并搭配 is still under review。只有明确有多份申请时才用 applications are。",
+      "source": "My applications are still under review.",
+      "example": "My application is still under review.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-07-30T21:34:35+08:00",
+      "last_learned_at": "2026-07-30T21:34:35+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
