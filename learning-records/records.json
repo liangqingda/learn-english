@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 3,
+  "revision": 4,
   "records": {
     "errors:after-event-noun-phrase": {
       "id": "errors:after-event-noun-phrase",
@@ -92,6 +92,36 @@
       ],
       "first_learned_at": "2026-07-29T20:34:14+08:00",
       "last_learned_at": "2026-07-29T20:34:14+08:00",
+      "learned_count": 1,
+      "mastery_score": 2.0,
+      "review_count": 1,
+      "high_score_streak": 0,
+      "last_reviewed_at": "2026-07-31T07:07:13+08:00",
+      "next_review_at": "2026-08-01T07:07:13+08:00",
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": [
+        {
+          "score": 2.0,
+          "reviewed_at": "2026-07-31T07:07:13+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
+    },
+    "errors:arrive-from-vs-arrive-in": {
+      "id": "errors:arrive-from-vs-arrive-in",
+      "category": "errors",
+      "status": "learning",
+      "title": "把 from 误选成 in",
+      "explanation": "表示“从某地到来”时要用 arrive from + 出发地；arrive in 更强调“到达某个大地点/城市”。这里 Boston 是出发地来源，不是目的地介词用法。",
+      "source": "A",
+      "example": "They welcomed the traveler who had just arrived from Boston.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-07-31T07:07:13+08:00",
+      "last_learned_at": "2026-07-31T07:07:13+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
