@@ -544,6 +544,21 @@
       "last_reviewed_at": null
     },
     {
+      "id": "errors:review-status-under-review-vs-progressive",
+      "title": "under review 不用进行时误写",
+      "explanation": "表示“正在审查中”时，英语里常用固定短语 under review，而不是用 reviewing 来表达状态。reviewing 更像“正在复习/审查动作本身”，不适合替代这个结果状态。",
+      "source": "The application is reviewing.",
+      "example": "The application is still under review.",
+      "tags": [],
+      "first_learned_at": "2026-07-30T17:50:41+08:00",
+      "last_learned_at": "2026-07-30T17:50:41+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
       "id": "errors:semantic-conflict-old-timers-newcomers",
       "title": "old-timers 与 newcomer 语义冲突",
       "explanation": "old-timers 指长期生活在某地、熟悉当地往事的人，不能和 moved here last week / know nothing about the town 这类新来且不了解当地的描述搭配；这种语境应改用 newcomers 或 new residents。",
