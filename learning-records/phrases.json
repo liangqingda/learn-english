@@ -51,6 +51,23 @@
       "review_count": 2,
       "high_score_streak": 0,
       "last_reviewed_at": "2026-07-30T16:31:36+08:00"
+    },
+    {
+      "id": "phrases:old-timers",
+      "title": "old-timers",
+      "explanation": "指在某地生活很久、熟悉当地旧事和传统的人；语气较口语，不只是泛指老人。",
+      "source": "Old-timers used it to describe a man who had just arrived from one of the big cities back east",
+      "example": "The old-timers still remember when this road was unpaved.",
+      "tags": [
+        "colloquial"
+      ],
+      "first_learned_at": "2026-07-28T20:36:08+08:00",
+      "last_learned_at": "2026-07-28T20:36:08+08:00",
+      "learned_count": 1,
+      "mastery_score": 7.0,
+      "review_count": 3,
+      "high_score_streak": 0,
+      "last_reviewed_at": "2026-07-30T20:11:00+08:00"
     }
   ]
 }

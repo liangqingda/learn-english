@@ -203,6 +203,40 @@
       "last_reviewed_at": null
     },
     {
+      "id": "errors:embedded-what-clause-statement-word-order",
+      "title": "what 从句使用陈述语序",
+      "explanation": "在 what ... was like 等嵌入式从句中使用陈述语序，不能按直接疑问句倒装。",
+      "source": "The old-timers in town still remember what here hadn't station was like.",
+      "example": "The old-timers still remember what the town was like before it had a station.",
+      "tags": [
+        "embedded-question"
+      ],
+      "first_learned_at": "2026-07-30T20:11:13+08:00",
+      "last_learned_at": "2026-07-30T20:11:13+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
+      "id": "errors:existential-there-was-no",
+      "title": "用 there was no 表达过去不存在",
+      "explanation": "表示过去某地没有某物时，用 there was no + 单数名词；hadn't 不能直接放在地点词后表达存在。",
+      "source": "The old-timers in town still remember what here hadn't station was like.",
+      "example": "The old-timers remember when there was no station in the town.",
+      "tags": [
+        "existential-there"
+      ],
+      "first_learned_at": "2026-07-30T20:11:20+08:00",
+      "last_learned_at": "2026-07-30T20:11:20+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
       "id": "errors:for-the-first-time-expression",
       "title": "用 for the first time 表示第一次做某事",
       "explanation": "表示某次经历是第一次时，常把 for the first time 放在动作或句子的后部；if you first speak 容易被理解为“如果你先讲话”。",
