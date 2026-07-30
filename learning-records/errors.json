@@ -173,6 +173,21 @@
       "last_reviewed_at": null
     },
     {
+      "id": "errors:direction-vs-home-area-contrast",
+      "title": "eastward cannot replace back east",
+      "explanation": "eastward only means toward the east and does not carry the familiar or homeward sense that back east has.",
+      "source": "After years in California, he moved eastward to be closer to his family.",
+      "example": "After years in California, he moved back east to be closer to his family.",
+      "tags": [],
+      "first_learned_at": "2026-07-30T17:19:01+08:00",
+      "last_learned_at": "2026-07-30T17:19:01+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
       "id": "errors:eastward-used-for-westbound-trip",
       "title": "eastward 不能修饰西向行程",
       "explanation": "eastward 表示“向东”，与从芝加哥去旧金山这种向西的路线不符；如果方向信息重要，应使用 west 或 westward。",
