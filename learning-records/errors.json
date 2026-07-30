@@ -278,6 +278,24 @@
       "last_reviewed_at": null
     },
     {
+      "id": "errors:missing-the-before-specific-place-role-floor",
+      "title": "具体地点、角色和楼层前漏用 the",
+      "explanation": "当说话双方都能明确是哪一个展厅、哪位老师、哪一层楼时，常用定冠词 the：the exhibition hall, the teacher, the second floor。",
+      "source": "After entering exhibition hall, students turned off their phones and followed teacher to second floor.",
+      "example": "After entering the exhibition hall, the students turned off their phones and followed the teacher to the second floor.",
+      "tags": [
+        "article",
+        "grammar"
+      ],
+      "first_learned_at": "2026-07-30T12:48:04+08:00",
+      "last_learned_at": "2026-07-30T12:48:04+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
       "id": "errors:misunderstand-go-out-with-as-literal-exit",
       "title": "误把 go out with someone 理解为字面外出",
       "explanation": "在恋爱或嫉妒等语境中，go out with someone 通常表示和某人约会或谈恋爱，不能按字面理解为和某人出去或从某处出去。",
@@ -324,10 +342,10 @@
       "first_learned_at": "2026-07-29T21:09:22+08:00",
       "last_learned_at": "2026-07-29T21:09:22+08:00",
       "learned_count": 1,
-      "mastery_score": 0,
-      "review_count": 0,
+      "mastery_score": 7.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null
+      "last_reviewed_at": "2026-07-30T12:48:04+08:00"
     },
     {
       "id": "errors:passive-clause-needs-be",
