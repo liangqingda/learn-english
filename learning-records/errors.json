@@ -241,24 +241,6 @@
       "last_reviewed_at": null
     },
     {
-      "id": "errors:history-of-not-about-place",
-      "title": "history of a place 的介词搭配",
-      "explanation": "表达“某地的历史”时，英语通常说 the history of the town/place，而不是 the history about the town；about 更像“关于……的内容”，of 更自然地表示所属关系。",
-      "source": "I have just moved here and want to know the history about the town.",
-      "example": "I've just moved here, and I'd like to learn about the history of the town.",
-      "tags": [
-        "collocation",
-        "preposition"
-      ],
-      "first_learned_at": "2026-07-30T11:51:23+08:00",
-      "last_learned_at": "2026-07-30T11:51:23+08:00",
-      "learned_count": 1,
-      "mastery_score": 0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null
-    },
-    {
       "id": "errors:learn-about-possessive-history",
       "title": "了解某地历史的自然表达",
       "explanation": "“了解某地的历史”使用 learn about the history of a place 或 learn about the place’s history，不能说 get the history this city。",
