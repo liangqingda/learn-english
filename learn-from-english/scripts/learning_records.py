@@ -7,6 +7,7 @@ import argparse
 import json
 import os
 import random
+import subprocess
 import re
 import sys
 import tempfile
@@ -33,6 +34,7 @@ MASTERED_RECORDS_DIR = (
 MASTERY_THRESHOLD = 8.0
 PERFECT_SCORE = 10.0
 MASTERED_SUMMARY_LIMIT = 240
+AUTO_COMMIT_ENABLED = os.environ.get("LEARN_ENGLISH_AUTO_COMMIT", "1") != "0"
 ITEM_FIELD_DEFAULTS = {
     "example": "",
     "tags": [],
@@ -199,6 +201,45 @@ def write_document_to_location(
     location: str, category: str, document: dict[str, Any]
 ) -> None:
     write_document_to_path(document_path(location, category), category, document)
+
+
+def auto_commit_records(reason: str) -> None:
+    if not AUTO_COMMIT_ENABLED:
+        return
+
+    repo_root = Path(__file__).resolve().parents[2]
+    git_dir = repo_root / ".git"
+    if not git_dir.exists():
+        return
+
+    try:
+        status = subprocess.run(
+            ["git", "-C", str(repo_root), "status", "--porcelain"],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except (OSError, subprocess.CalledProcessError):
+        return
+
+    if not status.stdout.strip():
+        return
+
+    try:
+        subprocess.run(
+            ["git", "-C", str(repo_root), "add", "learning-records", "familiar-learning-records", "mastered-learning-records"],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        subprocess.run(
+            ["git", "-C", str(repo_root), "commit", "-m", f"[records]: {reason}"],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except (OSError, subprocess.CalledProcessError):
+        return
 
 
 def load_familiar_document(category: str) -> dict[str, Any]:
@@ -534,6 +575,7 @@ def upsert(args: argparse.Namespace) -> dict[str, Any]:
 
     document["items"].sort(key=lambda value: str(value.get("id", "")))
     write_document(args.category, document)
+    auto_commit_records(f"upsert {args.category}")
     return {
         **item,
         "created": True,
@@ -568,6 +610,7 @@ def review_record(args: argparse.Namespace) -> dict[str, Any]:
         master_record(args.category, existing, now)
         document["items"].remove(existing)
         write_document(args.category, document)
+        auto_commit_records(f"review {args.category} perfect")
         return {
             **existing,
             "archived": False,
@@ -579,6 +622,7 @@ def review_record(args: argparse.Namespace) -> dict[str, Any]:
         archive_record(args.category, existing)
         document["items"].remove(existing)
         write_document(args.category, document)
+        auto_commit_records(f"review {args.category} archive")
         return {
             **existing,
             "archived": True,
@@ -587,6 +631,7 @@ def review_record(args: argparse.Namespace) -> dict[str, Any]:
         }
 
     write_document(args.category, document)
+    auto_commit_records(f"review {args.category}")
     return {**existing, "archived": False, "deleted": False, "mastered": False}
 
 
@@ -654,6 +699,7 @@ def review_familiar_record(args: argparse.Namespace) -> dict[str, Any]:
         master_record(args.category, existing, existing["last_reviewed_at"])
         document["items"].remove(existing)
         write_document_to_path(familiar_category_path(args.category), args.category, document)
+        auto_commit_records(f"familiar-review {args.category} perfect")
         return {
             **existing,
             "moved_to_learning_records": False,
@@ -666,6 +712,7 @@ def review_familiar_record(args: argparse.Namespace) -> dict[str, Any]:
         restore_record(args.category, existing)
         document["items"].remove(existing)
         write_document_to_path(familiar_category_path(args.category), args.category, document)
+        auto_commit_records(f"familiar-review {args.category} restore")
         return {
             **existing,
             "moved_to_learning_records": True,
@@ -674,6 +721,7 @@ def review_familiar_record(args: argparse.Namespace) -> dict[str, Any]:
         }
 
     write_document_to_path(familiar_category_path(args.category), args.category, document)
+    auto_commit_records(f"familiar-review {args.category}")
     return {
         **existing,
         "moved_to_learning_records": False,

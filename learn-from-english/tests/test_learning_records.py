@@ -20,12 +20,18 @@ class LearningRecordsTest(unittest.TestCase):
         self.temporary_directory = tempfile.TemporaryDirectory()
         self.addCleanup(self.temporary_directory.cleanup)
         root = Path(self.temporary_directory.name)
+        self.previous_auto_commit_enabled = records.AUTO_COMMIT_ENABLED
+        records.AUTO_COMMIT_ENABLED = False
+        self.addCleanup(self.restore_auto_commit_enabled)
         records.RECORDS_DIR = root / "learning-records"
         records.FAMILIAR_RECORDS_DIR = root / "familiar-learning-records"
         records.MASTERED_RECORDS_DIR = root / "mastered-learning-records"
         records.RECORDS_DIR.mkdir()
         records.FAMILIAR_RECORDS_DIR.mkdir()
         records.MASTERED_RECORDS_DIR.mkdir()
+
+    def restore_auto_commit_enabled(self) -> None:
+        records.AUTO_COMMIT_ENABLED = self.previous_auto_commit_enabled
 
     @staticmethod
     def args(category: str, key: str | None = None) -> argparse.Namespace:
