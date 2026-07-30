@@ -50,14 +50,14 @@ Prefer these stable emoji meanings when they fit, while keeping every item in on
 - `🧪`：参照 CET-4/CET-6 规格的纯文本习题。
 - `🎭`：带角色与背景的场景对话。
 
-# Exercise error recording
+# Exercise and dialogue error recording
 
-These rules apply to every skill that presents an English exercise and evaluates the user's answer.
+These rules apply to every skill that presents an English exercise and evaluates the user's answer, or runs an active English scenario dialogue and corrects the user's English response.
 
-- Write to `learning-records/errors.json` only when the user is answering an explicit exercise and at least one submitted answer is judged incorrect or contains a concrete error that needs correction. Do not create an error record from ordinary English input, free conversation, explanations, examples, unanswered questions, or fully correct exercise answers.
+- Write to `learning-records/errors.json` only when the user is answering an explicit exercise or participating in an active English scenario dialogue, and at least one submitted answer is judged incorrect or contains a concrete error that needs correction. Do not create an error record from ordinary English input, free conversation outside an active English-learning role-play, explanations, examples, unanswered questions, or fully correct exercise/dialogue answers.
 - After explaining the error and giving the correct or improved answer, record each distinct reusable error pattern through `learn-from-english/scripts/learning_records.py upsert --category errors`. Never edit `errors.json` directly.
 - Use a stable semantic `--key` that describes the error pattern rather than the exercise, date, or conversation. Use the user's incorrect answer as `--source`, and put a corrected representative sentence in `--example`.
-- Error recording is independent of the active skill and independent of review scoring. When a review exercise tests an existing record, update that record's score as required and also upsert any newly demonstrated error pattern into `errors`.
+- Error recording is independent of the active skill and independent of review scoring. When a review exercise tests an existing record, update that record's score as required and also upsert any newly demonstrated error pattern into `errors`. Scenario dialogue corrections do not by themselves trigger review scoring unless the dialogue is explicitly being used as a scored review task.
 - Record only errors actually demonstrated in the submitted answer. Do not infer or invent additional weaknesses, and do not record an error merely because the overall score is below a threshold.
 
 # Commit conventions

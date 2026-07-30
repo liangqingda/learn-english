@@ -122,6 +122,24 @@
       "last_reviewed_at": null
     },
     {
+      "id": "errors:direct-question-word-order-and-look-at",
+      "title": "直接问句语序与 look at 介词保留",
+      "explanation": "直接问句要使用疑问词加助动词或 be 动词前置，如 When is she free?；表达“可以看的照片”时，look at 的介词 at 不能省略。",
+      "source": "When she is free and if she has old pictures to look.",
+      "example": "When is she free, and does she have any old photos I could look at?",
+      "tags": [
+        "phrasal-verb",
+        "question-order"
+      ],
+      "first_learned_at": "2026-07-30T11:52:01+08:00",
+      "last_learned_at": "2026-07-30T11:52:01+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
       "id": "errors:for-the-first-time-expression",
       "title": "用 for the first time 表示第一次做某事",
       "explanation": "表示某次经历是第一次时，常把 for the first time 放在动作或句子的后部；if you first speak 容易被理解为“如果你先讲话”。",
@@ -155,6 +173,42 @@
       "review_count": 1,
       "high_score_streak": 1,
       "last_reviewed_at": "2026-07-29T13:24:28+08:00"
+    },
+    {
+      "id": "errors:hear-object-base-verb",
+      "title": "hear + 宾格 + 动词原形",
+      "explanation": "hear 后面接人作宾语时要用宾格形式，再接动词原形表示听到某人做某事；应说 hear her talk，不说 hear she talk。",
+      "source": "That's great. I want to hear she talk about the main street in the past.",
+      "example": "That's great. I'd like to hear her talk about what Main Street was like in the past.",
+      "tags": [
+        "object-pronoun",
+        "verb-pattern"
+      ],
+      "first_learned_at": "2026-07-30T11:51:53+08:00",
+      "last_learned_at": "2026-07-30T11:51:53+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
+      "id": "errors:history-of-not-about-place",
+      "title": "history of a place 的介词搭配",
+      "explanation": "表达“某地的历史”时，英语通常说 the history of the town/place，而不是 the history about the town；about 更像“关于……的内容”，of 更自然地表示所属关系。",
+      "source": "I have just moved here and want to know the history about the town.",
+      "example": "I've just moved here, and I'd like to learn about the history of the town.",
+      "tags": [
+        "collocation",
+        "preposition"
+      ],
+      "first_learned_at": "2026-07-30T11:51:23+08:00",
+      "last_learned_at": "2026-07-30T11:51:23+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
     },
     {
       "id": "errors:learn-about-possessive-history",

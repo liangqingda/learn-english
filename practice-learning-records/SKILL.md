@@ -165,7 +165,7 @@ python3 learn-from-english/scripts/learning_records.py review \
 
 评分保持一致：完全正确且自然为 9 至 10 分；核心正确但有小问题为 8 分；部分掌握为 5 至 7 分；核心规则未掌握为 0 至 4 分。向用户明确展示本次得分和一条最关键的改进建议。
 
-评价完成后，还必须按仓库根目录 `AGENTS.md` 的通用规则处理错题：只要用户在本题组中实际答错或出现需要修正的具体错误，在解释原因和给出正确表达后，使用 `upsert --category errors` 为每个独立、可复用的错误模式写入一条记录。这与当前知识点的 `review` 或 `familiar-review` 评分更新并行执行，不能因为已经评分而省略错题记录。完全正确的答案不写入 `errors`。
+评价完成后，还必须按仓库根目录 `AGENTS.md` 的通用规则处理错题：只要用户在本题组中实际答错或出现需要修正的具体错误，在解释原因和给出正确表达后，使用 `upsert --category errors` 为每个独立、可复用的错误模式写入一条记录。这与当前知识点的 `review` 或 `familiar-review` 评分更新并行执行，不能因为已经评分而省略错题记录。场景对话中如果用户的英文回应出现已明确纠正的具体错误，也按同一规则写入 `errors`，但不因此触发复习评分，除非该场景对话本身被明确设为可评分复习任务。完全正确的答案或对话回应不写入 `errors`。
 
 `review` 会更新 `mastery_score`、`review_count`、`high_score_streak` 和 `last_reviewed_at`。评分为 10 分时，脚本会把该记录从 `learning-records/` 移入 `mastered-learning-records/` 的相同分类文件，并只保留 `id`、`title`、`summary`、`mastered_at` 四个精简字段；命令返回 `mastered: true` 时，告诉用户该知识点已经完全掌握，已放入完全掌握记录。低于 8 分会把连续高分次数清零；同一知识点单次获得 8 至 9 分时，脚本会把该记录从 `learning-records/` 移入 `familiar-learning-records/` 的相同分类文件。命令返回 `archived: true` 时，告诉用户该知识点本次已达到 8 至 9 分，已从普通复习记录中毕业并归档为已标熟。
 
