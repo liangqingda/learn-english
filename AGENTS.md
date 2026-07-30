@@ -25,6 +25,7 @@ These rules apply to every skill and every user-facing response in this reposito
 - When the user replies with one or more numbers from the latest menu, execute those options in order without asking them to resend the English. Then provide a new menu that follows these same rules.
 - Do not interpret numbers inside ordinary English, exercise answers, or unrelated messages as menu selections.
 - Number exercise questions with Arabic numerals (`1`, `2`, `3`, ...), never with `A`, `B`, `C`, and so on. Choice labels inside a question may still use `A` through `D` where required.
+- When a response presents new English exercise questions or a CET task, place one Markdown divider (`---`) immediately before the menu intro line `➡️ 接下来可以回复数字：`, so the exercise area is visually separated from follow-up options. Do not add this extra pre-menu divider to pure explanations, answer evaluations, role-play turns, or menu-only responses unless they also present a new exercise.
 - When a skill attribution is required, place one divider after the menu, followed by the italic attribution. If the response also needs a commit notice, place the italic commit notice between that divider and the italic attribution, with no divider or blank line between those two notices. The attribution must remain the absolute final line.
 
 When the user selects the mandatory exercise option, generate one focused text-based task modeled on the official CET-4/CET-6 assessment rather than an entire paper:
