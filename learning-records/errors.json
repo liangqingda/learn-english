@@ -331,23 +331,6 @@
       "last_reviewed_at": null
     },
     {
-      "id": "errors:narrative-past-tense-consistency",
-      "title": "过去叙事中的时态不一致",
-      "explanation": "同一段已发生的连续事件应保持一般过去时；前句使用 read 表示过去时后，后句应使用 turned 和 followed。",
-      "source": "After entering exhibit, they close their phone and follow guide",
-      "example": "After entering the exhibition hall, they turned off their phones and followed the guide.",
-      "tags": [
-        "tense"
-      ],
-      "first_learned_at": "2026-07-29T21:09:22+08:00",
-      "last_learned_at": "2026-07-29T21:09:22+08:00",
-      "learned_count": 1,
-      "mastery_score": 7.0,
-      "review_count": 1,
-      "high_score_streak": 0,
-      "last_reviewed_at": "2026-07-30T12:48:04+08:00"
-    },
-    {
       "id": "errors:passive-clause-needs-be",
       "title": "完整被动语态需要 be 动词",
       "explanation": "从句中 information 是 confirm 的承受者，因此完整被动语态应为 is confirmed；不能省略助动词 is。",
