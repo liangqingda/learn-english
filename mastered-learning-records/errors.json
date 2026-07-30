@@ -1,4 +1,11 @@
 {
   "category": "errors",
-  "items": []
+  "items": [
+    {
+      "id": "errors:modal-verb-base-form",
+      "title": "情态动词后使用动词原形",
+      "summary": "may、can、must 等情态动词后接动词原形；主语是 you 或 he/she 也不能把 feel 写成 feels。",
+      "mastered_at": "2026-07-30T15:52:01+08:00"
+    }
+  ]
 }

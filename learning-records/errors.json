@@ -344,23 +344,6 @@
       "last_reviewed_at": null
     },
     {
-      "id": "errors:modal-verb-base-form",
-      "title": "情态动词后使用动词原形",
-      "explanation": "may、can、must 等情态动词后接动词原形；主语是 you 或 he/she 也不能把 feel 写成 feels。",
-      "source": "You may feels nervous if you first speak publicly.",
-      "example": "You may feel nervous if you speak in public for the first time.",
-      "tags": [
-        "modal-verb"
-      ],
-      "first_learned_at": "2026-07-29T20:41:18+08:00",
-      "last_learned_at": "2026-07-29T20:41:18+08:00",
-      "learned_count": 1,
-      "mastery_score": 0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null
-    },
-    {
       "id": "errors:passive-clause-needs-be",
       "title": "完整被动语态需要 be 动词",
       "explanation": "从句中 information 是 confirm 的承受者，因此完整被动语态应为 is confirmed；不能省略助动词 is。",
