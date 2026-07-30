@@ -13,10 +13,10 @@
       "first_learned_at": "2026-07-29T21:19:14+08:00",
       "last_learned_at": "2026-07-29T21:19:14+08:00",
       "learned_count": 1,
-      "mastery_score": 0,
-      "review_count": 0,
+      "mastery_score": 7.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null
+      "last_reviewed_at": "2026-07-30T10:01:24+08:00"
     },
     {
       "id": "errors:arrive-from-origin",
@@ -29,6 +29,24 @@
       ],
       "first_learned_at": "2026-07-29T20:34:14+08:00",
       "last_learned_at": "2026-07-29T20:34:14+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
+      "id": "errors:articles-with-specific-event-and-place-nouns",
+      "title": "具体事件和地点名词前的冠词",
+      "explanation": "提到双方都明确的具体会议、实验室、办公室等可数名词时，通常需要冠词或限定词，例如 after the meeting、visit the lab。缺少冠词会显得不完整或像泛指。",
+      "source": "After meeting, we continued to visit lab.",
+      "example": "After the meeting, we continued to visit the lab.",
+      "tags": [
+        "articles",
+        "noun-phrase"
+      ],
+      "first_learned_at": "2026-07-30T10:01:33+08:00",
+      "last_learned_at": "2026-07-30T10:01:33+08:00",
       "learned_count": 1,
       "mastery_score": 0,
       "review_count": 0,
