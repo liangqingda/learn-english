@@ -5,6 +5,7 @@
 - Do not add any text, punctuation, list marker, or other content after the skill attribution line.
 - When a Git commit was created during the current turn, include exactly one visible commit notice: `*Committed -- <message>*`, replacing `<message>` with the exact commit message and adding no surrounding brackets. Do not also mention the same commit in the body text. Omit this line when no commit was created.
 - When a commit notice is required, place one Markdown divider (`---`) immediately before the final attribution block. If no skill attribution is required, the ending must be exactly the divider and the italic commit notice, with the commit notice as the absolute final visible line. When both a commit notice and a skill attribution are required, use the same final attribution block divider. The ending must be exactly the divider, the italic commit notice, and then the italic skill attribution, with no divider or blank line between the two notices. The skill attribution must remain the absolute final line.
+- If any intended step did not actually execute, say so plainly in the body text before the final attribution block. Do not imply success for a skipped, failed, or blocked step.
 
 # English learning menus
 
