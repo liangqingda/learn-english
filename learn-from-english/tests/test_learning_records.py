@@ -174,6 +174,10 @@ class LearningRecordsTest(unittest.TestCase):
         )
         self.assertEqual(mastered_paper["count"], 1)
         self.assertTrue(mastered_paper["label"].endswith("（1）"))
+        self.assertNotIn(
+            "复习掌握不稳的知识点、语法和句型",
+            {item["label"] for item in initial["options"]},
+        )
 
     def test_merged_review_path_includes_every_category(self) -> None:
         for category in ("errors", "vocabulary", "usage"):
