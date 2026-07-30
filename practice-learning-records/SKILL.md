@@ -1,6 +1,6 @@
 ---
 name: practice-learning-records
-description: 从仓库根目录的 learning-records 分类记录中优先选择低分知识点开展复习，也可按最旧复习时间抽取 familiar-learning-records 中已标熟的知识点；根据每次回答记录 0 至 10 分，普通记录单次 8 至 9 分会归档、10 分直接删除，并把低于 8 分的已标熟记录移回普通记录，已标熟记录 10 分直接删除。当用户消息去除首尾空白后仅为“你好”“复习”，或不区分大小写的“hello”“review”时必须使用；在由本 Skill 打开的复习流程中，用户回复最近菜单中的数字或答案、要求练习已记录或已标熟知识点、查看学习记录时也使用。上述精确触发词出现时，本 Skill 优先于 learn-from-english。
+description: 从仓库根目录的 learning-records 分类记录中优先选择低分知识点开展复习，也可按最旧复习时间抽取 familiar-learning-records 中已标熟的知识点；根据每次回答记录 0 至 10 分，普通记录单次 8 至 9 分会归档，10 分会精简归入 mastered-learning-records；低于 8 分的已标熟记录会移回普通记录，已标熟记录 10 分也会精简归入完全掌握目录。当用户消息去除首尾空白后仅为“你好”“复习”，或不区分大小写的“hello”“review”时必须使用；在由本 Skill 打开的复习流程中，用户回复最近菜单中的数字或答案、要求练习已记录或已标熟知识点、查看学习记录时也使用。上述精确触发词出现时，本 Skill 优先于 learn-from-english。
 ---
 
 # 练习已记录的英语知识点
@@ -143,7 +143,7 @@ python3 learn-from-english/scripts/learning_records.py review \
 
 评价完成后，还必须按仓库根目录 `AGENTS.md` 的通用规则处理错题：只要用户在本题组中实际答错或出现需要修正的具体错误，在解释原因和给出正确表达后，使用 `upsert --category errors` 为每个独立、可复用的错误模式写入一条记录。这与当前知识点的 `review` 或 `familiar-review` 评分更新并行执行，不能因为已经评分而省略错题记录。完全正确的答案不写入 `errors`。
 
-`review` 会更新 `mastery_score`、`review_count`、`high_score_streak` 和 `last_reviewed_at`。评分为 10 分时，脚本会把该记录从 `learning-records/` 中直接删除；命令返回 `deleted: true` 时，告诉用户该知识点已经完全掌握，已从复习记录中移除。低于 8 分会把连续高分次数清零；同一知识点单次获得 8 至 9 分时，脚本会把该记录从 `learning-records/` 移入 `familiar-learning-records/` 的相同分类文件。命令返回 `archived: true` 时，告诉用户该知识点本次已达到 8 分及以上，已从复习记录中毕业并归档。
+`review` 会更新 `mastery_score`、`review_count`、`high_score_streak` 和 `last_reviewed_at`。评分为 10 分时，脚本会把该记录从 `learning-records/` 移入 `mastered-learning-records/` 的相同分类文件，并只保留 `id`、`title`、`summary`、`mastered_at` 四个精简字段；命令返回 `mastered: true` 时，告诉用户该知识点已经完全掌握，已放入完全掌握记录。低于 8 分会把连续高分次数清零；同一知识点单次获得 8 至 9 分时，脚本会把该记录从 `learning-records/` 移入 `familiar-learning-records/` 的相同分类文件。命令返回 `archived: true` 时，告诉用户该知识点本次已达到 8 至 9 分，已从普通复习记录中毕业并归档为已标熟。
 
 只有实际检验了某条已有记录的答案才评分。打开菜单、查看记录、请求讲解、尚未作答、无对应记录的通用题，以及无法客观检验目标知识点的消息均不评分。写入失败时仍完成反馈，并明确说明本次评分未能保存。
 
@@ -158,7 +158,7 @@ python3 learn-from-english/scripts/learning_records.py familiar-review \
   --score <0-10>
 ```
 
-评分为 10 分时，命令会把记录从 `familiar-learning-records/` 中直接删除；命令返回 `deleted: true` 时，告诉用户该已标熟知识点已经完全掌握，已从已标熟记录中移除。分数低于 8 时，命令会把记录移回 `learning-records/`、清零连续高分次数并更新时间，告诉用户该知识点需要重新巩固，已移回普通复习列表。分数大于或等于 8 且低于 10 时，记录继续留在 `familiar-learning-records/`，命令会更新 `mastery_score`、`review_count` 和 `last_reviewed_at`；告诉用户本次复习通过。不能对已标熟记录使用普通的 `review` 命令。
+评分为 10 分时，命令会把记录从 `familiar-learning-records/` 移入 `mastered-learning-records/` 的相同分类文件，并只保留精简知识点信息；命令返回 `mastered: true` 时，告诉用户该已标熟知识点已经完全掌握，已放入完全掌握记录。分数低于 8 时，命令会把记录移回 `learning-records/`、清零连续高分次数并更新时间，告诉用户该知识点需要重新巩固，已移回普通复习列表。分数大于或等于 8 且低于 10 时，记录继续留在 `familiar-learning-records/`，命令会更新 `mastery_score`、`review_count` 和 `last_reviewed_at`；告诉用户本次复习通过。不能对已标熟记录使用普通的 `review` 命令。
 
 每次完成并评分一轮普通或已标熟复习后，先运行 `python3 learn-from-english/scripts/learning_records.py menu` 读取最新入口数量，再在回复末尾按仓库根目录 `AGENTS.md` 的英语学习菜单规则提供快捷选项。该菜单必须包含“继续复习”作为第一项，用于从普通复习库随机抽取下一条记录，并标注普通复习库当前总数 `（N 条）`；`N` 必须使用 `menu.regular_total`，不能使用合并入口数量、单个入口数量或自行估算；只有旧脚本没有返回 `regular_total` 时，才退回使用 `menu.counts` 中各普通分类数量之和。菜单还必须包含 `🔁 复习已标熟的知识点（N 条）`，其中 `N` 必须使用 `menu` 返回的 `familiar_count` 或已标熟入口自身的 `count`，像首次复习菜单一样标注数量。菜单还必须同时包含与当前知识点相关的 `🧪 四六级规格习题` 和 `🎭 场景对话`，并为每个菜单项使用不同的语义图标；因为已标熟入口固定使用 `🔁`，不要再给“继续复习”使用 `🔁`。例如：
 
@@ -178,6 +178,6 @@ python3 learn-from-english/scripts/learning_records.py familiar-review \
 
 ## 保持数据边界
 
-- 只通过 `learning_records.py` 读写 `learning-records/` 和 `familiar-learning-records/`，不直接编辑其中的 JSON。
+- 只通过 `learning_records.py` 读写 `learning-records/`、`familiar-learning-records/` 和 `mastered-learning-records/`，不直接编辑其中的 JSON。
 - 不把菜单生成、查看记录或复习评分计入 `learned_count`；评分只增加 `review_count`。
 - 数据读取失败时明确说明暂时无法读取记录，不编造历史内容，并提供“重新读取学习记录”的数字入口。

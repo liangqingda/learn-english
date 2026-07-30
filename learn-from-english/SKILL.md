@@ -55,7 +55,7 @@ python3 learn-from-english/scripts/learning_records.py upsert \
   --tag <可选标签>
 ```
 
-同类同义知识点必须复用同一个 `--key`，例如 `present-perfect-experience`。键只表达知识点本身，不包含日期、会话或例句。写入脚本会生成稳定 ID，并同时检查 `learning-records/` 与 `familiar-learning-records/`；任一目录已有相同 ID 时返回 `created: false` 并跳过写入，不覆盖记录或增加学习次数。
+同类同义知识点必须复用同一个 `--key`，例如 `present-perfect-experience`。键只表达知识点本身，不包含日期、会话或例句。写入脚本会生成稳定 ID，并同时检查 `learning-records/`、`familiar-learning-records/` 与 `mastered-learning-records/`；任一目录已有相同 ID 时返回 `created: false` 并跳过写入，不覆盖记录或增加学习次数。
 
 发音、重音、弱读、连读或音变可以作为文字讲解内容，但不得写入学习记录；当前复习流程不具备验证实际发音的能力。
 
@@ -63,7 +63,7 @@ python3 learn-from-english/scripts/learning_records.py upsert \
 
 ```bash
 python3 learn-from-english/scripts/learning_records.py list --category <category>
-python3 learn-from-english/scripts/learning_records.py search --query <text>
+python3 learn-from-english/scripts/learning_records.py search --query <text> --include-mastered
 ```
 
 若某个知识点写入失败，继续发送教学回复，并在快捷菜单之前简短说明“本轮学习记录未能保存”。不得声称失败的记录已经保存。

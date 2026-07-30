@@ -8,7 +8,7 @@
 - **分类记录**：把实际讲解过的内容保存为词汇、短语、语法、用法和错误五类记录。
 - **针对性复习**：优先选择掌握分较低、较久未复习的知识点生成练习。
 - **掌握度追踪**：每次有效作答按 0 至 10 分记录掌握情况。
-- **自动归档/删除**：普通知识点单次获得 8 至 9 分后，移入熟练知识点目录；获得 10 分时直接移除记录。
+- **自动归档**：普通知识点单次获得 8 至 9 分后，移入熟练知识点目录；获得 10 分时精简归入完全掌握目录。
 - **多种练习形式**：支持语法、词汇、翻译、场景对话，以及参照 CET-4/CET-6 形式设计的文本习题。
 
 ## `AGENTS.md` 提供的功能
@@ -46,8 +46,8 @@
 - 支持复习错误与语法、词汇与短语、语气与场景用法，也支持基于学习记录生成场景对话和四六级规格习题。
 - 普通复习默认生成 2 至 4 个小题，并至少组合两种题型；用户完成后逐题反馈并给出 0 至 10 分的总体评分。
 - 每组练习只记一次评分；部分作答时等待补全，用户明确跳过后才按实际完成情况评分。
-- 普通知识点单次获得 8 至 9 分时，自动移入 `familiar-learning-records/`；获得 10 分时直接删除。
-- 已标熟知识点会按最久未复习顺序再次抽查；得分低于 8 分时自动移回普通复习列表，得分为 10 分时直接删除。
+- 普通知识点单次获得 8 至 9 分时，自动移入 `familiar-learning-records/`；获得 10 分时精简归入 `mastered-learning-records/`。
+- 已标熟知识点会按最久未复习顺序再次抽查；得分低于 8 分时自动移回普通复习列表，得分为 10 分时精简归入完全掌握目录。
 - 批改过程中发现的真实错误，会同时按 `AGENTS.md` 规范写入错题记录。
 
 两个 Skill 的分工可以概括为：`learn-from-english` 负责“学习并沉淀”，`practice-learning-records` 负责“复习、评分和归档”，`AGENTS.md` 则为两者提供统一的回复、菜单、习题和错题记录规则。
@@ -63,9 +63,10 @@ learning-records 保存待巩固内容
    ↓
 practice-learning-records 生成复习并评分
    ↓
-10 分直接删除；8 至 9 分归档
+10 分精简归入完全掌握目录；8 至 9 分归档
    ↓
 familiar-learning-records 归档熟练内容
+mastered-learning-records 归档完全掌握内容
 ```
 
 当用户只发送 `hello` 或“你好”时，会直接进入基于学习记录的复习菜单；其他英语学习请求由 `learn-from-english` 处理。
@@ -82,10 +83,11 @@ familiar-learning-records 归档熟练内容
 ├── practice-learning-records/
 │   └── SKILL.md                      # 复习、评分与归档流程
 ├── learning-records/                 # 当前需要复习的知识点
-└── familiar-learning-records/        # 已熟练并归档的知识点
+├── familiar-learning-records/        # 已熟练并归档的知识点
+└── mastered-learning-records/        # 已完全掌握的精简知识点
 ```
 
-两个记录目录都按以下六类保存 JSON 文件：
+三个记录目录都按以下五类保存 JSON 文件：
 
 | 分类 | 内容 |
 | --- | --- |
@@ -103,8 +105,10 @@ familiar-learning-records 归档熟练内容
 # 查看各分类的待复习数量
 python3 learn-from-english/scripts/learning_records.py summary
 
-# 同时查看待复习和已标熟数量
-python3 learn-from-english/scripts/learning_records.py summary --include-familiar
+# 同时查看待复习、已标熟和完全掌握数量
+python3 learn-from-english/scripts/learning_records.py summary \
+  --include-familiar \
+  --include-mastered
 
 # 查看某一分类，结果按掌握分从低到高排列
 python3 learn-from-english/scripts/learning_records.py list --category grammar
@@ -112,7 +116,8 @@ python3 learn-from-english/scripts/learning_records.py list --category grammar
 # 搜索已有知识点，可按需包含已标熟记录
 python3 learn-from-english/scripts/learning_records.py search \
   --query "present perfect" \
-  --include-familiar
+  --include-familiar \
+  --include-mastered
 
 # 生成复习入口菜单
 python3 learn-from-english/scripts/learning_records.py menu
@@ -144,4 +149,4 @@ python3 learn-from-english/scripts/learning_records.py migrate
 python3 -m unittest discover -s learn-from-english/tests -v
 ```
 
-测试覆盖知识点写入、去重、搜索、分类统计、结构化菜单、下一条复习选择、评分排序、达标归档、已标熟 10 分删除、旧记录迁移、数据校验，以及损坏数据保护等行为。
+测试覆盖知识点写入、去重、搜索、分类统计、结构化菜单、下一条复习选择、评分排序、达标归档、10 分精简归入完全掌握目录、旧记录迁移、数据校验，以及损坏数据保护等行为。

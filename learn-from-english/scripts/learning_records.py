@@ -27,8 +27,12 @@ RECORDS_DIR = Path(__file__).resolve().parents[2] / "learning-records"
 FAMILIAR_RECORDS_DIR = (
     Path(__file__).resolve().parents[2] / "familiar-learning-records"
 )
+MASTERED_RECORDS_DIR = (
+    Path(__file__).resolve().parents[2] / "mastered-learning-records"
+)
 MASTERY_THRESHOLD = 8.0
-PERFECT_SCORE_TO_DELETE = 10.0
+PERFECT_SCORE = 10.0
+MASTERED_SUMMARY_LIMIT = 240
 ITEM_FIELD_DEFAULTS = {
     "example": "",
     "tags": [],
@@ -51,6 +55,12 @@ REQUIRED_ITEM_FIELDS = (
     "review_count",
     "high_score_streak",
     "last_reviewed_at",
+)
+REQUIRED_MASTERED_ITEM_FIELDS = (
+    "id",
+    "title",
+    "summary",
+    "mastered_at",
 )
 REVIEW_PATHS = (
     {
@@ -92,6 +102,14 @@ def familiar_category_path(category: str) -> Path:
             f"invalid category {category!r}; expected one of: {', '.join(CATEGORIES)}"
         )
     return FAMILIAR_RECORDS_DIR / f"{category}.json"
+
+
+def mastered_category_path(category: str) -> Path:
+    if category not in CATEGORIES:
+        raise RecordError(
+            f"invalid category {category!r}; expected one of: {', '.join(CATEGORIES)}"
+        )
+    return MASTERED_RECORDS_DIR / f"{category}.json"
 
 
 def empty_document(category: str) -> dict[str, Any]:
@@ -162,6 +180,8 @@ def document_path(location: str, category: str) -> Path:
         return category_path(category)
     if location == "familiar-learning-records":
         return familiar_category_path(category)
+    if location == "mastered-learning-records":
+        return mastered_category_path(category)
     raise RecordError(f"invalid location {location!r}")
 
 
@@ -170,6 +190,8 @@ def load_document_from_location(location: str, category: str) -> dict[str, Any]:
         return load_document(category, create_missing=True)
     if location == "familiar-learning-records":
         return load_familiar_document(category)
+    if location == "mastered-learning-records":
+        return load_mastered_document(category)
     raise RecordError(f"invalid location {location!r}")
 
 
@@ -181,6 +203,26 @@ def write_document_to_location(
 
 def load_familiar_document(category: str) -> dict[str, Any]:
     path = familiar_category_path(category)
+    if not path.exists():
+        return empty_document(category)
+
+    try:
+        with path.open(encoding="utf-8") as handle:
+            document = json.load(handle)
+    except (OSError, json.JSONDecodeError) as exc:
+        raise RecordError(f"cannot read valid JSON from {path}: {exc}") from exc
+
+    if not isinstance(document, dict):
+        raise RecordError(f"invalid record document in {path}: root must be an object")
+    if document.get("category") != category:
+        raise RecordError(f"invalid record document in {path}: category does not match")
+    if not isinstance(document.get("items"), list):
+        raise RecordError(f"invalid record document in {path}: items must be an array")
+    return document
+
+
+def load_mastered_document(category: str) -> dict[str, Any]:
+    path = mastered_category_path(category)
     if not path.exists():
         return empty_document(category)
 
@@ -211,6 +253,38 @@ def archive_record(category: str, item: dict[str, Any]) -> None:
         document["items"][document["items"].index(archived)] = item
     document["items"].sort(key=lambda value: str(value.get("id", "")))
     write_document_to_path(familiar_category_path(category), category, document)
+
+
+def compact_text(value: Any, limit: int = MASTERED_SUMMARY_LIMIT) -> str:
+    text = re.sub(r"\s+", " ", str(value or "")).strip()
+    if len(text) <= limit:
+        return text
+    return text[: limit - 1].rstrip() + "…"
+
+
+def mastered_item(item: dict[str, Any], mastered_at: str) -> dict[str, Any]:
+    summary_source = item.get("explanation") or item.get("example") or item.get("source")
+    return {
+        "id": item["id"],
+        "title": compact_text(item.get("title")),
+        "summary": compact_text(summary_source),
+        "mastered_at": mastered_at,
+    }
+
+
+def master_record(category: str, item: dict[str, Any], mastered_at: str) -> None:
+    document = load_mastered_document(category)
+    concise = mastered_item(item, mastered_at)
+    existing = next(
+        (candidate for candidate in document["items"] if candidate.get("id") == item["id"]),
+        None,
+    )
+    if existing is None:
+        document["items"].append(concise)
+    else:
+        document["items"][document["items"].index(existing)] = concise
+    document["items"].sort(key=lambda value: str(value.get("id", "")))
+    write_document_to_path(mastered_category_path(category), category, document)
 
 
 def restore_record(category: str, item: dict[str, Any]) -> None:
@@ -259,7 +333,12 @@ def validate_item(
         ]
 
     issues: list[dict[str, Any]] = []
-    for field in REQUIRED_ITEM_FIELDS:
+    required_fields = (
+        REQUIRED_MASTERED_ITEM_FIELDS
+        if location == "mastered-learning-records"
+        else REQUIRED_ITEM_FIELDS
+    )
+    for field in required_fields:
         if field not in item:
             issues.append(
                 {
@@ -271,15 +350,18 @@ def validate_item(
                 }
             )
 
-    string_fields = (
-        "id",
-        "title",
-        "explanation",
-        "source",
-        "example",
-        "first_learned_at",
-        "last_learned_at",
-    )
+    if location == "mastered-learning-records":
+        string_fields = ("id", "title", "summary", "mastered_at")
+    else:
+        string_fields = (
+            "id",
+            "title",
+            "explanation",
+            "source",
+            "example",
+            "first_learned_at",
+            "last_learned_at",
+        )
     for field in string_fields:
         if field in item and not isinstance(item[field], str):
             issues.append(
@@ -416,6 +498,18 @@ def upsert(args: argparse.Namespace) -> dict[str, Any]:
             "location": "familiar-learning-records",
         }
 
+    mastered_document = load_mastered_document(args.category)
+    mastered = next(
+        (item for item in mastered_document["items"] if item.get("id") == identifier),
+        None,
+    )
+    if mastered is not None:
+        return {
+            **mastered,
+            "created": False,
+            "location": "mastered-learning-records",
+        }
+
     now = datetime.now().astimezone().isoformat(timespec="seconds")
     tags = sorted(
         {tag.strip() for tag in args.tag if tag.strip()},
@@ -470,13 +564,15 @@ def review_record(args: argparse.Namespace) -> dict[str, Any]:
     existing["high_score_streak"] = streak
     existing["last_reviewed_at"] = now
 
-    if args.score == PERFECT_SCORE_TO_DELETE:
+    if args.score == PERFECT_SCORE:
+        master_record(args.category, existing, now)
         document["items"].remove(existing)
         write_document(args.category, document)
         return {
             **existing,
             "archived": False,
-            "deleted": True,
+            "deleted": False,
+            "mastered": True,
         }
 
     if args.score >= MASTERY_THRESHOLD:
@@ -487,10 +583,11 @@ def review_record(args: argparse.Namespace) -> dict[str, Any]:
             **existing,
             "archived": True,
             "deleted": False,
+            "mastered": False,
         }
 
     write_document(args.category, document)
-    return {**existing, "archived": False, "deleted": False}
+    return {**existing, "archived": False, "deleted": False, "mastered": False}
 
 
 def mastery_sort_key(item: dict[str, Any]) -> tuple[float, str, str]:
@@ -536,13 +633,15 @@ def review_familiar_record(args: argparse.Namespace) -> dict[str, Any]:
     existing["review_count"] = int(existing.get("review_count", 0)) + 1
     existing["last_reviewed_at"] = datetime.now().astimezone().isoformat(timespec="seconds")
 
-    if args.score == PERFECT_SCORE_TO_DELETE:
+    if args.score == PERFECT_SCORE:
+        master_record(args.category, existing, existing["last_reviewed_at"])
         document["items"].remove(existing)
         write_document_to_path(familiar_category_path(args.category), args.category, document)
         return {
             **existing,
             "moved_to_learning_records": False,
-            "deleted": True,
+            "deleted": False,
+            "mastered": True,
         }
 
     if args.score < MASTERY_THRESHOLD:
@@ -550,10 +649,20 @@ def review_familiar_record(args: argparse.Namespace) -> dict[str, Any]:
         restore_record(args.category, existing)
         document["items"].remove(existing)
         write_document_to_path(familiar_category_path(args.category), args.category, document)
-        return {**existing, "moved_to_learning_records": True, "deleted": False}
+        return {
+            **existing,
+            "moved_to_learning_records": True,
+            "deleted": False,
+            "mastered": False,
+        }
 
     write_document_to_path(familiar_category_path(args.category), args.category, document)
-    return {**existing, "moved_to_learning_records": False, "deleted": False}
+    return {
+        **existing,
+        "moved_to_learning_records": False,
+        "deleted": False,
+        "mastered": False,
+    }
 
 
 def search_record_document(
@@ -594,26 +703,38 @@ def search_records(args: argparse.Namespace) -> list[dict[str, Any]]:
                     needle,
                 )
             )
+        if getattr(args, "include_mastered", False):
+            matches.extend(
+                search_record_document(
+                    "mastered-learning-records",
+                    category,
+                    load_mastered_document(category),
+                    needle,
+                )
+            )
     return matches
 
 
 def summarize_records(args: argparse.Namespace) -> list[dict[str, Any]]:
     include_familiar = getattr(args, "include_familiar", False)
+    include_mastered = getattr(args, "include_mastered", False)
     summary: list[dict[str, Any]] = []
     for category in CATEGORIES:
         count = len(load_document(category, create_missing=True)["items"])
+        item = {"category": category, "count": count}
         if include_familiar:
             familiar_count = len(load_familiar_document(category)["items"])
-            summary.append(
-                {
-                    "category": category,
-                    "count": count,
-                    "familiar_count": familiar_count,
-                    "total_count": count + familiar_count,
-                }
+            item["familiar_count"] = familiar_count
+        if include_mastered:
+            mastered_count = len(load_mastered_document(category)["items"])
+            item["mastered_count"] = mastered_count
+        if include_familiar or include_mastered:
+            item["total_count"] = (
+                count
+                + int(item.get("familiar_count", 0))
+                + int(item.get("mastered_count", 0))
             )
-        else:
-            summary.append({"category": category, "count": count})
+        summary.append(item)
     return summary
 
 
@@ -764,7 +885,11 @@ def next_review_record(args: argparse.Namespace) -> dict[str, Any]:
 
 def validate_records(_args: argparse.Namespace) -> dict[str, Any]:
     issues: list[dict[str, Any]] = []
-    for location in ("learning-records", "familiar-learning-records"):
+    for location in (
+        "learning-records",
+        "familiar-learning-records",
+        "mastered-learning-records",
+    ):
         for category in CATEGORIES:
             document = load_document_from_location(location, category)
             issues.extend(validate_document_items(location, category, document))
@@ -821,7 +946,7 @@ def build_parser() -> argparse.ArgumentParser:
     familiar_list_parser.set_defaults(handler=list_familiar_records)
 
     review_parser = subparsers.add_parser(
-        "review", help="record a 0-10 review score and remove perfect scores"
+        "review", help="record a 0-10 review score and archive perfect scores"
     )
     review_parser.add_argument("--category", required=True, choices=CATEGORIES)
     review_parser.add_argument("--key", required=True, help="canonical key after the id colon")
@@ -829,7 +954,7 @@ def build_parser() -> argparse.ArgumentParser:
     review_parser.set_defaults(handler=review_record)
 
     familiar_review_parser = subparsers.add_parser(
-        "familiar-review", help="score a familiar record and remove perfect scores"
+        "familiar-review", help="score a familiar record and archive perfect scores"
     )
     familiar_review_parser.add_argument("--category", required=True, choices=CATEGORIES)
     familiar_review_parser.add_argument(
@@ -845,6 +970,11 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="also search familiar records",
     )
+    search_parser.add_argument(
+        "--include-mastered",
+        action="store_true",
+        help="also search mastered records",
+    )
     search_parser.set_defaults(handler=search_records)
 
     summary_parser = subparsers.add_parser(
@@ -854,6 +984,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--include-familiar",
         action="store_true",
         help="also include familiar record counts",
+    )
+    summary_parser.add_argument(
+        "--include-mastered",
+        action="store_true",
+        help="also include mastered record counts",
     )
     summary_parser.set_defaults(handler=summarize_records)
 

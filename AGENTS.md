@@ -62,7 +62,7 @@ These rules apply to every skill that presents an English exercise and evaluates
 
 - After any repository content is added, modified, moved, or deleted, automatically create a Git commit for those changes before finishing the current turn.
 - When committing, stage only the changes made for the current task. Do not include unrelated user changes.
-- Use `[records]: xxx` when the commit changes only `learning-records/` or `familiar-learning-records/`, regardless of the number of record categories or directories changed.
+- Use `[records]: xxx` when the commit changes only `learning-records/`, `familiar-learning-records/`, or `mastered-learning-records/`, regardless of the number of record categories or directories changed.
 - Use `[skill]: xxx` when the commit changes only skill files.
 - Use `[readme-doc]: xxx` when the commit changes only `README.md`.
 - Use `[agents-doc]: xxx` when the commit changes only `AGENTS.md`.
