@@ -468,6 +468,24 @@
       "last_reviewed_at": null
     },
     {
+      "id": "errors:remember-when-past-state-was-not-is",
+      "title": "remember when 中过去状态的时态",
+      "explanation": "在 remember when ... 表示“记得过去某个时候/过去某种状态”时，从句通常用过去时；描述河以前很干净，应说 the river was very clean 或 the river used to be very clean，而不是 is very clean.",
+      "source": "The old-timers in the village still remember when the river is very clean.",
+      "example": "The old-timers in the village still remember when the river was very clean.",
+      "tags": [
+        "grammar",
+        "tense"
+      ],
+      "first_learned_at": "2026-07-30T12:43:24+08:00",
+      "last_learned_at": "2026-07-30T12:43:24+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
       "id": "errors:semantic-conflict-old-timers-newcomers",
       "title": "old-timers 与 newcomer 语义冲突",
       "explanation": "old-timers 指长期生活在某地、熟悉当地往事的人，不能和 moved here last week / know nothing about the town 这类新来且不了解当地的描述搭配；这种语境应改用 newcomers 或 new residents。",
