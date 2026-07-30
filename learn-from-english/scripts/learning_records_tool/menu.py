@@ -159,6 +159,17 @@ def _follow_up_options(
             count=counts["totals"]["familiar"],
         ),
     ]
+    if counts["totals"]["mastered"]:
+        options.append(
+            _option(
+                "mastered-review",
+                "🏆",
+                "复习已掌握的知识点",
+                "popular",
+                kind="mastered-review",
+                count=counts["totals"]["mastered"],
+            )
+        )
     if exercise_active:
         options.append(
             _option(
