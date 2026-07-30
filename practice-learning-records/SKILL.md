@@ -141,7 +141,14 @@ python3 learn-from-english/scripts/learning_records.py menu \
 python3 learn-from-english/scripts/learning_records.py mastered-list
 ```
 
-只使用返回的 `status: mastered` 记录作为素材池。套题包含写作、选词填空、长篇匹配、仔细阅读和汉译英，不包含听力，也不声称来自官方真题。首次呈现时不附答案，并把 `*Picked from records.json · mastered*` 放在菜单之后的最终 attribution block 第一行，不放在套题正文内。套题不改动记录分数。
+只使用返回的 `status: mastered` 记录作为素材池。套题必须按 CET-4/CET-6 笔试试卷形式生成，不得压缩为代表性小练习；不包含听力，也不声称来自官方真题。除听力外，题型、题量和顺序必须与笔试结构一致：
+
+- Part I Writing：短文写作 1 题。
+- Part II Listening Comprehension：按用户要求省略听力，不生成听力材料或听力题；可用一行说明该部分已省略，但不得改变后续部分顺序。
+- Part III Reading Comprehension：Section A 词汇理解/选词填空 10 题，Section B 长篇阅读/匹配 10 题，Section C 仔细阅读 10 题（通常两篇短文，每篇 5 题）。
+- Part IV Translation：汉译英段落翻译 1 题。
+
+默认生成 CET-4 难度；只有素材明显更高级或用户明确要求时生成 CET-6 难度。首次呈现时不附答案，并把 `*Picked from records.json · mastered*` 放在菜单之后的最终 attribution block 第一行，不放在套题正文内。套题不改动记录分数。
 
 ## 历史与统计
 
