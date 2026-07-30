@@ -72,6 +72,21 @@
       "last_reviewed_at": null
     },
     {
+      "id": "errors:back-east-direction-misuse",
+      "title": "back east 不能表示西行方向",
+      "explanation": "back east 通常指美国东部或“在东部那边”，不适合修饰从美国东部去美国西部的行程；这种语境应改用 west、westward，或者直接省略方向表达。",
+      "source": "She lives in New York and travels to Los Angeles back east every summer.",
+      "example": "She lives in New York and travels west to Los Angeles every summer.",
+      "tags": [],
+      "first_learned_at": "2026-07-30T15:42:51+08:00",
+      "last_learned_at": "2026-07-30T15:42:51+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
       "id": "errors:back-east-geographic-direction",
       "title": "back east 的地域方向误用",
       "explanation": "back east 通常指美国东部，不能用来描述从纽约前往位于美国西部的洛杉矶；该语境应使用 travel west 或直接说 travel to Los Angeles。",
@@ -83,10 +98,10 @@
       "first_learned_at": "2026-07-28T23:17:51+08:00",
       "last_learned_at": "2026-07-28T23:17:51+08:00",
       "learned_count": 1,
-      "mastery_score": 7.0,
-      "review_count": 1,
+      "mastery_score": 4.0,
+      "review_count": 2,
       "high_score_streak": 0,
-      "last_reviewed_at": "2026-07-29T07:12:47+08:00"
+      "last_reviewed_at": "2026-07-30T15:42:36+08:00"
     },
     {
       "id": "errors:but-clause-needs-finite-verb",
@@ -151,6 +166,21 @@
       ],
       "first_learned_at": "2026-07-30T11:52:01+08:00",
       "last_learned_at": "2026-07-30T11:52:01+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
+      "id": "errors:eastward-used-for-westbound-trip",
+      "title": "eastward 不能修饰西向行程",
+      "explanation": "eastward 表示“向东”，与从芝加哥去旧金山这种向西的路线不符；如果方向信息重要，应使用 west 或 westward。",
+      "source": "He flew to Seattle eastward for a business trip.",
+      "example": "He flew to Seattle for a business trip.",
+      "tags": [],
+      "first_learned_at": "2026-07-30T15:42:51+08:00",
+      "last_learned_at": "2026-07-30T15:42:51+08:00",
       "learned_count": 1,
       "mastery_score": 0,
       "review_count": 0,
