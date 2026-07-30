@@ -20,6 +20,7 @@ python3 learn-from-english/scripts/learning_records.py menu
 - `errors` + `grammar`：复习掌握不稳的知识点，并巩固学过的语法和句型。
 - `vocabulary` + `phrases`：复习词汇、搭配和固定表达。
 - `usage`：复习语气、自然度和场景选择。
+- `mastered-cet-paper`：根据 `mastered-learning-records/` 中已完全掌握的知识点生成一套完整结构的四六级规格套题，不含听力部分。
 
 使用自然、简洁的话术，例如：
 
@@ -28,14 +29,17 @@ python3 learn-from-english/scripts/learning_records.py menu
 
 ➡️ 接下来可以回复数字：
 
+##### Popular Menus
 1. 🧩 复习掌握不稳的知识点、语法和句型（8 条）
-2. 📚 复习词汇、搭配和固定表达（8 条）
-3. 🌍 复习语气、自然度和场景选择（4 条）
-4. 🧪 做一道基于学习记录的四六级规格纯文本习题
+2. 🔁 复习已标熟的知识点（3 条）
+
+##### Other Menus
+3. 🧪 做一道基于学习记录的四六级规格纯文本习题
+4. 📝 生成一套基于已掌握知识点的完整四六级套题（不含听力）（12 条）
 5. 🎭 用学过的英语开展一个真实场景对话
 ```
 
-括号中的普通记录数量必须使用 `menu` 返回的 `count`，已标熟入口数量必须使用 `familiar_count` 或该入口自身的 `count`。编号必须从 1 开始连续排列，且只对应本轮实际展示的菜单。按仓库根目录 `AGENTS.md` 的规则为不同入口使用不同图标，并固定显示 `Popular Menus` 与 `Other Menus` 两个分组；没有用户明确指定的热门入口时，`Popular Menus` 显示 `无`，所有入口放入 `Other Menus`。始终提供 `🧪 四六级规格习题` 和 `🎭 场景对话`。菜单最多五项；当普通分类超过两个入口时，使用 `menu` 返回的合并入口，不要自行重新拆分或改算数量。
+括号中的普通记录数量必须使用 `menu` 返回的 `count`，已标熟入口数量必须使用 `familiar_count` 或该入口自身的 `count`，完整套题入口数量必须使用 `mastered_total` 或该入口自身的 `count`；旧脚本没有返回 `mastered_total` 时，运行 `summary --include-mastered` 后把各分类 `mastered_count` 相加。编号必须从 1 开始连续排列，且只对应本轮实际展示的菜单。按仓库根目录 `AGENTS.md` 的规则为不同入口使用不同图标，并只在热门组与其他组都有可见菜单项时显示 `Popular Menus` 与 `Other Menus` 两个分组；不要显示空分组或 `无`。始终提供 `🧪 四六级规格习题`、`📝 完整四六级套题（不含听力）` 和 `🎭 场景对话`。菜单最多五项；当普通分类超过一个入口时，使用 `menu` 返回的合并入口，不要自行重新拆分或改算数量。
 
 若全部分类均为空，说明“目前还没有可复习的知识点，先学习一些英语内容后，这里会自动形成复习菜单”，并提供：
 
@@ -70,6 +74,16 @@ python3 learn-from-english/scripts/learning_records.py next-review --familiar
 
 直接使用返回的 `record`，即跨全部分类 `last_reviewed_at` 最旧的知识点；缺少复习时间的记录视为最旧。不要自行重新排序，也不要读取或编辑 JSON。根据该记录设计一组可客观评分的短练习，并保留它的 `category` 和 `id`。`record` 为 `null` 时说明目前没有已标熟知识点，并重新提供包含该固定入口的合规菜单，不编造练习内容。
 
+选择“生成一套基于已掌握知识点的完整四六级套题（不含听力）”时，运行：
+
+```bash
+python3 learn-from-english/scripts/learning_records.py mastered-list
+```
+
+直接使用返回的已掌握记录生成一套完整结构的、文本可作答的 CET-4/CET-6 规格套题；用户水平不明确时默认 CET-4，只有已掌握记录整体明显偏高级或用户此前表现稳定高级时使用 CET-6。`mastered-list` 返回空列表时，说明目前还没有完全掌握的知识点，不能生成基于已掌握记录的套题，并重新提供合规菜单。不要直接读取或编辑 `mastered-learning-records/*.json`。
+
+完整套题必须排除听力，不生成听力材料、音频脚本、听力题干或听力选项；也不要声称题目来自官方真题。套题应覆盖非听力模块的完整结构：写作、阅读理解和汉译英翻译。阅读理解至少包含选词填空、长篇匹配和仔细阅读三类任务；篇幅可为聊天场景适度压缩，但结构必须完整。把已掌握记录的 `title`、`summary` 和 `category` 分散映射到新语境中，优先覆盖不同分类，不要把原始例句照搬成答案。首次呈现完整套题时不要提前给答案或解析，要求用户按模块或题号作答，并在末尾菜单中固定提供 `🔍 讲解当前套题`。用户选择该讲解入口时，解释当前套题的文本、考点覆盖、解题路径和参考答案；若用户提交答案，逐模块评价并给出改进版本。基于完整套题的回复若需要来源标注，底部写 `*Picked from mastered-learning-records*`。
+
 用户在完成一轮普通或已标熟复习后的快捷菜单中选择“继续复习”时，从普通复习库 `learning-records/` 的全部分类随机抽取一条记录，运行：
 
 ```bash
@@ -97,7 +111,7 @@ python3 learn-from-english/scripts/learning_records.py next-review \
 
 每次从记录中抽到题并开始题组时，回复必须先给出仓库级要求的 H4 标题。只在“新抽出记录并呈现题目”的回复中显示来源标注；基于当前题目的后续讲解、答案评价、错题解释、菜单重开或知识点完整讲解，不再重复显示 `Picked from...`。不要把来源标注放在标题下方或练习正文之前；将来源标注放在回复底部的归因信息块中，格式为 `*Picked from xxx*`。底部归因信息块必须先用一条 Markdown 分割线 `---` 与正文和菜单隔开，然后依次放置来源标注和仓库级要求的 skill attribution，且 skill attribution 仍为绝对最后一行。若同一回复还需要仓库级 commit notice，将 commit notice 放在来源标注之后、skill attribution 之前。`xxx` 必须写明实际抽题来源：普通复习库写 `learning-records/<category>`；已标熟复习写 `familiar-learning-records/<category>`；从合并入口或随机继续复习抽到具体记录后，也按返回记录的实际 `category` 标注，不写合并入口名称。
 
-菜单中的 `🧪 四六级规格习题` 若使用 `next-review` 抽取了学习记录，也只在首次呈现该 CET 题目时显示来源标注；用户选择 `🔍 讲解当前习题`、提交答案后的评价，或继续围绕同一题展开说明时，底部只保留仓库级 skill attribution 和必要的 commit notice。
+菜单中的 `🧪 四六级规格习题` 若使用 `next-review` 抽取了学习记录，也只在首次呈现该 CET 题目时显示来源标注；用户选择 `🔍 讲解当前习题`、提交答案后的评价，或继续围绕同一题展开说明时，底部只保留仓库级 skill attribution 和必要的 commit notice。菜单中的 `📝 完整四六级套题（不含听力）` 若使用 `mastered-list` 读取了已掌握记录，只在首次呈现完整套题时显示 `*Picked from mastered-learning-records*`；后续讲解、评价或继续围绕同一套题展开说明时不再重复来源标注。
 
 示例结尾：
 
@@ -126,7 +140,7 @@ python3 learn-from-english/scripts/learning_records.py next-review \
 
 用户只回答部分小题时，先反馈已答部分并明确列出尚未完成的题号，不调用评分命令；用户明确表示跳过其余题目时，按已提交内容和未答部分共同给出总体分。每个题组只写入一次评分，不能按小题多次增加 `review_count`。
 
-本节的多小题规则不适用于菜单中的 `🧪 四六级规格习题`：该入口始终遵守仓库级规则，只生成一道聚焦的 CET-4/CET-6 规格任务。
+本节的多小题规则不适用于菜单中的 `🧪 四六级规格习题` 和 `📝 完整四六级套题（不含听力）`：前者始终遵守仓库级规则，只生成一道聚焦的 CET-4/CET-6 规格任务；后者生成完整结构套题，不按单个知识点的 0 至 10 分复习流程评分，也不改动 `mastered-learning-records/`。
 
 ## 评分与归档
 
@@ -160,7 +174,7 @@ python3 learn-from-english/scripts/learning_records.py familiar-review \
 
 评分为 10 分时，命令会把记录从 `familiar-learning-records/` 移入 `mastered-learning-records/` 的相同分类文件，并只保留精简知识点信息；命令返回 `mastered: true` 时，告诉用户该已标熟知识点已经完全掌握，已放入完全掌握记录。分数低于 8 时，命令会把记录移回 `learning-records/`、清零连续高分次数并更新时间，告诉用户该知识点需要重新巩固，已移回普通复习列表。分数大于或等于 8 且低于 10 时，记录继续留在 `familiar-learning-records/`，命令会更新 `mastery_score`、`review_count` 和 `last_reviewed_at`；告诉用户本次复习通过。不能对已标熟记录使用普通的 `review` 命令。
 
-每次完成并评分一轮普通或已标熟复习后，先运行 `python3 learn-from-english/scripts/learning_records.py menu` 读取最新入口数量，再在回复末尾按仓库根目录 `AGENTS.md` 的英语学习菜单规则提供快捷选项。该菜单必须包含“继续复习”作为第一项，用于从普通复习库随机抽取下一条记录，并标注普通复习库当前总数 `（N 条）`；`N` 必须使用 `menu.regular_total`，不能使用合并入口数量、单个入口数量或自行估算；只有旧脚本没有返回 `regular_total` 时，才退回使用 `menu.counts` 中各普通分类数量之和。菜单还必须包含 `🔁 复习已标熟的知识点（N 条）`，其中 `N` 必须使用 `menu` 返回的 `familiar_count` 或已标熟入口自身的 `count`，像首次复习菜单一样标注数量。菜单还必须同时包含与当前知识点相关的 `🧪 四六级规格习题` 和 `🎭 场景对话`，并为每个菜单项使用不同的语义图标；因为已标熟入口固定使用 `🔁`，不要再给“继续复习”使用 `🔁`。例如：
+每次完成并评分一轮普通或已标熟复习后，先运行 `python3 learn-from-english/scripts/learning_records.py menu` 读取最新入口数量，再在回复末尾按仓库根目录 `AGENTS.md` 的英语学习菜单规则提供快捷选项。该菜单必须包含“继续复习”作为第一项，用于从普通复习库随机抽取下一条记录，并标注普通复习库当前总数 `（N 条）`；`N` 必须使用 `menu.regular_total`，不能使用合并入口数量、单个入口数量或自行估算；只有旧脚本没有返回 `regular_total` 时，才退回使用 `menu.counts` 中各普通分类数量之和。菜单还必须包含 `🔁 复习已标熟的知识点（N 条）`，其中 `N` 必须使用 `menu` 返回的 `familiar_count` 或已标熟入口自身的 `count`，像首次复习菜单一样标注数量。菜单还必须同时包含与当前知识点相关的 `🧪 四六级规格习题`、`📝 完整四六级套题（不含听力）（N 条）` 和 `🎭 场景对话`；完整套题入口的 `N` 必须使用 `menu.mastered_total` 或该入口自身的 `count`。为每个菜单项使用不同的语义图标；因为已标熟入口固定使用 `🔁`，不要再给“继续复习”使用 `🔁`。例如：
 
 后续分支菜单中的 `🎭 场景对话` 文案必须跟随当前分支的学习点更新。只有上一轮回复本身正在进行同一段角色对话时，才使用“继续这段……”；如果中间已经切换到讲解、对比、纠错、造句或习题讲解，则不要沿用旧角色和旧场景，改写为“在<当前表达/规则>相关场景中练习”。
 
@@ -170,7 +184,7 @@ python3 learn-from-english/scripts/learning_records.py familiar-review \
 1. ▶️ 继续复习，从复习库随机抽一道题（18 条）
 2. 🔁 复习已标熟的知识点（3 条）
 3. 🧪 做一道相关的四六级规格纯文本习题
-4. 📚 查看这个知识点的完整讲解
+4. 📝 生成一套基于已掌握知识点的完整四六级套题（不含听力）（12 条）
 5. 🎭 在真实场景对话中使用这个知识点
 ```
 

@@ -619,6 +619,23 @@ def list_familiar_records(_args: argparse.Namespace) -> list[dict[str, Any]]:
     return sorted(items, key=familiar_review_sort_key)
 
 
+def mastered_sort_key(item: dict[str, Any]) -> tuple[str, str]:
+    return (
+        str(item.get("mastered_at") or ""),
+        str(item.get("id", "")),
+    )
+
+
+def list_mastered_records(_args: argparse.Namespace) -> list[dict[str, Any]]:
+    items: list[dict[str, Any]] = []
+    for category in CATEGORIES:
+        items.extend(
+            {"category": category, "location": "mastered-learning-records", **item}
+            for item in load_mastered_document(category)["items"]
+        )
+    return sorted(items, key=mastered_sort_key)
+
+
 def review_familiar_record(args: argparse.Namespace) -> dict[str, Any]:
     if not 0 <= args.score <= 10:
         raise RecordError("score must be between 0 and 10")
@@ -753,6 +770,7 @@ def build_review_menu(args: argparse.Namespace) -> dict[str, Any]:
     counts = category_counts()
     regular_total = sum(counts.values())
     familiar_count = len(list_familiar_records(argparse.Namespace()))
+    mastered_total = len(list_mastered_records(argparse.Namespace()))
     active_paths = [
         {
             **path,
@@ -763,12 +781,13 @@ def build_review_menu(args: argparse.Namespace) -> dict[str, Any]:
         if review_path_count(path, counts) > 0
     ]
 
-    if not active_paths and familiar_count == 0:
+    if not active_paths and familiar_count == 0 and mastered_total == 0:
         return {
             "state": "empty",
             "counts": counts,
             "regular_total": regular_total,
             "familiar_count": familiar_count,
+            "mastered_total": mastered_total,
             "options": [
                 {
                     "id": "status",
@@ -792,11 +811,9 @@ def build_review_menu(args: argparse.Namespace) -> dict[str, Any]:
         }
 
     visible_paths = active_paths
-    if len(visible_paths) > 2:
-        ordered = sorted(visible_paths, key=lambda path: (path["count"], path["id"]))
-        merged = ordered[0]
-        merged_paths = ordered[:2]
-        remaining_paths = ordered[2:]
+    if len(visible_paths) > 1:
+        merged_paths = sorted(visible_paths, key=lambda path: (path["count"], path["id"]))
+        merged = merged_paths[0]
         merged_categories: list[str] = []
         for path in merged_paths:
             merged_categories.extend(path["categories"])
@@ -808,10 +825,8 @@ def build_review_menu(args: argparse.Namespace) -> dict[str, Any]:
                 "categories": merged_categories,
                 "count": sum(path["count"] for path in merged_paths),
                 "merged_from": [path["id"] for path in merged_paths],
-            },
-            *remaining_paths,
+            }
         ]
-        visible_paths = sorted(visible_paths, key=lambda path: path["id"])
 
     options: list[dict[str, Any]] = [
         {**path, "kind": "review-path"} for path in visible_paths
@@ -823,6 +838,13 @@ def build_review_menu(args: argparse.Namespace) -> dict[str, Any]:
                 "icon": "🧪",
                 "label": "做一道基于学习记录的四六级规格纯文本习题",
                 "kind": "cet-practice",
+            },
+            {
+                "id": "mastered-cet-paper",
+                "icon": "📝",
+                "label": "生成一套基于已掌握知识点的完整四六级套题（不含听力）",
+                "kind": "mastered-cet-paper",
+                "count": mastered_total,
             },
             {
                 "id": "scenario-dialogue",
@@ -844,6 +866,7 @@ def build_review_menu(args: argparse.Namespace) -> dict[str, Any]:
         "counts": counts,
         "regular_total": regular_total,
         "familiar_count": familiar_count,
+        "mastered_total": mastered_total,
         "options": options,
     }
 
@@ -944,6 +967,11 @@ def build_parser() -> argparse.ArgumentParser:
         "familiar-list", help="list familiar records from oldest review time first"
     )
     familiar_list_parser.set_defaults(handler=list_familiar_records)
+
+    mastered_list_parser = subparsers.add_parser(
+        "mastered-list", help="list mastered records from oldest mastered time first"
+    )
+    mastered_list_parser.set_defaults(handler=list_mastered_records)
 
     review_parser = subparsers.add_parser(
         "review", help="record a 0-10 review score and archive perfect scores"

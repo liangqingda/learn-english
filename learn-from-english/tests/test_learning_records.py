@@ -389,31 +389,81 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertEqual(vocabulary["mastered_count"], 1)
         self.assertEqual(vocabulary["total_count"], 1)
 
+    def test_lists_mastered_records_across_categories(self) -> None:
+        records.upsert(self.args("vocabulary", "settled word"))
+        records.upsert(self.args("grammar", "settled rule"))
+        records.review_record(
+            argparse.Namespace(category="vocabulary", key="settled word", score=10)
+        )
+        records.review_record(
+            argparse.Namespace(category="grammar", key="settled rule", score=10)
+        )
+
+        mastered = records.list_mastered_records(argparse.Namespace())
+
+        self.assertEqual(
+            {item["id"] for item in mastered},
+            {"vocabulary:settled-word", "grammar:settled-rule"},
+        )
+        self.assertTrue(all(item["location"] == "mastered-learning-records" for item in mastered))
+        self.assertEqual({item["category"] for item in mastered}, {"vocabulary", "grammar"})
+
     def test_menu_merges_paths_and_includes_fixed_options(self) -> None:
         records.upsert(self.args("errors", "unstable error"))
         records.upsert(self.args("vocabulary", "useful word"))
         records.upsert(self.args("usage", "polite tone"))
+        records.upsert(self.args("grammar", "mastered grammar"))
+        records.review_record(
+            argparse.Namespace(category="grammar", key="mastered grammar", score=10)
+        )
 
         menu = records.build_review_menu(argparse.Namespace())
 
         self.assertEqual(menu["state"], "ready")
         self.assertEqual(menu["regular_total"], 3)
+        self.assertEqual(menu["mastered_total"], 1)
         self.assertLessEqual(len(menu["options"]), 5)
         option_ids = [option["id"] for option in menu["options"]]
         self.assertIn("cet-practice", option_ids)
+        self.assertIn("mastered-cet-paper", option_ids)
         self.assertIn("scenario-dialogue", option_ids)
         self.assertIn("familiar-review", option_ids)
+        mastered_paper = next(option for option in menu["options"] if option["id"] == "mastered-cet-paper")
+        self.assertEqual(mastered_paper["count"], 1)
         mixed = next(option for option in menu["options"] if option["id"].startswith("mixed-"))
         selected = records.next_review_record(
             argparse.Namespace(category=[], path=mixed["id"], familiar=False, random=False)
         )
         self.assertIn(selected["record"]["category"], mixed["categories"])
 
+    def test_menu_can_open_from_mastered_records_only(self) -> None:
+        records.upsert(self.args("usage", "mastered usage"))
+        records.review_record(
+            argparse.Namespace(category="usage", key="mastered usage", score=10)
+        )
+
+        menu = records.build_review_menu(argparse.Namespace())
+
+        self.assertEqual(menu["state"], "ready")
+        self.assertEqual(menu["regular_total"], 0)
+        self.assertEqual(menu["familiar_count"], 0)
+        self.assertEqual(menu["mastered_total"], 1)
+        self.assertEqual(
+            [option["id"] for option in menu["options"]],
+            [
+                "cet-practice",
+                "mastered-cet-paper",
+                "scenario-dialogue",
+                "familiar-review",
+            ],
+        )
+
     def test_empty_menu_uses_general_options(self) -> None:
         menu = records.build_review_menu(argparse.Namespace())
 
         self.assertEqual(menu["state"], "empty")
         self.assertEqual(menu["regular_total"], 0)
+        self.assertEqual(menu["mastered_total"], 0)
         self.assertEqual([option["id"] for option in menu["options"]], [
             "status",
             "cet-practice",
