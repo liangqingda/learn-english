@@ -502,6 +502,21 @@
       "last_reviewed_at": null
     },
     {
+      "id": "errors:restaurant-spelling",
+      "title": "restaurant 的拼写",
+      "explanation": "restaurant 正确拼写为 r-e-s-t-a-u-r-a-n-t，中间是 -au-，不要漏掉 a 写成 resturant。",
+      "source": "The resturant's reviews are very good.",
+      "example": "The restaurant's reviews are very good.",
+      "tags": [],
+      "first_learned_at": "2026-07-30T13:21:12+08:00",
+      "last_learned_at": "2026-07-30T13:21:12+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
       "id": "errors:semantic-conflict-old-timers-newcomers",
       "title": "old-timers 与 newcomer 语义冲突",
       "explanation": "old-timers 指长期生活在某地、熟悉当地往事的人，不能和 moved here last week / know nothing about the town 这类新来且不了解当地的描述搭配；这种语境应改用 newcomers 或 new residents。",

@@ -1,22 +1,4 @@
 {
   "category": "vocabulary",
-  "items": [
-    {
-      "id": "vocabulary:review-core-meaning",
-      "title": "review 的核心含义",
-      "explanation": "review 作动词表示复习、审查或回顾，作名词表示复习、审查、评论；具体含义由语境决定。",
-      "source": "review",
-      "example": "I need to review my notes before the exam.",
-      "tags": [
-        "review"
-      ],
-      "first_learned_at": "2026-07-29T07:31:00+08:00",
-      "last_learned_at": "2026-07-29T07:31:00+08:00",
-      "learned_count": 1,
-      "mastery_score": 0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null
-    }
-  ]
+  "items": []
 }
