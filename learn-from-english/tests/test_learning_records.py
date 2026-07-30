@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-import multiprocessing
 import os
 import subprocess
 import sys
@@ -32,11 +31,6 @@ def payload(category: str, key: str) -> dict[str, object]:
         "example": f"Example for {key}",
         "tags": ["core", "review"],
     }
-
-
-def concurrent_upsert(repo_root: str, index: int, auto_commit: bool = False) -> None:
-    service = RecordService(RecordStore(Path(repo_root)), auto_commit=auto_commit)
-    service.upsert(payload("vocabulary", f"word-{index}"))
 
 
 class LearningRecordsTest(unittest.TestCase):
@@ -272,19 +266,6 @@ class LearningRecordsTest(unittest.TestCase):
 
         self.assertEqual(self.store.data_path.read_bytes(), before)
 
-    def test_concurrent_writers_do_not_lose_records(self) -> None:
-        processes = [
-            multiprocessing.Process(target=concurrent_upsert, args=(str(self.root), index))
-            for index in range(8)
-        ]
-        for process in processes:
-            process.start()
-        for process in processes:
-            process.join(timeout=10)
-            self.assertEqual(process.exitcode, 0)
-
-        self.assertEqual(len(self.service.records()), 8)
-
     def test_legacy_migration_preserves_statuses_and_counts(self) -> None:
         migration_root = self.root / "migration"
         learning = migration_root / "learning-records"
@@ -383,49 +364,6 @@ class LearningRecordsTest(unittest.TestCase):
             RecordService(self.store, auto_commit=True).upsert(payload("grammar", "blocked"))
 
         self.assertEqual(self.store.data_path.read_text(encoding="utf-8"), before)
-
-    def test_concurrent_auto_commits_are_serialized_with_data_writes(self) -> None:
-        subprocess.run(["git", "init", "-q"], cwd=self.root, check=True)
-        subprocess.run(["git", "config", "user.email", "tests@example.com"], cwd=self.root, check=True)
-        subprocess.run(["git", "config", "user.name", "Tests"], cwd=self.root, check=True)
-        (self.root / ".gitignore").write_text(".records.lock\n", encoding="utf-8")
-        subprocess.run(
-            ["git", "add", ".gitignore", "learning-records/records.json"],
-            cwd=self.root,
-            check=True,
-        )
-        subprocess.run(["git", "commit", "-qm", "initial"], cwd=self.root, check=True)
-        processes = [
-            multiprocessing.Process(
-                target=concurrent_upsert, args=(str(self.root), index, True)
-            )
-            for index in range(3)
-        ]
-        for process in processes:
-            process.start()
-        for process in processes:
-            process.join(timeout=15)
-            self.assertEqual(process.exitcode, 0)
-
-        self.assertEqual(len(self.service.records()), 3)
-        commit_count = subprocess.run(
-            ["git", "rev-list", "--count", "HEAD"],
-            cwd=self.root,
-            check=True,
-            capture_output=True,
-            text=True,
-        ).stdout.strip()
-        self.assertEqual(commit_count, "4")
-        self.assertEqual(
-            subprocess.run(
-                ["git", "status", "--short"],
-                cwd=self.root,
-                check=True,
-                capture_output=True,
-                text=True,
-            ).stdout,
-            "",
-        )
 
     def test_cli_compatibility_and_batch_input(self) -> None:
         input_path = self.root / "batch.json"

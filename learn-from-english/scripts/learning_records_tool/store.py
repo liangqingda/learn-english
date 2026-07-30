@@ -1,8 +1,7 @@
-"""Locked, atomic JSON persistence for learning records."""
+"""Atomic JSON persistence for learning records."""
 
 from __future__ import annotations
 
-import fcntl
 import json
 import os
 from pathlib import Path
@@ -18,12 +17,11 @@ class RecordStore:
     def __init__(self, repo_root: Path):
         self.repo_root = repo_root.resolve()
         self.data_path = self.repo_root / "learning-records" / "records.json"
-        self.lock_path = self.repo_root / "learning-records" / ".records.lock"
 
     def exists(self) -> bool:
         return self.data_path.exists()
 
-    def _load_unlocked(self, *, allow_missing: bool = False) -> dict[str, Any]:
+    def _load(self, *, allow_missing: bool = False) -> dict[str, Any]:
         if not self.data_path.exists():
             if allow_missing:
                 return empty_database()
@@ -51,9 +49,9 @@ class RecordStore:
         return database
 
     def read(self) -> dict[str, Any]:
-        return self._load_unlocked()
+        return self._load()
 
-    def _write_unlocked(self, database: dict[str, Any]) -> None:
+    def _write(self, database: dict[str, Any]) -> None:
         import tempfile
 
         issues = validate_database(database)
@@ -92,15 +90,13 @@ class RecordStore:
         after_write: Callable[[], None] | None = None,
     ) -> None:
         self.data_path.parent.mkdir(parents=True, exist_ok=True)
-        with self.lock_path.open("a+") as lock:
-            fcntl.flock(lock, fcntl.LOCK_EX)
-            if self.data_path.exists():
-                raise RecordError(f"record database already exists: {self.data_path}")
-            if before_write:
-                before_write()
-            self._write_unlocked(database)
-            if after_write:
-                after_write()
+        if self.data_path.exists():
+            raise RecordError(f"record database already exists: {self.data_path}")
+        if before_write:
+            before_write()
+        self._write(database)
+        if after_write:
+            after_write()
 
     def transaction(
         self,
@@ -110,18 +106,16 @@ class RecordStore:
         after_write: Callable[[], None] | None = None,
     ) -> T:
         self.data_path.parent.mkdir(parents=True, exist_ok=True)
-        with self.lock_path.open("a+") as lock:
-            fcntl.flock(lock, fcntl.LOCK_EX)
-            if before_write:
-                before_write()
-            database = self._load_unlocked()
-            result = operation(database)
-            database["revision"] += 1
-            database["records"] = dict(sorted(database["records"].items()))
-            self._write_unlocked(database)
-            if after_write:
-                after_write()
-            return result
+        if before_write:
+            before_write()
+        database = self._load()
+        result = operation(database)
+        database["revision"] += 1
+        database["records"] = dict(sorted(database["records"].items()))
+        self._write(database)
+        if after_write:
+            after_write()
+        return result
 
     def transaction_unvalidated(
         self,
@@ -131,18 +125,16 @@ class RecordStore:
         after_write: Callable[[], None] | None = None,
     ) -> T:
         self.data_path.parent.mkdir(parents=True, exist_ok=True)
-        with self.lock_path.open("a+") as lock:
-            fcntl.flock(lock, fcntl.LOCK_EX)
-            if before_write:
-                before_write()
-            database = self.read_unvalidated()
-            result = operation(database)
-            database["revision"] = int(database.get("revision", 0)) + 1
-            database["records"] = dict(sorted(database["records"].items()))
-            self._write_unlocked(database)
-            if after_write:
-                after_write()
-            return result
+        if before_write:
+            before_write()
+        database = self.read_unvalidated()
+        result = operation(database)
+        database["revision"] = int(database.get("revision", 0)) + 1
+        database["records"] = dict(sorted(database["records"].items()))
+        self._write(database)
+        if after_write:
+            after_write()
+        return result
 
     def replace(
         self,
@@ -152,12 +144,10 @@ class RecordStore:
         after_write: Callable[[], None] | None = None,
     ) -> None:
         self.data_path.parent.mkdir(parents=True, exist_ok=True)
-        with self.lock_path.open("a+") as lock:
-            fcntl.flock(lock, fcntl.LOCK_EX)
-            if before_write:
-                before_write()
-            database["revision"] = int(database.get("revision", 0)) + 1
-            database["records"] = dict(sorted(database["records"].items()))
-            self._write_unlocked(database)
-            if after_write:
-                after_write()
+        if before_write:
+            before_write()
+        database["revision"] = int(database.get("revision", 0)) + 1
+        database["records"] = dict(sorted(database["records"].items()))
+        self._write(database)
+        if after_write:
+            after_write()

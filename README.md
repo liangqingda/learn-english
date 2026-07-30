@@ -23,7 +23,7 @@ cli.py
 service.py ── menu.py
     │         scheduler.py
     ↓
-store.py ── 文件锁、校验、原子替换
+store.py ── 校验、原子替换
     ↓
 learning-records/records.json
     ↓
@@ -35,7 +35,7 @@ git_adapter.py
 | 模块 | 职责 |
 | --- | --- |
 | `models.py` | Schema v2、规范化 ID、字段与关系校验 |
-| `store.py` | 进程锁、临时文件、`fsync` 和原子替换 |
+| `store.py` | 临时文件、`fsync` 和原子替换 |
 | `service.py` | 批量写入、评分事务、查询、迁移、历史与统计 |
 | `scheduler.py` | 状态转换、复习间隔和选题优先级 |
 | `menu.py` | 初始、复习后和习题中三类菜单策略 |
@@ -85,17 +85,15 @@ git_adapter.py
 每个写命令执行：
 
 ```text
-获取文件锁
-  → 读取并校验当前 revision
+读取并校验当前 revision
   → 在内存中应用整个操作
   → 校验完整结果
   → 写入同目录临时文件并 fsync
   → 原子替换 records.json
-  → 释放锁
   → 创建一个范围受限的 Git 提交
 ```
 
-任一输入无效时不会写入部分结果。多个进程同时写入时会串行获取锁，避免后写覆盖前写。
+任一输入无效时不会写入部分结果。存储层按单进程写入设计，不提供多个写进程同时修改记录的协调机制。
 
 ## 常用命令
 
@@ -204,4 +202,4 @@ python3 -m compileall -q learn-from-english/scripts learn-from-english/tests
 git diff --check
 ```
 
-测试覆盖批量事务回滚、重复学习、评分与错题原子性、状态转换、评分历史、间隔调度、上下文化菜单、旧数据迁移、校验修复、故障注入、并发进程写入、CLI 兼容和 Git 提交隔离。GitHub Actions 会在推送和 Pull Request 上自动执行测试、数据校验与编译检查。
+测试覆盖批量事务回滚、重复学习、评分与错题原子性、状态转换、评分历史、间隔调度、上下文化菜单、旧数据迁移、校验修复、故障注入、CLI 兼容和 Git 提交隔离。GitHub Actions 会在推送和 Pull Request 上自动执行测试、数据校验与编译检查。
