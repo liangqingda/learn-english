@@ -326,6 +326,23 @@
       "last_reviewed_at": null
     },
     {
+      "id": "errors:modal-will-base-verb-not-s-form",
+      "title": "will 后接动词原形",
+      "explanation": "情态动词 will 后面接动词原形；主语即使是 that，也不要把后面的动词变成第三人称单数。",
+      "source": "He doesn't want to going out with his colleague, because that will makes work embarrassing.",
+      "example": "That will make work embarrassing.",
+      "tags": [
+        "grammar"
+      ],
+      "first_learned_at": "2026-07-30T16:31:48+08:00",
+      "last_learned_at": "2026-07-30T16:31:48+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
       "id": "errors:passive-clause-needs-be",
       "title": "完整被动语态需要 be 动词",
       "explanation": "从句中 information 是 confirm 的承受者，因此完整被动语态应为 is confirmed；不能省略助动词 is。",
@@ -604,6 +621,23 @@
       ],
       "first_learned_at": "2026-07-29T21:09:22+08:00",
       "last_learned_at": "2026-07-29T21:09:22+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
+      "id": "errors:want-to-base-verb-not-gerund",
+      "title": "want to do：want 后接 to + 动词原形",
+      "explanation": "want 表示想要做某事时，后面通常接 to + 动词原形；不要写成 want to doing。",
+      "source": "He doesn't want to going out with his colleague, because that will makes work embarrassing.",
+      "example": "He doesn't want to go out with his colleague because that will make work embarrassing.",
+      "tags": [
+        "grammar"
+      ],
+      "first_learned_at": "2026-07-30T16:32:08+08:00",
+      "last_learned_at": "2026-07-30T16:32:08+08:00",
       "learned_count": 1,
       "mastery_score": 0,
       "review_count": 0,
