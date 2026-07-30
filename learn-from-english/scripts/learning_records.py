@@ -834,12 +834,6 @@ def build_review_menu(args: argparse.Namespace) -> dict[str, Any]:
     options.extend(
         [
             {
-                "id": "cet-practice",
-                "icon": "🧪",
-                "label": "做一道基于学习记录的四六级规格纯文本习题",
-                "kind": "cet-practice",
-            },
-            {
                 "id": "mastered-cet-paper",
                 "icon": "📝",
                 "label": "生成一套基于已掌握知识点的完整四六级套题（不含听力）",

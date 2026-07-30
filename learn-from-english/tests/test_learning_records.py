@@ -408,7 +408,7 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertTrue(all(item["location"] == "mastered-learning-records" for item in mastered))
         self.assertEqual({item["category"] for item in mastered}, {"vocabulary", "grammar"})
 
-    def test_menu_merges_paths_and_includes_fixed_options(self) -> None:
+    def test_menu_merges_paths_and_includes_review_options(self) -> None:
         records.upsert(self.args("errors", "unstable error"))
         records.upsert(self.args("vocabulary", "useful word"))
         records.upsert(self.args("usage", "polite tone"))
@@ -424,7 +424,7 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertEqual(menu["mastered_total"], 1)
         self.assertLessEqual(len(menu["options"]), 5)
         option_ids = [option["id"] for option in menu["options"]]
-        self.assertIn("cet-practice", option_ids)
+        self.assertNotIn("cet-practice", option_ids)
         self.assertIn("mastered-cet-paper", option_ids)
         self.assertIn("scenario-dialogue", option_ids)
         self.assertIn("familiar-review", option_ids)
@@ -451,7 +451,6 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertEqual(
             [option["id"] for option in menu["options"]],
             [
-                "cet-practice",
                 "mastered-cet-paper",
                 "scenario-dialogue",
                 "familiar-review",
