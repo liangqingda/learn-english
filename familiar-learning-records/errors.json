@@ -32,24 +32,6 @@
       "last_reviewed_at": "2026-07-29T19:21:51+08:00"
     },
     {
-      "id": "errors:missing-for-after-wait",
-      "title": "wait 后遗漏介词 for",
-      "explanation": "表示等待某人或某物时应使用 wait for somebody/something，不能直接使用 wait somebody。",
-      "source": "I am waiting a friend who lives near.",
-      "example": "I am waiting for a friend who lives nearby.",
-      "tags": [
-        "preposition",
-        "verb-pattern"
-      ],
-      "first_learned_at": "2026-07-28T22:44:09+08:00",
-      "last_learned_at": "2026-07-28T22:44:09+08:00",
-      "learned_count": 1,
-      "mastery_score": 8.0,
-      "review_count": 2,
-      "high_score_streak": 2,
-      "last_reviewed_at": "2026-07-29T13:49:51+08:00"
-    },
-    {
       "id": "errors:narrative-past-tense-consistency",
       "title": "过去叙事中的时态不一致",
       "explanation": "同一段已发生的连续事件应保持一般过去时；前句使用 read 表示过去时后，后句应使用 turned 和 followed。",

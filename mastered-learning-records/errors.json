@@ -8,6 +8,12 @@
       "mastered_at": "2026-07-30T16:08:40+08:00"
     },
     {
+      "id": "errors:missing-for-after-wait",
+      "title": "wait 后遗漏介词 for",
+      "summary": "表示等待某人或某物时应使用 wait for somebody/something，不能直接使用 wait somebody。",
+      "mastered_at": "2026-07-30T16:43:44+08:00"
+    },
+    {
       "id": "errors:modal-verb-base-form",
       "title": "情态动词后使用动词原形",
       "summary": "may、can、must 等情态动词后接动词原形；主语是 you 或 he/she 也不能把 feel 写成 feels。",
