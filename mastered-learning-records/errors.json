@@ -20,6 +20,12 @@
       "mastered_at": "2026-07-30T15:52:01+08:00"
     },
     {
+      "id": "errors:no-in-before-back-east",
+      "title": "back east 前不加 in",
+      "summary": "back east 本身可作地点副词短语，表示“在/向美国东部那边”，前面通常不再加 in；应说 lived back east，而不是 lived in back east。",
+      "mastered_at": "2026-07-30T17:14:23+08:00"
+    },
+    {
       "id": "errors:place-name-spelling-shenzhen",
       "title": "地名 Shenzhen 的拼写",
       "summary": "英文城市名 Shenzhen 要拼作 Shenzhen，不要写成 ShenShen。",
