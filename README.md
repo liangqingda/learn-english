@@ -141,6 +141,8 @@ python3 learn-from-english/scripts/learning_records.py migrate
 
 `menu` 和 `next-review` 把复习入口生成、分类合并、已标熟入口统计、低分优先选择等规则放在脚本里，Skill 应优先使用它们，避免临场拼接菜单时漏掉数量或选错记录。
 
+`validate` 除了检查字段结构和单个文件内的重复 ID，也会检查同一 ID 是否同时出现在待复习、已标熟和完全掌握目录。写入与评分命令的自动提交只包含本次实际修改的记录文件，不会带入其他已经暂存的文件；Git 提交失败时命令会明确报错。
+
 ## 运行测试
 
 项目只依赖 Python 标准库。可在仓库根目录运行：
@@ -150,3 +152,5 @@ python3 -m unittest discover -s learn-from-english/tests -v
 ```
 
 测试覆盖知识点写入、去重、搜索、分类统计、结构化菜单、下一条复习选择、评分排序、达标归档、10 分精简归入完全掌握目录、旧记录迁移、数据校验，以及损坏数据保护等行为。
+
+仓库的 GitHub Actions 会在推送和 Pull Request 上自动运行单元测试、记录校验与 Python 编译检查。

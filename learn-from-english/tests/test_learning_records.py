@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import json
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -20,9 +21,12 @@ class LearningRecordsTest(unittest.TestCase):
         self.temporary_directory = tempfile.TemporaryDirectory()
         self.addCleanup(self.temporary_directory.cleanup)
         root = Path(self.temporary_directory.name)
+        self.previous_repo_root = records.REPO_ROOT
         self.previous_auto_commit_enabled = records.AUTO_COMMIT_ENABLED
         records.AUTO_COMMIT_ENABLED = False
         self.addCleanup(self.restore_auto_commit_enabled)
+        records.REPO_ROOT = root
+        self.addCleanup(self.restore_repo_root)
         records.RECORDS_DIR = root / "learning-records"
         records.FAMILIAR_RECORDS_DIR = root / "familiar-learning-records"
         records.MASTERED_RECORDS_DIR = root / "mastered-learning-records"
@@ -32,6 +36,9 @@ class LearningRecordsTest(unittest.TestCase):
 
     def restore_auto_commit_enabled(self) -> None:
         records.AUTO_COMMIT_ENABLED = self.previous_auto_commit_enabled
+
+    def restore_repo_root(self) -> None:
+        records.REPO_ROOT = self.previous_repo_root
 
     @staticmethod
     def args(category: str, key: str | None = None) -> argparse.Namespace:
@@ -436,11 +443,21 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertIn("familiar-review", option_ids)
         mastered_paper = next(option for option in menu["options"] if option["id"] == "mastered-cet-paper")
         self.assertNotIn("count", mastered_paper)
-        mixed = next(option for option in menu["options"] if option["id"].startswith("mixed-"))
+        mixed = next(option for option in menu["options"] if option["id"].startswith("mixed+"))
+        records.review_record(
+            argparse.Namespace(category="errors", key="unstable error", score=2)
+        )
+        records.review_record(
+            argparse.Namespace(category="usage", key="polite tone", score=1)
+        )
         selected = records.next_review_record(
             argparse.Namespace(category=[], path=mixed["id"], familiar=False, random=False)
         )
-        self.assertIn(selected["record"]["category"], mixed["categories"])
+        self.assertEqual(
+            mixed["id"],
+            "mixed+errors-grammar+usage+vocabulary-phrases",
+        )
+        self.assertEqual(selected["record"]["category"], "vocabulary")
 
     def test_menu_can_open_from_mastered_records_only(self) -> None:
         records.upsert(self.args("usage", "mastered usage"))
@@ -575,6 +592,59 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertEqual(migrated["high_score_streak"], 0)
         self.assertIsNone(migrated["last_reviewed_at"])
         self.assertTrue(records.validate_records(argparse.Namespace())["valid"])
+
+    def test_validate_reports_ids_present_in_multiple_record_locations(self) -> None:
+        records.upsert(self.args("grammar", "duplicate state"))
+        item = records.load_document("grammar")["items"][0]
+        records.archive_record("grammar", item.copy())
+
+        validation = records.validate_records(argparse.Namespace())
+
+        self.assertFalse(validation["valid"])
+        self.assertEqual(validation["issue_count"], 1)
+        self.assertIn("multiple record locations", validation["issues"][0]["message"])
+
+    def test_auto_commit_only_commits_requested_record_paths(self) -> None:
+        subprocess.run(["git", "init", "-q"], cwd=records.REPO_ROOT, check=True)
+        subprocess.run(
+            ["git", "config", "user.email", "tests@example.com"],
+            cwd=records.REPO_ROOT,
+            check=True,
+        )
+        subprocess.run(
+            ["git", "config", "user.name", "Learning Records Tests"],
+            cwd=records.REPO_ROOT,
+            check=True,
+        )
+        target = records.category_path("grammar")
+        unrelated = records.category_path("usage")
+        target.write_text('{"category":"grammar","items":[]}\n', encoding="utf-8")
+        unrelated.write_text('{"category":"usage","items":[]}\n', encoding="utf-8")
+        subprocess.run(
+            ["git", "add", "learning-records/usage.json"],
+            cwd=records.REPO_ROOT,
+            check=True,
+        )
+        records.AUTO_COMMIT_ENABLED = True
+
+        records.auto_commit_records("scoped commit", target)
+
+        committed = subprocess.run(
+            ["git", "show", "--format=", "--name-only", "HEAD"],
+            cwd=records.REPO_ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.splitlines()
+        self.assertEqual(committed, ["learning-records/grammar.json"])
+        status = subprocess.run(
+            ["git", "status", "--short"],
+            cwd=records.REPO_ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout
+        self.assertIn("A  learning-records/usage.json", status)
 
     def test_json_is_utf8_indented_and_has_stable_fields(self) -> None:
         args = self.args("vocabulary", "context meaning")

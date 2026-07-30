@@ -7,8 +7,8 @@ import argparse
 import json
 import os
 import random
-import subprocess
 import re
+import subprocess
 import sys
 import tempfile
 import unicodedata
@@ -24,12 +24,13 @@ CATEGORIES = (
     "usage",
     "errors",
 )
-RECORDS_DIR = Path(__file__).resolve().parents[2] / "learning-records"
+REPO_ROOT = Path(__file__).resolve().parents[2]
+RECORDS_DIR = REPO_ROOT / "learning-records"
 FAMILIAR_RECORDS_DIR = (
-    Path(__file__).resolve().parents[2] / "familiar-learning-records"
+    REPO_ROOT / "familiar-learning-records"
 )
 MASTERED_RECORDS_DIR = (
-    Path(__file__).resolve().parents[2] / "mastered-learning-records"
+    REPO_ROOT / "mastered-learning-records"
 )
 MASTERY_THRESHOLD = 8.0
 PERFECT_SCORE = 10.0
@@ -203,43 +204,72 @@ def write_document_to_location(
     write_document_to_path(document_path(location, category), category, document)
 
 
-def auto_commit_records(reason: str) -> None:
+def auto_commit_records(reason: str, *paths: Path) -> None:
     if not AUTO_COMMIT_ENABLED:
         return
 
-    repo_root = Path(__file__).resolve().parents[2]
-    git_dir = repo_root / ".git"
+    git_dir = REPO_ROOT / ".git"
     if not git_dir.exists():
+        return
+
+    relative_paths: list[str] = []
+    for path in dict.fromkeys(paths):
+        try:
+            relative_paths.append(str(path.resolve().relative_to(REPO_ROOT.resolve())))
+        except ValueError as exc:
+            raise RecordError(f"record path is outside the repository: {path}") from exc
+    if not relative_paths:
         return
 
     try:
         status = subprocess.run(
-            ["git", "-C", str(repo_root), "status", "--porcelain"],
+            [
+                "git",
+                "-C",
+                str(REPO_ROOT),
+                "status",
+                "--porcelain",
+                "--",
+                *relative_paths,
+            ],
             check=True,
             capture_output=True,
             text=True,
         )
-    except (OSError, subprocess.CalledProcessError):
-        return
+    except (OSError, subprocess.CalledProcessError) as exc:
+        raise RecordError(f"records were saved, but Git status failed: {exc}") from exc
 
     if not status.stdout.strip():
         return
 
     try:
         subprocess.run(
-            ["git", "-C", str(repo_root), "add", "learning-records", "familiar-learning-records", "mastered-learning-records"],
+            ["git", "-C", str(REPO_ROOT), "add", "--", *relative_paths],
             check=True,
             capture_output=True,
             text=True,
         )
         subprocess.run(
-            ["git", "-C", str(repo_root), "commit", "-m", f"[records]: {reason}"],
+            [
+                "git",
+                "-C",
+                str(REPO_ROOT),
+                "commit",
+                "--only",
+                "-m",
+                f"[records]: {reason}",
+                "--",
+                *relative_paths,
+            ],
             check=True,
             capture_output=True,
             text=True,
         )
-    except (OSError, subprocess.CalledProcessError):
-        return
+    except (OSError, subprocess.CalledProcessError) as exc:
+        detail = exc.stderr.strip() if isinstance(exc, subprocess.CalledProcessError) else str(exc)
+        raise RecordError(
+            f"records were saved, but automatic Git commit failed: {detail or exc}"
+        ) from exc
 
 
 def load_familiar_document(category: str) -> dict[str, Any]:
@@ -575,7 +605,7 @@ def upsert(args: argparse.Namespace) -> dict[str, Any]:
 
     document["items"].sort(key=lambda value: str(value.get("id", "")))
     write_document(args.category, document)
-    auto_commit_records(f"upsert {args.category}")
+    auto_commit_records(f"upsert {args.category}", category_path(args.category))
     return {
         **item,
         "created": True,
@@ -610,7 +640,11 @@ def review_record(args: argparse.Namespace) -> dict[str, Any]:
         master_record(args.category, existing, now)
         document["items"].remove(existing)
         write_document(args.category, document)
-        auto_commit_records(f"review {args.category} perfect")
+        auto_commit_records(
+            f"review {args.category} perfect",
+            category_path(args.category),
+            mastered_category_path(args.category),
+        )
         return {
             **existing,
             "archived": False,
@@ -622,7 +656,11 @@ def review_record(args: argparse.Namespace) -> dict[str, Any]:
         archive_record(args.category, existing)
         document["items"].remove(existing)
         write_document(args.category, document)
-        auto_commit_records(f"review {args.category} archive")
+        auto_commit_records(
+            f"review {args.category} archive",
+            category_path(args.category),
+            familiar_category_path(args.category),
+        )
         return {
             **existing,
             "archived": True,
@@ -631,7 +669,7 @@ def review_record(args: argparse.Namespace) -> dict[str, Any]:
         }
 
     write_document(args.category, document)
-    auto_commit_records(f"review {args.category}")
+    auto_commit_records(f"review {args.category}", category_path(args.category))
     return {**existing, "archived": False, "deleted": False, "mastered": False}
 
 
@@ -699,7 +737,11 @@ def review_familiar_record(args: argparse.Namespace) -> dict[str, Any]:
         master_record(args.category, existing, existing["last_reviewed_at"])
         document["items"].remove(existing)
         write_document_to_path(familiar_category_path(args.category), args.category, document)
-        auto_commit_records(f"familiar-review {args.category} perfect")
+        auto_commit_records(
+            f"familiar-review {args.category} perfect",
+            familiar_category_path(args.category),
+            mastered_category_path(args.category),
+        )
         return {
             **existing,
             "moved_to_learning_records": False,
@@ -712,7 +754,11 @@ def review_familiar_record(args: argparse.Namespace) -> dict[str, Any]:
         restore_record(args.category, existing)
         document["items"].remove(existing)
         write_document_to_path(familiar_category_path(args.category), args.category, document)
-        auto_commit_records(f"familiar-review {args.category} restore")
+        auto_commit_records(
+            f"familiar-review {args.category} restore",
+            familiar_category_path(args.category),
+            category_path(args.category),
+        )
         return {
             **existing,
             "moved_to_learning_records": True,
@@ -721,7 +767,9 @@ def review_familiar_record(args: argparse.Namespace) -> dict[str, Any]:
         }
 
     write_document_to_path(familiar_category_path(args.category), args.category, document)
-    auto_commit_records(f"familiar-review {args.category}")
+    auto_commit_records(
+        f"familiar-review {args.category}", familiar_category_path(args.category)
+    )
     return {
         **existing,
         "moved_to_learning_records": False,
@@ -867,7 +915,7 @@ def build_review_menu(args: argparse.Namespace) -> dict[str, Any]:
             merged_categories.extend(path["categories"])
         visible_paths = [
             {
-                "id": f"mixed-{merged_paths[0]['id']}-{merged_paths[1]['id']}",
+                "id": "mixed+" + "+".join(path["id"] for path in merged_paths),
                 "icon": merged["icon"],
                 "label": "综合复习低分知识点",
                 "categories": merged_categories,
@@ -920,9 +968,12 @@ def next_review_record(args: argparse.Namespace) -> dict[str, Any]:
     categories = args.category or []
     if args.path:
         selected = next((path for path in REVIEW_PATHS if path["id"] == args.path), None)
-        selected_paths = [selected] if selected is not None else [
-            path for path in REVIEW_PATHS if path["id"] in args.path
-        ]
+        selected_paths = [selected] if selected is not None else []
+        if args.path.startswith("mixed+"):
+            path_ids = args.path.split("+")[1:]
+            selected_paths = [path for path in REVIEW_PATHS if path["id"] in path_ids]
+            if len(selected_paths) != len(path_ids):
+                selected_paths = []
         if not selected_paths:
             raise RecordError(f"review path does not exist: {args.path}")
         for path in selected_paths:
@@ -949,6 +1000,7 @@ def next_review_record(args: argparse.Namespace) -> dict[str, Any]:
 
 def validate_records(_args: argparse.Namespace) -> dict[str, Any]:
     issues: list[dict[str, Any]] = []
+    id_locations: dict[str, set[str]] = {}
     for location in (
         "learning-records",
         "familiar-learning-records",
@@ -957,6 +1009,24 @@ def validate_records(_args: argparse.Namespace) -> dict[str, Any]:
         for category in CATEGORIES:
             document = load_document_from_location(location, category)
             issues.extend(validate_document_items(location, category, document))
+            for item in document["items"]:
+                if isinstance(item, dict) and isinstance(item.get("id"), str):
+                    id_locations.setdefault(item["id"], set()).add(location)
+    for item_id, locations in id_locations.items():
+        if len(locations) > 1:
+            category = item_id.partition(":")[0]
+            issues.append(
+                {
+                    "location": None,
+                    "category": category,
+                    "id": item_id,
+                    "field": "id",
+                    "message": (
+                        f"{item_id!r} exists in multiple record locations: "
+                        + ", ".join(sorted(locations))
+                    ),
+                }
+            )
     return {"valid": not issues, "issue_count": len(issues), "issues": issues}
 
 
