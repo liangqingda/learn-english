@@ -37,6 +37,7 @@ When the user selects the mandatory exercise option, generate one focused text-b
 - Choose a format that fits the current knowledge point: contextual word-bank cloze, paragraph matching, careful-reading single choice, Chinese-to-English paragraph translation, or prompted short writing.
 - Do not generate listening questions or simulate listening material.
 - Preserve the tested expression or rule but place it in a new context; do not merely ask the user to repeat the original example.
+- Do not reveal the target word, the correct option, or the correct answer in the exercise title, prompt, menu label, or any pre-answer hint. Use neutral wording such as `本题` or `当前知识点` when naming the task.
 - For single-choice questions, provide one best answer and plausible distractors labeled `A` through `D`. For productive tasks, provide a clear prompt and proportionally shortened requirements suitable for one chat turn.
 - Do not present isolated grammar trivia as an official CET question. Test grammar through vocabulary in context, reading, translation, or writing.
 - Do not reveal the answer before the user responds. After the response, give a clear judgment, explain the decisive point, provide the correct or improved answer, and then append a new compliant menu.

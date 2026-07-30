@@ -131,16 +131,8 @@ def _initial_options(counts: dict[str, Any]) -> list[dict[str, Any]]:
 def _follow_up_options(
     counts: dict[str, Any], *, exercise_active: bool, focus: str | None
 ) -> list[dict[str, Any]]:
-    cet_label = (
-        f"做一道关于“{focus}”的四六级规格纯文本习题"
-        if focus
-        else "做一道关于日常沟通的四六级规格纯文本习题"
-    )
-    scenario_label = (
-        f"在咖啡店与朋友讨论近况时练习“{focus}”"
-        if focus
-        else "开始一段在餐厅与服务员沟通的场景对话"
-    )
+    cet_label = "做一道四六级规格纯文本习题"
+    scenario_label = "开始一段日常沟通的场景对话"
     options = [
         _option(
             "continue-review",
@@ -159,7 +151,7 @@ def _follow_up_options(
             count=counts["totals"]["familiar"],
         ),
     ]
-    if counts["totals"]["mastered"]:
+    if counts["totals"]["mastered"] and not exercise_active:
         options.append(
             _option(
                 "mastered-review",
@@ -189,6 +181,15 @@ def _follow_up_options(
             kind="cet-practice",
         )
     )
+    options.append(
+        _option(
+            "scenario-dialogue",
+            "🎭",
+            scenario_label,
+            "other",
+            kind="scenario-dialogue",
+        )
+    )
     if not exercise_active and counts["totals"]["mastered"]:
         options.append(
             _option(
@@ -200,15 +201,6 @@ def _follow_up_options(
                 count=counts["totals"]["mastered"],
             )
         )
-    options.append(
-        _option(
-            "scenario-dialogue",
-            "🎭",
-            scenario_label,
-            "other",
-            kind="scenario-dialogue",
-        )
-    )
     return options[:5]
 
 
