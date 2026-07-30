@@ -44,6 +44,9 @@ def counts_for(records: dict[str, dict[str, Any]]) -> dict[str, Any]:
 
 
 def _option(id: str, icon: str, label: str, group: str, **extra: Any) -> dict[str, Any]:
+    count = extra.get("count")
+    if isinstance(count, int):
+        label = f"{label}（{count}）"
     return {"id": id, "icon": icon, "label": label, "group": group, **extra}
 
 
@@ -100,6 +103,7 @@ def _initial_options(counts: dict[str, Any]) -> list[dict[str, Any]]:
                 "生成一套基于已掌握知识点的完整四六级套题（不含听力）",
                 "other",
                 kind="mastered-cet-paper",
+                count=counts["totals"]["mastered"],
             )
         )
     else:
@@ -182,6 +186,7 @@ def _follow_up_options(
                 "生成一套基于已掌握知识点的完整四六级套题（不含听力）",
                 "other",
                 kind="mastered-cet-paper",
+                count=counts["totals"]["mastered"],
             )
         )
     options.append(

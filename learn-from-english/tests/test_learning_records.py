@@ -165,6 +165,9 @@ class LearningRecordsTest(unittest.TestCase):
             self.assertLessEqual(len(menu["options"]), 5)
             self.assertIn("popular", {option["group"] for option in menu["options"]})
             self.assertIn("scenario-dialogue", {option["id"] for option in menu["options"]})
+            for option in menu["options"]:
+                if "count" in option:
+                    self.assertTrue(option["label"].endswith(f"（{option['count']}）"))
         self.assertIn("explain-current-exercise", {item["id"] for item in active["options"]})
         self.assertNotIn("mastered-cet-paper", {item["id"] for item in active["options"]})
         active_labels = {item["id"]: item["label"] for item in active["options"]}
@@ -173,6 +176,11 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertIn("咖啡店", active_labels["scenario-dialogue"])
         initial_labels = {item["id"]: item["label"] for item in initial["options"]}
         self.assertIn("咖啡店", initial_labels["scenario-dialogue"])
+        mastered_paper = next(
+            item for item in initial["options"] if item["id"] == "mastered-cet-paper"
+        )
+        self.assertEqual(mastered_paper["count"], 1)
+        self.assertTrue(mastered_paper["label"].endswith("（1）"))
 
     def test_merged_review_path_includes_every_category(self) -> None:
         for category in ("errors", "vocabulary", "usage"):
