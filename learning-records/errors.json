@@ -396,6 +396,24 @@
       "last_reviewed_at": null
     },
     {
+      "id": "errors:semantic-conflict-old-timers-newcomers",
+      "title": "old-timers 与 newcomer 语义冲突",
+      "explanation": "old-timers 指长期生活在某地、熟悉当地往事的人，不能和 moved here last week / know nothing about the town 这类新来且不了解当地的描述搭配；这种语境应改用 newcomers 或 new residents。",
+      "source": "Many old-timers moved here last week and know nothing about the town.",
+      "example": "Many newcomers moved here last week and know nothing about the town.",
+      "tags": [
+        "old-timers",
+        "phrase-meaning"
+      ],
+      "first_learned_at": "2026-07-30T10:36:25+08:00",
+      "last_learned_at": "2026-07-30T10:36:25+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
       "id": "errors:several-plus-plural-count-noun",
       "title": "several 后接可数名词复数",
       "explanation": "several 表示“几个”，后面接可数名词复数；因此应说 several offices，而不是 several office。",
@@ -455,6 +473,24 @@
       ],
       "first_learned_at": "2026-07-29T21:09:22+08:00",
       "last_learned_at": "2026-07-29T21:09:22+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
+      "id": "errors:when-clause-open-event-tense",
+      "title": "when 从句描述开业事件的动词和时态",
+      "explanation": "表达“某地刚开业的时候”应使用 opened 或 had just opened，而不是 close；在 remember when... 中，when 从句通常用过去时或过去完成时来描述被回忆的过去事件。",
+      "source": "Many old-timers still remember when the theatre just close.",
+      "example": "Many old-timers still remember when the theater had just opened.",
+      "tags": [
+        "tense",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-07-30T10:36:25+08:00",
+      "last_learned_at": "2026-07-30T10:36:25+08:00",
       "learned_count": 1,
       "mastery_score": 0,
       "review_count": 0,
