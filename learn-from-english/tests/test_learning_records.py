@@ -429,7 +429,7 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertIn("scenario-dialogue", option_ids)
         self.assertIn("familiar-review", option_ids)
         mastered_paper = next(option for option in menu["options"] if option["id"] == "mastered-cet-paper")
-        self.assertEqual(mastered_paper["count"], 1)
+        self.assertNotIn("count", mastered_paper)
         mixed = next(option for option in menu["options"] if option["id"].startswith("mixed-"))
         selected = records.next_review_record(
             argparse.Namespace(category=[], path=mixed["id"], familiar=False, random=False)

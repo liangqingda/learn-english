@@ -844,7 +844,6 @@ def build_review_menu(args: argparse.Namespace) -> dict[str, Any]:
                 "icon": "📝",
                 "label": "生成一套基于已掌握知识点的完整四六级套题（不含听力）",
                 "kind": "mastered-cet-paper",
-                "count": mastered_total,
             },
             {
                 "id": "scenario-dialogue",
