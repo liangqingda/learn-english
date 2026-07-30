@@ -41,10 +41,16 @@ python3 learn-from-english/scripts/learning_records.py menu --context initial
 
 命令返回 `record: null` 时明确说明当前范围没有记录，然后重新生成初始菜单；不得临时编造复习记录。
 
-保留返回记录的 `id`、`category` 和 `status`，直到当前题组完成。新抽出记录并首次呈现题目时，在底部标注：
+保留返回记录的 `id`、`category` 和 `status`，直到当前题组完成。新抽出记录并首次呈现题目时，按以下固定顺序输出：标题、可选的一句简短引导语、来源标注、题目正文。来源标注必须紧邻第一题之前，不得放在最后一题之后、菜单区域或最终 attribution 附近：
 
 ```text
-*Picked from learning-records/<status>/<category>*
+#### <当前复习主题>
+
+<可选的简短引导语>
+
+*Picked from records.json · <status> · <category>*
+
+1. <第一题>
 ```
 
 后续讲解或评价同一题组时不重复来源标注。
@@ -139,7 +145,7 @@ python3 learn-from-english/scripts/learning_records.py menu \
 python3 learn-from-english/scripts/learning_records.py mastered-list
 ```
 
-只使用返回的 `status: mastered` 记录作为素材池。套题包含写作、选词填空、长篇匹配、仔细阅读和汉译英，不包含听力，也不声称来自官方真题。首次呈现时不附答案，底部标注 `*Picked from learning-records/mastered*`。套题不改动记录分数。
+只使用返回的 `status: mastered` 记录作为素材池。套题包含写作、选词填空、长篇匹配、仔细阅读和汉译英，不包含听力，也不声称来自官方真题。首次呈现时不附答案，并在套题标题或简短引导语之后、第一部分之前标注 `*Picked from records.json · mastered*`；不得把来源放在整套题末尾。套题不改动记录分数。
 
 ## 历史与统计
 
