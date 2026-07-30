@@ -537,6 +537,21 @@
       "last_reviewed_at": null
     },
     {
+      "id": "errors:tense-agreement-narrative-continue",
+      "title": "叙述已发生动作时 continue 未用过去式",
+      "explanation": "描述已经发生的连续动作时，谓语动词要与整体过去时态保持一致；continue 应写作 continued，且正式语境用 discuss the budget 替代 talk about budget。",
+      "source": "After drinking coffee, we continue to have a meeting and talk about budget.",
+      "example": "After coffee, we continued the meeting to discuss the budget.",
+      "tags": [],
+      "first_learned_at": "2026-07-30T13:04:53+08:00",
+      "last_learned_at": "2026-07-30T13:04:53+08:00",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null
+    },
+    {
       "id": "errors:traffic-light-time-clause",
       "title": "用时间从句表达交通灯变色",
       "explanation": "表达“绿灯亮后”时，通常说 when/after the light turns green，而不是 after green light；light 前需要限定词，并用 turns green 表达状态变化。",
