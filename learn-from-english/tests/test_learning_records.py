@@ -1,678 +1,481 @@
 from __future__ import annotations
 
-import argparse
-import importlib.util
 import json
+import multiprocessing
+import os
 import subprocess
+import sys
 import tempfile
 import unittest
+from datetime import datetime
 from pathlib import Path
 
 
-SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "learning_records.py"
-SPEC = importlib.util.spec_from_file_location("learning_records", SCRIPT)
-assert SPEC and SPEC.loader
-records = importlib.util.module_from_spec(SPEC)
-SPEC.loader.exec_module(records)
+SCRIPT_DIR = Path(__file__).resolve().parents[1] / "scripts"
+sys.path.insert(0, str(SCRIPT_DIR))
+
+from learning_records_tool.models import RecordError, empty_database  # noqa: E402
+from learning_records_tool.service import RecordService  # noqa: E402
+from learning_records_tool.store import RecordStore  # noqa: E402
+
+
+SCRIPT = SCRIPT_DIR / "learning_records.py"
+
+
+def payload(category: str, key: str) -> dict[str, object]:
+    return {
+        "category": category,
+        "key": key,
+        "title": f"{category} {key}",
+        "explanation": f"Explanation for {key}",
+        "source": f"Source for {key}",
+        "example": f"Example for {key}",
+        "tags": ["core", "review"],
+    }
+
+
+def concurrent_upsert(repo_root: str, index: int, auto_commit: bool = False) -> None:
+    service = RecordService(RecordStore(Path(repo_root)), auto_commit=auto_commit)
+    service.upsert(payload("vocabulary", f"word-{index}"))
 
 
 class LearningRecordsTest(unittest.TestCase):
     def setUp(self) -> None:
         self.temporary_directory = tempfile.TemporaryDirectory()
         self.addCleanup(self.temporary_directory.cleanup)
-        root = Path(self.temporary_directory.name)
-        self.previous_repo_root = records.REPO_ROOT
-        self.previous_auto_commit_enabled = records.AUTO_COMMIT_ENABLED
-        records.AUTO_COMMIT_ENABLED = False
-        self.addCleanup(self.restore_auto_commit_enabled)
-        records.REPO_ROOT = root
-        self.addCleanup(self.restore_repo_root)
-        records.RECORDS_DIR = root / "learning-records"
-        records.FAMILIAR_RECORDS_DIR = root / "familiar-learning-records"
-        records.MASTERED_RECORDS_DIR = root / "mastered-learning-records"
-        records.RECORDS_DIR.mkdir()
-        records.FAMILIAR_RECORDS_DIR.mkdir()
-        records.MASTERED_RECORDS_DIR.mkdir()
+        self.root = Path(self.temporary_directory.name)
+        self.store = RecordStore(self.root)
+        self.store.initialize(empty_database())
+        self.service = RecordService(self.store, auto_commit=False)
 
-    def restore_auto_commit_enabled(self) -> None:
-        records.AUTO_COMMIT_ENABLED = self.previous_auto_commit_enabled
-
-    def restore_repo_root(self) -> None:
-        records.REPO_ROOT = self.previous_repo_root
-
-    @staticmethod
-    def args(category: str, key: str | None = None) -> argparse.Namespace:
-        return argparse.Namespace(
-            category=category,
-            key=key,
-            title=f"{category} title",
-            explanation=f"{category} explanation",
-            source=f"{category} source",
-            example=f"{category} example",
-            tag=["core", "Core", "review"],
+    def test_batch_upsert_is_atomic_and_tracks_repeated_encounters(self) -> None:
+        result = self.service.batch_upsert(
+            [payload("grammar", "present-perfect"), payload("phrases", "wait-for")]
         )
+        self.assertEqual(result["count"], 2)
+        self.assertTrue(all(item["created"] for item in result["results"]))
 
-    def test_upserts_all_categories_and_initializes_missing_files(self) -> None:
-        for category in records.CATEGORIES:
-            item = records.upsert(self.args(category))
-            self.assertEqual(item["id"], f"{category}:{category}-title")
-            self.assertTrue(item["created"])
-            self.assertEqual(item["location"], "learning-records")
-            self.assertEqual(item["learned_count"], 1)
-            self.assertEqual(item["mastery_score"], 0)
-            self.assertTrue((records.RECORDS_DIR / f"{category}.json").exists())
+        repeated = self.service.upsert(payload("grammar", "present perfect"))
 
-    def test_duplicate_key_in_learning_records_is_skipped(self) -> None:
-        first_args = self.args("grammar", "present perfect experience")
-        first_args.title = "现在完成时表示延续"
-        first_args.explanation = "表示过去开始并持续到现在的状态或动作。"
-        first_args.source = "I've worked here since 2020."
-        first_args.example = "She has lived here for five years."
-        first = records.upsert(first_args)
-        second_args = self.args("grammar", "present-perfect-experience")
-        second_args.explanation = "updated explanation"
-        second = records.upsert(second_args)
+        self.assertFalse(repeated["created"])
+        self.assertTrue(repeated["encountered"])
+        self.assertEqual(repeated["learned_count"], 2)
+        self.assertEqual(len(self.service.records()), 2)
 
-        document = records.load_document("grammar")
-        self.assertEqual(len(document["items"]), 1)
-        self.assertEqual(first["id"], second["id"])
-        self.assertFalse(second["created"])
-        self.assertEqual(second["location"], "learning-records")
-        self.assertEqual(second["learned_count"], 1)
-        self.assertEqual(second["explanation"], first["explanation"])
-        self.assertEqual(second["tags"], first["tags"])
+    def test_invalid_batch_rolls_back_every_record(self) -> None:
+        before = self.store.data_path.read_text(encoding="utf-8")
+        invalid = payload("grammar", "broken")
+        invalid["source"] = ""
 
-    def test_duplicate_key_in_familiar_records_is_skipped(self) -> None:
-        args = self.args("grammar", "reviewed rule")
-        item = records.upsert(args)
-        document = records.load_document("grammar")
-        document["items"].remove(document["items"][0])
-        records.write_document("grammar", document)
-        records.archive_record("grammar", {
-            key: value
-            for key, value in item.items()
-            if key not in {"created", "location"}
-        })
+        with self.assertRaisesRegex(RecordError, "source must not be empty"):
+            self.service.batch_upsert([payload("usage", "valid"), invalid])
 
-        duplicate = records.upsert(args)
+        self.assertEqual(self.store.data_path.read_text(encoding="utf-8"), before)
 
-        self.assertFalse(duplicate["created"])
-        self.assertEqual(duplicate["location"], "familiar-learning-records")
-        self.assertEqual(records.load_document("grammar")["items"], [])
-        self.assertEqual(len(records.load_familiar_document("grammar")["items"]), 1)
+    def test_batch_rejects_non_object_records_and_non_string_tags(self) -> None:
+        with self.assertRaisesRegex(RecordError, "record must be an object"):
+            self.service.batch_upsert(["not-an-object"])  # type: ignore[list-item]
+        invalid_tags = payload("usage", "invalid-tags")
+        invalid_tags["tags"] = ["valid", 3]
+        with self.assertRaisesRegex(RecordError, "tags must be an array of strings"):
+            self.service.batch_upsert([invalid_tags])
+        self.assertEqual(self.service.records(), {})
 
-    def test_review_scores_records_and_lists_low_scores_first(self) -> None:
-        records.upsert(self.args("grammar", "low score"))
-        records.upsert(self.args("grammar", "partial score"))
+    def test_tags_are_deduplicated_case_insensitively(self) -> None:
+        record_payload = payload("usage", "tag-normalization")
+        record_payload["tags"] = ["Core", "core", " review "]
 
-        reviewed = records.review_record(
-            argparse.Namespace(category="grammar", key="partial score", score=7)
-        )
+        result = self.service.upsert(record_payload)
 
-        self.assertFalse(reviewed["archived"])
-        self.assertEqual(reviewed["mastery_score"], 7)
-        self.assertEqual(reviewed["review_count"], 1)
-        self.assertEqual(reviewed["high_score_streak"], 0)
-        listed = records.list_records(argparse.Namespace(category="grammar"))
-        self.assertEqual([item["id"] for item in listed], [
-            "grammar:low-score",
-            "grammar:partial-score",
-        ])
+        self.assertEqual(result["tags"], ["Core", "review"])
 
-    def test_single_mastery_score_archives_record(self) -> None:
-        records.upsert(self.args("phrases", "mastered phrase"))
+    def test_complete_review_scores_and_records_errors_in_one_transaction(self) -> None:
+        self.service.upsert(payload("grammar", "target-rule"))
+        error = payload("errors", "missing-article")
 
-        result = records.review_record(
-            argparse.Namespace(category="phrases", key="mastered phrase", score=8)
-        )
+        result = self.service.complete_review("grammar:target-rule", 8, [error])
+
+        self.assertEqual(result["status"], "familiar")
         self.assertTrue(result["archived"])
-        self.assertFalse(result["deleted"])
-        self.assertEqual(result["high_score_streak"], 1)
-        self.assertEqual(records.load_document("phrases")["items"], [])
-        familiar = records.load_familiar_document("phrases")
-        self.assertEqual([item["id"] for item in familiar["items"]], [
-            "phrases:mastered-phrase"
-        ])
-        self.assertEqual(familiar["items"][0]["mastery_score"], 8)
-        self.assertEqual(familiar["items"][0]["review_count"], 1)
-
-    def test_perfect_review_score_moves_concise_record_to_mastered(self) -> None:
-        records.upsert(self.args("grammar", "perfect answer"))
-
-        result = records.review_record(
-            argparse.Namespace(category="grammar", key="perfect answer", score=10)
-        )
-
-        self.assertFalse(result["deleted"])
-        self.assertFalse(result["archived"])
-        self.assertTrue(result["mastered"])
-        self.assertEqual(result["mastery_score"], 10)
         self.assertEqual(result["review_count"], 1)
-        self.assertEqual(records.load_document("grammar")["items"], [])
-        self.assertEqual(records.load_familiar_document("grammar")["items"], [])
-        mastered = records.load_mastered_document("grammar")
-        self.assertEqual([item["id"] for item in mastered["items"]], [
-            "grammar:perfect-answer"
-        ])
-        self.assertEqual(
-            list(mastered["items"][0]),
-            ["id", "title", "summary", "mastered_at"],
-        )
-        self.assertEqual(mastered["items"][0]["title"], "grammar title")
-        self.assertEqual(mastered["items"][0]["summary"], "grammar explanation")
+        self.assertEqual(len(result["errors"]), 1)
+        records = self.service.records()
+        self.assertIn("errors:missing-article", records)
+        self.assertEqual(records["grammar:target-rule"]["review_history"][0]["score"], 8)
+        self.assertIsNotNone(records["grammar:target-rule"]["next_review_at"])
 
-    def test_low_score_resets_high_score_streak(self) -> None:
-        records.upsert(self.args("usage", "polite request"))
-        document = records.load_document("usage")
-        document["items"][0]["high_score_streak"] = 2
-        records.write_document("usage", document)
+    def test_invalid_error_rolls_back_review_score(self) -> None:
+        self.service.upsert(payload("grammar", "target-rule"))
+        invalid_error = payload("errors", "invalid-error")
+        invalid_error["source"] = ""
 
-        result = records.review_record(
-            argparse.Namespace(category="usage", key="polite request", score=7)
-        )
+        with self.assertRaisesRegex(RecordError, "source must not be empty"):
+            self.service.complete_review("grammar:target-rule", 7, [invalid_error])
 
-        self.assertFalse(result["archived"])
-        self.assertEqual(result["high_score_streak"], 0)
-        self.assertEqual(result["review_count"], 1)
+        record = self.service.records()["grammar:target-rule"]
+        self.assertEqual(record["review_count"], 0)
+        self.assertEqual(record["mastery_score"], 0)
 
-    def test_review_rejects_invalid_score_and_missing_record(self) -> None:
-        records.upsert(self.args("vocabulary", "known word"))
-        with self.assertRaisesRegex(records.RecordError, "between 0 and 10"):
-            records.review_record(
-                argparse.Namespace(category="vocabulary", key="known word", score=11)
-            )
-        with self.assertRaisesRegex(records.RecordError, "record does not exist"):
-            records.review_record(
-                argparse.Namespace(category="vocabulary", key="missing", score=5)
+    def test_expected_review_status_is_checked_inside_transaction(self) -> None:
+        self.service.upsert(payload("grammar", "status-check"))
+
+        with self.assertRaisesRegex(RecordError, "familiar record does not exist"):
+            self.service.complete_review(
+                "grammar:status-check", 8, expected_status="familiar"
             )
 
-    def test_familiar_records_are_listed_by_oldest_review_time_across_categories(self) -> None:
-        grammar = records.upsert(self.args("grammar", "later reviewed"))
-        phrase = records.upsert(self.args("phrases", "never reviewed"))
-        grammar_item = {key: value for key, value in grammar.items() if key not in {"created", "location"}}
-        phrase_item = {key: value for key, value in phrase.items() if key not in {"created", "location"}}
-        grammar_item["last_reviewed_at"] = "2026-07-01T12:00:00+08:00"
-        for category, item in (("grammar", grammar_item), ("phrases", phrase_item)):
-            document = records.load_document(category)
-            document["items"].clear()
-            records.write_document(category, document)
-            records.archive_record(category, item)
+        self.assertEqual(self.service.records()["grammar:status-check"]["review_count"], 0)
 
-        listed = records.list_familiar_records(argparse.Namespace())
+    def test_status_transitions_and_lapses(self) -> None:
+        self.service.upsert(payload("phrases", "solid-phrase"))
+        first = self.service.complete_review("phrases:solid-phrase", 10)
+        self.assertEqual(first["status"], "mastered")
+        mastered_at = first["mastered_at"]
 
-        self.assertEqual(
-            [item["id"] for item in listed],
-            ["phrases:never-reviewed", "grammar:later-reviewed"],
-        )
-        self.assertEqual(listed[0]["category"], "phrases")
+        second = self.service.complete_review("phrases:solid-phrase", 10)
+        self.assertEqual(second["mastered_at"], mastered_at)
 
-    def test_low_familiar_review_score_moves_record_back_to_learning(self) -> None:
-        item = records.upsert(self.args("grammar", "rusty rule"))
-        archived = {key: value for key, value in item.items() if key not in {"created", "location"}}
-        document = records.load_document("grammar")
-        document["items"].clear()
-        records.write_document("grammar", document)
-        records.archive_record("grammar", archived)
+        third = self.service.complete_review("phrases:solid-phrase", 6)
+        self.assertEqual(third["status"], "learning")
+        self.assertEqual(third["lapse_count"], 1)
 
-        result = records.review_familiar_record(
-            argparse.Namespace(category="grammar", key="rusty rule", score=7)
-        )
+    def test_mastered_records_keep_full_learning_content(self) -> None:
+        self.service.upsert(payload("usage", "polite-request"))
+        self.service.complete_review("usage:polite-request", 10)
 
-        self.assertTrue(result["moved_to_learning_records"])
-        self.assertEqual(result["mastery_score"], 7)
-        self.assertEqual(result["review_count"], 1)
-        self.assertEqual(result["high_score_streak"], 0)
-        self.assertIsNotNone(result["last_reviewed_at"])
-        self.assertEqual(records.load_familiar_document("grammar")["items"], [])
-        self.assertEqual(records.load_document("grammar")["items"][0]["id"], "grammar:rusty-rule")
+        record = self.service.records()["usage:polite-request"]
 
-    def test_high_familiar_review_score_updates_time_and_keeps_record_familiar(self) -> None:
-        item = records.upsert(self.args("phrases", "solid phrase"))
-        archived = {key: value for key, value in item.items() if key not in {"created", "location"}}
-        archived["last_reviewed_at"] = "2026-01-01T00:00:00+08:00"
-        document = records.load_document("phrases")
-        document["items"].clear()
-        records.write_document("phrases", document)
-        records.archive_record("phrases", archived)
+        self.assertEqual(record["status"], "mastered")
+        self.assertEqual(record["source"], "Source for polite-request")
+        self.assertEqual(record["example"], "Example for polite-request")
+        self.assertEqual(record["tags"], ["core", "review"])
 
-        result = records.review_familiar_record(
-            argparse.Namespace(category="phrases", key="solid phrase", score=8)
-        )
+    def test_menu_contexts_are_centralized_and_bounded(self) -> None:
+        for category in ("errors", "grammar", "vocabulary", "phrases", "usage"):
+            self.service.upsert(payload(category, f"{category}-item"))
+        self.service.complete_review("grammar:grammar-item", 8)
+        self.service.complete_review("usage:usage-item", 10)
 
-        self.assertFalse(result["moved_to_learning_records"])
-        self.assertEqual(result["mastery_score"], 8)
-        self.assertEqual(result["review_count"], 1)
-        self.assertNotEqual(result["last_reviewed_at"], "2026-01-01T00:00:00+08:00")
-        self.assertEqual(records.load_document("phrases")["items"], [])
-        self.assertEqual(len(records.load_familiar_document("phrases")["items"]), 1)
+        initial = self.service.menu("initial")
+        active = self.service.menu("exercise-active", focus="present perfect")
+        complete = self.service.menu("review-complete", focus="present perfect")
 
-    def test_perfect_familiar_review_score_moves_concise_record_to_mastered(self) -> None:
-        item = records.upsert(self.args("errors", "settled error"))
-        archived = {key: value for key, value in item.items() if key not in {"created", "location"}}
-        document = records.load_document("errors")
-        document["items"].clear()
-        records.write_document("errors", document)
-        records.archive_record("errors", archived)
+        for menu in (initial, active, complete):
+            self.assertGreaterEqual(len(menu["options"]), 3)
+            self.assertLessEqual(len(menu["options"]), 5)
+            self.assertIn("popular", {option["group"] for option in menu["options"]})
+            self.assertIn("scenario-dialogue", {option["id"] for option in menu["options"]})
+        self.assertIn("explain-current-exercise", {item["id"] for item in active["options"]})
+        self.assertNotIn("mastered-cet-paper", {item["id"] for item in active["options"]})
+        active_labels = {item["id"]: item["label"] for item in active["options"]}
+        self.assertIn("present perfect", active_labels["cet-practice"])
+        self.assertIn("present perfect", active_labels["scenario-dialogue"])
+        self.assertIn("咖啡店", active_labels["scenario-dialogue"])
+        initial_labels = {item["id"]: item["label"] for item in initial["options"]}
+        self.assertIn("咖啡店", initial_labels["scenario-dialogue"])
 
-        result = records.review_familiar_record(
-            argparse.Namespace(category="errors", key="settled error", score=10)
-        )
-
-        self.assertFalse(result["deleted"])
-        self.assertFalse(result["moved_to_learning_records"])
-        self.assertTrue(result["mastered"])
-        self.assertEqual(result["mastery_score"], 10)
-        self.assertEqual(result["review_count"], 1)
-        self.assertEqual(records.load_familiar_document("errors")["items"], [])
-        self.assertEqual(records.load_document("errors")["items"], [])
-        mastered = records.load_mastered_document("errors")
-        self.assertEqual([item["id"] for item in mastered["items"]], [
-            "errors:settled-error"
-        ])
-        self.assertEqual(mastered["items"][0]["summary"], "errors explanation")
-
-    def test_familiar_review_rejects_invalid_score_and_missing_record(self) -> None:
-        with self.assertRaisesRegex(records.RecordError, "between 0 and 10"):
-            records.review_familiar_record(
-                argparse.Namespace(category="usage", key="known usage", score=-1)
-            )
-        with self.assertRaisesRegex(records.RecordError, "familiar record does not exist"):
-            records.review_familiar_record(
-                argparse.Namespace(category="usage", key="missing", score=8)
-            )
-
-    def test_searches_across_categories(self) -> None:
-        for category in records.CATEGORIES:
-            records.upsert(self.args(category))
-
-        matches = records.search_records(argparse.Namespace(query="grammar explanation"))
-        self.assertEqual(len(matches), 1)
-        self.assertEqual(matches[0]["category"], "grammar")
-
-    def test_search_can_include_familiar_records(self) -> None:
-        item = records.upsert(self.args("grammar", "archived grammar"))
-        archived = {
-            key: value
-            for key, value in item.items()
-            if key not in {"created", "location"}
-        }
-        document = records.load_document("grammar")
-        document["items"].clear()
-        records.write_document("grammar", document)
-        records.archive_record("grammar", archived)
-
-        normal_matches = records.search_records(
-            argparse.Namespace(query="grammar explanation", include_familiar=False)
-        )
-        familiar_matches = records.search_records(
-            argparse.Namespace(query="grammar explanation", include_familiar=True)
-        )
-
-        self.assertEqual(normal_matches, [])
-        self.assertEqual(len(familiar_matches), 1)
-        self.assertEqual(familiar_matches[0]["location"], "familiar-learning-records")
-
-    def test_duplicate_key_in_mastered_records_is_skipped(self) -> None:
-        args = self.args("grammar", "settled rule")
-        item = records.upsert(args)
-        records.review_record(
-            argparse.Namespace(category="grammar", key="settled rule", score=10)
-        )
-
-        duplicate = records.upsert(args)
-
-        self.assertFalse(duplicate["created"])
-        self.assertEqual(duplicate["location"], "mastered-learning-records")
-        self.assertEqual(records.load_document("grammar")["items"], [])
-        self.assertEqual(len(records.load_mastered_document("grammar")["items"]), 1)
-
-    def test_search_can_include_mastered_records(self) -> None:
-        records.upsert(self.args("usage", "mastered usage"))
-        records.review_record(
-            argparse.Namespace(category="usage", key="mastered usage", score=10)
-        )
-
-        normal_matches = records.search_records(
-            argparse.Namespace(
-                query="usage explanation",
-                include_familiar=False,
-                include_mastered=False,
-            )
-        )
-        mastered_matches = records.search_records(
-            argparse.Namespace(
-                query="usage explanation",
-                include_familiar=False,
-                include_mastered=True,
-            )
-        )
-
-        self.assertEqual(normal_matches, [])
-        self.assertEqual(len(mastered_matches), 1)
-        self.assertEqual(mastered_matches[0]["location"], "mastered-learning-records")
-
-    def test_summarizes_category_counts_without_returning_items(self) -> None:
-        for category in records.CATEGORIES:
-            records.upsert(self.args(category))
-        records.upsert(self.args("errors", "second error"))
-
-        self.assertEqual(
-            records.summarize_records(argparse.Namespace()),
-            [
-                {"category": "vocabulary", "count": 1},
-                {"category": "phrases", "count": 1},
-                {"category": "grammar", "count": 1},
-                {"category": "usage", "count": 1},
-                {"category": "errors", "count": 2},
-            ],
-        )
-
-    def test_summary_can_include_familiar_counts(self) -> None:
-        item = records.upsert(self.args("phrases", "archived phrase"))
-        archived = {
-            key: value
-            for key, value in item.items()
-            if key not in {"created", "location"}
-        }
-        document = records.load_document("phrases")
-        document["items"].clear()
-        records.write_document("phrases", document)
-        records.archive_record("phrases", archived)
-
-        summary = records.summarize_records(argparse.Namespace(include_familiar=True))
-
-        phrases = next(item for item in summary if item["category"] == "phrases")
-        self.assertEqual(phrases["count"], 0)
-        self.assertEqual(phrases["familiar_count"], 1)
-        self.assertEqual(phrases["total_count"], 1)
-
-    def test_summary_can_include_mastered_counts(self) -> None:
-        records.upsert(self.args("vocabulary", "mastered word"))
-        records.review_record(
-            argparse.Namespace(category="vocabulary", key="mastered word", score=10)
-        )
-
-        summary = records.summarize_records(
-            argparse.Namespace(include_familiar=True, include_mastered=True)
-        )
-
-        vocabulary = next(item for item in summary if item["category"] == "vocabulary")
-        self.assertEqual(vocabulary["count"], 0)
-        self.assertEqual(vocabulary["familiar_count"], 0)
-        self.assertEqual(vocabulary["mastered_count"], 1)
-        self.assertEqual(vocabulary["total_count"], 1)
-
-    def test_lists_mastered_records_across_categories(self) -> None:
-        records.upsert(self.args("vocabulary", "settled word"))
-        records.upsert(self.args("grammar", "settled rule"))
-        records.review_record(
-            argparse.Namespace(category="vocabulary", key="settled word", score=10)
-        )
-        records.review_record(
-            argparse.Namespace(category="grammar", key="settled rule", score=10)
-        )
-
-        mastered = records.list_mastered_records(argparse.Namespace())
-
-        self.assertEqual(
-            {item["id"] for item in mastered},
-            {"vocabulary:settled-word", "grammar:settled-rule"},
-        )
-        self.assertTrue(all(item["location"] == "mastered-learning-records" for item in mastered))
-        self.assertEqual({item["category"] for item in mastered}, {"vocabulary", "grammar"})
-
-    def test_menu_merges_paths_and_includes_review_options(self) -> None:
-        records.upsert(self.args("errors", "unstable error"))
-        records.upsert(self.args("vocabulary", "useful word"))
-        records.upsert(self.args("usage", "polite tone"))
-        records.upsert(self.args("grammar", "mastered grammar"))
-        records.review_record(
-            argparse.Namespace(category="grammar", key="mastered grammar", score=10)
-        )
-
-        menu = records.build_review_menu(argparse.Namespace())
-
-        self.assertEqual(menu["state"], "ready")
-        self.assertEqual(menu["regular_total"], 3)
-        self.assertEqual(menu["mastered_total"], 1)
-        self.assertLessEqual(len(menu["options"]), 5)
-        option_ids = [option["id"] for option in menu["options"]]
-        self.assertNotIn("cet-practice", option_ids)
-        self.assertIn("mastered-cet-paper", option_ids)
-        self.assertIn("scenario-dialogue", option_ids)
-        self.assertIn("familiar-review", option_ids)
-        mastered_paper = next(option for option in menu["options"] if option["id"] == "mastered-cet-paper")
-        self.assertNotIn("count", mastered_paper)
+    def test_merged_review_path_includes_every_category(self) -> None:
+        for category in ("errors", "vocabulary", "usage"):
+            self.service.upsert(payload(category, f"{category}-item"))
+        self.service.complete_review("errors:errors-item", 2)
+        self.service.complete_review("usage:usage-item", 1)
+        menu = self.service.menu("initial")
         mixed = next(option for option in menu["options"] if option["id"].startswith("mixed+"))
-        records.review_record(
-            argparse.Namespace(category="errors", key="unstable error", score=2)
-        )
-        records.review_record(
-            argparse.Namespace(category="usage", key="polite tone", score=1)
-        )
-        selected = records.next_review_record(
-            argparse.Namespace(category=[], path=mixed["id"], familiar=False, random=False)
-        )
-        self.assertEqual(
-            mixed["id"],
-            "mixed+errors-grammar+usage+vocabulary-phrases",
-        )
+
+        selected = self.service.next_review(path=mixed["id"])
+
         self.assertEqual(selected["record"]["category"], "vocabulary")
 
-    def test_menu_can_open_from_mastered_records_only(self) -> None:
-        records.upsert(self.args("usage", "mastered usage"))
-        records.review_record(
-            argparse.Namespace(category="usage", key="mastered usage", score=10)
+    def test_next_review_prefers_due_low_score_and_supports_statuses(self) -> None:
+        self.service.upsert(payload("grammar", "low"))
+        self.service.upsert(payload("grammar", "high"))
+        self.service.complete_review("grammar:high", 8)
+
+        learning = self.service.next_review(categories=["grammar"])
+        familiar = self.service.next_review(categories=["grammar"], status="familiar")
+
+        self.assertEqual(learning["record"]["id"], "grammar:low")
+        self.assertEqual(familiar["record"]["id"], "grammar:high")
+
+    def test_search_summary_history_and_stats(self) -> None:
+        self.service.upsert(payload("vocabulary", "context-word"))
+        self.service.complete_review("vocabulary:context-word", 7)
+
+        self.assertEqual(self.service.search("context word")[0]["id"], "vocabulary:context-word")
+        self.assertEqual(self.service.summary()["totals"]["learning"], 1)
+        self.assertEqual(len(self.service.history("vocabulary:context-word")["history"]), 1)
+        stats = self.service.stats(30)
+        self.assertEqual(stats["review_count"], 1)
+        self.assertEqual(stats["average_score"], 7)
+
+    def test_validate_reports_all_schema_errors(self) -> None:
+        self.service.upsert(payload("grammar", "invalid-time"))
+        database = self.store.read()
+        database["records"]["grammar:invalid-time"]["last_learned_at"] = "yesterday"
+        database["records"]["grammar:invalid-time"]["tags"] = ["same", "same"]
+        self.store.data_path.write_text(
+            json.dumps(database, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
         )
 
-        menu = records.build_review_menu(argparse.Namespace())
+        result = self.service.validate()
 
-        self.assertEqual(menu["state"], "ready")
-        self.assertEqual(menu["regular_total"], 0)
-        self.assertEqual(menu["familiar_count"], 0)
-        self.assertEqual(menu["mastered_total"], 1)
-        self.assertEqual(
-            [option["id"] for option in menu["options"]],
-            [
-                "mastered-cet-paper",
-                "scenario-dialogue",
-                "familiar-review",
-            ],
+        self.assertFalse(result["valid"])
+        self.assertEqual(result["issue_count"], 2)
+
+    def test_repair_deduplicates_tags_and_supports_dry_run(self) -> None:
+        self.service.upsert(payload("usage", "repair-tags"))
+        database = self.store.read()
+        database["records"]["usage:repair-tags"]["tags"] = ["core", "core", " review "]
+        self.store.data_path.write_text(
+            json.dumps(database, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
         )
 
-    def test_empty_menu_uses_general_options(self) -> None:
-        menu = records.build_review_menu(argparse.Namespace())
+        preview = self.service.repair(dry_run=True)
+        self.assertEqual(preview["change_count"], 1)
+        self.assertFalse(self.service.validate()["valid"])
 
-        self.assertEqual(menu["state"], "empty")
-        self.assertEqual(menu["regular_total"], 0)
-        self.assertEqual(menu["mastered_total"], 0)
-        self.assertEqual([option["id"] for option in menu["options"]], [
-            "status",
-            "cet-practice",
-            "scenario-dialogue",
-        ])
+        applied = self.service.repair(dry_run=False)
+        self.assertEqual(applied["change_count"], 1)
+        self.assertTrue(self.service.validate()["valid"])
 
-    def test_next_review_selects_lowest_score_or_oldest_familiar(self) -> None:
-        records.upsert(self.args("grammar", "low score"))
-        records.upsert(self.args("grammar", "high score"))
-        records.review_record(
-            argparse.Namespace(category="grammar", key="high score", score=9)
-        )
-        next_normal = records.next_review_record(
-            argparse.Namespace(category=["grammar"], path=None, familiar=False, random=False)
+    def test_repair_reconciles_status_with_mastery_score(self) -> None:
+        self.service.upsert(payload("grammar", "repair-status"))
+        database = self.store.read()
+        database["records"]["grammar:repair-status"]["mastery_score"] = 8
+        self.store.data_path.write_text(
+            json.dumps(database, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
         )
 
-        self.assertEqual(next_normal["record"]["id"], "grammar:low-score")
-
-        grammar = records.upsert(self.args("grammar", "later familiar"))
-        phrase = records.upsert(self.args("phrases", "older familiar"))
-        grammar_item = {
-            key: value
-            for key, value in grammar.items()
-            if key not in {"created", "location"}
-        }
-        phrase_item = {
-            key: value
-            for key, value in phrase.items()
-            if key not in {"created", "location"}
-        }
-        grammar_item["last_reviewed_at"] = "2026-07-01T12:00:00+08:00"
-        for category, item in (("grammar", grammar_item), ("phrases", phrase_item)):
-            document = records.load_document(category)
-            document["items"] = [
-                candidate
-                for candidate in document["items"]
-                if candidate["id"] != item["id"]
-            ]
-            records.write_document(category, document)
-            records.archive_record(category, item)
-
-        next_familiar = records.next_review_record(
-            argparse.Namespace(category=[], path=None, familiar=True, random=False)
-        )
-
-        self.assertEqual(next_familiar["record"]["id"], "phrases:older-familiar")
-
-    def test_next_review_can_select_random_learning_record(self) -> None:
-        records.upsert(self.args("grammar", "first rule"))
-        records.upsert(self.args("phrases", "second phrase"))
-
-        selected = records.next_review_record(
-            argparse.Namespace(
-                category=["grammar", "phrases"],
-                path=None,
-                familiar=False,
-                random=True,
-            )
-        )
+        result = self.service.repair(dry_run=False)
 
         self.assertIn(
-            selected["record"]["id"],
-            {"grammar:first-rule", "phrases:second-phrase"},
+            {"id": "grammar:repair-status", "field": "status"}, result["changes"]
         )
+        self.assertEqual(self.service.records()["grammar:repair-status"]["status"], "familiar")
 
-    def test_invalid_category_and_required_fields_are_rejected(self) -> None:
-        with self.assertRaises(records.RecordError):
-            records.category_path("other")
+    def test_atomic_failure_preserves_previous_database(self) -> None:
+        self.service.upsert(payload("grammar", "before-failure"))
+        before = self.store.data_path.read_bytes()
+        os.environ["LEARN_ENGLISH_FAIL_BEFORE_REPLACE"] = "1"
+        self.addCleanup(os.environ.pop, "LEARN_ENGLISH_FAIL_BEFORE_REPLACE", None)
 
-        args = self.args("vocabulary")
-        args.title = " "
-        with self.assertRaisesRegex(records.RecordError, "title must not be empty"):
-            records.upsert(args)
+        with self.assertRaisesRegex(RecordError, "injected failure"):
+            self.service.upsert(payload("grammar", "after-failure"))
 
-    def test_corrupt_json_is_not_overwritten(self) -> None:
-        path = records.category_path("phrases")
-        path.write_text("not json\n", encoding="utf-8")
+        self.assertEqual(self.store.data_path.read_bytes(), before)
 
-        with self.assertRaisesRegex(records.RecordError, "cannot read valid JSON"):
-            records.upsert(self.args("phrases"))
-        self.assertEqual(path.read_text(encoding="utf-8"), "not json\n")
+    def test_concurrent_writers_do_not_lose_records(self) -> None:
+        processes = [
+            multiprocessing.Process(target=concurrent_upsert, args=(str(self.root), index))
+            for index in range(8)
+        ]
+        for process in processes:
+            process.start()
+        for process in processes:
+            process.join(timeout=10)
+            self.assertEqual(process.exitcode, 0)
 
-    def test_validate_reports_missing_fields_and_migrate_fills_defaults(self) -> None:
-        records.upsert(self.args("phrases", "legacy phrase"))
-        document = records.load_document("phrases")
-        for field in (
-            "mastery_score",
-            "review_count",
-            "high_score_streak",
-            "last_reviewed_at",
-        ):
-            del document["items"][0][field]
-        records.write_document("phrases", document)
+        self.assertEqual(len(self.service.records()), 8)
 
-        validation = records.validate_records(argparse.Namespace())
-        self.assertFalse(validation["valid"])
-        self.assertEqual(validation["issue_count"], 4)
-
-        migration = records.migrate_records(argparse.Namespace(dry_run=False))
-        self.assertEqual(migration["changed"][0]["ids"], ["phrases:legacy-phrase"])
-        migrated = records.load_document("phrases")["items"][0]
-        self.assertEqual(migrated["mastery_score"], 0)
-        self.assertEqual(migrated["review_count"], 0)
-        self.assertEqual(migrated["high_score_streak"], 0)
-        self.assertIsNone(migrated["last_reviewed_at"])
-        self.assertTrue(records.validate_records(argparse.Namespace())["valid"])
-
-    def test_validate_reports_ids_present_in_multiple_record_locations(self) -> None:
-        records.upsert(self.args("grammar", "duplicate state"))
-        item = records.load_document("grammar")["items"][0]
-        records.archive_record("grammar", item.copy())
-
-        validation = records.validate_records(argparse.Namespace())
-
-        self.assertFalse(validation["valid"])
-        self.assertEqual(validation["issue_count"], 1)
-        self.assertIn("multiple record locations", validation["issues"][0]["message"])
-
-    def test_auto_commit_only_commits_requested_record_paths(self) -> None:
-        subprocess.run(["git", "init", "-q"], cwd=records.REPO_ROOT, check=True)
-        subprocess.run(
-            ["git", "config", "user.email", "tests@example.com"],
-            cwd=records.REPO_ROOT,
-            check=True,
+    def test_legacy_migration_preserves_statuses_and_counts(self) -> None:
+        migration_root = self.root / "migration"
+        learning = migration_root / "learning-records"
+        mastered = migration_root / "mastered-learning-records"
+        learning.mkdir(parents=True)
+        mastered.mkdir(parents=True)
+        timestamp = datetime.now().astimezone().isoformat(timespec="seconds")
+        (learning / "grammar.json").write_text(
+            json.dumps(
+                {
+                    "category": "grammar",
+                    "items": [
+                        {
+                            "id": "grammar:legacy-rule",
+                            "title": "Legacy rule",
+                            "explanation": "Legacy explanation",
+                            "source": "Legacy source",
+                            "example": "Legacy example",
+                            "tags": [],
+                            "first_learned_at": timestamp,
+                            "last_learned_at": timestamp,
+                            "learned_count": 2,
+                            "mastery_score": 5,
+                            "review_count": 1,
+                            "high_score_streak": 0,
+                            "last_reviewed_at": timestamp,
+                        }
+                    ],
+                }
+            ),
+            encoding="utf-8",
         )
-        subprocess.run(
-            ["git", "config", "user.name", "Learning Records Tests"],
-            cwd=records.REPO_ROOT,
-            check=True,
+        (mastered / "usage.json").write_text(
+            json.dumps(
+                {
+                    "category": "usage",
+                    "items": [
+                        {
+                            "id": "usage:legacy-mastered",
+                            "title": "Legacy mastered",
+                            "summary": "Preserved summary",
+                            "mastered_at": timestamp,
+                        }
+                    ],
+                }
+            ),
+            encoding="utf-8",
         )
-        target = records.category_path("grammar")
-        unrelated = records.category_path("usage")
-        target.write_text('{"category":"grammar","items":[]}\n', encoding="utf-8")
-        unrelated.write_text('{"category":"usage","items":[]}\n', encoding="utf-8")
-        subprocess.run(
-            ["git", "add", "learning-records/usage.json"],
-            cwd=records.REPO_ROOT,
-            check=True,
-        )
-        records.AUTO_COMMIT_ENABLED = True
+        migration_service = RecordService(RecordStore(migration_root), auto_commit=False)
 
-        records.auto_commit_records("scoped commit", target)
+        preview = migration_service.migrate_legacy(dry_run=True)
+        applied = migration_service.migrate_legacy(dry_run=False)
 
-        committed = subprocess.run(
+        self.assertEqual(preview["record_count"], 2)
+        self.assertEqual(applied["counts"], {"learning": 1, "familiar": 0, "mastered": 1})
+        migrated = migration_service.records()
+        self.assertEqual(migrated["grammar:legacy-rule"]["learned_count"], 2)
+        self.assertEqual(migrated["usage:legacy-mastered"]["status"], "mastered")
+        self.assertEqual(migrated["usage:legacy-mastered"]["explanation"], "Preserved summary")
+
+    def test_git_commit_keeps_unrelated_staged_file(self) -> None:
+        subprocess.run(["git", "init", "-q"], cwd=self.root, check=True)
+        subprocess.run(["git", "config", "user.email", "tests@example.com"], cwd=self.root, check=True)
+        subprocess.run(["git", "config", "user.name", "Tests"], cwd=self.root, check=True)
+        subprocess.run(["git", "add", "learning-records/records.json"], cwd=self.root, check=True)
+        subprocess.run(["git", "commit", "-qm", "initial"], cwd=self.root, check=True)
+        unrelated = self.root / "notes.txt"
+        unrelated.write_text("staged\n", encoding="utf-8")
+        subprocess.run(["git", "add", "notes.txt"], cwd=self.root, check=True)
+        git_service = RecordService(self.store, auto_commit=True)
+
+        git_service.upsert(payload("grammar", "git-scope"))
+
+        names = subprocess.run(
             ["git", "show", "--format=", "--name-only", "HEAD"],
-            cwd=records.REPO_ROOT,
+            cwd=self.root,
             check=True,
             capture_output=True,
             text=True,
         ).stdout.splitlines()
-        self.assertEqual(committed, ["learning-records/grammar.json"])
-        status = subprocess.run(
-            ["git", "status", "--short"],
-            cwd=records.REPO_ROOT,
+        self.assertEqual(names, ["learning-records/records.json"])
+        self.assertIn("A  notes.txt", subprocess.run(
+            ["git", "status", "--short"], cwd=self.root, check=True, capture_output=True, text=True
+        ).stdout)
+
+    def test_auto_commit_rejects_preexisting_database_changes(self) -> None:
+        subprocess.run(["git", "init", "-q"], cwd=self.root, check=True)
+        subprocess.run(["git", "config", "user.email", "tests@example.com"], cwd=self.root, check=True)
+        subprocess.run(["git", "config", "user.name", "Tests"], cwd=self.root, check=True)
+        subprocess.run(["git", "add", "learning-records/records.json"], cwd=self.root, check=True)
+        subprocess.run(["git", "commit", "-qm", "initial"], cwd=self.root, check=True)
+        before = self.store.data_path.read_text(encoding="utf-8") + "\n"
+        self.store.data_path.write_text(before, encoding="utf-8")
+
+        with self.assertRaisesRegex(RecordError, "uncommitted changes"):
+            RecordService(self.store, auto_commit=True).upsert(payload("grammar", "blocked"))
+
+        self.assertEqual(self.store.data_path.read_text(encoding="utf-8"), before)
+
+    def test_concurrent_auto_commits_are_serialized_with_data_writes(self) -> None:
+        subprocess.run(["git", "init", "-q"], cwd=self.root, check=True)
+        subprocess.run(["git", "config", "user.email", "tests@example.com"], cwd=self.root, check=True)
+        subprocess.run(["git", "config", "user.name", "Tests"], cwd=self.root, check=True)
+        (self.root / ".gitignore").write_text(".records.lock\n", encoding="utf-8")
+        subprocess.run(
+            ["git", "add", ".gitignore", "learning-records/records.json"],
+            cwd=self.root,
+            check=True,
+        )
+        subprocess.run(["git", "commit", "-qm", "initial"], cwd=self.root, check=True)
+        processes = [
+            multiprocessing.Process(
+                target=concurrent_upsert, args=(str(self.root), index, True)
+            )
+            for index in range(3)
+        ]
+        for process in processes:
+            process.start()
+        for process in processes:
+            process.join(timeout=15)
+            self.assertEqual(process.exitcode, 0)
+
+        self.assertEqual(len(self.service.records()), 3)
+        commit_count = subprocess.run(
+            ["git", "rev-list", "--count", "HEAD"],
+            cwd=self.root,
             check=True,
             capture_output=True,
             text=True,
-        ).stdout
-        self.assertIn("A  learning-records/usage.json", status)
-
-    def test_json_is_utf8_indented_and_has_stable_fields(self) -> None:
-        args = self.args("vocabulary", "context meaning")
-        args.title = "语境词义"
-        records.upsert(args)
-
-        path = records.category_path("vocabulary")
-        text = path.read_text(encoding="utf-8")
-        document = json.loads(text)
-        self.assertIn('\n  "items": [', text)
+        ).stdout.strip()
+        self.assertEqual(commit_count, "4")
         self.assertEqual(
-            list(document["items"][0]),
-            [
-                "id",
-                "title",
-                "explanation",
-                "source",
-                "example",
-                "tags",
-                "first_learned_at",
-                "last_learned_at",
-                "learned_count",
-                "mastery_score",
-                "review_count",
-                "high_score_streak",
-                "last_reviewed_at",
-            ],
+            subprocess.run(
+                ["git", "status", "--short"],
+                cwd=self.root,
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout,
+            "",
         )
+
+    def test_cli_compatibility_and_batch_input(self) -> None:
+        input_path = self.root / "batch.json"
+        input_path.write_text(json.dumps({"records": [payload("phrases", "cli-batch")]}), encoding="utf-8")
+        environment = {
+            **os.environ,
+            "LEARN_ENGLISH_REPO_ROOT": str(self.root),
+            "LEARN_ENGLISH_AUTO_COMMIT": "0",
+        }
+
+        subprocess.run(
+            [sys.executable, str(SCRIPT), "batch-upsert", "--input", str(input_path)],
+            env=environment,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        listed = subprocess.run(
+            [sys.executable, str(SCRIPT), "list", "--category", "phrases"],
+            env=environment,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(json.loads(listed.stdout)[0]["id"], "phrases:cli-batch")
+        reviewed = subprocess.run(
+            [sys.executable, str(SCRIPT), "complete-review", "--input", "-"],
+            env=environment,
+            input=json.dumps({"id": "phrases:cli-batch", "score": 8, "errors": []}),
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(json.loads(reviewed.stdout)["status"], "familiar")
+
+    def test_cli_validate_returns_nonzero_for_invalid_data(self) -> None:
+        invalid_root = self.root / "invalid-cli"
+        invalid_store = RecordStore(invalid_root)
+        invalid_store.initialize(empty_database())
+        database = invalid_store.read()
+        database["schema_version"] = 999
+        invalid_store.data_path.write_text(json.dumps(database), encoding="utf-8")
+        environment = {
+            **os.environ,
+            "LEARN_ENGLISH_REPO_ROOT": str(invalid_root),
+            "LEARN_ENGLISH_AUTO_COMMIT": "0",
+        }
+
+        result = subprocess.run(
+            [sys.executable, str(SCRIPT), "validate"],
+            env=environment,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+
+        self.assertEqual(result.returncode, 1)
+        self.assertFalse(json.loads(result.stdout)["valid"])
 
 
 if __name__ == "__main__":

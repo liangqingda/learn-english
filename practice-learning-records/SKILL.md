@@ -1,212 +1,165 @@
 ---
 name: practice-learning-records
-description: 从仓库根目录的 learning-records 分类记录中优先选择低分知识点开展复习，也可按最旧复习时间抽取 familiar-learning-records 中已标熟的知识点；根据每次回答记录 0 至 10 分，普通记录单次 8 至 9 分会归档，10 分会精简归入 mastered-learning-records；低于 8 分的已标熟记录会移回普通记录，已标熟记录 10 分也会精简归入完全掌握目录。当用户消息去除首尾空白后仅为“你好”“复习”，或不区分大小写的“hello”“review”时必须使用；在由本 Skill 打开的复习流程中，用户回复最近菜单中的数字或答案、要求练习已记录或已标熟知识点、查看学习记录时也使用。上述精确触发词出现时，本 Skill 优先于 learn-from-english。
+description: 从规范学习记录中选择到期或低分知识点开展复习，按回答记录 0 至 10 分，并在同一事务中保存评分、状态变化和实际错题；也支持复习已标熟或已掌握知识点、查看历史统计，以及生成四六级规格练习。当用户消息去除首尾空白后仅为“你好”“复习”，或不区分大小写的“hello”“review”时必须使用；在本 Skill 打开的复习流程中，用户回复最近菜单中的数字或答案时也使用。上述精确触发词出现时，本 Skill 优先于 learn-from-english。
 ---
 
-# 练习已记录的英语知识点
+# 复习英语学习记录
 
-从 `learning-records/` 选择用户真实学过的内容，优先复习掌握分低的知识点，并根据用户每次可评价的回答更新掌握度。
+使用仓库根目录 `learning-records/records.json` 中的规范记录开展复习。所有读取和写入必须通过 `learn-from-english/scripts/learning_records.py`；不得直接编辑 JSON。
 
 ## 打开复习菜单
 
-当用户消息去除首尾空白后仅为“你好”“复习”，或不区分大小写的 `hello`、`review` 时，运行：
+收到精确触发词时运行：
 
 ```bash
-python3 learn-from-english/scripts/learning_records.py menu
+python3 learn-from-english/scripts/learning_records.py menu --context initial
 ```
 
-根据 `menu` 返回的 `options` 动态生成编号，不展示脚本没有返回的入口。若菜单分为 `Popular Menus` 和 `Other Menus`，也必须跨整个菜单从 1 连续编号；不要让 `Other Menus` 从 1 重新开始。普通分类路径由脚本按以下组合与数量规则生成：
+严格按返回的 `options` 顺序展示菜单，不自行增加、删除、重新分组或估算数量。`group: popular` 放入 `##### Popular Menus`，`group: other` 放入 `##### Other Menus`；所有选项连续编号。脚本保证菜单为 3 至 5 项，并根据当前数据决定显示低分复习、已标熟复习、已掌握抽查、完整套题、单道 CET 习题和场景对话。
 
-- `errors` + `grammar`：复习掌握不稳的知识点，并巩固学过的语法和句型。
-- `vocabulary` + `phrases`：复习词汇、搭配和固定表达。
-- `usage`：复习语气、自然度和场景选择。
-- `mastered-cet-paper`：根据 `mastered-learning-records/` 中已完全掌握的知识点生成一套完整结构的四六级规格套题，不含听力部分。
-
-使用自然、简洁的话术，例如：
-
-```text
-今天想从哪一类开始复习？
-
----
-
-➡️ 接下来可以回复数字：
-
-##### Popular Menus
-1. 🧩 复习掌握不稳的知识点、语法和句型（8 条）
-2. 🔁 复习已标熟的知识点（3 条）
-
-##### Other Menus
-3. 📝 生成一套基于已掌握知识点的完整四六级套题（不含听力）
-4. 🎭 用学过的英语开展一个真实场景对话
-```
-
-括号中的普通记录数量必须使用 `menu` 返回的 `count`，已标熟入口数量必须使用 `familiar_count` 或该入口自身的 `count`。完整套题入口不显示数量；`mastered-learning-records/` 只提供出题素材池，不决定试卷题量。编号必须只对应本轮实际展示的菜单；所有可见菜单项必须整体连续编号，即使分为 `Popular Menus` 和 `Other Menus` 也不能重号。按仓库根目录 `AGENTS.md` 的规则为不同入口使用不同图标。复习流程中每一轮带菜单的回复都必须展示 `##### Popular Menus`，并在其中放入至少一个复习相关的可见入口；首次复习菜单优先放入 `复习掌握不稳的知识点、语法和句型`、`综合复习低分知识点`、`复习已标熟的知识点` 等可见入口，其他学习活动放入 `##### Other Menus`。首次复习菜单不要额外展示单道 `🧪 四六级规格习题` 入口，以免和完整四六级套题入口重复；空菜单和后续围绕具体知识点的快捷菜单仍按仓库规则提供单道 `🧪 四六级规格习题`。每个菜单始终提供 `🎭 场景对话`；首次复习菜单提供 `📝 完整四六级套题（不含听力）`，后续菜单仅在五项上限内有空位时提供。菜单最多五项；当普通分类超过一个入口时，使用 `menu` 返回的合并入口，不要自行重新拆分或改算数量。若当前回复是在一道具体习题或完整套题之后的讲解、判分或继续练习分支中，还必须把 `🔍 讲解当前习题` 放进 `Popular Menus`，并与“继续复习”“复习已标熟的知识点”一起保持优先位置。
-
-若全部分类均为空，说明“目前还没有可复习的知识点，先学习一些英语内容后，这里会自动形成复习菜单”，并提供：
-
-```text
----
-
-➡️ 接下来可以回复数字：
-
-1. 📊 查看当前学习记录状态
-2. 🧪 做一道 CET-4 仔细阅读单选题
-3. 🎭 开始一段咖啡店点单的场景对话
-```
-
-用户选择查看记录时，运行 `summary --include-familiar` 展示五个分类的数量，然后再次提供符合 `AGENTS.md` 的菜单；选择习题时按仓库级四六级出题规则生成一道不依赖历史记录的纯文本题目；选择场景对话时直接开始对应的角色对话。不得编造知识点填充空菜单。
+若 `state` 为 `empty`，说明目前没有学习记录，并直接展示脚本返回的状态、CET-4 习题和咖啡店场景入口，不编造历史知识点。
 
 ## 处理数字选择
 
-只把用户消息解释为最近一轮菜单中的数字。直接执行对应入口，不要求用户重新发送“你好”或分类名称。数字无效或上下文丢失时，重新运行 `menu` 并生成新菜单。
+只把对最近一轮菜单的纯数字回复解释为菜单选择。根据对应 option ID 执行：
 
-根据所选入口读取下一条记录，不预读其他文件：
+- `review-path`：运行 `next-review --path <option id>`。
+- `continue-review`：运行 `next-review --random`。
+- `familiar-review`：运行 `next-review --familiar`。
+- `mastered-review`：运行 `next-review --mastered`。
+- `mastered-cet-paper`：运行 `mastered-list`。
+- `cet-practice`：按仓库级 CET 规则出一道聚焦题。
+- `scenario-dialogue`：用当前记录或明确的日常场景直接开始对话。
+- `explain-current-exercise`：解释当前题目，不生成新题。
+- `status`：运行 `summary --include-familiar --include-mastered`。
 
-```bash
-python3 learn-from-english/scripts/learning_records.py next-review --path <path id>
-python3 learn-from-english/scripts/learning_records.py next-review --category <category>
+上下文丢失或数字无效时重新运行初始菜单。不要要求用户重新发送“你好”。
+
+## 选择复习记录
+
+脚本优先返回已经到期的记录，再综合 `next_review_at`、掌握分、遗忘次数和 ID 排序。没有到期记录时返回当前范围内优先级最高的记录。`--random` 只在优先范围中按低分和遗忘次数加权抽取。
+
+命令返回 `record: null` 时明确说明当前范围没有记录，然后重新生成初始菜单；不得临时编造复习记录。
+
+保留返回记录的 `id`、`category` 和 `status`，直到当前题组完成。新抽出记录并首次呈现题目时，在底部标注：
+
+```text
+*Picked from learning-records/<status>/<category>*
 ```
 
-`next-review` 会按 `mastery_score` 从低到高选择记录，缺少评分的旧记录按 0 分处理；同分时优先选择最久未复习的记录。选择习题入口时，同样优先用 `next-review` 从低分记录选取知识点，并按 `AGENTS.md` 的四六级出题规则生成一道纯文本题目；选择场景对话入口时，优先用 `next-review` 选取适合对话练习的知识点；没有记录时，直接执行菜单中写明的通用习题或日常场景。
+后续讲解或评价同一题组时不重复来源标注。
 
-选择“复习已标熟的知识点”时，运行：
+## 开展普通复习
+
+根据记录的 `title`、`explanation`、`source` 和 `example` 设计 2 至 4 个短题，默认 3 题，并至少组合两种题型：
+
+- `errors`：使用新句子纠错或改写。
+- `grammar`：组合造句、纠错、补全、语境选择或翻译。
+- `vocabulary`、`phrases`：组合填空、搭配判断、释义辨析或造句。
+- `usage`：组合语气辨析、自然度判断和场景表达。
+
+要求用户按阿拉伯数字题号集中作答，作答前不公布答案。用户只回答部分题目时，反馈已答部分并列出未答题号，不评分；用户明确跳过剩余题目后再按全部题目综合评分。
+
+不要根据文字回答评价实际发音。相邻两轮避免完全相同的题型组合。
+
+## 评分与原子记录
+
+用户完成一组可客观评价的复习后，逐题判断并给出自然答案，再综合评为 0 至 10 分：
+
+- 9 至 10：完全正确且自然。
+- 8：核心正确，有轻微问题。
+- 5 至 7：部分掌握。
+- 0 至 4：核心规则未掌握。
+
+把评分和本轮实际出现的可复用错误模式组成一个 JSON 对象，并只调用一次：
 
 ```bash
-python3 learn-from-english/scripts/learning_records.py next-review --familiar
+python3 learn-from-english/scripts/learning_records.py complete-review --input <JSON 文件或 ->
 ```
 
-直接使用返回的 `record`，即跨全部分类 `last_reviewed_at` 最旧的知识点；缺少复习时间的记录视为最旧。不要自行重新排序，也不要读取或编辑 JSON。根据该记录设计一组可客观评分的短练习，并保留它的 `category` 和 `id`。`record` 为 `null` 时说明目前没有已标熟知识点，并重新提供包含该固定入口的合规菜单，不编造练习内容。
+输入格式：
 
-选择“生成一套基于已掌握知识点的完整四六级套题（不含听力）”时，运行：
+```json
+{
+  "id": "grammar:present-perfect-experience",
+  "score": 7,
+  "errors": [
+    {
+      "key": "stable-semantic-error-key",
+      "title": "错误模式标题",
+      "explanation": "纠错说明",
+      "source": "用户的错误答案",
+      "example": "修正后的代表句",
+      "tags": ["review-error"]
+    }
+  ]
+}
+```
+
+完全正确时传入空 `errors`。只记录用户实际展示并已解释的错误，不推断其他弱点。整个命令是单文件事务：任一错误记录无效时，评分和所有错误都不会写入。
+
+根据返回结果说明状态变化：
+
+- `status: learning`：继续留在待巩固状态。
+- `status: familiar`：本次达到 8 至 9 分，进入已标熟状态。
+- `status: mastered`：本次达到 10 分，进入已掌握状态，但完整讲解和历史仍被保留。
+- `lapse_count` 增加：原已标熟或已掌握知识点出现遗忘。
+
+命令还会返回 `next_review_at`。向用户展示得分、最关键建议和下一次建议复习时间。写入失败时仍完成教学反馈，但必须说明本轮评分与错题没有保存。
+
+评分后运行：
+
+```bash
+python3 learn-from-english/scripts/learning_records.py menu \
+  --context review-complete \
+  --focus <当前知识点标题或核心表达>
+```
+
+若当前是一道需要保留讲解入口的 CET 题或具体习题，改用：
+
+```bash
+python3 learn-from-english/scripts/learning_records.py menu \
+  --context exercise-active \
+  --focus <当前知识点标题或核心表达>
+```
+
+再次严格渲染脚本返回的选项。
+
+## 场景对话错题
+
+未作为评分复习任务的场景对话不调用 `complete-review`。若用户确实出现并得到纠正的英语错误，把本轮所有错误组成一批 `errors` 记录，运行一次 `batch-upsert`。完全正确时不写错误记录。
+
+## 四六级练习
+
+单道 CET 入口遵守仓库根目录 `AGENTS.md`：根据当前知识点生成一个聚焦的 CET-4/CET-6 纯文本任务，不生成听力，不提前公布答案。出题后和评价后都使用 `menu --context exercise-active`，保留 `explain-current-exercise`。
+
+完整套题入口先运行：
 
 ```bash
 python3 learn-from-english/scripts/learning_records.py mastered-list
 ```
 
-直接使用返回的已掌握记录作为出题素材池，生成一套完整结构的、文本可作答的 CET-4/CET-6 规格套题；用户水平不明确时默认 CET-4，只有已掌握记录整体明显偏高级或用户此前表现稳定高级时使用 CET-6。`mastered-list` 返回空列表时，说明目前还没有完全掌握的知识点，不能生成基于已掌握记录的套题，并重新提供合规菜单。不要直接读取或编辑 `mastered-learning-records/*.json`。
+只使用返回的 `status: mastered` 记录作为素材池。套题包含写作、选词填空、长篇匹配、仔细阅读和汉译英，不包含听力，也不声称来自官方真题。首次呈现时不附答案，底部标注 `*Picked from learning-records/mastered*`。套题不改动记录分数。
 
-完整套题必须排除听力，不生成听力材料、音频脚本、听力题干或听力选项；也不要声称题目来自官方真题。套题应覆盖非听力模块的完整结构：写作、阅读理解和汉译英翻译。阅读理解至少包含选词填空、长篇匹配和仔细阅读三类任务；篇幅可为聊天场景适度压缩，但结构必须完整。若素材池只有 1 个知识点，让写作、选词填空、长篇匹配、仔细阅读和翻译每种题型都至少包含一次该知识点，但不要求每一道小题都包含。若素材池有多个知识点，按试卷容量适当随机抽取一部分，优先覆盖不同分类和不同语言能力，不必把所有已掌握知识点都放进同一套试卷。把选中的已掌握记录的 `title`、`summary` 和 `category` 分散映射到新语境中，不要把原始例句照搬成答案。首次呈现完整套题时不要提前给答案或解析，要求用户按模块或题号作答，并在末尾菜单中固定提供 `🔍 讲解当前套题`。用户选择该讲解入口时，解释当前套题的文本、考点覆盖、解题路径和参考答案；若用户提交答案，逐模块评价并给出改进版本。基于完整套题的回复若需要来源标注，底部写 `*Picked from mastered-learning-records*`。
+## 历史与统计
 
-用户在完成一轮普通或已标熟复习后的快捷菜单中选择“继续复习”时，从普通复习库 `learning-records/` 的全部分类随机抽取一条记录，运行：
-
-```bash
-python3 learn-from-english/scripts/learning_records.py next-review \
-  --category errors \
-  --category grammar \
-  --category vocabulary \
-  --category phrases \
-  --category usage \
-  --random
-```
-
-直接根据返回的 `record` 开始下一组短练习，并保留它的 `category` 和 `id`。`record` 为 `null` 时说明当前普通复习库没有可继续复习的知识点，重新运行 `menu` 并展示可用入口；不得临时编造复习记录。这个“继续复习”入口只用于一轮复习结束后的快捷菜单，不替代首次打开复习菜单时按低分优先的分类选择。
-
-## 开展练习
-
-根据记录字段中的 `title`、`explanation`、`source` 和 `example` 设计一组与同一知识点直接相关的短练习。默认一次给 3 个小题，必要时可给 2 至 4 个；同一题组至少使用两种题型，不能只重复翻译。优先要求用户回忆、判断和产出，而不是立即重复答案：
-
-- 错误记录：给相似的新句子，让用户纠错或改写。
-- 语法记录：从造句、纠错、改写、补全、语境选择、翻译等形式中，按当前知识点选择适合的题型组合；不设固定优先题型，相邻两轮不要使用完全相同的组合。
-- 词汇与短语：组合选词填空、搭配判断、释义辨析或新场景造句。
-- 语用记录：组合语气辨析、自然度判断和场景表达选择。
-
-不要创建发音练习或尝试根据文字回答评价用户的实际发音；复习范围只包括脚本支持的五类记录。
-
-每次从记录中抽到题并开始题组时，回复必须先给出仓库级要求的 H4 标题。只在“新抽出记录并呈现题目”的回复中显示来源标注；基于当前题目的后续讲解、答案评价、错题解释、菜单重开或知识点完整讲解，不再重复显示 `Picked from...`。不要把来源标注放在标题下方或练习正文之前；将来源标注放在回复底部的归因信息块中，格式为 `*Picked from xxx*`。底部归因信息块必须先用一条 Markdown 分割线 `---` 与正文和菜单隔开，然后依次放置来源标注和仓库级要求的 skill attribution，且 skill attribution 仍为绝对最后一行。若同一回复还需要仓库级 commit notice，将 commit notice 放在来源标注之后、skill attribution 之前。`xxx` 必须写明实际抽题来源：普通复习库写 `learning-records/<category>`；已标熟复习写 `familiar-learning-records/<category>`；从合并入口或随机继续复习抽到具体记录后，也按返回记录的实际 `category` 标注，不写合并入口名称。
-
-菜单中的 `🧪 四六级规格习题` 若使用 `next-review` 抽取了学习记录，也只在首次呈现该 CET 题目时显示来源标注；用户选择 `🔍 讲解当前习题`、提交答案后的评价，或继续围绕同一题展开说明时，底部只保留仓库级 skill attribution 和必要的 commit notice。菜单中的 `📝 完整四六级套题（不含听力）` 若使用 `mastered-list` 读取了已掌握记录，只在首次呈现完整套题时显示 `*Picked from mastered-learning-records*`；后续讲解、评价或继续围绕同一套题展开说明时不再重复来源标注。新抽题、讲解当前题目、评价答案和继续练习等复习分支菜单都必须显示 `##### Popular Menus`，并优先放入“继续复习”“复习已标熟的知识点”和 `🔍 讲解当前习题` 等复习相关入口。
-
-示例结尾：
-
-```text
----
-
-➡️ 接下来可以回复数字：
-
-##### Popular Menus
-1. ▶️ 继续复习，从复习库随机抽一道题（18 条）
-2. 🔁 复习已标熟的知识点（3 条）
-
-##### Other Menus
-3. 🧪 做一道相关的四六级规格纯文本习题
-4. 📚 查看这个知识点的完整讲解
-5. 🎭 在真实场景对话中使用这个知识点
-
----
-*Picked from learning-records/phrases*
-*Generated by practice-learning-records skill*
-```
-
-后续讲解当前题目时的结尾示例：
-
-```text
----
-*Generated by practice-learning-records skill*
-```
-
-使用 `1`、`2`、`3`、`4` 标记小题；小题内部需要选择项时使用 `A`、`B`、`C`、`D`。要求用户按题号集中作答，不在作答前给出答案。结合当前题组语境区分练习答案与回复末尾的数字菜单，不要把明确的练习答案当作菜单选择。始终保留当前题组对应记录的 `category` 和 `id`，以便完成后准确更新该知识点。用户完成题组后，逐题判断正确、基本正确或需要调整，分别解释关键原因并给出自然答案，然后给出一次总体评分。
-
-任何带菜单的英语学习或复习回复，都必须在菜单引导语 `➡️ 接下来可以回复数字：` 之前放一条 Markdown 分割线 `---`，让当前内容和后续菜单清楚分开；这包括新题、讲解、答案评价、角色扮演和菜单重开。
-
-用户只回答部分小题时，先反馈已答部分并明确列出尚未完成的题号，不调用评分命令；用户明确表示跳过其余题目时，按已提交内容和未答部分共同给出总体分。每个题组只写入一次评分，不能按小题多次增加 `review_count`。
-
-本节的多小题规则不适用于菜单中的 `🧪 四六级规格习题` 和 `📝 完整四六级套题（不含听力）`：前者始终遵守仓库级规则，只生成一道聚焦的 CET-4/CET-6 规格任务；后者生成完整结构套题，不按单个知识点的 0 至 10 分复习流程评分，也不改动 `mastered-learning-records/`。
-
-## 评分与归档
-
-每当用户完成一组能够检验当前知识点的答案，先综合各小题的正确性、目标知识点掌握程度和表达自然度给出 0 至 10 分，再运行：
+用户要求查看某条记录的复习过程时运行：
 
 ```bash
-python3 learn-from-english/scripts/learning_records.py review \
-  --category <category> \
-  --key <记录 id 中冒号后的规范化键> \
-  --score <0-10>
+python3 learn-from-english/scripts/learning_records.py history --id <record id>
 ```
 
-评分保持一致：完全正确且自然为 9 至 10 分；核心正确但有小问题为 8 分；部分掌握为 5 至 7 分；核心规则未掌握为 0 至 4 分。向用户明确展示本次得分和一条最关键的改进建议。
-
-评价完成后，还必须按仓库根目录 `AGENTS.md` 的通用规则处理错题：只要用户在本题组中实际答错或出现需要修正的具体错误，在解释原因和给出正确表达后，使用 `upsert --category errors` 为每个独立、可复用的错误模式写入一条记录。这与当前知识点的 `review` 或 `familiar-review` 评分更新并行执行，不能因为已经评分而省略错题记录。场景对话中如果用户的英文回应出现已明确纠正的具体错误，也按同一规则写入 `errors`，但不因此触发复习评分，除非该场景对话本身被明确设为可评分复习任务。完全正确的答案或对话回应不写入 `errors`。
-
-`review` 会更新 `mastery_score`、`review_count`、`high_score_streak` 和 `last_reviewed_at`。评分为 10 分时，脚本会把该记录从 `learning-records/` 移入 `mastered-learning-records/` 的相同分类文件，并只保留 `id`、`title`、`summary`、`mastered_at` 四个精简字段；命令返回 `mastered: true` 时，告诉用户该知识点已经完全掌握，已放入完全掌握记录。低于 8 分会把连续高分次数清零；同一知识点单次获得 8 至 9 分时，脚本会把该记录从 `learning-records/` 移入 `familiar-learning-records/` 的相同分类文件。命令返回 `archived: true` 时，告诉用户该知识点本次已达到 8 至 9 分，已从普通复习记录中毕业并归档为已标熟。
-
-只有实际检验了某条已有记录的答案才评分。打开菜单、查看记录、请求讲解、尚未作答、无对应记录的通用题，以及无法客观检验目标知识点的消息均不评分。写入失败时仍完成反馈，并明确说明本次评分未能保存。
-
-### 已标熟知识点的评分
-
-用户完成已标熟知识点的题组后，每次都按相同的 0 至 10 分标准给出一次总体评分，并运行：
+用户要求查看近期进展时运行：
 
 ```bash
-python3 learn-from-english/scripts/learning_records.py familiar-review \
-  --category <category> \
-  --key <记录 id 中冒号后的规范化键> \
-  --score <0-10>
+python3 learn-from-english/scripts/learning_records.py stats --period 30d
 ```
 
-评分为 10 分时，命令会把记录从 `familiar-learning-records/` 移入 `mastered-learning-records/` 的相同分类文件，并只保留精简知识点信息；命令返回 `mastered: true` 时，告诉用户该已标熟知识点已经完全掌握，已放入完全掌握记录。分数低于 8 时，命令会把记录移回 `learning-records/`、清零连续高分次数并更新时间，告诉用户该知识点需要重新巩固，已移回普通复习列表。分数大于或等于 8 且低于 10 时，记录继续留在 `familiar-learning-records/`，命令会更新 `mastery_score`、`review_count` 和 `last_reviewed_at`；告诉用户本次复习通过。不能对已标熟记录使用普通的 `review` 命令。
+可说明复习次数、平均得分、当前三个状态数量和近期评分事件，不编造旧格式迁移前无法恢复的逐次历史。
 
-每次完成并评分一轮普通或已标熟复习后，先运行 `python3 learn-from-english/scripts/learning_records.py menu` 读取最新入口数量，再在回复末尾按仓库根目录 `AGENTS.md` 的英语学习菜单规则提供快捷选项。该菜单必须包含“继续复习”作为第一项，用于从普通复习库随机抽取下一条记录，并标注普通复习库当前总数 `（N 条）`；`N` 必须使用 `menu.regular_total`，不能使用合并入口数量、单个入口数量或自行估算；只有旧脚本没有返回 `regular_total` 时，才退回使用 `menu.counts` 中各普通分类数量之和。菜单还必须包含 `🔁 复习已标熟的知识点（N 条）`，其中 `N` 必须使用 `menu` 返回的 `familiar_count` 或已标熟入口自身的 `count`，像首次复习菜单一样标注数量。菜单还必须同时包含与当前知识点相关的 `🧪 四六级规格习题` 和 `🎭 场景对话`。若当前回复需要保留 `🔍 讲解当前习题`，将它作为第五项；此时省略 `📝 完整四六级套题（不含听力）`，避免超过仓库规定的五项上限。没有当前习题讲解入口时，使用完整套题作为第五项，且不显示数量。为每个菜单项使用不同的语义图标；因为已标熟入口固定使用 `🔁`，不要再给“继续复习”使用 `🔁`。复习快捷菜单必须显示 `##### Popular Menus` 和 `##### Other Menus` 两个分组，并把“继续复习”和“复习已标熟的知识点”放入 `Popular Menus`。例如：
+## 数据边界
 
-后续分支菜单中的 `🎭 场景对话` 文案必须跟随当前分支的学习点更新。只有上一轮回复本身正在进行同一段角色对话时，才使用“继续这段……”；如果中间已经切换到讲解、对比、纠错、造句或习题讲解，则不要沿用旧角色和旧场景，改写为“在<当前表达/规则>相关场景中练习”。
-
-```text
----
-
-➡️ 接下来可以回复数字：
-
-##### Popular Menus
-1. ▶️ 继续复习，从复习库随机抽一道题（18 条）
-2. 🔁 复习已标熟的知识点（3 条）
-3. 🔍 讲解当前习题
-
-##### Other Menus
-4. 🧪 做一道相关的四六级规格纯文本习题
-5. 🎭 在真实场景对话中使用这个知识点
-```
-
-始终用阿拉伯数字标记复习题组中的小题；小题内部需要选项时用大写字母 `A` 至 `D`。用户正在回答题组时，要根据语境区分题号与快捷菜单编号，不要把练习答案中的数字误判为菜单选择。
-
-## 保持数据边界
-
-- 只通过 `learning_records.py` 读写 `learning-records/`、`familiar-learning-records/` 和 `mastered-learning-records/`，不直接编辑其中的 JSON。
-- 不把菜单生成、查看记录或复习评分计入 `learned_count`；评分只增加 `review_count`。
-- 数据读取失败时明确说明暂时无法读取记录，不编造历史内容，并提供“重新读取学习记录”的数字入口。
+- 菜单、查询和查看历史不增加学习或复习次数。
+- 重复学习同一知识点会增加 `learned_count`，但不覆盖原始讲解。
+- 每个题组只调用一次 `complete-review`，不能按小题重复计分。
+- 数据错误时运行 `validate`；只在用户明确要求修复时运行 `repair --dry-run` 并先展示结果。

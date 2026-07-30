@@ -55,17 +55,17 @@ Prefer these stable emoji meanings when they fit, while keeping every item in on
 
 These rules apply to every skill that presents an English exercise and evaluates the user's answer, or runs an active English scenario dialogue and corrects the user's English response.
 
-- Write to `learning-records/errors.json` only when the user is answering an explicit exercise or participating in an active English scenario dialogue, and at least one submitted answer is judged incorrect or contains a concrete error that needs correction. Do not create an error record from ordinary English input, free conversation outside an active English-learning role-play, explanations, examples, unanswered questions, or fully correct exercise/dialogue answers.
-- After explaining the error and giving the correct or improved answer, record each distinct reusable error pattern through `learn-from-english/scripts/learning_records.py upsert --category errors`. Never edit `errors.json` directly.
+- Write an `errors` category record only when the user is answering an explicit exercise or participating in an active English scenario dialogue, and at least one submitted answer is judged incorrect or contains a concrete error that needs correction. Do not create an error record from ordinary English input, free conversation outside an active English-learning role-play, explanations, examples, unanswered questions, or fully correct exercise/dialogue answers.
+- After explaining the error and giving the correct or improved answer, record each distinct reusable error pattern through `learn-from-english/scripts/learning_records.py`. When the same response also scores a reviewed knowledge point, include every demonstrated error in one `complete-review` transaction; for an unscored scenario dialogue, use one `batch-upsert` transaction. Never edit `learning-records/records.json` directly.
 - Use a stable semantic `--key` that describes the error pattern rather than the exercise, date, or conversation. Use the user's incorrect answer as `--source`, and put a corrected representative sentence in `--example`.
-- Error recording is independent of the active skill and independent of review scoring. When a review exercise tests an existing record, update that record's score as required and also upsert any newly demonstrated error pattern into `errors`. Scenario dialogue corrections do not by themselves trigger review scoring unless the dialogue is explicitly being used as a scored review task.
+- Error recording is independent of the active skill and independent of review scoring. When a review exercise tests an existing record, update that record's score and save every newly demonstrated error pattern in the same `complete-review` transaction. Scenario dialogue corrections do not by themselves trigger review scoring unless the dialogue is explicitly being used as a scored review task.
 - Record only errors actually demonstrated in the submitted answer. Do not infer or invent additional weaknesses, and do not record an error merely because the overall score is below a threshold.
 
 # Commit conventions
 
 - After any repository content is added, modified, moved, or deleted, automatically create a Git commit for those changes before finishing the current turn.
 - When committing, stage only the changes made for the current task. Do not include unrelated user changes.
-- Use `[records]: xxx` when the commit changes only `learning-records/`, `familiar-learning-records/`, or `mastered-learning-records/`, regardless of the number of record categories or directories changed.
+- Use `[records]: xxx` when the commit changes only the canonical `learning-records/` data.
 - Use `[skill]: xxx` when the commit changes only skill files.
 - Use `[readme-doc]: xxx` when the commit changes only `README.md`.
 - Use `[agents-doc]: xxx` when the commit changes only `AGENTS.md`.

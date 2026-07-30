@@ -1,156 +1,206 @@
 # 英语学习 Skills
 
-这是一个面向 Codex 的个人英语学习仓库。它把日常遇到的英文作为学习材料，自动沉淀知识点，并基于真实学习记录安排后续复习、评分和归档。
+这是一个面向 Codex 的个人英语学习仓库。它从真实英语输入中提取知识点，通过版本化 JSON 数据库记录重复学习、复习评分、错误模式、掌握状态和下一次复习时间。
 
 ## 核心能力
 
-- **即时学习**：讲解单词、短语、句子、段落、英文报错和用户自己写的英语。
-- **分类记录**：把实际讲解过的内容保存为词汇、短语、语法、用法和错误五类记录。
-- **针对性复习**：优先选择掌握分较低、较久未复习的知识点生成练习。
-- **掌握度追踪**：每次有效作答按 0 至 10 分记录掌握情况。
-- **自动归档**：普通知识点单次获得 8 至 9 分后，移入熟练知识点目录；获得 10 分时精简归入完全掌握目录。
-- **多种练习形式**：支持语法、词汇、翻译、场景对话，以及参照 CET-4/CET-6 形式设计的文本习题。
+- `learn-from-english`：讲解单词、短语、句子、长文本和英文错误信息，并批量保存本轮知识点。
+- `practice-learning-records`：选择到期或低分记录生成练习，在同一事务中保存评分、状态变化和实际错题。
+- 三级状态：`learning`、`familiar`、`mastered`。
+- 间隔复习：根据得分、连续高分和遗忘次数计算 `next_review_at`。
+- 完整历史：保留知识点正文和新的逐次评分记录；完全掌握后不再丢弃例句与标签。
+- 集中菜单：脚本根据对话上下文生成 3 至 5 个稳定入口，Skill 只负责渲染。
+- Git 记录：每个写事务只创建一个提交，并保留其他已经暂存的文件。
 
-## `AGENTS.md` 提供的功能
-
-`AGENTS.md` 是整个仓库的统一行为规范。两个 Skill 都需要遵守它，主要负责以下能力：
-
-- **统一回复格式**：规定动态回复标题，以及使用 Skill 时的来源标记格式。
-- **统一学习菜单**：英语讲解、纠错和复习分支回复会提供 3 至 5 个可直接选择的后续活动，并始终包含场景对话；首次复习入口菜单可用完整四六级套题替代单道四六级习题，避免重复。
-- **菜单上下文衔接**：用户回复上一轮菜单编号时，直接执行对应活动，不要求重新发送学习内容。
-- **四六级习题规范**：根据知识点生成一道聚焦的 CET-4/CET-6 文本任务，支持选词填空、段落匹配、仔细阅读、汉译英和短写作；出题时不提前公布答案。
-- **习题讲解闭环**：四六级习题出题后和批改后都保留“讲解当前习题”入口，用于说明题目文本、考点、推理过程和选项或参考答案。
-- **错题记录规范**：只记录用户在明确练习中真实出现的错误，通过记录脚本写入稳定、可复用的错误模式；普通对话、未作答题目和完全正确的答案不会生成错题记录。
-
-## 各 Skill 提供的功能
-
-### `learn-from-english`
-
-用于从用户真实遇到的英语中学习，适合单词、短语、句子、段落、对话、标题、引用、英文报错，以及用户自己写的英语。
-
-- 给出自然中文含义，并结合当前语境解释实际意图。
-- 按需讲解句子结构、语法、词汇、搭配、语气、自然度和发音。
-- 区分“语法错误”“可以理解但不自然”和“表达正确但风格不同”。
-- 面对英文报错或技术文本时，先帮助解决实际问题，再提取值得学习的英语。
-- 每轮只提取 1 至 4 个得到实质讲解的知识点，并通过脚本分类写入学习记录，避免重复记录。
-- 根据用户表现调整讲解深度，并提供翻译、改写、造句、辨析、场景对话和四六级规格习题等后续活动。
-
-单独发送 `hello`（不区分大小写）或“你好”时不会触发此 Skill，而是交给 `practice-learning-records` 打开复习入口。
-
-### `practice-learning-records`
-
-用于复习已记录的知识点、评价掌握程度并维护知识点的学习状态。
-
-- 单独收到 `hello` 或“你好”时，读取记录数量并生成动态复习菜单。
-- 按掌握分从低到高选择知识点；同分时优先选择更久未复习的内容。
-- 支持复习错误与语法、词汇与短语、语气与场景用法，也支持基于学习记录生成场景对话和四六级规格习题。
-- 普通复习默认生成 2 至 4 个小题，并至少组合两种题型；用户完成后逐题反馈并给出 0 至 10 分的总体评分。
-- 每组练习只记一次评分；部分作答时等待补全，用户明确跳过后才按实际完成情况评分。
-- 普通知识点单次获得 8 至 9 分时，自动移入 `familiar-learning-records/`；获得 10 分时精简归入 `mastered-learning-records/`。
-- 已标熟知识点会按最久未复习顺序再次抽查；得分低于 8 分时自动移回普通复习列表，得分为 10 分时精简归入完全掌握目录。
-- 批改过程中发现的真实错误，会同时按 `AGENTS.md` 规范写入错题记录。
-
-两个 Skill 的分工可以概括为：`learn-from-english` 负责“学习并沉淀”，`practice-learning-records` 负责“复习、评分和归档”，`AGENTS.md` 则为两者提供统一的回复、菜单、习题和错题记录规则。
-
-## 工作流程
+## 架构
 
 ```text
-输入英语
-   ↓
-learn-from-english 讲解并提取知识点
-   ↓
-learning-records 保存待巩固内容
-   ↓
-practice-learning-records 生成复习并评分
-   ↓
-10 分精简归入完全掌握目录；8 至 9 分归档
-   ↓
-familiar-learning-records 归档熟练内容
-mastered-learning-records 归档完全掌握内容
+Skill / CLI
+    ↓
+cli.py
+    ↓
+service.py ── menu.py
+    │         scheduler.py
+    ↓
+store.py ── 文件锁、校验、原子替换
+    ↓
+learning-records/records.json
+    ↓
+git_adapter.py
 ```
 
-当用户只发送 `hello` 或“你好”时，会直接进入基于学习记录的复习菜单；其他英语学习请求由 `learn-from-english` 处理。
+实现位于 `learn-from-english/scripts/learning_records_tool/`：
+
+| 模块 | 职责 |
+| --- | --- |
+| `models.py` | Schema v2、规范化 ID、字段与关系校验 |
+| `store.py` | 进程锁、临时文件、`fsync` 和原子替换 |
+| `service.py` | 批量写入、评分事务、查询、迁移、历史与统计 |
+| `scheduler.py` | 状态转换、复习间隔和选题优先级 |
+| `menu.py` | 初始、复习后和习题中三类菜单策略 |
+| `git_adapter.py` | 仅提交当前记录事务涉及的文件 |
+| `cli.py` | 新旧命令的兼容入口 |
+
+原有 `learn-from-english/scripts/learning_records.py` 路径保持不变，它现在是轻量兼容入口。
+
+## 数据模型
+
+所有记录统一保存在 `learning-records/records.json`，不再通过三个目录移动文件来表达状态。
+
+```json
+{
+  "schema_version": 2,
+  "revision": 1,
+  "records": {
+    "grammar:present-perfect-experience": {
+      "id": "grammar:present-perfect-experience",
+      "category": "grammar",
+      "status": "learning",
+      "title": "现在完成时表示经历",
+      "explanation": "...",
+      "source": "...",
+      "example": "...",
+      "tags": [],
+      "first_learned_at": "...",
+      "last_learned_at": "...",
+      "learned_count": 1,
+      "mastery_score": 0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    }
+  }
+}
+```
+
+旧数据迁移会保留已有数量、分数和时间。旧格式没有保存逐次评分，因此 `review_history` 只从 Schema v2 启用后开始积累。
+
+## 原子写入流程
+
+每个写命令执行：
+
+```text
+获取文件锁
+  → 读取并校验当前 revision
+  → 在内存中应用整个操作
+  → 校验完整结果
+  → 写入同目录临时文件并 fsync
+  → 原子替换 records.json
+  → 释放锁
+  → 创建一个范围受限的 Git 提交
+```
+
+任一输入无效时不会写入部分结果。多个进程同时写入时会串行获取锁，避免后写覆盖前写。
+
+## 常用命令
+
+### 批量学习记录
+
+```bash
+python3 learn-from-english/scripts/learning_records.py batch-upsert \
+  --input records.json
+```
+
+输入可以是记录数组，也可以是 `{"records": [...]}`。重复 ID 不覆盖原讲解，而是增加 `learned_count` 并更新 `last_learned_at`。
+
+单条兼容命令仍可使用：
+
+```bash
+python3 learn-from-english/scripts/learning_records.py upsert \
+  --category grammar \
+  --key present-perfect-experience \
+  --title "现在完成时表示经历" \
+  --explanation "..." \
+  --source "..." \
+  --example "..."
+```
+
+### 评分与错题事务
+
+```bash
+python3 learn-from-english/scripts/learning_records.py complete-review \
+  --input review-result.json
+```
+
+输入包含目标 `id`、`score` 和 `errors` 数组。评分、状态转换、下次复习时间、历史事件和错误记录在同一事务中完成。
+
+旧的 `review` 与 `familiar-review` 命令仍可使用，但不能同时写入错题。
+
+### 菜单和选题
+
+```bash
+python3 learn-from-english/scripts/learning_records.py menu --context initial
+python3 learn-from-english/scripts/learning_records.py menu \
+  --context review-complete --focus "present perfect"
+python3 learn-from-english/scripts/learning_records.py menu \
+  --context exercise-active --focus "present perfect"
+
+python3 learn-from-english/scripts/learning_records.py next-review --path errors-grammar
+python3 learn-from-english/scripts/learning_records.py next-review --familiar
+python3 learn-from-english/scripts/learning_records.py next-review --mastered
+python3 learn-from-english/scripts/learning_records.py next-review --random
+```
+
+选题先考虑是否到期，再考虑到期时间、掌握分、遗忘次数和稳定 ID。随机复习按低分与遗忘次数加权。
+
+### 查询和统计
+
+```bash
+python3 learn-from-english/scripts/learning_records.py list --category grammar
+python3 learn-from-english/scripts/learning_records.py search \
+  --query "present perfect" \
+  --include-familiar \
+  --include-mastered
+python3 learn-from-english/scripts/learning_records.py summary \
+  --include-familiar \
+  --include-mastered
+python3 learn-from-english/scripts/learning_records.py history \
+  --id grammar:present-perfect-experience
+python3 learn-from-english/scripts/learning_records.py stats --period 30d
+```
+
+### 校验、修复和迁移
+
+```bash
+python3 learn-from-english/scripts/learning_records.py validate
+python3 learn-from-english/scripts/learning_records.py repair --dry-run
+python3 learn-from-english/scripts/learning_records.py repair
+python3 learn-from-english/scripts/learning_records.py migrate-v2 --dry-run
+```
+
+`validate` 检查 Schema 版本、规范化 ID、字段类型、ISO 时区时间、状态关系、分数范围、标签重复、复习计数和时间先后关系。`repair` 只处理无歧义问题，并支持预览。
 
 ## 目录结构
 
 ```text
 .
-├── AGENTS.md                         # 仓库级回复与练习规则
+├── AGENTS.md
+├── learning-records/
+│   └── records.json
 ├── learn-from-english/
-│   ├── SKILL.md                      # 英语讲解与知识点记录流程
-│   ├── scripts/learning_records.py   # 学习记录命令行工具
-│   └── tests/                        # 记录工具的单元测试
+│   ├── SKILL.md
+│   ├── agents/openai.yaml
+│   ├── scripts/
+│   │   ├── learning_records.py
+│   │   └── learning_records_tool/
+│   └── tests/
 ├── practice-learning-records/
-│   └── SKILL.md                      # 复习、评分与归档流程
-├── learning-records/                 # 当前需要复习的知识点
-├── familiar-learning-records/        # 已熟练并归档的知识点
-└── mastered-learning-records/        # 已完全掌握的精简知识点
+│   ├── SKILL.md
+│   └── agents/openai.yaml
+└── .github/workflows/check.yml
 ```
 
-三个记录目录都按以下五类保存 JSON 文件：
-
-| 分类 | 内容 |
-| --- | --- |
-| `vocabulary` | 单词及其语境含义 |
-| `phrases` | 短语、固定表达和搭配 |
-| `grammar` | 语法规则和可复用句型 |
-| `usage` | 语气、语域、自然度和场景选择 |
-| `errors` | 用户出现并得到讲解的错误模式 |
-
-## 学习记录工具
-
-所有学习记录都应通过 `learn-from-english/scripts/learning_records.py` 读写，避免直接编辑 JSON 文件。
-
-```bash
-# 查看各分类的待复习数量
-python3 learn-from-english/scripts/learning_records.py summary
-
-# 同时查看待复习、已标熟和完全掌握数量
-python3 learn-from-english/scripts/learning_records.py summary \
-  --include-familiar \
-  --include-mastered
-
-# 查看某一分类，结果按掌握分从低到高排列
-python3 learn-from-english/scripts/learning_records.py list --category grammar
-
-# 搜索已有知识点，可按需包含已标熟记录
-python3 learn-from-english/scripts/learning_records.py search \
-  --query "present perfect" \
-  --include-familiar \
-  --include-mastered
-
-# 生成复习入口菜单
-python3 learn-from-english/scripts/learning_records.py menu
-
-# 从一个复习路径里选择下一条应练习的记录
-python3 learn-from-english/scripts/learning_records.py next-review \
-  --path errors-grammar
-
-# 记录一次复习得分
-python3 learn-from-english/scripts/learning_records.py review \
-  --category grammar \
-  --key present-perfect-experience \
-  --score 9
-
-# 检查并迁移旧格式记录
-python3 learn-from-english/scripts/learning_records.py validate
-python3 learn-from-english/scripts/learning_records.py migrate
-```
-
-脚本还提供 `upsert` 命令供 Skill 写入新知识点。规范化后的分类与键共同组成稳定 ID；待复习和已归档目录中存在相同 ID 时，不会重复写入或覆盖。
-
-`menu` 和 `next-review` 把复习入口生成、分类合并、已标熟入口统计、低分优先选择等规则放在脚本里，Skill 应优先使用它们，避免临场拼接菜单时漏掉数量或选错记录。
-
-`validate` 除了检查字段结构和单个文件内的重复 ID，也会检查同一 ID 是否同时出现在待复习、已标熟和完全掌握目录。写入与评分命令的自动提交只包含本次实际修改的记录文件，不会带入其他已经暂存的文件；Git 提交失败时命令会明确报错。
-
-## 运行测试
-
-项目只依赖 Python 标准库。可在仓库根目录运行：
+## 测试
 
 ```bash
 python3 -m unittest discover -s learn-from-english/tests -v
+python3 learn-from-english/scripts/learning_records.py validate
+python3 -m compileall -q learn-from-english/scripts learn-from-english/tests
+git diff --check
 ```
 
-测试覆盖知识点写入、去重、搜索、分类统计、结构化菜单、下一条复习选择、评分排序、达标归档、10 分精简归入完全掌握目录、旧记录迁移、数据校验，以及损坏数据保护等行为。
-
-仓库的 GitHub Actions 会在推送和 Pull Request 上自动运行单元测试、记录校验与 Python 编译检查。
+测试覆盖批量事务回滚、重复学习、评分与错题原子性、状态转换、评分历史、间隔调度、上下文化菜单、旧数据迁移、校验修复、故障注入、并发进程写入、CLI 兼容和 Git 提交隔离。GitHub Actions 会在推送和 Pull Request 上自动执行测试、数据校验与编译检查。

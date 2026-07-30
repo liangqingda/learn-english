@@ -24,13 +24,13 @@ description: 禁止在用户消息去除首尾空白后仅为“你好”“复�
 5. 给出少量可以迁移到其他场景的例子。
 6. 按仓库根目录 `AGENTS.md` 的英语学习菜单规则提供后续学习路径。
 
-在完成正文、生成快捷菜单之后且发送回复之前，按照“记录本轮知识点”流程保存本轮实际讲解的内容。记录失败不得阻断教学回复。
+在完成正文、生成快捷菜单之后且发送回复之前，按照“记录本轮知识点”流程用一次批量事务保存本轮实际讲解的内容。记录失败不得阻断教学回复。
 
 不要为了完整而解释每个单词。不要把简单内容讲得过度复杂。
 
 ## 记录本轮知识点
 
-使用 `scripts/learning_records.py` 维护仓库根目录的 `learning-records/`。不得直接手工修改记录文件。
+使用 `scripts/learning_records.py` 维护仓库根目录的 `learning-records/records.json`。不得直接手工修改记录文件。
 
 每轮只记录正文中得到实质讲解的 1 至 4 个知识点：
 
@@ -42,20 +42,13 @@ description: 禁止在用户消息去除首尾空白后仅为“你好”“复�
 
 不要记录快捷菜单、练习题题干、仅作为说明材料的普通例句、只被提及但未解释的项目，或非英语教学回复。普通英语输入或自由对话中的错误不得写入 `errors`；只有用户提交明确习题的答案，或正在进行的英语场景对话中提交需要纠正的英文回应后，才按仓库根目录 `AGENTS.md` 的规则记录实际答错的模式。用户通过数字菜单继续学习时，只记录该轮新近实质讲解的知识点。
 
-为每个知识点调用一次：
+把本轮所有知识点组成一个 JSON 数组，并只调用一次：
 
 ```bash
-python3 learn-from-english/scripts/learning_records.py upsert \
-  --category <category> \
-  --key <稳定且简短的规范化语义键> \
-  --title <知识点标题> \
-  --explanation <本轮中文解释摘要> \
-  --source <触发讲解的原始英语> \
-  --example <一个代表性英文例句> \
-  --tag <可选标签>
+python3 learn-from-english/scripts/learning_records.py batch-upsert --input <JSON 文件或 ->
 ```
 
-同类同义知识点必须复用同一个 `--key`，例如 `present-perfect-experience`。键只表达知识点本身，不包含日期、会话或例句。写入脚本会生成稳定 ID，并同时检查 `learning-records/`、`familiar-learning-records/` 与 `mastered-learning-records/`；任一目录已有相同 ID 时返回 `created: false` 并跳过写入，不覆盖记录或增加学习次数。
+输入格式为 `{"records": [{"category": "grammar", "key": "present-perfect-experience", "title": "...", "explanation": "...", "source": "...", "example": "...", "tags": ["..."]}]}`。同类同义知识点必须复用同一个 `key`；键只表达知识点本身，不包含日期、会话或例句。脚本会生成稳定 ID；已有相同 ID 时保留原始讲解和当前状态，只增加 `learned_count` 并更新 `last_learned_at`。整批输入先校验后写入，任一知识点无效时整批不保存。
 
 发音、重音、弱读、连读或音变可以作为文字讲解内容，但不得写入学习记录；当前复习流程不具备验证实际发音的能力。
 
@@ -63,7 +56,7 @@ python3 learn-from-english/scripts/learning_records.py upsert \
 
 ```bash
 python3 learn-from-english/scripts/learning_records.py list --category <category>
-python3 learn-from-english/scripts/learning_records.py search --query <text> --include-mastered
+python3 learn-from-english/scripts/learning_records.py search --query <text> --include-familiar --include-mastered
 ```
 
 若某个知识点写入失败，继续发送教学回复，并在快捷菜单之前简短说明“本轮学习记录未能保存”。不得声称失败的记录已经保存。

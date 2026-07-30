@@ -1,4 +1,4 @@
 interface:
   display_name: "英语知识点复习"
-  short_description: "复习知识点、评分归档，并用已掌握记录生成完整套题"
-  default_prompt: "使用 $practice-learning-records 复习我的知识点、更新掌握状态，或用已掌握记录生成一套不含听力的四六级套题。"
+  short_description: "按到期时间复习知识点、评分调度，并用已掌握记录生成套题"
+  default_prompt: "使用 $practice-learning-records 复习到期或低分知识点、原子记录评分与错题，或用已掌握记录生成一套不含听力的四六级套题。"
