@@ -1,11 +1,11 @@
 {
   "schema_version": 2,
-  "revision": 21,
+  "revision": 22,
   "records": {
     "errors:advice-uncountable-many-error": {
       "id": "errors:advice-uncountable-many-error",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "advice 是不可数名词，不能说 many advice",
       "explanation": "advice 是不可数名词，不能直接用 many 修饰；要说 a lot of advice、much advice，或 a piece of advice。",
       "source": "many advice",
@@ -18,14 +18,21 @@
       "first_learned_at": "2026-07-31T11:00:08+08:00",
       "last_learned_at": "2026-07-31T11:00:08+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-07-31T13:51:59+08:00",
+      "next_review_at": "2026-08-07T13:51:59+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-07-31T13:51:59+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:after-event-noun-phrase": {
       "id": "errors:after-event-noun-phrase",
@@ -1436,6 +1443,31 @@
       "tags": [],
       "first_learned_at": "2026-07-30T13:04:53+08:00",
       "last_learned_at": "2026-07-30T13:04:53+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:tense-and-exam-countability-in-translation": {
+      "id": "errors:tense-and-exam-countability-in-translation",
+      "category": "errors",
+      "status": "learning",
+      "title": "翻译中时态和 exam/examination 数量不匹配",
+      "explanation": "中文“给了”通常需要用过去时 gave；表示泛指备考时，exam/examination 常用复数 exams/examinations，或用特指 the exam。",
+      "source": "My teacher gives us a lot of advice about how to prepare for examination.",
+      "example": "Our teacher gave us a lot of advice about how to prepare for exams.",
+      "tags": [
+        "countable-noun",
+        "review-error",
+        "tense"
+      ],
+      "first_learned_at": "2026-07-31T13:51:59+08:00",
+      "last_learned_at": "2026-07-31T13:51:59+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
