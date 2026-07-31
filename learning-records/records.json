@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 12,
+  "revision": 13,
   "records": {
     "errors:after-event-noun-phrase": {
       "id": "errors:after-event-noun-phrase",
@@ -319,6 +319,29 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:common-place-name-english-not-pinyin": {
+      "id": "errors:common-place-name-english-not-pinyin",
+      "category": "errors",
+      "status": "learning",
+      "title": "常见地名应用英文名而不是拼音",
+      "explanation": "翻译城市名时，常见英文地名要使用约定英文名；温哥华是 Vancouver，不写作 wengehua。",
+      "source": "We will go travel to wengehua to visit our friends next year.",
+      "example": "We will go to Vancouver to visit our friends next year.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-07-31T09:05:39+08:00",
+      "last_learned_at": "2026-07-31T09:05:39+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:company-headquarters-not-head": {
       "id": "errors:company-headquarters-not-head",
       "category": "errors",
@@ -576,6 +599,29 @@
           "new_status": "mastered"
         }
       ]
+    },
+    "errors:go-travel-to-redundant-verb-phrase": {
+      "id": "errors:go-travel-to-redundant-verb-phrase",
+      "category": "errors",
+      "status": "learning",
+      "title": "go travel to 不自然，应选 go to 或 travel to",
+      "explanation": "表达去某地时，go to 和 travel to 都可以，但通常不要叠成 go travel to；应根据语气选择一个动词。",
+      "source": "We will go travel to wengehua to visit our friends next year.",
+      "example": "We will travel to Vancouver to visit our friends next year.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-07-31T09:05:39+08:00",
+      "last_learned_at": "2026-07-31T09:05:39+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:hear-object-base-verb": {
       "id": "errors:hear-object-base-verb",
@@ -1356,7 +1402,7 @@
     "errors:visit-someone-in-place-not-to-place": {
       "id": "errors:visit-someone-in-place-not-to-place",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "visit someone in a place，而不是 visit someone to a place",
       "explanation": "visit 后面直接接人或地点；如果要同时表达地点，常用 visit someone in + place，或 go/travel to + place to visit someone。",
       "source": "She lives in New York, but she visits her friends to Los Angeles every summer.",
@@ -1367,14 +1413,21 @@
       "first_learned_at": "2026-07-31T08:29:22+08:00",
       "last_learned_at": "2026-07-31T08:29:22+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-07-31T09:05:39+08:00",
+      "next_review_at": "2026-08-07T09:05:39+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-07-31T09:05:39+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:want-to-base-verb-not-gerund": {
       "id": "errors:want-to-base-verb-not-gerund",
