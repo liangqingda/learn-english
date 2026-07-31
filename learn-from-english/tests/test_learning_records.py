@@ -40,7 +40,7 @@ class LearningRecordsTest(unittest.TestCase):
         self.root = Path(self.temporary_directory.name)
         self.store = RecordStore(self.root)
         self.store.initialize(empty_database())
-        self.service = RecordService(self.store, auto_commit=False)
+        self.service = RecordService(self.store)
 
     def test_batch_upsert_is_atomic_and_tracks_repeated_encounters(self) -> None:
         result = self.service.batch_upsert(
@@ -322,7 +322,7 @@ class LearningRecordsTest(unittest.TestCase):
             ),
             encoding="utf-8",
         )
-        migration_service = RecordService(RecordStore(migration_root), auto_commit=False)
+        migration_service = RecordService(RecordStore(migration_root))
 
         preview = migration_service.migrate_legacy(dry_run=True)
         applied = migration_service.migrate_legacy(dry_run=False)
@@ -334,7 +334,7 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertEqual(migrated["usage:legacy-mastered"]["status"], "mastered")
         self.assertEqual(migrated["usage:legacy-mastered"]["explanation"], "Preserved summary")
 
-    def test_git_commit_keeps_unrelated_staged_file(self) -> None:
+    def test_record_service_does_not_commit_git_changes(self) -> None:
         subprocess.run(["git", "init", "-q"], cwd=self.root, check=True)
         subprocess.run(["git", "config", "user.email", "tests@example.com"], cwd=self.root, check=True)
         subprocess.run(["git", "config", "user.name", "Tests"], cwd=self.root, check=True)
@@ -343,35 +343,18 @@ class LearningRecordsTest(unittest.TestCase):
         unrelated = self.root / "notes.txt"
         unrelated.write_text("staged\n", encoding="utf-8")
         subprocess.run(["git", "add", "notes.txt"], cwd=self.root, check=True)
-        git_service = RecordService(self.store, auto_commit=True)
 
-        git_service.upsert(payload("grammar", "git-scope"))
+        RecordService(self.store).upsert(payload("grammar", "git-scope"))
 
-        names = subprocess.run(
-            ["git", "show", "--format=", "--name-only", "HEAD"],
+        status = subprocess.run(
+            ["git", "status", "--short"],
             cwd=self.root,
             check=True,
             capture_output=True,
             text=True,
-        ).stdout.splitlines()
-        self.assertEqual(names, ["learning-records/records.json"])
-        self.assertIn("A  notes.txt", subprocess.run(
-            ["git", "status", "--short"], cwd=self.root, check=True, capture_output=True, text=True
-        ).stdout)
-
-    def test_auto_commit_rejects_preexisting_database_changes(self) -> None:
-        subprocess.run(["git", "init", "-q"], cwd=self.root, check=True)
-        subprocess.run(["git", "config", "user.email", "tests@example.com"], cwd=self.root, check=True)
-        subprocess.run(["git", "config", "user.name", "Tests"], cwd=self.root, check=True)
-        subprocess.run(["git", "add", "learning-records/records.json"], cwd=self.root, check=True)
-        subprocess.run(["git", "commit", "-qm", "initial"], cwd=self.root, check=True)
-        before = self.store.data_path.read_text(encoding="utf-8") + "\n"
-        self.store.data_path.write_text(before, encoding="utf-8")
-
-        with self.assertRaisesRegex(RecordError, "uncommitted changes"):
-            RecordService(self.store, auto_commit=True).upsert(payload("grammar", "blocked"))
-
-        self.assertEqual(self.store.data_path.read_text(encoding="utf-8"), before)
+        ).stdout
+        self.assertIn(" M learning-records/records.json", status)
+        self.assertIn("A  notes.txt", status)
 
     def test_cli_compatibility_and_batch_input(self) -> None:
         input_path = self.root / "batch.json"
@@ -379,7 +362,6 @@ class LearningRecordsTest(unittest.TestCase):
         environment = {
             **os.environ,
             "LEARN_ENGLISH_REPO_ROOT": str(self.root),
-            "LEARN_ENGLISH_AUTO_COMMIT": "0",
         }
 
         subprocess.run(
@@ -417,7 +399,6 @@ class LearningRecordsTest(unittest.TestCase):
         environment = {
             **os.environ,
             "LEARN_ENGLISH_REPO_ROOT": str(invalid_root),
-            "LEARN_ENGLISH_AUTO_COMMIT": "0",
         }
 
         result = subprocess.run(

@@ -20,10 +20,7 @@ REPO_ROOT = Path(
 
 
 def service() -> RecordService:
-    return RecordService(
-        RecordStore(REPO_ROOT),
-        auto_commit=os.environ.get("LEARN_ENGLISH_AUTO_COMMIT", "1") != "0",
-    )
+    return RecordService(RecordStore(REPO_ROOT))
 
 
 def read_input(path: str) -> Any:

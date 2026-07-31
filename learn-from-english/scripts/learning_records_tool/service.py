@@ -7,7 +7,6 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Iterable
 
-from .git_adapter import commit_paths, ensure_paths_clean
 from .menu import REVIEW_PATHS, build_menu, counts_for
 from .models import (
     CATEGORIES,
@@ -32,24 +31,8 @@ LEGACY_LOCATIONS = {
 
 
 class RecordService:
-    def __init__(self, store: RecordStore, *, auto_commit: bool = True):
+    def __init__(self, store: RecordStore):
         self.store = store
-        self.auto_commit = auto_commit
-
-    def _commit(self, reason: str) -> None:
-        commit_paths(
-            self.store.repo_root,
-            reason,
-            [self.store.data_path],
-            enabled=self.auto_commit,
-        )
-
-    def _ensure_clean(self) -> None:
-        ensure_paths_clean(
-            self.store.repo_root,
-            [self.store.data_path],
-            enabled=self.auto_commit,
-        )
 
     def records(self) -> dict[str, dict[str, Any]]:
         return self.store.read()["records"]
@@ -94,12 +77,7 @@ class RecordService:
                 )
             return {"results": results, "count": len(results)}
 
-        reason = f"batch upsert {len(payload_list)} record(s)"
-        result = self.store.transaction(
-            operation,
-            before_write=self._ensure_clean,
-            after_write=lambda: self._commit(reason),
-        )
+        result = self.store.transaction(operation)
         return result
 
     def upsert(self, payload: dict[str, Any]) -> dict[str, Any]:
@@ -121,11 +99,7 @@ class RecordService:
                 "last_learned_at": timestamp,
             }
 
-        result = self.store.transaction(
-            operation,
-            before_write=self._ensure_clean,
-            after_write=lambda: self._commit("record repeated encounter"),
-        )
+        result = self.store.transaction(operation)
         return result
 
     @staticmethod
@@ -198,11 +172,7 @@ class RecordService:
                 "deleted": False,
             }
 
-        result = self.store.transaction(
-            operation,
-            before_write=self._ensure_clean,
-            after_write=lambda: self._commit(f"complete review {identifier}"),
-        )
+        result = self.store.transaction(operation)
         return result
 
     def list_records(
@@ -354,11 +324,7 @@ class RecordService:
 
         changes = apply_repairs(database)
         if changes and not dry_run:
-            changes = self.store.transaction_unvalidated(
-                apply_repairs,
-                before_write=self._ensure_clean,
-                after_write=lambda: self._commit("repair records"),
-            )
+            changes = self.store.transaction_unvalidated(apply_repairs)
         return {"dry_run": dry_run, "change_count": len(changes), "changes": changes}
 
     def migrate_legacy(self, *, dry_run: bool) -> dict[str, Any]:
@@ -455,9 +421,5 @@ class RecordService:
             "target": str(self.store.data_path),
         }
         if not dry_run:
-            self.store.initialize(
-                database,
-                before_write=self._ensure_clean,
-                after_write=lambda: self._commit("migrate records to schema v2"),
-            )
+            self.store.initialize(database)
         return result
