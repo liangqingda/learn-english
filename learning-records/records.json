@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 18,
+  "revision": 19,
   "records": {
     "errors:advice-uncountable-many-error": {
       "id": "errors:advice-uncountable-many-error",
@@ -1594,6 +1594,56 @@
       "review_count": 2,
       "high_score_streak": 0,
       "last_reviewed_at": "2026-07-29T21:18:45+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:could-you-polite-request": {
+      "id": "grammar:could-you-polite-request",
+      "category": "grammar",
+      "status": "learning",
+      "title": "Could you...? 礼貌请求",
+      "explanation": "Could you...? 常用来礼貌地请别人做事，比直接用 Do it 或 Can you...? 更柔和，适合家庭、朋友和服务场景。",
+      "source": "4",
+      "example": "Could you slice the bread while I pour the coffee?",
+      "tags": [
+        "dialogue",
+        "politeness",
+        "request"
+      ],
+      "first_learned_at": "2026-07-31T12:48:40+08:00",
+      "last_learned_at": "2026-07-31T12:48:40+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:ill-volunteer-to-do-something": {
+      "id": "grammar:ill-volunteer-to-do-something",
+      "category": "grammar",
+      "status": "learning",
+      "title": "I’ll... 主动承担任务",
+      "explanation": "I’ll 加动词原形可以表示说话人当场决定或主动承担某个任务，常用于分工、帮忙和即时回应。",
+      "source": "4",
+      "example": "I’ll stir the eggs while you make the toast.",
+      "tags": [
+        "dialogue",
+        "future",
+        "volunteering"
+      ],
+      "first_learned_at": "2026-07-31T12:48:40+08:00",
+      "last_learned_at": "2026-07-31T12:48:40+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
