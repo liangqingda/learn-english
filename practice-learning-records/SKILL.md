@@ -117,6 +117,8 @@ python3 learn-from-english/scripts/learning_records.py menu \
   --focus <当前知识点标题或核心表达>
 ```
 
+`review-complete` 菜单必须保留 `explain-current-exercise`，并把 `🔍 讲解当前习题` 放在 `popular` 组，方便用户在看完批改后立刻请求当前题目的完整讲解。
+
 若当前是一道需要保留讲解入口的 CET 题或具体习题，改用：
 
 ```bash

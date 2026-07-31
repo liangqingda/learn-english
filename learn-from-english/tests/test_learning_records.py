@@ -163,6 +163,10 @@ class LearningRecordsTest(unittest.TestCase):
                 if "count" in option:
                     self.assertTrue(option["label"].endswith(f"（{option['count']}）"))
         self.assertIn("explain-current-exercise", {item["id"] for item in active["options"]})
+        complete_explain = next(
+            item for item in complete["options"] if item["id"] == "explain-current-exercise"
+        )
+        self.assertEqual(complete_explain["group"], "popular")
         self.assertNotIn("mastered-cet-paper", {item["id"] for item in active["options"]})
         active_labels = {item["id"]: item["label"] for item in active["options"]}
         self.assertNotIn("present perfect", active_labels["cet-practice"])

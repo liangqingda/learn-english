@@ -129,7 +129,11 @@ def _initial_options(counts: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def _follow_up_options(
-    counts: dict[str, Any], *, exercise_active: bool, focus: str | None
+    counts: dict[str, Any],
+    *,
+    exercise_active: bool,
+    keep_current_exercise: bool,
+    focus: str | None,
 ) -> list[dict[str, Any]]:
     cet_label = "做一道四六级规格纯文本习题"
     scenario_label = "开始一段日常沟通的场景对话"
@@ -151,7 +155,7 @@ def _follow_up_options(
             count=counts["totals"]["familiar"],
         ),
     ]
-    if counts["totals"]["mastered"] and not exercise_active:
+    if counts["totals"]["mastered"] and not keep_current_exercise:
         options.append(
             _option(
                 "mastered-review",
@@ -162,7 +166,7 @@ def _follow_up_options(
                 count=counts["totals"]["mastered"],
             )
         )
-    if exercise_active:
+    if keep_current_exercise:
         options.append(
             _option(
                 "explain-current-exercise",
@@ -190,7 +194,7 @@ def _follow_up_options(
             kind="scenario-dialogue",
         )
     )
-    if not exercise_active and counts["totals"]["mastered"]:
+    if not keep_current_exercise and counts["totals"]["mastered"]:
         options.append(
             _option(
                 "mastered-cet-paper",
@@ -221,7 +225,10 @@ def build_menu(
         _initial_options(counts)
         if context == "initial"
         else _follow_up_options(
-            counts, exercise_active=context == "exercise-active", focus=focus
+            counts,
+            exercise_active=context == "exercise-active",
+            keep_current_exercise=context in {"review-complete", "exercise-active"},
+            focus=focus,
         )
     )
     return {"state": "ready", "context": context, "counts": counts, "options": options}
