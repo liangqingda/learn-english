@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 15,
+  "revision": 16,
   "records": {
     "errors:after-event-noun-phrase": {
       "id": "errors:after-event-noun-phrase",
@@ -1667,6 +1667,31 @@
       "mastered_at": null,
       "review_history": []
     },
+    "phrases:dish-out-distribute-or-give": {
+      "id": "phrases:dish-out-distribute-or-give",
+      "category": "phrases",
+      "status": "learning",
+      "title": "dish out something / dish something out",
+      "explanation": "dish out 的核心意思是把某物分发出去或给出去，既可以指食物，也常用于抽象事物，如建议、批评、惩罚或钱。",
+      "source": "Compare dish up and dish out",
+      "example": "The teacher dished out advice before the exam.",
+      "tags": [
+        "abstract-use",
+        "distribution",
+        "phrasal-verb"
+      ],
+      "first_learned_at": "2026-07-31T09:17:11+08:00",
+      "last_learned_at": "2026-07-31T09:17:11+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "phrases:dish-up-serve-food-onto-plate": {
       "id": "phrases:dish-up-serve-food-onto-plate",
       "category": "phrases",
@@ -1802,6 +1827,56 @@
       "review_count": 1,
       "high_score_streak": 0,
       "last_reviewed_at": "2026-07-30T13:04:43+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "usage:dish-out-criticism-punishment-negative-tone": {
+      "id": "usage:dish-out-criticism-punishment-negative-tone",
+      "category": "usage",
+      "status": "learning",
+      "title": "dish out 批评或惩罚时的语气",
+      "explanation": "dish out 用在 criticism、punishment、insults 等词前时，常带有“不断给出、强硬施加”的语气；短语 can dish it out but cannot take it 表示一个人会批评别人却受不了别人批评自己。",
+      "source": "dish out criticism / can dish it out but cannot take it",
+      "example": "He can dish out criticism, but he gets upset when others criticize him.",
+      "tags": [
+        "criticism",
+        "idiom",
+        "tone"
+      ],
+      "first_learned_at": "2026-07-31T09:17:11+08:00",
+      "last_learned_at": "2026-07-31T09:17:11+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "usage:dish-up-vs-dish-out-food-vs-distribution": {
+      "id": "usage:dish-up-vs-dish-out-food-vs-distribution",
+      "category": "usage",
+      "status": "learning",
+      "title": "dish up 与 dish out 的语义区别",
+      "explanation": "dish up 更强调把饭菜盛好、端上桌这个餐桌动作；dish out 更强调把东西一个个分出去，语义范围更宽，也常带有批评、惩罚等抽象含义。",
+      "source": "dish up vs dish out",
+      "example": "She dished up the stew, while he dished out napkins to everyone.",
+      "tags": [
+        "comparison",
+        "food",
+        "phrasal-verb"
+      ],
+      "first_learned_at": "2026-07-31T09:17:11+08:00",
+      "last_learned_at": "2026-07-31T09:17:11+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
