@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 16,
+  "revision": 17,
   "records": {
     "errors:after-event-noun-phrase": {
       "id": "errors:after-event-noun-phrase",
@@ -1980,6 +1980,31 @@
       "mastered_at": null,
       "review_history": []
     },
+    "usage:serve-food-and-drinks-kitchen-context": {
+      "id": "usage:serve-food-and-drinks-kitchen-context",
+      "category": "usage",
+      "status": "learning",
+      "title": "serve：端上或供应食物饮料",
+      "explanation": "厨房和餐桌语境里，serve 表示把饭菜或饮料提供给别人，可以是端上桌、分给客人，也可以表示餐厅或酒店供应某种食物。",
+      "source": "2",
+      "example": "Serve the soup with fresh bread.",
+      "tags": [
+        "food",
+        "kitchen",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-07-31T10:09:57+08:00",
+      "last_learned_at": "2026-07-31T10:09:57+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "usage:serve-food-broad-use": {
       "id": "usage:serve-food-broad-use",
       "category": "usage",
@@ -2030,6 +2055,31 @@
       "mastered_at": null,
       "review_history": []
     },
+    "vocabulary:pour-liquid-into-container": {
+      "id": "vocabulary:pour-liquid-into-container",
+      "category": "vocabulary",
+      "status": "learning",
+      "title": "pour：倒液体",
+      "explanation": "pour 常指让液体从一个容器流入另一个容器，典型宾语是 water、milk、tea、sauce 等；也可说 pour someone a drink。",
+      "source": "2",
+      "example": "Pour the milk into the bowl slowly.",
+      "tags": [
+        "cooking",
+        "kitchen",
+        "verb"
+      ],
+      "first_learned_at": "2026-07-31T10:09:57+08:00",
+      "last_learned_at": "2026-07-31T10:09:57+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "vocabulary:review-core-meaning": {
       "id": "vocabulary:review-core-meaning",
       "category": "vocabulary",
@@ -2048,6 +2098,56 @@
       "review_count": 1,
       "high_score_streak": 1,
       "last_reviewed_at": "2026-07-30T13:21:12+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "vocabulary:slice-cut-into-thin-pieces": {
+      "id": "vocabulary:slice-cut-into-thin-pieces",
+      "category": "vocabulary",
+      "status": "learning",
+      "title": "slice：切成片",
+      "explanation": "slice 强调把食物切成薄片或片状，常搭配 bread、tomatoes、onions、meat 等；名词 slice 也可表示“一片”。",
+      "source": "2",
+      "example": "Slice the tomatoes before you make the salad.",
+      "tags": [
+        "cooking",
+        "kitchen",
+        "verb"
+      ],
+      "first_learned_at": "2026-07-31T10:09:57+08:00",
+      "last_learned_at": "2026-07-31T10:09:57+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "vocabulary:stir-mix-by-moving-spoon": {
+      "id": "vocabulary:stir-mix-by-moving-spoon",
+      "category": "vocabulary",
+      "status": "learning",
+      "title": "stir：搅拌",
+      "explanation": "stir 指用勺子或类似工具搅动液体、糊状物或锅里的食物，让材料混合或受热均匀；常见搭配是 stir the soup、stir the sauce。",
+      "source": "2",
+      "example": "Stir the soup for a few minutes.",
+      "tags": [
+        "cooking",
+        "kitchen",
+        "verb"
+      ],
+      "first_learned_at": "2026-07-31T10:09:57+08:00",
+      "last_learned_at": "2026-07-31T10:09:57+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
