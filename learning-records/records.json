@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 19,
+  "revision": 20,
   "records": {
     "errors:advice-uncountable-many-error": {
       "id": "errors:advice-uncountable-many-error",
@@ -2072,6 +2072,31 @@
       ],
       "first_learned_at": "2026-07-31T09:13:38+08:00",
       "last_learned_at": "2026-07-31T09:13:38+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "usage:first-then-action-sequence": {
+      "id": "usage:first-then-action-sequence",
+      "category": "usage",
+      "status": "learning",
+      "title": "first, then 表示动作顺序",
+      "explanation": "first, then 用来清楚安排两个先后动作，适合做饭、计划、说明步骤等场景；first 放在第一个动作后或句首都可以，then 引出下一步。",
+      "source": "Sure. I’ll slice the bread first, then pour the juice.",
+      "example": "I’ll wash the vegetables first, then chop them.",
+      "tags": [
+        "dialogue",
+        "instructions",
+        "sequence"
+      ],
+      "first_learned_at": "2026-07-31T13:47:43+08:00",
+      "last_learned_at": "2026-07-31T13:47:43+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
