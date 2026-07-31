@@ -180,16 +180,21 @@ class LearningRecordsTest(unittest.TestCase):
         )
 
     def test_merged_review_path_includes_every_category(self) -> None:
-        for category in ("errors", "vocabulary", "usage"):
+        for category in ("errors", "grammar", "vocabulary", "phrases", "usage"):
             self.service.upsert(payload(category, f"{category}-item"))
         self.service.complete_review("errors:errors-item", 2)
+        self.service.complete_review("grammar:grammar-item", 3)
         self.service.complete_review("usage:usage-item", 1)
         menu = self.service.menu("initial")
         mixed = next(option for option in menu["options"] if option["id"].startswith("mixed+"))
 
         selected = self.service.next_review(path=mixed["id"])
 
-        self.assertEqual(selected["record"]["category"], "vocabulary")
+        self.assertEqual(mixed["count"], menu["counts"]["totals"]["learning"])
+        self.assertEqual(
+            set(mixed["categories"]), {"errors", "grammar", "vocabulary", "phrases", "usage"}
+        )
+        self.assertIn(selected["record"]["category"], mixed["categories"])
 
     def test_next_review_prefers_due_low_score_and_supports_statuses(self) -> None:
         self.service.upsert(payload("grammar", "low"))

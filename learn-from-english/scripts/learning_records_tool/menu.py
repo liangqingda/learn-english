@@ -9,6 +9,12 @@ from .models import CATEGORIES, RecordError
 
 REVIEW_PATHS = (
     {
+        "id": "errors-grammar",
+        "icon": "🧩",
+        "label": "复习错题、语法和句型",
+        "categories": ("errors", "grammar"),
+    },
+    {
         "id": "vocabulary-phrases",
         "icon": "📚",
         "label": "复习词汇、搭配和固定表达",
