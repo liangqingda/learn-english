@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 25,
+  "revision": 26,
   "records": {
     "errors:advice-uncountable-many-error": {
       "id": "errors:advice-uncountable-many-error",
@@ -1658,6 +1658,31 @@
       "mastered_at": null,
       "review_history": []
     },
+    "grammar:can-i-get-you-offer-food-drink": {
+      "id": "grammar:can-i-get-you-offer-food-drink",
+      "category": "grammar",
+      "status": "learning",
+      "title": "Can I get you...? 主动提供食物饮料",
+      "explanation": "Can I get you...? 是口语中主动问别人要不要某物的自然句型，常用于主人待客、餐厅服务或朋友之间拿饮料食物。",
+      "source": "4",
+      "example": "Can I get you some coffee or orange juice?",
+      "tags": [
+        "food-drink",
+        "hospitality",
+        "offer"
+      ],
+      "first_learned_at": "2026-07-31T14:04:13+08:00",
+      "last_learned_at": "2026-07-31T14:04:13+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "grammar:continue-proceed-complement-patterns": {
       "id": "grammar:continue-proceed-complement-patterns",
       "category": "grammar",
@@ -1926,6 +1951,31 @@
       "mastered_at": null,
       "review_history": []
     },
+    "phrases:come-on-in-invite-guest-inside": {
+      "id": "phrases:come-on-in-invite-guest-inside",
+      "category": "phrases",
+      "status": "learning",
+      "title": "Come on in：快进来吧",
+      "explanation": "Come on in 是美式日常待客时很自然的进门邀请，语气亲切随意，比 Please enter 更生活化。",
+      "source": "4",
+      "example": "Hey, come on in. Breakfast is almost ready.",
+      "tags": [
+        "daily-speech",
+        "home-visit",
+        "hospitality"
+      ],
+      "first_learned_at": "2026-07-31T14:04:13+08:00",
+      "last_learned_at": "2026-07-31T14:04:13+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "phrases:continue-on": {
       "id": "phrases:continue-on",
       "category": "phrases",
@@ -2062,6 +2112,31 @@
       ],
       "first_learned_at": "2026-07-31T14:01:53+08:00",
       "last_learned_at": "2026-07-31T14:01:53+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:make-yourself-at-home": {
+      "id": "phrases:make-yourself-at-home",
+      "category": "phrases",
+      "status": "learning",
+      "title": "Make yourself at home：别拘束",
+      "explanation": "Make yourself at home 用来让客人在家里放松自在，语气友好，常用于朋友来访或主人招待客人。",
+      "source": "4",
+      "example": "Make yourself at home. Coffee is on the counter.",
+      "tags": [
+        "daily-speech",
+        "home-visit",
+        "hospitality"
+      ],
+      "first_learned_at": "2026-07-31T14:04:13+08:00",
+      "last_learned_at": "2026-07-31T14:04:13+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
