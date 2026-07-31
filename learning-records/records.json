@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 20,
+  "revision": 21,
   "records": {
     "errors:advice-uncountable-many-error": {
       "id": "errors:advice-uncountable-many-error",
@@ -1759,6 +1759,31 @@
       "review_count": 1,
       "high_score_streak": 1,
       "last_reviewed_at": "2026-07-28T22:38:46+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:while-clause-simultaneous-actions": {
+      "id": "grammar:while-clause-simultaneous-actions",
+      "category": "grammar",
+      "status": "learning",
+      "title": "while 从句表示同时动作",
+      "explanation": "while 可以连接两个同时发生的动作，结构常见为 do something while someone does something，用来说明分工或背景动作。",
+      "source": "No problem. I'll stir the eggs while you make the toast.",
+      "example": "I’ll wash the cups while you set the table.",
+      "tags": [
+        "dialogue",
+        "simultaneous-actions",
+        "while-clause"
+      ],
+      "first_learned_at": "2026-07-31T13:50:10+08:00",
+      "last_learned_at": "2026-07-31T13:50:10+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
