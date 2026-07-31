@@ -30,7 +30,7 @@ python3 learn-from-english/scripts/learning_records.py menu --context initial
 - `mastered-cet-paper`：运行 `mastered-list`。
 - `cet-practice`：按仓库级 CET 规则出一道聚焦题。
 - `scenario-dialogue`：用当前记录或明确的日常场景直接开始对话。
-- `explain-current-exercise`：解释当前题目，不生成新题。
+- `explain-current-exercise`：解释当前题目，不生成新题；必须说明考点、错误原因和正确表达背后的英语计量、语义或结构逻辑。
 - `status`：运行 `summary --include-familiar --include-mastered`。
 
 上下文丢失或数字无效时重新运行初始菜单。不要要求用户重新发送“你好”。
@@ -63,6 +63,17 @@ python3 learn-from-english/scripts/learning_records.py menu --context initial
 要求用户按阿拉伯数字题号集中作答，作答前不公布答案。用户只回答部分题目时，反馈已答部分并列出未答题号，不评分；用户明确跳过剩余题目后再按全部题目综合评分。
 
 不要根据文字回答评价实际发音。相邻两轮避免完全相同的题型组合。
+
+## 讲解当前习题
+
+用户要求讲解题目或选择 `explain-current-exercise` 时，不要只说“不能说”“不自然”或重复规则标签。按顺序说明：
+
+1. 本题实际考查的知识点。
+2. 错误项或错误答案为什么错：指出触发该判断的英语机制，例如可数/不可数的计量方式、冠词和量词的搭配条件、时态对应、词义边界、句子结构或语域限制。
+3. 英语自己的表达逻辑：说明英语把这个概念当作可数单位、不可数内容、动作过程、状态结果还是具体事件处理。
+4. 正确答案为什么成立，并给出可迁移表达；如果中文直觉和英语分类不同，明确对比。
+
+讲解选择题时逐项解释关键干扰项；讲解改错或翻译题时先说明用户原句的意图，再区分核心错误、自然度问题和可选风格改写。避免把“规则名称”当作原因；规则名称后面必须跟一句可理解的机制解释。
 
 ## 评分与原子记录
 
