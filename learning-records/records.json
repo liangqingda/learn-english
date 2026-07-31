@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 13,
+  "revision": 14,
   "records": {
     "errors:after-event-noun-phrase": {
       "id": "errors:after-event-noun-phrase",
@@ -1667,6 +1667,31 @@
       "mastered_at": null,
       "review_history": []
     },
+    "phrases:dish-up-serve-food-onto-plate": {
+      "id": "phrases:dish-up-serve-food-onto-plate",
+      "category": "phrases",
+      "status": "learning",
+      "title": "dish up something / dish something up",
+      "explanation": "短语动词 dish up 的字面来源是把食物盛到盘子或碟子里，常表示把饭菜分好、盛好给别人吃；宾语是代词时通常放在 dish 和 up 中间，如 dish it up。",
+      "source": "Now, to dish up something means to put food on a dish for someone to eat",
+      "example": "She dished up the soup and handed everyone a bowl.",
+      "tags": [
+        "food",
+        "phrasal-verb",
+        "serving"
+      ],
+      "first_learned_at": "2026-07-31T09:13:38+08:00",
+      "last_learned_at": "2026-07-31T09:13:38+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "phrases:go-out-with-romantic-dating": {
       "id": "phrases:go-out-with-romantic-dating",
       "category": "phrases",
@@ -1782,6 +1807,31 @@
       "mastered_at": null,
       "review_history": []
     },
+    "usage:dish-up-word-order-object-position": {
+      "id": "usage:dish-up-word-order-object-position",
+      "category": "usage",
+      "status": "learning",
+      "title": "dish up 的宾语位置",
+      "explanation": "dish up 是可分短语动词，名词宾语可以放在 up 前后，如 dish up the rice 或 dish the rice up；代词宾语通常放中间，如 dish it up。",
+      "source": "to dish up something",
+      "example": "Could you dish it up while I set the table?",
+      "tags": [
+        "object-position",
+        "phrasal-verb",
+        "word-order"
+      ],
+      "first_learned_at": "2026-07-31T09:13:38+08:00",
+      "last_learned_at": "2026-07-31T09:13:38+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "usage:may-proceed-traffic-permission": {
       "id": "usage:may-proceed-traffic-permission",
       "category": "usage",
@@ -1800,6 +1850,31 @@
       "review_count": 1,
       "high_score_streak": 0,
       "last_reviewed_at": "2026-07-30T13:13:50+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "usage:now-as-discourse-marker-explanation": {
+      "id": "usage:now-as-discourse-marker-explanation",
+      "category": "usage",
+      "status": "learning",
+      "title": "Now 用作讲解开场",
+      "explanation": "句首 Now 可以不是时间副词“现在”，而是话语标记，用来把听者注意力拉到接下来要解释的内容上，语气像“那么/注意”。",
+      "source": "Now, to dish up something means...",
+      "example": "Now, this expression is usually used in casual conversation.",
+      "tags": [
+        "discourse-marker",
+        "explanation",
+        "speaking"
+      ],
+      "first_learned_at": "2026-07-31T09:13:38+08:00",
+      "last_learned_at": "2026-07-31T09:13:38+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
