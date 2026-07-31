@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 9,
+  "revision": 10,
   "records": {
     "errors:after-event-noun-phrase": {
       "id": "errors:after-event-noun-phrase",
@@ -215,6 +215,52 @@
       "review_count": 2,
       "high_score_streak": 0,
       "last_reviewed_at": "2026-07-30T15:42:36+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:back-east-needs-explicit-region": {
+      "id": "errors:back-east-needs-explicit-region",
+      "category": "errors",
+      "status": "learning",
+      "title": "语境里要保留 back east",
+      "explanation": "在这个短语里，back east 不是可随意删掉的装饰，而是表达“美国东部/老家在东部”的核心信息。改写时如果只保留 city，就会丢失原短语的地域含义。",
+      "source": "He said his parents are from the city back east.",
+      "example": "He said his parents are from back east.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-07-31T08:05:47+08:00",
+      "last_learned_at": "2026-07-31T08:05:47+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:back-west-spacing": {
+      "id": "errors:back-west-spacing",
+      "category": "errors",
+      "status": "learning",
+      "title": "out west 不是 outwest",
+      "explanation": "表示“在西部”时，英语里通常写作 out west，而不是把它连写成一个词。",
+      "source": "She grew up back east and now lives in outwest.",
+      "example": "She grew up back east and now lives out west.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-07-31T08:05:47+08:00",
+      "last_learned_at": "2026-07-31T08:05:47+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
@@ -1447,13 +1493,20 @@
       "last_learned_at": "2026-07-28T20:36:08+08:00",
       "learned_count": 1,
       "mastery_score": 6.0,
-      "review_count": 2,
+      "review_count": 3,
       "high_score_streak": 0,
-      "last_reviewed_at": "2026-07-29T13:58:06+08:00",
-      "next_review_at": null,
+      "last_reviewed_at": "2026-07-31T08:05:47+08:00",
+      "next_review_at": "2026-08-03T08:05:47+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 6.0,
+          "reviewed_at": "2026-07-31T08:05:47+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
     },
     "phrases:continue-on": {
       "id": "phrases:continue-on",
