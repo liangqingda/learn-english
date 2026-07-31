@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 11,
+  "revision": 12,
   "records": {
     "errors:after-event-noun-phrase": {
       "id": "errors:after-event-noun-phrase",
@@ -263,6 +263,29 @@
       ],
       "first_learned_at": "2026-07-31T08:05:47+08:00",
       "last_learned_at": "2026-07-31T08:05:47+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:before-begin-gerund-or-clause": {
+      "id": "errors:before-begin-gerund-or-clause",
+      "category": "errors",
+      "status": "learning",
+      "title": "before 后不能直接接 begin 原形动词",
+      "explanation": "before 后面接动作时，常用 before + -ing，或 before + 完整从句；不能说 before begin doing。",
+      "source": "The guide asked tourists to turn off their phones before begin visiting.",
+      "example": "The guide asked the tourists to turn off their phones before beginning the tour.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-07-31T08:55:07+08:00",
+      "last_learned_at": "2026-07-31T08:55:07+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -949,7 +972,7 @@
     "errors:plural-phones-after-phone-shared-device": {
       "id": "errors:plural-phones-after-phone-shared-device",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "phone 语境里常用复数",
       "explanation": "这里说的是导览前大家各自关闭手机，通常写 their phones 更自然；单数 phone 会让句子像只关一部手机。",
       "source": "They turned off their phone.",
@@ -961,14 +984,21 @@
       "first_learned_at": "2026-07-31T08:01:09+08:00",
       "last_learned_at": "2026-07-31T08:01:09+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-07-31T08:55:07+08:00",
+      "next_review_at": "2026-08-07T08:55:07+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-07-31T08:55:07+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:presentation-vs-performing": {
       "id": "errors:presentation-vs-performing",
