@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 10,
+  "revision": 11,
   "records": {
     "errors:after-event-noun-phrase": {
       "id": "errors:after-event-noun-phrase",
@@ -188,14 +188,21 @@
       "first_learned_at": "2026-07-30T15:42:51+08:00",
       "last_learned_at": "2026-07-30T15:42:51+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
+      "mastery_score": 6.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-07-31T08:29:22+08:00",
+      "next_review_at": "2026-08-03T08:29:22+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 6.0,
+          "reviewed_at": "2026-07-31T08:29:22+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
     },
     "errors:back-east-geographic-direction": {
       "id": "errors:back-east-geographic-direction",
@@ -393,6 +400,29 @@
       "tags": [],
       "first_learned_at": "2026-07-30T17:19:01+08:00",
       "last_learned_at": "2026-07-30T17:19:01+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:eastward-for-westbound-us-travel": {
+      "id": "errors:eastward-for-westbound-us-travel",
+      "category": "errors",
+      "status": "learning",
+      "title": "eastward 不能表示从美国东部去美国西部",
+      "explanation": "从 Boston/New York 去 San Francisco/Seattle/Los Angeles 这类美国西海岸城市，方向应是 west 或 westward；eastward 表示向东，方向相反。",
+      "source": "C. He moved eastward to Seattle from New York.",
+      "example": "He moved west to Seattle after graduation.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-07-31T08:29:22+08:00",
+      "last_learned_at": "2026-07-31T08:29:22+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -1292,6 +1322,29 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:visit-someone-in-place-not-to-place": {
+      "id": "errors:visit-someone-in-place-not-to-place",
+      "category": "errors",
+      "status": "learning",
+      "title": "visit someone in a place，而不是 visit someone to a place",
+      "explanation": "visit 后面直接接人或地点；如果要同时表达地点，常用 visit someone in + place，或 go/travel to + place to visit someone。",
+      "source": "She lives in New York, but she visits her friends to Los Angeles every summer.",
+      "example": "She lives in New York, but she goes to Los Angeles to visit her friends every summer.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-07-31T08:29:22+08:00",
+      "last_learned_at": "2026-07-31T08:29:22+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:want-to-base-verb-not-gerund": {
       "id": "errors:want-to-base-verb-not-gerund",
