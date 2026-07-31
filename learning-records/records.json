@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 23,
+  "revision": 24,
   "records": {
     "errors:advice-uncountable-many-error": {
       "id": "errors:advice-uncountable-many-error",
@@ -1964,6 +1964,31 @@
       ],
       "first_learned_at": "2026-07-31T09:13:38+08:00",
       "last_learned_at": "2026-07-31T09:13:38+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:get-the-plates-fetch-or-prepare": {
+      "id": "phrases:get-the-plates-fetch-or-prepare",
+      "category": "phrases",
+      "status": "learning",
+      "title": "get the plates：去拿/准备盘子",
+      "explanation": "日常口语里 get something 常表示去拿、取来或准备某物，不只是字面上的“得到”；get the plates 在餐桌场景中通常是把盘子拿过来或准备好。",
+      "source": "Sure. I'll dish up the eggs while you get the plates.",
+      "example": "Could you get the cups while I pour the tea?",
+      "tags": [
+        "daily-speech",
+        "dialogue",
+        "kitchen"
+      ],
+      "first_learned_at": "2026-07-31T14:00:14+08:00",
+      "last_learned_at": "2026-07-31T14:00:14+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
