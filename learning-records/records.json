@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 14,
+  "revision": 15,
   "records": {
     "errors:after-event-noun-phrase": {
       "id": "errors:after-event-noun-phrase",
@@ -1807,6 +1807,31 @@
       "mastered_at": null,
       "review_history": []
     },
+    "usage:dish-up-vs-serve-food": {
+      "id": "usage:dish-up-vs-serve-food",
+      "category": "usage",
+      "status": "learning",
+      "title": "dish up 和 serve 的区别",
+      "explanation": "dish up 强调把食物从锅或大盘里盛到盘子/碗里的动作，语气更日常；serve 范围更宽，既可以指端菜、上菜，也可以指餐厅服务或正式待客。",
+      "source": "2",
+      "example": "My dad dished up the rice, and my sister served the drinks.",
+      "tags": [
+        "food",
+        "phrasal-verb",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-07-31T09:16:35+08:00",
+      "last_learned_at": "2026-07-31T09:16:35+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "usage:dish-up-word-order-object-position": {
       "id": "usage:dish-up-word-order-object-position",
       "category": "usage",
@@ -1870,6 +1895,56 @@
       ],
       "first_learned_at": "2026-07-31T09:13:38+08:00",
       "last_learned_at": "2026-07-31T09:13:38+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "usage:serve-food-broad-use": {
+      "id": "usage:serve-food-broad-use",
+      "category": "usage",
+      "status": "learning",
+      "title": "serve food 的宽泛用法",
+      "explanation": "serve food 不一定说明食物已经被盛到个人盘子里，它可以表示上菜、提供食物、招待客人，语域比 dish up 更中性，也更适合正式场景。",
+      "source": "2",
+      "example": "The hotel serves breakfast from seven to ten.",
+      "tags": [
+        "food",
+        "formal-neutral",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-07-31T09:16:35+08:00",
+      "last_learned_at": "2026-07-31T09:16:35+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "vocabulary:plate-as-verb-arrange-food": {
+      "id": "vocabulary:plate-as-verb-arrange-food",
+      "category": "vocabulary",
+      "status": "learning",
+      "title": "plate 作动词：摆盘",
+      "explanation": "plate 作动词时通常指把食物放到盘子上并摆放得好看，常见于厨师、餐厅或烹饪节目语境，比 dish up 更强调外观和呈现。",
+      "source": "2",
+      "example": "The chef plated the dessert with fresh berries.",
+      "tags": [
+        "cooking",
+        "food",
+        "verb"
+      ],
+      "first_learned_at": "2026-07-31T09:16:35+08:00",
+      "last_learned_at": "2026-07-31T09:16:35+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
