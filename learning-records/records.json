@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 22,
+  "revision": 23,
   "records": {
     "errors:advice-uncountable-many-error": {
       "id": "errors:advice-uncountable-many-error",
@@ -547,6 +547,31 @@
       "tags": [],
       "first_learned_at": "2026-07-30T15:42:51+08:00",
       "last_learned_at": "2026-07-30T15:42:51+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:egg-plural-spelling-eggs-not-egges": {
+      "id": "errors:egg-plural-spelling-eggs-not-egges",
+      "category": "errors",
+      "status": "learning",
+      "title": "egg 的复数拼写是 eggs",
+      "explanation": "egg 的规则复数直接加 -s，写作 eggs；不要按类似 boxes 的模式写成 egges。",
+      "source": "That's ok. First, I'll pour the coffee, then I'll serve the egges.",
+      "example": "First, I'll pour the coffee, then I'll serve the eggs.",
+      "tags": [
+        "food",
+        "plural",
+        "spelling"
+      ],
+      "first_learned_at": "2026-07-31T13:53:17+08:00",
+      "last_learned_at": "2026-07-31T13:53:17+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -1468,6 +1493,31 @@
       ],
       "first_learned_at": "2026-07-31T13:51:59+08:00",
       "last_learned_at": "2026-07-31T13:51:59+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:thats-ok-for-accepting-request-unnatural": {
+      "id": "errors:thats-ok-for-accepting-request-unnatural",
+      "category": "errors",
+      "status": "learning",
+      "title": "接受请求时 That's OK 不如 Sure / No problem 自然",
+      "explanation": "That's OK 常用于回应道歉、感谢或安慰别人；在别人请求帮忙时，Sure、No problem 或 Of course 更自然。",
+      "source": "That's ok. First, I'll pour the coffee, then I'll serve the egges.",
+      "example": "No problem. First, I'll pour the coffee, then I'll serve the eggs.",
+      "tags": [
+        "dialogue",
+        "naturalness",
+        "request-response"
+      ],
+      "first_learned_at": "2026-07-31T13:53:17+08:00",
+      "last_learned_at": "2026-07-31T13:53:17+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
