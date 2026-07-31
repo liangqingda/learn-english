@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 8,
+  "revision": 9,
   "records": {
     "errors:after-event-noun-phrase": {
       "id": "errors:after-event-noun-phrase",
@@ -870,6 +870,30 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:plural-phones-after-phone-shared-device": {
+      "id": "errors:plural-phones-after-phone-shared-device",
+      "category": "errors",
+      "status": "learning",
+      "title": "phone 语境里常用复数",
+      "explanation": "这里说的是导览前大家各自关闭手机，通常写 their phones 更自然；单数 phone 会让句子像只关一部手机。",
+      "source": "They turned off their phone.",
+      "example": "They turned off their phones before the tour began.",
+      "tags": [
+        "collocation",
+        "review-error"
+      ],
+      "first_learned_at": "2026-07-31T08:01:09+08:00",
+      "last_learned_at": "2026-07-31T08:01:09+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:presentation-vs-performing": {
       "id": "errors:presentation-vs-performing",
       "category": "errors",
@@ -1196,7 +1220,7 @@
     "errors:turn-off-electronic-device-collocation": {
       "id": "errors:turn-off-electronic-device-collocation",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "关闭电子设备应使用 turn off",
       "explanation": "表示关闭手机等电子设备通常使用 turn off，而不是 close；多人各自的手机通常用复数 their phones。",
       "source": "they close their phone",
@@ -1207,14 +1231,21 @@
       "first_learned_at": "2026-07-29T21:09:22+08:00",
       "last_learned_at": "2026-07-29T21:09:22+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-07-31T08:01:09+08:00",
+      "next_review_at": "2026-08-07T08:01:09+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-07-31T08:01:09+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:want-to-base-verb-not-gerund": {
       "id": "errors:want-to-base-verb-not-gerund",
