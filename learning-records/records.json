@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 24,
+  "revision": 25,
   "records": {
     "errors:advice-uncountable-many-error": {
       "id": "errors:advice-uncountable-many-error",
@@ -1901,6 +1901,31 @@
         }
       ]
     },
+    "phrases:clear-the-table-after-meal": {
+      "id": "phrases:clear-the-table-after-meal",
+      "category": "phrases",
+      "status": "learning",
+      "title": "clear the table：收拾餐桌",
+      "explanation": "clear the table 表示饭后把盘子、杯子、餐具等从桌上收走，常用于家庭分工或餐后清理。",
+      "source": "改一下场景对话：不是你一句我一句，而是你直接把美国人常见的场景对话案例全展示给我",
+      "example": "I’ll clear the table after breakfast.",
+      "tags": [
+        "cleanup",
+        "daily-speech",
+        "table"
+      ],
+      "first_learned_at": "2026-07-31T14:01:53+08:00",
+      "last_learned_at": "2026-07-31T14:01:53+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "phrases:continue-on": {
       "id": "phrases:continue-on",
       "category": "phrases",
@@ -2022,6 +2047,31 @@
       "mastered_at": null,
       "review_history": []
     },
+    "phrases:help-yourself-food-offer": {
+      "id": "phrases:help-yourself-food-offer",
+      "category": "phrases",
+      "status": "learning",
+      "title": "help yourself：请自取/随便吃",
+      "explanation": "help yourself 常用于主人请客人或家人自己拿食物、饮料，语气轻松自然，意思是不用客气、自己取用。",
+      "source": "改一下场景对话：不是你一句我一句，而是你直接把美国人常见的场景对话案例全展示给我",
+      "example": "Help yourself to some toast and coffee.",
+      "tags": [
+        "daily-speech",
+        "food",
+        "hospitality"
+      ],
+      "first_learned_at": "2026-07-31T14:01:53+08:00",
+      "last_learned_at": "2026-07-31T14:01:53+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "phrases:old-timers": {
       "id": "phrases:old-timers",
       "category": "phrases",
@@ -2063,6 +2113,31 @@
       "review_count": 2,
       "high_score_streak": 1,
       "last_reviewed_at": "2026-07-30T17:50:23+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:set-the-table-arrange-place-settings": {
+      "id": "phrases:set-the-table-arrange-place-settings",
+      "category": "phrases",
+      "status": "learning",
+      "title": "set the table：摆餐具",
+      "explanation": "set the table 表示吃饭前把盘子、杯子、刀叉或餐巾等摆好，不是设置桌子，而是准备餐桌。",
+      "source": "改一下场景对话：不是你一句我一句，而是你直接把美国人常见的场景对话案例全展示给我",
+      "example": "Could you set the table while I dish up the eggs?",
+      "tags": [
+        "daily-speech",
+        "meal",
+        "table"
+      ],
+      "first_learned_at": "2026-07-31T14:01:53+08:00",
+      "last_learned_at": "2026-07-31T14:01:53+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
