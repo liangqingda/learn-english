@@ -427,8 +427,19 @@ class RecordService:
     def summary(self) -> dict[str, Any]:
         return counts_for(self.records())
 
-    def menu(self, context: str, *, focus: str | None = None) -> dict[str, Any]:
-        return build_menu(self.records(), context, focus=focus)
+    def menu(
+        self,
+        context: str,
+        *,
+        focus: str | None = None,
+        current_exercise_explained: bool = False,
+    ) -> dict[str, Any]:
+        return build_menu(
+            self.records(),
+            context,
+            focus=focus,
+            current_exercise_explained=current_exercise_explained,
+        )
 
     @staticmethod
     def _categories_for_path(path_id: str) -> list[str]:

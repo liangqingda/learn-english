@@ -214,7 +214,11 @@ def _follow_up_options(
 
 
 def build_menu(
-    records: dict[str, dict[str, Any]], context: str, *, focus: str | None = None
+    records: dict[str, dict[str, Any]],
+    context: str,
+    *,
+    focus: str | None = None,
+    current_exercise_explained: bool = False,
 ) -> dict[str, Any]:
     if context not in {"initial", "review-complete", "exercise-active"}:
         raise RecordError(f"invalid menu context: {context}")
@@ -232,7 +236,10 @@ def build_menu(
         else _follow_up_options(
             counts,
             exercise_active=context == "exercise-active",
-            keep_current_exercise=context in {"review-complete", "exercise-active"},
+            keep_current_exercise=(
+                context in {"review-complete", "exercise-active"}
+                and not current_exercise_explained
+            ),
             focus=focus,
         )
     )

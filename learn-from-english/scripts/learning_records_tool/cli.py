@@ -129,7 +129,11 @@ def handle_summary(args: argparse.Namespace) -> list[dict[str, Any]]:
 
 
 def handle_menu(args: argparse.Namespace) -> dict[str, Any]:
-    return service().menu(args.context, focus=args.focus)
+    return service().menu(
+        args.context,
+        focus=args.focus,
+        current_exercise_explained=args.current_exercise_explained,
+    )
 
 
 def handle_next_review(args: argparse.Namespace) -> dict[str, Any]:
@@ -233,6 +237,11 @@ def build_parser() -> argparse.ArgumentParser:
         default="initial",
     )
     menu.add_argument("--focus", help="current English target used in follow-up labels")
+    menu.add_argument(
+        "--current-exercise-explained",
+        action="store_true",
+        help="hide the current-exercise explanation option after it has already been used",
+    )
     menu.set_defaults(handler=handle_menu)
 
     next_review = subparsers.add_parser("next-review", help="select a scheduled record")

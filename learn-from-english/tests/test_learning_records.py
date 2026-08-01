@@ -206,6 +206,11 @@ class LearningRecordsTest(unittest.TestCase):
         initial = self.service.menu("initial")
         active = self.service.menu("exercise-active", focus="present perfect")
         complete = self.service.menu("review-complete", focus="present perfect")
+        explained = self.service.menu(
+            "review-complete",
+            focus="present perfect",
+            current_exercise_explained=True,
+        )
 
         for menu in (initial, active, complete):
             self.assertGreaterEqual(len(menu["options"]), 3)
@@ -220,6 +225,9 @@ class LearningRecordsTest(unittest.TestCase):
             item for item in complete["options"] if item["id"] == "explain-current-exercise"
         )
         self.assertEqual(complete_explain["group"], "popular")
+        self.assertNotIn(
+            "explain-current-exercise", {item["id"] for item in explained["options"]}
+        )
         active_mastered_paper = next(
             item for item in active["options"] if item["id"] == "mastered-cet-paper"
         )

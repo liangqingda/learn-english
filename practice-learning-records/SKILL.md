@@ -128,7 +128,7 @@ python3 learn-from-english/scripts/learning_records.py menu \
   --focus <当前知识点标题或核心表达>
 ```
 
-`review-complete` 菜单必须保留 `explain-current-exercise`，并把 `🔍 讲解当前习题` 放在 `popular` 组，方便用户在看完批改后立刻请求当前题目的完整讲解。
+`review-complete` 菜单在当前题目尚未讲解过时必须保留 `explain-current-exercise`，并把 `🔍 讲解当前习题` 放在 `popular` 组，方便用户在看完批改后立刻请求当前题目的完整讲解。若当前题目已经讲解过，改用 `--current-exercise-explained` 生成菜单，并从后续菜单中省略 `🔍 讲解当前习题`。
 
 若当前是一道需要保留讲解入口的 CET 题或具体习题，改用：
 
@@ -138,7 +138,7 @@ python3 learn-from-english/scripts/learning_records.py menu \
   --focus <当前知识点标题或核心表达>
 ```
 
-再次严格渲染脚本返回的选项。
+再次严格渲染脚本返回的选项。若这是讲解当前习题后的菜单，加上 `--current-exercise-explained`。
 
 ## 场景对话错题
 
@@ -146,7 +146,7 @@ python3 learn-from-english/scripts/learning_records.py menu \
 
 ## 四六级练习
 
-单道 CET 入口遵守仓库根目录 `AGENTS.md`：根据当前知识点生成一个聚焦的 CET-4/CET-6 纯文本任务，不生成听力，不提前公布答案。出题后和评价后都使用 `menu --context exercise-active`，保留 `explain-current-exercise`。
+单道 CET 入口遵守仓库根目录 `AGENTS.md`：根据当前知识点生成一个聚焦的 CET-4/CET-6 纯文本任务，不生成听力，不提前公布答案。出题后和评价后都使用 `menu --context exercise-active`；当前题目尚未讲解过时保留 `explain-current-exercise`，讲解过之后加上 `--current-exercise-explained` 并省略该入口。
 
 完整套题入口先运行：
 
