@@ -137,6 +137,8 @@ def _follow_up_options(
 ) -> list[dict[str, Any]]:
     cet_label = "做一道四六级规格纯文本习题"
     scenario_label = "看一套日常沟通的完整场景对话"
+    has_mastered = bool(counts["totals"]["mastered"])
+    include_familiar = not has_mastered
     options = [
         _option(
             "continue-review",
@@ -146,16 +148,19 @@ def _follow_up_options(
             kind="continue-review",
             count=counts["totals"]["learning"],
         ),
-        _option(
-            "familiar-review",
-            "🔁",
-            "复习已标熟的知识点",
-            "popular",
-            kind="familiar-review",
-            count=counts["totals"]["familiar"],
-        ),
     ]
-    if counts["totals"]["mastered"] and not keep_current_exercise:
+    if include_familiar:
+        options.append(
+            _option(
+                "familiar-review",
+                "🔁",
+                "复习已标熟的知识点",
+                "popular",
+                kind="familiar-review",
+                count=counts["totals"]["familiar"],
+            )
+        )
+    if has_mastered and not keep_current_exercise:
         options.append(
             _option(
                 "mastered-review",
@@ -185,16 +190,7 @@ def _follow_up_options(
             kind="cet-practice",
         )
     )
-    options.append(
-        _option(
-            "scenario-dialogue",
-            "🎭",
-            scenario_label,
-            "other",
-            kind="scenario-dialogue",
-        )
-    )
-    if not keep_current_exercise and counts["totals"]["mastered"]:
+    if has_mastered:
         options.append(
             _option(
                 "mastered-cet-paper",
@@ -205,6 +201,15 @@ def _follow_up_options(
                 count=counts["totals"]["mastered"],
             )
         )
+    options.append(
+        _option(
+            "scenario-dialogue",
+            "🎭",
+            scenario_label,
+            "other",
+            kind="scenario-dialogue",
+        )
+    )
     return options[:5]
 
 

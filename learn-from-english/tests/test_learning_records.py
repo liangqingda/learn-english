@@ -167,7 +167,14 @@ class LearningRecordsTest(unittest.TestCase):
             item for item in complete["options"] if item["id"] == "explain-current-exercise"
         )
         self.assertEqual(complete_explain["group"], "popular")
-        self.assertNotIn("mastered-cet-paper", {item["id"] for item in active["options"]})
+        active_mastered_paper = next(
+            item for item in active["options"] if item["id"] == "mastered-cet-paper"
+        )
+        self.assertEqual(active_mastered_paper["count"], 1)
+        complete_mastered_paper = next(
+            item for item in complete["options"] if item["id"] == "mastered-cet-paper"
+        )
+        self.assertEqual(complete_mastered_paper["count"], 1)
         active_labels = {item["id"]: item["label"] for item in active["options"]}
         self.assertNotIn("present perfect", active_labels["cet-practice"])
         self.assertNotIn("present perfect", active_labels["scenario-dialogue"])
