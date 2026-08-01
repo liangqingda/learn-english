@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 29,
+  "revision": 30,
   "records": {
     "errors:advice-uncountable-many-error": {
       "id": "errors:advice-uncountable-many-error",
@@ -1941,7 +1941,7 @@
     "grammar:relative-clause-who-person": {
       "id": "grammar:relative-clause-who-person",
       "category": "grammar",
-      "status": "familiar",
+      "status": "mastered",
       "title": "who 引导限定性定语从句",
       "explanation": "who had just arrived... 修饰 a man，用来说明这是怎样的一个人。",
       "source": "Old-timers used it to describe a man who had just arrived from one of the big cities back east",
@@ -1952,14 +1952,21 @@
       "first_learned_at": "2026-07-28T20:36:08+08:00",
       "last_learned_at": "2026-07-28T20:36:08+08:00",
       "learned_count": 1,
-      "mastery_score": 8.0,
-      "review_count": 1,
-      "high_score_streak": 1,
-      "last_reviewed_at": "2026-07-28T22:38:46+08:00",
-      "next_review_at": null,
+      "mastery_score": 10.0,
+      "review_count": 2,
+      "high_score_streak": 2,
+      "last_reviewed_at": "2026-08-01T08:46:39+08:00",
+      "next_review_at": "2026-09-30T08:46:39+08:00",
       "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
+      "mastered_at": "2026-08-01T08:46:39+08:00",
+      "review_history": [
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-08-01T08:46:39+08:00",
+          "previous_status": "familiar",
+          "new_status": "mastered"
+        }
+      ]
     },
     "grammar:while-clause-simultaneous-actions": {
       "id": "grammar:while-clause-simultaneous-actions",
