@@ -120,7 +120,7 @@ def _initial_options(counts: dict[str, Any]) -> list[dict[str, Any]]:
         _option(
             "scenario-dialogue",
             "🎭",
-            "开始一段在咖啡店与朋友讨论近况的场景对话",
+            "看一套在咖啡店与朋友讨论近况的完整场景对话",
             "other",
             kind="scenario-dialogue",
         )
@@ -136,7 +136,7 @@ def _follow_up_options(
     focus: str | None,
 ) -> list[dict[str, Any]]:
     cet_label = "做一道四六级规格纯文本习题"
-    scenario_label = "开始一段日常沟通的场景对话"
+    scenario_label = "看一套日常沟通的完整场景对话"
     options = [
         _option(
             "continue-review",
@@ -218,7 +218,7 @@ def build_menu(
         options = [
             _option("status", "📊", "查看当前学习记录状态", "popular", kind="status"),
             _option("cet-practice", "🧪", "做一道 CET-4 仔细阅读单选题", "other", kind="cet-practice"),
-            _option("scenario-dialogue", "🎭", "开始一段咖啡店点单的场景对话", "other", kind="scenario-dialogue"),
+            _option("scenario-dialogue", "🎭", "看一套咖啡店点单的完整场景对话", "other", kind="scenario-dialogue"),
         ]
         return {"state": "empty", "context": context, "counts": counts, "options": options}
     options = (

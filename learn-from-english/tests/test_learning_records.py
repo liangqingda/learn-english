@@ -171,8 +171,11 @@ class LearningRecordsTest(unittest.TestCase):
         active_labels = {item["id"]: item["label"] for item in active["options"]}
         self.assertNotIn("present perfect", active_labels["cet-practice"])
         self.assertNotIn("present perfect", active_labels["scenario-dialogue"])
+        self.assertIn("完整场景对话", active_labels["scenario-dialogue"])
+        self.assertNotIn("开始一段", active_labels["scenario-dialogue"])
         initial_labels = {item["id"]: item["label"] for item in initial["options"]}
         self.assertIn("咖啡店", initial_labels["scenario-dialogue"])
+        self.assertIn("完整场景对话", initial_labels["scenario-dialogue"])
         mastered_paper = next(
             item for item in initial["options"] if item["id"] == "mastered-cet-paper"
         )

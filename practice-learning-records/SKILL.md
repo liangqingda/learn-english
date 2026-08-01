@@ -29,7 +29,7 @@ python3 learn-from-english/scripts/learning_records.py menu --context initial
 - `mastered-review`：运行 `next-review --mastered`。
 - `mastered-cet-paper`：运行 `mastered-list`。
 - `cet-practice`：按仓库级 CET 规则出一道聚焦题。
-- `scenario-dialogue`：用当前记录或明确的日常场景直接开始对话。
+- `scenario-dialogue`：用当前记录或明确的日常场景输出一套完整的多轮场景对话脚本，帮助用户加深知识点印象；不要默认开启“你一句我一句”的互动角色扮演，除非用户明确要求 role-play。
 - `explain-current-exercise`：解释当前题目，不生成新题；必须说明考点、错误原因和正确表达背后的英语计量、语义或结构逻辑。
 - `status`：运行 `summary --include-familiar --include-mastered`。
 
@@ -142,7 +142,7 @@ python3 learn-from-english/scripts/learning_records.py menu \
 
 ## 场景对话错题
 
-未作为评分复习任务的场景对话不调用 `complete-review`。若用户确实出现并得到纠正的英语错误，把本轮所有错误组成一批 `errors` 记录，运行一次 `batch-upsert`。完全正确时不写错误记录。
+未作为评分复习任务的互动角色扮演不调用 `complete-review`。默认的完整场景对话脚本只是示例材料，不记录错题。只有用户明确参与互动角色扮演并确实出现、得到纠正的英语错误时，才把本轮所有错误组成一批 `errors` 记录，运行一次 `batch-upsert`。完全正确时不写错误记录。
 
 ## 四六级练习
 
