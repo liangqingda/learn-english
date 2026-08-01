@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 27,
+  "revision": 28,
   "records": {
     "errors:advice-uncountable-many-error": {
       "id": "errors:advice-uncountable-many-error",
@@ -303,14 +303,21 @@
       "first_learned_at": "2026-07-31T08:05:47+08:00",
       "last_learned_at": "2026-07-31T08:05:47+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
+      "mastery_score": 7.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-08-01T08:40:25+08:00",
+      "next_review_at": "2026-08-04T08:40:25+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-08-01T08:40:25+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
     },
     "errors:before-begin-gerund-or-clause": {
       "id": "errors:before-begin-gerund-or-clause",
@@ -1159,6 +1166,29 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:preposition-before-directional-adverbial-back-east-out-west": {
+      "id": "errors:preposition-before-directional-adverbial-back-east-out-west",
+      "category": "errors",
+      "status": "learning",
+      "title": "back east / out west 前不要加 in",
+      "explanation": "back east 和 out west 在句中常作地点副词短语，直接修饰 live、move、grow up 等动词；不能按中文“在东部/在西部”的直觉再加 in。",
+      "source": "She lived in back east when she was a baby and now she lives in out west.",
+      "example": "She lived back east when she was little, and now she lives out west.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-01T08:40:25+08:00",
+      "last_learned_at": "2026-08-01T08:40:25+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:presentation-vs-performing": {
       "id": "errors:presentation-vs-performing",
