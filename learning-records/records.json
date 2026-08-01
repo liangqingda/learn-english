@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 41,
+  "revision": 42,
   "records": {
     "errors:accuse-vs-correct-word-choice": {
       "id": "errors:accuse-vs-correct-word-choice",
@@ -996,6 +996,31 @@
       ],
       "first_learned_at": "2026-07-30T16:31:48+08:00",
       "last_learned_at": "2026-07-30T16:31:48+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:much-before-simple-adjective-cold-error": {
+      "id": "errors:much-before-simple-adjective-cold-error",
+      "category": "errors",
+      "status": "learning",
+      "title": "much 不能直接修饰普通形容词 cold",
+      "explanation": "much 通常修饰比较级、不可数名词或动词程度；普通形容词 cold 前更自然用 very、really、so 或 too。",
+      "source": "it's much cold outside",
+      "example": "It's really cold outside.",
+      "tags": [
+        "adjective",
+        "intensifier",
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-01T21:02:51+08:00",
+      "last_learned_at": "2026-08-01T21:02:51+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -2098,7 +2123,7 @@
     "phrases:come-on-in-invite-guest-inside": {
       "id": "phrases:come-on-in-invite-guest-inside",
       "category": "phrases",
-      "status": "learning",
+      "status": "familiar",
       "title": "Come on in：快进来吧",
       "explanation": "Come on in 是美式日常待客时很自然的进门邀请，语气亲切随意，比 Please enter 更生活化。",
       "source": "4",
@@ -2111,14 +2136,21 @@
       "first_learned_at": "2026-07-31T14:04:13+08:00",
       "last_learned_at": "2026-07-31T14:04:13+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-01T21:02:51+08:00",
+      "next_review_at": "2026-08-08T21:02:51+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-01T21:02:51+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "phrases:continue-on": {
       "id": "phrases:continue-on",
