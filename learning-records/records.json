@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 47,
+  "revision": 48,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -226,6 +226,30 @@
           "new_status": "mastered"
         }
       ]
+    },
+    "errors:auxiliary-do-not-followed-by-past-tense": {
+      "id": "errors:auxiliary-do-not-followed-by-past-tense",
+      "category": "errors",
+      "status": "learning",
+      "title": "do not 后误用过去式动词",
+      "explanation": "助动词 do/does/did 已经承担时态或否定功能，后面的实义动词要用原形，所以不要说 do not said，而要说 do not say。",
+      "source": "Please do not said he accused your grammer mistake, and he just help you accuse them.",
+      "example": "Please do not say he accused you of grammar mistakes; he just helped you correct them.",
+      "tags": [
+        "grammar",
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-01T21:34:52+08:00",
+      "last_learned_at": "2026-08-01T21:34:52+08:00",
+      "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:back-east-direction-misuse": {
       "id": "errors:back-east-direction-misuse",
@@ -830,6 +854,30 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:grammar-spelling-grammer": {
+      "id": "errors:grammar-spelling-grammer",
+      "category": "errors",
+      "status": "learning",
+      "title": "grammar 拼写成 grammer",
+      "explanation": "grammar 的标准拼写是 grammar，中间是 ar，不是 er。grammer 通常会被看作拼写错误。",
+      "source": "grammer mistake",
+      "example": "grammar mistake",
+      "tags": [
+        "review-error",
+        "spelling"
+      ],
+      "first_learned_at": "2026-08-01T21:34:52+08:00",
+      "last_learned_at": "2026-08-01T21:34:52+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:hear-object-base-verb": {
       "id": "errors:hear-object-base-verb",
       "category": "errors",
@@ -982,6 +1030,30 @@
       "first_learned_at": "2026-07-30T12:48:04+08:00",
       "last_learned_at": "2026-07-30T12:48:04+08:00",
       "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:missing-third-person-s-after-she-points-out": {
+      "id": "errors:missing-third-person-s-after-she-points-out",
+      "category": "errors",
+      "status": "learning",
+      "title": "一般现在时 she 后动词漏加 -s",
+      "explanation": "主语是 she/he/it 或单数名词，并且句子描述通常情况时，谓语动词要用第三人称单数形式，例如 point out 变 points out，listen 变 listens。",
+      "source": "She politely point out a mistake on my email.",
+      "example": "She politely points out a spelling mistake in my email.",
+      "tags": [
+        "grammar",
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-01T21:34:52+08:00",
+      "last_learned_at": "2026-08-01T21:34:52+08:00",
+      "learned_count": 2,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,
