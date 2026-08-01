@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 46,
+  "revision": 47,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -1216,6 +1216,31 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:past-tense-parallel-after-and-then": {
+      "id": "errors:past-tense-parallel-after-and-then",
+      "category": "errors",
+      "status": "learning",
+      "title": "过去时并列动作中漏用过去式",
+      "explanation": "叙述过去连续动作时，如果前一个动词用 plated，后面的并列动作也通常用过去式 added，保持时间线一致。",
+      "source": "The chef plated the beef and then add a little sauce.",
+      "example": "The chef plated the steak and then added a little sauce.",
+      "tags": [
+        "parallel-structure",
+        "review-error",
+        "tense"
+      ],
+      "first_learned_at": "2026-08-01T21:26:24+08:00",
+      "last_learned_at": "2026-08-01T21:26:24+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:past-time-used-to-live-present-error": {
       "id": "errors:past-time-used-to-live-present-error",
       "category": "errors",
@@ -1291,6 +1316,31 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": "2026-07-30T16:15:02+08:00",
+      "review_history": []
+    },
+    "errors:plate-vs-serve-ladle-liquid-food": {
+      "id": "errors:plate-vs-serve-ladle-liquid-food",
+      "category": "errors",
+      "status": "learning",
+      "title": "plate 不适合普通汤类上菜",
+      "explanation": "plate 作动词强调把食物摆放在盘中并呈现外观；汤通常是盛入碗中或端上来，更自然用 serve 或 ladle，而不是 plate。",
+      "source": "The waiter plated the soup carefully before serving it. / 自然",
+      "example": "The waiter served the soup carefully before bringing it to the table.",
+      "tags": [
+        "food",
+        "review-error",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-08-01T21:26:24+08:00",
+      "last_learned_at": "2026-08-01T21:26:24+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
       "review_history": []
     },
     "errors:plural-grandparents-translation": {
@@ -2797,14 +2847,21 @@
       "first_learned_at": "2026-07-31T09:16:35+08:00",
       "last_learned_at": "2026-07-31T09:16:35+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
+      "mastery_score": 7.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-08-01T21:26:24+08:00",
+      "next_review_at": "2026-08-04T21:26:24+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-08-01T21:26:24+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
     },
     "vocabulary:pour-liquid-into-container": {
       "id": "vocabulary:pour-liquid-into-container",
