@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 51,
+  "revision": 52,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -1937,6 +1937,31 @@
         }
       ]
     },
+    "errors:slice-into-thin-slices-not-to-slice": {
+      "id": "errors:slice-into-thin-slices-not-to-slice",
+      "category": "errors",
+      "status": "learning",
+      "title": "把“切成薄片”误写成 slice ... to slice",
+      "explanation": "slice 本身已经表示切片这个动作；如果要强调结果是薄片，英语通常说 slice something thinly 或 slice something into thin slices。to slice 不能表示“成为薄片”。",
+      "source": "Could you slice the onion to slice.",
+      "example": "Could you slice the onion into thin slices?",
+      "tags": [
+        "review-error",
+        "verb-pattern",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-08-01T21:48:22+08:00",
+      "last_learned_at": "2026-08-01T21:48:22+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:specific-known-plural-noun-use-the": {
       "id": "errors:specific-known-plural-noun-use-the",
       "category": "errors",
@@ -3087,7 +3112,7 @@
     "vocabulary:slice-cut-into-thin-pieces": {
       "id": "vocabulary:slice-cut-into-thin-pieces",
       "category": "vocabulary",
-      "status": "learning",
+      "status": "familiar",
       "title": "slice：切成片",
       "explanation": "slice 强调把食物切成薄片或片状，常搭配 bread、tomatoes、onions、meat 等；名词 slice 也可表示“一片”。",
       "source": "2",
@@ -3100,14 +3125,21 @@
       "first_learned_at": "2026-07-31T10:09:57+08:00",
       "last_learned_at": "2026-07-31T10:09:57+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-01T21:48:22+08:00",
+      "next_review_at": "2026-08-08T21:48:22+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-01T21:48:22+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "vocabulary:stir-mix-by-moving-spoon": {
       "id": "vocabulary:stir-mix-by-moving-spoon",
