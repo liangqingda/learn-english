@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 43,
+  "revision": 44,
   "records": {
     "errors:accuse-vs-correct-word-choice": {
       "id": "errors:accuse-vs-correct-word-choice",
@@ -2723,7 +2723,7 @@
     "vocabulary:pour-liquid-into-container": {
       "id": "vocabulary:pour-liquid-into-container",
       "category": "vocabulary",
-      "status": "learning",
+      "status": "mastered",
       "title": "pour：倒液体",
       "explanation": "pour 常指让液体从一个容器流入另一个容器，典型宾语是 water、milk、tea、sauce 等；也可说 pour someone a drink。",
       "source": "2",
@@ -2736,14 +2736,21 @@
       "first_learned_at": "2026-07-31T10:09:57+08:00",
       "last_learned_at": "2026-07-31T10:09:57+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 10.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-01T21:15:03+08:00",
+      "next_review_at": "2026-08-31T21:15:03+08:00",
       "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
+      "mastered_at": "2026-08-01T21:15:03+08:00",
+      "review_history": [
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-08-01T21:15:03+08:00",
+          "previous_status": "learning",
+          "new_status": "mastered"
+        }
+      ]
     },
     "vocabulary:review-core-meaning": {
       "id": "vocabulary:review-core-meaning",
