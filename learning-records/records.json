@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 37,
+  "revision": 38,
   "records": {
     "errors:advice-uncountable-many-error": {
       "id": "errors:advice-uncountable-many-error",
@@ -276,14 +276,21 @@
       "first_learned_at": "2026-07-31T08:55:07+08:00",
       "last_learned_at": "2026-07-31T08:55:07+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
+      "mastery_score": 7.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-08-01T19:51:05+08:00",
+      "next_review_at": "2026-08-04T19:51:05+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-08-01T19:51:05+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
     },
     "errors:but-clause-needs-finite-verb": {
       "id": "errors:but-clause-needs-finite-verb",
@@ -1057,6 +1064,29 @@
           "new_status": "mastered"
         }
       ]
+    },
+    "errors:phone-on-silent-not-turn-down": {
+      "id": "errors:phone-on-silent-not-turn-down",
+      "category": "errors",
+      "status": "learning",
+      "title": "把手机调成静音不能直接说 turn down phones",
+      "explanation": "turn down 表示把音量调低，不等于把手机设为静音；表达“调成静音”通常说 put/switch/set phones on silent。",
+      "source": "Please turn down your phones before starting meeting.",
+      "example": "Please put your phones on silent before starting the meeting.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-01T19:51:05+08:00",
+      "last_learned_at": "2026-08-01T19:51:05+08:00",
+      "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:place-name-spelling-shenzhen": {
       "id": "errors:place-name-spelling-shenzhen",
