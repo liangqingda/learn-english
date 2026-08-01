@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 28,
+  "revision": 29,
   "records": {
     "errors:advice-uncountable-many-error": {
       "id": "errors:advice-uncountable-many-error",
@@ -288,6 +288,29 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:back-east-preposition-in-error": {
+      "id": "errors:back-east-preposition-in-error",
+      "category": "errors",
+      "status": "learning",
+      "title": "back east 前误加 in",
+      "explanation": "back east 通常整体作地点副词短语，直接跟在 live、move、come from 等动词后；说 live in back east 会把 east 错当成普通地点名词。",
+      "source": "My grandparents live in back east.",
+      "example": "My grandparents used to live back east.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-01T08:41:13+08:00",
+      "last_learned_at": "2026-08-01T08:41:13+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:back-west-spacing": {
       "id": "errors:back-west-spacing",
@@ -1090,6 +1113,29 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:past-time-used-to-live-present-error": {
+      "id": "errors:past-time-used-to-live-present-error",
+      "category": "errors",
+      "status": "learning",
+      "title": "以前住在要用过去或 used to",
+      "explanation": "中文“以前住在”强调过去的居住情况，英语通常用 lived 或 used to live，而不是一般现在时 live。",
+      "source": "My grandparents live in back east.",
+      "example": "My grandparents used to live back east.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-01T08:41:13+08:00",
+      "last_learned_at": "2026-08-01T08:41:13+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:place-name-spelling-shenzhen": {
       "id": "errors:place-name-spelling-shenzhen",
       "category": "errors",
@@ -1116,7 +1162,7 @@
     "errors:plural-grandparents-translation": {
       "id": "errors:plural-grandparents-translation",
       "category": "errors",
-      "status": "familiar",
+      "status": "learning",
       "title": "grandparents 的复数对应",
       "explanation": "中文“祖父母”通常对应复数 grandparents；描述两位祖辈时不能使用单数 grandparent。",
       "source": "My grandparent comes from back east, but living in ...",
@@ -1127,14 +1173,21 @@
       "first_learned_at": "2026-07-28T23:17:51+08:00",
       "last_learned_at": "2026-07-28T23:17:51+08:00",
       "learned_count": 1,
-      "mastery_score": 8.0,
-      "review_count": 1,
-      "high_score_streak": 1,
-      "last_reviewed_at": "2026-07-29T12:38:04+08:00",
-      "next_review_at": null,
-      "lapse_count": 0,
+      "mastery_score": 7.0,
+      "review_count": 2,
+      "high_score_streak": 0,
+      "last_reviewed_at": "2026-08-01T08:41:13+08:00",
+      "next_review_at": "2026-08-04T08:41:13+08:00",
+      "lapse_count": 1,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-08-01T08:41:13+08:00",
+          "previous_status": "familiar",
+          "new_status": "learning"
+        }
+      ]
     },
     "errors:plural-phones-after-phone-shared-device": {
       "id": "errors:plural-phones-after-phone-shared-device",
