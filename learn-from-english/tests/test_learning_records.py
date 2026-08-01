@@ -232,10 +232,12 @@ class LearningRecordsTest(unittest.TestCase):
             item for item in active["options"] if item["id"] == "mastered-cet-paper"
         )
         self.assertEqual(active_mastered_paper["count"], 1)
+        self.assertEqual(active_mastered_paper["group"], "popular")
         complete_mastered_paper = next(
             item for item in complete["options"] if item["id"] == "mastered-cet-paper"
         )
         self.assertEqual(complete_mastered_paper["count"], 1)
+        self.assertEqual(complete_mastered_paper["group"], "popular")
         active_labels = {item["id"]: item["label"] for item in active["options"]}
         self.assertNotIn("cet-practice", active_labels)
         self.assertIn("mastered-cet-paper", active_labels)
@@ -249,6 +251,7 @@ class LearningRecordsTest(unittest.TestCase):
             item for item in initial["options"] if item["id"] == "mastered-cet-paper"
         )
         self.assertEqual(mastered_paper["count"], 1)
+        self.assertEqual(mastered_paper["group"], "popular")
         self.assertTrue(mastered_paper["label"].endswith("（1）"))
         self.assertNotIn(
             "复习掌握不稳的知识点、语法和句型",

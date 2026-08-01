@@ -101,7 +101,7 @@ def _initial_options(counts: dict[str, Any]) -> list[dict[str, Any]]:
                 "mastered-cet-paper",
                 "📝",
                 "生成一套基于已掌握知识点的完整四六级套题（不含听力）",
-                "other",
+                "popular",
                 kind="mastered-cet-paper",
                 count=counts["totals"]["mastered"],
             )
@@ -176,7 +176,7 @@ def _follow_up_options(
                 "mastered-cet-paper",
                 "📝",
                 "生成一套基于已掌握知识点的完整四六级套题（不含听力）",
-                "other",
+                "popular",
                 kind="mastered-cet-paper",
                 count=counts["totals"]["mastered"],
             )

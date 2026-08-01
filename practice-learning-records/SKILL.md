@@ -15,7 +15,7 @@ description: 从规范学习记录中选择到期或低分知识点开展复习�
 python3 learn-from-english/scripts/learning_records.py menu --context initial
 ```
 
-严格按返回的 `options` 顺序和 `label` 原文展示菜单，不自行增加、删除、重新分组或估算数量。不要在菜单前输出三个状态的数量摘要；数量只保留在脚本已生成的对应菜单标签末尾。`group: popular` 放入 `##### Popular Menus`，`group: other` 放入 `##### Other Menus`；所有选项连续编号。脚本保证菜单为 3 至 5 项，并根据当前数据决定显示低分复习、已标熟复习、已掌握抽查、完整套题、基础练习和场景对话。
+严格按返回的 `options` 顺序和 `label` 原文展示菜单，不自行增加、删除、重新分组或估算数量。不要在菜单前输出三个状态的数量摘要；数量只保留在脚本已生成的对应菜单标签末尾。`group: popular` 放入 `##### Popular Menus`，`group: other` 放入 `##### Other Menus`；所有选项连续编号。脚本保证菜单为 3 至 5 项，并根据当前数据决定显示低分复习、已标熟复习、已掌握抽查、完整套题、基础练习和场景对话。若脚本返回 `mastered-cet-paper`，必须把该完整套题入口原样展示在 `Popular Menus`；不要把它和已移除的单道 `🧪` 练习入口混同。
 
 若 `state` 为 `empty`，说明目前没有学习记录，并直接展示脚本返回的状态、基础练习和咖啡店场景入口，不编造历史知识点。
 
