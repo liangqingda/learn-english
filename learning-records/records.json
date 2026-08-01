@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 31,
+  "revision": 37,
   "records": {
     "errors:advice-uncountable-many-error": {
       "id": "errors:advice-uncountable-many-error",
@@ -111,42 +111,6 @@
         }
       ]
     },
-    "errors:arrive-from-origin": {
-      "id": "errors:arrive-from-origin",
-      "category": "errors",
-      "status": "mastered",
-      "title": "用 arrive from 表示出发地",
-      "explanation": "arrive from + 地点表示“从某地抵达”；arrive in + 大地点表示“抵达某地”。表达从波士顿来应使用 arrived from Boston。",
-      "source": "They welcome the traveler who had just arrived in Boston.",
-      "example": "They welcomed the traveler who had just arrived from Boston.",
-      "tags": [
-        "preposition"
-      ],
-      "first_learned_at": "2026-07-29T20:34:14+08:00",
-      "last_learned_at": "2026-07-29T20:34:14+08:00",
-      "learned_count": 1,
-      "mastery_score": 10.0,
-      "review_count": 2,
-      "high_score_streak": 1,
-      "last_reviewed_at": "2026-07-31T07:09:57+08:00",
-      "next_review_at": "2026-08-30T07:09:57+08:00",
-      "lapse_count": 0,
-      "mastered_at": "2026-07-31T07:09:57+08:00",
-      "review_history": [
-        {
-          "score": 2.0,
-          "reviewed_at": "2026-07-31T07:07:13+08:00",
-          "previous_status": "learning",
-          "new_status": "learning"
-        },
-        {
-          "score": 10.0,
-          "reviewed_at": "2026-07-31T07:09:57+08:00",
-          "previous_status": "learning",
-          "new_status": "mastered"
-        }
-      ]
-    },
     "errors:arrive-from-vs-arrive-in": {
       "id": "errors:arrive-from-vs-arrive-in",
       "category": "errors",
@@ -213,15 +177,17 @@
       "category": "errors",
       "status": "learning",
       "title": "back east 不能表示西行方向",
-      "explanation": "back east 通常指美国东部或“在东部那边”，不适合修饰从美国东部去美国西部的行程；这种语境应改用 west、westward，或者直接省略方向表达。",
+      "explanation": "back east 通常指美国东部或从其他地区回望美国东部，不能用来描述从纽约去洛杉矶这类西向行程；这种语境应说 travel west、travel westward，或直接说 travel to Los Angeles。",
       "source": "She lives in New York and travels to Los Angeles back east every summer.",
       "example": "She lives in New York and travels west to Los Angeles every summer.",
-      "tags": [],
-      "first_learned_at": "2026-07-30T15:42:51+08:00",
+      "tags": [
+        "regional-expression"
+      ],
+      "first_learned_at": "2026-07-28T23:17:51+08:00",
       "last_learned_at": "2026-07-30T15:42:51+08:00",
-      "learned_count": 1,
-      "mastery_score": 6.0,
-      "review_count": 1,
+      "learned_count": 2,
+      "mastery_score": 4.0,
+      "review_count": 3,
       "high_score_streak": 0,
       "last_reviewed_at": "2026-07-31T08:29:22+08:00",
       "next_review_at": "2026-08-03T08:29:22+08:00",
@@ -235,29 +201,6 @@
           "new_status": "learning"
         }
       ]
-    },
-    "errors:back-east-geographic-direction": {
-      "id": "errors:back-east-geographic-direction",
-      "category": "errors",
-      "status": "learning",
-      "title": "back east 的地域方向误用",
-      "explanation": "back east 通常指美国东部，不能用来描述从纽约前往位于美国西部的洛杉矶；该语境应使用 travel west 或直接说 travel to Los Angeles。",
-      "source": "She lives in New York and travels to Los Angeles back east every summer.",
-      "example": "She lives in New York and travels west to Los Angeles every summer.",
-      "tags": [
-        "regional-expression"
-      ],
-      "first_learned_at": "2026-07-28T23:17:51+08:00",
-      "last_learned_at": "2026-07-28T23:17:51+08:00",
-      "learned_count": 1,
-      "mastery_score": 4.0,
-      "review_count": 2,
-      "high_score_streak": 0,
-      "last_reviewed_at": "2026-07-30T15:42:36+08:00",
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
     },
     "errors:back-east-needs-explicit-region": {
       "id": "errors:back-east-needs-explicit-region",
@@ -286,36 +229,6 @@
           "reviewed_at": "2026-08-01T08:34:31+08:00",
           "previous_status": "learning",
           "new_status": "familiar"
-        }
-      ]
-    },
-    "errors:back-east-preposition-in-error": {
-      "id": "errors:back-east-preposition-in-error",
-      "category": "errors",
-      "status": "mastered",
-      "title": "back east 前误加 in",
-      "explanation": "back east 通常整体作地点副词短语，直接跟在 live、move、come from 等动词后；说 live in back east 会把 east 错当成普通地点名词。",
-      "source": "My grandparents live in back east.",
-      "example": "My grandparents used to live back east.",
-      "tags": [
-        "review-error"
-      ],
-      "first_learned_at": "2026-08-01T08:41:13+08:00",
-      "last_learned_at": "2026-08-01T08:41:13+08:00",
-      "learned_count": 1,
-      "mastery_score": 10.0,
-      "review_count": 1,
-      "high_score_streak": 1,
-      "last_reviewed_at": "2026-08-01T09:02:41+08:00",
-      "next_review_at": "2026-08-31T09:02:41+08:00",
-      "lapse_count": 0,
-      "mastered_at": "2026-08-01T09:02:41+08:00",
-      "review_history": [
-        {
-          "score": 10.0,
-          "reviewed_at": "2026-08-01T09:02:41+08:00",
-          "previous_status": "learning",
-          "new_status": "mastered"
         }
       ]
     },
@@ -470,16 +383,17 @@
       "id": "errors:continue-on-ahead-redundancy",
       "category": "errors",
       "status": "learning",
-      "title": "避免 continue on ahead 的方向含义重复",
-      "explanation": "continue on 已含有继续向前的意味，通常不再接 ahead；根据语境使用 continue on 或 continue ahead。",
+      "title": "交通灯语境里 continue on 与时间从句",
+      "explanation": "表达绿灯亮后继续前行时，通常说 When the light turns green, we can continue on；continue on 已含继续向前的意味，不必再加 ahead；after green light 也不自然，应使用 when/after the light turns green。",
       "source": "We could continue on ahead after green light.",
       "example": "When the light turns green, we can continue on.",
       "tags": [
-        "redundancy"
+        "redundancy",
+        "time-clause"
       ],
       "first_learned_at": "2026-07-29T20:27:33+08:00",
       "last_learned_at": "2026-07-29T20:27:33+08:00",
-      "learned_count": 1,
+      "learned_count": 2,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,
@@ -493,16 +407,17 @@
       "id": "errors:continue-with-noun",
       "category": "errors",
       "status": "learning",
-      "title": "continue with 后接名词",
-      "explanation": "表示继续某项活动、流程或内容时，可使用 continue with + 名词，如 continue with the presentation；continue on performing 不符合本句要求。",
+      "title": "continue with 后接名词，presentation 表示汇报",
+      "explanation": "表示继续某项活动、流程或内容时，可使用 continue with + 名词，如 continue with the presentation；presentation 是演示或汇报，performing 更偏表演或执行动作，不能直接替代 presentation。",
       "source": "After short resting, she continue on performing.",
       "example": "After a short rest, she continued with her presentation.",
       "tags": [
-        "verb-pattern"
+        "verb-pattern",
+        "word-choice"
       ],
       "first_learned_at": "2026-07-29T21:19:14+08:00",
-      "last_learned_at": "2026-07-29T21:19:14+08:00",
-      "learned_count": 1,
+      "last_learned_at": "2026-07-29T21:19:16+08:00",
+      "learned_count": 2,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,
@@ -1028,43 +943,21 @@
       "mastered_at": null,
       "review_history": []
     },
-    "errors:no-in-before-back-east": {
-      "id": "errors:no-in-before-back-east",
-      "category": "errors",
-      "status": "mastered",
-      "title": "back east 前不加 in",
-      "explanation": "back east 本身可作地点副词短语，表示“在/向美国东部那边”，前面通常不再加 in；应说 lived back east，而不是 lived in back east。",
-      "source": "back east 本身可作地点副词短语，表示“在/向美国东部那边”，前面通常不再加 in；应说 lived back east，而不是 lived in back east。",
-      "example": "",
-      "tags": [
-        "migrated-mastered-record"
-      ],
-      "first_learned_at": "2026-07-30T17:14:23+08:00",
-      "last_learned_at": "2026-07-30T17:14:23+08:00",
-      "learned_count": 1,
-      "mastery_score": 10.0,
-      "review_count": 0,
-      "high_score_streak": 1,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": "2026-07-30T17:14:23+08:00",
-      "review_history": []
-    },
     "errors:passive-clause-needs-be": {
       "id": "errors:passive-clause-needs-be",
       "category": "errors",
       "status": "learning",
-      "title": "完整被动语态需要 be 动词",
-      "explanation": "从句中 information 是 confirm 的承受者，因此完整被动语态应为 is confirmed；不能省略助动词 is。",
+      "title": "proceed with 与被动从句的完整结构",
+      "explanation": "表示继续办理某件事情时用 proceed with + 名词，如 proceed with your application；从句里 information 是 confirm 的承受者，因此应写 after all the information is confirmed，不能省略被动语态里的 is。",
       "source": "We will continue on your applications after all information confirmed.",
       "example": "We will proceed with your application after all the information is confirmed.",
       "tags": [
-        "passive-voice"
+        "passive-voice",
+        "verb-pattern"
       ],
       "first_learned_at": "2026-07-29T21:06:51+08:00",
       "last_learned_at": "2026-07-29T21:06:51+08:00",
-      "learned_count": 1,
+      "learned_count": 2,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,
@@ -1078,24 +971,38 @@
       "id": "errors:past-narrative-main-verb-tense",
       "category": "errors",
       "status": "learning",
-      "title": "过去叙事中的主句使用过去时",
-      "explanation": "叙述已经发生的欢迎动作时，主句谓语应使用一般过去时 welcomed，而不是一般现在时 welcome。",
+      "title": "过去叙事中用 welcomed 和 arrived from",
+      "explanation": "叙述已经发生的欢迎动作时，主句谓语应使用一般过去时 welcomed；表达从某地抵达时用 arrive from + 出发地，因此应说 had just arrived from Boston，而不是 arrived in Boston。",
       "source": "They welcome the traveler who had just arrived in Boston.",
       "example": "They welcomed the traveler who had just arrived from Boston.",
       "tags": [
-        "past-tense"
+        "past-tense",
+        "preposition"
       ],
       "first_learned_at": "2026-07-29T20:34:14+08:00",
       "last_learned_at": "2026-07-29T20:34:14+08:00",
-      "learned_count": 1,
+      "learned_count": 2,
       "mastery_score": 0.0,
-      "review_count": 0,
+      "review_count": 2,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-07-31T07:09:57+08:00",
+      "next_review_at": "2026-08-30T07:09:57+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 2.0,
+          "reviewed_at": "2026-07-31T07:07:13+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        },
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-07-31T07:09:57+08:00",
+          "previous_status": "learning",
+          "new_status": "mastered"
+        }
+      ]
     },
     "errors:past-perfect-requires-past-participle": {
       "id": "errors:past-perfect-requires-past-participle",
@@ -1124,24 +1031,32 @@
       "id": "errors:past-time-used-to-live-present-error",
       "category": "errors",
       "status": "learning",
-      "title": "以前住在要用过去或 used to",
-      "explanation": "中文“以前住在”强调过去的居住情况，英语通常用 lived 或 used to live，而不是一般现在时 live。",
+      "title": "以前住在 back east 的时态和介词",
+      "explanation": "中文“以前住在”强调过去的居住情况，英语通常用 lived 或 used to live；back east 本身常作地点副词短语，直接跟在 live、move、come from 等动词后，不再加 in。",
       "source": "My grandparents live in back east.",
       "example": "My grandparents used to live back east.",
       "tags": [
+        "migrated-mastered-record",
         "review-error"
       ],
-      "first_learned_at": "2026-08-01T08:41:13+08:00",
+      "first_learned_at": "2026-07-30T17:14:23+08:00",
       "last_learned_at": "2026-08-01T08:41:13+08:00",
-      "learned_count": 1,
+      "learned_count": 3,
       "mastery_score": 0.0,
-      "review_count": 0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-08-01T09:02:41+08:00",
+      "next_review_at": "2026-08-31T09:02:41+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-08-01T09:02:41+08:00",
+          "previous_status": "learning",
+          "new_status": "mastered"
+        }
+      ]
     },
     "errors:place-name-spelling-shenzhen": {
       "id": "errors:place-name-spelling-shenzhen",
@@ -1250,29 +1165,6 @@
       "mastered_at": null,
       "review_history": []
     },
-    "errors:presentation-vs-performing": {
-      "id": "errors:presentation-vs-performing",
-      "category": "errors",
-      "status": "learning",
-      "title": "用 presentation 表示演示或汇报",
-      "explanation": "presentation 是“演示、汇报”的名词；performing 表示表演或执行动作，不能直接替代 presentation。",
-      "source": "After short resting, she continue on performing.",
-      "example": "After a short rest, she continued with her presentation.",
-      "tags": [
-        "word-choice"
-      ],
-      "first_learned_at": "2026-07-29T21:19:16+08:00",
-      "last_learned_at": "2026-07-29T21:19:16+08:00",
-      "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
-    },
     "errors:proceed-not-followed-by-gerund": {
       "id": "errors:proceed-not-followed-by-gerund",
       "category": "errors",
@@ -1302,29 +1194,6 @@
       "explanation": "表示“接着做下一件事”时使用 proceed to + 动词原形，不能直接把动词接在 proceed 后面。",
       "source": "Once your name is called, please proceed enter the interview room.",
       "example": "Once your name is called, please proceed to enter the interview room.",
-      "tags": [
-        "verb-pattern"
-      ],
-      "first_learned_at": "2026-07-29T21:06:51+08:00",
-      "last_learned_at": "2026-07-29T21:06:51+08:00",
-      "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
-    },
-    "errors:proceed-with-noun": {
-      "id": "errors:proceed-with-noun",
-      "category": "errors",
-      "status": "learning",
-      "title": "proceed with 后接事情或流程",
-      "explanation": "表示继续办理某件事情或执行某项计划时，使用 proceed with + 名词，如 proceed with your application。",
-      "source": "We will continue on your applications after all information confirmed.",
-      "example": "We will proceed with your application after all the information is confirmed.",
       "tags": [
         "verb-pattern"
       ],
@@ -1615,29 +1484,6 @@
       ],
       "first_learned_at": "2026-07-31T13:53:17+08:00",
       "last_learned_at": "2026-07-31T13:53:17+08:00",
-      "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
-    },
-    "errors:traffic-light-time-clause": {
-      "id": "errors:traffic-light-time-clause",
-      "category": "errors",
-      "status": "learning",
-      "title": "用时间从句表达交通灯变色",
-      "explanation": "表达“绿灯亮后”时，通常说 when/after the light turns green，而不是 after green light；light 前需要限定词，并用 turns green 表达状态变化。",
-      "source": "We could continue on ahead after green light.",
-      "example": "When the light turns green, we can continue on.",
-      "tags": [
-        "time-clause"
-      ],
-      "first_learned_at": "2026-07-29T20:27:33+08:00",
-      "last_learned_at": "2026-07-29T20:27:33+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

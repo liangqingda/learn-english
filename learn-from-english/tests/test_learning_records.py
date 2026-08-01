@@ -56,6 +56,59 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertEqual(repeated["learned_count"], 2)
         self.assertEqual(len(self.service.records()), 2)
 
+    def test_batch_upsert_reuses_similar_existing_records(self) -> None:
+        original = payload("errors", "back-east-direction")
+        original["title"] = "back east 不能表示西行方向"
+        original["explanation"] = "back east 通常指美国东部，不适合修饰从东部去西部的行程。"
+        original["source"] = "She travels to Los Angeles back east every summer."
+        original["example"] = "She travels west to Los Angeles every summer."
+        self.service.upsert(original)
+        similar = payload("errors", "back-east-geographic-direction")
+        similar["title"] = "back east 的地域方向误用"
+        similar["explanation"] = "back east 通常指美国东部，不能描述去美国西部的行程。"
+        similar["source"] = original["source"]
+        similar["example"] = original["example"]
+
+        repeated = self.service.upsert(similar)
+
+        self.assertFalse(repeated["created"])
+        self.assertEqual(repeated["id"], "errors:back-east-direction")
+        self.assertEqual(repeated["match_reason"], "same-source-example")
+        self.assertEqual(len(self.service.records()), 1)
+        self.assertEqual(self.service.records()["errors:back-east-direction"]["learned_count"], 2)
+
+    def test_merge_records_combines_counts_and_deletes_sources(self) -> None:
+        first = payload("errors", "first-error")
+        first["title"] = "will 后接动词原形"
+        first["explanation"] = "情态动词 will 后面接动词原形，不能接第三人称单数形式。"
+        first["source"] = "That will makes work difficult."
+        first["example"] = "That will make work difficult."
+        second = payload("errors", "second-error")
+        second["title"] = "before 后接动名词"
+        second["explanation"] = "介词 before 后面接动作时，常使用动名词形式。"
+        second["source"] = "Before begin the test, read the instructions."
+        second["example"] = "Before beginning the test, read the instructions."
+        self.service.upsert(first)
+        self.service.upsert(second)
+        self.service.complete_review("errors:first-error", 7)
+        self.service.complete_review("errors:second-error", 6)
+
+        result = self.service.merge_records(
+            "errors:first-error",
+            ["errors:second-error"],
+            title="合并后的错误模式",
+            explanation="合并后的复习说明。",
+        )
+
+        records = self.service.records()
+        self.assertEqual(result["deleted_count"], 1)
+        self.assertIn("errors:first-error", records)
+        self.assertNotIn("errors:second-error", records)
+        self.assertEqual(records["errors:first-error"]["title"], "合并后的错误模式")
+        self.assertEqual(records["errors:first-error"]["learned_count"], 2)
+        self.assertEqual(records["errors:first-error"]["review_count"], 2)
+        self.assertEqual(records["errors:first-error"]["mastery_score"], 6)
+
     def test_invalid_batch_rolls_back_every_record(self) -> None:
         before = self.store.data_path.read_text(encoding="utf-8")
         invalid = payload("grammar", "broken")

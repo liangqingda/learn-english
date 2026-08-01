@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import json
+import re
+from difflib import SequenceMatcher
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Iterable
@@ -16,6 +18,7 @@ from .models import (
     normalize_key,
     normalize_tags,
     now_iso,
+    parse_timestamp,
     record_id,
     validate_database,
 )
@@ -38,9 +41,162 @@ class RecordService:
         return self.store.read()["records"]
 
     @staticmethod
+    def _normalized_similarity_text(value: str | None) -> str:
+        normalized = (value or "").casefold()
+        return re.sub(r"[\W_]+", "", normalized, flags=re.UNICODE)
+
+    @classmethod
+    def _text_similarity(cls, left: str | None, right: str | None) -> float:
+        return SequenceMatcher(
+            None, cls._normalized_similarity_text(left), cls._normalized_similarity_text(right)
+        ).ratio()
+
+    @classmethod
+    def _similar_match_reason(
+        cls, candidate: dict[str, Any], existing: dict[str, Any]
+    ) -> tuple[str, float] | None:
+        if candidate["category"] != existing["category"]:
+            return None
+        if candidate["id"] == existing["id"]:
+            return ("exact-id", 1.0)
+
+        candidate_source = cls._normalized_similarity_text(candidate.get("source"))
+        existing_source = cls._normalized_similarity_text(existing.get("source"))
+        candidate_example = cls._normalized_similarity_text(candidate.get("example"))
+        existing_example = cls._normalized_similarity_text(existing.get("example"))
+        if (
+            candidate_source
+            and candidate_example
+            and candidate_source == existing_source
+            and candidate_example == existing_example
+        ):
+            return ("same-source-example", 0.99)
+
+        title_similarity = cls._text_similarity(candidate.get("title"), existing.get("title"))
+        explanation_similarity = cls._text_similarity(
+            candidate.get("explanation"), existing.get("explanation")
+        )
+        source_similarity = cls._text_similarity(candidate.get("source"), existing.get("source"))
+        if title_similarity >= 0.78 and explanation_similarity >= 0.45:
+            return ("similar-title-explanation", round((title_similarity + explanation_similarity) / 2, 3))
+        if title_similarity >= 0.72 and source_similarity >= 0.72:
+            return ("similar-title-source", round((title_similarity + source_similarity) / 2, 3))
+        if explanation_similarity >= 0.82 and title_similarity >= 0.50:
+            return ("similar-explanation", round((title_similarity + explanation_similarity) / 2, 3))
+        return None
+
+    @classmethod
+    def _find_similar_record(
+        cls, records: dict[str, dict[str, Any]], candidate: dict[str, Any]
+    ) -> tuple[dict[str, Any], str, float] | None:
+        exact = records.get(candidate["id"])
+        if exact is not None:
+            return exact, "exact-id", 1.0
+        matches = []
+        for existing in records.values():
+            reason = cls._similar_match_reason(candidate, existing)
+            if reason is not None:
+                matches.append((reason[1], existing["id"], existing, reason[0]))
+        if not matches:
+            return None
+        score, _, existing, reason = max(matches, key=lambda item: (item[0], item[1]))
+        return existing, reason, score
+
+    @staticmethod
     def _encounter(record: dict[str, Any], timestamp: str) -> None:
         record["last_learned_at"] = timestamp
         record["learned_count"] = int(record.get("learned_count", 0)) + 1
+
+    @staticmethod
+    def _timestamp_key(value: str | None) -> datetime | None:
+        if not value:
+            return None
+        return parse_timestamp(value)
+
+    @classmethod
+    def _earliest_timestamp(cls, values: Iterable[str | None]) -> str | None:
+        parsed = [(cls._timestamp_key(value), value) for value in values if value]
+        parsed = [(timestamp, value) for timestamp, value in parsed if timestamp is not None]
+        return min(parsed, key=lambda item: item[0])[1] if parsed else None
+
+    @classmethod
+    def _latest_timestamp(cls, values: Iterable[str | None]) -> str | None:
+        parsed = [(cls._timestamp_key(value), value) for value in values if value]
+        parsed = [(timestamp, value) for timestamp, value in parsed if timestamp is not None]
+        return max(parsed, key=lambda item: item[0])[1] if parsed else None
+
+    @staticmethod
+    def _status_for_score(score: float) -> str:
+        if score == 10:
+            return "mastered"
+        if score >= 8:
+            return "familiar"
+        return "learning"
+
+    @classmethod
+    def _merge_record_content(
+        cls,
+        target: dict[str, Any],
+        sources: list[dict[str, Any]],
+        *,
+        title: str | None = None,
+        explanation: str | None = None,
+        source: str | None = None,
+        example: str | None = None,
+    ) -> None:
+        records = [target, *sources]
+        if title is not None:
+            target["title"] = title.strip()
+        if explanation is not None:
+            target["explanation"] = explanation.strip()
+        if source is not None:
+            target["source"] = source.strip()
+        if example is not None:
+            target["example"] = example.strip()
+
+        target["tags"] = normalize_tags(
+            [tag for record in records for tag in record.get("tags", [])]
+        )
+        target["first_learned_at"] = cls._earliest_timestamp(
+            record.get("first_learned_at") for record in records
+        )
+        target["last_learned_at"] = cls._latest_timestamp(
+            record.get("last_learned_at") for record in records
+        )
+        target["learned_count"] = sum(int(record.get("learned_count", 0)) for record in records)
+        target["review_count"] = sum(int(record.get("review_count", 0)) for record in records)
+        target["lapse_count"] = sum(int(record.get("lapse_count", 0)) for record in records)
+        target["review_history"] = sorted(
+            [
+                event
+                for record in records
+                for event in record.get("review_history", [])
+            ],
+            key=lambda event: event.get("reviewed_at", ""),
+        )
+        target["last_reviewed_at"] = cls._latest_timestamp(
+            record.get("last_reviewed_at") for record in records
+        )
+        target["mastery_score"] = min(float(record.get("mastery_score", 0)) for record in records)
+        target["status"] = cls._status_for_score(float(target["mastery_score"]))
+        if target["status"] == "learning":
+            target["high_score_streak"] = 0
+            target["mastered_at"] = None
+            target["next_review_at"] = cls._earliest_timestamp(
+                record.get("next_review_at") for record in records
+            )
+        else:
+            target["high_score_streak"] = max(
+                int(record.get("high_score_streak", 0)) for record in records
+            )
+            target["next_review_at"] = cls._latest_timestamp(
+                record.get("next_review_at") for record in records
+            )
+            target["mastered_at"] = (
+                cls._earliest_timestamp(record.get("mastered_at") for record in records)
+                if target["status"] == "mastered"
+                else None
+            )
 
     def batch_upsert(self, payloads: Iterable[dict[str, Any]]) -> dict[str, Any]:
         payload_list = list(payloads)
@@ -52,14 +208,17 @@ class RecordService:
             results = []
             for payload in payload_list:
                 candidate = new_record(payload, timestamp=timestamp)
-                existing = database["records"].get(candidate["id"])
-                if existing is not None:
+                match = self._find_similar_record(database["records"], candidate)
+                if match is not None:
+                    existing, reason, similarity = match
                     self._encounter(existing, timestamp)
                     results.append(
                         {
                             "id": existing["id"],
                             "created": False,
                             "encountered": True,
+                            "match_reason": reason,
+                            "similarity": similarity,
                             "status": existing["status"],
                             "learned_count": existing["learned_count"],
                         }
@@ -71,6 +230,8 @@ class RecordService:
                         "id": candidate["id"],
                         "created": True,
                         "encountered": False,
+                        "match_reason": None,
+                        "similarity": None,
                         "status": candidate["status"],
                         "learned_count": 1,
                     }
@@ -108,12 +269,74 @@ class RecordService:
     ) -> dict[str, Any]:
         normalized = {**payload, "category": "errors"}
         candidate = new_record(normalized, timestamp=timestamp)
-        existing = records.get(candidate["id"])
-        if existing is not None:
+        match = RecordService._find_similar_record(records, candidate)
+        if match is not None:
+            existing, reason, similarity = match
             RecordService._encounter(existing, timestamp)
-            return {"id": existing["id"], "created": False}
+            return {
+                "id": existing["id"],
+                "created": False,
+                "match_reason": reason,
+                "similarity": similarity,
+            }
         records[candidate["id"]] = candidate
-        return {"id": candidate["id"], "created": True}
+        return {
+            "id": candidate["id"],
+            "created": True,
+            "match_reason": None,
+            "similarity": None,
+        }
+
+    def merge_records(
+        self,
+        target_id: str,
+        source_ids: Iterable[str],
+        *,
+        title: str | None = None,
+        explanation: str | None = None,
+        source: str | None = None,
+        example: str | None = None,
+    ) -> dict[str, Any]:
+        source_list = list(source_ids)
+        if not source_list:
+            raise RecordError("at least one source record is required")
+        if target_id in source_list:
+            raise RecordError("target record cannot also be a source")
+
+        def operation(database: dict[str, Any]) -> dict[str, Any]:
+            records = database["records"]
+            target = records.get(target_id)
+            if target is None:
+                raise RecordError(f"target record does not exist: {target_id}")
+            sources = []
+            for source_id in source_list:
+                source_record = records.get(source_id)
+                if source_record is None:
+                    raise RecordError(f"source record does not exist: {source_id}")
+                if source_record["category"] != target["category"]:
+                    raise RecordError("merged records must belong to the same category")
+                sources.append(source_record)
+            self._merge_record_content(
+                target,
+                sources,
+                title=title,
+                explanation=explanation,
+                source=source,
+                example=example,
+            )
+            for source_id in source_list:
+                del records[source_id]
+            return {
+                "target": target["id"],
+                "merged": source_list,
+                "deleted_count": len(source_list),
+                "status": target["status"],
+                "mastery_score": target["mastery_score"],
+                "learned_count": target["learned_count"],
+                "review_count": target["review_count"],
+            }
+
+        return self.store.transaction(operation)
 
     def complete_review(
         self,

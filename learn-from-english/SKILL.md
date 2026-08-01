@@ -48,7 +48,7 @@ description: 禁止在用户消息去除首尾空白后仅为“你好”“复�
 python3 learn-from-english/scripts/learning_records.py batch-upsert --input <JSON 文件或 ->
 ```
 
-输入格式为 `{"records": [{"category": "grammar", "key": "present-perfect-experience", "title": "...", "explanation": "...", "source": "...", "example": "...", "tags": ["..."]}]}`。同类同义知识点必须复用同一个 `key`；键只表达知识点本身，不包含日期、会话或例句。脚本会生成稳定 ID；已有相同 ID 时保留原始讲解和当前状态，只增加 `learned_count` 并更新 `last_learned_at`。整批输入先校验后写入，任一知识点无效时整批不保存。
+输入格式为 `{"records": [{"category": "grammar", "key": "present-perfect-experience", "title": "...", "explanation": "...", "source": "...", "example": "...", "tags": ["..."]}]}`。同类同义知识点必须复用同一个 `key`；键只表达知识点本身，不包含日期、会话或例句。脚本会生成稳定 ID；已有相同 ID，或发现同一 category 下已有高度相似知识点时，保留原始讲解和当前状态，只增加 `learned_count` 并更新 `last_learned_at`，不得新增重复记录。整批输入先校验后写入，任一知识点无效时整批不保存。
 
 发音、重音、弱读、连读或音变可以作为文字讲解内容，但不得写入学习记录；当前复习流程不具备验证实际发音的能力。
 

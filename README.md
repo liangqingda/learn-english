@@ -104,7 +104,7 @@ python3 learn-from-english/scripts/learning_records.py batch-upsert \
   --input records.json
 ```
 
-输入可以是记录数组，也可以是 `{"records": [...]}`。重复 ID 不覆盖原讲解，而是增加 `learned_count` 并更新 `last_learned_at`。
+输入可以是记录数组，也可以是 `{"records": [...]}`。重复 ID 或同类高度相似知识点不覆盖原讲解，而是复用已有记录、增加 `learned_count` 并更新 `last_learned_at`，避免把同一知识点拆成多条。
 
 单条兼容命令仍可使用：
 
@@ -125,9 +125,21 @@ python3 learn-from-english/scripts/learning_records.py complete-review \
   --input review-result.json
 ```
 
-输入包含目标 `id`、`score` 和 `errors` 数组。评分、状态转换、下次复习时间、历史事件和错误记录在同一事务中完成。
+输入包含目标 `id`、`score` 和 `errors` 数组。评分、状态转换、下次复习时间、历史事件和错误记录在同一事务中完成；新增错题同样会先匹配同类相似记录，匹配到时只记一次新的 encounter。
 
 旧的 `review` 与 `familiar-review` 命令仍可使用，但不能同时写入错题。
+
+### 合并重复记录
+
+```bash
+python3 learn-from-english/scripts/learning_records.py merge \
+  --target errors:existing-record \
+  --source errors:duplicate-record \
+  --title "优化后的标题" \
+  --explanation "优化后的说明"
+```
+
+`merge` 只允许合并同一 category 的记录，会保留标签、学习次数、复习次数和历史事件，删除来源记录，并按合并后的最低掌握分重新确定当前状态。
 
 ### 菜单和选题
 

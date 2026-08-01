@@ -57,6 +57,17 @@ def handle_batch_upsert(args: argparse.Namespace) -> dict[str, Any]:
     return service().batch_upsert(records)
 
 
+def handle_merge(args: argparse.Namespace) -> dict[str, Any]:
+    return service().merge_records(
+        args.target,
+        args.source,
+        title=args.title,
+        explanation=args.explanation,
+        source=args.record_source,
+        example=args.example,
+    )
+
+
 def handle_encounter(args: argparse.Namespace) -> dict[str, Any]:
     return service().encounter(args.id)
 
@@ -166,6 +177,15 @@ def build_parser() -> argparse.ArgumentParser:
     batch = subparsers.add_parser("batch-upsert", help="atomically add multiple records")
     batch.add_argument("--input", required=True, help="JSON file path or - for stdin")
     batch.set_defaults(handler=handle_batch_upsert)
+
+    merge = subparsers.add_parser("merge", help="merge duplicate records into one target")
+    merge.add_argument("--target", required=True)
+    merge.add_argument("--source", action="append", required=True)
+    merge.add_argument("--title")
+    merge.add_argument("--explanation")
+    merge.add_argument("--record-source")
+    merge.add_argument("--example")
+    merge.set_defaults(handler=handle_merge)
 
     encounter = subparsers.add_parser("encounter", help="record another learning encounter")
     encounter.add_argument("--id", required=True)
