@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 49,
+  "revision": 50,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -534,14 +534,21 @@
       "first_learned_at": "2026-07-29T21:19:14+08:00",
       "last_learned_at": "2026-07-29T21:19:16+08:00",
       "learned_count": 2,
-      "mastery_score": 0.0,
-      "review_count": 0,
+      "mastery_score": 6.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-08-01T21:42:55+08:00",
+      "next_review_at": "2026-08-04T21:42:55+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 6.0,
+          "reviewed_at": "2026-08-01T21:42:55+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
     },
     "errors:direct-question-word-order-and-look-at": {
       "id": "errors:direct-question-word-order-and-look-at",
@@ -603,6 +610,30 @@
       ],
       "first_learned_at": "2026-08-01T20:57:54+08:00",
       "last_learned_at": "2026-08-01T20:57:54+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:duration-rest-possessive-or-hyphenated-form": {
+      "id": "errors:duration-rest-possessive-or-hyphenated-form",
+      "category": "errors",
+      "status": "learning",
+      "title": "ten minutes rest 缺少所有格或复合形容词结构",
+      "explanation": "表示一段时间的休息，可以说 after ten minutes of rest、after a ten-minute rest，或较正式地说 after ten minutes rest with an apostrophe after minutes。直接写 ten minutes rest 不够完整。",
+      "source": "After ten minutes rest, he continued with his project presentation.",
+      "example": "After a ten-minute rest, he continued with his project presentation.",
+      "tags": [
+        "noun-phrase",
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-01T21:42:55+08:00",
+      "last_learned_at": "2026-08-01T21:42:55+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -966,6 +997,30 @@
       "review_count": 1,
       "high_score_streak": 0,
       "last_reviewed_at": "2026-07-29T12:47:18+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:missing-article-in-after-a-short-rest": {
+      "id": "errors:missing-article-in-after-a-short-rest",
+      "category": "errors",
+      "status": "learning",
+      "title": "after a short rest 中漏用冠词 a",
+      "explanation": "rest 作一次具体的休息时是可数名词，前面通常需要冠词或其他限定词，所以自然表达是 after a short rest，而不是 after short resting。",
+      "source": "After short resting, she continue with performing.",
+      "example": "After a short rest, she continued with her presentation.",
+      "tags": [
+        "noun-phrase",
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-01T21:42:55+08:00",
+      "last_learned_at": "2026-08-01T21:42:55+08:00",
+      "learned_count": 3,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
