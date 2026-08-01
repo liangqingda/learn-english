@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 45,
+  "revision": 46,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -729,6 +729,30 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:fill-out-form-not-fill-sheet": {
+      "id": "errors:fill-out-form-not-fill-sheet",
+      "category": "errors",
+      "status": "learning",
+      "title": "填写表格用 fill out a form",
+      "explanation": "英语里“填写表格”通常说 fill out a form 或 fill in a form；sheet 更偏一张纸或表单页，不是“表格任务”的自然搭配。",
+      "source": "please proceed to fill the sheet",
+      "example": "Please proceed to fill out the form.",
+      "tags": [
+        "collocation",
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-01T21:21:25+08:00",
+      "last_learned_at": "2026-08-01T21:21:25+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:for-the-first-time-expression": {
       "id": "errors:for-the-first-time-expression",
       "category": "errors",
@@ -1384,7 +1408,7 @@
     "errors:proceed-to-infinitive": {
       "id": "errors:proceed-to-infinitive",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "proceed to 后接动词原形",
       "explanation": "表示“接着做下一件事”时使用 proceed to + 动词原形，不能直接把动词接在 proceed 后面。",
       "source": "Once your name is called, please proceed enter the interview room.",
@@ -1395,14 +1419,21 @@
       "first_learned_at": "2026-07-29T21:06:51+08:00",
       "last_learned_at": "2026-07-29T21:06:51+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-01T21:21:25+08:00",
+      "next_review_at": "2026-08-08T21:21:25+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-01T21:21:25+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:proceed-with-gerund-vs-proceed-to-infinitive": {
       "id": "errors:proceed-with-gerund-vs-proceed-to-infinitive",
@@ -1467,6 +1498,30 @@
       ],
       "first_learned_at": "2026-08-01T20:57:54+08:00",
       "last_learned_at": "2026-08-01T20:57:54+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:registration-vs-register-noun-event": {
+      "id": "errors:registration-vs-register-noun-event",
+      "category": "errors",
+      "status": "learning",
+      "title": "把 registration 误写成 register",
+      "explanation": "register 作名词多指登记簿、注册表或收银机；表示“注册/登记这个流程完成”时应使用 registration，或直接说 after completing registration。",
+      "source": "After the register is complete",
+      "example": "After registration is complete, please proceed to fill out the form.",
+      "tags": [
+        "review-error",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-08-01T21:21:25+08:00",
+      "last_learned_at": "2026-08-01T21:21:25+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
