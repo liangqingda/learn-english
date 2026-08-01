@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 48,
+  "revision": 49,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -1755,7 +1755,7 @@
     "errors:semantic-conflict-old-timers-newcomers": {
       "id": "errors:semantic-conflict-old-timers-newcomers",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "old-timers 与 newcomer 语义冲突",
       "explanation": "old-timers 指长期生活在某地、熟悉当地往事的人，不能和 moved here last week / know nothing about the town 这类新来且不了解当地的描述搭配；这种语境应改用 newcomers 或 new residents。",
       "source": "Many old-timers moved here last week and know nothing about the town.",
@@ -1767,14 +1767,21 @@
       "first_learned_at": "2026-07-30T10:36:25+08:00",
       "last_learned_at": "2026-07-30T10:36:25+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 9.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-01T21:41:00+08:00",
+      "next_review_at": "2026-08-15T21:41:00+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 9.0,
+          "reviewed_at": "2026-08-01T21:41:00+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:several-plus-plural-count-noun": {
       "id": "errors:several-plus-plural-count-noun",
