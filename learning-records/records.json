@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 39,
+  "revision": 40,
   "records": {
     "errors:advice-uncountable-many-error": {
       "id": "errors:advice-uncountable-many-error",
@@ -973,6 +973,29 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:opened-not-closed-for-opening-event": {
+      "id": "errors:opened-not-closed-for-opening-event",
+      "category": "errors",
+      "status": "learning",
+      "title": "表达刚开业时误用 closed",
+      "explanation": "描述店铺、图书馆或车站“刚开业/刚开放”时，英语要用 opened 或 had just opened；closed 表示关闭、停业，方向相反。",
+      "source": "Local residents still remember when the new library had just closed.",
+      "example": "Local residents still remember when the new library had just opened.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-01T20:53:07+08:00",
+      "last_learned_at": "2026-08-01T20:53:07+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:passive-clause-needs-be": {
       "id": "errors:passive-clause-needs-be",
       "category": "errors",
@@ -1652,14 +1675,21 @@
       "first_learned_at": "2026-07-30T10:36:25+08:00",
       "last_learned_at": "2026-07-30T10:36:25+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
+      "mastery_score": 7.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-08-01T20:53:07+08:00",
+      "next_review_at": "2026-08-04T20:53:07+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-08-01T20:53:07+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
     },
     "grammar:can-i-get-you-offer-food-drink": {
       "id": "grammar:can-i-get-you-offer-food-drink",
