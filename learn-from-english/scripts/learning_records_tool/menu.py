@@ -22,7 +22,7 @@ REVIEW_PATHS = (
     },
     {
         "id": "usage",
-        "icon": "🌍",
+        "icon": "🗣️",
         "label": "复习语气、自然度和场景选择",
         "categories": ("usage",),
     },
@@ -63,7 +63,7 @@ def _initial_options(counts: dict[str, Any]) -> list[dict[str, Any]]:
         options.append(
             _option(
                 "mixed+" + "+".join(item["id"] for item in active),
-                active[0]["icon"],
+                "🎯",
                 "综合复习低分知识点",
                 "popular",
                 kind="review-path",

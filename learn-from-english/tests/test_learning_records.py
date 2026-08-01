@@ -205,6 +205,7 @@ class LearningRecordsTest(unittest.TestCase):
         selected = self.service.next_review(path=mixed["id"])
 
         self.assertEqual(mixed["count"], menu["counts"]["totals"]["learning"])
+        self.assertEqual(mixed["icon"], "🎯")
         self.assertEqual(
             set(mixed["categories"]), {"errors", "grammar", "vocabulary", "phrases", "usage"}
         )
