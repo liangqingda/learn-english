@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 42,
+  "revision": 43,
   "records": {
     "errors:accuse-vs-correct-word-choice": {
       "id": "errors:accuse-vs-correct-word-choice",
@@ -1325,7 +1325,7 @@
     "errors:proceed-not-followed-by-gerund": {
       "id": "errors:proceed-not-followed-by-gerund",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "proceed 后不接动名词",
       "explanation": "proceed 表示“继续前行”时是不及物动词，不能直接接 driving 这类动名词；可说 you may proceed，或用 proceed through/to + 名词。",
       "source": "The light is green, so you may proceed driving.",
@@ -1334,14 +1334,21 @@
       "first_learned_at": "2026-07-30T13:13:50+08:00",
       "last_learned_at": "2026-07-30T13:13:50+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-01T21:09:01+08:00",
+      "next_review_at": "2026-08-08T21:09:01+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-01T21:09:01+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:proceed-to-infinitive": {
       "id": "errors:proceed-to-infinitive",
@@ -1356,6 +1363,31 @@
       ],
       "first_learned_at": "2026-07-29T21:06:51+08:00",
       "last_learned_at": "2026-07-29T21:06:51+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:proceed-with-gerund-vs-proceed-to-infinitive": {
+      "id": "errors:proceed-with-gerund-vs-proceed-to-infinitive",
+      "category": "errors",
+      "status": "learning",
+      "title": "proceed with doing 与 proceed to do 的语义差别",
+      "explanation": "proceed to do 表示接下来开始做另一件事；proceed with 后面更自然接名词，表示继续推进某项已有事务。把 After the meeting, we proceeded with discussing the budget 写成 proceed to discuss the budget 更自然。",
+      "source": "After the meeting, we proceeded with discussing the budget.",
+      "example": "After the meeting, we proceeded to discuss the budget.",
+      "tags": [
+        "review-error",
+        "verb-pattern",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-08-01T21:09:01+08:00",
+      "last_learned_at": "2026-08-01T21:09:01+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
