@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 26,
+  "revision": 27,
   "records": {
     "errors:advice-uncountable-many-error": {
       "id": "errors:advice-uncountable-many-error",
@@ -262,7 +262,7 @@
     "errors:back-east-needs-explicit-region": {
       "id": "errors:back-east-needs-explicit-region",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "语境里要保留 back east",
       "explanation": "在这个短语里，back east 不是可随意删掉的装饰，而是表达“美国东部/老家在东部”的核心信息。改写时如果只保留 city，就会丢失原短语的地域含义。",
       "source": "He said his parents are from the city back east.",
@@ -273,14 +273,21 @@
       "first_learned_at": "2026-07-31T08:05:47+08:00",
       "last_learned_at": "2026-07-31T08:05:47+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 9.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-01T08:34:31+08:00",
+      "next_review_at": "2026-08-15T08:34:31+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 9.0,
+          "reviewed_at": "2026-08-01T08:34:31+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:back-west-spacing": {
       "id": "errors:back-west-spacing",
