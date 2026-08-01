@@ -1,7 +1,31 @@
 {
   "schema_version": 2,
-  "revision": 44,
+  "revision": 45,
   "records": {
+    "errors:accuse-for-correction-feedback": {
+      "id": "errors:accuse-for-correction-feedback",
+      "category": "errors",
+      "status": "learning",
+      "title": "把 accuse 误用于指出或纠正问题",
+      "explanation": "accuse 表示指控、责备某人做错事，不能自然表示别人指出发音、拼写这类具体问题。表达纠正或指出问题时，应使用 correct someone、point out a mistake/problem 或 point out a problem with ...。",
+      "source": "She usually listen carefully if some accuse her pronunciation problem.",
+      "example": "She usually listens carefully if someone points out a problem with her pronunciation.",
+      "tags": [
+        "review-error",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-08-01T21:17:44+08:00",
+      "last_learned_at": "2026-08-01T21:17:44+08:00",
+      "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:accuse-vs-correct-word-choice": {
       "id": "errors:accuse-vs-correct-word-choice",
       "category": "errors",
@@ -17,14 +41,21 @@
       "first_learned_at": "2026-08-01T20:57:54+08:00",
       "last_learned_at": "2026-08-01T20:57:54+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
+      "mastery_score": 6.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-08-01T21:17:44+08:00",
+      "next_review_at": "2026-08-04T21:17:44+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 6.0,
+          "reviewed_at": "2026-08-01T21:17:44+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
     },
     "errors:advice-uncountable-many-error": {
       "id": "errors:advice-uncountable-many-error",
