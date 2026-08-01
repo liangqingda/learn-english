@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 50,
+  "revision": 51,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -861,6 +861,31 @@
           "new_status": "mastered"
         }
       ]
+    },
+    "errors:fruit-generic-uncountable-not-fruits": {
+      "id": "errors:fruit-generic-uncountable-not-fruits",
+      "category": "errors",
+      "status": "learning",
+      "title": "泛指水果时 fruit 通常不用复数",
+      "explanation": "表示水果这一类食物或不强调种类时，fruit 通常作不可数或集合名词使用；slice fruit 比 slice fruits 更自然。fruits 多用于强调不同种类的水果。",
+      "source": "I'll make coffee while you slice fruits.",
+      "example": "I'll make coffee while you slice the fruit.",
+      "tags": [
+        "food",
+        "noun-number",
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-01T21:47:08+08:00",
+      "last_learned_at": "2026-08-01T21:47:08+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:go-travel-to-redundant-verb-phrase": {
       "id": "errors:go-travel-to-redundant-verb-phrase",
@@ -2198,7 +2223,7 @@
     "grammar:ill-volunteer-to-do-something": {
       "id": "grammar:ill-volunteer-to-do-something",
       "category": "grammar",
-      "status": "learning",
+      "status": "familiar",
       "title": "I’ll... 主动承担任务",
       "explanation": "I’ll 加动词原形可以表示说话人当场决定或主动承担某个任务，常用于分工、帮忙和即时回应。",
       "source": "4",
@@ -2211,14 +2236,21 @@
       "first_learned_at": "2026-07-31T12:48:40+08:00",
       "last_learned_at": "2026-07-31T12:48:40+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 9.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-01T21:47:08+08:00",
+      "next_review_at": "2026-08-15T21:47:08+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 9.0,
+          "reviewed_at": "2026-08-01T21:47:08+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "grammar:may-condition-if": {
       "id": "grammar:may-condition-if",
