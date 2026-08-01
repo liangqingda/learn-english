@@ -209,6 +209,25 @@ def validate_record(identifier: str, record: Any) -> list[dict[str, Any]]:
                 parse_timestamp(event.get("reviewed_at"))
             except (TypeError, ValueError):
                 issues.append(_issue(identifier, "review_history", f"review event {index} has invalid time"))
+    claim = record.get("review_claim")
+    if claim is not None:
+        if not isinstance(claim, dict):
+            issues.append(_issue(identifier, "review_claim", "review_claim must be an object or null"))
+        else:
+            owner = claim.get("owner")
+            if not isinstance(owner, str) or not owner.strip():
+                issues.append(_issue(identifier, "review_claim", "review_claim.owner must not be empty"))
+            for field in ("claimed_at", "expires_at"):
+                try:
+                    parse_timestamp(claim.get(field))
+                except (TypeError, ValueError):
+                    issues.append(
+                        _issue(
+                            identifier,
+                            "review_claim",
+                            f"review_claim.{field} must be an ISO timestamp with timezone",
+                        )
+                    )
     return issues
 
 

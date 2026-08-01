@@ -39,6 +39,8 @@ python3 learn-from-english/scripts/learning_records.py menu --context initial
 
 脚本优先返回已经到期的记录，再综合 `next_review_at`、掌握分、遗忘次数和 ID 排序。没有到期记录时返回当前范围内优先级最高的记录。`--random` 只在优先范围中按低分和遗忘次数加权抽取。
 
+`next-review` 会在同一个事务中为选中的记录写入短期运行时 `review_claim`，避免多个会话同时抽到同一题。其他会话会跳过尚未过期的领取记录；若某个会话中断，领取会自动过期并在后续抽题时清理。`review_claim` 不属于规范学习记录，不改变复习次数、分数或掌握状态。
+
 命令返回 `record: null` 时明确说明当前范围没有记录，然后重新生成初始菜单；不得临时编造复习记录。
 
 保留返回记录的 `id`、`category` 和 `status`，直到当前题组完成。新抽出记录并首次呈现题目时，正常输出标题、引导语、题目和菜单；不要在题目正文或菜单之前插入来源。把来源作为独立斜体元信息，放进菜单之后的最终 attribution block：

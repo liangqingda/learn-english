@@ -6,7 +6,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 
 
@@ -283,6 +283,41 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertEqual(learning["record"]["id"], "grammar:low")
         self.assertEqual(familiar["record"]["id"], "grammar:high")
 
+    def test_next_review_claims_records_to_avoid_parallel_duplicates(self) -> None:
+        self.service.upsert(payload("grammar", "first"))
+        self.service.upsert(payload("grammar", "second"))
+
+        first = self.service.next_review(categories=["grammar"], claim_owner="session-a")
+        second = self.service.next_review(categories=["grammar"], claim_owner="session-b")
+
+        self.assertEqual(first["record"]["id"], "grammar:first")
+        self.assertEqual(second["record"]["id"], "grammar:second")
+        claims = json.loads(self.store.review_claims_path.read_text(encoding="utf-8"))
+        claimed = claims["claims"]["grammar:first"]
+        self.assertEqual(claimed["owner"], "session-a")
+        self.assertNotIn("review_claim", self.service.records()["grammar:first"])
+
+        self.service.complete_review("grammar:first", 7)
+
+        self.assertNotIn("review_claim", self.service.records()["grammar:first"])
+
+    def test_expired_review_claims_are_reused(self) -> None:
+        self.service.upsert(payload("grammar", "claim-timeout"))
+        first = self.service.next_review(categories=["grammar"], claim_owner="session-a")
+        claims = json.loads(self.store.review_claims_path.read_text(encoding="utf-8"))
+        claims["claims"]["grammar:claim-timeout"]["expires_at"] = (
+            datetime.now().astimezone() - timedelta(seconds=1)
+        ).isoformat(timespec="seconds")
+        self.store.review_claims_path.write_text(
+            json.dumps(claims, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
+
+        second = self.service.next_review(categories=["grammar"], claim_owner="session-b")
+
+        self.assertEqual(first["record"]["id"], "grammar:claim-timeout")
+        self.assertEqual(second["record"]["id"], "grammar:claim-timeout")
+        self.assertEqual(second["record"]["review_claim"]["owner"], "session-b")
+
     def test_search_summary_history_and_stats(self) -> None:
         self.service.upsert(payload("vocabulary", "context-word"))
         self.service.complete_review("vocabulary:context-word", 7)
@@ -349,6 +384,13 @@ class LearningRecordsTest(unittest.TestCase):
             self.service.upsert(payload("grammar", "after-failure"))
 
         self.assertEqual(self.store.data_path.read_bytes(), before)
+
+    def test_atomic_write_preserves_database_permissions(self) -> None:
+        self.store.data_path.chmod(0o644)
+
+        self.service.upsert(payload("grammar", "permissions"))
+
+        self.assertEqual(self.store.data_path.stat().st_mode & 0o777, 0o644)
 
     def test_legacy_migration_preserves_statuses_and_counts(self) -> None:
         migration_root = self.root / "migration"

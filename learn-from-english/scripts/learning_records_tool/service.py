@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import json
+import os
 import re
+import uuid
 from difflib import SequenceMatcher
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -31,6 +33,7 @@ LEGACY_LOCATIONS = {
     "familiar-learning-records": "familiar",
     "mastered-learning-records": "mastered",
 }
+REVIEW_CLAIM_TTL = timedelta(minutes=45)
 
 
 class RecordService:
@@ -363,6 +366,7 @@ class RecordService:
             record["review_count"] = int(record.get("review_count", 0)) + 1
             record["last_reviewed_at"] = reviewed_at_text
             schedule_review(record, score, reviewed_at)
+            record.pop("review_claim", None)
             record["review_history"].append(
                 {
                     "score": float(score),
@@ -452,6 +456,20 @@ class RecordService:
             raise RecordError(f"review path does not exist: {path_id}")
         return [category for path in matched for category in path["categories"]]
 
+    @staticmethod
+    def _active_review_claim(claim: Any, now: datetime) -> dict[str, Any] | None:
+        if not isinstance(claim, dict):
+            return None
+        try:
+            expires_at = parse_timestamp(claim.get("expires_at"))
+        except (TypeError, ValueError):
+            return None
+        return claim if expires_at is not None and expires_at > now else None
+
+    @staticmethod
+    def _claim_owner() -> str:
+        return f"pid-{os.getpid()}:{uuid.uuid4().hex}"
+
     def next_review(
         self,
         *,
@@ -460,6 +478,7 @@ class RecordService:
         status: str = "learning",
         randomize: bool = False,
         due_only: bool = False,
+        claim_owner: str | None = None,
     ) -> dict[str, Any]:
         selected_categories = list(categories)
         if path:
@@ -467,27 +486,51 @@ class RecordService:
         if not selected_categories:
             selected_categories = list(CATEGORIES)
         now = datetime.now().astimezone()
-        candidates = [
-            record
-            for record in self.records().values()
-            if record["status"] == status and record["category"] in selected_categories
-        ]
-        due = [record for record in candidates if review_priority(record, now)[0] == 0]
-        if due_only:
-            candidates = due
-        elif due:
-            candidates = due
-        if randomize and candidates:
-            import random
+        owner = claim_owner or self._claim_owner()
 
-            weights = [
-                max(1.0, 11.0 - float(record["mastery_score"]) + record["lapse_count"] * 2)
-                for record in candidates
+        def operation(database: dict[str, Any], claims: dict[str, Any]) -> dict[str, Any]:
+            records = database["records"]
+            claim_index = claims.setdefault("claims", {})
+            for identifier, claim in list(claim_index.items()):
+                if identifier not in records or self._active_review_claim(claim, now) is None:
+                    del claim_index[identifier]
+            candidates = [
+                record
+                for record in records.values()
+                if record["status"] == status
+                and record["category"] in selected_categories
+                and record["id"] not in claim_index
             ]
-            selected = random.choices(candidates, weights=weights, k=1)[0]
-        else:
-            selected = min(candidates, key=lambda item: review_priority(item, now)) if candidates else None
-        return {"status": status, "record": selected}
+            due = [record for record in candidates if review_priority(record, now)[0] == 0]
+            if due_only:
+                candidates = due
+            elif due:
+                candidates = due
+            if randomize and candidates:
+                import random
+
+                weights = [
+                    max(1.0, 11.0 - float(record["mastery_score"]) + record["lapse_count"] * 2)
+                    for record in candidates
+                ]
+                selected = random.choices(candidates, weights=weights, k=1)[0]
+            else:
+                selected = (
+                    min(candidates, key=lambda item: review_priority(item, now))
+                    if candidates
+                    else None
+                )
+            if selected is not None:
+                claim = {
+                    "owner": owner,
+                    "claimed_at": now.isoformat(timespec="seconds"),
+                    "expires_at": (now + REVIEW_CLAIM_TTL).isoformat(timespec="seconds"),
+                }
+                claim_index[selected["id"]] = claim
+                selected = {**selected, "review_claim": claim}
+            return {"status": status, "record": selected}
+
+        return self.store.review_claims_transaction(operation)
 
     def history(self, identifier: str) -> dict[str, Any]:
         record = self.records().get(identifier)
