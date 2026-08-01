@@ -1,6 +1,6 @@
 ---
 name: practice-learning-records
-description: 从规范学习记录中选择到期或低分知识点开展复习，按回答记录 0 至 10 分，并在同一事务中保存评分、状态变化和实际错题；也支持复习已标熟或已掌握知识点、查看历史统计，以及生成四六级规格练习。当用户消息去除首尾空白后仅为“你好”“复习”，或不区分大小写的“hello”“review”时必须使用；在本 Skill 打开的复习流程中，用户回复最近菜单中的数字或答案时也使用。上述精确触发词出现时，本 Skill 优先于 learn-from-english。
+description: 从规范学习记录中选择到期或低分知识点开展复习，按回答记录 0 至 10 分，并在同一事务中保存评分、状态变化和实际错题；也支持复习已标熟或已掌握知识点、查看历史统计，以及基于已掌握知识点生成完整四六级套题。当用户消息去除首尾空白后仅为“你好”“复习”，或不区分大小写的“hello”“review”时必须使用；在本 Skill 打开的复习流程中，用户回复最近菜单中的数字或答案时也使用。上述精确触发词出现时，本 Skill 优先于 learn-from-english。
 ---
 
 # 复习英语学习记录
@@ -15,9 +15,9 @@ description: 从规范学习记录中选择到期或低分知识点开展复习�
 python3 learn-from-english/scripts/learning_records.py menu --context initial
 ```
 
-严格按返回的 `options` 顺序和 `label` 原文展示菜单，不自行增加、删除、重新分组或估算数量。不要在菜单前输出三个状态的数量摘要；数量只保留在脚本已生成的对应菜单标签末尾。`group: popular` 放入 `##### Popular Menus`，`group: other` 放入 `##### Other Menus`；所有选项连续编号。脚本保证菜单为 3 至 5 项，并根据当前数据决定显示低分复习、已标熟复习、已掌握抽查、完整套题、单道 CET 习题和场景对话。
+严格按返回的 `options` 顺序和 `label` 原文展示菜单，不自行增加、删除、重新分组或估算数量。不要在菜单前输出三个状态的数量摘要；数量只保留在脚本已生成的对应菜单标签末尾。`group: popular` 放入 `##### Popular Menus`，`group: other` 放入 `##### Other Menus`；所有选项连续编号。脚本保证菜单为 3 至 5 项，并根据当前数据决定显示低分复习、已标熟复习、已掌握抽查、完整套题、基础练习和场景对话。
 
-若 `state` 为 `empty`，说明目前没有学习记录，并直接展示脚本返回的状态、CET-4 习题和咖啡店场景入口，不编造历史知识点。
+若 `state` 为 `empty`，说明目前没有学习记录，并直接展示脚本返回的状态、基础练习和咖啡店场景入口，不编造历史知识点。
 
 ## 处理数字选择
 
@@ -28,7 +28,7 @@ python3 learn-from-english/scripts/learning_records.py menu --context initial
 - `familiar-review`：运行 `next-review --familiar`。
 - `mastered-review`：运行 `next-review --mastered`。
 - `mastered-cet-paper`：运行 `mastered-list`。
-- `cet-practice`：按仓库级 CET 规则出一道聚焦题。
+- `starter-practice`：在没有学习记录时，围绕一个日常表达生成 2 至 3 道基础英语练习；不写入学习记录或评分。
 - `scenario-dialogue`：用当前记录或明确的日常场景输出一套完整的多轮场景对话脚本，帮助用户加深知识点印象；不要默认开启“你一句我一句”的互动角色扮演，除非用户明确要求 role-play。
 - `explain-current-exercise`：解释当前题目，不生成新题；必须说明考点、错误原因和正确表达背后的英语计量、语义或结构逻辑。
 - `status`：运行 `summary --include-familiar --include-mastered`。
@@ -132,7 +132,7 @@ python3 learn-from-english/scripts/learning_records.py menu \
 
 `review-complete` 菜单在当前题目尚未讲解过时必须保留 `explain-current-exercise`，并把 `🔍 讲解当前习题` 放在 `popular` 组，方便用户在看完批改后立刻请求当前题目的完整讲解。若当前题目已经讲解过，改用 `--current-exercise-explained` 生成菜单，并从后续菜单中省略 `🔍 讲解当前习题`。
 
-若当前是一道需要保留讲解入口的 CET 题或具体习题，改用：
+若当前是一道需要保留讲解入口的具体习题，改用：
 
 ```bash
 python3 learn-from-english/scripts/learning_records.py menu \
@@ -146,9 +146,7 @@ python3 learn-from-english/scripts/learning_records.py menu \
 
 未作为评分复习任务的互动角色扮演不调用 `complete-review`。默认的完整场景对话脚本只是示例材料，不记录错题。只有用户明确参与互动角色扮演并确实出现、得到纠正的英语错误时，才把本轮所有错误组成一批 `errors` 记录，运行一次 `batch-upsert`。完全正确时不写错误记录。
 
-## 四六级练习
-
-单道 CET 入口遵守仓库根目录 `AGENTS.md`：根据当前知识点生成一个聚焦的 CET-4/CET-6 纯文本任务，不生成听力，不提前公布答案。出题后和评价后都使用 `menu --context exercise-active`；当前题目尚未讲解过时保留 `explain-current-exercise`，讲解过之后加上 `--current-exercise-explained` 并省略该入口。
+## 完整四六级套题
 
 完整套题入口先运行：
 

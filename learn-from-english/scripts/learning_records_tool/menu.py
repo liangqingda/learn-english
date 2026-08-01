@@ -106,16 +106,6 @@ def _initial_options(counts: dict[str, Any]) -> list[dict[str, Any]]:
                 count=counts["totals"]["mastered"],
             )
         )
-    else:
-        options.append(
-            _option(
-                "cet-practice",
-                "🧪",
-                "做一道 CET-4 仔细阅读单选题",
-                "other",
-                kind="cet-practice",
-            )
-        )
     options.append(
         _option(
             "scenario-dialogue",
@@ -135,7 +125,6 @@ def _follow_up_options(
     keep_current_exercise: bool,
     focus: str | None,
 ) -> list[dict[str, Any]]:
-    cet_label = "做一道四六级规格纯文本习题"
     scenario_label = "看一套日常沟通的完整场景对话"
     has_mastered = bool(counts["totals"]["mastered"])
     include_familiar = not has_mastered
@@ -181,15 +170,6 @@ def _follow_up_options(
                 kind="explain-current-exercise",
             )
         )
-    options.append(
-        _option(
-            "cet-practice",
-            "🧪",
-            cet_label,
-            "other",
-            kind="cet-practice",
-        )
-    )
     if has_mastered:
         options.append(
             _option(
@@ -226,7 +206,7 @@ def build_menu(
     if not records:
         options = [
             _option("status", "📊", "查看当前学习记录状态", "popular", kind="status"),
-            _option("cet-practice", "🧪", "做一道 CET-4 仔细阅读单选题", "other", kind="cet-practice"),
+            _option("starter-practice", "✍️", "做一组日常英语基础练习", "other", kind="starter-practice"),
             _option("scenario-dialogue", "🎭", "看一套咖啡店点单的完整场景对话", "other", kind="scenario-dialogue"),
         ]
         return {"state": "empty", "context": context, "counts": counts, "options": options}
