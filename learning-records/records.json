@@ -1,7 +1,31 @@
 {
   "schema_version": 2,
-  "revision": 40,
+  "revision": 41,
   "records": {
+    "errors:accuse-vs-correct-word-choice": {
+      "id": "errors:accuse-vs-correct-word-choice",
+      "category": "errors",
+      "status": "learning",
+      "title": "accuse 与 correct 的语义边界",
+      "explanation": "accuse 表示指控或责备某人做错事；别人指出发音问题时更自然用 correct someone 或 point out a mistake。",
+      "source": "when people accuse him",
+      "example": "when people correct her pronunciation",
+      "tags": [
+        "review-error",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-08-01T20:57:54+08:00",
+      "last_learned_at": "2026-08-01T20:57:54+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:advice-uncountable-many-error": {
       "id": "errors:advice-uncountable-many-error",
       "category": "errors",
@@ -331,14 +355,21 @@
       "first_learned_at": "2026-07-31T11:00:08+08:00",
       "last_learned_at": "2026-07-31T11:00:08+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
+      "mastery_score": 7.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-08-01T20:57:54+08:00",
+      "next_review_at": "2026-08-04T20:57:54+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-08-01T20:57:54+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
     },
     "errors:common-place-name-english-not-pinyin": {
       "id": "errors:common-place-name-english-not-pinyin",
@@ -492,6 +523,31 @@
       "tags": [],
       "first_learned_at": "2026-07-30T17:19:01+08:00",
       "last_learned_at": "2026-07-30T17:19:01+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:dish-it-out-but-cant-take-it-fixed-object": {
+      "id": "errors:dish-it-out-but-cant-take-it-fixed-object",
+      "category": "errors",
+      "status": "learning",
+      "title": "dish it out but can’t take it 的固定 it 结构",
+      "explanation": "表达“批评别人却受不了别人批评自己”时，英语把前后承受的批评或玩笑用 it 回指，常说 dish it out / take it；不能把 dish out 后面直接接 others voice 这类宾语来替代固定结构。",
+      "source": "Mia always dishes out others voice, but he can't take it when people accuse him.",
+      "example": "Mia always dishes it out about other people’s pronunciation, but she can’t take it when people correct hers.",
+      "tags": [
+        "fixed-expression",
+        "idiom",
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-01T20:57:54+08:00",
+      "last_learned_at": "2026-08-01T20:57:54+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -1275,6 +1331,54 @@
       ],
       "first_learned_at": "2026-07-29T21:06:51+08:00",
       "last_learned_at": "2026-07-29T21:06:51+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:pronoun-agreement-with-female-name": {
+      "id": "errors:pronoun-agreement-with-female-name",
+      "category": "errors",
+      "status": "learning",
+      "title": "女性人名代词误用 he/him",
+      "explanation": "Mia 是女性名时，后文代词应保持一致，用 she/her；不能换成 he/him。",
+      "source": "but he can't take it when people accuse him",
+      "example": "but she can’t take it when people correct her.",
+      "tags": [
+        "pronoun",
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-01T20:57:54+08:00",
+      "last_learned_at": "2026-08-01T20:57:54+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:pronunciation-vs-voice-for-accent-corrections": {
+      "id": "errors:pronunciation-vs-voice-for-accent-corrections",
+      "category": "errors",
+      "status": "learning",
+      "title": "把“发音”误写成 voice",
+      "explanation": "说某人的发音或读音时通常用 pronunciation；voice 指嗓音、声音特质，不等于 pronunciation。",
+      "source": "Mia always dishes out others voice",
+      "example": "Mia always makes fun of other people’s pronunciation.",
+      "tags": [
+        "review-error",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-08-01T20:57:54+08:00",
+      "last_learned_at": "2026-08-01T20:57:54+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
