@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 38,
+  "revision": 39,
   "records": {
     "errors:advice-uncountable-many-error": {
       "id": "errors:advice-uncountable-many-error",
@@ -384,6 +384,29 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": "2026-07-30T17:40:27+08:00",
+      "review_history": []
+    },
+    "errors:completed-action-uses-past-tense-found": {
+      "id": "errors:completed-action-uses-past-tense-found",
+      "category": "errors",
+      "status": "learning",
+      "title": "表达已经完成的找到动作时误用一般现在时",
+      "explanation": "中文里的“找到了”强调动作已经完成，英语通常用一般过去时 found，而不是一般现在时 finds。",
+      "source": "The student finds a useful book in the library.",
+      "example": "The student found a useful book in the library.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-01T20:49:28+08:00",
+      "last_learned_at": "2026-08-01T20:49:28+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
       "review_history": []
     },
     "errors:continue-on-ahead-redundancy": {
@@ -1408,7 +1431,7 @@
     "errors:singular-count-noun-missing-article": {
       "id": "errors:singular-count-noun-missing-article",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "单数可数名词前遗漏限定词",
       "explanation": "museum、guide 等单数可数名词通常不能裸用，需要根据语境添加 a、the 或其他限定词。",
       "source": "Students carefully read safety requirements before visiting museum. After entering exhibit, they close their phone and follow guide to get the history this city.",
@@ -1419,14 +1442,21 @@
       "first_learned_at": "2026-07-29T21:09:21+08:00",
       "last_learned_at": "2026-07-29T21:09:21+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-01T20:49:28+08:00",
+      "next_review_at": "2026-08-08T20:49:28+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-01T20:49:28+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:specific-known-plural-noun-use-the": {
       "id": "errors:specific-known-plural-noun-use-the",
