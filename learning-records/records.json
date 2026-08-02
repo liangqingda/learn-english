@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 68,
+  "revision": 69,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -114,6 +114,29 @@
       "review_count": 1,
       "high_score_streak": 0,
       "last_reviewed_at": "2026-07-30T10:01:24+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:after-subordinator-used-for-later-action": {
+      "id": "errors:after-subordinator-used-for-later-action",
+      "category": "errors",
+      "status": "learning",
+      "title": "把 after 从属连词误当 later 连接后续动作",
+      "explanation": "表达“后来做了某事”时，after 不能单独承接一个完整后续动作；after he got a better job 会变成从属时间从句，后面还缺主句。应用 later、then、afterward，或说 after that。",
+      "source": "He failed the first interview, but after he got a better job.",
+      "example": "He failed the first interview, but later he got a better job.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-02T16:38:01+08:00",
+      "last_learned_at": "2026-08-02T16:38:01+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
@@ -1277,6 +1300,29 @@
           "new_status": "mastered"
         }
       ]
+    },
+    "errors:past-narrative-main-verb-tense-shift-to-present": {
+      "id": "errors:past-narrative-main-verb-tense-shift-to-present",
+      "category": "errors",
+      "status": "learning",
+      "title": "过去叙事中主句动词误用现在时",
+      "explanation": "叙述已经发生的一连串动作时，主要动作通常保持过去时；We talked ... and then decide ... 中 decide 应与 talked 对齐为 decided。",
+      "source": "We talked about the price first, and then decide to talk about the details next week.",
+      "example": "We talked about the price first, and then decided to talk about the details next week.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-02T16:38:01+08:00",
+      "last_learned_at": "2026-08-02T16:38:01+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:past-perfect-requires-past-participle": {
       "id": "errors:past-perfect-requires-past-participle",
@@ -2857,6 +2903,34 @@
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": []
+    },
+    "usage:after-不宜直接当-later-连接后续动作": {
+      "id": "usage:after-不宜直接当-later-连接后续动作",
+      "category": "usage",
+      "status": "learning",
+      "title": "after 不宜直接当 later 连接后续动作",
+      "explanation": "表达“后来……”时，after 不能直接替代 later/then/afterward 来承接后续动作；自然说法是 but later settled 或 but then settled。",
+      "source": "表达“后来……”时，after 不能直接替代 later/then/afterward 来承接后续动作；自然说法是 but later settled 或 but then settled。",
+      "example": "",
+      "tags": [],
+      "first_learned_at": "2026-07-30T17:25:37+08:00",
+      "last_learned_at": "2026-07-30T17:25:37+08:00",
+      "learned_count": 1,
+      "mastery_score": 6.0,
+      "review_count": 1,
+      "high_score_streak": 0,
+      "last_reviewed_at": "2026-08-02T16:38:01+08:00",
+      "next_review_at": "2026-08-05T16:38:01+08:00",
+      "lapse_count": 1,
+      "mastered_at": null,
+      "review_history": [
+        {
+          "score": 6.0,
+          "reviewed_at": "2026-08-02T16:38:01+08:00",
+          "previous_status": "mastered",
+          "new_status": "learning"
+        }
+      ]
     },
     "usage:back-east-in-the-east-eastward-contrast": {
       "id": "usage:back-east-in-the-east-eastward-contrast",
