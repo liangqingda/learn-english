@@ -30,7 +30,7 @@ python3 learn-from-english/scripts/learning_records.py menu --context initial
 - `mastered-cet-paper`：运行 `mastered-list`。
 - `starter-practice`：在没有学习记录时，围绕一个日常表达生成 2 至 3 道基础英语练习；不写入学习记录或评分。
 - `scenario-dialogue`：用当前记录或明确的日常场景输出一套完整的多轮场景对话脚本，帮助用户加深知识点印象；不要默认开启“你一句我一句”的互动角色扮演，除非用户明确要求 role-play。
-- `follow-up-learning`：围绕 option label 和 `focus` 直接生成对应的语法、词汇、对比、发音或产出练习内容；这是未评分的后续学习，不调用 `complete-review`，除非用户明确提交了该练习答案并要求批改。
+- `follow-up-learning`：围绕 option label 和 `focus` 直接生成对应的语法、词汇、对比、发音或产出练习内容；这是未评分的后续学习，不调用 `complete-review`，除非用户明确提交了该练习答案并要求批改。若讲解中引入了新的、可复习的英语知识点，必须按“后续学习知识点记录”写入学习记录。
 - `explain-current-exercise`：只在用户刚完成的复习答案存在错误时解释错题，不生成新题；必须说明考点、错误原因和正确表达背后的英语计量、语义或结构逻辑。
 - `status`：运行 `summary --include-familiar --include-mastered`。
 
@@ -66,6 +66,40 @@ python3 learn-from-english/scripts/learning_records.py menu --context initial
 要求用户按阿拉伯数字题号集中作答，作答前不公布答案。用户只回答部分题目时，反馈已答部分并列出未答题号，不评分；用户明确跳过剩余题目后再按全部题目综合评分。
 
 不要根据文字回答评价实际发音。相邻两轮避免完全相同的题型组合。
+
+## 后续学习知识点记录
+
+`follow-up-learning` 不记录分数，但不是“只讲不存”。当后续学习内容引入当前记录之外的稳定、可复习知识点时，先讲解，再用 `upsert` 或一次 `batch-upsert` 写入学习记录：
+
+```bash
+python3 learn-from-english/scripts/learning_records.py batch-upsert --input <JSON 文件或 ->
+```
+
+输入格式：
+
+```json
+{
+  "records": [
+    {
+      "category": "phrases",
+      "key": "go-ahead-with-for-approved-plan",
+      "title": "go ahead with：按计划推进",
+      "explanation": "go ahead with + 名词表示获得允许或决定后继续推进某个计划、活动或安排，语气比 proceed with 更口语。",
+      "source": "We can go ahead with the launch.",
+      "example": "The team decided to go ahead with the launch.",
+      "tags": ["follow-up-learning"]
+    }
+  ]
+}
+```
+
+记录边界：
+
+- 记录 `go ahead with`、`move on to`、`continue along` 这类新搭配，或一个新语法/用法差异。
+- 不记录只是重复当前复习记录的规则、普通例句改写、临时练习题、完整示例对话台词、发音提示或用户尚未提交答案的题目。
+- 若一次扩展讲到多个紧密相关的新知识点，合并为一次 `batch-upsert` 事务；每条记录使用稳定语义 `key`，选择 `vocabulary`、`phrases`、`grammar` 或 `usage`，不要为了普通新知识点使用 `errors`。
+- 若脚本返回匹配到已有记录而不是新建，照常说明“已遇到/更新已有记录”；不要手工改 JSON。
+- 写入失败时仍完成讲解，但必须说明本轮新知识点没有保存。
 
 ## 讲解错题
 
@@ -185,6 +219,7 @@ python3 learn-from-english/scripts/learning_records.py stats --period 30d
 ## 数据边界
 
 - 菜单、查询和查看历史不增加学习或复习次数。
+- `follow-up-learning` 的菜单选择本身不增加复习次数；只有实际引入并写入的新知识点才增加对应学习记录的 `learned_count` 或创建新记录。
 - 重复学习同一知识点会增加 `learned_count`，但不覆盖原始讲解。
 - 每个题组只调用一次 `complete-review`，不能按小题重复计分。
 - 数据错误时运行 `validate`；只在用户明确要求修复时运行 `repair --dry-run` 并先展示结果。
