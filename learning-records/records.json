@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 62,
+  "revision": 63,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -286,14 +286,21 @@
       "first_learned_at": "2026-08-02T10:44:57+08:00",
       "last_learned_at": "2026-08-02T10:44:57+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
+      "mastery_score": 7.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-08-02T13:35:06+08:00",
+      "next_review_at": "2026-08-05T13:35:06+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-08-02T13:35:06+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
     },
     "errors:before-begin-gerund-or-clause": {
       "id": "errors:before-begin-gerund-or-clause",
@@ -2059,6 +2066,30 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:unlike-used-instead-of-do-not-like": {
+      "id": "errors:unlike-used-instead-of-do-not-like",
+      "category": "errors",
+      "status": "learning",
+      "title": "把 unlike 当作动词短语 do not like 使用",
+      "explanation": "unlike 通常作介词或形容词，表示“不像”；表达“不喜欢某事”要用 do not like 或 dislike。",
+      "source": "The expression is used to describe people who unlike society communication.",
+      "example": "The expression is usually used to describe people who do not like social communication.",
+      "tags": [
+        "review-error",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-08-02T13:35:06+08:00",
+      "last_learned_at": "2026-08-02T13:35:06+08:00",
+      "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:visit-someone-in-place-not-to-place": {
       "id": "errors:visit-someone-in-place-not-to-place",
