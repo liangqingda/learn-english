@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 63,
+  "revision": 64,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -796,7 +796,7 @@
     "errors:fruit-generic-uncountable-not-fruits": {
       "id": "errors:fruit-generic-uncountable-not-fruits",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "泛指水果时 fruit 通常不用复数",
       "explanation": "表示水果这一类食物或不强调种类时，fruit 通常作不可数或集合名词使用；slice fruit 比 slice fruits 更自然。fruits 多用于强调不同种类的水果。",
       "source": "I'll make coffee while you slice fruits.",
@@ -809,14 +809,21 @@
       "first_learned_at": "2026-08-01T21:47:08+08:00",
       "last_learned_at": "2026-08-01T21:47:08+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T13:39:53+08:00",
+      "next_review_at": "2026-08-09T13:39:53+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-02T13:39:53+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:general-condition-if-present-simple": {
       "id": "errors:general-condition-if-present-simple",
@@ -1941,6 +1948,30 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:suggest-someone-to-do-instead-of-suggest-that-clause": {
+      "id": "errors:suggest-someone-to-do-instead-of-suggest-that-clause",
+      "category": "errors",
+      "status": "learning",
+      "title": "误用 suggest someone to do 表达建议某人做某事",
+      "explanation": "suggest 后面不能自然接 someone to do；表达“建议某人做某事”常用 suggest that someone do something，或改用 advise someone to do something。",
+      "source": "The doctor suggests us to eat more fruit every day.",
+      "example": "The doctor suggests that we eat more fruit every day.",
+      "tags": [
+        "review-error",
+        "verb-pattern"
+      ],
+      "first_learned_at": "2026-08-02T13:39:53+08:00",
+      "last_learned_at": "2026-08-02T13:39:53+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:tense-agreement-narrative-continue": {
       "id": "errors:tense-agreement-narrative-continue",
