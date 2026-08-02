@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 88,
+  "revision": 89,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -541,7 +541,7 @@
     "errors:completed-action-uses-past-tense-found": {
       "id": "errors:completed-action-uses-past-tense-found",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "表达已经完成的找到动作时误用一般现在时",
       "explanation": "中文里的“找到了”强调动作已经完成，英语通常用一般过去时 found，而不是一般现在时 finds。",
       "source": "The student finds a useful book in the library.",
@@ -552,14 +552,21 @@
       "first_learned_at": "2026-08-01T20:49:28+08:00",
       "last_learned_at": "2026-08-01T20:49:28+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 10.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T20:40:56+08:00",
+      "next_review_at": "2026-09-01T20:40:56+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-08-02T20:40:56+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:continue-on-ahead-redundancy": {
       "id": "errors:continue-on-ahead-redundancy",
