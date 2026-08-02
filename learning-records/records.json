@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 52,
+  "revision": 53,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -1098,7 +1098,7 @@
     "errors:missing-the-before-specific-place-role-floor": {
       "id": "errors:missing-the-before-specific-place-role-floor",
       "category": "errors",
-      "status": "learning",
+      "status": "mastered",
       "title": "具体地点、角色和楼层前漏用 the",
       "explanation": "当说话双方都能明确是哪一个展厅、哪位老师、哪一层楼时，常用定冠词 the：the exhibition hall, the teacher, the second floor。",
       "source": "After entering exhibition hall, students turned off their phones and followed teacher to second floor.",
@@ -1110,14 +1110,21 @@
       "first_learned_at": "2026-07-30T12:48:04+08:00",
       "last_learned_at": "2026-07-30T12:48:04+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 10.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T10:04:32+08:00",
+      "next_review_at": "2026-09-01T10:04:32+08:00",
       "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
+      "mastered_at": "2026-08-02T10:04:32+08:00",
+      "review_history": [
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-08-02T10:04:32+08:00",
+          "previous_status": "learning",
+          "new_status": "mastered"
+        }
+      ]
     },
     "errors:missing-third-person-s-after-she-points-out": {
       "id": "errors:missing-third-person-s-after-she-points-out",
