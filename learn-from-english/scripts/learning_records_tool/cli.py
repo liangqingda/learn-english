@@ -133,6 +133,7 @@ def handle_menu(args: argparse.Namespace) -> dict[str, Any]:
         args.context,
         focus=args.focus,
         current_exercise_explained=args.current_exercise_explained,
+        has_answer_errors=args.has_answer_errors,
     )
 
 
@@ -240,7 +241,12 @@ def build_parser() -> argparse.ArgumentParser:
     menu.add_argument(
         "--current-exercise-explained",
         action="store_true",
-        help="hide the current-exercise explanation option after it has already been used",
+        help="hide the error-explanation option after it has already been used",
+    )
+    menu.add_argument(
+        "--has-answer-errors",
+        action="store_true",
+        help="show the error-explanation option after a reviewed answer has mistakes",
     )
     menu.set_defaults(handler=handle_menu)
 

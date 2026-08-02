@@ -357,9 +357,15 @@ class LearningRecordsTest(unittest.TestCase):
         initial = self.service.menu("initial")
         active = self.service.menu("exercise-active", focus="present perfect")
         complete = self.service.menu("review-complete", focus="present perfect")
+        complete_with_errors = self.service.menu(
+            "review-complete",
+            focus="present perfect",
+            has_answer_errors=True,
+        )
         explained = self.service.menu(
             "review-complete",
             focus="present perfect",
+            has_answer_errors=True,
             current_exercise_explained=True,
         )
 
@@ -371,11 +377,19 @@ class LearningRecordsTest(unittest.TestCase):
             for option in menu["options"]:
                 if "count" in option:
                     self.assertTrue(option["label"].endswith(f"（{option['count']}）"))
-        self.assertIn("explain-current-exercise", {item["id"] for item in active["options"]})
+        self.assertNotIn(
+            "explain-current-exercise", {item["id"] for item in active["options"]}
+        )
+        self.assertNotIn(
+            "explain-current-exercise", {item["id"] for item in complete["options"]}
+        )
         complete_explain = next(
-            item for item in complete["options"] if item["id"] == "explain-current-exercise"
+            item
+            for item in complete_with_errors["options"]
+            if item["id"] == "explain-current-exercise"
         )
         self.assertEqual(complete_explain["group"], "popular")
+        self.assertEqual(complete_explain["label"], "讲解错题")
         self.assertNotIn(
             "explain-current-exercise", {item["id"] for item in explained["options"]}
         )

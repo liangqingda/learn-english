@@ -30,7 +30,7 @@ python3 learn-from-english/scripts/learning_records.py menu --context initial
 - `mastered-cet-paper`：运行 `mastered-list`。
 - `starter-practice`：在没有学习记录时，围绕一个日常表达生成 2 至 3 道基础英语练习；不写入学习记录或评分。
 - `scenario-dialogue`：用当前记录或明确的日常场景输出一套完整的多轮场景对话脚本，帮助用户加深知识点印象；不要默认开启“你一句我一句”的互动角色扮演，除非用户明确要求 role-play。
-- `explain-current-exercise`：解释当前题目，不生成新题；必须说明考点、错误原因和正确表达背后的英语计量、语义或结构逻辑。
+- `explain-current-exercise`：只在用户刚完成的复习答案存在错误时解释错题，不生成新题；必须说明考点、错误原因和正确表达背后的英语计量、语义或结构逻辑。
 - `status`：运行 `summary --include-familiar --include-mastered`。
 
 上下文丢失或数字无效时重新运行初始菜单。不要要求用户重新发送“你好”。
@@ -66,9 +66,9 @@ python3 learn-from-english/scripts/learning_records.py menu --context initial
 
 不要根据文字回答评价实际发音。相邻两轮避免完全相同的题型组合。
 
-## 讲解当前习题
+## 讲解错题
 
-用户要求讲解题目或选择 `explain-current-exercise` 时，不要只说“不能说”“不自然”或重复规则标签。按顺序说明：
+用户要求讲解刚才的错题或选择 `explain-current-exercise` 时，不要只说“不能说”“不自然”或重复规则标签。按顺序说明：
 
 1. 本题实际考查的知识点。
 2. 错误项或错误答案为什么错：指出触发该判断的英语机制，例如可数/不可数的计量方式、冠词和量词的搭配条件、时态对应、词义边界、句子结构或语域限制。
@@ -130,9 +130,9 @@ python3 learn-from-english/scripts/learning_records.py menu \
   --focus <当前知识点标题或核心表达>
 ```
 
-`review-complete` 菜单在当前题目尚未讲解过时必须保留 `explain-current-exercise`，并把 `🔍 讲解当前习题` 放在 `popular` 组，方便用户在看完批改后立刻请求当前题目的完整讲解。若当前题目已经讲解过，改用 `--current-exercise-explained` 生成菜单，并从后续菜单中省略 `🔍 讲解当前习题`。
+`review-complete` 菜单只在用户答案实际存在错误且当前错题尚未讲解过时保留 `explain-current-exercise`，运行命令时加 `--has-answer-errors`，并把脚本返回的 `🔍 讲解错题` 放在 `popular` 组，方便用户在看完批改后立刻请求错题讲解。若用户答案完全正确，不要加 `--has-answer-errors`，菜单中不得显示该讲解入口。若当前错题已经讲解过，改用 `--current-exercise-explained` 生成菜单，并从后续菜单中省略 `🔍 讲解错题`。
 
-若当前是一道需要保留讲解入口的具体习题，改用：
+若当前只是新题展示或答题尚未完成，改用 `exercise-active` 菜单；此时不要加 `--has-answer-errors`，菜单不显示错题讲解入口：
 
 ```bash
 python3 learn-from-english/scripts/learning_records.py menu \
@@ -140,7 +140,7 @@ python3 learn-from-english/scripts/learning_records.py menu \
   --focus <当前知识点标题或核心表达>
 ```
 
-再次严格渲染脚本返回的选项。若这是讲解当前习题后的菜单，加上 `--current-exercise-explained`。
+再次严格渲染脚本返回的选项。若这是讲解错题后的菜单，加上 `--current-exercise-explained`。
 
 ## 场景对话错题
 

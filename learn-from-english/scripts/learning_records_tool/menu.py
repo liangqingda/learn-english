@@ -121,8 +121,7 @@ def _initial_options(counts: dict[str, Any]) -> list[dict[str, Any]]:
 def _follow_up_options(
     counts: dict[str, Any],
     *,
-    exercise_active: bool,
-    keep_current_exercise: bool,
+    show_error_explanation: bool,
     focus: str | None,
 ) -> list[dict[str, Any]]:
     scenario_label = "看一套日常沟通的完整场景对话"
@@ -149,7 +148,7 @@ def _follow_up_options(
                 count=counts["totals"]["familiar"],
             )
         )
-    if has_mastered and not keep_current_exercise:
+    if has_mastered and not show_error_explanation:
         options.append(
             _option(
                 "mastered-review",
@@ -160,12 +159,12 @@ def _follow_up_options(
                 count=counts["totals"]["mastered"],
             )
         )
-    if keep_current_exercise:
+    if show_error_explanation:
         options.append(
             _option(
                 "explain-current-exercise",
                 "🔍",
-                "讲解当前习题",
+                "讲解错题",
                 "popular",
                 kind="explain-current-exercise",
             )
@@ -199,6 +198,7 @@ def build_menu(
     *,
     focus: str | None = None,
     current_exercise_explained: bool = False,
+    has_answer_errors: bool = False,
 ) -> dict[str, Any]:
     if context not in {"initial", "review-complete", "exercise-active"}:
         raise RecordError(f"invalid menu context: {context}")
@@ -215,9 +215,9 @@ def build_menu(
         if context == "initial"
         else _follow_up_options(
             counts,
-            exercise_active=context == "exercise-active",
-            keep_current_exercise=(
-                context in {"review-complete", "exercise-active"}
+            show_error_explanation=(
+                context == "review-complete"
+                and has_answer_errors
                 and not current_exercise_explained
             ),
             focus=focus,

@@ -433,12 +433,14 @@ class RecordService:
         *,
         focus: str | None = None,
         current_exercise_explained: bool = False,
+        has_answer_errors: bool = False,
     ) -> dict[str, Any]:
         return build_menu(
             self.records(),
             context,
             focus=focus,
             current_exercise_explained=current_exercise_explained,
+            has_answer_errors=has_answer_errors,
         )
 
     @staticmethod
