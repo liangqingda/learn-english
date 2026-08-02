@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 85,
+  "revision": 86,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -270,6 +270,29 @@
           "new_status": "learning"
         }
       ]
+    },
+    "errors:back-east-for-westbound-us-destination": {
+      "id": "errors:back-east-for-westbound-us-destination",
+      "category": "errors",
+      "status": "learning",
+      "title": "去美国西部城市不能用 back east",
+      "explanation": "back east 表示回到美国东部或熟悉的东部地区；Seattle、Los Angeles、San Francisco 等在美国西部，从 New York 或 Boston 去这些地方应说 go/move west 或 westward。",
+      "source": "He moved back east to Seattle from New York.",
+      "example": "He moved west to Seattle from New York.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-02T20:08:47+08:00",
+      "last_learned_at": "2026-08-02T20:08:47+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:back-east-needs-explicit-region": {
       "id": "errors:back-east-needs-explicit-region",
@@ -740,14 +763,21 @@
       "first_learned_at": "2026-07-31T08:29:22+08:00",
       "last_learned_at": "2026-07-31T08:29:22+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
+      "mastery_score": 4.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-08-02T20:08:47+08:00",
+      "next_review_at": "2026-08-03T20:08:47+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 4.0,
+          "reviewed_at": "2026-08-02T20:08:47+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
     },
     "errors:eastward-used-for-westbound-trip": {
       "id": "errors:eastward-used-for-westbound-trip",
