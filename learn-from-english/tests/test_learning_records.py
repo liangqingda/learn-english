@@ -256,19 +256,13 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertFalse(
             any(record["status"] == "mastered" for record in primary["records"].values())
         )
-        self.assertEqual(len(mastered["records"]), 10)
-        first_mastered = mastered["records"]["usage:mastered-0"]
+        self.assertEqual(len(mastered), 10)
+        first_mastered = mastered[0]
         self.assertEqual(
             set(first_mastered),
             {
-                "id",
-                "category",
-                "status",
                 "title",
                 "explanation",
-                "source",
-                "example",
-                "tags",
                 "mastered_at",
             },
         )
@@ -303,19 +297,19 @@ class LearningRecordsTest(unittest.TestCase):
 
         self.service.upsert(payload("grammar", "new-learning"))
 
-        self.assertEqual(self.service.records()["usage:full-mastered"]["status"], "mastered")
+        hydrated_mastered = [
+            record
+            for record in self.service.records().values()
+            if record["title"] == "usage full-mastered"
+        ]
+        self.assertEqual(len(hydrated_mastered), 1)
+        self.assertEqual(hydrated_mastered[0]["status"], "mastered")
         rewritten = json.loads(self.store.mastered_path.read_text(encoding="utf-8"))
         self.assertEqual(
-            set(rewritten["records"]["usage:full-mastered"]),
+            set(rewritten[0]),
             {
-                "id",
-                "category",
-                "status",
                 "title",
                 "explanation",
-                "source",
-                "example",
-                "tags",
                 "mastered_at",
             },
         )
@@ -341,12 +335,12 @@ class LearningRecordsTest(unittest.TestCase):
         mastered_paper = next(
             option for option in menu["options"] if option["id"] == "mastered-cet-paper"
         )
-        selected = self.service.next_review(status="mastered", categories=["grammar"])
+        selected = self.service.next_review(status="mastered")
 
         self.assertEqual(mastered_paper["count"], 10)
         self.assertTrue(self.store.mastered_path.exists())
         self.assertEqual(selected["record"]["status"], "mastered")
-        self.assertTrue(selected["record"]["id"].startswith("grammar:cet-source-"))
+        self.assertIn(selected["record"]["title"], titles)
 
     def test_menu_contexts_are_centralized_and_bounded(self) -> None:
         for category in ("errors", "grammar", "vocabulary", "phrases", "usage"):

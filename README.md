@@ -50,7 +50,17 @@ git_adapter.py
 
 学习中和已标熟记录保存在 `learning-records/records.json`。当主库内 `mastered` 记录达到 10 条，或 `learning-records/mastered.json` 已存在时，写事务会把已掌握知识点分流到 `mastered.json`；查询、菜单和复习抽题会合并读取两个文件，所以 CLI 调用方式保持不变。
 
-`mastered.json` 是精简素材库，只保留 `id`、`category`、`status`、`title`、`explanation`、`source`、`example`、`tags` 和 `mastered_at`。它用于已掌握知识点列表和完整四六级套题素材，不保存复习次数、评分历史、下次复习时间等调度细节。
+`mastered.json` 是精简素材库，文件根节点直接是数组；每条记录只保留 `title`、`explanation` 和 `mastered_at`。读取时工具会临时补齐复习流程所需的运行字段，但不会把这些字段写回 `mastered.json`。它用于已掌握知识点列表和完整四六级套题素材，不保存复习次数、评分历史、下次复习时间等调度细节。
+
+```json
+[
+  {
+    "title": "after 不宜直接当 later 连接后续动作",
+    "explanation": "表达“后来……”时，after 不能直接替代 later/then/afterward 来承接后续动作；自然说法是 but later settled 或 but then settled。",
+    "mastered_at": "2026-07-30T17:25:37+08:00"
+  }
+]
+```
 
 ```json
 {

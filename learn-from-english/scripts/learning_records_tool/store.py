@@ -8,7 +8,14 @@ from contextlib import contextmanager
 from pathlib import Path
 from typing import Any, Callable, TypeVar
 
-from .models import CATEGORIES, RecordError, empty_database, parse_timestamp, validate_database
+from .models import (
+    CATEGORIES,
+    RecordError,
+    empty_database,
+    normalize_key,
+    parse_timestamp,
+    validate_database,
+)
 
 
 T = TypeVar("T")
@@ -16,15 +23,10 @@ T = TypeVar("T")
 
 class RecordStore:
     MASTERED_SPILLOVER_THRESHOLD = 10
+    MASTERED_CATEGORY = "usage"
     MASTERED_FIELDS = (
-        "id",
-        "category",
-        "status",
         "title",
         "explanation",
-        "source",
-        "example",
-        "tags",
         "mastered_at",
     )
 
@@ -83,62 +85,110 @@ class RecordStore:
         return self._hydrate_mastered_database(database)
 
     @classmethod
-    def _validate_mastered_database(cls, database: dict[str, Any]) -> list[dict[str, Any]]:
+    def _mastered_records_from_storage(cls, database: Any) -> list[tuple[str | None, dict[str, Any]]]:
+        if isinstance(database, list):
+            return [(None, record) for record in database]
+        if isinstance(database, dict) and isinstance(database.get("records"), dict):
+            return list(database["records"].items())
+        return []
+
+    @classmethod
+    def _mastered_identifier(
+        cls,
+        record: dict[str, Any],
+        fallback_index: int,
+        used_identifiers: set[str],
+    ) -> str:
+        stored_identifier = record.get("id")
+        if isinstance(stored_identifier, str) and stored_identifier.strip():
+            identifier = stored_identifier
+        else:
+            title_key = normalize_key(str(record.get("title") or ""))
+            suffix = title_key or f"mastered-record-{fallback_index + 1}"
+            identifier = f"{cls.MASTERED_CATEGORY}:{suffix}"
+        if identifier not in used_identifiers:
+            used_identifiers.add(identifier)
+            return identifier
+        prefix = identifier
+        counter = 2
+        while f"{prefix}-{counter}" in used_identifiers:
+            counter += 1
+        identifier = f"{prefix}-{counter}"
+        used_identifiers.add(identifier)
+        return identifier
+
+    @classmethod
+    def _validate_mastered_database(cls, database: Any) -> list[dict[str, Any]]:
         issues: list[dict[str, Any]] = []
-        if not isinstance(database, dict):
-            return [{"id": None, "field": None, "message": "database root must be an object"}]
-        if database.get("schema_version") != 2:
-            issues.append(
-                {"id": None, "field": "schema_version", "message": "schema_version must be 2"}
-            )
-        revision = database.get("revision")
-        if not isinstance(revision, int) or isinstance(revision, bool) or revision < 0:
-            issues.append(
-                {"id": None, "field": "revision", "message": "revision must be a non-negative integer"}
-            )
-        records = database.get("records")
-        if not isinstance(records, dict):
-            issues.append({"id": None, "field": "records", "message": "records must be an object"})
+        if not isinstance(database, (dict, list)):
+            return [{"id": None, "field": None, "message": "database root must be an object or array"}]
+        if isinstance(database, dict):
+            if database.get("schema_version") != 2:
+                issues.append(
+                    {"id": None, "field": "schema_version", "message": "schema_version must be 2"}
+                )
+            revision = database.get("revision")
+            if not isinstance(revision, int) or isinstance(revision, bool) or revision < 0:
+                issues.append(
+                    {"id": None, "field": "revision", "message": "revision must be a non-negative integer"}
+                )
+        records = cls._mastered_records_from_storage(database)
+        if isinstance(database, list) and not records:
             return issues
-        for identifier, record in records.items():
-            if not isinstance(identifier, str):
+        if not records:
+            if isinstance(database, dict) and database.get("records") == {}:
+                return issues
+            issues.append({"id": None, "field": "records", "message": "records must be an object or array"})
+            return issues
+        used_identifiers: set[str] = set()
+        for index, (stored_identifier, record) in enumerate(records):
+            if stored_identifier is not None and not isinstance(stored_identifier, str):
                 issues.append(
                     {"id": None, "field": "records", "message": "record keys must be strings"}
                 )
                 continue
             if not isinstance(record, dict):
-                issues.append({"id": identifier, "field": None, "message": "record must be an object"})
+                issues.append({"id": stored_identifier, "field": None, "message": "record must be an object"})
                 continue
-            if record.get("id") != identifier:
+            identifier = cls._mastered_identifier(record, index, used_identifiers)
+            if stored_identifier is not None and record.get("id") not in {None, identifier}:
                 issues.append(
                     {"id": identifier, "field": "id", "message": "record id must match its object key"}
                 )
-            if record.get("category") not in CATEGORIES:
+            category = record.get("category", cls.MASTERED_CATEGORY)
+            if category not in CATEGORIES:
                 issues.append(
                     {"id": identifier, "field": "category", "message": "category is invalid"}
                 )
-            if record.get("status") != "mastered":
+            if record.get("status", "mastered") != "mastered":
                 issues.append(
                     {"id": identifier, "field": "status", "message": "status must be mastered"}
                 )
-            for field in ("title", "explanation", "source"):
+            for field in ("title", "explanation"):
                 if not isinstance(record.get(field), str) or not record[field].strip():
                     issues.append(
                         {"id": identifier, "field": field, "message": f"{field} must not be empty"}
                     )
-            if not isinstance(record.get("example", ""), str):
+            if "source" in record and (
+                not isinstance(record.get("source"), str) or not record["source"].strip()
+            ):
+                issues.append(
+                    {"id": identifier, "field": "source", "message": "source must not be empty"}
+                )
+            if "example" in record and not isinstance(record.get("example", ""), str):
                 issues.append(
                     {"id": identifier, "field": "example", "message": "example must be a string"}
                 )
             tags = record.get("tags")
-            if not isinstance(tags, list) or not all(isinstance(tag, str) for tag in tags):
-                issues.append(
-                    {"id": identifier, "field": "tags", "message": "tags must be an array of strings"}
-                )
-            elif len(tags) != len({tag.casefold() for tag in tags}):
-                issues.append(
-                    {"id": identifier, "field": "tags", "message": "tags must not contain duplicates"}
-                )
+            if tags is not None:
+                if not isinstance(tags, list) or not all(isinstance(tag, str) for tag in tags):
+                    issues.append(
+                        {"id": identifier, "field": "tags", "message": "tags must be an array of strings"}
+                    )
+                elif len(tags) != len({tag.casefold() for tag in tags}):
+                    issues.append(
+                        {"id": identifier, "field": "tags", "message": "tags must not contain duplicates"}
+                    )
             try:
                 mastered_at = parse_timestamp(record.get("mastered_at"))
                 if mastered_at is None:
@@ -154,20 +204,24 @@ class RecordStore:
         return issues
 
     @classmethod
-    def _hydrate_mastered_database(cls, database: dict[str, Any]) -> dict[str, Any]:
+    def _hydrate_mastered_database(cls, database: Any) -> dict[str, Any]:
         issues = cls._validate_mastered_database(database)
         if issues:
             raise RecordError(f"mastered database is invalid: {issues[0]['message']}")
         records = {}
-        for identifier, record in database["records"].items():
+        used_identifiers: set[str] = set()
+        for index, (_stored_identifier, record) in enumerate(
+            cls._mastered_records_from_storage(database)
+        ):
+            identifier = cls._mastered_identifier(record, index, used_identifiers)
             mastered_at = record["mastered_at"]
             records[identifier] = {
                 "id": identifier,
-                "category": record["category"],
+                "category": record.get("category", cls.MASTERED_CATEGORY),
                 "status": "mastered",
                 "title": record["title"],
                 "explanation": record["explanation"],
-                "source": record["source"],
+                "source": record.get("source") or record["explanation"],
                 "example": record.get("example", ""),
                 "tags": record.get("tags", []),
                 "first_learned_at": mastered_at,
@@ -183,8 +237,10 @@ class RecordStore:
                 "review_history": [],
             }
         hydrated = {
-            "schema_version": database["schema_version"],
-            "revision": database["revision"],
+            "schema_version": database.get("schema_version", 2)
+            if isinstance(database, dict)
+            else 2,
+            "revision": database.get("revision", 0) if isinstance(database, dict) else 0,
             "records": dict(sorted(records.items())),
         }
         full_issues = validate_database(hydrated)
@@ -193,19 +249,15 @@ class RecordStore:
         return hydrated
 
     @classmethod
-    def _slim_mastered_database(cls, database: dict[str, Any]) -> dict[str, Any]:
-        records = {}
-        for identifier, record in database["records"].items():
-            records[identifier] = {
+    def _slim_mastered_database(cls, database: dict[str, Any]) -> list[dict[str, Any]]:
+        return [
+            {
                 field: record[field]
                 for field in cls.MASTERED_FIELDS
                 if field in record
             }
-        return {
-            "schema_version": database["schema_version"],
-            "revision": database["revision"],
-            "records": dict(sorted(records.items())),
-        }
+            for _identifier, record in sorted(database["records"].items())
+        ]
 
     @staticmethod
     def _merge_databases(
@@ -293,10 +345,10 @@ class RecordStore:
     def _write_file(
         self,
         path: Path,
-        database: dict[str, Any],
+        database: Any,
         *,
         fail_before_replace: bool,
-        validate: Callable[[dict[str, Any]], list[dict[str, Any]]] = validate_database,
+        validate: Callable[[Any], list[dict[str, Any]]] = validate_database,
     ) -> None:
         import tempfile
 
