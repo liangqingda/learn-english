@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 87,
+  "revision": 88,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -1840,7 +1840,7 @@
     "errors:problem-with-pronunciation-collocation": {
       "id": "errors:problem-with-pronunciation-collocation",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "用 problem with ... 表达某方面的问题",
       "explanation": "point out 后面可以接具体错误；说某方面有问题时，英语更自然用 a problem with my pronunciation，而不是直接说 my pronunciation problem。",
       "source": "My teacher pointed out my pronunciation problem after class.",
@@ -1852,14 +1852,21 @@
       "first_learned_at": "2026-08-02T10:30:20+08:00",
       "last_learned_at": "2026-08-02T10:30:20+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 9.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T20:32:21+08:00",
+      "next_review_at": "2026-08-16T20:32:21+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 9.0,
+          "reviewed_at": "2026-08-02T20:32:21+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:proceed-not-followed-by-gerund": {
       "id": "errors:proceed-not-followed-by-gerund",
