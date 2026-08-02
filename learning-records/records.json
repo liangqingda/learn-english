@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 70,
+  "revision": 71,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -1025,7 +1025,7 @@
     "errors:missing-be-before-located": {
       "id": "errors:missing-be-before-located",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "located 作表语时不要漏掉 be 动词",
       "explanation": "located 是过去分词；表示某地或某机构位于某处时，通常使用 be located in/at，不能直接写主语加 located。",
       "source": "The company's headquarters located in Chicago, but it has several offices back east.",
@@ -1034,14 +1034,21 @@
       "first_learned_at": "2026-07-29T19:21:51+08:00",
       "last_learned_at": "2026-07-29T19:21:51+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 10.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T16:48:34+08:00",
+      "next_review_at": "2026-09-01T16:48:34+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-08-02T16:48:34+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:missing-past-perfect-for-earlier-arrival": {
       "id": "errors:missing-past-perfect-for-earlier-arrival",
