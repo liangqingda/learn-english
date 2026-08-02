@@ -5,7 +5,7 @@ description: 从规范学习记录中选择到期或低分知识点开展复习�
 
 # 复习英语学习记录
 
-使用仓库根目录 `learning-records/records.json` 与 `learning-records/mastered.json` 中的规范记录开展复习。`records.json` 是学习中与已标熟记录的主库；当主库里的 `mastered` 记录累计到 10 条或 `mastered.json` 已存在时，写事务会把已掌握记录分流到 `mastered.json`。所有读取和写入必须通过 `learn-from-english/scripts/learning_records.py`；不得直接编辑 JSON。
+使用仓库根目录 `learning-records/records.json` 与 `learning-records/mastered.json` 中的规范记录开展复习。`records.json` 是学习中与已标熟记录的主库；当主库里的 `mastered` 记录累计到 10 条或 `mastered.json` 已存在时，写事务会把已掌握知识点分流到 `mastered.json`。`mastered.json` 是精简素材库，只保留知识点正文、例句、标签、分类和掌握时间，用于已掌握知识点列表和完整四六级套题素材；不保存复习历史、调度字段或评分细节。所有读取和写入必须通过 `learn-from-english/scripts/learning_records.py`；不得直接编辑 JSON。
 
 ## 打开复习菜单
 

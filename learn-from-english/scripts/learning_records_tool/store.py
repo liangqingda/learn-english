@@ -8,7 +8,7 @@ from contextlib import contextmanager
 from pathlib import Path
 from typing import Any, Callable, TypeVar
 
-from .models import RecordError, empty_database, validate_database
+from .models import CATEGORIES, RecordError, empty_database, parse_timestamp, validate_database
 
 
 T = TypeVar("T")
@@ -16,6 +16,17 @@ T = TypeVar("T")
 
 class RecordStore:
     MASTERED_SPILLOVER_THRESHOLD = 10
+    MASTERED_FIELDS = (
+        "id",
+        "category",
+        "status",
+        "title",
+        "explanation",
+        "source",
+        "example",
+        "tags",
+        "mastered_at",
+    )
 
     def __init__(self, repo_root: Path):
         self.repo_root = repo_root.resolve()
@@ -58,6 +69,144 @@ class RecordStore:
             raise RecordError(f"record database is invalid: {issues[0]['message']}")
         return database
 
+    def _read_mastered_database_file(self, path: Path) -> dict[str, Any]:
+        if not path.exists():
+            return empty_database()
+        try:
+            with path.open(encoding="utf-8") as handle:
+                database = json.load(handle)
+        except (OSError, json.JSONDecodeError) as exc:
+            raise RecordError(f"cannot read valid JSON from {path}: {exc}") from exc
+        issues = validate_database(database)
+        if not issues:
+            return database
+        return self._hydrate_mastered_database(database)
+
+    @classmethod
+    def _validate_mastered_database(cls, database: dict[str, Any]) -> list[dict[str, Any]]:
+        issues: list[dict[str, Any]] = []
+        if not isinstance(database, dict):
+            return [{"id": None, "field": None, "message": "database root must be an object"}]
+        if database.get("schema_version") != 2:
+            issues.append(
+                {"id": None, "field": "schema_version", "message": "schema_version must be 2"}
+            )
+        revision = database.get("revision")
+        if not isinstance(revision, int) or isinstance(revision, bool) or revision < 0:
+            issues.append(
+                {"id": None, "field": "revision", "message": "revision must be a non-negative integer"}
+            )
+        records = database.get("records")
+        if not isinstance(records, dict):
+            issues.append({"id": None, "field": "records", "message": "records must be an object"})
+            return issues
+        for identifier, record in records.items():
+            if not isinstance(identifier, str):
+                issues.append(
+                    {"id": None, "field": "records", "message": "record keys must be strings"}
+                )
+                continue
+            if not isinstance(record, dict):
+                issues.append({"id": identifier, "field": None, "message": "record must be an object"})
+                continue
+            if record.get("id") != identifier:
+                issues.append(
+                    {"id": identifier, "field": "id", "message": "record id must match its object key"}
+                )
+            if record.get("category") not in CATEGORIES:
+                issues.append(
+                    {"id": identifier, "field": "category", "message": "category is invalid"}
+                )
+            if record.get("status") != "mastered":
+                issues.append(
+                    {"id": identifier, "field": "status", "message": "status must be mastered"}
+                )
+            for field in ("title", "explanation", "source"):
+                if not isinstance(record.get(field), str) or not record[field].strip():
+                    issues.append(
+                        {"id": identifier, "field": field, "message": f"{field} must not be empty"}
+                    )
+            if not isinstance(record.get("example", ""), str):
+                issues.append(
+                    {"id": identifier, "field": "example", "message": "example must be a string"}
+                )
+            tags = record.get("tags")
+            if not isinstance(tags, list) or not all(isinstance(tag, str) for tag in tags):
+                issues.append(
+                    {"id": identifier, "field": "tags", "message": "tags must be an array of strings"}
+                )
+            elif len(tags) != len({tag.casefold() for tag in tags}):
+                issues.append(
+                    {"id": identifier, "field": "tags", "message": "tags must not contain duplicates"}
+                )
+            try:
+                mastered_at = parse_timestamp(record.get("mastered_at"))
+                if mastered_at is None:
+                    raise ValueError("mastered_at is required")
+            except (TypeError, ValueError):
+                issues.append(
+                    {
+                        "id": identifier,
+                        "field": "mastered_at",
+                        "message": "mastered_at must be an ISO timestamp with timezone",
+                    }
+                )
+        return issues
+
+    @classmethod
+    def _hydrate_mastered_database(cls, database: dict[str, Any]) -> dict[str, Any]:
+        issues = cls._validate_mastered_database(database)
+        if issues:
+            raise RecordError(f"mastered database is invalid: {issues[0]['message']}")
+        records = {}
+        for identifier, record in database["records"].items():
+            mastered_at = record["mastered_at"]
+            records[identifier] = {
+                "id": identifier,
+                "category": record["category"],
+                "status": "mastered",
+                "title": record["title"],
+                "explanation": record["explanation"],
+                "source": record["source"],
+                "example": record.get("example", ""),
+                "tags": record.get("tags", []),
+                "first_learned_at": mastered_at,
+                "last_learned_at": mastered_at,
+                "learned_count": 1,
+                "mastery_score": 10.0,
+                "review_count": 0,
+                "high_score_streak": 1,
+                "last_reviewed_at": mastered_at,
+                "next_review_at": None,
+                "lapse_count": 0,
+                "mastered_at": mastered_at,
+                "review_history": [],
+            }
+        hydrated = {
+            "schema_version": database["schema_version"],
+            "revision": database["revision"],
+            "records": dict(sorted(records.items())),
+        }
+        full_issues = validate_database(hydrated)
+        if full_issues:
+            raise RecordError(f"mastered database is invalid: {full_issues[0]['message']}")
+        return hydrated
+
+    @classmethod
+    def _slim_mastered_database(cls, database: dict[str, Any]) -> dict[str, Any]:
+        records = {}
+        for identifier, record in database["records"].items():
+            records[identifier] = {
+                field: record[field]
+                for field in cls.MASTERED_FIELDS
+                if field in record
+            }
+        return {
+            "schema_version": database["schema_version"],
+            "revision": database["revision"],
+            "records": dict(sorted(records.items())),
+        }
+
     @staticmethod
     def _merge_databases(
         primary: dict[str, Any], mastered: dict[str, Any] | None = None
@@ -79,11 +228,7 @@ class RecordStore:
 
     def _load(self, *, allow_missing: bool = False) -> dict[str, Any]:
         primary = self._read_database_file(self.data_path, allow_missing=allow_missing)
-        mastered = (
-            self._read_database_file(self.mastered_path)
-            if self.mastered_path.exists()
-            else empty_database()
-        )
+        mastered = self._read_mastered_database_file(self.mastered_path)
         return self._merge_databases(primary, mastered)
 
     def _read_unvalidated_file(self, path: Path, *, allow_missing: bool = False) -> dict[str, Any]:
@@ -101,7 +246,7 @@ class RecordStore:
     def read_unvalidated(self) -> dict[str, Any]:
         primary = self._read_unvalidated_file(self.data_path)
         mastered = (
-            self._read_unvalidated_file(self.mastered_path)
+            self._read_mastered_database_file(self.mastered_path)
             if self.mastered_path.exists()
             else empty_database()
         )
@@ -145,10 +290,17 @@ class RecordStore:
                 pass
             raise
 
-    def _write_file(self, path: Path, database: dict[str, Any], *, fail_before_replace: bool) -> None:
+    def _write_file(
+        self,
+        path: Path,
+        database: dict[str, Any],
+        *,
+        fail_before_replace: bool,
+        validate: Callable[[dict[str, Any]], list[dict[str, Any]]] = validate_database,
+    ) -> None:
         import tempfile
 
-        issues = validate_database(database)
+        issues = validate(database)
         if issues:
             raise RecordError(f"refusing to write invalid records: {issues[0]['message']}")
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -211,7 +363,12 @@ class RecordStore:
     def _write(self, database: dict[str, Any]) -> None:
         primary, mastered = self._split_databases(database)
         if mastered["records"] or self.mastered_path.exists():
-            self._write_file(self.mastered_path, mastered, fail_before_replace=False)
+            self._write_file(
+                self.mastered_path,
+                self._slim_mastered_database(mastered),
+                fail_before_replace=False,
+                validate=self._validate_mastered_database,
+            )
         self._write_file(self.data_path, primary, fail_before_replace=True)
 
     def initialize(

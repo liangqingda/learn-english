@@ -230,8 +230,68 @@ class LearningRecordsTest(unittest.TestCase):
             any(record["status"] == "mastered" for record in primary["records"].values())
         )
         self.assertEqual(len(mastered["records"]), 10)
+        first_mastered = mastered["records"]["usage:mastered-0"]
+        self.assertEqual(
+            set(first_mastered),
+            {
+                "id",
+                "category",
+                "status",
+                "title",
+                "explanation",
+                "source",
+                "example",
+                "tags",
+                "mastered_at",
+            },
+        )
+        self.assertNotIn("review_history", first_mastered)
+        self.assertNotIn("mastery_score", first_mastered)
+        self.assertNotIn("next_review_at", first_mastered)
         self.assertEqual(self.service.summary()["totals"]["mastered"], 10)
         self.assertEqual(len(self.service.list_records(status="mastered")), 10)
+
+    def test_full_mastered_file_is_read_and_rewritten_as_slim(self) -> None:
+        self.service.upsert(payload("usage", "full-mastered"))
+        self.service.complete_review("usage:full-mastered", 10)
+        database = self.store.read()
+        mastered_record = database["records"]["usage:full-mastered"]
+        self.store.data_path.write_text(
+            json.dumps(empty_database(), ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        self.store.mastered_path.write_text(
+            json.dumps(
+                {
+                    "schema_version": 2,
+                    "revision": database["revision"],
+                    "records": {"usage:full-mastered": mastered_record},
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+
+        self.service.upsert(payload("grammar", "new-learning"))
+
+        self.assertEqual(self.service.records()["usage:full-mastered"]["status"], "mastered")
+        rewritten = json.loads(self.store.mastered_path.read_text(encoding="utf-8"))
+        self.assertEqual(
+            set(rewritten["records"]["usage:full-mastered"]),
+            {
+                "id",
+                "category",
+                "status",
+                "title",
+                "explanation",
+                "source",
+                "example",
+                "tags",
+                "mastered_at",
+            },
+        )
 
     def test_mastered_menu_and_selection_read_from_mastered_file(self) -> None:
         titles = [

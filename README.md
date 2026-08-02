@@ -47,7 +47,9 @@ git_adapter.py
 
 ## 数据模型
 
-学习中和已标熟记录保存在 `learning-records/records.json`。当主库内 `mastered` 记录达到 10 条，或 `learning-records/mastered.json` 已存在时，写事务会把已掌握记录分流到 `mastered.json`；查询、菜单和复习抽题会合并读取两个文件，所以 CLI 调用方式保持不变。
+学习中和已标熟记录保存在 `learning-records/records.json`。当主库内 `mastered` 记录达到 10 条，或 `learning-records/mastered.json` 已存在时，写事务会把已掌握知识点分流到 `mastered.json`；查询、菜单和复习抽题会合并读取两个文件，所以 CLI 调用方式保持不变。
+
+`mastered.json` 是精简素材库，只保留 `id`、`category`、`status`、`title`、`explanation`、`source`、`example`、`tags` 和 `mastered_at`。它用于已掌握知识点列表和完整四六级套题素材，不保存复习次数、评分历史、下次复习时间等调度细节。
 
 ```json
 {
