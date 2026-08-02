@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 69,
+  "revision": 70,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -1927,6 +1927,29 @@
         }
       ]
     },
+    "errors:serve-recipient-preposition-to-not-for": {
+      "id": "errors:serve-recipient-preposition-to-not-for",
+      "category": "errors",
+      "status": "learning",
+      "title": "serve 表示端给某人时受事对象介词误用 for",
+      "explanation": "serve 表示把食物或饮料端给某人时，接受者通常用 to 引出，或直接使用双宾结构 serve someone something；for guests 更像“为了客人/替客人”，不如 to the guests 明确表示端给他们。",
+      "source": "She served the hot tea and the cake for guests.",
+      "example": "She served hot tea and cake to the guests.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-02T16:45:39+08:00",
+      "last_learned_at": "2026-08-02T16:45:39+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:several-plus-plural-count-noun": {
       "id": "errors:several-plus-plural-count-noun",
       "category": "errors",
@@ -3175,7 +3198,7 @@
     "usage:serve-food-and-drinks-kitchen-context": {
       "id": "usage:serve-food-and-drinks-kitchen-context",
       "category": "usage",
-      "status": "learning",
+      "status": "familiar",
       "title": "serve：端上或供应食物饮料",
       "explanation": "厨房和餐桌语境里，serve 表示把饭菜或饮料提供给别人，可以是端上桌、分给客人，也可以表示餐厅或酒店供应某种食物。",
       "source": "2",
@@ -3188,14 +3211,21 @@
       "first_learned_at": "2026-07-31T10:09:57+08:00",
       "last_learned_at": "2026-07-31T10:09:57+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T16:45:39+08:00",
+      "next_review_at": "2026-08-09T16:45:39+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-02T16:45:39+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "usage:serve-food-broad-use": {
       "id": "usage:serve-food-broad-use",
