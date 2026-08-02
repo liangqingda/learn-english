@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 95,
+  "revision": 96,
   "category": "phrases",
   "records": {
     "phrases:back-east-us": {
@@ -361,6 +361,31 @@
       ],
       "first_learned_at": "2026-07-31T14:01:53+08:00",
       "last_learned_at": "2026-07-31T14:01:53+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:what-a-lovely-day-for-activity": {
+      "id": "phrases:what-a-lovely-day-for-activity",
+      "category": "phrases",
+      "status": "learning",
+      "title": "What a lovely day for...：多么适合……的好天气",
+      "explanation": "What a lovely day for + 名词 / -ing 用来感叹天气、时机或氛围很适合某个活动，比 It's a good day for... 更有感情色彩。",
+      "source": "What a lovely day for sailing.",
+      "example": "What a lovely day for a picnic.",
+      "tags": [
+        "exclamation",
+        "phrase",
+        "weather"
+      ],
+      "first_learned_at": "2026-08-03T07:15:39+08:00",
+      "last_learned_at": "2026-08-03T07:15:39+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

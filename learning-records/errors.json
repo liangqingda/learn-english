@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 95,
+  "revision": 96,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
