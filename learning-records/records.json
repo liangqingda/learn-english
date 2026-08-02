@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 73,
+  "revision": 74,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -122,7 +122,7 @@
     "errors:after-subordinator-used-for-later-action": {
       "id": "errors:after-subordinator-used-for-later-action",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "把 after 从属连词误当 later 连接后续动作",
       "explanation": "表达“后来做了某事”时，after 不能单独承接一个完整后续动作；after he got a better job 会变成从属时间从句，后面还缺主句。应用 later、then、afterward，或说 after that。",
       "source": "He failed the first interview, but after he got a better job.",
@@ -133,14 +133,21 @@
       "first_learned_at": "2026-08-02T16:38:01+08:00",
       "last_learned_at": "2026-08-02T16:38:01+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T17:02:34+08:00",
+      "next_review_at": "2026-08-09T17:02:34+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-02T17:02:34+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:application-vs-applicant-for-request-or-submission": {
       "id": "errors:application-vs-applicant-for-request-or-submission",
@@ -1020,6 +1027,29 @@
       "first_learned_at": "2026-08-01T21:42:55+08:00",
       "last_learned_at": "2026-08-01T21:42:55+08:00",
       "learned_count": 3,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:missing-article-or-possessive-before-singular-exam": {
+      "id": "errors:missing-article-or-possessive-before-singular-exam",
+      "category": "errors",
+      "status": "learning",
+      "title": "单数可数名词 exam 前缺少限定词",
+      "explanation": "exam 是单数可数名词，普通陈述里通常需要 the、my、an 等限定词；表达第一次考试时，可以说 my first exam，也可以说 the exam the first time。",
+      "source": "I didn't pass exam first, but afterward I passed.",
+      "example": "I didn't pass my first exam, but later I passed.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-02T17:02:34+08:00",
+      "last_learned_at": "2026-08-02T17:02:34+08:00",
+      "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,
