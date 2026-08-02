@@ -89,18 +89,37 @@ def _focus_label(focus: str | None) -> str:
     return cleaned or "当前英语"
 
 
-def _contextual_follow_up(context: str, focus: str | None) -> dict[str, Any]:
-    target = _focus_label(focus)
+def _follow_up_target(focus: str | None, *, initial: bool = False) -> str:
+    if initial and not (focus or "").strip():
+        return "日常英语寒暄和近况表达"
+    return _focus_label(focus)
+
+
+def _contextual_follow_ups(
+    context: str,
+    focus: str | None,
+    *,
+    count: int,
+    initial: bool = False,
+) -> list[dict[str, Any]]:
+    target = _follow_up_target(focus, initial=initial)
     digest = hashlib.sha256(f"{context}:{target}".encode("utf-8")).digest()
-    id, icon, label, kind = FOLLOW_UP_SUGGESTIONS[digest[0] % len(FOLLOW_UP_SUGGESTIONS)]
-    return _option(
-        id,
-        icon,
-        label.format(focus=target),
-        "other",
-        kind=kind,
-        focus=target,
-    )
+    start = digest[0] % len(FOLLOW_UP_SUGGESTIONS)
+    selected = [
+        FOLLOW_UP_SUGGESTIONS[(start + index) % len(FOLLOW_UP_SUGGESTIONS)]
+        for index in range(min(count, len(FOLLOW_UP_SUGGESTIONS)))
+    ]
+    return [
+        _option(
+            id,
+            icon,
+            label.format(focus=target),
+            "other",
+            kind=kind,
+            focus=target,
+        )
+        for id, icon, label, kind in selected
+    ]
 
 
 def _scenario_option(focus: str | None, *, initial: bool = False) -> dict[str, Any]:
@@ -120,7 +139,7 @@ def _scenario_option(focus: str | None, *, initial: bool = False) -> dict[str, A
     )
 
 
-def _with_bounded_other_options(
+def _with_dynamic_other_options(
     popular_options: list[dict[str, Any]],
     context: str,
     focus: str | None,
@@ -128,12 +147,8 @@ def _with_bounded_other_options(
     initial: bool = False,
 ) -> list[dict[str, Any]]:
     options = list(popular_options)
-    remaining_slots = 5 - len(options)
-    if remaining_slots >= 2:
-        options.append(_contextual_follow_up(context, focus))
-        remaining_slots -= 1
-    if remaining_slots >= 1:
-        options.append(_scenario_option(focus, initial=initial))
+    options.extend(_contextual_follow_ups(context, focus, count=2, initial=initial))
+    options.append(_scenario_option(focus, initial=initial))
     return options
 
 
@@ -197,7 +212,7 @@ def _initial_options(
                 count=counts["totals"]["mastered"],
             )
         )
-    return _with_bounded_other_options(options, "initial", focus, initial=True)
+    return _with_dynamic_other_options(options, "initial", focus, initial=True)
 
 
 def _follow_up_options(
@@ -262,7 +277,7 @@ def _follow_up_options(
                 count=counts["totals"]["mastered"],
             )
         )
-    return _with_bounded_other_options(options, context, focus)
+    return _with_dynamic_other_options(options, context, focus)
 
 
 def build_menu(
@@ -277,11 +292,15 @@ def build_menu(
         raise RecordError(f"invalid menu context: {context}")
     counts = counts_for(records)
     if not records:
-        options = [
-            _option("status", "📊", "查看当前学习记录状态", "popular", kind="status"),
-            _option("starter-practice", "✍️", "做一组日常英语基础练习", "other", kind="starter-practice"),
-            _option("scenario-dialogue", "🎭", "看一套咖啡店点单的完整场景对话", "other", kind="scenario-dialogue"),
-        ]
+        options = _with_dynamic_other_options(
+            [_option("status", "📊", "查看当前学习记录状态", "popular", kind="status")],
+            context,
+            "咖啡店点单和日常寒暄",
+        )
+        options.insert(
+            1,
+            _option("starter-practice", "📝", "做一组日常英语基础练习", "other", kind="starter-practice"),
+        )
         return {"state": "empty", "context": context, "counts": counts, "options": options}
     options = (
         _initial_options(counts, focus=focus)

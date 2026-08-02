@@ -342,7 +342,7 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertEqual(selected["record"]["status"], "mastered")
         self.assertIn(selected["record"]["title"], titles)
 
-    def test_menu_contexts_are_centralized_and_bounded(self) -> None:
+    def test_menu_contexts_include_dynamic_other_options(self) -> None:
         for category in ("errors", "grammar", "vocabulary", "phrases", "usage"):
             self.service.upsert(payload(category, f"{category}-item"))
         self.service.complete_review("grammar:grammar-item", 8)
@@ -363,11 +363,20 @@ class LearningRecordsTest(unittest.TestCase):
             current_exercise_explained=True,
         )
 
-        for menu in (initial, active, complete):
+        for menu in (initial, active, complete, complete_with_errors, explained):
+            other_options = [option for option in menu["options"] if option["group"] == "other"]
             self.assertGreaterEqual(len(menu["options"]), 3)
-            self.assertLessEqual(len(menu["options"]), 5)
+            self.assertGreaterEqual(len(other_options), 3)
             self.assertIn("popular", {option["group"] for option in menu["options"]})
             self.assertIn("scenario-dialogue", {option["id"] for option in menu["options"]})
+            self.assertEqual(
+                len({option["icon"] for option in menu["options"]}),
+                len(menu["options"]),
+            )
+            self.assertGreaterEqual(
+                sum(option["kind"] == "follow-up-learning" for option in other_options),
+                2,
+            )
             for option in menu["options"]:
                 if "count" in option:
                     self.assertTrue(option["label"].endswith(f"（{option['count']}）"))
@@ -427,6 +436,15 @@ class LearningRecordsTest(unittest.TestCase):
             "复习掌握不稳的知识点、语法和句型",
             {item["label"] for item in initial["options"]},
         )
+
+    def test_empty_menu_includes_at_least_three_other_options(self) -> None:
+        menu = self.service.menu("initial")
+        other_options = [option for option in menu["options"] if option["group"] == "other"]
+
+        self.assertEqual(menu["state"], "empty")
+        self.assertGreaterEqual(len(other_options), 3)
+        self.assertIn("starter-practice", {option["id"] for option in other_options})
+        self.assertIn("scenario-dialogue", {option["id"] for option in other_options})
 
     def test_merged_review_path_includes_every_category(self) -> None:
         for category in ("errors", "grammar", "vocabulary", "phrases", "usage"):
