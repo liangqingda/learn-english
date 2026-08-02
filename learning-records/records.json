@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 57,
+  "revision": 58,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -17,14 +17,21 @@
       "first_learned_at": "2026-08-01T21:17:44+08:00",
       "last_learned_at": "2026-08-01T21:17:44+08:00",
       "learned_count": 2,
-      "mastery_score": 0.0,
-      "review_count": 0,
+      "mastery_score": 7.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-08-02T10:30:20+08:00",
+      "next_review_at": "2026-08-05T10:30:20+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-08-02T10:30:20+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
     },
     "errors:accuse-vs-correct-word-choice": {
       "id": "errors:accuse-vs-correct-word-choice",
@@ -432,6 +439,30 @@
           "new_status": "learning"
         }
       ]
+    },
+    "errors:capitalize-english-language-name": {
+      "id": "errors:capitalize-english-language-name",
+      "category": "errors",
+      "status": "learning",
+      "title": "语言名称 English 要大写",
+      "explanation": "English 作为语言名称和专有名词使用时首字母要大写；写成 english 是拼写格式错误。",
+      "source": "my english",
+      "example": "my English",
+      "tags": [
+        "capitalization",
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-02T10:30:20+08:00",
+      "last_learned_at": "2026-08-02T10:30:20+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:common-place-name-english-not-pinyin": {
       "id": "errors:common-place-name-english-not-pinyin",
@@ -884,6 +915,30 @@
       ],
       "first_learned_at": "2026-08-01T21:47:08+08:00",
       "last_learned_at": "2026-08-01T21:47:08+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:general-condition-if-present-simple": {
+      "id": "errors:general-condition-if-present-simple",
+      "category": "errors",
+      "status": "learning",
+      "title": "一般情况的 if 从句用一般现在时",
+      "explanation": "表达通常会怎样时，if 从句说一般条件，应用一般现在时 points out；过去式 pointed out 会让句子变成过去发生过的条件，和 usually 的习惯含义不匹配。",
+      "source": "I'll usually listen carefully if someone pointed out the problems in my english.",
+      "example": "I usually listen carefully if someone points out a problem with my English.",
+      "tags": [
+        "grammar",
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-02T10:30:20+08:00",
+      "last_learned_at": "2026-08-02T10:30:20+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -1590,6 +1645,30 @@
       ],
       "first_learned_at": "2026-08-01T08:40:25+08:00",
       "last_learned_at": "2026-08-01T08:40:25+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:problem-with-pronunciation-collocation": {
+      "id": "errors:problem-with-pronunciation-collocation",
+      "category": "errors",
+      "status": "learning",
+      "title": "用 problem with ... 表达某方面的问题",
+      "explanation": "point out 后面可以接具体错误；说某方面有问题时，英语更自然用 a problem with my pronunciation，而不是直接说 my pronunciation problem。",
+      "source": "My teacher pointed out my pronunciation problem after class.",
+      "example": "My teacher pointed out a problem with my pronunciation after class.",
+      "tags": [
+        "collocation",
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-02T10:30:20+08:00",
+      "last_learned_at": "2026-08-02T10:30:20+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
