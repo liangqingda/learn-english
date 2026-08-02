@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 59,
+  "revision": 61,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -119,29 +119,6 @@
       "mastered_at": null,
       "review_history": []
     },
-    "errors:after-used-as-connector-before-clause": {
-      "id": "errors:after-used-as-connector-before-clause",
-      "category": "errors",
-      "status": "mastered",
-      "title": "after 不宜直接当 later 连接后续动作",
-      "explanation": "表达“后来……”时，after 不能直接替代 later/then/afterward 来承接后续动作；自然说法是 but later settled 或 but then settled。",
-      "source": "表达“后来……”时，after 不能直接替代 later/then/afterward 来承接后续动作；自然说法是 but later settled 或 but then settled。",
-      "example": "",
-      "tags": [
-        "migrated-mastered-record"
-      ],
-      "first_learned_at": "2026-07-30T17:25:37+08:00",
-      "last_learned_at": "2026-07-30T17:25:37+08:00",
-      "learned_count": 1,
-      "mastery_score": 10.0,
-      "review_count": 0,
-      "high_score_streak": 1,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": "2026-07-30T17:25:37+08:00",
-      "review_history": []
-    },
     "errors:application-vs-applicant-for-request-or-submission": {
       "id": "errors:application-vs-applicant-for-request-or-submission",
       "category": "errors",
@@ -170,67 +147,6 @@
           "reviewed_at": "2026-07-30T21:34:35+08:00",
           "previous_status": "learning",
           "new_status": "familiar"
-        }
-      ]
-    },
-    "errors:arrive-from-vs-arrive-in": {
-      "id": "errors:arrive-from-vs-arrive-in",
-      "category": "errors",
-      "status": "mastered",
-      "title": "把 from 误选成 in",
-      "explanation": "表示“从某地到来”时要用 arrive from + 出发地；arrive in 更强调“到达某个大地点/城市”。这里 Boston 是出发地来源，不是目的地介词用法。",
-      "source": "A",
-      "example": "They welcomed the traveler who had just arrived from Boston.",
-      "tags": [
-        "review-error"
-      ],
-      "first_learned_at": "2026-07-31T07:07:13+08:00",
-      "last_learned_at": "2026-07-31T07:07:13+08:00",
-      "learned_count": 1,
-      "mastery_score": 10.0,
-      "review_count": 1,
-      "high_score_streak": 1,
-      "last_reviewed_at": "2026-07-31T07:18:23+08:00",
-      "next_review_at": "2026-08-30T07:18:23+08:00",
-      "lapse_count": 0,
-      "mastered_at": "2026-07-31T07:18:23+08:00",
-      "review_history": [
-        {
-          "score": 10.0,
-          "reviewed_at": "2026-07-31T07:18:23+08:00",
-          "previous_status": "learning",
-          "new_status": "mastered"
-        }
-      ]
-    },
-    "errors:articles-with-specific-event-and-place-nouns": {
-      "id": "errors:articles-with-specific-event-and-place-nouns",
-      "category": "errors",
-      "status": "mastered",
-      "title": "具体事件和地点名词前的冠词",
-      "explanation": "提到双方都明确的具体会议、实验室、办公室等可数名词时，通常需要冠词或限定词，例如 after the meeting、visit the lab。缺少冠词会显得不完整或像泛指。",
-      "source": "After meeting, we continued to visit lab.",
-      "example": "After the meeting, we continued to visit the lab.",
-      "tags": [
-        "articles",
-        "noun-phrase"
-      ],
-      "first_learned_at": "2026-07-30T10:01:33+08:00",
-      "last_learned_at": "2026-07-30T10:01:33+08:00",
-      "learned_count": 1,
-      "mastery_score": 10.0,
-      "review_count": 1,
-      "high_score_streak": 1,
-      "last_reviewed_at": "2026-07-31T07:38:21+08:00",
-      "next_review_at": "2026-08-30T07:38:21+08:00",
-      "lapse_count": 0,
-      "mastered_at": "2026-07-31T07:38:21+08:00",
-      "review_history": [
-        {
-          "score": 10.0,
-          "reviewed_at": "2026-07-31T07:38:21+08:00",
-          "previous_status": "learning",
-          "new_status": "mastered"
         }
       ]
     },
@@ -354,6 +270,30 @@
           "new_status": "learning"
         }
       ]
+    },
+    "errors:be-used-to-describe-not-used-to-people": {
+      "id": "errors:be-used-to-describe-not-used-to-people",
+      "category": "errors",
+      "status": "learning",
+      "title": "be used to describe 不能省略 describe",
+      "explanation": "表示“被用来形容/描述某类人”时，英语常说 be used to describe people；used to 后面不能直接接 the people 表示“形容这些人”。",
+      "source": "They say the word is used to the people from the big cities.",
+      "example": "The word was used to describe people who had just arrived from big cities.",
+      "tags": [
+        "collocation",
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-02T10:44:57+08:00",
+      "last_learned_at": "2026-08-02T10:44:57+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:before-begin-gerund-or-clause": {
       "id": "errors:before-begin-gerund-or-clause",
@@ -485,29 +425,6 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
-    },
-    "errors:company-headquarters-not-head": {
-      "id": "errors:company-headquarters-not-head",
-      "category": "errors",
-      "status": "mastered",
-      "title": "公司总部常用 headquarters",
-      "explanation": "表达“公司总部”通常用 headquarters，而不是 head；head 更常指人或身体部位。",
-      "source": "表达“公司总部”通常用 headquarters，而不是 head；head 更常指人或身体部位。",
-      "example": "",
-      "tags": [
-        "migrated-mastered-record"
-      ],
-      "first_learned_at": "2026-07-30T17:40:27+08:00",
-      "last_learned_at": "2026-07-30T17:40:27+08:00",
-      "learned_count": 1,
-      "mastery_score": 10.0,
-      "review_count": 0,
-      "high_score_streak": 1,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": "2026-07-30T17:40:27+08:00",
       "review_history": []
     },
     "errors:completed-action-uses-past-tense-found": {
@@ -869,37 +786,6 @@
       "mastered_at": null,
       "review_history": []
     },
-    "errors:former-residence-needs-past-tense": {
-      "id": "errors:former-residence-needs-past-tense",
-      "category": "errors",
-      "status": "mastered",
-      "title": "以前住在某地要用过去表达",
-      "explanation": "中文“以前/过去住在某地”强调过去状态，英语通常用 lived in 或 used to live in；不要用一般现在时 live in 表示过去居住。",
-      "source": "My parents live in New York, but now they live in Los Angeles.",
-      "example": "My parents used to live in New York, but now they live in Los Angeles.",
-      "tags": [
-        "past-reference",
-        "tense"
-      ],
-      "first_learned_at": "2026-07-29T13:05:55+08:00",
-      "last_learned_at": "2026-07-29T13:05:55+08:00",
-      "learned_count": 1,
-      "mastery_score": 10.0,
-      "review_count": 2,
-      "high_score_streak": 2,
-      "last_reviewed_at": "2026-07-30T21:45:59+08:00",
-      "next_review_at": "2026-09-28T21:45:59+08:00",
-      "lapse_count": 0,
-      "mastered_at": "2026-07-30T21:45:59+08:00",
-      "review_history": [
-        {
-          "score": 10.0,
-          "reviewed_at": "2026-07-30T21:45:59+08:00",
-          "previous_status": "familiar",
-          "new_status": "mastered"
-        }
-      ]
-    },
     "errors:fruit-generic-uncountable-not-fruits": {
       "id": "errors:fruit-generic-uncountable-not-fruits",
       "category": "errors",
@@ -1020,59 +906,6 @@
       "mastered_at": null,
       "review_history": []
     },
-    "errors:history-of-not-about-place": {
-      "id": "errors:history-of-not-about-place",
-      "category": "errors",
-      "status": "mastered",
-      "title": "history of a place 的介词搭配",
-      "explanation": "表达“某地的历史”时，英语通常说 the history of the town/place，而不是 the history about the town；about 更像“关于……的内容”，of 更自然地表示所属关系。",
-      "source": "表达“某地的历史”时，英语通常说 the history of the town/place，而不是 the history about the town；about 更像“关于……的内容”，of 更自然地表示所属关系。",
-      "example": "",
-      "tags": [
-        "migrated-mastered-record"
-      ],
-      "first_learned_at": "2026-07-30T16:08:40+08:00",
-      "last_learned_at": "2026-07-30T16:08:40+08:00",
-      "learned_count": 1,
-      "mastery_score": 10.0,
-      "review_count": 0,
-      "high_score_streak": 1,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": "2026-07-30T16:08:40+08:00",
-      "review_history": []
-    },
-    "errors:learn-about-possessive-history": {
-      "id": "errors:learn-about-possessive-history",
-      "category": "errors",
-      "status": "mastered",
-      "title": "了解某地历史的自然表达",
-      "explanation": "“了解某地的历史”使用 learn about the history of a place 或 learn about the place’s history，不能说 get the history this city。",
-      "source": "follow guide to get the history this city",
-      "example": "They followed the guide to learn about the city's history.",
-      "tags": [
-        "expression"
-      ],
-      "first_learned_at": "2026-07-29T21:09:22+08:00",
-      "last_learned_at": "2026-07-29T21:09:22+08:00",
-      "learned_count": 1,
-      "mastery_score": 10.0,
-      "review_count": 1,
-      "high_score_streak": 1,
-      "last_reviewed_at": "2026-08-02T10:17:31+08:00",
-      "next_review_at": "2026-09-01T10:17:31+08:00",
-      "lapse_count": 0,
-      "mastered_at": "2026-08-02T10:17:31+08:00",
-      "review_history": [
-        {
-          "score": 10.0,
-          "reviewed_at": "2026-08-02T10:17:31+08:00",
-          "previous_status": "learning",
-          "new_status": "mastered"
-        }
-      ]
-    },
     "errors:los-angeles-english-place-name": {
       "id": "errors:los-angeles-english-place-name",
       "category": "errors",
@@ -1141,59 +974,29 @@
       "mastered_at": null,
       "review_history": []
     },
-    "errors:missing-for-after-wait": {
-      "id": "errors:missing-for-after-wait",
+    "errors:missing-past-perfect-for-earlier-arrival": {
+      "id": "errors:missing-past-perfect-for-earlier-arrival",
       "category": "errors",
-      "status": "mastered",
-      "title": "wait 后遗漏介词 for",
-      "explanation": "表示等待某人或某物时应使用 wait for somebody/something，不能直接使用 wait somebody。",
-      "source": "表示等待某人或某物时应使用 wait for somebody/something，不能直接使用 wait somebody。",
-      "example": "",
+      "status": "learning",
+      "title": "过去参照点前的到达漏用过去完成时",
+      "explanation": "当“到达”发生在另一个过去动作或说法之前时，英语用 had arrived / had just arrived 来标明先后顺序；只说 people from the big cities 会漏掉“刚来/已经来到”的动作关系。",
+      "source": "They say the word is used to the people from the big cities.",
+      "example": "They said the word was used to describe people who had just arrived from big cities.",
       "tags": [
-        "migrated-mastered-record"
+        "past-perfect",
+        "review-error"
       ],
-      "first_learned_at": "2026-07-30T16:43:44+08:00",
-      "last_learned_at": "2026-07-30T16:43:44+08:00",
+      "first_learned_at": "2026-08-02T10:44:57+08:00",
+      "last_learned_at": "2026-08-02T10:44:57+08:00",
       "learned_count": 1,
-      "mastery_score": 10.0,
+      "mastery_score": 0.0,
       "review_count": 0,
-      "high_score_streak": 1,
+      "high_score_streak": 0,
       "last_reviewed_at": null,
       "next_review_at": null,
       "lapse_count": 0,
-      "mastered_at": "2026-07-30T16:43:44+08:00",
+      "mastered_at": null,
       "review_history": []
-    },
-    "errors:missing-the-before-specific-place-role-floor": {
-      "id": "errors:missing-the-before-specific-place-role-floor",
-      "category": "errors",
-      "status": "mastered",
-      "title": "具体地点、角色和楼层前漏用 the",
-      "explanation": "当说话双方都能明确是哪一个展厅、哪位老师、哪一层楼时，常用定冠词 the：the exhibition hall, the teacher, the second floor。",
-      "source": "After entering exhibition hall, students turned off their phones and followed teacher to second floor.",
-      "example": "After entering the exhibition hall, the students turned off their phones and followed the teacher to the second floor.",
-      "tags": [
-        "article",
-        "grammar"
-      ],
-      "first_learned_at": "2026-07-30T12:48:04+08:00",
-      "last_learned_at": "2026-07-30T12:48:04+08:00",
-      "learned_count": 1,
-      "mastery_score": 10.0,
-      "review_count": 1,
-      "high_score_streak": 1,
-      "last_reviewed_at": "2026-08-02T10:04:32+08:00",
-      "next_review_at": "2026-09-01T10:04:32+08:00",
-      "lapse_count": 0,
-      "mastered_at": "2026-08-02T10:04:32+08:00",
-      "review_history": [
-        {
-          "score": 10.0,
-          "reviewed_at": "2026-08-02T10:04:32+08:00",
-          "previous_status": "learning",
-          "new_status": "mastered"
-        }
-      ]
     },
     "errors:missing-third-person-s-after-she-points-out": {
       "id": "errors:missing-third-person-s-after-she-points-out",
@@ -1241,29 +1044,6 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
-    },
-    "errors:modal-verb-base-form": {
-      "id": "errors:modal-verb-base-form",
-      "category": "errors",
-      "status": "mastered",
-      "title": "情态动词后使用动词原形",
-      "explanation": "may、can、must 等情态动词后接动词原形；主语是 you 或 he/she 也不能把 feel 写成 feels。",
-      "source": "may、can、must 等情态动词后接动词原形；主语是 you 或 he/she 也不能把 feel 写成 feels。",
-      "example": "",
-      "tags": [
-        "migrated-mastered-record"
-      ],
-      "first_learned_at": "2026-07-30T15:52:01+08:00",
-      "last_learned_at": "2026-07-30T15:52:01+08:00",
-      "learned_count": 1,
-      "mastery_score": 10.0,
-      "review_count": 0,
-      "high_score_streak": 1,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": "2026-07-30T15:52:01+08:00",
       "review_history": []
     },
     "errors:modal-will-base-verb-not-s-form": {
@@ -1523,27 +1303,28 @@
       "mastered_at": null,
       "review_history": []
     },
-    "errors:place-name-spelling-shenzhen": {
-      "id": "errors:place-name-spelling-shenzhen",
+    "errors:phrase-mistranslated-as-word": {
+      "id": "errors:phrase-mistranslated-as-word",
       "category": "errors",
-      "status": "mastered",
-      "title": "地名 Shenzhen 的拼写",
-      "explanation": "英文城市名 Shenzhen 要拼作 Shenzhen，不要写成 ShenShen。",
-      "source": "英文城市名 Shenzhen 要拼作 Shenzhen，不要写成 ShenShen。",
-      "example": "",
+      "status": "learning",
+      "title": "把 phrase 误译成 word",
+      "explanation": "phrase 是短语，word 是单词；中文提示说“这个短语”时，英文应说 this phrase，而不是 this word。",
+      "source": "Now, this word is often used in informal situation.",
+      "example": "Now, this phrase is often used in informal situations.",
       "tags": [
-        "migrated-mastered-record"
+        "review-error",
+        "word-choice"
       ],
-      "first_learned_at": "2026-07-30T16:15:02+08:00",
-      "last_learned_at": "2026-07-30T16:15:02+08:00",
-      "learned_count": 1,
-      "mastery_score": 10.0,
+      "first_learned_at": "2026-08-02T10:24:33+08:00",
+      "last_learned_at": "2026-08-02T10:24:33+08:00",
+      "learned_count": 2,
+      "mastery_score": 0.0,
       "review_count": 0,
-      "high_score_streak": 1,
+      "high_score_streak": 0,
       "last_reviewed_at": null,
       "next_review_at": null,
       "lapse_count": 0,
-      "mastered_at": "2026-07-30T16:15:02+08:00",
+      "mastered_at": null,
       "review_history": []
     },
     "errors:plate-vs-serve-ladle-liquid-food": {
@@ -1908,33 +1689,29 @@
       "mastered_at": null,
       "review_history": []
     },
-    "errors:restaurant-spelling": {
-      "id": "errors:restaurant-spelling",
+    "errors:restaurant-branches-not-offices": {
+      "id": "errors:restaurant-branches-not-offices",
       "category": "errors",
-      "status": "mastered",
-      "title": "restaurant 的拼写",
-      "explanation": "restaurant 正确拼写为 r-e-s-t-a-u-r-a-n-t，中间是 -au-，不要漏掉 a 写成 resturant。",
-      "source": "The resturant's reviews are very good.",
-      "example": "The restaurant's reviews are very good.",
-      "tags": [],
-      "first_learned_at": "2026-07-30T13:21:12+08:00",
-      "last_learned_at": "2026-07-30T13:21:12+08:00",
+      "status": "learning",
+      "title": "餐厅分店不自然说 offices",
+      "explanation": "office 通常指办公室或公司办事处；餐厅、商店等面向顾客的分店更自然说 branch、location 或 outlet。因此“这家餐厅有几个分店”应说 several branches/locations/outlets。",
+      "source": "The restaurant has several offices, but the headquarters is in Shanghai.",
+      "example": "The restaurant has several branches, but its headquarters is in Shanghai.",
+      "tags": [
+        "review-error",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-08-02T10:12:57+08:00",
+      "last_learned_at": "2026-08-02T10:12:57+08:00",
       "learned_count": 1,
-      "mastery_score": 10.0,
-      "review_count": 1,
-      "high_score_streak": 1,
-      "last_reviewed_at": "2026-07-31T07:53:34+08:00",
-      "next_review_at": "2026-08-30T07:53:34+08:00",
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
       "lapse_count": 0,
-      "mastered_at": "2026-07-31T07:53:34+08:00",
-      "review_history": [
-        {
-          "score": 10.0,
-          "reviewed_at": "2026-07-31T07:53:34+08:00",
-          "previous_status": "learning",
-          "new_status": "mastered"
-        }
-      ]
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:review-status-under-review-vs-progressive": {
       "id": "errors:review-status-under-review-vs-progressive",
@@ -1991,7 +1768,7 @@
     "errors:several-plus-plural-count-noun": {
       "id": "errors:several-plus-plural-count-noun",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "several 后接可数名词复数",
       "explanation": "several 表示“几个”，后面接可数名词复数；因此应说 several offices，而不是 several office。",
       "source": "The company has several office in the east, but the head is in Chigaco.",
@@ -2000,14 +1777,21 @@
       "first_learned_at": "2026-07-29T15:09:17+08:00",
       "last_learned_at": "2026-07-29T15:09:17+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T10:12:57+08:00",
+      "next_review_at": "2026-08-09T10:12:57+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-02T10:12:57+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:singular-application-mistaken-as-plural-applications": {
       "id": "errors:singular-application-mistaken-as-plural-applications",
@@ -2180,6 +1964,30 @@
       ],
       "first_learned_at": "2026-07-31T13:53:17+08:00",
       "last_learned_at": "2026-07-31T13:53:17+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:third-person-singular-s-missing-after-he": {
+      "id": "errors:third-person-singular-s-missing-after-he",
+      "category": "errors",
+      "status": "learning",
+      "title": "he 后一般现在时动词漏加 -s",
+      "explanation": "一般现在时中，主语是第三人称单数 he/she/it 时，实义动词通常要加 -s；因此 he need 应改为 he needs。",
+      "source": "You could say he need to correct the sentence.",
+      "example": "You could say he needs to correct the sentence.",
+      "tags": [
+        "review-error",
+        "subject-verb-agreement"
+      ],
+      "first_learned_at": "2026-08-02T10:29:02+08:00",
+      "last_learned_at": "2026-08-02T10:29:02+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -2505,36 +2313,6 @@
           "reviewed_at": "2026-08-02T10:44:57+08:00",
           "previous_status": "learning",
           "new_status": "learning"
-        }
-      ]
-    },
-    "grammar:relative-clause-who-person": {
-      "id": "grammar:relative-clause-who-person",
-      "category": "grammar",
-      "status": "mastered",
-      "title": "who 引导限定性定语从句",
-      "explanation": "who had just arrived... 修饰 a man，用来说明这是怎样的一个人。",
-      "source": "Old-timers used it to describe a man who had just arrived from one of the big cities back east",
-      "example": "I spoke to a woman who had recently moved here.",
-      "tags": [
-        "relative-clause"
-      ],
-      "first_learned_at": "2026-07-28T20:36:08+08:00",
-      "last_learned_at": "2026-07-28T20:36:08+08:00",
-      "learned_count": 1,
-      "mastery_score": 10.0,
-      "review_count": 2,
-      "high_score_streak": 2,
-      "last_reviewed_at": "2026-08-01T08:46:39+08:00",
-      "next_review_at": "2026-09-30T08:46:39+08:00",
-      "lapse_count": 0,
-      "mastered_at": "2026-08-01T08:46:39+08:00",
-      "review_history": [
-        {
-          "score": 10.0,
-          "reviewed_at": "2026-08-01T08:46:39+08:00",
-          "previous_status": "familiar",
-          "new_status": "mastered"
         }
       ]
     },
@@ -3096,7 +2874,7 @@
     "usage:now-as-discourse-marker-explanation": {
       "id": "usage:now-as-discourse-marker-explanation",
       "category": "usage",
-      "status": "learning",
+      "status": "familiar",
       "title": "Now 用作讲解开场",
       "explanation": "句首 Now 可以不是时间副词“现在”，而是话语标记，用来把听者注意力拉到接下来要解释的内容上，语气像“那么/注意”。",
       "source": "Now, to dish up something means...",
@@ -3109,14 +2887,21 @@
       "first_learned_at": "2026-07-31T09:13:38+08:00",
       "last_learned_at": "2026-07-31T09:13:38+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T10:24:33+08:00",
+      "next_review_at": "2026-08-09T10:24:33+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-02T10:24:33+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "usage:serve-food-and-drinks-kitchen-context": {
       "id": "usage:serve-food-and-drinks-kitchen-context",
@@ -3200,38 +2985,6 @@
         }
       ]
     },
-    "vocabulary:pour-liquid-into-container": {
-      "id": "vocabulary:pour-liquid-into-container",
-      "category": "vocabulary",
-      "status": "mastered",
-      "title": "pour：倒液体",
-      "explanation": "pour 常指让液体从一个容器流入另一个容器，典型宾语是 water、milk、tea、sauce 等；也可说 pour someone a drink。",
-      "source": "2",
-      "example": "Pour the milk into the bowl slowly.",
-      "tags": [
-        "cooking",
-        "kitchen",
-        "verb"
-      ],
-      "first_learned_at": "2026-07-31T10:09:57+08:00",
-      "last_learned_at": "2026-07-31T10:09:57+08:00",
-      "learned_count": 1,
-      "mastery_score": 10.0,
-      "review_count": 1,
-      "high_score_streak": 1,
-      "last_reviewed_at": "2026-08-01T21:15:03+08:00",
-      "next_review_at": "2026-08-31T21:15:03+08:00",
-      "lapse_count": 0,
-      "mastered_at": "2026-08-01T21:15:03+08:00",
-      "review_history": [
-        {
-          "score": 10.0,
-          "reviewed_at": "2026-08-01T21:15:03+08:00",
-          "previous_status": "learning",
-          "new_status": "mastered"
-        }
-      ]
-    },
     "vocabulary:review-core-meaning": {
       "id": "vocabulary:review-core-meaning",
       "category": "vocabulary",
@@ -3302,78 +3055,6 @@
       ],
       "first_learned_at": "2026-07-31T10:09:57+08:00",
       "last_learned_at": "2026-07-31T10:09:57+08:00",
-      "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
-    },
-    "errors:third-person-singular-s-missing-after-he": {
-      "id": "errors:third-person-singular-s-missing-after-he",
-      "category": "errors",
-      "status": "learning",
-      "title": "he 后一般现在时动词漏加 -s",
-      "explanation": "一般现在时中，主语是第三人称单数 he/she/it 时，实义动词通常要加 -s；因此 he need 应改为 he needs。",
-      "source": "You could say he need to correct the sentence.",
-      "example": "You could say he needs to correct the sentence.",
-      "tags": [
-        "review-error",
-        "subject-verb-agreement"
-      ],
-      "first_learned_at": "2026-08-02T10:29:02+08:00",
-      "last_learned_at": "2026-08-02T10:29:02+08:00",
-      "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
-    },
-    "errors:be-used-to-describe-not-used-to-people": {
-      "id": "errors:be-used-to-describe-not-used-to-people",
-      "category": "errors",
-      "status": "learning",
-      "title": "be used to describe 不能省略 describe",
-      "explanation": "表示“被用来形容/描述某类人”时，英语常说 be used to describe people；used to 后面不能直接接 the people 表示“形容这些人”。",
-      "source": "They say the word is used to the people from the big cities.",
-      "example": "The word was used to describe people who had just arrived from big cities.",
-      "tags": [
-        "collocation",
-        "review-error"
-      ],
-      "first_learned_at": "2026-08-02T10:44:57+08:00",
-      "last_learned_at": "2026-08-02T10:44:57+08:00",
-      "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
-    },
-    "errors:missing-past-perfect-for-earlier-arrival": {
-      "id": "errors:missing-past-perfect-for-earlier-arrival",
-      "category": "errors",
-      "status": "learning",
-      "title": "过去参照点前的到达漏用过去完成时",
-      "explanation": "当“到达”发生在另一个过去动作或说法之前时，英语用 had arrived / had just arrived 来标明先后顺序；只说 people from the big cities 会漏掉“刚来/已经来到”的动作关系。",
-      "source": "They say the word is used to the people from the big cities.",
-      "example": "They said the word was used to describe people who had just arrived from big cities.",
-      "tags": [
-        "past-perfect",
-        "review-error"
-      ],
-      "first_learned_at": "2026-08-02T10:44:57+08:00",
-      "last_learned_at": "2026-08-02T10:44:57+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
