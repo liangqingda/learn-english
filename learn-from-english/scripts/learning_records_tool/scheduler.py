@@ -6,7 +6,24 @@ from datetime import datetime, timedelta
 from typing import Any
 
 
-def status_for_score(score: float) -> str:
+REQUIRED_MASTERY_TEN_COUNT = 3
+
+
+def ten_score_count(record: dict[str, Any]) -> int:
+    return sum(
+        1
+        for event in record.get("review_history", [])
+        if float(event.get("score", -1)) == 10
+    )
+
+
+def status_for_score(score: float, record: dict[str, Any] | None = None) -> str:
+    if score == 10 and record is not None:
+        if record.get("status") == "mastered":
+            return "mastered"
+        if ten_score_count(record) + 1 >= REQUIRED_MASTERY_TEN_COUNT:
+            return "mastered"
+        return "familiar"
     if score == 10:
         return "mastered"
     if score >= 8:
@@ -35,10 +52,10 @@ def schedule_review(record: dict[str, Any], score: float, reviewed_at: datetime)
         record["high_score_streak"] = 0
     if score < 8 and previous_status in {"familiar", "mastered"}:
         record["lapse_count"] = int(record.get("lapse_count", 0)) + 1
-    record["status"] = status_for_score(score)
-    if score == 10 and record.get("mastered_at") is None:
+    record["status"] = status_for_score(score, record)
+    if record["status"] == "mastered" and record.get("mastered_at") is None:
         record["mastered_at"] = reviewed_at.isoformat(timespec="seconds")
-    elif score < 10:
+    elif record["status"] != "mastered":
         record["mastered_at"] = None
     record["next_review_at"] = (
         reviewed_at + timedelta(days=interval_days(record, score))

@@ -185,8 +185,8 @@ def validate_record(identifier: str, record: Any) -> list[dict[str, Any]]:
     if record.get("status") == "mastered" and score != 10:
         issues.append(_issue(identifier, "mastery_score", "mastered status requires score 10"))
     if record.get("status") == "familiar" and isinstance(score, (int, float)):
-        if not 8 <= float(score) < 10:
-            issues.append(_issue(identifier, "mastery_score", "familiar status requires score 8 or 9"))
+        if not 8 <= float(score) <= 10:
+            issues.append(_issue(identifier, "mastery_score", "familiar status requires score 8 to 10"))
     if record.get("status") == "learning" and isinstance(score, (int, float)):
         if float(score) >= 8:
             issues.append(_issue(identifier, "mastery_score", "learning status requires score below 8"))

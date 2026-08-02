@@ -24,7 +24,7 @@ from .models import (
     record_id,
     validate_database,
 )
-from .scheduler import review_priority, schedule_review
+from .scheduler import review_priority, schedule_review, status_for_score
 from .store import RecordStore
 
 
@@ -129,12 +129,8 @@ class RecordService:
         return max(parsed, key=lambda item: item[0])[1] if parsed else None
 
     @staticmethod
-    def _status_for_score(score: float) -> str:
-        if score == 10:
-            return "mastered"
-        if score >= 8:
-            return "familiar"
-        return "learning"
+    def _status_for_score(score: float, record: dict[str, Any] | None = None) -> str:
+        return status_for_score(score, record)
 
     @classmethod
     def _merge_record_content(
@@ -181,7 +177,7 @@ class RecordService:
             record.get("last_reviewed_at") for record in records
         )
         target["mastery_score"] = min(float(record.get("mastery_score", 0)) for record in records)
-        target["status"] = cls._status_for_score(float(target["mastery_score"]))
+        target["status"] = cls._status_for_score(float(target["mastery_score"]), target)
         if target["status"] == "learning":
             target["high_score_streak"] = 0
             target["mastered_at"] = None
@@ -581,9 +577,7 @@ class RecordService:
                     changes.append({"id": record["id"], "field": "tags"})
                     record["tags"] = normalized
                 score = float(record.get("mastery_score", 0))
-                expected_status = (
-                    "mastered" if score == 10 else "familiar" if score >= 8 else "learning"
-                )
+                expected_status = status_for_score(score, record)
                 if record.get("status") != expected_status:
                     changes.append({"id": record["id"], "field": "status"})
                     record["status"] = expected_status

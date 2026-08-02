@@ -116,8 +116,8 @@ python3 learn-from-english/scripts/learning_records.py complete-review --input <
 根据返回结果说明状态变化：
 
 - `status: learning`：继续留在待巩固状态。
-- `status: familiar`：本次达到 8 至 9 分，进入已标熟状态。
-- `status: mastered`：本次达到 10 分，进入已掌握状态，但完整讲解和历史仍被保留。
+- `status: familiar`：本次达到 8 分及以上但尚未满足 `mastered` 条件，进入或留在已标熟状态。
+- `status: mastered`：同一知识点累计第 3 次达到 10 分，进入已掌握状态，并作为完整四六级套题素材；未满 3 次的 10 分仍显示为 `familiar`。
 - `lapse_count` 增加：原已标熟或已掌握知识点出现遗忘。
 
 命令还会返回 `next_review_at`。向用户展示得分、最关键建议和下一次建议复习时间。写入失败时仍完成教学反馈，但必须说明本轮评分与错题没有保存。

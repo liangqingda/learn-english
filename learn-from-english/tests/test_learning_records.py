@@ -42,6 +42,12 @@ def distinct_payload(category: str, key: str, title: str) -> dict[str, object]:
     return item
 
 
+def mark_mastered(service: RecordService, identifier: str) -> dict[str, object]:
+    service.complete_review(identifier, 10)
+    service.complete_review(identifier, 10)
+    return service.complete_review(identifier, 10)
+
+
 class LearningRecordsTest(unittest.TestCase):
     def setUp(self) -> None:
         self.temporary_directory = tempfile.TemporaryDirectory()
@@ -185,19 +191,40 @@ class LearningRecordsTest(unittest.TestCase):
     def test_status_transitions_and_lapses(self) -> None:
         self.service.upsert(payload("phrases", "solid-phrase"))
         first = self.service.complete_review("phrases:solid-phrase", 10)
-        self.assertEqual(first["status"], "mastered")
-        mastered_at = first["mastered_at"]
+        self.assertEqual(first["status"], "familiar")
+        self.assertIsNone(first["mastered_at"])
 
         second = self.service.complete_review("phrases:solid-phrase", 10)
-        self.assertEqual(second["mastered_at"], mastered_at)
+        self.assertEqual(second["status"], "familiar")
+        self.assertIsNone(second["mastered_at"])
 
-        third = self.service.complete_review("phrases:solid-phrase", 6)
-        self.assertEqual(third["status"], "learning")
-        self.assertEqual(third["lapse_count"], 1)
+        third = self.service.complete_review("phrases:solid-phrase", 10)
+        self.assertEqual(third["status"], "mastered")
+        mastered_at = third["mastered_at"]
+
+        fourth = self.service.complete_review("phrases:solid-phrase", 10)
+        self.assertEqual(fourth["status"], "mastered")
+        self.assertEqual(fourth["mastered_at"], mastered_at)
+
+        lapsed = self.service.complete_review("phrases:solid-phrase", 6)
+        self.assertEqual(lapsed["status"], "learning")
+        self.assertEqual(lapsed["lapse_count"], 1)
+
+    def test_three_perfect_reviews_are_required_for_mastery(self) -> None:
+        self.service.upsert(payload("grammar", "three-perfects"))
+
+        first = self.service.complete_review("grammar:three-perfects", 10)
+        second = self.service.complete_review("grammar:three-perfects", 10)
+        third = self.service.complete_review("grammar:three-perfects", 10)
+
+        self.assertEqual(first["status"], "familiar")
+        self.assertEqual(second["status"], "familiar")
+        self.assertEqual(third["status"], "mastered")
+        self.assertIsNotNone(third["mastered_at"])
 
     def test_mastered_records_keep_full_learning_content(self) -> None:
         self.service.upsert(payload("usage", "polite-request"))
-        self.service.complete_review("usage:polite-request", 10)
+        mark_mastered(self.service, "usage:polite-request")
 
         record = self.service.records()["usage:polite-request"]
 
@@ -221,7 +248,7 @@ class LearningRecordsTest(unittest.TestCase):
         ]
         for index, title in enumerate(titles):
             self.service.upsert(distinct_payload("usage", f"mastered-{index}", title))
-            self.service.complete_review(f"usage:mastered-{index}", 10)
+            mark_mastered(self.service, f"usage:mastered-{index}")
 
         primary = json.loads(self.store.data_path.read_text(encoding="utf-8"))
         mastered = json.loads(self.store.mastered_path.read_text(encoding="utf-8"))
@@ -253,7 +280,7 @@ class LearningRecordsTest(unittest.TestCase):
 
     def test_full_mastered_file_is_read_and_rewritten_as_slim(self) -> None:
         self.service.upsert(payload("usage", "full-mastered"))
-        self.service.complete_review("usage:full-mastered", 10)
+        mark_mastered(self.service, "usage:full-mastered")
         database = self.store.read()
         mastered_record = database["records"]["usage:full-mastered"]
         self.store.data_path.write_text(
@@ -308,7 +335,7 @@ class LearningRecordsTest(unittest.TestCase):
         ]
         for index, title in enumerate(titles):
             self.service.upsert(distinct_payload("grammar", f"cet-source-{index}", title))
-            self.service.complete_review(f"grammar:cet-source-{index}", 10)
+            mark_mastered(self.service, f"grammar:cet-source-{index}")
 
         menu = self.service.menu("initial")
         mastered_paper = next(
@@ -325,7 +352,7 @@ class LearningRecordsTest(unittest.TestCase):
         for category in ("errors", "grammar", "vocabulary", "phrases", "usage"):
             self.service.upsert(payload(category, f"{category}-item"))
         self.service.complete_review("grammar:grammar-item", 8)
-        self.service.complete_review("usage:usage-item", 10)
+        mark_mastered(self.service, "usage:usage-item")
 
         initial = self.service.menu("initial")
         active = self.service.menu("exercise-active", focus="present perfect")
