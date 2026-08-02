@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 93,
+  "revision": 94,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -697,16 +697,23 @@
         "review-error"
       ],
       "first_learned_at": "2026-08-01T20:57:54+08:00",
-      "last_learned_at": "2026-08-01T20:57:54+08:00",
-      "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
+      "last_learned_at": "2026-08-02T21:43:15+08:00",
+      "learned_count": 2,
+      "mastery_score": 7.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-08-02T21:43:15+08:00",
+      "next_review_at": "2026-08-05T21:43:15+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-08-02T21:43:15+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
     },
     "errors:dish-out-person-instead-of-criticism": {
       "id": "errors:dish-out-person-instead-of-criticism",
@@ -1844,6 +1851,29 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:present-habit-when-clause-past-tense-mismatch": {
+      "id": "errors:present-habit-when-clause-past-tense-mismatch",
+      "category": "errors",
+      "status": "learning",
+      "title": "现在习惯句中 when 从句误用过去时",
+      "explanation": "描述现在经常发生的习惯时，主句用 always + 一般现在时，when 从句也通常用一般现在时表示同类情境；pointed out 会把动作拉回过去某一次，和 she can’t take it 的现在习惯不匹配。",
+      "source": "She always dishes out presentations of others, but she can’t take it when others pointed out her mistakes.",
+      "example": "She always dishes it out about other people’s reports, but she can’t take it when others point out her mistakes.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-02T21:43:15+08:00",
+      "last_learned_at": "2026-08-02T21:43:15+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:problem-with-pronunciation-collocation": {
       "id": "errors:problem-with-pronunciation-collocation",
