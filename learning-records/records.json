@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 80,
+  "revision": 81,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -450,7 +450,7 @@
     "errors:capitalize-english-language-name": {
       "id": "errors:capitalize-english-language-name",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "语言名称 English 要大写",
       "explanation": "English 作为语言名称和专有名词使用时首字母要大写；写成 english 是拼写格式错误。",
       "source": "my english",
@@ -462,14 +462,21 @@
       "first_learned_at": "2026-08-02T10:30:20+08:00",
       "last_learned_at": "2026-08-02T10:30:20+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T18:29:05+08:00",
+      "next_review_at": "2026-08-09T18:29:05+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-02T18:29:05+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:common-place-name-english-not-pinyin": {
       "id": "errors:common-place-name-english-not-pinyin",
@@ -1293,6 +1300,29 @@
       "review_count": 2,
       "high_score_streak": 1,
       "last_reviewed_at": "2026-07-30T12:52:32+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:need-practice-not-need-to-be-practicing": {
+      "id": "errors:need-practice-not-need-to-be-practicing",
+      "category": "errors",
+      "status": "learning",
+      "title": "表达“需要练习”用 need practice / need to practice",
+      "explanation": "need to be practicing 表示结构混乱，be practicing 强调正在进行的动作，不适合表达能力还需要练习；更自然的是 My English still needs practice 或 I still need to practice my English。",
+      "source": "My English still need to be practicing.",
+      "example": "I still need to practice my English.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-02T18:29:05+08:00",
+      "last_learned_at": "2026-08-02T18:29:05+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
@@ -2376,6 +2406,29 @@
       ],
       "first_learned_at": "2026-08-02T10:29:02+08:00",
       "last_learned_at": "2026-08-02T10:29:02+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:third-person-singular-subject-needs": {
+      "id": "errors:third-person-singular-subject-needs",
+      "category": "errors",
+      "status": "learning",
+      "title": "第三人称单数主语后用 needs",
+      "explanation": "当主语是第三人称单数或不可数整体概念时，一般现在时里的普通动词要加 -s；my English 被当作一个整体能力，所以应写 needs，不是 need。",
+      "source": "My English still need to be practicing.",
+      "example": "My English still needs practice.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-02T18:29:05+08:00",
+      "last_learned_at": "2026-08-02T18:29:05+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
