@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 54,
+  "revision": 55,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -1717,6 +1717,31 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:provide-service-not-serve-service": {
+      "id": "errors:provide-service-not-serve-service",
+      "category": "errors",
+      "status": "learning",
+      "title": "提供服务用 provide service，不说 serve service",
+      "explanation": "serve 可以表示上菜、招待或为某人服务，但 excellent service 作为名词短语时通常搭配 provide、offer 或 give；serve excellent service 听起来重复且不自然。",
+      "source": "The restaurant served excellent service all evening.",
+      "example": "The restaurant provided excellent service all evening.",
+      "tags": [
+        "collocation",
+        "review-error",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-08-02T10:09:58+08:00",
+      "last_learned_at": "2026-08-02T10:09:58+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:registration-vs-register-noun-event": {
       "id": "errors:registration-vs-register-noun-event",
       "category": "errors",
@@ -2866,7 +2891,7 @@
     "usage:dish-up-vs-serve-food": {
       "id": "usage:dish-up-vs-serve-food",
       "category": "usage",
-      "status": "learning",
+      "status": "familiar",
       "title": "dish up 和 serve 的区别",
       "explanation": "dish up 强调把食物从锅或大盘里盛到盘子/碗里的动作，语气更日常；serve 范围更宽，既可以指端菜、上菜，也可以指餐厅服务或正式待客。",
       "source": "2",
@@ -2879,14 +2904,21 @@
       "first_learned_at": "2026-07-31T09:16:35+08:00",
       "last_learned_at": "2026-07-31T09:16:35+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T10:09:58+08:00",
+      "next_review_at": "2026-08-09T10:09:58+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-02T10:09:58+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "usage:dish-up-word-order-object-position": {
       "id": "usage:dish-up-word-order-object-position",
