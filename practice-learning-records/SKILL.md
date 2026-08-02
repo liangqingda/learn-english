@@ -164,7 +164,7 @@ python3 learn-from-english/scripts/learning_records.py mastered-list
 - Part III Reading Comprehension：30 题，40 分钟，占 35%。Section A 词汇理解/选词填空 10 题，占 5%；Section B 长篇阅读/匹配 10 题，占 10%；Section C 仔细阅读 10 题，占 20%（通常两篇短文，每篇 5 题）。阅读题号按真实试卷习惯标为 Questions 26-55，不因听力省略而从 1 重新编号。
 - Part IV Translation：汉译英段落翻译 1 题，30 分钟，占 15%。给出正式 Directions 和中文段落；不附参考译文。
 
-默认生成 CET-4 难度；只有素材明显更高级或用户明确要求时生成 CET-6 难度。首次呈现时不附答案、解析或提示，不暴露被测试知识点的正确形式，并把 `*Picked from mastered.json · mastered*` 放在菜单之后的最终 attribution block 第一行，不放在套题正文内。套题不改动记录分数。
+根据 `mastered-list` 返回的已掌握素材判断生成 CET-4 还是 CET-6 难度，不使用固定 CET-4 兜底。判断时综合素材的词汇抽象度、句法复杂度、语篇话题、论证密度和表达正式程度：多数素材接近日常、基础说明、常见校园/生活/社会话题时生成 CET-4；多数素材涉及更抽象的议题、更复杂的从句或非谓语结构、更正式的学术/社会评论表达时生成 CET-6；素材混合时按占主导的素材难度定级，并在卷首简短说明判断依据。用户明确要求 CET-4 或 CET-6 时按用户指定级别生成。首次呈现时不附答案、解析或提示，不暴露被测试知识点的正确形式，并把 `*Picked from mastered.json · mastered*` 放在菜单之后的最终 attribution block 第一行，不放在套题正文内。套题不改动记录分数。
 
 ## 历史与统计
 
