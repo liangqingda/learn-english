@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 78,
+  "revision": 79,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -2175,7 +2175,7 @@
     "errors:slice-into-thin-slices-not-to-slice": {
       "id": "errors:slice-into-thin-slices-not-to-slice",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "把“切成薄片”误写成 slice ... to slice",
       "explanation": "slice 本身已经表示切片这个动作；如果要强调结果是薄片，英语通常说 slice something thinly 或 slice something into thin slices。to slice 不能表示“成为薄片”。",
       "source": "Could you slice the onion to slice.",
@@ -2188,14 +2188,21 @@
       "first_learned_at": "2026-08-01T21:48:22+08:00",
       "last_learned_at": "2026-08-01T21:48:22+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 10.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T18:17:56+08:00",
+      "next_review_at": "2026-09-01T18:17:56+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-08-02T18:17:56+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:specific-known-plural-noun-use-the": {
       "id": "errors:specific-known-plural-noun-use-the",
