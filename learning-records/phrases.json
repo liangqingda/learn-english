@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 96,
+  "revision": 97,
   "category": "phrases",
   "records": {
     "phrases:back-east-us": {
@@ -361,6 +361,31 @@
       ],
       "first_learned_at": "2026-07-31T14:01:53+08:00",
       "last_learned_at": "2026-07-31T14:01:53+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:weather-report-forecast-information": {
+      "id": "phrases:weather-report-forecast-information",
+      "category": "phrases",
+      "status": "learning",
+      "title": "weather report：天气预报 / 天气报告",
+      "explanation": "weather report 指电视、手机、网站或广播上的天气信息。出海、徒步、露营等户外活动前常说 check the weather report，表示先确认天气情况。",
+      "source": "I’ll check the weather report before we go.",
+      "example": "Check the weather report before you leave for the mountains.",
+      "tags": [
+        "phrase",
+        "travel",
+        "weather"
+      ],
+      "first_learned_at": "2026-08-03T07:28:25+08:00",
+      "last_learned_at": "2026-08-03T07:28:25+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

@@ -1,8 +1,58 @@
 {
   "schema_version": 2,
-  "revision": 96,
+  "revision": 97,
   "category": "vocabulary",
   "records": {
+    "vocabulary:boat-small-watercraft": {
+      "id": "vocabulary:boat-small-watercraft",
+      "category": "vocabulary",
+      "status": "learning",
+      "title": "boat：小船 / 船",
+      "explanation": "boat 是日常词，通常指尺寸较小、可用于休闲、渡水或短途航行的船。在 sailing 语境里，boat 可以泛指要开出去的帆船或小艇。",
+      "source": "Shall we take the boat out this morning?",
+      "example": "We rented a small boat for the afternoon.",
+      "tags": [
+        "sailing",
+        "transport",
+        "vocabulary"
+      ],
+      "first_learned_at": "2026-08-03T07:28:25+08:00",
+      "last_learned_at": "2026-08-03T07:28:25+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "vocabulary:breeze-light-wind": {
+      "id": "vocabulary:breeze-light-wind",
+      "category": "vocabulary",
+      "status": "learning",
+      "title": "breeze：微风",
+      "explanation": "breeze 指轻柔、舒服的风，比 wind 更具体、更温和。在海边或户外活动中，a nice breeze 常表示天气宜人，也适合帆船借风航行。",
+      "source": "There’s a nice breeze.",
+      "example": "A cool breeze came in from the sea.",
+      "tags": [
+        "sailing",
+        "vocabulary",
+        "weather"
+      ],
+      "first_learned_at": "2026-08-03T07:28:25+08:00",
+      "last_learned_at": "2026-08-03T07:28:25+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "vocabulary:drizzle-light-rain": {
       "id": "vocabulary:drizzle-light-rain",
       "category": "vocabulary",
@@ -42,8 +92,8 @@
         "vocabulary"
       ],
       "first_learned_at": "2026-08-03T07:15:39+08:00",
-      "last_learned_at": "2026-08-03T07:15:39+08:00",
-      "learned_count": 1,
+      "last_learned_at": "2026-08-03T07:28:25+08:00",
+      "learned_count": 2,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,
