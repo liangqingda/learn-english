@@ -210,11 +210,16 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertEqual(third["status"], "mastered")
         mastered_at = third["mastered_at"]
 
-        fourth = self.service.complete_review("phrases:solid-phrase", 10)
+        mastered_record_id = next(
+            record["id"]
+            for record in self.service.records().values()
+            if record["title"] == "phrases solid-phrase"
+        )
+        fourth = self.service.complete_review(mastered_record_id, 10)
         self.assertEqual(fourth["status"], "mastered")
         self.assertEqual(fourth["mastered_at"], mastered_at)
 
-        lapsed = self.service.complete_review("phrases:solid-phrase", 6)
+        lapsed = self.service.complete_review(mastered_record_id, 6)
         self.assertEqual(lapsed["status"], "learning")
         self.assertEqual(lapsed["lapse_count"], 1)
 
@@ -230,16 +235,28 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertEqual(third["status"], "mastered")
         self.assertIsNotNone(third["mastered_at"])
 
-    def test_mastered_records_keep_full_learning_content(self) -> None:
+    def test_mastered_records_are_stored_as_slim_content(self) -> None:
         self.service.upsert(payload("usage", "polite-request"))
         mark_mastered(self.service, "usage:polite-request")
 
-        record = self.service.records()["usage:polite-request"]
+        stored = read_json(self.store.mastered_category_path("usage"))
+        record = next(
+            item for item in self.service.records().values()
+            if item["title"] == "usage polite-request"
+        )
 
+        self.assertEqual(
+            set(stored[0]),
+            {
+                "title",
+                "explanation",
+                "mastered_at",
+            },
+        )
         self.assertEqual(record["status"], "mastered")
-        self.assertEqual(record["source"], "Source for polite-request")
-        self.assertEqual(record["example"], "Example for polite-request")
-        self.assertEqual(record["tags"], ["core", "review"])
+        self.assertEqual(record["source"], "Explanation for polite-request")
+        self.assertEqual(record["example"], "")
+        self.assertEqual(record["tags"], [])
 
     def test_mastered_records_move_to_mastered_category_file(self) -> None:
         titles = [
@@ -264,20 +281,30 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertFalse(
             any(record["status"] == "mastered" for record in primary["records"].values())
         )
-        self.assertEqual(len(mastered["records"]), 10)
-        first_mastered = next(iter(mastered["records"].values()))
-        self.assertEqual(first_mastered["status"], "mastered")
-        self.assertIn("review_history", first_mastered)
-        self.assertIn("mastery_score", first_mastered)
-        self.assertIn("next_review_at", first_mastered)
+        self.assertEqual(len(mastered), 10)
+        first_mastered = mastered[0]
+        self.assertEqual(
+            set(first_mastered),
+            {
+                "title",
+                "explanation",
+                "mastered_at",
+            },
+        )
+        self.assertNotIn("review_history", first_mastered)
+        self.assertNotIn("mastery_score", first_mastered)
+        self.assertNotIn("next_review_at", first_mastered)
         self.assertEqual(self.service.summary()["totals"]["mastered"], 10)
         self.assertEqual(len(self.service.list_records(status="mastered")), 10)
 
-    def test_full_mastered_file_is_read_and_rewritten_by_category(self) -> None:
+    def test_full_mastered_file_is_read_and_rewritten_as_slim_category_file(self) -> None:
         self.service.upsert(payload("usage", "full-mastered"))
         mark_mastered(self.service, "usage:full-mastered")
         database = self.store.read()
-        mastered_record = database["records"]["usage:full-mastered"]
+        mastered_record = next(
+            record for record in database["records"].values()
+            if record["title"] == "usage full-mastered"
+        )
         write_json(
             self.store.category_path("usage"),
             {
@@ -307,8 +334,14 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertEqual(len(hydrated_mastered), 1)
         self.assertEqual(hydrated_mastered[0]["status"], "mastered")
         rewritten = read_json(self.store.mastered_category_path("usage"))
-        self.assertIn("usage:full-mastered", rewritten["records"])
-        self.assertEqual(rewritten["records"]["usage:full-mastered"]["source"], "Source for full-mastered")
+        self.assertEqual(
+            set(rewritten[0]),
+            {
+                "title",
+                "explanation",
+                "mastered_at",
+            },
+        )
 
     def test_mastered_menu_and_selection_read_from_mastered_file(self) -> None:
         titles = [

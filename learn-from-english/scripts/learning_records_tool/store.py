@@ -23,6 +23,12 @@ T = TypeVar("T")
 
 
 class RecordStore:
+    MASTERED_FIELDS = (
+        "title",
+        "explanation",
+        "mastered_at",
+    )
+
     def __init__(self, repo_root: Path):
         self.repo_root = repo_root.resolve()
         self.learning_dir = self.repo_root / "learning-records"
@@ -409,6 +415,13 @@ class RecordStore:
             raise RecordError(f"mastered database is invalid: {full_issues[0]['message']}")
         return hydrated
 
+    @classmethod
+    def _slim_mastered_records(cls, records: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+        return [
+            {field: record[field] for field in cls.MASTERED_FIELDS if field in record}
+            for _identifier, record in sorted(records.items())
+        ]
+
     @staticmethod
     def _merge_databases(
         primary: dict[str, Any], mastered: dict[str, Any] | None = None
@@ -611,7 +624,7 @@ class RecordStore:
 
     def _split_databases(
         self, database: dict[str, Any]
-    ) -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, Any]]]:
+    ) -> tuple[dict[str, dict[str, Any]], dict[str, list[dict[str, Any]]]]:
         revision = int(database["revision"])
         learning: dict[str, dict[str, Any]] = {}
         mastered: dict[str, list[dict[str, Any]]] = {}
@@ -631,11 +644,7 @@ class RecordStore:
                 learning_records,
                 revision,
             )
-            mastered[category] = self._category_database(
-                category,
-                mastered_records,
-                revision,
-            )
+            mastered[category] = self._slim_mastered_records(mastered_records)
         return learning, mastered
 
     def _write(self, database: dict[str, Any], *, force_all: bool = False) -> None:
@@ -665,14 +674,14 @@ class RecordStore:
             mastered_path = self.mastered_category_path(category)
             mastered_document = mastered[category]
             current_mastered = self._current_document(mastered_path)
-            if force_all or current_mastered is not None or mastered_document["records"]:
+            if force_all or current_mastered is not None or mastered_document:
                 if self._canonical_json(current_mastered) != self._canonical_json(mastered_document):
                     writes.append(
                         (
                             mastered_path,
                             mastered_document,
-                            lambda value, category=category: self._validate_category_database(
-                                value, category, allow_mastered=True
+                            lambda value, category=category: self._validate_mastered_database(
+                                value, category
                             ),
                         )
                     )

@@ -50,7 +50,9 @@ git_adapter.py
 
 学习中和已标熟记录按类别保存在 `learning-records/<category>.json`。已掌握记录按同一类别保存在 `mastered-learning-records/<category>.json`。查询、菜单和复习抽题会合并读取两个目录，所以 CLI 调用方式保持不变。
 
-每个分类文件都是一个 Schema v2 数据库片段，顶层 `category` 表示该文件只保存这一类记录。记录的 `status` 仍然保存在字段里；`learning` 和 `familiar` 留在 `learning-records/`，同一知识点累计第 3 次达到 10 分后才移动到对应的 `mastered-learning-records/` 分类文件。
+`learning-records/` 下的每个分类文件都是一个 Schema v2 数据库片段，顶层 `category` 表示该文件只保存这一类记录。记录的 `status` 仍然保存在字段里；`learning` 和 `familiar` 留在 `learning-records/`。
+
+`mastered-learning-records/` 下的每个分类文件参考旧版 `mastered.json`，根节点直接是数组，每条只保留 `title`、`explanation` 和 `mastered_at`。读取时工具会临时补齐复习流程需要的运行字段；同一知识点累计第 3 次达到 10 分后才移动到对应的 mastered 分类文件。
 
 ```json
 {

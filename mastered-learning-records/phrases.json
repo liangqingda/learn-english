@@ -1,30 +1,7 @@
-{
-  "schema_version": 2,
-  "revision": 91,
-  "category": "phrases",
-  "records": {
-    "phrases:了解某地历史的自然表达": {
-      "id": "phrases:了解某地历史的自然表达",
-      "category": "phrases",
-      "status": "mastered",
-      "title": "了解某地历史的自然表达",
-      "explanation": "“了解某地的历史”使用 learn about the history of a place 或 learn about the place’s history，不能说 get the history this city。",
-      "source": "“了解某地的历史”使用 learn about the history of a place 或 learn about the place’s history，不能说 get the history this city。",
-      "example": "",
-      "tags": [
-        "migrated-mastered-record"
-      ],
-      "first_learned_at": "2026-08-02T10:17:31+08:00",
-      "last_learned_at": "2026-08-02T10:17:31+08:00",
-      "learned_count": 1,
-      "mastery_score": 10.0,
-      "review_count": 0,
-      "high_score_streak": 3,
-      "last_reviewed_at": "2026-08-02T10:17:31+08:00",
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": "2026-08-02T10:17:31+08:00",
-      "review_history": []
-    }
+[
+  {
+    "title": "了解某地历史的自然表达",
+    "explanation": "“了解某地的历史”使用 learn about the history of a place 或 learn about the place’s history，不能说 get the history this city。",
+    "mastered_at": "2026-08-02T10:17:31+08:00"
   }
-}
+]
