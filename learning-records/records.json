@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 56,
+  "revision": 57,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -230,7 +230,7 @@
     "errors:auxiliary-do-not-followed-by-past-tense": {
       "id": "errors:auxiliary-do-not-followed-by-past-tense",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "do not 后误用过去式动词",
       "explanation": "助动词 do/does/did 已经承担时态或否定功能，后面的实义动词要用原形，所以不要说 do not said，而要说 do not say。",
       "source": "Please do not said he accused your grammer mistake, and he just help you accuse them.",
@@ -242,14 +242,21 @@
       "first_learned_at": "2026-08-01T21:34:52+08:00",
       "last_learned_at": "2026-08-01T21:34:52+08:00",
       "learned_count": 2,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T10:29:02+08:00",
+      "next_review_at": "2026-08-09T10:29:02+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-02T10:29:02+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:back-east-direction-misuse": {
       "id": "errors:back-east-direction-misuse",
@@ -3209,6 +3216,30 @@
       ],
       "first_learned_at": "2026-07-31T10:09:57+08:00",
       "last_learned_at": "2026-07-31T10:09:57+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:third-person-singular-s-missing-after-he": {
+      "id": "errors:third-person-singular-s-missing-after-he",
+      "category": "errors",
+      "status": "learning",
+      "title": "he 后一般现在时动词漏加 -s",
+      "explanation": "一般现在时中，主语是第三人称单数 he/she/it 时，实义动词通常要加 -s；因此 he need 应改为 he needs。",
+      "source": "You could say he need to correct the sentence.",
+      "example": "You could say he needs to correct the sentence.",
+      "tags": [
+        "review-error",
+        "subject-verb-agreement"
+      ],
+      "first_learned_at": "2026-08-02T10:29:02+08:00",
+      "last_learned_at": "2026-08-02T10:29:02+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
