@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 64,
+  "revision": 65,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -1131,6 +1131,30 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:omit-be-in-passive-after-confirmed": {
+      "id": "errors:omit-be-in-passive-after-confirmed",
+      "category": "errors",
+      "status": "learning",
+      "title": "被动从句中省略 be 动词",
+      "explanation": "当主语是 documents、information、payment 这类被确认的对象时，confirmed 是过去分词，需要和 be 动词组成被动结构，如 are confirmed 或 is confirmed。",
+      "source": "We will proceed with your application after all the documents confirmed.",
+      "example": "We will proceed with your application after all the documents are confirmed.",
+      "tags": [
+        "passive-voice",
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-02T13:46:56+08:00",
+      "last_learned_at": "2026-08-02T13:46:56+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:opened-not-closed-for-opening-event": {
       "id": "errors:opened-not-closed-for-opening-event",
       "category": "errors",
@@ -1169,14 +1193,21 @@
       "first_learned_at": "2026-07-29T21:06:51+08:00",
       "last_learned_at": "2026-07-29T21:06:51+08:00",
       "learned_count": 2,
-      "mastery_score": 0.0,
-      "review_count": 0,
+      "mastery_score": 5.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-08-02T13:46:56+08:00",
+      "next_review_at": "2026-08-05T13:46:56+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 5.0,
+          "reviewed_at": "2026-08-02T13:46:56+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
     },
     "errors:past-narrative-main-verb-tense": {
       "id": "errors:past-narrative-main-verb-tense",
@@ -2205,6 +2236,30 @@
           "new_status": "learning"
         }
       ]
+    },
+    "errors:you-used-instead-of-your-before-noun": {
+      "id": "errors:you-used-instead-of-your-before-noun",
+      "category": "errors",
+      "status": "learning",
+      "title": "名词前误用 you 代替 your",
+      "explanation": "修饰名词 orders 表示“你的订单”时要用形容词性物主代词 your，不能用主格/宾格 you。",
+      "source": "We will proceed with you orders after the pay is confirmed.",
+      "example": "We will proceed with your order after the payment is confirmed.",
+      "tags": [
+        "pronoun",
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-02T13:46:56+08:00",
+      "last_learned_at": "2026-08-02T13:46:56+08:00",
+      "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "grammar:can-i-get-you-offer-food-drink": {
       "id": "grammar:can-i-get-you-offer-food-drink",
