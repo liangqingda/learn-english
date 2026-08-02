@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 76,
+  "revision": 77,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -95,6 +95,29 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:after-clause-missing-subject-before-past-participle": {
+      "id": "errors:after-clause-missing-subject-before-past-participle",
+      "category": "errors",
+      "status": "learning",
+      "title": "after 引导从句时缺少主语和谓语形式",
+      "explanation": "after 作从属连词后面接完整从句时，需要主语和谓语，例如 after they signed the contract；如果省略主语，应改成介词结构 after signing the contract，而不是 after signed the contract。",
+      "source": "After signed the contract, they proceeded to discuss the payment details.",
+      "example": "After they signed the contract, they proceeded to discuss the payment details.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-02T17:51:39+08:00",
+      "last_learned_at": "2026-08-02T17:51:39+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:after-event-noun-phrase": {
       "id": "errors:after-event-noun-phrase",
@@ -1793,14 +1816,21 @@
       "first_learned_at": "2026-08-01T21:09:01+08:00",
       "last_learned_at": "2026-08-01T21:09:01+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
+      "mastery_score": 7.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-08-02T17:51:39+08:00",
+      "next_review_at": "2026-08-05T17:51:39+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-08-02T17:51:39+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
     },
     "errors:pronoun-agreement-with-female-name": {
       "id": "errors:pronoun-agreement-with-female-name",
