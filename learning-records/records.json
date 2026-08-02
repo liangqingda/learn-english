@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 84,
+  "revision": 85,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -2900,7 +2900,7 @@
     "phrases:clear-the-table-after-meal": {
       "id": "phrases:clear-the-table-after-meal",
       "category": "phrases",
-      "status": "learning",
+      "status": "familiar",
       "title": "clear the table：收拾餐桌",
       "explanation": "clear the table 表示饭后把盘子、杯子、餐具等从桌上收走，常用于家庭分工或餐后清理。",
       "source": "改一下场景对话：不是你一句我一句，而是你直接把美国人常见的场景对话案例全展示给我",
@@ -2913,14 +2913,21 @@
       "first_learned_at": "2026-07-31T14:01:53+08:00",
       "last_learned_at": "2026-07-31T14:01:53+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 10.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T20:04:40+08:00",
+      "next_review_at": "2026-09-01T20:04:40+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-08-02T20:04:40+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "phrases:come-on-in-invite-guest-inside": {
       "id": "phrases:come-on-in-invite-guest-inside",
