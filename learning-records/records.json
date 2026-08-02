@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 81,
+  "revision": 82,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -629,14 +629,21 @@
       "first_learned_at": "2026-07-30T17:19:01+08:00",
       "last_learned_at": "2026-07-30T17:19:01+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
+      "mastery_score": 7.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-08-02T18:32:27+08:00",
+      "next_review_at": "2026-08-05T18:32:27+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-08-02T18:32:27+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
     },
     "errors:dish-it-out-but-cant-take-it-fixed-object": {
       "id": "errors:dish-it-out-but-cant-take-it-fixed-object",
@@ -2484,6 +2491,29 @@
       "first_learned_at": "2026-08-02T13:35:06+08:00",
       "last_learned_at": "2026-08-02T13:35:06+08:00",
       "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:use-eastward-for-neutral-direction-not-back-east": {
+      "id": "errors:use-eastward-for-neutral-direction-not-back-east",
+      "category": "errors",
+      "status": "learning",
+      "title": "纯方向移动用 eastward，不用 back east",
+      "explanation": "back east 带有回到东部地区、老家或熟悉区域的语义，不能用于风暴、物体、路线等只表示向东移动的场景；纯方向移动应使用 eastward。",
+      "source": "The storm moved back east across the plains overnight.",
+      "example": "The storm moved eastward across the plains overnight.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-02T18:32:27+08:00",
+      "last_learned_at": "2026-08-02T18:32:27+08:00",
+      "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,
