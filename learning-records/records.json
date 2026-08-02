@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 65,
+  "revision": 66,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -515,7 +515,7 @@
     "errors:direct-question-word-order-and-look-at": {
       "id": "errors:direct-question-word-order-and-look-at",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "直接问句语序与 look at 介词保留",
       "explanation": "直接问句要使用疑问词加助动词或 be 动词前置，如 When is she free?；表达“可以看的照片”时，look at 的介词 at 不能省略。",
       "source": "When she is free and if she has old pictures to look.",
@@ -527,14 +527,21 @@
       "first_learned_at": "2026-07-30T11:52:01+08:00",
       "last_learned_at": "2026-07-30T11:52:01+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 9.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T16:06:52+08:00",
+      "next_review_at": "2026-08-16T16:06:52+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 9.0,
+          "reviewed_at": "2026-08-02T16:06:52+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:direction-vs-home-area-contrast": {
       "id": "errors:direction-vs-home-area-contrast",
