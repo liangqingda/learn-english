@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 79,
+  "revision": 80,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -1049,6 +1049,30 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:missing-article-before-countable-presentation": {
+      "id": "errors:missing-article-before-countable-presentation",
+      "category": "errors",
+      "status": "learning",
+      "title": "单数可数名词 presentation 前缺少限定词",
+      "explanation": "presentation 作单数可数名词表示一次报告或演示时，通常需要 the、a、this、his 等限定词；直接说 in presentation 不自然。",
+      "source": "The manager pointed out some problems in presentation and gave us some advice.",
+      "example": "The manager pointed out some problems in the report and gave us some practical advice.",
+      "tags": [
+        "article",
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-02T18:24:07+08:00",
+      "last_learned_at": "2026-08-02T18:24:07+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:missing-article-in-after-a-short-rest": {
       "id": "errors:missing-article-in-after-a-short-rest",
       "category": "errors",
@@ -1675,7 +1699,7 @@
     "errors:point-out-used-with-advice-collocation": {
       "id": "errors:point-out-used-with-advice-collocation",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "把 point out 和 advice 直接搭配",
       "explanation": "point out 通常表示指出事实、问题、错误或需要注意的地方；advice 是建议内容，更自然的动词是 give、offer 或 provide，若用 suggest 则后面通常接做法或 that 从句。",
       "source": "She usually points out useful advice in meeting.",
@@ -1686,14 +1710,21 @@
       "first_learned_at": "2026-08-02T16:51:15+08:00",
       "last_learned_at": "2026-08-02T16:51:15+08:00",
       "learned_count": 2,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T18:24:07+08:00",
+      "next_review_at": "2026-08-09T18:24:07+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-02T18:24:07+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:preposition-before-directional-adverbial-back-east-out-west": {
       "id": "errors:preposition-before-directional-adverbial-back-east-out-west",
