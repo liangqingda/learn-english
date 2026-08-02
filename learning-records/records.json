@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 61,
+  "revision": 62,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -1249,6 +1249,31 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:past-time-marker-last-night-omitted": {
+      "id": "errors:past-time-marker-last-night-omitted",
+      "category": "errors",
+      "status": "learning",
+      "title": "翻译过去时间时不要漏掉 last night 和过去时",
+      "explanation": "中文里有“昨晚”时，英文通常需要明确加 last night，并把主要谓语放到过去时；只说 is very good 会变成现在的一般评价，遗漏了原句的具体过去时间。",
+      "source": "That restaurant's service is very good and they serve dishes quickly.",
+      "example": "The service at that restaurant was very good last night, and they served the dishes quickly.",
+      "tags": [
+        "review-error",
+        "tense",
+        "translation"
+      ],
+      "first_learned_at": "2026-08-02T13:31:03+08:00",
+      "last_learned_at": "2026-08-02T13:31:03+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:past-time-used-to-live-present-error": {
       "id": "errors:past-time-used-to-live-present-error",
       "category": "errors",
@@ -1594,7 +1619,7 @@
     "errors:provide-service-not-serve-service": {
       "id": "errors:provide-service-not-serve-service",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "提供服务用 provide service，不说 serve service",
       "explanation": "serve 可以表示上菜、招待或为某人服务，但 excellent service 作为名词短语时通常搭配 provide、offer 或 give；serve excellent service 听起来重复且不自然。",
       "source": "The restaurant served excellent service all evening.",
@@ -1607,14 +1632,21 @@
       "first_learned_at": "2026-08-02T10:09:58+08:00",
       "last_learned_at": "2026-08-02T10:09:58+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T13:31:03+08:00",
+      "next_review_at": "2026-08-09T13:31:03+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-02T13:31:03+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:registration-vs-register-noun-event": {
       "id": "errors:registration-vs-register-noun-event",
