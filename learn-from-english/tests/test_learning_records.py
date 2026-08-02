@@ -248,11 +248,13 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertEqual(
             set(stored[0]),
             {
+                "id",
                 "title",
                 "explanation",
                 "mastered_at",
             },
         )
+        self.assertEqual(stored[0]["id"], "usage:polite-request")
         self.assertEqual(record["status"], "mastered")
         self.assertEqual(record["source"], "Explanation for polite-request")
         self.assertEqual(record["example"], "")
@@ -286,6 +288,7 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertEqual(
             set(first_mastered),
             {
+                "id",
                 "title",
                 "explanation",
                 "mastered_at",
@@ -337,6 +340,7 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertEqual(
             set(rewritten[0]),
             {
+                "id",
                 "title",
                 "explanation",
                 "mastered_at",
@@ -690,6 +694,27 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertEqual(migrated["grammar:legacy-rule"]["learned_count"], 2)
         self.assertEqual(migrated["usage:legacy-mastered"]["status"], "mastered")
         self.assertEqual(migrated["usage:legacy-mastered"]["explanation"], "Preserved summary")
+
+    def test_migration_refuses_existing_slim_mastered_layout(self) -> None:
+        migration_root = self.root / "current-layout"
+        mastered = migration_root / "mastered-learning-records"
+        mastered.mkdir(parents=True)
+        timestamp = datetime.now().astimezone().isoformat(timespec="seconds")
+        write_json(
+            mastered / "grammar.json",
+            [
+                {
+                    "id": "grammar:already-mastered",
+                    "title": "Already mastered",
+                    "explanation": "Existing slim mastered record.",
+                    "mastered_at": timestamp,
+                }
+            ],
+        )
+        migration_service = RecordService(RecordStore(migration_root))
+
+        with self.assertRaisesRegex(RecordError, "record database already exists"):
+            migration_service.migrate_legacy(dry_run=True)
 
     def test_record_service_does_not_commit_git_changes(self) -> None:
         subprocess.run(["git", "init", "-q"], cwd=self.root, check=True)

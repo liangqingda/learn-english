@@ -600,6 +600,14 @@ class RecordService:
             changes = self.store.transaction_unvalidated(apply_repairs)
         return {"dry_run": dry_run, "change_count": len(changes), "changes": changes}
 
+    @staticmethod
+    def _looks_like_current_layout_document(document: Any) -> bool:
+        if isinstance(document, list):
+            return True
+        return isinstance(document, dict) and (
+            "records" in document or "schema_version" in document
+        )
+
     def migrate_legacy(self, *, dry_run: bool) -> dict[str, Any]:
         current_layout_exists = False
         for category in CATEGORIES:
@@ -613,7 +621,7 @@ class RecordService:
                     document = json.loads(path.read_text(encoding="utf-8"))
                 except (OSError, json.JSONDecodeError) as exc:
                     raise RecordError(f"cannot inspect existing record file {path}: {exc}") from exc
-                if isinstance(document, dict) and "records" in document:
+                if self._looks_like_current_layout_document(document):
                     current_layout_exists = True
                     break
             if current_layout_exists:

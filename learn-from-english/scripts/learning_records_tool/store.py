@@ -24,6 +24,7 @@ T = TypeVar("T")
 
 class RecordStore:
     MASTERED_FIELDS = (
+        "id",
         "title",
         "explanation",
         "mastered_at",

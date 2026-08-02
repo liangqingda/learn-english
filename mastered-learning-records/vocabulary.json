@@ -1,20 +1,24 @@
 [
   {
+    "id": "vocabulary:pour-倒液体",
     "title": "pour：倒液体",
     "explanation": "pour 常指让液体从一个容器流入另一个容器，典型宾语是 water、milk、tea、sauce 等；也可说 pour someone a drink。",
     "mastered_at": "2026-08-01T21:15:03+08:00"
   },
   {
+    "id": "vocabulary:restaurant-的拼写",
     "title": "restaurant 的拼写",
     "explanation": "restaurant 正确拼写为 r-e-s-t-a-u-r-a-n-t，中间是 -au-，不要漏掉 a 写成 resturant。",
     "mastered_at": "2026-07-31T07:53:34+08:00"
   },
   {
+    "id": "vocabulary:公司总部常用-headquarters",
     "title": "公司总部常用 headquarters",
     "explanation": "表达“公司总部”通常用 headquarters，而不是 head；head 更常指人或身体部位。",
     "mastered_at": "2026-07-30T17:40:27+08:00"
   },
   {
+    "id": "vocabulary:地名-shenzhen-的拼写",
     "title": "地名 Shenzhen 的拼写",
     "explanation": "英文城市名 Shenzhen 要拼作 Shenzhen，不要写成 ShenShen。",
     "mastered_at": "2026-07-30T16:15:02+08:00"
