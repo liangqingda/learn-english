@@ -44,7 +44,7 @@ python3 learn-from-english/scripts/learning_records.py menu --context initial
 
 命令返回 `record: null` 时明确说明当前范围没有记录，然后重新生成初始菜单；不得临时编造复习记录。
 
-保留返回记录的 `id`、`category` 和 `status`，直到当前题组完成。新抽出记录并首次呈现题目时，正常输出标题、引导语、题目和菜单；不要在题目正文或菜单之前插入来源。把来源作为独立斜体元信息，放进菜单之后的最终 attribution block：
+保留返回记录的 `id`、`category` 和 `status`，直到当前题组完成。新抽出记录并首次呈现题目时，只正常输出标题、引导语和题目，不输出菜单；不要在题目正文之前插入来源。把来源作为独立斜体元信息，放进题目之后的最终 attribution block：
 
 ```text
 ---
@@ -167,15 +167,7 @@ python3 learn-from-english/scripts/learning_records.py menu \
 
 `review-complete` 菜单只在用户答案实际存在错误且当前错题尚未讲解过时保留 `explain-current-exercise`，运行命令时加 `--has-answer-errors`，并把脚本返回的 `🔍 讲解错题` 放在 `popular` 组，方便用户在看完批改后立刻请求错题讲解。若用户答案完全正确，不要加 `--has-answer-errors`，菜单中不得显示该讲解入口。若当前错题已经讲解过，改用 `--current-exercise-explained` 生成菜单，并从后续菜单中省略 `🔍 讲解错题`。
 
-若当前只是新题展示或答题尚未完成，改用 `exercise-active` 菜单；此时不要加 `--has-answer-errors`，菜单不显示错题讲解入口：
-
-```bash
-python3 learn-from-english/scripts/learning_records.py menu \
-  --context exercise-active \
-  --focus <当前知识点标题或核心表达>
-```
-
-再次严格渲染脚本返回的选项。若这是讲解错题后的菜单，加上 `--current-exercise-explained`。
+新题展示或答题尚未完成时不生成、不展示 `exercise-active` 菜单；等用户作答后再按评分结果生成 `review-complete` 菜单。若这是讲解错题后的菜单，加上 `--current-exercise-explained`，并严格渲染脚本返回的选项。
 
 ## 场景对话错题
 
