@@ -1,0 +1,144 @@
+{
+  "schema_version": 2,
+  "revision": 91,
+  "category": "vocabulary",
+  "records": {
+    "vocabulary:drizzle-light-rain": {
+      "id": "vocabulary:drizzle-light-rain",
+      "category": "vocabulary",
+      "status": "learning",
+      "title": "drizzle 表示毛毛雨或下毛毛雨",
+      "explanation": "drizzle 可作名词，表示很细、很轻、持续落下的小雨；也可作动词，表示下毛毛雨。它比 rain 更轻，比 shower 更细碎、持续感更强。",
+      "source": "drizzle",
+      "example": "It started to drizzle on my way home. 我回家路上开始下毛毛雨了。",
+      "tags": [
+        "verb-noun",
+        "vocabulary",
+        "weather"
+      ],
+      "first_learned_at": "2026-08-02T20:55:31+08:00",
+      "last_learned_at": "2026-08-02T20:55:31+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "vocabulary:plate-as-verb-arrange-food": {
+      "id": "vocabulary:plate-as-verb-arrange-food",
+      "category": "vocabulary",
+      "status": "learning",
+      "title": "plate 作动词：摆盘",
+      "explanation": "plate 作动词时通常指把食物放到盘子上并摆放得好看，常见于厨师、餐厅或烹饪节目语境，比 dish up 更强调外观和呈现。",
+      "source": "2",
+      "example": "The chef plated the dessert with fresh berries.",
+      "tags": [
+        "cooking",
+        "food",
+        "verb"
+      ],
+      "first_learned_at": "2026-07-31T09:16:35+08:00",
+      "last_learned_at": "2026-07-31T09:16:35+08:00",
+      "learned_count": 1,
+      "mastery_score": 7.0,
+      "review_count": 1,
+      "high_score_streak": 0,
+      "last_reviewed_at": "2026-08-01T21:26:24+08:00",
+      "next_review_at": "2026-08-04T21:26:24+08:00",
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": [
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-08-01T21:26:24+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
+    },
+    "vocabulary:review-core-meaning": {
+      "id": "vocabulary:review-core-meaning",
+      "category": "vocabulary",
+      "status": "familiar",
+      "title": "review 的核心含义",
+      "explanation": "review 作动词表示复习、审查或回顾，作名词表示复习、审查、评论；具体含义由语境决定。",
+      "source": "review",
+      "example": "I need to review my notes before the exam.",
+      "tags": [
+        "review"
+      ],
+      "first_learned_at": "2026-07-29T07:31:00+08:00",
+      "last_learned_at": "2026-07-29T07:31:00+08:00",
+      "learned_count": 1,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-07-30T13:21:12+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "vocabulary:slice-cut-into-thin-pieces": {
+      "id": "vocabulary:slice-cut-into-thin-pieces",
+      "category": "vocabulary",
+      "status": "familiar",
+      "title": "slice：切成片",
+      "explanation": "slice 强调把食物切成薄片或片状，常搭配 bread、tomatoes、onions、meat 等；名词 slice 也可表示“一片”。",
+      "source": "2",
+      "example": "Slice the tomatoes before you make the salad.",
+      "tags": [
+        "cooking",
+        "kitchen",
+        "verb"
+      ],
+      "first_learned_at": "2026-07-31T10:09:57+08:00",
+      "last_learned_at": "2026-07-31T10:09:57+08:00",
+      "learned_count": 1,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-01T21:48:22+08:00",
+      "next_review_at": "2026-08-08T21:48:22+08:00",
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-01T21:48:22+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
+    },
+    "vocabulary:stir-mix-by-moving-spoon": {
+      "id": "vocabulary:stir-mix-by-moving-spoon",
+      "category": "vocabulary",
+      "status": "learning",
+      "title": "stir：搅拌",
+      "explanation": "stir 指用勺子或类似工具搅动液体、糊状物或锅里的食物，让材料混合或受热均匀；常见搭配是 stir the soup、stir the sauce。",
+      "source": "2",
+      "example": "Stir the soup for a few minutes.",
+      "tags": [
+        "cooking",
+        "kitchen",
+        "verb"
+      ],
+      "first_learned_at": "2026-07-31T10:09:57+08:00",
+      "last_learned_at": "2026-07-31T10:09:57+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    }
+  }
+}

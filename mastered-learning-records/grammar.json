@@ -1,0 +1,168 @@
+{
+  "schema_version": 2,
+  "revision": 91,
+  "category": "grammar",
+  "records": {
+    "grammar:history-of-a-place-的介词搭配": {
+      "id": "grammar:history-of-a-place-的介词搭配",
+      "category": "grammar",
+      "status": "mastered",
+      "title": "history of a place 的介词搭配",
+      "explanation": "表达“某地的历史”时，英语通常说 the history of the town/place，而不是 the history about the town；about 更像“关于……的内容”，of 更自然地表示所属关系。",
+      "source": "表达“某地的历史”时，英语通常说 the history of the town/place，而不是 the history about the town；about 更像“关于……的内容”，of 更自然地表示所属关系。",
+      "example": "",
+      "tags": [
+        "migrated-mastered-record"
+      ],
+      "first_learned_at": "2026-07-30T16:08:40+08:00",
+      "last_learned_at": "2026-07-30T16:08:40+08:00",
+      "learned_count": 1,
+      "mastery_score": 10.0,
+      "review_count": 0,
+      "high_score_streak": 3,
+      "last_reviewed_at": "2026-07-30T16:08:40+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": "2026-07-30T16:08:40+08:00",
+      "review_history": []
+    },
+    "grammar:who-引导限定性定语从句": {
+      "id": "grammar:who-引导限定性定语从句",
+      "category": "grammar",
+      "status": "mastered",
+      "title": "who 引导限定性定语从句",
+      "explanation": "who had just arrived... 修饰 a man，用来说明这是怎样的一个人。",
+      "source": "who had just arrived... 修饰 a man，用来说明这是怎样的一个人。",
+      "example": "",
+      "tags": [
+        "migrated-mastered-record"
+      ],
+      "first_learned_at": "2026-08-01T08:46:39+08:00",
+      "last_learned_at": "2026-08-01T08:46:39+08:00",
+      "learned_count": 1,
+      "mastery_score": 10.0,
+      "review_count": 0,
+      "high_score_streak": 3,
+      "last_reviewed_at": "2026-08-01T08:46:39+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": "2026-08-01T08:46:39+08:00",
+      "review_history": []
+    },
+    "grammar:以前住在某地要用过去表达": {
+      "id": "grammar:以前住在某地要用过去表达",
+      "category": "grammar",
+      "status": "mastered",
+      "title": "以前住在某地要用过去表达",
+      "explanation": "中文“以前/过去住在某地”强调过去状态，英语通常用 lived in 或 used to live in；不要用一般现在时 live in 表示过去居住。",
+      "source": "中文“以前/过去住在某地”强调过去状态，英语通常用 lived in 或 used to live in；不要用一般现在时 live in 表示过去居住。",
+      "example": "",
+      "tags": [
+        "migrated-mastered-record"
+      ],
+      "first_learned_at": "2026-07-30T21:45:59+08:00",
+      "last_learned_at": "2026-07-30T21:45:59+08:00",
+      "learned_count": 1,
+      "mastery_score": 10.0,
+      "review_count": 0,
+      "high_score_streak": 3,
+      "last_reviewed_at": "2026-07-30T21:45:59+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": "2026-07-30T21:45:59+08:00",
+      "review_history": []
+    },
+    "grammar:具体事件和地点名词前的冠词": {
+      "id": "grammar:具体事件和地点名词前的冠词",
+      "category": "grammar",
+      "status": "mastered",
+      "title": "具体事件和地点名词前的冠词",
+      "explanation": "提到双方都明确的具体会议、实验室、办公室等可数名词时，通常需要冠词或限定词，例如 after the meeting、visit the lab。缺少冠词会显得不完整或像泛指。",
+      "source": "提到双方都明确的具体会议、实验室、办公室等可数名词时，通常需要冠词或限定词，例如 after the meeting、visit the lab。缺少冠词会显得不完整或像泛指。",
+      "example": "",
+      "tags": [
+        "migrated-mastered-record"
+      ],
+      "first_learned_at": "2026-07-31T07:38:21+08:00",
+      "last_learned_at": "2026-07-31T07:38:21+08:00",
+      "learned_count": 1,
+      "mastery_score": 10.0,
+      "review_count": 0,
+      "high_score_streak": 3,
+      "last_reviewed_at": "2026-07-31T07:38:21+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": "2026-07-31T07:38:21+08:00",
+      "review_history": []
+    },
+    "grammar:具体地点-角色和楼层前漏用-the": {
+      "id": "grammar:具体地点-角色和楼层前漏用-the",
+      "category": "grammar",
+      "status": "mastered",
+      "title": "具体地点、角色和楼层前漏用 the",
+      "explanation": "当说话双方都能明确是哪一个展厅、哪位老师、哪一层楼时，常用定冠词 the：the exhibition hall, the teacher, the second floor。",
+      "source": "当说话双方都能明确是哪一个展厅、哪位老师、哪一层楼时，常用定冠词 the：the exhibition hall, the teacher, the second floor。",
+      "example": "",
+      "tags": [
+        "migrated-mastered-record"
+      ],
+      "first_learned_at": "2026-08-02T10:04:32+08:00",
+      "last_learned_at": "2026-08-02T10:04:32+08:00",
+      "learned_count": 1,
+      "mastery_score": 10.0,
+      "review_count": 0,
+      "high_score_streak": 3,
+      "last_reviewed_at": "2026-08-02T10:04:32+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": "2026-08-02T10:04:32+08:00",
+      "review_history": []
+    },
+    "grammar:情态动词后使用动词原形": {
+      "id": "grammar:情态动词后使用动词原形",
+      "category": "grammar",
+      "status": "mastered",
+      "title": "情态动词后使用动词原形",
+      "explanation": "may、can、must 等情态动词后接动词原形；主语是 you 或 he/she 也不能把 feel 写成 feels。",
+      "source": "may、can、must 等情态动词后接动词原形；主语是 you 或 he/she 也不能把 feel 写成 feels。",
+      "example": "",
+      "tags": [
+        "migrated-mastered-record"
+      ],
+      "first_learned_at": "2026-07-30T15:52:01+08:00",
+      "last_learned_at": "2026-07-30T15:52:01+08:00",
+      "learned_count": 1,
+      "mastery_score": 10.0,
+      "review_count": 0,
+      "high_score_streak": 3,
+      "last_reviewed_at": "2026-07-30T15:52:01+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": "2026-07-30T15:52:01+08:00",
+      "review_history": []
+    },
+    "grammar:把-from-误选成-in": {
+      "id": "grammar:把-from-误选成-in",
+      "category": "grammar",
+      "status": "mastered",
+      "title": "把 from 误选成 in",
+      "explanation": "表示“从某地到来”时要用 arrive from + 出发地；arrive in 更强调“到达某个大地点/城市”。这里 Boston 是出发地来源，不是目的地介词用法。",
+      "source": "表示“从某地到来”时要用 arrive from + 出发地；arrive in 更强调“到达某个大地点/城市”。这里 Boston 是出发地来源，不是目的地介词用法。",
+      "example": "",
+      "tags": [
+        "migrated-mastered-record"
+      ],
+      "first_learned_at": "2026-07-31T07:18:23+08:00",
+      "last_learned_at": "2026-07-31T07:18:23+08:00",
+      "learned_count": 1,
+      "mastery_score": 10.0,
+      "review_count": 0,
+      "high_score_streak": 3,
+      "last_reviewed_at": "2026-07-31T07:18:23+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": "2026-07-31T07:18:23+08:00",
+      "review_history": []
+    }
+  }
+}

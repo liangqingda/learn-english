@@ -1,0 +1,236 @@
+{
+  "schema_version": 2,
+  "revision": 91,
+  "category": "grammar",
+  "records": {
+    "grammar:can-i-get-you-offer-food-drink": {
+      "id": "grammar:can-i-get-you-offer-food-drink",
+      "category": "grammar",
+      "status": "learning",
+      "title": "Can I get you...? 主动提供食物饮料",
+      "explanation": "Can I get you...? 是口语中主动问别人要不要某物的自然句型，常用于主人待客、餐厅服务或朋友之间拿饮料食物。",
+      "source": "4",
+      "example": "Can I get you some coffee or orange juice?",
+      "tags": [
+        "food-drink",
+        "hospitality",
+        "offer"
+      ],
+      "first_learned_at": "2026-07-31T14:04:13+08:00",
+      "last_learned_at": "2026-07-31T14:04:13+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:continue-proceed-complement-patterns": {
+      "id": "grammar:continue-proceed-complement-patterns",
+      "category": "grammar",
+      "status": "learning",
+      "title": "continue 与 proceed 的后接结构",
+      "explanation": "continue doing 与 continue to do 通常都表示继续做某事；continue with 后接名词。proceed to 后接地点或动词原形，proceed with 后接事情或计划。",
+      "source": "continue doing, continue to do, continue with, proceed to, proceed with",
+      "example": "After a short break, we continued discussing the plan.",
+      "tags": [
+        "verb-pattern"
+      ],
+      "first_learned_at": "2026-07-29T20:31:09+08:00",
+      "last_learned_at": "2026-07-29T20:31:09+08:00",
+      "learned_count": 1,
+      "mastery_score": 5.0,
+      "review_count": 2,
+      "high_score_streak": 0,
+      "last_reviewed_at": "2026-07-29T21:18:45+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:could-you-polite-request": {
+      "id": "grammar:could-you-polite-request",
+      "category": "grammar",
+      "status": "learning",
+      "title": "Could you...? 礼貌请求",
+      "explanation": "Could you...? 常用来礼貌地请别人做事，比直接用 Do it 或 Can you...? 更柔和，适合家庭、朋友和服务场景。",
+      "source": "4",
+      "example": "Could you slice the bread while I pour the coffee?",
+      "tags": [
+        "dialogue",
+        "politeness",
+        "request"
+      ],
+      "first_learned_at": "2026-07-31T12:48:40+08:00",
+      "last_learned_at": "2026-07-31T12:48:40+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:ill-volunteer-to-do-something": {
+      "id": "grammar:ill-volunteer-to-do-something",
+      "category": "grammar",
+      "status": "familiar",
+      "title": "I’ll... 主动承担任务",
+      "explanation": "I’ll 加动词原形可以表示说话人当场决定或主动承担某个任务，常用于分工、帮忙和即时回应。",
+      "source": "4",
+      "example": "I’ll stir the eggs while you make the toast.",
+      "tags": [
+        "dialogue",
+        "future",
+        "volunteering"
+      ],
+      "first_learned_at": "2026-07-31T12:48:40+08:00",
+      "last_learned_at": "2026-07-31T12:48:40+08:00",
+      "learned_count": 1,
+      "mastery_score": 9.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-01T21:47:08+08:00",
+      "next_review_at": "2026-08-15T21:47:08+08:00",
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": [
+        {
+          "score": 9.0,
+          "reviewed_at": "2026-08-01T21:47:08+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
+    },
+    "grammar:may-condition-if": {
+      "id": "grammar:may-condition-if",
+      "category": "grammar",
+      "status": "learning",
+      "title": "may + 动词与 if 条件从句",
+      "explanation": "may suffer 表示可能发生；if 引导条件从句，说明产生这种可能结果的条件。一般事实或现实可能条件中，if 从句常用一般现在时。",
+      "source": "A young man may suffer from the green-eyed monster if his girlfriend begins going out with someone else",
+      "example": "You may feel nervous if you speak in public for the first time.",
+      "tags": [
+        "conditionals"
+      ],
+      "first_learned_at": "2026-07-28T22:11:44+08:00",
+      "last_learned_at": "2026-07-28T22:11:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 7.0,
+      "review_count": 3,
+      "high_score_streak": 0,
+      "last_reviewed_at": "2026-07-29T20:41:07+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:mean-that-object-clause": {
+      "id": "grammar:mean-that-object-clause",
+      "category": "grammar",
+      "status": "learning",
+      "title": "mean 后接宾语从句",
+      "explanation": "mean 后可直接接省略 that 的宾语从句，说明某个标志、事实或行为所表示的含义。",
+      "source": "A green light on a traffic signal means your car can continue on",
+      "example": "A flashing light means you should slow down.",
+      "tags": [
+        "sentence-pattern"
+      ],
+      "first_learned_at": "2026-07-29T20:19:15+08:00",
+      "last_learned_at": "2026-07-29T20:19:15+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:participial-phrase-logical-subject": {
+      "id": "grammar:participial-phrase-logical-subject",
+      "category": "grammar",
+      "status": "familiar",
+      "title": "分词短语的逻辑主语",
+      "explanation": "句首分词短语没有明写主语时，其动作的执行者通常必须与主句主语一致；否则容易形成悬垂修饰语。",
+      "source": "After reviewing the safety report, officials have decided to proceed with the project next Monday.",
+      "example": "After checking the map, we chose a different route.",
+      "tags": [
+        "non-finite-verb"
+      ],
+      "first_learned_at": "2026-07-29T20:54:01+08:00",
+      "last_learned_at": "2026-07-29T20:54:01+08:00",
+      "learned_count": 1,
+      "mastery_score": 9.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-07-30T12:58:42+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:past-perfect-before-past-reference": {
+      "id": "grammar:past-perfect-before-past-reference",
+      "category": "grammar",
+      "status": "learning",
+      "title": "过去完成时表示过去参照点之前",
+      "explanation": "had just arrived 表示“刚刚到达”发生在 used it to describe 这一过去行为之前；just 强调时间间隔很短。",
+      "source": "Old-timers used it to describe a man who had just arrived from one of the big cities back east",
+      "example": "They welcomed a traveler who had just arrived from Boston.",
+      "tags": [
+        "past-perfect"
+      ],
+      "first_learned_at": "2026-07-28T20:36:08+08:00",
+      "last_learned_at": "2026-07-28T20:36:08+08:00",
+      "learned_count": 1,
+      "mastery_score": 7.0,
+      "review_count": 3,
+      "high_score_streak": 0,
+      "last_reviewed_at": "2026-08-02T10:44:57+08:00",
+      "next_review_at": "2026-08-05T10:44:57+08:00",
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": [
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-08-02T10:44:57+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
+    },
+    "grammar:while-clause-simultaneous-actions": {
+      "id": "grammar:while-clause-simultaneous-actions",
+      "category": "grammar",
+      "status": "learning",
+      "title": "while 从句表示同时动作",
+      "explanation": "while 可以连接两个同时发生的动作，结构常见为 do something while someone does something，用来说明分工或背景动作。",
+      "source": "No problem. I'll stir the eggs while you make the toast.",
+      "example": "I’ll wash the cups while you set the table.",
+      "tags": [
+        "dialogue",
+        "simultaneous-actions",
+        "while-clause"
+      ],
+      "first_learned_at": "2026-07-31T13:50:10+08:00",
+      "last_learned_at": "2026-07-31T13:50:10+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    }
+  }
+}

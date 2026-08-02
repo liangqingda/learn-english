@@ -1,0 +1,350 @@
+{
+  "schema_version": 2,
+  "revision": 91,
+  "category": "phrases",
+  "records": {
+    "phrases:back-east-us": {
+      "id": "phrases:back-east-us",
+      "category": "phrases",
+      "status": "learning",
+      "title": "back east",
+      "explanation": "从美国西部或中部的视角指美国东部；back 带有回望来处或既有地域视角的意味，通常不译为“回到东部”。",
+      "source": "Old-timers used it to describe a man who had just arrived from one of the big cities back east",
+      "example": "She grew up back east but now lives in Arizona.",
+      "tags": [
+        "regional-expression"
+      ],
+      "first_learned_at": "2026-07-28T20:36:08+08:00",
+      "last_learned_at": "2026-07-28T20:36:08+08:00",
+      "learned_count": 1,
+      "mastery_score": 6.0,
+      "review_count": 3,
+      "high_score_streak": 0,
+      "last_reviewed_at": "2026-07-31T08:05:47+08:00",
+      "next_review_at": "2026-08-03T08:05:47+08:00",
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": [
+        {
+          "score": 6.0,
+          "reviewed_at": "2026-07-31T08:05:47+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
+    },
+    "phrases:clear-the-table-after-meal": {
+      "id": "phrases:clear-the-table-after-meal",
+      "category": "phrases",
+      "status": "familiar",
+      "title": "clear the table：收拾餐桌",
+      "explanation": "clear the table 表示饭后把盘子、杯子、餐具等从桌上收走，常用于家庭分工或餐后清理。",
+      "source": "改一下场景对话：不是你一句我一句，而是你直接把美国人常见的场景对话案例全展示给我",
+      "example": "I’ll clear the table after breakfast.",
+      "tags": [
+        "cleanup",
+        "daily-speech",
+        "table"
+      ],
+      "first_learned_at": "2026-07-31T14:01:53+08:00",
+      "last_learned_at": "2026-07-31T14:01:53+08:00",
+      "learned_count": 1,
+      "mastery_score": 10.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T20:04:40+08:00",
+      "next_review_at": "2026-09-01T20:04:40+08:00",
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": [
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-08-02T20:04:40+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
+    },
+    "phrases:come-on-in-invite-guest-inside": {
+      "id": "phrases:come-on-in-invite-guest-inside",
+      "category": "phrases",
+      "status": "familiar",
+      "title": "Come on in：快进来吧",
+      "explanation": "Come on in 是美式日常待客时很自然的进门邀请，语气亲切随意，比 Please enter 更生活化。",
+      "source": "4",
+      "example": "Hey, come on in. Breakfast is almost ready.",
+      "tags": [
+        "daily-speech",
+        "home-visit",
+        "hospitality"
+      ],
+      "first_learned_at": "2026-07-31T14:04:13+08:00",
+      "last_learned_at": "2026-07-31T14:04:13+08:00",
+      "learned_count": 1,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-01T21:02:51+08:00",
+      "next_review_at": "2026-08-08T21:02:51+08:00",
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-01T21:02:51+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
+    },
+    "phrases:continue-on": {
+      "id": "phrases:continue-on",
+      "category": "phrases",
+      "status": "familiar",
+      "title": "continue on：继续前行",
+      "explanation": "continue on 表示沿当前路线继续前行；on 强调向前延续，但在部分语境中只用 continue 也足够。",
+      "source": "A green light on a traffic signal means your car can continue on",
+      "example": "Continue on for another two miles.",
+      "tags": [
+        "movement"
+      ],
+      "first_learned_at": "2026-07-29T20:19:15+08:00",
+      "last_learned_at": "2026-07-29T20:19:15+08:00",
+      "learned_count": 1,
+      "mastery_score": 8.0,
+      "review_count": 2,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T17:34:58+08:00",
+      "next_review_at": "2026-08-09T17:34:58+08:00",
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-02T17:34:58+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
+    },
+    "phrases:dish-out-distribute-or-give": {
+      "id": "phrases:dish-out-distribute-or-give",
+      "category": "phrases",
+      "status": "learning",
+      "title": "dish out something / dish something out",
+      "explanation": "dish out 的核心意思是把某物分发出去或给出去，既可以指食物，也常用于抽象事物，如建议、批评、惩罚或钱。",
+      "source": "Compare dish up and dish out",
+      "example": "The teacher dished out advice before the exam.",
+      "tags": [
+        "abstract-use",
+        "distribution",
+        "phrasal-verb"
+      ],
+      "first_learned_at": "2026-07-31T09:17:11+08:00",
+      "last_learned_at": "2026-07-31T09:17:11+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:dish-up-serve-food-onto-plate": {
+      "id": "phrases:dish-up-serve-food-onto-plate",
+      "category": "phrases",
+      "status": "learning",
+      "title": "dish up something / dish something up",
+      "explanation": "短语动词 dish up 的字面来源是把食物盛到盘子或碟子里，常表示把饭菜分好、盛好给别人吃；宾语是代词时通常放在 dish 和 up 中间，如 dish it up。",
+      "source": "Now, to dish up something means to put food on a dish for someone to eat",
+      "example": "She dished up the soup and handed everyone a bowl.",
+      "tags": [
+        "food",
+        "phrasal-verb",
+        "serving"
+      ],
+      "first_learned_at": "2026-07-31T09:13:38+08:00",
+      "last_learned_at": "2026-07-31T09:13:38+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:get-the-plates-fetch-or-prepare": {
+      "id": "phrases:get-the-plates-fetch-or-prepare",
+      "category": "phrases",
+      "status": "learning",
+      "title": "get the plates：去拿/准备盘子",
+      "explanation": "日常口语里 get something 常表示去拿、取来或准备某物，不只是字面上的“得到”；get the plates 在餐桌场景中通常是把盘子拿过来或准备好。",
+      "source": "Sure. I'll dish up the eggs while you get the plates.",
+      "example": "Could you get the cups while I pour the tea?",
+      "tags": [
+        "daily-speech",
+        "dialogue",
+        "kitchen"
+      ],
+      "first_learned_at": "2026-07-31T14:00:14+08:00",
+      "last_learned_at": "2026-07-31T14:00:14+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:go-out-with-romantic-dating": {
+      "id": "phrases:go-out-with-romantic-dating",
+      "category": "phrases",
+      "status": "learning",
+      "title": "go out with someone：与某人约会",
+      "explanation": "go out with someone 在恋爱语境中表示与某人约会或谈恋爱，不只是一起外出；上下文决定其含义。",
+      "source": "A young man may suffer from the green-eyed monster if his girlfriend begins going out with someone else",
+      "example": "Is she going out with Daniel?",
+      "tags": [
+        "dating"
+      ],
+      "first_learned_at": "2026-07-28T22:11:44+08:00",
+      "last_learned_at": "2026-07-28T22:11:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 7.0,
+      "review_count": 2,
+      "high_score_streak": 0,
+      "last_reviewed_at": "2026-07-30T16:31:36+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:help-yourself-food-offer": {
+      "id": "phrases:help-yourself-food-offer",
+      "category": "phrases",
+      "status": "learning",
+      "title": "help yourself：请自取/随便吃",
+      "explanation": "help yourself 常用于主人请客人或家人自己拿食物、饮料，语气轻松自然，意思是不用客气、自己取用。",
+      "source": "改一下场景对话：不是你一句我一句，而是你直接把美国人常见的场景对话案例全展示给我",
+      "example": "Help yourself to some toast and coffee.",
+      "tags": [
+        "daily-speech",
+        "food",
+        "hospitality"
+      ],
+      "first_learned_at": "2026-07-31T14:01:53+08:00",
+      "last_learned_at": "2026-07-31T14:01:53+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:make-yourself-at-home": {
+      "id": "phrases:make-yourself-at-home",
+      "category": "phrases",
+      "status": "learning",
+      "title": "Make yourself at home：别拘束",
+      "explanation": "Make yourself at home 用来让客人在家里放松自在，语气友好，常用于朋友来访或主人招待客人。",
+      "source": "4",
+      "example": "Make yourself at home. Coffee is on the counter.",
+      "tags": [
+        "daily-speech",
+        "home-visit",
+        "hospitality"
+      ],
+      "first_learned_at": "2026-07-31T14:04:13+08:00",
+      "last_learned_at": "2026-07-31T14:04:13+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:old-timers": {
+      "id": "phrases:old-timers",
+      "category": "phrases",
+      "status": "learning",
+      "title": "old-timers",
+      "explanation": "指在某地生活很久、熟悉当地旧事和传统的人；语气较口语，不只是泛指老人。",
+      "source": "Old-timers used it to describe a man who had just arrived from one of the big cities back east",
+      "example": "The old-timers still remember when this road was unpaved.",
+      "tags": [
+        "colloquial"
+      ],
+      "first_learned_at": "2026-07-28T20:36:08+08:00",
+      "last_learned_at": "2026-07-28T20:36:08+08:00",
+      "learned_count": 1,
+      "mastery_score": 7.0,
+      "review_count": 3,
+      "high_score_streak": 0,
+      "last_reviewed_at": "2026-07-30T20:11:00+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:review-common-collocations": {
+      "id": "phrases:review-common-collocations",
+      "category": "phrases",
+      "status": "familiar",
+      "title": "review 的常见搭配",
+      "explanation": "高频搭配包括 review notes（复习笔记）、review a document（审查文件）、write a review（写评论）和 under review（正在审查中）。",
+      "source": "review",
+      "example": "The application is still under review.",
+      "tags": [
+        "collocation"
+      ],
+      "first_learned_at": "2026-07-29T07:31:01+08:00",
+      "last_learned_at": "2026-07-29T07:31:01+08:00",
+      "learned_count": 1,
+      "mastery_score": 8.0,
+      "review_count": 2,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-07-30T17:50:23+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:set-the-table-arrange-place-settings": {
+      "id": "phrases:set-the-table-arrange-place-settings",
+      "category": "phrases",
+      "status": "learning",
+      "title": "set the table：摆餐具",
+      "explanation": "set the table 表示吃饭前把盘子、杯子、刀叉或餐巾等摆好，不是设置桌子，而是准备餐桌。",
+      "source": "改一下场景对话：不是你一句我一句，而是你直接把美国人常见的场景对话案例全展示给我",
+      "example": "Could you set the table while I dish up the eggs?",
+      "tags": [
+        "daily-speech",
+        "meal",
+        "table"
+      ],
+      "first_learned_at": "2026-07-31T14:01:53+08:00",
+      "last_learned_at": "2026-07-31T14:01:53+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    }
+  }
+}

@@ -1,0 +1,364 @@
+{
+  "schema_version": 2,
+  "revision": 91,
+  "category": "usage",
+  "records": {
+    "usage:after-不宜直接当-later-连接后续动作": {
+      "id": "usage:after-不宜直接当-later-连接后续动作",
+      "category": "usage",
+      "status": "learning",
+      "title": "after 不宜直接当 later 连接后续动作",
+      "explanation": "表达“后来……”时，after 不能直接替代 later/then/afterward 来承接后续动作；自然说法是 but later settled 或 but then settled。",
+      "source": "表达“后来……”时，after 不能直接替代 later/then/afterward 来承接后续动作；自然说法是 but later settled 或 but then settled。",
+      "example": "",
+      "tags": [],
+      "first_learned_at": "2026-07-30T17:25:37+08:00",
+      "last_learned_at": "2026-07-30T17:25:37+08:00",
+      "learned_count": 1,
+      "mastery_score": 6.0,
+      "review_count": 1,
+      "high_score_streak": 0,
+      "last_reviewed_at": "2026-08-02T16:38:01+08:00",
+      "next_review_at": "2026-08-05T16:38:01+08:00",
+      "lapse_count": 1,
+      "mastered_at": null,
+      "review_history": [
+        {
+          "score": 6.0,
+          "reviewed_at": "2026-08-02T16:38:01+08:00",
+          "previous_status": "mastered",
+          "new_status": "learning"
+        }
+      ]
+    },
+    "usage:back-east-in-the-east-eastward-contrast": {
+      "id": "usage:back-east-in-the-east-eastward-contrast",
+      "category": "usage",
+      "status": "familiar",
+      "title": "back east、in the East 与 eastward 的区别",
+      "explanation": "back east 带有从当前所在地回望美国东部原居地或熟悉地区的意味；in the East 只客观说明位于某个东部地区；eastward 强调朝东的移动或方向，通常不表达故乡联系。",
+      "source": "2",
+      "example": "After living in California for years, she traveled eastward to visit her family back east.",
+      "tags": [
+        "usage-comparison"
+      ],
+      "first_learned_at": "2026-07-29T07:25:47+08:00",
+      "last_learned_at": "2026-07-29T07:25:47+08:00",
+      "learned_count": 1,
+      "mastery_score": 8.0,
+      "review_count": 3,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-07-30T17:18:46+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "usage:continue-continue-on-proceed-register": {
+      "id": "usage:continue-continue-on-proceed-register",
+      "category": "usage",
+      "status": "learning",
+      "title": "continue、continue on 与 proceed 的语域差异",
+      "explanation": "continue 最通用，可表示继续动作或状态；continue on 强调沿当前路线或方向继续；proceed 更正式，常见于交通指示、公告和流程说明。",
+      "source": "continue, continue on, proceed",
+      "example": "When the light turns green, proceed through the intersection carefully.",
+      "tags": [
+        "comparison"
+      ],
+      "first_learned_at": "2026-07-29T20:22:33+08:00",
+      "last_learned_at": "2026-07-29T20:22:33+08:00",
+      "learned_count": 1,
+      "mastery_score": 7.0,
+      "review_count": 1,
+      "high_score_streak": 0,
+      "last_reviewed_at": "2026-07-30T13:04:43+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "usage:dish-out-criticism-punishment-negative-tone": {
+      "id": "usage:dish-out-criticism-punishment-negative-tone",
+      "category": "usage",
+      "status": "learning",
+      "title": "dish out 批评或惩罚时的语气",
+      "explanation": "dish out 用在 criticism、punishment、insults 等词前时，常带有“不断给出、强硬施加”的语气；短语 can dish it out but cannot take it 表示一个人会批评别人却受不了别人批评自己。",
+      "source": "dish out criticism / can dish it out but cannot take it",
+      "example": "He can dish out criticism, but he gets upset when others criticize him.",
+      "tags": [
+        "criticism",
+        "idiom",
+        "tone"
+      ],
+      "first_learned_at": "2026-07-31T09:17:11+08:00",
+      "last_learned_at": "2026-07-31T09:17:11+08:00",
+      "learned_count": 1,
+      "mastery_score": 7.0,
+      "review_count": 1,
+      "high_score_streak": 0,
+      "last_reviewed_at": "2026-08-02T16:12:48+08:00",
+      "next_review_at": "2026-08-05T16:12:48+08:00",
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": [
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-08-02T16:12:48+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
+    },
+    "usage:dish-up-vs-dish-out-food-vs-distribution": {
+      "id": "usage:dish-up-vs-dish-out-food-vs-distribution",
+      "category": "usage",
+      "status": "familiar",
+      "title": "dish up 与 dish out 的语义区别",
+      "explanation": "dish up 更强调把饭菜盛好、端上桌这个餐桌动作；dish out 更强调把东西一个个分出去，语义范围更宽，也常带有批评、惩罚等抽象含义。",
+      "source": "dish up vs dish out",
+      "example": "She dished up the stew, while he dished out napkins to everyone.",
+      "tags": [
+        "comparison",
+        "food",
+        "phrasal-verb"
+      ],
+      "first_learned_at": "2026-07-31T09:17:11+08:00",
+      "last_learned_at": "2026-07-31T09:17:11+08:00",
+      "learned_count": 1,
+      "mastery_score": 10.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T19:58:28+08:00",
+      "next_review_at": "2026-09-01T19:58:28+08:00",
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": [
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-08-02T19:58:28+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
+    },
+    "usage:dish-up-vs-serve-food": {
+      "id": "usage:dish-up-vs-serve-food",
+      "category": "usage",
+      "status": "familiar",
+      "title": "dish up 和 serve 的区别",
+      "explanation": "dish up 强调把食物从锅或大盘里盛到盘子/碗里的动作，语气更日常；serve 范围更宽，既可以指端菜、上菜，也可以指餐厅服务或正式待客。",
+      "source": "2",
+      "example": "My dad dished up the rice, and my sister served the drinks.",
+      "tags": [
+        "food",
+        "phrasal-verb",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-07-31T09:16:35+08:00",
+      "last_learned_at": "2026-07-31T09:16:35+08:00",
+      "learned_count": 1,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T10:09:58+08:00",
+      "next_review_at": "2026-08-09T10:09:58+08:00",
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-02T10:09:58+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
+    },
+    "usage:dish-up-word-order-object-position": {
+      "id": "usage:dish-up-word-order-object-position",
+      "category": "usage",
+      "status": "learning",
+      "title": "dish up 的宾语位置",
+      "explanation": "dish up 是可分短语动词，名词宾语可以放在 up 前后，如 dish up the rice 或 dish the rice up；代词宾语通常放中间，如 dish it up。",
+      "source": "to dish up something",
+      "example": "Could you dish it up while I set the table?",
+      "tags": [
+        "object-position",
+        "phrasal-verb",
+        "word-order"
+      ],
+      "first_learned_at": "2026-07-31T09:13:38+08:00",
+      "last_learned_at": "2026-07-31T09:13:38+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "usage:drizzle-vs-rain-shower": {
+      "id": "usage:drizzle-vs-rain-shower",
+      "category": "usage",
+      "status": "learning",
+      "title": "drizzle、rain 和 shower 的语感区别",
+      "explanation": "drizzle 强调雨很细很轻；rain 是最普通的下雨说法；shower 常指短时间的一阵雨。描述天气时，drizzle 往往带有潮湿、灰蒙蒙、轻微但持续的感觉。",
+      "source": "drizzle",
+      "example": "There was a light drizzle all morning. 整个早上都下着小毛毛雨。",
+      "tags": [
+        "usage",
+        "weather",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-08-02T20:55:31+08:00",
+      "last_learned_at": "2026-08-02T20:55:31+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "usage:first-then-action-sequence": {
+      "id": "usage:first-then-action-sequence",
+      "category": "usage",
+      "status": "learning",
+      "title": "first, then 表示动作顺序",
+      "explanation": "first, then 用来清楚安排两个先后动作，适合做饭、计划、说明步骤等场景；first 放在第一个动作后或句首都可以，then 引出下一步。",
+      "source": "Sure. I’ll slice the bread first, then pour the juice.",
+      "example": "I’ll wash the vegetables first, then chop them.",
+      "tags": [
+        "dialogue",
+        "instructions",
+        "sequence"
+      ],
+      "first_learned_at": "2026-07-31T13:47:43+08:00",
+      "last_learned_at": "2026-07-31T13:47:43+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "usage:may-proceed-traffic-permission": {
+      "id": "usage:may-proceed-traffic-permission",
+      "category": "usage",
+      "status": "learning",
+      "title": "交通语境中的 may proceed",
+      "explanation": "说明交通信号给予通行许可时，may proceed 比 can continue on 更精确，并隐含确认道路安全后再通行。",
+      "source": "A green light on a traffic signal means your car can continue on",
+      "example": "When the light turns green, you may proceed if the intersection is clear.",
+      "tags": [
+        "traffic"
+      ],
+      "first_learned_at": "2026-07-29T20:19:15+08:00",
+      "last_learned_at": "2026-07-29T20:19:15+08:00",
+      "learned_count": 1,
+      "mastery_score": 7.0,
+      "review_count": 1,
+      "high_score_streak": 0,
+      "last_reviewed_at": "2026-07-30T13:13:50+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "usage:now-as-discourse-marker-explanation": {
+      "id": "usage:now-as-discourse-marker-explanation",
+      "category": "usage",
+      "status": "familiar",
+      "title": "Now 用作讲解开场",
+      "explanation": "句首 Now 可以不是时间副词“现在”，而是话语标记，用来把听者注意力拉到接下来要解释的内容上，语气像“那么/注意”。",
+      "source": "Now, to dish up something means...",
+      "example": "Now, this expression is usually used in casual conversation.",
+      "tags": [
+        "discourse-marker",
+        "explanation",
+        "speaking"
+      ],
+      "first_learned_at": "2026-07-31T09:13:38+08:00",
+      "last_learned_at": "2026-07-31T09:13:38+08:00",
+      "learned_count": 1,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T10:24:33+08:00",
+      "next_review_at": "2026-08-09T10:24:33+08:00",
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-02T10:24:33+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
+    },
+    "usage:serve-food-and-drinks-kitchen-context": {
+      "id": "usage:serve-food-and-drinks-kitchen-context",
+      "category": "usage",
+      "status": "familiar",
+      "title": "serve：端上或供应食物饮料",
+      "explanation": "厨房和餐桌语境里，serve 表示把饭菜或饮料提供给别人，可以是端上桌、分给客人，也可以表示餐厅或酒店供应某种食物。",
+      "source": "2",
+      "example": "Serve the soup with fresh bread.",
+      "tags": [
+        "food",
+        "kitchen",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-07-31T10:09:57+08:00",
+      "last_learned_at": "2026-07-31T10:09:57+08:00",
+      "learned_count": 1,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T16:45:39+08:00",
+      "next_review_at": "2026-08-09T16:45:39+08:00",
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-02T16:45:39+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
+    },
+    "usage:serve-food-broad-use": {
+      "id": "usage:serve-food-broad-use",
+      "category": "usage",
+      "status": "learning",
+      "title": "serve food 的宽泛用法",
+      "explanation": "serve food 不一定说明食物已经被盛到个人盘子里，它可以表示上菜、提供食物、招待客人，语域比 dish up 更中性，也更适合正式场景。",
+      "source": "2",
+      "example": "The hotel serves breakfast from seven to ten.",
+      "tags": [
+        "food",
+        "formal-neutral",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-07-31T09:16:35+08:00",
+      "last_learned_at": "2026-07-31T09:16:35+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    }
+  }
+}

@@ -10,6 +10,7 @@ from typing import Any, Callable, TypeVar
 
 from .models import (
     CATEGORIES,
+    SCHEMA_VERSION,
     RecordError,
     empty_database,
     normalize_key,
@@ -22,29 +23,49 @@ T = TypeVar("T")
 
 
 class RecordStore:
-    MASTERED_SPILLOVER_THRESHOLD = 10
-    MASTERED_CATEGORY = "usage"
-    MASTERED_FIELDS = (
-        "title",
-        "explanation",
-        "mastered_at",
-    )
-
     def __init__(self, repo_root: Path):
         self.repo_root = repo_root.resolve()
-        self.data_path = self.repo_root / "learning-records" / "records.json"
-        self.mastered_path = self.repo_root / "learning-records" / "mastered.json"
-        self.review_claims_path = self.repo_root / "learning-records" / ".review-claims.json"
+        self.learning_dir = self.repo_root / "learning-records"
+        self.mastered_dir = self.repo_root / "mastered-learning-records"
+        self.legacy_data_path = self.learning_dir / "records.json"
+        self.legacy_mastered_path = self.learning_dir / "mastered.json"
+        self.data_path = self.legacy_data_path
+        self.mastered_path = self.legacy_mastered_path
+        self.review_claims_path = self.learning_dir / ".review-claims.json"
+
+    def category_path(self, category: str) -> Path:
+        self._require_category(category)
+        return self.learning_dir / f"{category}.json"
+
+    def mastered_category_path(self, category: str) -> Path:
+        self._require_category(category)
+        return self.mastered_dir / f"{category}.json"
+
+    @staticmethod
+    def _require_category(category: str) -> None:
+        if category not in CATEGORIES:
+            raise RecordError(
+                f"invalid category {category!r}; expected one of: {', '.join(CATEGORIES)}"
+            )
 
     def exists(self) -> bool:
-        return self.data_path.exists()
+        return (
+            self.legacy_data_path.exists()
+            or any(self.category_path(category).exists() for category in CATEGORIES)
+            or any(self.mastered_category_path(category).exists() for category in CATEGORIES)
+        )
+
+    def _uses_category_layout(self) -> bool:
+        return any(self.category_path(category).exists() for category in CATEGORIES) or any(
+            self.mastered_category_path(category).exists() for category in CATEGORIES
+        )
 
     @contextmanager
     def _exclusive_lock(self):
         import fcntl
 
-        self.data_path.parent.mkdir(parents=True, exist_ok=True)
-        lock_path = self.data_path.parent / ".records.lock"
+        self.learning_dir.mkdir(parents=True, exist_ok=True)
+        lock_path = self.learning_dir / ".records.lock"
         with lock_path.open("a", encoding="utf-8") as handle:
             fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
             try:
@@ -52,12 +73,80 @@ class RecordStore:
             finally:
                 fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
 
+    @staticmethod
+    def _empty_category_database(category: str, revision: int = 0) -> dict[str, Any]:
+        return {
+            "schema_version": SCHEMA_VERSION,
+            "revision": revision,
+            "category": category,
+            "records": {},
+        }
+
+    @staticmethod
+    def _category_database(
+        category: str,
+        records: dict[str, dict[str, Any]],
+        revision: int,
+    ) -> dict[str, Any]:
+        return {
+            "schema_version": SCHEMA_VERSION,
+            "revision": revision,
+            "category": category,
+            "records": dict(sorted(records.items())),
+        }
+
+    @staticmethod
+    def _validate_category_database(
+        database: Any,
+        category: str,
+        *,
+        allow_mastered: bool,
+    ) -> list[dict[str, Any]]:
+        issues = validate_database(database)
+        if issues:
+            return issues
+        if database.get("category") not in {None, category}:
+            return [
+                {
+                    "id": None,
+                    "field": "category",
+                    "message": f"file category must be {category}",
+                }
+            ]
+        for identifier, record in database["records"].items():
+            if record["category"] != category:
+                return [
+                    {
+                        "id": identifier,
+                        "field": "category",
+                        "message": f"record category must be {category}",
+                    }
+                ]
+            if not allow_mastered and record["status"] == "mastered":
+                return [
+                    {
+                        "id": identifier,
+                        "field": "status",
+                        "message": "mastered records belong in mastered-learning-records",
+                    }
+                ]
+        return []
+
     def _read_database_file(
-        self, path: Path, *, allow_missing: bool = False
+        self,
+        path: Path,
+        *,
+        allow_missing: bool = False,
+        category: str | None = None,
+        allow_mastered: bool = True,
     ) -> dict[str, Any]:
         if not path.exists():
             if allow_missing:
-                return empty_database()
+                return (
+                    self._empty_category_database(category)
+                    if category is not None
+                    else empty_database()
+                )
             raise RecordError(
                 f"record database does not exist: {path}; run migrate-v2 first"
             )
@@ -66,36 +155,46 @@ class RecordStore:
                 database = json.load(handle)
         except (OSError, json.JSONDecodeError) as exc:
             raise RecordError(f"cannot read valid JSON from {path}: {exc}") from exc
-        issues = validate_database(database)
+        issues = (
+            self._validate_category_database(
+                database,
+                category,
+                allow_mastered=allow_mastered,
+            )
+            if category is not None
+            else validate_database(database)
+        )
         if issues:
             raise RecordError(f"record database is invalid: {issues[0]['message']}")
         return database
 
-    def _read_mastered_database_file(self, path: Path) -> dict[str, Any]:
+    def _read_mastered_database_file(self, path: Path, category: str) -> dict[str, Any]:
         if not path.exists():
-            return empty_database()
+            return self._empty_category_database(category)
         try:
             with path.open(encoding="utf-8") as handle:
                 database = json.load(handle)
         except (OSError, json.JSONDecodeError) as exc:
             raise RecordError(f"cannot read valid JSON from {path}: {exc}") from exc
-        issues = validate_database(database)
-        if not issues:
-            return database
-        return self._hydrate_mastered_database(database)
+        issues = self._validate_mastered_database(database, category)
+        if issues:
+            raise RecordError(f"mastered database is invalid: {issues[0]['message']}")
+        return self._hydrate_mastered_database(database, category)
 
     @classmethod
-    def _mastered_records_from_storage(cls, database: Any) -> list[tuple[str | None, dict[str, Any]]]:
+    def _mastered_records_from_storage(
+        cls, database: Any
+    ) -> list[tuple[str | None, dict[str, Any]]]:
         if isinstance(database, list):
             return [(None, record) for record in database]
         if isinstance(database, dict) and isinstance(database.get("records"), dict):
             return list(database["records"].items())
         return []
 
-    @classmethod
+    @staticmethod
     def _mastered_identifier(
-        cls,
         record: dict[str, Any],
+        category: str,
         fallback_index: int,
         used_identifiers: set[str],
     ) -> str:
@@ -105,7 +204,7 @@ class RecordStore:
         else:
             title_key = normalize_key(str(record.get("title") or ""))
             suffix = title_key or f"mastered-record-{fallback_index + 1}"
-            identifier = f"{cls.MASTERED_CATEGORY}:{suffix}"
+            identifier = f"{category}:{suffix}"
         if identifier not in used_identifiers:
             used_identifiers.add(identifier)
             return identifier
@@ -118,19 +217,43 @@ class RecordStore:
         return identifier
 
     @classmethod
-    def _validate_mastered_database(cls, database: Any) -> list[dict[str, Any]]:
+    def _validate_mastered_database(
+        cls, database: Any, category: str
+    ) -> list[dict[str, Any]]:
         issues: list[dict[str, Any]] = []
         if not isinstance(database, (dict, list)):
-            return [{"id": None, "field": None, "message": "database root must be an object or array"}]
+            return [
+                {
+                    "id": None,
+                    "field": None,
+                    "message": "database root must be an object or array",
+                }
+            ]
         if isinstance(database, dict):
-            if database.get("schema_version") != 2:
+            if database.get("schema_version") != SCHEMA_VERSION:
                 issues.append(
-                    {"id": None, "field": "schema_version", "message": "schema_version must be 2"}
+                    {
+                        "id": None,
+                        "field": "schema_version",
+                        "message": f"schema_version must be {SCHEMA_VERSION}",
+                    }
                 )
             revision = database.get("revision")
             if not isinstance(revision, int) or isinstance(revision, bool) or revision < 0:
                 issues.append(
-                    {"id": None, "field": "revision", "message": "revision must be a non-negative integer"}
+                    {
+                        "id": None,
+                        "field": "revision",
+                        "message": "revision must be a non-negative integer",
+                    }
+                )
+            if database.get("category") not in {None, category}:
+                issues.append(
+                    {
+                        "id": None,
+                        "field": "category",
+                        "message": f"file category must be {category}",
+                    }
                 )
         records = cls._mastered_records_from_storage(database)
         if isinstance(database, list) and not records:
@@ -138,7 +261,13 @@ class RecordStore:
         if not records:
             if isinstance(database, dict) and database.get("records") == {}:
                 return issues
-            issues.append({"id": None, "field": "records", "message": "records must be an object or array"})
+            issues.append(
+                {
+                    "id": None,
+                    "field": "records",
+                    "message": "records must be an object or array",
+                }
+            )
             return issues
         used_identifiers: set[str] = set()
         for index, (stored_identifier, record) in enumerate(records):
@@ -148,17 +277,31 @@ class RecordStore:
                 )
                 continue
             if not isinstance(record, dict):
-                issues.append({"id": stored_identifier, "field": None, "message": "record must be an object"})
+                issues.append(
+                    {"id": stored_identifier, "field": None, "message": "record must be an object"}
+                )
                 continue
-            identifier = cls._mastered_identifier(record, index, used_identifiers)
+            identifier = cls._mastered_identifier(record, category, index, used_identifiers)
+            if not identifier.startswith(f"{category}:"):
+                issues.append(
+                    {
+                        "id": identifier,
+                        "field": "id",
+                        "message": f"mastered record id must start with {category}:",
+                    }
+                )
             if stored_identifier is not None and record.get("id") not in {None, identifier}:
                 issues.append(
                     {"id": identifier, "field": "id", "message": "record id must match its object key"}
                 )
-            category = record.get("category", cls.MASTERED_CATEGORY)
-            if category not in CATEGORIES:
+            record_category = record.get("category", category)
+            if record_category != category:
                 issues.append(
-                    {"id": identifier, "field": "category", "message": "category is invalid"}
+                    {
+                        "id": identifier,
+                        "field": "category",
+                        "message": f"record category must be {category}",
+                    }
                 )
             if record.get("status", "mastered") != "mastered":
                 issues.append(
@@ -183,11 +326,19 @@ class RecordStore:
             if tags is not None:
                 if not isinstance(tags, list) or not all(isinstance(tag, str) for tag in tags):
                     issues.append(
-                        {"id": identifier, "field": "tags", "message": "tags must be an array of strings"}
+                        {
+                            "id": identifier,
+                            "field": "tags",
+                            "message": "tags must be an array of strings",
+                        }
                     )
                 elif len(tags) != len({tag.casefold() for tag in tags}):
                     issues.append(
-                        {"id": identifier, "field": "tags", "message": "tags must not contain duplicates"}
+                        {
+                            "id": identifier,
+                            "field": "tags",
+                            "message": "tags must not contain duplicates",
+                        }
                     )
             try:
                 mastered_at = parse_timestamp(record.get("mastered_at"))
@@ -204,20 +355,29 @@ class RecordStore:
         return issues
 
     @classmethod
-    def _hydrate_mastered_database(cls, database: Any) -> dict[str, Any]:
-        issues = cls._validate_mastered_database(database)
-        if issues:
-            raise RecordError(f"mastered database is invalid: {issues[0]['message']}")
+    def _hydrate_mastered_database(cls, database: Any, category: str) -> dict[str, Any]:
+        if isinstance(database, dict) and isinstance(database.get("records"), dict):
+            database = {**database, "category": category}
+            issues = cls._validate_category_database(database, category, allow_mastered=True)
+            if not issues and all(
+                record["status"] == "mastered"
+                for record in database["records"].values()
+            ):
+                return {
+                    **database,
+                    "records": dict(sorted(database["records"].items())),
+                }
+
         records = {}
         used_identifiers: set[str] = set()
         for index, (_stored_identifier, record) in enumerate(
             cls._mastered_records_from_storage(database)
         ):
-            identifier = cls._mastered_identifier(record, index, used_identifiers)
+            identifier = cls._mastered_identifier(record, category, index, used_identifiers)
             mastered_at = record["mastered_at"]
             records[identifier] = {
                 "id": identifier,
-                "category": record.get("category", cls.MASTERED_CATEGORY),
+                "category": category,
                 "status": "mastered",
                 "title": record["title"],
                 "explanation": record["explanation"],
@@ -237,27 +397,17 @@ class RecordStore:
                 "review_history": [],
             }
         hydrated = {
-            "schema_version": database.get("schema_version", 2)
-            if isinstance(database, dict)
-            else 2,
+            "schema_version": SCHEMA_VERSION,
             "revision": database.get("revision", 0) if isinstance(database, dict) else 0,
+            "category": category,
             "records": dict(sorted(records.items())),
         }
-        full_issues = validate_database(hydrated)
+        full_issues = cls._validate_category_database(
+            hydrated, category, allow_mastered=True
+        )
         if full_issues:
             raise RecordError(f"mastered database is invalid: {full_issues[0]['message']}")
         return hydrated
-
-    @classmethod
-    def _slim_mastered_database(cls, database: dict[str, Any]) -> list[dict[str, Any]]:
-        return [
-            {
-                field: record[field]
-                for field in cls.MASTERED_FIELDS
-                if field in record
-            }
-            for _identifier, record in sorted(database["records"].items())
-        ]
 
     @staticmethod
     def _merge_databases(
@@ -270,7 +420,7 @@ class RecordStore:
             raise RecordError(f"record exists in both databases: {sorted(overlap)[0]}")
         records.update(mastered.get("records", {}))
         return {
-            "schema_version": primary.get("schema_version"),
+            "schema_version": SCHEMA_VERSION,
             "revision": max(
                 int(primary.get("revision", 0)),
                 int(mastered.get("revision", 0)),
@@ -278,31 +428,102 @@ class RecordStore:
             "records": dict(sorted(records.items())),
         }
 
-    def _load(self, *, allow_missing: bool = False) -> dict[str, Any]:
-        primary = self._read_database_file(self.data_path, allow_missing=allow_missing)
-        mastered = self._read_mastered_database_file(self.mastered_path)
+    def _merge_category_files(
+        self,
+        reader: Callable[[str], dict[str, Any]],
+    ) -> dict[str, Any]:
+        merged = empty_database()
+        invalid_schema_version: Any = None
+        for category in CATEGORIES:
+            database = reader(category)
+            if (
+                isinstance(database, dict)
+                and database.get("schema_version") != SCHEMA_VERSION
+                and invalid_schema_version is None
+            ):
+                invalid_schema_version = database.get("schema_version")
+            merged = self._merge_databases(merged, database)
+        if invalid_schema_version is not None:
+            merged["schema_version"] = invalid_schema_version
+        return merged
+
+    def _load_category_layout(self, *, allow_missing: bool = False) -> dict[str, Any]:
+        primary = self._merge_category_files(
+            lambda category: self._read_database_file(
+                self.category_path(category),
+                allow_missing=allow_missing,
+                category=category,
+                allow_mastered=False,
+            )
+        )
+        mastered = self._merge_category_files(
+            lambda category: self._read_mastered_database_file(
+                self.mastered_category_path(category),
+                category,
+            )
+        )
         return self._merge_databases(primary, mastered)
 
-    def _read_unvalidated_file(self, path: Path, *, allow_missing: bool = False) -> dict[str, Any]:
+    def _load_legacy_layout(self, *, allow_missing: bool = False) -> dict[str, Any]:
+        primary = self._read_database_file(self.legacy_data_path, allow_missing=allow_missing)
+        mastered = (
+            self._read_mastered_database_file(self.legacy_mastered_path, "usage")
+            if self.legacy_mastered_path.exists()
+            else empty_database()
+        )
+        return self._merge_databases(primary, mastered)
+
+    def _load(self, *, allow_missing: bool = False) -> dict[str, Any]:
+        if self._uses_category_layout():
+            return self._load_category_layout(allow_missing=allow_missing)
+        return self._load_legacy_layout(allow_missing=allow_missing)
+
+    def _read_unvalidated_file(self, path: Path, *, allow_missing: bool = False) -> Any:
         if not path.exists():
             if allow_missing:
                 return empty_database()
             raise RecordError(f"record database does not exist: {path}")
         try:
             with path.open(encoding="utf-8") as handle:
-                database = json.load(handle)
+                return json.load(handle)
         except (OSError, json.JSONDecodeError) as exc:
             raise RecordError(f"cannot read valid JSON from {path}: {exc}") from exc
+
+    def _read_unvalidated_category_database(self, path: Path, category: str) -> dict[str, Any]:
+        if not path.exists():
+            return self._empty_category_database(category)
+        database = self._read_unvalidated_file(path)
+        if isinstance(database, dict):
+            database.setdefault("category", category)
+            return database
         return database
 
     def read_unvalidated(self) -> dict[str, Any]:
-        primary = self._read_unvalidated_file(self.data_path)
-        mastered = (
-            self._read_mastered_database_file(self.mastered_path)
-            if self.mastered_path.exists()
-            else empty_database()
+        if not self._uses_category_layout():
+            primary = self._read_unvalidated_file(self.legacy_data_path)
+            mastered = (
+                self._read_mastered_database_file(self.legacy_mastered_path, "usage")
+                if self.legacy_mastered_path.exists()
+                else empty_database()
+            )
+            return self._merge_databases(primary, mastered)
+
+        primary = self._merge_category_files(
+            lambda category: self._read_unvalidated_category_database(
+                self.category_path(category), category
+            )
         )
-        return self._merge_databases(primary, mastered)
+        mastered = self._merge_category_files(
+            lambda category: self._read_mastered_database_file(
+                self.mastered_category_path(category), category
+            )
+        )
+        merged = self._merge_databases(primary, mastered)
+        if primary.get("schema_version") != SCHEMA_VERSION:
+            merged["schema_version"] = primary.get("schema_version")
+        elif mastered.get("schema_version") != SCHEMA_VERSION:
+            merged["schema_version"] = mastered.get("schema_version")
+        return merged
 
     def read(self) -> dict[str, Any]:
         return self._load()
@@ -347,7 +568,6 @@ class RecordStore:
         path: Path,
         database: Any,
         *,
-        fail_before_replace: bool,
         validate: Callable[[Any], list[dict[str, Any]]] = validate_database,
     ) -> None:
         import tempfile
@@ -366,8 +586,6 @@ class RecordStore:
                 handle.write("\n")
                 handle.flush()
                 os.fsync(handle.fileno())
-            if fail_before_replace and os.environ.get("LEARN_ENGLISH_FAIL_BEFORE_REPLACE") == "1":
-                raise RecordError("injected failure before atomic replace")
             os.chmod(temporary_name, file_mode)
             os.replace(temporary_name, path)
             directory_fd = os.open(path.parent, os.O_RDONLY)
@@ -382,46 +600,85 @@ class RecordStore:
                 pass
             raise
 
-    def _split_databases(self, database: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
-        records = dict(sorted(database["records"].items()))
-        mastered_records = {
-            identifier: record
-            for identifier, record in records.items()
-            if record["status"] == "mastered"
-        }
-        spill_mastered = (
-            self.mastered_path.exists()
-            or len(mastered_records) >= self.MASTERED_SPILLOVER_THRESHOLD
-        )
-        primary_records = {
-            identifier: record
-            for identifier, record in records.items()
-            if record["status"] != "mastered" or not spill_mastered
-        }
-        if not spill_mastered:
-            mastered_records = {}
-        primary = {
-            "schema_version": database["schema_version"],
-            "revision": database["revision"],
-            "records": dict(sorted(primary_records.items())),
-        }
-        mastered = {
-            "schema_version": database["schema_version"],
-            "revision": database["revision"],
-            "records": dict(sorted(mastered_records.items())),
-        }
-        return primary, mastered
+    @staticmethod
+    def _canonical_json(value: Any) -> str:
+        return json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
 
-    def _write(self, database: dict[str, Any]) -> None:
-        primary, mastered = self._split_databases(database)
-        if mastered["records"] or self.mastered_path.exists():
-            self._write_file(
-                self.mastered_path,
-                self._slim_mastered_database(mastered),
-                fail_before_replace=False,
-                validate=self._validate_mastered_database,
+    def _current_document(self, path: Path) -> Any | None:
+        if not path.exists():
+            return None
+        return self._read_unvalidated_file(path)
+
+    def _split_databases(
+        self, database: dict[str, Any]
+    ) -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, Any]]]:
+        revision = int(database["revision"])
+        learning: dict[str, dict[str, Any]] = {}
+        mastered: dict[str, list[dict[str, Any]]] = {}
+        for category in CATEGORIES:
+            learning_records = {
+                identifier: record
+                for identifier, record in database["records"].items()
+                if record["category"] == category and record["status"] != "mastered"
+            }
+            mastered_records = {
+                identifier: record
+                for identifier, record in database["records"].items()
+                if record["category"] == category and record["status"] == "mastered"
+            }
+            learning[category] = self._category_database(
+                category,
+                learning_records,
+                revision,
             )
-        self._write_file(self.data_path, primary, fail_before_replace=True)
+            mastered[category] = self._category_database(
+                category,
+                mastered_records,
+                revision,
+            )
+        return learning, mastered
+
+    def _write(self, database: dict[str, Any], *, force_all: bool = False) -> None:
+        if os.environ.get("LEARN_ENGLISH_FAIL_BEFORE_REPLACE") == "1":
+            raise RecordError("injected failure before atomic replace")
+
+        learning, mastered = self._split_databases(database)
+        writes: list[tuple[Path, Any, Callable[[Any], list[dict[str, Any]]]]] = []
+
+        for category in CATEGORIES:
+            learning_path = self.category_path(category)
+            learning_document = learning[category]
+            current_learning = self._current_document(learning_path)
+            if force_all or self._canonical_json(current_learning) != self._canonical_json(
+                learning_document
+            ):
+                writes.append(
+                    (
+                        learning_path,
+                        learning_document,
+                        lambda value, category=category: self._validate_category_database(
+                            value, category, allow_mastered=False
+                        ),
+                    )
+                )
+
+            mastered_path = self.mastered_category_path(category)
+            mastered_document = mastered[category]
+            current_mastered = self._current_document(mastered_path)
+            if force_all or current_mastered is not None or mastered_document["records"]:
+                if self._canonical_json(current_mastered) != self._canonical_json(mastered_document):
+                    writes.append(
+                        (
+                            mastered_path,
+                            mastered_document,
+                            lambda value, category=category: self._validate_category_database(
+                                value, category, allow_mastered=True
+                            ),
+                        )
+                    )
+
+        for path, document, validator in writes:
+            self._write_file(path, document, validate=validator)
 
     def initialize(
         self,
@@ -430,12 +687,13 @@ class RecordStore:
         before_write: Callable[[], None] | None = None,
         after_write: Callable[[], None] | None = None,
     ) -> None:
-        self.data_path.parent.mkdir(parents=True, exist_ok=True)
-        if self.data_path.exists():
-            raise RecordError(f"record database already exists: {self.data_path}")
+        self.learning_dir.mkdir(parents=True, exist_ok=True)
+        self.mastered_dir.mkdir(parents=True, exist_ok=True)
+        if self.exists():
+            raise RecordError("record database already exists")
         if before_write:
             before_write()
-        self._write(database)
+        self._write(database, force_all=True)
         if after_write:
             after_write()
 
@@ -447,7 +705,8 @@ class RecordStore:
         after_write: Callable[[], None] | None = None,
     ) -> T:
         with self._exclusive_lock():
-            self.data_path.parent.mkdir(parents=True, exist_ok=True)
+            self.learning_dir.mkdir(parents=True, exist_ok=True)
+            self.mastered_dir.mkdir(parents=True, exist_ok=True)
             if before_write:
                 before_write()
             database = self._load()
@@ -478,7 +737,8 @@ class RecordStore:
         after_write: Callable[[], None] | None = None,
     ) -> T:
         with self._exclusive_lock():
-            self.data_path.parent.mkdir(parents=True, exist_ok=True)
+            self.learning_dir.mkdir(parents=True, exist_ok=True)
+            self.mastered_dir.mkdir(parents=True, exist_ok=True)
             if before_write:
                 before_write()
             database = self.read_unvalidated()
@@ -498,11 +758,12 @@ class RecordStore:
         after_write: Callable[[], None] | None = None,
     ) -> None:
         with self._exclusive_lock():
-            self.data_path.parent.mkdir(parents=True, exist_ok=True)
+            self.learning_dir.mkdir(parents=True, exist_ok=True)
+            self.mastered_dir.mkdir(parents=True, exist_ok=True)
             if before_write:
                 before_write()
             database["revision"] = int(database.get("revision", 0)) + 1
             database["records"] = dict(sorted(database["records"].items()))
-            self._write(database)
+            self._write(database, force_all=True)
             if after_write:
                 after_write()

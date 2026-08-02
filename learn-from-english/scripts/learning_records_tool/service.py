@@ -601,8 +601,25 @@ class RecordService:
         return {"dry_run": dry_run, "change_count": len(changes), "changes": changes}
 
     def migrate_legacy(self, *, dry_run: bool) -> dict[str, Any]:
-        if self.store.exists():
-            raise RecordError(f"record database already exists: {self.store.data_path}")
+        current_layout_exists = False
+        for category in CATEGORIES:
+            for path in (
+                self.store.category_path(category),
+                self.store.mastered_category_path(category),
+            ):
+                if not path.exists():
+                    continue
+                try:
+                    document = json.loads(path.read_text(encoding="utf-8"))
+                except (OSError, json.JSONDecodeError) as exc:
+                    raise RecordError(f"cannot inspect existing record file {path}: {exc}") from exc
+                if isinstance(document, dict) and "records" in document:
+                    current_layout_exists = True
+                    break
+            if current_layout_exists:
+                break
+        if self.store.legacy_data_path.exists() or current_layout_exists:
+            raise RecordError(f"record database already exists: {self.store.legacy_data_path}")
         database = empty_database()
         migrated_counts = {status: 0 for status in ("learning", "familiar", "mastered")}
         for location, status in LEGACY_LOCATIONS.items():
@@ -691,8 +708,8 @@ class RecordService:
             "dry_run": dry_run,
             "record_count": len(database["records"]),
             "counts": migrated_counts,
-            "target": str(self.store.data_path),
+            "target": str(self.store.learning_dir),
         }
         if not dry_run:
-            self.store.initialize(database)
+            self.store.replace(database)
         return result

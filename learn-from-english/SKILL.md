@@ -30,7 +30,7 @@ description: 禁止在用户消息去除首尾空白后仅为“你好”“复�
 
 ## 记录本轮知识点
 
-使用 `scripts/learning_records.py` 维护仓库根目录的 `learning-records/records.json`。不得直接手工修改记录文件。
+使用 `scripts/learning_records.py` 维护仓库根目录的 `learning-records/` 与 `mastered-learning-records/` 分类 JSON 文件。不得直接手工修改记录文件。
 
 每轮只记录正文中得到实质讲解的 1 至 4 个知识点：
 

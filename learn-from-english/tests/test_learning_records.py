@@ -48,6 +48,14 @@ def mark_mastered(service: RecordService, identifier: str) -> dict[str, object]:
     return service.complete_review(identifier, 10)
 
 
+def read_json(path: Path) -> object:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def write_json(path: Path, value: object) -> None:
+    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
 class LearningRecordsTest(unittest.TestCase):
     def setUp(self) -> None:
         self.temporary_directory = tempfile.TemporaryDirectory()
@@ -125,14 +133,14 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertEqual(records["errors:first-error"]["mastery_score"], 6)
 
     def test_invalid_batch_rolls_back_every_record(self) -> None:
-        before = self.store.data_path.read_text(encoding="utf-8")
+        before = self.store.category_path("usage").read_text(encoding="utf-8")
         invalid = payload("grammar", "broken")
         invalid["source"] = ""
 
         with self.assertRaisesRegex(RecordError, "source must not be empty"):
             self.service.batch_upsert([payload("usage", "valid"), invalid])
 
-        self.assertEqual(self.store.data_path.read_text(encoding="utf-8"), before)
+        self.assertEqual(self.store.category_path("usage").read_text(encoding="utf-8"), before)
 
     def test_batch_rejects_non_object_records_and_non_string_tags(self) -> None:
         with self.assertRaisesRegex(RecordError, "record must be an object"):
@@ -233,7 +241,7 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertEqual(record["example"], "Example for polite-request")
         self.assertEqual(record["tags"], ["core", "review"])
 
-    def test_mastered_records_spill_to_mastered_file_at_threshold(self) -> None:
+    def test_mastered_records_move_to_mastered_category_file(self) -> None:
         titles = [
             "ancient river metaphor",
             "subway ticket deadline",
@@ -250,49 +258,43 @@ class LearningRecordsTest(unittest.TestCase):
             self.service.upsert(distinct_payload("usage", f"mastered-{index}", title))
             mark_mastered(self.service, f"usage:mastered-{index}")
 
-        primary = json.loads(self.store.data_path.read_text(encoding="utf-8"))
-        mastered = json.loads(self.store.mastered_path.read_text(encoding="utf-8"))
+        primary = read_json(self.store.category_path("usage"))
+        mastered = read_json(self.store.mastered_category_path("usage"))
 
         self.assertFalse(
             any(record["status"] == "mastered" for record in primary["records"].values())
         )
-        self.assertEqual(len(mastered), 10)
-        first_mastered = mastered[0]
-        self.assertEqual(
-            set(first_mastered),
-            {
-                "title",
-                "explanation",
-                "mastered_at",
-            },
-        )
-        self.assertNotIn("review_history", first_mastered)
-        self.assertNotIn("mastery_score", first_mastered)
-        self.assertNotIn("next_review_at", first_mastered)
+        self.assertEqual(len(mastered["records"]), 10)
+        first_mastered = next(iter(mastered["records"].values()))
+        self.assertEqual(first_mastered["status"], "mastered")
+        self.assertIn("review_history", first_mastered)
+        self.assertIn("mastery_score", first_mastered)
+        self.assertIn("next_review_at", first_mastered)
         self.assertEqual(self.service.summary()["totals"]["mastered"], 10)
         self.assertEqual(len(self.service.list_records(status="mastered")), 10)
 
-    def test_full_mastered_file_is_read_and_rewritten_as_slim(self) -> None:
+    def test_full_mastered_file_is_read_and_rewritten_by_category(self) -> None:
         self.service.upsert(payload("usage", "full-mastered"))
         mark_mastered(self.service, "usage:full-mastered")
         database = self.store.read()
         mastered_record = database["records"]["usage:full-mastered"]
-        self.store.data_path.write_text(
-            json.dumps(empty_database(), ensure_ascii=False, indent=2) + "\n",
-            encoding="utf-8",
+        write_json(
+            self.store.category_path("usage"),
+            {
+                "schema_version": 2,
+                "revision": database["revision"],
+                "category": "usage",
+                "records": {},
+            },
         )
-        self.store.mastered_path.write_text(
-            json.dumps(
-                {
-                    "schema_version": 2,
-                    "revision": database["revision"],
-                    "records": {"usage:full-mastered": mastered_record},
-                },
-                ensure_ascii=False,
-                indent=2,
-            )
-            + "\n",
-            encoding="utf-8",
+        write_json(
+            self.store.mastered_category_path("usage"),
+            {
+                "schema_version": 2,
+                "revision": database["revision"],
+                "category": "usage",
+                "records": {"usage:full-mastered": mastered_record},
+            },
         )
 
         self.service.upsert(payload("grammar", "new-learning"))
@@ -304,15 +306,9 @@ class LearningRecordsTest(unittest.TestCase):
         ]
         self.assertEqual(len(hydrated_mastered), 1)
         self.assertEqual(hydrated_mastered[0]["status"], "mastered")
-        rewritten = json.loads(self.store.mastered_path.read_text(encoding="utf-8"))
-        self.assertEqual(
-            set(rewritten[0]),
-            {
-                "title",
-                "explanation",
-                "mastered_at",
-            },
-        )
+        rewritten = read_json(self.store.mastered_category_path("usage"))
+        self.assertIn("usage:full-mastered", rewritten["records"])
+        self.assertEqual(rewritten["records"]["usage:full-mastered"]["source"], "Source for full-mastered")
 
     def test_mastered_menu_and_selection_read_from_mastered_file(self) -> None:
         titles = [
@@ -338,7 +334,7 @@ class LearningRecordsTest(unittest.TestCase):
         selected = self.service.next_review(status="mastered")
 
         self.assertEqual(mastered_paper["count"], 10)
-        self.assertTrue(self.store.mastered_path.exists())
+        self.assertTrue(self.store.mastered_category_path("grammar").exists())
         self.assertEqual(selected["record"]["status"], "mastered")
         self.assertIn(selected["record"]["title"], titles)
 
@@ -526,8 +522,14 @@ class LearningRecordsTest(unittest.TestCase):
         database = self.store.read()
         database["records"]["grammar:invalid-time"]["last_learned_at"] = "yesterday"
         database["records"]["grammar:invalid-time"]["tags"] = ["same", "same"]
-        self.store.data_path.write_text(
-            json.dumps(database, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        write_json(
+            self.store.category_path("grammar"),
+            {
+                "schema_version": database["schema_version"],
+                "revision": database["revision"],
+                "category": "grammar",
+                "records": {"grammar:invalid-time": database["records"]["grammar:invalid-time"]},
+            },
         )
 
         result = self.service.validate()
@@ -539,8 +541,14 @@ class LearningRecordsTest(unittest.TestCase):
         self.service.upsert(payload("usage", "repair-tags"))
         database = self.store.read()
         database["records"]["usage:repair-tags"]["tags"] = ["core", "core", " review "]
-        self.store.data_path.write_text(
-            json.dumps(database, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        write_json(
+            self.store.category_path("usage"),
+            {
+                "schema_version": database["schema_version"],
+                "revision": database["revision"],
+                "category": "usage",
+                "records": {"usage:repair-tags": database["records"]["usage:repair-tags"]},
+            },
         )
 
         preview = self.service.repair(dry_run=True)
@@ -555,8 +563,14 @@ class LearningRecordsTest(unittest.TestCase):
         self.service.upsert(payload("grammar", "repair-status"))
         database = self.store.read()
         database["records"]["grammar:repair-status"]["mastery_score"] = 8
-        self.store.data_path.write_text(
-            json.dumps(database, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        write_json(
+            self.store.category_path("grammar"),
+            {
+                "schema_version": database["schema_version"],
+                "revision": database["revision"],
+                "category": "grammar",
+                "records": {"grammar:repair-status": database["records"]["grammar:repair-status"]},
+            },
         )
 
         result = self.service.repair(dry_run=False)
@@ -568,21 +582,21 @@ class LearningRecordsTest(unittest.TestCase):
 
     def test_atomic_failure_preserves_previous_database(self) -> None:
         self.service.upsert(payload("grammar", "before-failure"))
-        before = self.store.data_path.read_bytes()
+        before = self.store.category_path("grammar").read_bytes()
         os.environ["LEARN_ENGLISH_FAIL_BEFORE_REPLACE"] = "1"
         self.addCleanup(os.environ.pop, "LEARN_ENGLISH_FAIL_BEFORE_REPLACE", None)
 
         with self.assertRaisesRegex(RecordError, "injected failure"):
             self.service.upsert(payload("grammar", "after-failure"))
 
-        self.assertEqual(self.store.data_path.read_bytes(), before)
+        self.assertEqual(self.store.category_path("grammar").read_bytes(), before)
 
     def test_atomic_write_preserves_database_permissions(self) -> None:
-        self.store.data_path.chmod(0o644)
+        self.store.category_path("grammar").chmod(0o644)
 
         self.service.upsert(payload("grammar", "permissions"))
 
-        self.assertEqual(self.store.data_path.stat().st_mode & 0o777, 0o644)
+        self.assertEqual(self.store.category_path("grammar").stat().st_mode & 0o777, 0o644)
 
     def test_legacy_migration_preserves_statuses_and_counts(self) -> None:
         migration_root = self.root / "migration"
@@ -648,7 +662,7 @@ class LearningRecordsTest(unittest.TestCase):
         subprocess.run(["git", "init", "-q"], cwd=self.root, check=True)
         subprocess.run(["git", "config", "user.email", "tests@example.com"], cwd=self.root, check=True)
         subprocess.run(["git", "config", "user.name", "Tests"], cwd=self.root, check=True)
-        subprocess.run(["git", "add", "learning-records/records.json"], cwd=self.root, check=True)
+        subprocess.run(["git", "add", "learning-records/grammar.json"], cwd=self.root, check=True)
         subprocess.run(["git", "commit", "-qm", "initial"], cwd=self.root, check=True)
         unrelated = self.root / "notes.txt"
         unrelated.write_text("staged\n", encoding="utf-8")
@@ -663,7 +677,7 @@ class LearningRecordsTest(unittest.TestCase):
             capture_output=True,
             text=True,
         ).stdout
-        self.assertIn(" M learning-records/records.json", status)
+        self.assertIn(" M learning-records/grammar.json", status)
         self.assertIn("A  notes.txt", status)
 
     def test_cli_compatibility_and_batch_input(self) -> None:
@@ -705,7 +719,15 @@ class LearningRecordsTest(unittest.TestCase):
         invalid_store.initialize(empty_database())
         database = invalid_store.read()
         database["schema_version"] = 999
-        invalid_store.data_path.write_text(json.dumps(database), encoding="utf-8")
+        write_json(
+            invalid_store.category_path("grammar"),
+            {
+                "schema_version": 999,
+                "revision": database["revision"],
+                "category": "grammar",
+                "records": {},
+            },
+        )
         environment = {
             **os.environ,
             "LEARN_ENGLISH_REPO_ROOT": str(invalid_root),
