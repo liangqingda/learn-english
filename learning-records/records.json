@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 75,
+  "revision": 76,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -629,7 +629,7 @@
     "errors:dish-out-person-instead-of-criticism": {
       "id": "errors:dish-out-person-instead-of-criticism",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "dish out 后误接人作宾语",
       "explanation": "dish out 表示“发出/施加”时，宾语通常是 criticism、punishment、insults 等内容；被批评的人要放在 to 后面，或另写 criticize others。",
       "source": "She always dishes out others, but she cannot take it.",
@@ -642,14 +642,21 @@
       "first_learned_at": "2026-08-02T16:12:48+08:00",
       "last_learned_at": "2026-08-02T16:12:48+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 10.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T17:46:42+08:00",
+      "next_review_at": "2026-09-01T17:46:42+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-08-02T17:46:42+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:duration-rest-possessive-or-hyphenated-form": {
       "id": "errors:duration-rest-possessive-or-hyphenated-form",
