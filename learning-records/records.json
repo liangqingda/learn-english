@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 58,
+  "revision": 59,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -2492,14 +2492,21 @@
       "first_learned_at": "2026-07-28T20:36:08+08:00",
       "last_learned_at": "2026-07-28T20:36:08+08:00",
       "learned_count": 1,
-      "mastery_score": 6.0,
-      "review_count": 2,
+      "mastery_score": 7.0,
+      "review_count": 3,
       "high_score_streak": 0,
-      "last_reviewed_at": "2026-07-29T20:33:58+08:00",
-      "next_review_at": null,
+      "last_reviewed_at": "2026-08-02T10:44:57+08:00",
+      "next_review_at": "2026-08-05T10:44:57+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-08-02T10:44:57+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
     },
     "grammar:relative-clause-who-person": {
       "id": "grammar:relative-clause-who-person",
@@ -3319,6 +3326,54 @@
       ],
       "first_learned_at": "2026-08-02T10:29:02+08:00",
       "last_learned_at": "2026-08-02T10:29:02+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:be-used-to-describe-not-used-to-people": {
+      "id": "errors:be-used-to-describe-not-used-to-people",
+      "category": "errors",
+      "status": "learning",
+      "title": "be used to describe 不能省略 describe",
+      "explanation": "表示“被用来形容/描述某类人”时，英语常说 be used to describe people；used to 后面不能直接接 the people 表示“形容这些人”。",
+      "source": "They say the word is used to the people from the big cities.",
+      "example": "The word was used to describe people who had just arrived from big cities.",
+      "tags": [
+        "collocation",
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-02T10:44:57+08:00",
+      "last_learned_at": "2026-08-02T10:44:57+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:missing-past-perfect-for-earlier-arrival": {
+      "id": "errors:missing-past-perfect-for-earlier-arrival",
+      "category": "errors",
+      "status": "learning",
+      "title": "过去参照点前的到达漏用过去完成时",
+      "explanation": "当“到达”发生在另一个过去动作或说法之前时，英语用 had arrived / had just arrived 来标明先后顺序；只说 people from the big cities 会漏掉“刚来/已经来到”的动作关系。",
+      "source": "They say the word is used to the people from the big cities.",
+      "example": "They said the word was used to describe people who had just arrived from big cities.",
+      "tags": [
+        "past-perfect",
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-02T10:44:57+08:00",
+      "last_learned_at": "2026-08-02T10:44:57+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
