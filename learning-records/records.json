@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 66,
+  "revision": 67,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -1493,7 +1493,7 @@
     "errors:preposition-before-directional-adverbial-back-east-out-west": {
       "id": "errors:preposition-before-directional-adverbial-back-east-out-west",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "back east / out west 前不要加 in",
       "explanation": "back east 和 out west 在句中常作地点副词短语，直接修饰 live、move、grow up 等动词；不能按中文“在东部/在西部”的直觉再加 in。",
       "source": "She lived in back east when she was a baby and now she lives in out west.",
@@ -1504,14 +1504,21 @@
       "first_learned_at": "2026-08-01T08:40:25+08:00",
       "last_learned_at": "2026-08-01T08:40:25+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 10.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T16:09:33+08:00",
+      "next_review_at": "2026-09-01T16:09:33+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-08-02T16:09:33+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:problem-with-pronunciation-collocation": {
       "id": "errors:problem-with-pronunciation-collocation",
