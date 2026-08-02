@@ -33,6 +33,15 @@ def payload(category: str, key: str) -> dict[str, object]:
     }
 
 
+def distinct_payload(category: str, key: str, title: str) -> dict[str, object]:
+    item = payload(category, key)
+    item["title"] = title
+    item["explanation"] = f"{title} 的专项说明，重点不同于其他测试记录。"
+    item["source"] = f"Source sentence about {title}."
+    item["example"] = f"Example sentence about {title}."
+    return item
+
+
 class LearningRecordsTest(unittest.TestCase):
     def setUp(self) -> None:
         self.temporary_directory = tempfile.TemporaryDirectory()
@@ -196,6 +205,61 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertEqual(record["source"], "Source for polite-request")
         self.assertEqual(record["example"], "Example for polite-request")
         self.assertEqual(record["tags"], ["core", "review"])
+
+    def test_mastered_records_spill_to_mastered_file_at_threshold(self) -> None:
+        titles = [
+            "ancient river metaphor",
+            "subway ticket deadline",
+            "formal meeting agenda",
+            "kitchen safety notice",
+            "library renewal policy",
+            "weather forecast nuance",
+            "hotel checkout request",
+            "museum audio guide",
+            "software release note",
+            "campus shuttle schedule",
+        ]
+        for index, title in enumerate(titles):
+            self.service.upsert(distinct_payload("usage", f"mastered-{index}", title))
+            self.service.complete_review(f"usage:mastered-{index}", 10)
+
+        primary = json.loads(self.store.data_path.read_text(encoding="utf-8"))
+        mastered = json.loads(self.store.mastered_path.read_text(encoding="utf-8"))
+
+        self.assertFalse(
+            any(record["status"] == "mastered" for record in primary["records"].values())
+        )
+        self.assertEqual(len(mastered["records"]), 10)
+        self.assertEqual(self.service.summary()["totals"]["mastered"], 10)
+        self.assertEqual(len(self.service.list_records(status="mastered")), 10)
+
+    def test_mastered_menu_and_selection_read_from_mastered_file(self) -> None:
+        titles = [
+            "relative clause agreement",
+            "past perfect sequence",
+            "modal verb deduction",
+            "article choice in titles",
+            "conditional inversion",
+            "gerund after preposition",
+            "appositive comma pattern",
+            "reported speech backshift",
+            "subject complement order",
+            "emphatic do usage",
+        ]
+        for index, title in enumerate(titles):
+            self.service.upsert(distinct_payload("grammar", f"cet-source-{index}", title))
+            self.service.complete_review(f"grammar:cet-source-{index}", 10)
+
+        menu = self.service.menu("initial")
+        mastered_paper = next(
+            option for option in menu["options"] if option["id"] == "mastered-cet-paper"
+        )
+        selected = self.service.next_review(status="mastered", categories=["grammar"])
+
+        self.assertEqual(mastered_paper["count"], 10)
+        self.assertTrue(self.store.mastered_path.exists())
+        self.assertEqual(selected["record"]["status"], "mastered")
+        self.assertTrue(selected["record"]["id"].startswith("grammar:cet-source-"))
 
     def test_menu_contexts_are_centralized_and_bounded(self) -> None:
         for category in ("errors", "grammar", "vocabulary", "phrases", "usage"):

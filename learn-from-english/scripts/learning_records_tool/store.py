@@ -15,9 +15,12 @@ T = TypeVar("T")
 
 
 class RecordStore:
+    MASTERED_SPILLOVER_THRESHOLD = 10
+
     def __init__(self, repo_root: Path):
         self.repo_root = repo_root.resolve()
         self.data_path = self.repo_root / "learning-records" / "records.json"
+        self.mastered_path = self.repo_root / "learning-records" / "mastered.json"
         self.review_claims_path = self.repo_root / "learning-records" / ".review-claims.json"
 
     def exists(self) -> bool:
@@ -36,32 +39,73 @@ class RecordStore:
             finally:
                 fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
 
-    def _load(self, *, allow_missing: bool = False) -> dict[str, Any]:
-        if not self.data_path.exists():
+    def _read_database_file(
+        self, path: Path, *, allow_missing: bool = False
+    ) -> dict[str, Any]:
+        if not path.exists():
             if allow_missing:
                 return empty_database()
             raise RecordError(
-                f"record database does not exist: {self.data_path}; run migrate-v2 first"
+                f"record database does not exist: {path}; run migrate-v2 first"
             )
         try:
-            with self.data_path.open(encoding="utf-8") as handle:
+            with path.open(encoding="utf-8") as handle:
                 database = json.load(handle)
         except (OSError, json.JSONDecodeError) as exc:
-            raise RecordError(f"cannot read valid JSON from {self.data_path}: {exc}") from exc
+            raise RecordError(f"cannot read valid JSON from {path}: {exc}") from exc
         issues = validate_database(database)
         if issues:
             raise RecordError(f"record database is invalid: {issues[0]['message']}")
         return database
 
-    def read_unvalidated(self) -> dict[str, Any]:
-        if not self.data_path.exists():
-            raise RecordError(f"record database does not exist: {self.data_path}")
+    @staticmethod
+    def _merge_databases(
+        primary: dict[str, Any], mastered: dict[str, Any] | None = None
+    ) -> dict[str, Any]:
+        mastered = mastered or empty_database()
+        records = {**primary.get("records", {})}
+        overlap = set(records).intersection(mastered.get("records", {}))
+        if overlap:
+            raise RecordError(f"record exists in both databases: {sorted(overlap)[0]}")
+        records.update(mastered.get("records", {}))
+        return {
+            "schema_version": primary.get("schema_version"),
+            "revision": max(
+                int(primary.get("revision", 0)),
+                int(mastered.get("revision", 0)),
+            ),
+            "records": dict(sorted(records.items())),
+        }
+
+    def _load(self, *, allow_missing: bool = False) -> dict[str, Any]:
+        primary = self._read_database_file(self.data_path, allow_missing=allow_missing)
+        mastered = (
+            self._read_database_file(self.mastered_path)
+            if self.mastered_path.exists()
+            else empty_database()
+        )
+        return self._merge_databases(primary, mastered)
+
+    def _read_unvalidated_file(self, path: Path, *, allow_missing: bool = False) -> dict[str, Any]:
+        if not path.exists():
+            if allow_missing:
+                return empty_database()
+            raise RecordError(f"record database does not exist: {path}")
         try:
-            with self.data_path.open(encoding="utf-8") as handle:
+            with path.open(encoding="utf-8") as handle:
                 database = json.load(handle)
         except (OSError, json.JSONDecodeError) as exc:
-            raise RecordError(f"cannot read valid JSON from {self.data_path}: {exc}") from exc
+            raise RecordError(f"cannot read valid JSON from {path}: {exc}") from exc
         return database
+
+    def read_unvalidated(self) -> dict[str, Any]:
+        primary = self._read_unvalidated_file(self.data_path)
+        mastered = (
+            self._read_unvalidated_file(self.mastered_path)
+            if self.mastered_path.exists()
+            else empty_database()
+        )
+        return self._merge_databases(primary, mastered)
 
     def read(self) -> dict[str, Any]:
         return self._load()
@@ -101,16 +145,16 @@ class RecordStore:
                 pass
             raise
 
-    def _write(self, database: dict[str, Any]) -> None:
+    def _write_file(self, path: Path, database: dict[str, Any], *, fail_before_replace: bool) -> None:
         import tempfile
 
         issues = validate_database(database)
         if issues:
             raise RecordError(f"refusing to write invalid records: {issues[0]['message']}")
-        self.data_path.parent.mkdir(parents=True, exist_ok=True)
-        file_mode = self.data_path.stat().st_mode & 0o777 if self.data_path.exists() else 0o644
+        path.parent.mkdir(parents=True, exist_ok=True)
+        file_mode = path.stat().st_mode & 0o777 if path.exists() else 0o644
         descriptor, temporary_name = tempfile.mkstemp(
-            prefix=".records.", suffix=".tmp", dir=self.data_path.parent
+            prefix=f".{path.stem}.", suffix=".tmp", dir=path.parent
         )
         try:
             with os.fdopen(descriptor, "w", encoding="utf-8") as handle:
@@ -118,11 +162,11 @@ class RecordStore:
                 handle.write("\n")
                 handle.flush()
                 os.fsync(handle.fileno())
-            if os.environ.get("LEARN_ENGLISH_FAIL_BEFORE_REPLACE") == "1":
+            if fail_before_replace and os.environ.get("LEARN_ENGLISH_FAIL_BEFORE_REPLACE") == "1":
                 raise RecordError("injected failure before atomic replace")
             os.chmod(temporary_name, file_mode)
-            os.replace(temporary_name, self.data_path)
-            directory_fd = os.open(self.data_path.parent, os.O_RDONLY)
+            os.replace(temporary_name, path)
+            directory_fd = os.open(path.parent, os.O_RDONLY)
             try:
                 os.fsync(directory_fd)
             finally:
@@ -133,6 +177,42 @@ class RecordStore:
             except FileNotFoundError:
                 pass
             raise
+
+    def _split_databases(self, database: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
+        records = dict(sorted(database["records"].items()))
+        mastered_records = {
+            identifier: record
+            for identifier, record in records.items()
+            if record["status"] == "mastered"
+        }
+        spill_mastered = (
+            self.mastered_path.exists()
+            or len(mastered_records) >= self.MASTERED_SPILLOVER_THRESHOLD
+        )
+        primary_records = {
+            identifier: record
+            for identifier, record in records.items()
+            if record["status"] != "mastered" or not spill_mastered
+        }
+        if not spill_mastered:
+            mastered_records = {}
+        primary = {
+            "schema_version": database["schema_version"],
+            "revision": database["revision"],
+            "records": dict(sorted(primary_records.items())),
+        }
+        mastered = {
+            "schema_version": database["schema_version"],
+            "revision": database["revision"],
+            "records": dict(sorted(mastered_records.items())),
+        }
+        return primary, mastered
+
+    def _write(self, database: dict[str, Any]) -> None:
+        primary, mastered = self._split_databases(database)
+        if mastered["records"] or self.mastered_path.exists():
+            self._write_file(self.mastered_path, mastered, fail_before_replace=False)
+        self._write_file(self.data_path, primary, fail_before_replace=True)
 
     def initialize(
         self,

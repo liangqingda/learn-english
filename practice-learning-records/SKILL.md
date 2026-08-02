@@ -5,7 +5,7 @@ description: 从规范学习记录中选择到期或低分知识点开展复习�
 
 # 复习英语学习记录
 
-使用仓库根目录 `learning-records/records.json` 中的规范记录开展复习。所有读取和写入必须通过 `learn-from-english/scripts/learning_records.py`；不得直接编辑 JSON。
+使用仓库根目录 `learning-records/records.json` 与 `learning-records/mastered.json` 中的规范记录开展复习。`records.json` 是学习中与已标熟记录的主库；当主库里的 `mastered` 记录累计到 10 条或 `mastered.json` 已存在时，写事务会把已掌握记录分流到 `mastered.json`。所有读取和写入必须通过 `learn-from-english/scripts/learning_records.py`；不得直接编辑 JSON。
 
 ## 打开复习菜单
 
@@ -154,7 +154,7 @@ python3 learn-from-english/scripts/learning_records.py menu \
 python3 learn-from-english/scripts/learning_records.py mastered-list
 ```
 
-只使用返回的 `status: mastered` 记录作为素材池。套题必须按 CET-4/CET-6 笔试试卷形式生成，不得压缩为代表性小练习；不包含听力，也不声称来自官方真题。生成前在卷首标明级别、总题量、考试时间和分值比例：CET-4 为 57 题、125 分钟；CET-6 为 57 题、130 分钟；写作 15%，听力 35%，阅读 35%，翻译 15%；总分按 710 报道时，写作和翻译合计约 212 分，听力和阅读各约 249 分。即使省略听力，也要保留 Part II 的位置、题量、占比和时间说明，并明确该部分按当前规则省略不生成；不得把省略听力后的套题改称为满分 65% 或减少版。
+只使用返回的 `status: mastered` 记录作为素材池；当 `learning-records/mastered.json` 存在时，这批素材主要来自该文件。套题必须按 CET-4/CET-6 笔试试卷形式生成，不得压缩为代表性小练习；不包含听力，也不声称来自官方真题。生成前在卷首标明级别、总题量、考试时间和分值比例：CET-4 为 57 题、125 分钟；CET-6 为 57 题、130 分钟；写作 15%，听力 35%，阅读 35%，翻译 15%；总分按 710 报道时，写作和翻译合计约 212 分，听力和阅读各约 249 分。即使省略听力，也要保留 Part II 的位置、题量、占比和时间说明，并明确该部分按当前规则省略不生成；不得把省略听力后的套题改称为满分 65% 或减少版。
 
 完整套题必须保持官方笔试顺序、题型、题量和内部比例：
 
@@ -163,7 +163,7 @@ python3 learn-from-english/scripts/learning_records.py mastered-list
 - Part III Reading Comprehension：30 题，40 分钟，占 35%。Section A 词汇理解/选词填空 10 题，占 5%；Section B 长篇阅读/匹配 10 题，占 10%；Section C 仔细阅读 10 题，占 20%（通常两篇短文，每篇 5 题）。阅读题号按真实试卷习惯标为 Questions 26-55，不因听力省略而从 1 重新编号。
 - Part IV Translation：汉译英段落翻译 1 题，30 分钟，占 15%。给出正式 Directions 和中文段落；不附参考译文。
 
-默认生成 CET-4 难度；只有素材明显更高级或用户明确要求时生成 CET-6 难度。首次呈现时不附答案、解析或提示，不暴露被测试知识点的正确形式，并把 `*Picked from records.json · mastered*` 放在菜单之后的最终 attribution block 第一行，不放在套题正文内。套题不改动记录分数。
+默认生成 CET-4 难度；只有素材明显更高级或用户明确要求时生成 CET-6 难度。首次呈现时不附答案、解析或提示，不暴露被测试知识点的正确形式，并把 `*Picked from mastered.json · mastered*` 放在菜单之后的最终 attribution block 第一行，不放在套题正文内。套题不改动记录分数。
 
 ## 历史与统计
 

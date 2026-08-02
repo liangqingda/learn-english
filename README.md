@@ -26,6 +26,7 @@ service.py ── menu.py
 store.py ── 校验、原子替换
     ↓
 learning-records/records.json
+learning-records/mastered.json
     ↓
 git_adapter.py
 ```
@@ -35,7 +36,7 @@ git_adapter.py
 | 模块 | 职责 |
 | --- | --- |
 | `models.py` | Schema v2、规范化 ID、字段与关系校验 |
-| `store.py` | 临时文件、`fsync` 和原子替换 |
+| `store.py` | 合并读取、按状态分流、临时文件、`fsync` 和原子替换 |
 | `service.py` | 批量写入、评分事务、查询、迁移、历史与统计 |
 | `scheduler.py` | 状态转换、复习间隔和选题优先级 |
 | `menu.py` | 初始、复习后和习题中三类菜单策略 |
@@ -46,7 +47,7 @@ git_adapter.py
 
 ## 数据模型
 
-所有记录统一保存在 `learning-records/records.json`，不再通过三个目录移动文件来表达状态。
+学习中和已标熟记录保存在 `learning-records/records.json`。当主库内 `mastered` 记录达到 10 条，或 `learning-records/mastered.json` 已存在时，写事务会把已掌握记录分流到 `mastered.json`；查询、菜单和复习抽题会合并读取两个文件，所以 CLI 调用方式保持不变。
 
 ```json
 {
@@ -88,8 +89,9 @@ git_adapter.py
 读取并校验当前 revision
   → 在内存中应用整个操作
   → 校验完整结果
+  → 满足阈值时把 mastered 记录分流到 mastered.json
   → 写入同目录临时文件并 fsync
-  → 原子替换 records.json
+  → 原子替换 records.json / mastered.json
   → 创建一个范围受限的 Git 提交
 ```
 
@@ -154,9 +156,10 @@ python3 learn-from-english/scripts/learning_records.py next-review --path errors
 python3 learn-from-english/scripts/learning_records.py next-review --familiar
 python3 learn-from-english/scripts/learning_records.py next-review --mastered
 python3 learn-from-english/scripts/learning_records.py next-review --random
+python3 learn-from-english/scripts/learning_records.py mastered-list
 ```
 
-选题先考虑是否到期，再考虑到期时间、掌握分、遗忘次数和稳定 ID。随机复习按低分与遗忘次数加权。
+选题先考虑是否到期，再考虑到期时间、掌握分、遗忘次数和稳定 ID。随机复习按低分与遗忘次数加权。完整四六级套题入口使用 `mastered-list` 返回的已掌握素材；当 `mastered.json` 存在时，素材主要来自该文件。
 
 ### 查询和统计
 
@@ -191,7 +194,8 @@ python3 learn-from-english/scripts/learning_records.py migrate-v2 --dry-run
 .
 ├── AGENTS.md
 ├── learning-records/
-│   └── records.json
+│   ├── records.json
+│   └── mastered.json
 ├── learn-from-english/
 │   ├── SKILL.md
 │   ├── agents/openai.yaml
