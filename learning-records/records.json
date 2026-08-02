@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 71,
+  "revision": 72,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -1077,7 +1077,7 @@
     "errors:missing-third-person-s-after-she-points-out": {
       "id": "errors:missing-third-person-s-after-she-points-out",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "一般现在时 she 后动词漏加 -s",
       "explanation": "主语是 she/he/it 或单数名词，并且句子描述通常情况时，谓语动词要用第三人称单数形式，例如 point out 变 points out，listen 变 listens。",
       "source": "She politely point out a mistake on my email.",
@@ -1089,14 +1089,21 @@
       "first_learned_at": "2026-08-01T21:34:52+08:00",
       "last_learned_at": "2026-08-01T21:34:52+08:00",
       "learned_count": 2,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T16:51:15+08:00",
+      "next_review_at": "2026-08-09T16:51:15+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-02T16:51:15+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:misunderstand-go-out-with-as-literal-exit": {
       "id": "errors:misunderstand-go-out-with-as-literal-exit",
@@ -1567,6 +1574,29 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:point-out-used-with-advice-collocation": {
+      "id": "errors:point-out-used-with-advice-collocation",
+      "category": "errors",
+      "status": "learning",
+      "title": "把 point out 和 advice 直接搭配",
+      "explanation": "point out 通常表示指出事实、问题、错误或需要注意的地方；advice 是建议内容，更自然的动词是 give、offer 或 provide，若用 suggest 则后面通常接做法或 that 从句。",
+      "source": "She usually points out useful advice in meeting.",
+      "example": "She usually offers useful advice in meetings.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-02T16:51:15+08:00",
+      "last_learned_at": "2026-08-02T16:51:15+08:00",
+      "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:preposition-before-directional-adverbial-back-east-out-west": {
       "id": "errors:preposition-before-directional-adverbial-back-east-out-west",
