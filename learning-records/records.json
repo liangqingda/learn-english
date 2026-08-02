@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 72,
+  "revision": 73,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -437,7 +437,7 @@
     "errors:common-place-name-english-not-pinyin": {
       "id": "errors:common-place-name-english-not-pinyin",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "常见地名应用英文名而不是拼音",
       "explanation": "翻译城市名时，常见英文地名要使用约定英文名；温哥华是 Vancouver，不写作 wengehua。",
       "source": "We will go travel to wengehua to visit our friends next year.",
@@ -448,14 +448,21 @@
       "first_learned_at": "2026-07-31T09:05:39+08:00",
       "last_learned_at": "2026-07-31T09:05:39+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 10.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T16:54:49+08:00",
+      "next_review_at": "2026-09-01T16:54:49+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-08-02T16:54:49+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:completed-action-uses-past-tense-found": {
       "id": "errors:completed-action-uses-past-tense-found",
