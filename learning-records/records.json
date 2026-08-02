@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 89,
+  "revision": 90,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -3456,6 +3456,31 @@
       "mastered_at": null,
       "review_history": []
     },
+    "usage:drizzle-vs-rain-shower": {
+      "id": "usage:drizzle-vs-rain-shower",
+      "category": "usage",
+      "status": "learning",
+      "title": "drizzle、rain 和 shower 的语感区别",
+      "explanation": "drizzle 强调雨很细很轻；rain 是最普通的下雨说法；shower 常指短时间的一阵雨。描述天气时，drizzle 往往带有潮湿、灰蒙蒙、轻微但持续的感觉。",
+      "source": "drizzle",
+      "example": "There was a light drizzle all morning. 整个早上都下着小毛毛雨。",
+      "tags": [
+        "usage",
+        "weather",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-08-02T20:55:31+08:00",
+      "last_learned_at": "2026-08-02T20:55:31+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "usage:first-then-action-sequence": {
       "id": "usage:first-then-action-sequence",
       "category": "usage",
@@ -3583,6 +3608,31 @@
       ],
       "first_learned_at": "2026-07-31T09:16:35+08:00",
       "last_learned_at": "2026-07-31T09:16:35+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "vocabulary:drizzle-light-rain": {
+      "id": "vocabulary:drizzle-light-rain",
+      "category": "vocabulary",
+      "status": "learning",
+      "title": "drizzle 表示毛毛雨或下毛毛雨",
+      "explanation": "drizzle 可作名词，表示很细、很轻、持续落下的小雨；也可作动词，表示下毛毛雨。它比 rain 更轻，比 shower 更细碎、持续感更强。",
+      "source": "drizzle",
+      "example": "It started to drizzle on my way home. 我回家路上开始下毛毛雨了。",
+      "tags": [
+        "verb-noun",
+        "vocabulary",
+        "weather"
+      ],
+      "first_learned_at": "2026-08-02T20:55:31+08:00",
+      "last_learned_at": "2026-08-02T20:55:31+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
