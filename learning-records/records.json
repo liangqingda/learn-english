@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 74,
+  "revision": 75,
   "records": {
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -1251,6 +1251,29 @@
       ],
       "first_learned_at": "2026-08-02T13:46:56+08:00",
       "last_learned_at": "2026-08-02T13:46:56+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:on-the-way-used-for-along-this-road": {
+      "id": "errors:on-the-way-used-for-along-this-road",
+      "category": "errors",
+      "status": "learning",
+      "title": "把 on the way 误当作 along this road",
+      "explanation": "on the way 通常表示“在去某地的路上/途中”，不等于“沿着这条路继续走”。表达路线指引时，应说 continue on this road 或 continue along this road。",
+      "source": "Continue on the way until you see a bank.",
+      "example": "Continue on this road until you see a bank.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-02T17:34:58+08:00",
+      "last_learned_at": "2026-08-02T17:34:58+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -2762,7 +2785,7 @@
     "phrases:continue-on": {
       "id": "phrases:continue-on",
       "category": "phrases",
-      "status": "learning",
+      "status": "familiar",
       "title": "continue on：继续前行",
       "explanation": "continue on 表示沿当前路线继续前行；on 强调向前延续，但在部分语境中只用 continue 也足够。",
       "source": "A green light on a traffic signal means your car can continue on",
@@ -2773,14 +2796,21 @@
       "first_learned_at": "2026-07-29T20:19:15+08:00",
       "last_learned_at": "2026-07-29T20:19:15+08:00",
       "learned_count": 1,
-      "mastery_score": 7.0,
-      "review_count": 1,
-      "high_score_streak": 0,
-      "last_reviewed_at": "2026-07-29T20:27:22+08:00",
-      "next_review_at": null,
+      "mastery_score": 8.0,
+      "review_count": 2,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T17:34:58+08:00",
+      "next_review_at": "2026-08-09T17:34:58+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-02T17:34:58+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "phrases:dish-out-distribute-or-give": {
       "id": "phrases:dish-out-distribute-or-give",
