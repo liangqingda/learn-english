@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 109,
+  "revision": 110,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -1427,7 +1427,7 @@
     "errors:modal-will-base-verb-not-s-form": {
       "id": "errors:modal-will-base-verb-not-s-form",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "will 后接动词原形",
       "explanation": "情态动词 will 后面接动词原形；主语即使是 that，也不要把后面的动词变成第三人称单数。",
       "source": "He doesn't want to going out with his colleague, because that will makes work embarrassing.",
@@ -1438,14 +1438,21 @@
       "first_learned_at": "2026-07-30T16:31:48+08:00",
       "last_learned_at": "2026-07-30T16:31:48+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 9.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-03T22:04:31+08:00",
+      "next_review_at": "2026-08-17T22:04:31+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 9.0,
+          "reviewed_at": "2026-08-03T22:04:31+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:move-to-place-preposition": {
       "id": "errors:move-to-place-preposition",
