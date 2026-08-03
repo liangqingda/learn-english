@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 100,
+  "revision": 109,
   "category": "phrases",
   "records": {
     "phrases:back-east-us": {
@@ -278,7 +278,7 @@
     "phrases:make-yourself-at-home": {
       "id": "phrases:make-yourself-at-home",
       "category": "phrases",
-      "status": "learning",
+      "status": "familiar",
       "title": "Make yourself at home：别拘束",
       "explanation": "Make yourself at home 用来让客人在家里放松自在，语气友好，常用于朋友来访或主人招待客人。",
       "source": "4",
@@ -291,14 +291,21 @@
       "first_learned_at": "2026-07-31T14:04:13+08:00",
       "last_learned_at": "2026-07-31T14:04:13+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 10.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-03T22:03:55+08:00",
+      "next_review_at": "2026-09-02T22:03:55+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-08-03T22:03:55+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "phrases:old-timers": {
       "id": "phrases:old-timers",

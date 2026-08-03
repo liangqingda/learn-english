@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 108,
+  "revision": 109,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -2236,6 +2236,30 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:refrigerator-spelling-not-refrigerater": {
+      "id": "errors:refrigerator-spelling-not-refrigerater",
+      "category": "errors",
+      "status": "learning",
+      "title": "refrigerator 的拼写：不要写成 refrigerater",
+      "explanation": "refrigerator 表示冰箱，结尾是 -ator，不是 -ater。日常口语里也常用 fridge。",
+      "source": "There's coke in the refrigerater.",
+      "example": "There are some drinks in the refrigerator.",
+      "tags": [
+        "review-error",
+        "spelling"
+      ],
+      "first_learned_at": "2026-08-03T22:03:55+08:00",
+      "last_learned_at": "2026-08-03T22:03:55+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:registration-vs-register-noun-event": {
       "id": "errors:registration-vs-register-noun-event",
