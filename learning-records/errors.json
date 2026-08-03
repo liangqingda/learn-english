@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 105,
+  "revision": 107,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -878,7 +878,7 @@
     "errors:embedded-what-clause-statement-word-order": {
       "id": "errors:embedded-what-clause-statement-word-order",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "what 从句使用陈述语序",
       "explanation": "在 what ... was like 等嵌入式从句中使用陈述语序，不能按直接疑问句倒装。",
       "source": "The old-timers in town still remember what here hadn't station was like.",
@@ -889,14 +889,21 @@
       "first_learned_at": "2026-07-30T20:11:13+08:00",
       "last_learned_at": "2026-07-30T20:11:13+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 9.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-03T21:57:02+08:00",
+      "next_review_at": "2026-08-17T21:57:02+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 9.0,
+          "reviewed_at": "2026-08-03T21:57:02+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:existential-there-was-no": {
       "id": "errors:existential-there-was-no",
@@ -960,6 +967,29 @@
       ],
       "first_learned_at": "2026-08-01T21:21:25+08:00",
       "last_learned_at": "2026-08-01T21:21:25+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:finite-verb-tense-agreement-in-embedded-clause": {
+      "id": "errors:finite-verb-tense-agreement-in-embedded-clause",
+      "category": "errors",
+      "status": "learning",
+      "title": "嵌入从句中的谓语动词仍需体现时态或主谓一致",
+      "explanation": "嵌入式从句虽然不用疑问倒装，但里面的谓语动词仍然要按语境使用正确的时态或主谓一致。过去叙述 She asked me... 中通常说 what the manager meant，而不是 what the manager mean。",
+      "source": "She asked me what the manager mean by that comment.",
+      "example": "She asked me what the manager meant by that comment.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-03T21:57:02+08:00",
+      "last_learned_at": "2026-08-03T21:57:02+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -1135,6 +1165,29 @@
       ],
       "first_learned_at": "2026-07-30T11:51:53+08:00",
       "last_learned_at": "2026-07-30T11:51:53+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:life-as-general-condition-without-the": {
+      "id": "errors:life-as-general-condition-without-the",
+      "category": "errors",
+      "status": "learning",
+      "title": "life 表示生活状态时通常不用 the",
+      "explanation": "life 表示一般的生活状态、生活方式时常作抽象名词使用，不需要 the；如果强调某一群人的生活，可以说 their life。",
+      "source": "I wonder what the life was like before they moved Shanghai.",
+      "example": "I wonder what their life was like before they moved to Shanghai.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-03T21:57:42+08:00",
+      "last_learned_at": "2026-08-03T21:57:42+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -1360,6 +1413,29 @@
       "first_learned_at": "2026-07-30T16:31:48+08:00",
       "last_learned_at": "2026-07-30T16:31:48+08:00",
       "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:move-to-place-preposition": {
+      "id": "errors:move-to-place-preposition",
+      "category": "errors",
+      "status": "learning",
+      "title": "move to + 地点：搬到某地",
+      "explanation": "表示“搬到某地”时，move 后面接地点通常要用介词 to，不能直接说 move Shanghai。",
+      "source": "I wonder what the life was like before they moved Shanghai.",
+      "example": "I wonder what life was like before they moved to Shanghai.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-03T21:57:02+08:00",
+      "last_learned_at": "2026-08-03T21:57:02+08:00",
+      "learned_count": 2,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,
