@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 107,
+  "revision": 108,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -630,6 +630,31 @@
           "new_status": "learning"
         }
       ]
+    },
+    "errors:cool-breeze-adjective-omitted": {
+      "id": "errors:cool-breeze-adjective-omitted",
+      "category": "errors",
+      "status": "learning",
+      "title": "翻译凉爽的微风时不要漏掉 cool",
+      "explanation": "中文说“凉爽的微风”时，英文里 breeze 只表达轻柔的风，不自动包含“凉爽”；需要加 cool，写作 a cool breeze。",
+      "source": "There was a breeze from the sea.",
+      "example": "There was a cool breeze from the sea.",
+      "tags": [
+        "review-error",
+        "translation",
+        "weather"
+      ],
+      "first_learned_at": "2026-08-03T21:59:47+08:00",
+      "last_learned_at": "2026-08-03T21:59:47+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:direct-question-word-order-and-look-at": {
       "id": "errors:direct-question-word-order-and-look-at",
