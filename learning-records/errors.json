@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 97,
+  "revision": 98,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -584,14 +584,21 @@
       "first_learned_at": "2026-07-29T20:27:33+08:00",
       "last_learned_at": "2026-07-29T20:27:33+08:00",
       "learned_count": 2,
-      "mastery_score": 0.0,
-      "review_count": 0,
+      "mastery_score": 7.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-08-03T12:37:25+08:00",
+      "next_review_at": "2026-08-06T12:37:25+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-08-03T12:37:25+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
     },
     "errors:continue-with-noun": {
       "id": "errors:continue-with-noun",
@@ -2488,6 +2495,29 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:third-person-singular-present-s-ending": {
+      "id": "errors:third-person-singular-present-s-ending",
+      "category": "errors",
+      "status": "learning",
+      "title": "一般现在时第三人称单数漏加 -s",
+      "explanation": "在 when 引导的时间从句中，主语 the rain 是第三人称单数，表示将来条件时从句使用一般现在时 stops，而不是 stop。",
+      "source": "When the rain stop, we can continue on toward the village.",
+      "example": "When the rain stops, we can continue on toward the village.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-03T12:37:25+08:00",
+      "last_learned_at": "2026-08-03T12:37:25+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:third-person-singular-s-missing-after-he": {
       "id": "errors:third-person-singular-s-missing-after-he",
       "category": "errors",
@@ -2525,6 +2555,29 @@
       ],
       "first_learned_at": "2026-08-02T18:29:05+08:00",
       "last_learned_at": "2026-08-02T18:29:05+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:traffic-versus-traffic-light-turns-green": {
+      "id": "errors:traffic-versus-traffic-light-turns-green",
+      "category": "errors",
+      "status": "learning",
+      "title": "turn green 的主语应为 traffic light 而非 traffic",
+      "explanation": "traffic 表示道路上的车辆流量或交通状况，信号变绿时应说 the light 或 the traffic light turns green。",
+      "source": "After the traffic turns green, we can continue on.",
+      "example": "After the traffic light turns green, we can continue on.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-03T12:37:25+08:00",
+      "last_learned_at": "2026-08-03T12:37:25+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
