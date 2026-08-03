@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 114,
+  "revision": 115,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -940,7 +940,7 @@
     "errors:existential-there-was-no": {
       "id": "errors:existential-there-was-no",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "用 there was no 表达过去不存在",
       "explanation": "表示过去某地没有某物时，用 there was no + 单数名词；hadn't 不能直接放在地点词后表达存在。",
       "source": "The old-timers in town still remember what here hadn't station was like.",
@@ -951,14 +951,21 @@
       "first_learned_at": "2026-07-30T20:11:20+08:00",
       "last_learned_at": "2026-07-30T20:11:20+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-04T07:23:36+08:00",
+      "next_review_at": "2026-08-11T07:23:36+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-04T07:23:36+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:fetch-use-get-not-take": {
       "id": "errors:fetch-use-get-not-take",
@@ -1599,6 +1606,29 @@
       ],
       "first_learned_at": "2026-08-02T13:46:56+08:00",
       "last_learned_at": "2026-08-02T13:46:56+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:omitting-location-in-existential-there-sentence": {
+      "id": "errors:omitting-location-in-existential-there-sentence",
+      "category": "errors",
+      "status": "learning",
+      "title": "there was no 句子漏掉地点范围",
+      "explanation": "把“某地没有某物”翻译成 there was no... 时，通常需要保留 in/at + 地点来说明不存在发生在哪个范围内；只说 there was no train station ten years ago 会让听者不知道是哪里没有火车站。",
+      "source": "There was no train station ten years ago.",
+      "example": "There was no train station in the town ten years ago.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-04T07:23:36+08:00",
+      "last_learned_at": "2026-08-04T07:23:36+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
