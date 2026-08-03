@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 112,
+  "revision": 116,
   "category": "usage",
   "records": {
     "usage:after-不宜直接当-later-连接后续动作": {
@@ -395,7 +395,7 @@
     "usage:shall-we-suggestion-friendly": {
       "id": "usage:shall-we-suggestion-friendly",
       "category": "usage",
-      "status": "learning",
+      "status": "familiar",
       "title": "Shall we...?：友好地提出建议",
       "explanation": "Shall we...? 常用于邀请对方一起做某事，语气礼貌、轻松，尤其适合共同活动。它比 Do you want to...? 稍微更优雅一点。",
       "source": "Shall we take the boat out?",
@@ -408,14 +408,21 @@
       "first_learned_at": "2026-08-03T07:15:39+08:00",
       "last_learned_at": "2026-08-03T07:15:39+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-04T07:31:51+08:00",
+      "next_review_at": "2026-08-11T07:31:51+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-04T07:31:51+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     }
   }
 }

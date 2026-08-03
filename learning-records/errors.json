@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 115,
+  "revision": 116,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -2969,6 +2969,29 @@
       ],
       "first_learned_at": "2026-08-02T18:32:27+08:00",
       "last_learned_at": "2026-08-02T18:32:27+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:using-shall-you-for-friendly-suggestion": {
+      "id": "errors:using-shall-you-for-friendly-suggestion",
+      "category": "errors",
+      "status": "learning",
+      "title": "误用 Shall you...? 表达友好建议",
+      "explanation": "表达“我们一起做某事好吗？”时要用 Shall we...?；Shall you...? 不能自然地表示邀请对方一起做某事。",
+      "source": "1. B",
+      "example": "Shall we order some coffee before the meeting?",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-04T07:31:51+08:00",
+      "last_learned_at": "2026-08-04T07:31:51+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
