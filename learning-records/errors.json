@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 98,
+  "revision": 99,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -769,14 +769,21 @@
       "first_learned_at": "2026-08-01T21:42:55+08:00",
       "last_learned_at": "2026-08-01T21:42:55+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
+      "mastery_score": 5.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-08-03T12:53:17+08:00",
+      "next_review_at": "2026-08-06T12:53:17+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 5.0,
+          "reviewed_at": "2026-08-03T12:53:17+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
     },
     "errors:eastward-for-westbound-us-travel": {
       "id": "errors:eastward-for-westbound-us-travel",
@@ -2555,6 +2562,29 @@
       ],
       "first_learned_at": "2026-08-02T18:29:05+08:00",
       "last_learned_at": "2026-08-02T18:29:05+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:time-duration-before-noun-needs-singular-hyphenated-unit": {
+      "id": "errors:time-duration-before-noun-needs-singular-hyphenated-unit",
+      "category": "errors",
+      "status": "learning",
+      "title": "时间长度作定语时要用单数连字符结构",
+      "explanation": "表示‘十分钟的休息’时，英语通常把时间长度当作一个整体定语，写成 a ten-minute rest 或 a rest of ten minutes，而不是 ten minutes rest。minutes 在这里不是普通复数名词直接修饰 rest，而是被压缩进复合形容词里，单位通常保持单数。",
+      "source": "He took ten-minutes rest before the meeting. / After ten-minutes rest, she went back to work.",
+      "example": "He took a ten-minute rest before the meeting.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-03T12:53:17+08:00",
+      "last_learned_at": "2026-08-03T12:53:17+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

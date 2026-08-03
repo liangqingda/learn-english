@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 97,
+  "revision": 100,
   "category": "grammar",
   "records": {
     "grammar:can-i-get-you-offer-food-drink": {
@@ -18,6 +18,29 @@
       ],
       "first_learned_at": "2026-07-31T14:04:13+08:00",
       "last_learned_at": "2026-07-31T14:04:13+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:compound-adjective-time-duration-before-noun": {
+      "id": "grammar:compound-adjective-time-duration-before-noun",
+      "category": "grammar",
+      "status": "learning",
+      "title": "时间长度作定语时常用连字符复合形容词",
+      "explanation": "当时间长度放在名词前面作定语时，英语常把它压缩成复合形容词，通常用单数并加连字符，如 a ten-minute rest、a two-hour meeting。重点是它整体修饰后面的名词，而不是把 minutes 当作普通复数名词直接去修饰 rest。",
+      "source": "a ten-minute rest",
+      "example": "After a ten-minute rest, she felt better.",
+      "tags": [
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-08-03T12:54:13+08:00",
+      "last_learned_at": "2026-08-03T12:54:13+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
