@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 101,
+  "revision": 102,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -846,7 +846,7 @@
     "errors:egg-plural-spelling-eggs-not-egges": {
       "id": "errors:egg-plural-spelling-eggs-not-egges",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "egg 的复数拼写是 eggs",
       "explanation": "egg 的规则复数直接加 -s，写作 eggs；不要按类似 boxes 的模式写成 egges。",
       "source": "That's ok. First, I'll pour the coffee, then I'll serve the egges.",
@@ -859,14 +859,21 @@
       "first_learned_at": "2026-07-31T13:53:17+08:00",
       "last_learned_at": "2026-07-31T13:53:17+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 10.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-03T21:35:30+08:00",
+      "next_review_at": "2026-09-02T21:35:30+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-08-03T21:35:30+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:embedded-what-clause-statement-word-order": {
       "id": "errors:embedded-what-clause-statement-word-order",
