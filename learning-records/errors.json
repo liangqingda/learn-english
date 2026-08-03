@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 113,
+  "revision": 114,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -647,16 +647,16 @@
       "first_learned_at": "2026-08-03T21:59:47+08:00",
       "last_learned_at": "2026-08-03T21:59:47+08:00",
       "learned_count": 1,
-      "mastery_score": 9.0,
+      "mastery_score": 10.0,
       "review_count": 1,
       "high_score_streak": 1,
       "last_reviewed_at": "2026-08-04T07:08:12+08:00",
-      "next_review_at": "2026-08-18T07:08:12+08:00",
+      "next_review_at": "2026-09-03T07:08:12+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
         {
-          "score": 9.0,
+          "score": 10.0,
           "reviewed_at": "2026-08-04T07:08:12+08:00",
           "previous_status": "learning",
           "new_status": "familiar"
