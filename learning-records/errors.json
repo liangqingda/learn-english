@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 103,
+  "revision": 104,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -993,6 +993,31 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:friendly-service-not-very-good-service": {
+      "id": "errors:friendly-service-not-very-good-service",
+      "category": "errors",
+      "status": "learning",
+      "title": "friendly service 不等于 very good service",
+      "explanation": "中文说“服务很友好”时，重点是服务人员态度亲切、友善，英文应明确用 friendly 或 the staff were friendly；very good service 只是泛泛评价服务好，遗漏了“友好”这一层语义。",
+      "source": "They served quickly last night and the service was very good.",
+      "example": "They served the dishes quickly last night, and the service was friendly.",
+      "tags": [
+        "review-error",
+        "service",
+        "translation"
+      ],
+      "first_learned_at": "2026-08-03T21:48:55+08:00",
+      "last_learned_at": "2026-08-03T21:48:55+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:fruit-generic-uncountable-not-fruits": {
       "id": "errors:fruit-generic-uncountable-not-fruits",
       "category": "errors",
@@ -1634,7 +1659,7 @@
     "errors:past-time-marker-last-night-omitted": {
       "id": "errors:past-time-marker-last-night-omitted",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "翻译过去时间时不要漏掉 last night 和过去时",
       "explanation": "中文里有“昨晚”时，英文通常需要明确加 last night，并把主要谓语放到过去时；只说 is very good 会变成现在的一般评价，遗漏了原句的具体过去时间。",
       "source": "That restaurant's service is very good and they serve dishes quickly.",
@@ -1647,14 +1672,21 @@
       "first_learned_at": "2026-08-02T13:31:03+08:00",
       "last_learned_at": "2026-08-02T13:31:03+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 10.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-03T21:48:55+08:00",
+      "next_review_at": "2026-09-02T21:48:55+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-08-03T21:48:55+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:past-time-used-to-live-present-error": {
       "id": "errors:past-time-used-to-live-present-error",
