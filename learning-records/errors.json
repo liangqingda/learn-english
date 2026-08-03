@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 112,
+  "revision": 113,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -634,7 +634,7 @@
     "errors:cool-breeze-adjective-omitted": {
       "id": "errors:cool-breeze-adjective-omitted",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "翻译凉爽的微风时不要漏掉 cool",
       "explanation": "中文说“凉爽的微风”时，英文里 breeze 只表达轻柔的风，不自动包含“凉爽”；需要加 cool，写作 a cool breeze。",
       "source": "There was a breeze from the sea.",
@@ -647,14 +647,21 @@
       "first_learned_at": "2026-08-03T21:59:47+08:00",
       "last_learned_at": "2026-08-03T21:59:47+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 9.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-04T07:08:12+08:00",
+      "next_review_at": "2026-08-18T07:08:12+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 9.0,
+          "reviewed_at": "2026-08-04T07:08:12+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:direct-question-word-order-and-look-at": {
       "id": "errors:direct-question-word-order-and-look-at",
@@ -1344,6 +1351,29 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:missing-finite-verb-after-subject-phrase": {
+      "id": "errors:missing-finite-verb-after-subject-phrase",
+      "category": "errors",
+      "status": "learning",
+      "title": "英语完整句中主语短语后不能漏掉谓语动词",
+      "explanation": "用户想表达“一阵凉爽的微风穿过花园”，但写成 A cool breeze through the garden after noon. 时，A cool breeze 只是主语名词短语，through the garden 是介词短语，整句缺少表示动作的谓语动词。完整句需要加入 blew、passed 或 drifted 等动词。",
+      "source": "A cool breeze through the garden after noon.",
+      "example": "A cool breeze blew through the garden in the afternoon.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-04T07:08:12+08:00",
+      "last_learned_at": "2026-08-04T07:08:12+08:00",
+      "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:missing-past-perfect-for-earlier-arrival": {
       "id": "errors:missing-past-perfect-for-earlier-arrival",
