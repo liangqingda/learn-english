@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 110,
+  "revision": 111,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -2295,7 +2295,7 @@
     "errors:relative-clause-after-friend-lived-near": {
       "id": "errors:relative-clause-after-friend-lived-near",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "用定语从句或现在分词修饰 friend",
       "explanation": "修饰 a friend 时，不能直接说 a friend lived near；应使用定语从句 a friend who lives nearby，或现在分词短语 a friend living nearby。",
       "source": "I am waiting for a friend lived near.",
@@ -2308,14 +2308,21 @@
       "first_learned_at": "2026-07-29T13:50:00+08:00",
       "last_learned_at": "2026-07-29T13:50:00+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 10.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-03T22:08:10+08:00",
+      "next_review_at": "2026-09-02T22:08:10+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-08-03T22:08:10+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:remember-when-past-state-was-not-is": {
       "id": "errors:remember-when-past-state-was-not-is",
@@ -2916,6 +2923,30 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:wait-for-someone-not-wait-someone": {
+      "id": "errors:wait-for-someone-not-wait-someone",
+      "category": "errors",
+      "status": "learning",
+      "title": "wait for someone：等某人",
+      "explanation": "wait 作不及物动词表示等待时，后面接等待对象要用介词 for；不能直接说 wait a friend。",
+      "source": "I am waiting a friend who lives nearby.",
+      "example": "I am waiting for a friend who lives nearby.",
+      "tags": [
+        "review-error",
+        "verb-pattern"
+      ],
+      "first_learned_at": "2026-08-03T22:08:10+08:00",
+      "last_learned_at": "2026-08-03T22:08:10+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:want-to-base-verb-not-gerund": {
       "id": "errors:want-to-base-verb-not-gerund",
