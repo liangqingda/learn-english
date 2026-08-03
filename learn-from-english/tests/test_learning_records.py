@@ -79,6 +79,29 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertEqual(repeated["learned_count"], 2)
         self.assertEqual(len(self.service.records()), 2)
 
+    def test_transaction_does_not_rewrite_unchanged_category_files(self) -> None:
+        before = {
+            category: self.store.category_path(category).read_bytes()
+            for category in ("phrases", "vocabulary", "usage", "errors")
+        }
+
+        self.service.upsert(payload("grammar", "category-local-revision"))
+
+        grammar = read_json(self.store.category_path("grammar"))
+        self.assertEqual(grammar["revision"], 1)
+        for category, content in before.items():
+            self.assertEqual(self.store.category_path(category).read_bytes(), content)
+
+    def test_later_transaction_preserves_previously_changed_category(self) -> None:
+        self.service.upsert(payload("grammar", "first-category-change"))
+        grammar_before = self.store.category_path("grammar").read_bytes()
+
+        self.service.upsert(payload("vocabulary", "second-category-change"))
+
+        self.assertEqual(self.store.category_path("grammar").read_bytes(), grammar_before)
+        vocabulary = read_json(self.store.category_path("vocabulary"))
+        self.assertEqual(vocabulary["revision"], 2)
+
     def test_batch_upsert_reuses_similar_existing_records(self) -> None:
         original = payload("errors", "back-east-direction")
         original["title"] = "back east 不能表示西行方向"

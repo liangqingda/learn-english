@@ -659,6 +659,28 @@ class RecordStore:
             learning_path = self.category_path(category)
             learning_document = learning[category]
             current_learning = self._current_document(learning_path)
+            mastered_path = self.mastered_category_path(category)
+            mastered_document = mastered[category]
+            current_mastered = self._current_document(mastered_path)
+
+            if current_learning is None:
+                learning_changed = True
+            else:
+                comparable_learning = {
+                    **learning_document,
+                    "revision": current_learning.get("revision", 0),
+                }
+                learning_changed = self._canonical_json(
+                    current_learning
+                ) != self._canonical_json(comparable_learning)
+
+            mastered_changed = bool(current_mastered is not None or mastered_document) and (
+                self._canonical_json(current_mastered)
+                != self._canonical_json(mastered_document)
+            )
+            if not force_all and not learning_changed and not mastered_changed:
+                learning_document["revision"] = current_learning.get("revision", 0)
+
             if force_all or self._canonical_json(current_learning) != self._canonical_json(
                 learning_document
             ):
@@ -672,9 +694,6 @@ class RecordStore:
                     )
                 )
 
-            mastered_path = self.mastered_category_path(category)
-            mastered_document = mastered[category]
-            current_mastered = self._current_document(mastered_path)
             if force_all or current_mastered is not None or mastered_document:
                 if self._canonical_json(current_mastered) != self._canonical_json(mastered_document):
                     writes.append(
