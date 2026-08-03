@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 111,
+  "revision": 112,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -2453,6 +2453,31 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:set-the-table-not-put-the-table": {
+      "id": "errors:set-the-table-not-put-the-table",
+      "category": "errors",
+      "status": "learning",
+      "title": "set the table：摆好餐桌",
+      "explanation": "表示吃饭前摆放餐具、布置餐桌时，英语固定说 set the table；put the table 会被理解成“放置桌子”这个家具，不能表达摆餐具。",
+      "source": "Could you dish it up while I put the table?",
+      "example": "Could you dish it up while I set the table?",
+      "tags": [
+        "collocation",
+        "housework",
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-03T22:09:54+08:00",
+      "last_learned_at": "2026-08-03T22:09:54+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:several-plus-plural-count-noun": {
       "id": "errors:several-plus-plural-count-noun",

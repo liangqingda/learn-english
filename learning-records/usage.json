@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 97,
+  "revision": 112,
   "category": "usage",
   "records": {
     "usage:after-不宜直接当-later-连接后续动作": {
@@ -176,7 +176,7 @@
     "usage:dish-up-word-order-object-position": {
       "id": "usage:dish-up-word-order-object-position",
       "category": "usage",
-      "status": "learning",
+      "status": "familiar",
       "title": "dish up 的宾语位置",
       "explanation": "dish up 是可分短语动词，名词宾语可以放在 up 前后，如 dish up the rice 或 dish the rice up；代词宾语通常放中间，如 dish it up。",
       "source": "to dish up something",
@@ -189,14 +189,21 @@
       "first_learned_at": "2026-07-31T09:13:38+08:00",
       "last_learned_at": "2026-07-31T09:13:38+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 10.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-03T22:09:54+08:00",
+      "next_review_at": "2026-09-02T22:09:54+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-08-03T22:09:54+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "usage:drizzle-vs-rain-shower": {
       "id": "usage:drizzle-vs-rain-shower",
