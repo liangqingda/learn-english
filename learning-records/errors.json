@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 117,
+  "revision": 118,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -1234,6 +1234,52 @@
       ],
       "first_learned_at": "2026-07-30T11:51:53+08:00",
       "last_learned_at": "2026-07-30T11:51:53+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:help-yourself-reflexive-dropped-in-idiom": {
+      "id": "errors:help-yourself-reflexive-dropped-in-idiom",
+      "category": "errors",
+      "status": "learning",
+      "title": "help yourself 是固定搭配，self 不能拆写",
+      "explanation": "help yourself 作为固定表达要保持完整，不能写成 help your self。这里的 yourself 是一个整体反身代词，不是可拆开的两个词。",
+      "source": "Help your self from the table.",
+      "example": "Help yourself to the food.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-04T13:04:40+08:00",
+      "last_learned_at": "2026-08-04T13:04:40+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:help-yourself-to-not-with-for-offer": {
+      "id": "errors:help-yourself-to-not-with-for-offer",
+      "category": "errors",
+      "status": "learning",
+      "title": "help yourself 后面常接 to，不是 with",
+      "explanation": "在表示“请自取/随便吃”时，英语把被取用的东西看作一个可供取用的对象，所以习惯说 help yourself to + 食物/饮料，而不是 help yourself with。",
+      "source": "You can help yourself with some tea.",
+      "example": "You can help yourself to some tea.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-04T13:04:40+08:00",
+      "last_learned_at": "2026-08-04T13:04:40+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

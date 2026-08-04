@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 109,
+  "revision": 118,
   "category": "phrases",
   "records": {
     "phrases:back-east-us": {
@@ -266,14 +266,21 @@
       "first_learned_at": "2026-07-31T14:01:53+08:00",
       "last_learned_at": "2026-07-31T14:01:53+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
+      "mastery_score": 6.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-08-04T13:04:40+08:00",
+      "next_review_at": "2026-08-07T13:04:40+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 6.0,
+          "reviewed_at": "2026-08-04T13:04:40+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
     },
     "phrases:make-yourself-at-home": {
       "id": "phrases:make-yourself-at-home",
