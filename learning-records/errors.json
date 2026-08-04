@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 116,
+  "revision": 117,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -361,6 +361,29 @@
           "new_status": "learning"
         }
       ]
+    },
+    "errors:base-verb-after-does-in-direct-question": {
+      "id": "errors:base-verb-after-does-in-direct-question",
+      "category": "errors",
+      "status": "learning",
+      "title": "直接疑问句里 do/does 后面要接动词原形",
+      "explanation": "在直接问题 What does this word ... 中，does 已经承担了时态和疑问功能，后面的实义动词要回到原形 mean，而不是 meant。",
+      "source": "\"What does this word meant?\" she asked him.",
+      "example": "\"What does this word mean?\" she asked him.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-04T13:00:51+08:00",
+      "last_learned_at": "2026-08-04T13:00:51+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:be-used-to-describe-not-used-to-people": {
       "id": "errors:be-used-to-describe-not-used-to-people",
@@ -1030,14 +1053,21 @@
       "first_learned_at": "2026-08-03T21:57:02+08:00",
       "last_learned_at": "2026-08-03T21:57:02+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
+      "mastery_score": 7.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-08-04T13:00:51+08:00",
+      "next_review_at": "2026-08-07T13:00:51+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-08-04T13:00:51+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
     },
     "errors:for-the-first-time-expression": {
       "id": "errors:for-the-first-time-expression",
@@ -1789,6 +1819,29 @@
       ],
       "first_learned_at": "2026-07-29T20:34:14+08:00",
       "last_learned_at": "2026-07-29T20:34:14+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:past-tense-needed-in-reported-clause": {
+      "id": "errors:past-tense-needed-in-reported-clause",
+      "category": "errors",
+      "status": "learning",
+      "title": "转述句中的过去叙述动词要用过去式",
+      "explanation": "在过去时背景下，像 She wonder 这样的叙述动词也要变成 wondered。英语会把这类转述背景当作已经发生的动作处理，所以动词形式要跟着时间线走。",
+      "source": "She wonder if the suggest adopted to all students.",
+      "example": "She wondered whether the advice applied to all students.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-04T13:00:51+08:00",
+      "last_learned_at": "2026-08-04T13:00:51+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
