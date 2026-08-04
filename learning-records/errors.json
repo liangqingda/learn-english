@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 118,
+  "revision": 119,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -365,7 +365,7 @@
     "errors:base-verb-after-does-in-direct-question": {
       "id": "errors:base-verb-after-does-in-direct-question",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "直接疑问句里 do/does 后面要接动词原形",
       "explanation": "在直接问题 What does this word ... 中，does 已经承担了时态和疑问功能，后面的实义动词要回到原形 mean，而不是 meant。",
       "source": "\"What does this word meant?\" she asked him.",
@@ -376,14 +376,21 @@
       "first_learned_at": "2026-08-04T13:00:51+08:00",
       "last_learned_at": "2026-08-04T13:00:51+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 10.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-04T13:09:11+08:00",
+      "next_review_at": "2026-09-03T13:09:11+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-08-04T13:09:11+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:be-used-to-describe-not-used-to-people": {
       "id": "errors:be-used-to-describe-not-used-to-people",
