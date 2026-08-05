@@ -123,10 +123,10 @@ def _contextual_follow_ups(
 
 
 def _scenario_option(focus: str | None, *, initial: bool = False) -> dict[str, Any]:
-    target = _focus_label(focus)
+    target = _follow_up_target(focus, initial=initial)
     label = (
         "看一套在咖啡店与朋友讨论近况的完整场景对话"
-        if initial and not focus
+        if initial and not (focus or "").strip()
         else f"看一套围绕「{target}」的完整场景对话"
     )
     return _option(
@@ -222,19 +222,22 @@ def _follow_up_options(
     show_error_explanation: bool,
     focus: str | None,
 ) -> list[dict[str, Any]]:
-    has_mastered = bool(counts["totals"]["mastered"])
-    include_familiar = not has_mastered
-    options = [
-        _option(
-            "continue-review",
-            "▶️",
-            "继续复习，从复习库随机抽一道题",
-            "popular",
-            kind="continue-review",
-            count=counts["totals"]["learning"],
-        ),
-    ]
-    if include_familiar:
+    learning_count = counts["totals"]["learning"]
+    familiar_count = counts["totals"]["familiar"]
+    mastered_count = counts["totals"]["mastered"]
+    options: list[dict[str, Any]] = []
+    if learning_count:
+        options.append(
+            _option(
+                "continue-review",
+                "▶️",
+                "继续复习，从复习库随机抽一道题",
+                "popular",
+                kind="continue-review",
+                count=learning_count,
+            )
+        )
+    if familiar_count:
         options.append(
             _option(
                 "familiar-review",
@@ -242,10 +245,10 @@ def _follow_up_options(
                 "复习已标熟的知识点",
                 "popular",
                 kind="familiar-review",
-                count=counts["totals"]["familiar"],
+                count=familiar_count,
             )
         )
-    if has_mastered and not show_error_explanation:
+    if mastered_count:
         options.append(
             _option(
                 "mastered-review",
@@ -253,7 +256,7 @@ def _follow_up_options(
                 "复习已掌握的知识点",
                 "popular",
                 kind="mastered-review",
-                count=counts["totals"]["mastered"],
+                count=mastered_count,
             )
         )
     if show_error_explanation:
@@ -266,7 +269,7 @@ def _follow_up_options(
                 kind="explain-current-exercise",
             )
         )
-    if has_mastered:
+    if mastered_count:
         options.append(
             _option(
                 "mastered-cet-paper",
@@ -274,7 +277,7 @@ def _follow_up_options(
                 "生成一套基于已掌握知识点的完整四六级套题（不含听力）",
                 "popular",
                 kind="mastered-cet-paper",
-                count=counts["totals"]["mastered"],
+                count=mastered_count,
             )
         )
     return _with_dynamic_other_options(options, context, focus)

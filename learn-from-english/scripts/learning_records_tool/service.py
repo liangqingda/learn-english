@@ -24,7 +24,7 @@ from .models import (
     record_id,
     validate_database,
 )
-from .scheduler import review_priority, schedule_review, status_for_score
+from .scheduler import review_priority, schedule_review, status_for_score, ten_score_count
 from .store import RecordStore
 
 
@@ -144,6 +144,7 @@ class RecordService:
         example: str | None = None,
     ) -> None:
         records = [target, *sources]
+        included_mastered_record = any(record.get("status") == "mastered" for record in records)
         if title is not None:
             target["title"] = title.strip()
         if explanation is not None:
@@ -177,7 +178,14 @@ class RecordService:
             record.get("last_reviewed_at") for record in records
         )
         target["mastery_score"] = min(float(record.get("mastery_score", 0)) for record in records)
-        target["status"] = cls._status_for_score(float(target["mastery_score"]), target)
+        if target["mastery_score"] == 10:
+            target["status"] = (
+                "mastered"
+                if included_mastered_record or ten_score_count(target) >= 3
+                else "familiar"
+            )
+        else:
+            target["status"] = cls._status_for_score(float(target["mastery_score"]))
         if target["status"] == "learning":
             target["high_score_streak"] = 0
             target["mastered_at"] = None
@@ -395,7 +403,7 @@ class RecordService:
                 "deleted": False,
             }
 
-        result = self.store.transaction(operation)
+        result = self.store.transaction_releasing_claim(identifier, operation)
         return result
 
     def list_records(

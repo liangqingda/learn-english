@@ -138,15 +138,10 @@ def handle_menu(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def handle_next_review(args: argparse.Namespace) -> dict[str, Any]:
-    status = args.status
-    if args.familiar:
-        status = "familiar"
-    if args.mastered:
-        status = "mastered"
     return service().next_review(
         categories=args.category,
         path=args.path,
-        status=status,
+        status=args.status,
         randomize=args.random,
         due_only=args.due_only,
     )
@@ -179,7 +174,7 @@ def build_parser() -> argparse.ArgumentParser:
     upsert.add_argument("--tag", action="append", default=[])
     upsert.set_defaults(handler=handle_upsert)
 
-    batch = subparsers.add_parser("batch-upsert", help="atomically add multiple records")
+    batch = subparsers.add_parser("batch-upsert", help="add multiple records in one coordinated write")
     batch.add_argument("--input", required=True, help="JSON file path or - for stdin")
     batch.set_defaults(handler=handle_batch_upsert)
 
@@ -197,7 +192,7 @@ def build_parser() -> argparse.ArgumentParser:
     encounter.set_defaults(handler=handle_encounter)
 
     complete = subparsers.add_parser(
-        "complete-review", help="atomically score a record and add demonstrated errors"
+        "complete-review", help="score a record and add demonstrated errors in one coordinated write"
     )
     complete.add_argument("--input", required=True, help="JSON file path or - for stdin")
     complete.set_defaults(handler=handle_complete_review)
@@ -253,9 +248,14 @@ def build_parser() -> argparse.ArgumentParser:
     next_review = subparsers.add_parser("next-review", help="select a scheduled record")
     next_review.add_argument("--category", action="append", choices=CATEGORIES, default=[])
     next_review.add_argument("--path")
-    next_review.add_argument("--status", choices=STATUSES, default="learning")
-    next_review.add_argument("--familiar", action="store_true")
-    next_review.add_argument("--mastered", action="store_true")
+    review_status = next_review.add_mutually_exclusive_group()
+    review_status.add_argument("--status", choices=STATUSES, default="learning")
+    review_status.add_argument(
+        "--familiar", action="store_const", const="familiar", dest="status"
+    )
+    review_status.add_argument(
+        "--mastered", action="store_const", const="mastered", dest="status"
+    )
     next_review.add_argument("--random", action="store_true")
     next_review.add_argument("--due-only", action="store_true")
     next_review.set_defaults(handler=handle_next_review)

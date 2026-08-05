@@ -1,11 +1,11 @@
 ---
 name: practice-learning-records
-description: 从规范学习记录中选择到期或低分知识点开展复习，按回答记录 0 至 10 分，并在同一事务中保存评分、状态变化和实际错题；也支持复习已标熟或已掌握知识点、查看历史统计，以及基于已掌握知识点生成完整四六级套题。当用户消息去除首尾空白后仅为“你好”“复习”，或不区分大小写的“hello”“review”时必须使用；在本 Skill 打开的复习流程中，用户回复最近菜单中的数字或答案时也使用。上述精确触发词出现时，本 Skill 优先于 learn-from-english。
+description: 从规范学习记录中选择到期或低分知识点开展复习，按回答记录 0 至 10 分，并在一次协调写操作中保存评分、状态变化和实际错题；也支持复习已标熟或已掌握知识点、查看历史统计，以及基于已掌握知识点生成完整四六级套题。当用户消息去除首尾空白后仅为“你好”“复习”，或不区分大小写的“hello”“review”时必须使用；在本 Skill 打开的复习流程中，用户回复最近菜单中的数字或答案时也使用。上述精确触发词出现时，本 Skill 优先于 learn-from-english。
 ---
 
 # 复习英语学习记录
 
-使用仓库根目录 `learning-records/` 与 `mastered-learning-records/` 中按 category 拆分的规范记录开展复习。`learning-records/<category>.json` 保存 `learning` 与 `familiar` 记录；同一知识点累计第 3 次达到 10 分后，写事务会把它移动到 `mastered-learning-records/<category>.json`。mastered 分类文件参考旧版 `mastered.json`，根节点直接是精简数组，每条只保留稳定 `id`、`title`、`explanation` 和 `mastered_at`，读取时由工具临时补齐复习流程需要的运行字段。所有读取和写入必须通过 `learn-from-english/scripts/learning_records.py`；不得直接编辑 JSON。
+使用仓库根目录 `learning-records/` 与 `mastered-learning-records/` 中按 category 拆分的规范记录开展复习。`learning-records/<category>.json` 保存 `learning` 与 `familiar` 记录；同一知识点累计第 3 次达到 10 分后，写操作会把它移动到 `mastered-learning-records/<category>.json`。mastered 分类文件参考旧版 `mastered.json`，根节点直接是精简数组，每条只保留稳定 `id`、`title`、`explanation` 和 `mastered_at`。读取时工具会用 `explanation` 补 `source`，并把 `example`、`tags`、逐次评分历史和历史计数重置为空或初始值；若记录此后失分回到 `learning`，这些补齐值会成为新的记录起点，掌握前的细节不会恢复。所有读取和写入必须通过 `learn-from-english/scripts/learning_records.py`；不得直接编辑 JSON。
 
 ## 打开复习菜单
 
@@ -40,7 +40,7 @@ python3 learn-from-english/scripts/learning_records.py menu --context initial
 
 脚本优先返回已经到期的记录，再综合 `next_review_at`、掌握分、遗忘次数和 ID 排序。没有到期记录时返回当前范围内优先级最高的记录。`--random` 只在优先范围中按低分和遗忘次数加权抽取。
 
-`next-review` 会在同一个事务中为选中的记录写入短期运行时 `review_claim`，避免多个会话同时抽到同一题。其他会话会跳过尚未过期的领取记录；若某个会话中断，领取会自动过期并在后续抽题时清理。`review_claim` 不属于规范学习记录，不改变复习次数、分数或掌握状态。
+`next-review` 会在本机写锁保护下为选中的记录写入短期运行时 `review_claim`，避免多个会话同时抽到同一题。其他会话会跳过尚未过期的领取记录；若某个会话中断，领取会自动过期并在后续抽题时清理。`review_claim` 不属于规范学习记录，不改变复习次数、分数或掌握状态。
 
 命令返回 `record: null` 时明确说明当前范围没有记录，然后重新生成初始菜单；不得临时编造复习记录。
 
@@ -106,9 +106,9 @@ python3 learn-from-english/scripts/learning_records.py batch-upsert --input <JSO
 
 - 记录 `go ahead with`、`move on to`、`continue along` 这类新搭配，或一个新语法/用法差异。
 - 不记录只是重复当前复习记录的规则、普通例句改写、临时练习题、完整示例对话台词、发音提示或用户尚未提交答案的题目。
-- 若一次扩展讲到多个紧密相关的新知识点，合并为一次 `batch-upsert` 事务；每条记录使用稳定语义 `key`，选择 `vocabulary`、`phrases`、`grammar` 或 `usage`，不要为了普通新知识点使用 `errors`。
+- 若一次扩展讲到多个紧密相关的新知识点，合并为一次 `batch-upsert` 批量写入；每条记录使用稳定语义 `key`，选择 `vocabulary`、`phrases`、`grammar` 或 `usage`，不要为了普通新知识点使用 `errors`。
 - 若脚本返回匹配到已有记录而不是新建，照常说明“已遇到/更新已有记录”；不要手工改 JSON。
-- 写入失败时仍完成讲解，但必须说明本轮新知识点没有保存。
+- 写入失败时仍完成讲解，但必须说明“本轮新知识点未能保存；本轮记录变更已回滚”。若命令报告回滚未完整成功，改为说明可能残留部分记录变更，不得声称已回滚。
 
 ## 讲解错题
 
@@ -121,7 +121,7 @@ python3 learn-from-english/scripts/learning_records.py batch-upsert --input <JSO
 
 讲解选择题时逐项解释关键干扰项；讲解改错或翻译题时先说明用户原句的意图，再区分核心错误、自然度问题和可选风格改写。避免把“规则名称”当作原因；规则名称后面必须跟一句可理解的机制解释。
 
-## 评分与原子记录
+## 评分与协调记录
 
 用户完成一组可客观评价的复习后，逐题判断并给出自然答案，再综合评为 0 至 10 分：
 
@@ -164,7 +164,7 @@ python3 learn-from-english/scripts/learning_records.py complete-review --input <
 }
 ```
 
-完全正确时传入空 `errors`。只记录用户实际展示并已解释的错误，不推断其他弱点。整个命令是一个记录事务：任一错误记录无效时，评分和所有错误都不会写入。
+完全正确时传入空 `errors`。只记录用户实际展示并已解释的错误，不推断其他弱点。整个命令先校验评分和所有错误，再在本机写锁保护下逐个原子替换受影响的分类文件：任一输入无效时不会开始写入；跨文件写入中途失败时会尽力回滚本轮已替换的文件，但这不是单次文件系统事务。
 
 根据返回结果说明状态变化：
 
@@ -173,7 +173,7 @@ python3 learn-from-english/scripts/learning_records.py complete-review --input <
 - `status: mastered`：同一知识点累计第 3 次达到 10 分，进入已掌握状态，并作为完整四六级套题素材；未满 3 次的 10 分仍显示为 `familiar`。
 - `lapse_count` 增加：原已标熟或已掌握知识点出现遗忘。
 
-命令还会返回 `next_review_at`。向用户展示得分、最关键建议和下一次建议复习时间。写入失败时仍完成教学反馈，但必须说明本轮评分与错题没有保存。
+命令还会返回 `next_review_at`。向用户展示得分、最关键建议和下一次建议复习时间。写入失败时仍完成教学反馈，但必须明确说明“本轮评分与错题未能保存；本轮记录变更已回滚”。若命令报告回滚未完整成功，改为说明本轮评分与错题未能保存且可能残留部分记录变更，并停止本轮后续写入；不得声称已完整回滚。
 
 评分后运行：
 

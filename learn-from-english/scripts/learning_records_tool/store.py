@@ -427,6 +427,10 @@ class RecordStore:
     def _merge_databases(
         primary: dict[str, Any], mastered: dict[str, Any] | None = None
     ) -> dict[str, Any]:
+        if not isinstance(primary, dict) or (
+            mastered is not None and not isinstance(mastered, dict)
+        ):
+            raise RecordError("database root must be an object")
         mastered = mastered or empty_database()
         records = {**primary.get("records", {})}
         overlap = set(records).intersection(mastered.get("records", {}))
@@ -614,6 +618,41 @@ class RecordStore:
                 pass
             raise
 
+    def _restore_file(self, path: Path, content: bytes | None, mode: int | None) -> None:
+        """Restore one file exactly as it was before a coordinated write."""
+        import tempfile
+
+        if content is None:
+            try:
+                path.unlink()
+            except FileNotFoundError:
+                return
+        else:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            descriptor, temporary_name = tempfile.mkstemp(
+                prefix=f".{path.stem}.rollback.", suffix=".tmp", dir=path.parent
+            )
+            try:
+                with os.fdopen(descriptor, "wb") as handle:
+                    handle.write(content)
+                    handle.flush()
+                    os.fsync(handle.fileno())
+                if mode is not None:
+                    os.chmod(temporary_name, mode)
+                os.replace(temporary_name, path)
+            except Exception:
+                try:
+                    os.unlink(temporary_name)
+                except FileNotFoundError:
+                    pass
+                raise
+
+        directory_fd = os.open(path.parent, os.O_RDONLY)
+        try:
+            os.fsync(directory_fd)
+        finally:
+            os.close(directory_fd)
+
     @staticmethod
     def _canonical_json(value: Any) -> str:
         return json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
@@ -706,8 +745,34 @@ class RecordStore:
                         )
                     )
 
-        for path, document, validator in writes:
-            self._write_file(path, document, validate=validator)
+        snapshots = {
+            path: (
+                path.read_bytes() if path.exists() else None,
+                path.stat().st_mode & 0o777 if path.exists() else None,
+            )
+            for path, _document, _validator in writes
+        }
+        attempted: list[Path] = []
+        try:
+            for path, document, validator in writes:
+                attempted.append(path)
+                self._write_file(path, document, validate=validator)
+        except Exception as write_error:
+            rollback_errors = []
+            for path in reversed(attempted):
+                content, mode = snapshots[path]
+                try:
+                    self._restore_file(path, content, mode)
+                except Exception as rollback_error:
+                    rollback_errors.append(f"{path}: {rollback_error}")
+            if rollback_errors:
+                raise RecordError(
+                    f"record write failed ({write_error}); rollback also failed: "
+                    + "; ".join(rollback_errors)
+                ) from write_error
+            raise RecordError(
+                f"record write failed; all changes from this operation were rolled back: {write_error}"
+            ) from write_error
 
     def initialize(
         self,
@@ -756,6 +821,25 @@ class RecordStore:
             claims = self._load_review_claims()
             result = operation(database, claims)
             self._write_review_claims(claims)
+            return result
+
+    def transaction_releasing_claim(
+        self,
+        identifier: str,
+        operation: Callable[[dict[str, Any]], T],
+    ) -> T:
+        with self._exclusive_lock():
+            self.learning_dir.mkdir(parents=True, exist_ok=True)
+            self.mastered_dir.mkdir(parents=True, exist_ok=True)
+            database = self._load()
+            claims = self._load_review_claims()
+            removed = claims.setdefault("claims", {}).pop(identifier, None) is not None
+            result = operation(database)
+            database["revision"] += 1
+            database["records"] = dict(sorted(database["records"].items()))
+            if removed:
+                self._write_review_claims(claims)
+            self._write(database)
             return result
 
     def transaction_unvalidated(

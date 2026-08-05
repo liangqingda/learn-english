@@ -24,7 +24,7 @@ description: 禁止在用户消息去除首尾空白后仅为“你好”“复�
 5. 给出少量可以迁移到其他场景的例子。
 6. 按仓库根目录 `AGENTS.md` 的英语学习菜单规则提供后续学习路径。
 
-在完成正文、生成快捷菜单之后且发送回复之前，按照“记录本轮知识点”流程用一次批量事务保存本轮实际讲解的内容。记录失败不得阻断教学回复。
+在完成正文、生成快捷菜单之后且发送回复之前，按照“记录本轮知识点”流程用一次批量写操作保存本轮实际讲解的内容。记录失败不得阻断教学回复，但必须如实说明保存和回滚结果。
 
 不要为了完整而解释每个单词。不要把简单内容讲得过度复杂。
 
@@ -48,7 +48,7 @@ description: 禁止在用户消息去除首尾空白后仅为“你好”“复�
 python3 learn-from-english/scripts/learning_records.py batch-upsert --input <JSON 文件或 ->
 ```
 
-输入格式为 `{"records": [{"category": "grammar", "key": "present-perfect-experience", "title": "...", "explanation": "...", "source": "...", "example": "...", "tags": ["..."]}]}`。同类同义知识点必须复用同一个 `key`；键只表达知识点本身，不包含日期、会话或例句。脚本会生成稳定 ID；已有相同 ID，或发现同一 category 下已有高度相似知识点时，保留原始讲解和当前状态，只增加 `learned_count` 并更新 `last_learned_at`，不得新增重复记录。整批输入先校验后写入，任一知识点无效时整批不保存。
+输入格式为 `{"records": [{"category": "grammar", "key": "present-perfect-experience", "title": "...", "explanation": "...", "source": "...", "example": "...", "tags": ["..."]}]}`。同类同义知识点必须复用同一个 `key`；键只表达知识点本身，不包含日期、会话或例句。脚本会生成稳定 ID；已有相同 ID，或发现同一 category 下已有高度相似知识点时，保留原始讲解和当前状态，只增加 `learned_count` 并更新 `last_learned_at`，不得新增重复记录。整批输入先校验后写入，任一知识点无效时整批不保存。多个分类文件由本机写锁协调并逐个原子替换；中途失败时脚本会尽力回滚本轮已替换的文件，但跨文件写入不是单次文件系统事务。
 
 发音、重音、弱读、连读或音变可以作为文字讲解内容，但不得写入学习记录；当前复习流程不具备验证实际发音的能力。
 
@@ -59,7 +59,7 @@ python3 learn-from-english/scripts/learning_records.py list --category <category
 python3 learn-from-english/scripts/learning_records.py search --query <text> --include-familiar --include-mastered
 ```
 
-若某个知识点写入失败，继续发送教学回复，并在快捷菜单之前简短说明“本轮学习记录未能保存”。不得声称失败的记录已经保存。
+若写入失败，继续发送教学回复，并在快捷菜单之前明确说明“本轮学习记录未能保存；本轮记录变更已回滚”。不得声称失败的记录已经保存。若命令报告回滚未完整成功，不得使用“已回滚”，必须改为如实说明“本轮学习记录未能保存，且可能残留部分记录变更”，并停止本轮后续写入。
 
 ## 根据输入选择讲解方式
 

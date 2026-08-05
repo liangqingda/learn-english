@@ -8,6 +8,7 @@ import tempfile
 import unittest
 from datetime import datetime, timedelta
 from pathlib import Path
+from unittest import mock
 
 
 SCRIPT_DIR = Path(__file__).resolve().parents[1] / "scripts"
@@ -154,6 +155,28 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertEqual(records["errors:first-error"]["learned_count"], 2)
         self.assertEqual(records["errors:first-error"]["review_count"], 2)
         self.assertEqual(records["errors:first-error"]["mastery_score"], 6)
+
+    def test_merge_two_single_perfect_records_remains_familiar(self) -> None:
+        first = distinct_payload(
+            "grammar", "first-perfect", "modal deduction in past contexts"
+        )
+        second = distinct_payload(
+            "grammar", "second-perfect", "article omission before abstract nouns"
+        )
+        self.service.upsert(first)
+        self.service.upsert(second)
+        self.service.complete_review("grammar:first-perfect", 10)
+        self.service.complete_review("grammar:second-perfect", 10)
+
+        result = self.service.merge_records(
+            "grammar:first-perfect", ["grammar:second-perfect"]
+        )
+
+        record = self.service.records()["grammar:first-perfect"]
+        self.assertEqual(result["status"], "familiar")
+        self.assertEqual(record["status"], "familiar")
+        self.assertEqual(record["review_count"], 2)
+        self.assertEqual(len(record["review_history"]), 2)
 
     def test_invalid_batch_rolls_back_every_record(self) -> None:
         before = self.store.category_path("usage").read_text(encoding="utf-8")
@@ -502,6 +525,47 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertIn("starter-practice", {option["id"] for option in other_options})
         self.assertIn("scenario-dialogue", {option["id"] for option in other_options})
 
+    def test_follow_up_menu_only_includes_available_review_statuses(self) -> None:
+        self.service.upsert(payload("grammar", "status-matrix"))
+
+        learning = self.service.menu("review-complete")
+        learning_ids = {option["id"] for option in learning["options"]}
+        self.assertIn("continue-review", learning_ids)
+        self.assertNotIn("familiar-review", learning_ids)
+        self.assertNotIn("mastered-review", learning_ids)
+
+        self.service.complete_review("grammar:status-matrix", 8)
+        familiar = self.service.menu("review-complete")
+        familiar_ids = {option["id"] for option in familiar["options"]}
+        self.assertNotIn("continue-review", familiar_ids)
+        self.assertIn("familiar-review", familiar_ids)
+        self.assertNotIn("mastered-review", familiar_ids)
+
+        self.service.upsert(payload("usage", "mastered-alongside-familiar"))
+        mark_mastered(self.service, "usage:mastered-alongside-familiar")
+        mixed = self.service.menu("review-complete", has_answer_errors=True)
+        mixed_ids = {option["id"] for option in mixed["options"]}
+        self.assertNotIn("continue-review", mixed_ids)
+        self.assertIn("familiar-review", mixed_ids)
+        self.assertIn("mastered-review", mixed_ids)
+        self.assertIn("mastered-cet-paper", mixed_ids)
+        self.assertIn("explain-current-exercise", mixed_ids)
+        self.assertTrue(any(option["group"] == "popular" for option in mixed["options"]))
+        self.assertTrue(
+            all(option.get("count", 1) > 0 for option in mixed["options"])
+        )
+
+    def test_initial_menu_treats_whitespace_focus_as_missing(self) -> None:
+        self.service.upsert(payload("grammar", "whitespace-focus"))
+
+        menu = self.service.menu("initial", focus="   ")
+        scenario = next(
+            option for option in menu["options"] if option["id"] == "scenario-dialogue"
+        )
+
+        self.assertIn("咖啡店", scenario["label"])
+        self.assertEqual(scenario["focus"], "日常英语寒暄和近况表达")
+
     def test_merged_review_path_includes_every_category(self) -> None:
         for category in ("errors", "grammar", "vocabulary", "phrases", "usage"):
             self.service.upsert(payload(category, f"{category}-item"))
@@ -548,6 +612,26 @@ class LearningRecordsTest(unittest.TestCase):
         self.service.complete_review("grammar:first", 7)
 
         self.assertNotIn("review_claim", self.service.records()["grammar:first"])
+        claims = json.loads(self.store.review_claims_path.read_text(encoding="utf-8"))
+        self.assertNotIn("grammar:first", claims["claims"])
+
+    def test_claim_release_failure_does_not_save_review_score(self) -> None:
+        self.service.upsert(payload("grammar", "claim-release-failure"))
+        self.service.next_review(
+            categories=["grammar"], claim_owner="failing-claim-session"
+        )
+
+        with mock.patch.object(
+            self.store,
+            "_write_review_claims",
+            side_effect=OSError("injected claim write failure"),
+        ):
+            with self.assertRaisesRegex(OSError, "injected claim write failure"):
+                self.service.complete_review("grammar:claim-release-failure", 7)
+
+        record = self.service.records()["grammar:claim-release-failure"]
+        self.assertEqual(record["review_count"], 0)
+        self.assertEqual(record["mastery_score"], 0)
 
     def test_expired_review_claims_are_reused(self) -> None:
         self.service.upsert(payload("grammar", "claim-timeout"))
@@ -596,6 +680,15 @@ class LearningRecordsTest(unittest.TestCase):
 
         self.assertFalse(result["valid"])
         self.assertEqual(result["issue_count"], 2)
+
+    def test_validate_reports_malformed_category_root(self) -> None:
+        write_json(self.store.category_path("grammar"), [])
+
+        result = self.service.validate()
+
+        self.assertFalse(result["valid"])
+        self.assertEqual(result["issue_count"], 1)
+        self.assertEqual(result["issues"], [{"message": "database root must be an object"}])
 
     def test_repair_deduplicates_tags_and_supports_dry_run(self) -> None:
         self.service.upsert(payload("usage", "repair-tags"))
@@ -650,6 +743,33 @@ class LearningRecordsTest(unittest.TestCase):
             self.service.upsert(payload("grammar", "after-failure"))
 
         self.assertEqual(self.store.category_path("grammar").read_bytes(), before)
+
+    def test_cross_category_write_failure_rolls_back_replaced_files(self) -> None:
+        self.service.upsert(payload("grammar", "rollback-target"))
+        grammar_path = self.store.category_path("grammar")
+        errors_path = self.store.category_path("errors")
+        before_grammar = grammar_path.read_bytes()
+        before_errors = errors_path.read_bytes()
+        original_write_file = self.store._write_file
+        call_count = 0
+
+        def fail_second_write(*args: object, **kwargs: object) -> None:
+            nonlocal call_count
+            call_count += 1
+            if call_count == 2:
+                raise OSError("injected second-file failure")
+            original_write_file(*args, **kwargs)
+
+        with mock.patch.object(self.store, "_write_file", side_effect=fail_second_write):
+            with self.assertRaisesRegex(RecordError, "all changes.*rolled back"):
+                self.service.complete_review(
+                    "grammar:rollback-target",
+                    7,
+                    [payload("errors", "rollback-error")],
+                )
+
+        self.assertEqual(grammar_path.read_bytes(), before_grammar)
+        self.assertEqual(errors_path.read_bytes(), before_errors)
 
     def test_atomic_write_preserves_database_permissions(self) -> None:
         self.store.category_path("grammar").chmod(0o644)
@@ -824,6 +944,29 @@ class LearningRecordsTest(unittest.TestCase):
 
         self.assertEqual(result.returncode, 1)
         self.assertFalse(json.loads(result.stdout)["valid"])
+
+    def test_cli_next_review_rejects_conflicting_status_selectors(self) -> None:
+        environment = {
+            **os.environ,
+            "LEARN_ENGLISH_REPO_ROOT": str(self.root),
+        }
+        conflicting_selectors = (
+            ("--familiar", "--mastered"),
+            ("--status", "learning", "--familiar"),
+            ("--status", "mastered", "--mastered"),
+        )
+
+        for selectors in conflicting_selectors:
+            with self.subTest(selectors=selectors):
+                result = subprocess.run(
+                    [sys.executable, str(SCRIPT), "next-review", *selectors],
+                    env=environment,
+                    check=False,
+                    capture_output=True,
+                    text=True,
+                )
+                self.assertEqual(result.returncode, 2)
+                self.assertIn("not allowed with argument", result.stderr)
 
 
 if __name__ == "__main__":

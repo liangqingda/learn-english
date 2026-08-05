@@ -5,14 +5,13 @@
 ## 核心能力
 
 - `learn-from-english`：讲解单词、短语、句子、长文本和英文错误信息，并批量保存本轮知识点。
-- `practice-learning-records`：选择到期或低分记录生成练习，在同一事务中保存评分、状态变化和实际错题。
+- `practice-learning-records`：选择到期或低分记录生成练习，在一次协调写操作中保存评分、状态变化和实际错题。
 - 三级状态：`learning`、`familiar`、`mastered`。
 - 间隔复习：根据得分、连续高分和遗忘次数计算 `next_review_at`。
 - 掌握判定：复习中同一知识点累计 3 次达到 10 分后才进入 `mastered`。
-- 完整历史：保留知识点正文和新的逐次评分记录；完全掌握后不再丢弃例句与标签。
+- 精简归档：知识点进入 `mastered` 后只保留稳定 ID、标题、讲解和掌握时间；详细学习字段与逐次评分历史会被重置。
 - 集中菜单：脚本根据对话上下文生成 3 至 5 个稳定入口，Skill 只负责渲染。
 - 数量就近展示：记录数量只标在对应菜单项末尾，不额外输出状态汇总开场。
-- Git 记录：每个写事务只创建一个提交，并保留其他已经暂存的文件。
 
 ## 架构
 
@@ -28,8 +27,6 @@ store.py ── 校验、原子替换
     ↓
 learning-records/<category>.json
 mastered-learning-records/<category>.json
-    ↓
-git_adapter.py
 ```
 
 实现位于 `learn-from-english/scripts/learning_records_tool/`：
@@ -38,10 +35,9 @@ git_adapter.py
 | --- | --- |
 | `models.py` | Schema v2、规范化 ID、字段与关系校验 |
 | `store.py` | 按分类合并读取、按库分流、临时文件、`fsync` 和原子替换 |
-| `service.py` | 批量写入、评分事务、查询、迁移、历史与统计 |
+| `service.py` | 批量写入、评分协调、查询、迁移、历史与统计 |
 | `scheduler.py` | 状态转换、复习间隔和选题优先级 |
 | `menu.py` | 初始、复习后和习题中三类菜单策略 |
-| `git_adapter.py` | 仅提交当前记录事务涉及的文件 |
 | `cli.py` | 新旧命令的兼容入口 |
 
 原有 `learn-from-english/scripts/learning_records.py` 路径保持不变，它现在是轻量兼容入口。
@@ -52,7 +48,9 @@ git_adapter.py
 
 `learning-records/` 下的每个分类文件都是一个 Schema v2 数据库片段，顶层 `category` 表示该文件只保存这一类记录。记录的 `status` 仍然保存在字段里；`learning` 和 `familiar` 留在 `learning-records/`。
 
-`mastered-learning-records/` 下的每个分类文件参考旧版 `mastered.json`，根节点直接是数组，每条只保留稳定 `id`、`title`、`explanation` 和 `mastered_at`。读取时工具会临时补齐复习流程需要的运行字段；同一知识点累计第 3 次达到 10 分后才移动到对应的 mastered 分类文件。
+`mastered-learning-records/` 下的每个分类文件参考旧版 `mastered.json`，根节点直接是数组，每条只保留稳定 `id`、`title`、`explanation` 和 `mastered_at`。同一知识点累计第 3 次达到 10 分后才移动到对应的 mastered 分类文件。
+
+读取精简记录时，工具会补齐复习流程需要的运行字段，但不会恢复掌握前的详细数据：`source` 使用 `explanation`，`example` 为空，`tags` 为空，首次与最近学习时间使用 `mastered_at`，`learned_count` 为 1，`mastery_score` 为 10，`review_count` 与 `lapse_count` 为 0，`high_score_streak` 为 1，`last_reviewed_at` 使用 `mastered_at`，`next_review_at` 为空，`review_history` 为空。若已掌握记录复习失分并回到 `learning`，这些补齐值会成为新一轮学习记录的起点；掌握前的例句、标签、计数和逐次历史不会恢复。这是当前精简存储的有意取舍。
 
 ```json
 {
@@ -87,21 +85,22 @@ git_adapter.py
 
 旧数据迁移会保留已有数量、分数和时间。旧格式没有保存逐次评分，因此 `review_history` 只从 Schema v2 启用后开始积累。
 
-## 原子写入流程
+## 协调写入与回滚
 
 每个写命令执行：
 
 ```text
-读取并校验当前 revision
+获取本机进程写锁
+  → 读取并校验当前 revision
   → 在内存中应用整个操作
   → 校验完整结果
   → 把 learning/familiar 与 mastered 记录按目录和 category 拆分
   → 只为内容变化的分类文件写入同目录临时文件并 fsync
-  → 原子替换受影响的分类文件
-  → 创建一个范围受限的 Git 提交
+  → 逐个原子替换受影响的分类文件
+  → 发生跨文件写入失败时尽力恢复本轮已替换的文件
 ```
 
-任一输入无效时不会写入部分结果。存储层按单进程写入设计，不提供多个写进程同时修改记录的协调机制。
+任一输入无效时不会开始写入。存储层使用本机独占文件锁协调多个写进程，单个分类文件通过临时文件替换保证原子更新；多个分类文件无法由文件系统一次提交，因此中途失败时执行尽力回滚。若回滚本身失败，命令必须报告可能残留的部分变更，调用方不得声称本轮已完整保存或完整撤销。服务层不执行 Git 提交；仓库内容的提交由调用它的 agent 按 `AGENTS.md` 单独完成。
 
 ## 常用命令
 
@@ -126,14 +125,14 @@ python3 learn-from-english/scripts/learning_records.py upsert \
   --example "..."
 ```
 
-### 评分与错题事务
+### 评分与错题协调写入
 
 ```bash
 python3 learn-from-english/scripts/learning_records.py complete-review \
   --input review-result.json
 ```
 
-输入包含目标 `id`、`score` 和 `errors` 数组。评分、状态转换、下次复习时间、历史事件和错误记录在同一事务中完成；新增错题同样会先匹配同类相似记录，匹配到时只记一次新的 encounter。
+输入包含目标 `id`、`score` 和 `errors` 数组。评分、状态转换、下次复习时间、历史事件和错误记录在一次加锁的协调写操作中处理；新增错题同样会先匹配同类相似记录，匹配到时只记一次新的 encounter。输入校验失败时不会写入；跨文件写入中途失败时执行尽力回滚，并由调用方明确告知用户本轮评分和记录未保存以及回滚结果。
 
 旧的 `review` 与 `familiar-review` 命令仍可使用，但不能同时写入错题。
 
@@ -233,4 +232,4 @@ python3 -m compileall -q learn-from-english/scripts learn-from-english/tests
 git diff --check
 ```
 
-测试覆盖批量事务回滚、重复学习、评分与错题原子性、状态转换、评分历史、间隔调度、上下文化菜单、旧数据迁移、校验修复、故障注入、CLI 兼容和 Git 提交隔离。GitHub Actions 会在推送和 Pull Request 上自动执行测试、数据校验与编译检查。
+测试覆盖批量校验与协调回滚、重复学习、评分与错题写入、状态转换、评分历史、间隔调度、上下文化菜单、旧数据迁移、校验修复、故障注入、CLI 兼容和服务层不介入 Git。GitHub Actions 会在推送和 Pull Request 上自动执行测试、数据校验与编译检查。
