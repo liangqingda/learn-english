@@ -1,8 +1,32 @@
 {
   "schema_version": 2,
-  "revision": 108,
+  "revision": 122,
   "category": "vocabulary",
   "records": {
+    "vocabulary:across-preposition-adverb-vs-cross-verb": {
+      "id": "vocabulary:across-preposition-adverb-vs-cross-verb",
+      "category": "vocabulary",
+      "status": "learning",
+      "title": "across 与 cross：介词/副词和动词的区别",
+      "explanation": "across 通常作介词或副词，表示从一边到另一边，作介词时后接名词，如 walk across the bridge；cross 是动词，直接接宾语，如 cross the bridge。不能说 cross across the bridge，除非 across 属于另一个独立结构。",
+      "source": "The old bridge across the river. / The old bridge crosses the river.",
+      "example": "We walked across the bridge, and then we crossed the street.",
+      "tags": [
+        "follow-up-learning",
+        "user-requested"
+      ],
+      "first_learned_at": "2026-08-05T08:53:05+08:00",
+      "last_learned_at": "2026-08-05T08:53:05+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "vocabulary:boat-small-watercraft": {
       "id": "vocabulary:boat-small-watercraft",
       "category": "vocabulary",

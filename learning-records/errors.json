@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 120,
+  "revision": 121,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -839,6 +839,29 @@
         }
       ]
     },
+    "errors:double-consonant-in-stopped": {
+      "id": "errors:double-consonant-in-stopped",
+      "category": "errors",
+      "status": "learning",
+      "title": "stop 的过去式拼作 stopped",
+      "explanation": "stop 是重读闭音节结尾的单音节动词，变过去式时双写末尾辅音 p，再加 -ed。",
+      "source": "A yellow car stoped at the hotel gate.",
+      "example": "A yellow taxi stopped at the hotel entrance.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-05T08:52:48+08:00",
+      "last_learned_at": "2026-08-05T08:52:48+08:00",
+      "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:duration-rest-possessive-or-hyphenated-form": {
       "id": "errors:duration-rest-possessive-or-hyphenated-form",
       "category": "errors",
@@ -1479,14 +1502,21 @@
       "first_learned_at": "2026-08-04T07:08:12+08:00",
       "last_learned_at": "2026-08-04T07:08:12+08:00",
       "learned_count": 2,
-      "mastery_score": 0.0,
-      "review_count": 0,
+      "mastery_score": 7.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-08-05T08:52:48+08:00",
+      "next_review_at": "2026-08-08T08:52:48+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-08-05T08:52:48+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
     },
     "errors:missing-past-perfect-for-earlier-arrival": {
       "id": "errors:missing-past-perfect-for-earlier-arrival",
@@ -1950,6 +1980,29 @@
       ],
       "first_learned_at": "2026-08-01T21:26:24+08:00",
       "last_learned_at": "2026-08-01T21:26:24+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:past-tense-with-finished-past-time-marker": {
+      "id": "errors:past-tense-with-finished-past-time-marker",
+      "category": "errors",
+      "status": "learning",
+      "title": "明确的过去时间通常搭配一般过去时",
+      "explanation": "yesterday morning 指已经结束的过去时间，描述当时发生的动作应使用一般过去时 waited，而不是现在进行时 are waiting。",
+      "source": "A group of students are waiting outside the library yesterday morning.",
+      "example": "A group of students waited outside the library yesterday morning.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-05T08:52:48+08:00",
+      "last_learned_at": "2026-08-05T08:52:48+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -2726,6 +2779,29 @@
         }
       ]
     },
+    "errors:simple-past-fall-without-be-auxiliary": {
+      "id": "errors:simple-past-fall-without-be-auxiliary",
+      "category": "errors",
+      "status": "learning",
+      "title": "一般过去时 fell 前不加 be 动词",
+      "explanation": "fall 是实义动词，其一般过去式 fell 可以独立作谓语；不能用 was ... fall 拼成过去时。",
+      "source": "Heavy rain was throughout the night fall.",
+      "example": "Heavy rain fell throughout the night.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-05T08:52:48+08:00",
+      "last_learned_at": "2026-08-05T08:52:48+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:singular-application-mistaken-as-plural-applications": {
       "id": "errors:singular-application-mistaken-as-plural-applications",
       "category": "errors",
@@ -2928,6 +3004,29 @@
       ],
       "first_learned_at": "2026-07-31T13:53:17+08:00",
       "last_learned_at": "2026-07-31T13:53:17+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:there-be-cannot-take-second-finite-verb": {
+      "id": "errors:there-be-cannot-take-second-finite-verb",
+      "category": "errors",
+      "status": "learning",
+      "title": "there be 结构后不能直接再接限定谓语",
+      "explanation": "There were several birds 已经有限定谓语 were，不能再直接接限定动词 flew。表达鸟飞过湖面时，应以 birds 为主语直接使用 flew。",
+      "source": "There were several birds flew over the lake slowly.",
+      "example": "Several birds flew slowly over the lake.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-05T08:52:48+08:00",
+      "last_learned_at": "2026-08-05T08:52:48+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
