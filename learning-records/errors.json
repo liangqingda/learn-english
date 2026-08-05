@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 121,
+  "revision": 124,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -210,6 +210,29 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:as-soon-as-not-as-long-as-for-immediate-event": {
+      "id": "errors:as-soon-as-not-as-long-as-for-immediate-event",
+      "category": "errors",
+      "status": "learning",
+      "title": "一……就……用 as soon as，而非 as long as",
+      "explanation": "as soon as 表示一个动作发生后另一个动作立即发生；as long as 通常表示“只要”这一条件或“长达”某段时间。",
+      "source": "I recognize her voice as long as she speaks.",
+      "example": "I recognized her voice as soon as she spoke.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-05T13:01:34+08:00",
+      "last_learned_at": "2026-08-05T13:01:34+08:00",
+      "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:at-the-second-intersection-for-directions": {
       "id": "errors:at-the-second-intersection-for-directions",
@@ -1728,6 +1751,29 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:not-sure-how-to-pronounce-for-uncertain-pronunciation": {
+      "id": "errors:not-sure-how-to-pronounce-for-uncertain-pronunciation",
+      "category": "errors",
+      "status": "learning",
+      "title": "用 not sure how to pronounce 表达不确定读音",
+      "explanation": "表示自己不知道某个名称怎么读时，I’m not sure how to pronounce... 比 I can’t confirm the correct pronunciation... 更直接自然；confirm 通常表示核实信息，而不是单纯不确定。",
+      "source": "I can't confirm the correct pronunciation of the word.",
+      "example": "I’m not sure how to pronounce this name.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-05T13:01:34+08:00",
+      "last_learned_at": "2026-08-05T13:01:34+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:omit-be-in-passive-after-confirmed": {
       "id": "errors:omit-be-in-passive-after-confirmed",
       "category": "errors",
@@ -2292,6 +2338,29 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:preserve-name-vs-word-in-translation": {
+      "id": "errors:preserve-name-vs-word-in-translation",
+      "category": "errors",
+      "status": "learning",
+      "title": "翻译时区分 name 与 word",
+      "explanation": "name 指人名、地名或名称，word 指一般词语；原文说“这个名字”时应保留为 this name。",
+      "source": "I can't confirm the correct pronunciation of the word.",
+      "example": "I’m not sure of the correct pronunciation of this name.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-05T13:01:34+08:00",
+      "last_learned_at": "2026-08-05T13:01:34+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:preserve-pronoun-gender-in-translation": {
       "id": "errors:preserve-pronoun-gender-in-translation",
       "category": "errors",
@@ -2463,7 +2532,7 @@
     "errors:pronunciation-vs-voice-for-accent-corrections": {
       "id": "errors:pronunciation-vs-voice-for-accent-corrections",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "把“发音”误写成 voice",
       "explanation": "说某人的发音或读音时通常用 pronunciation；voice 指嗓音、声音特质，不等于 pronunciation。",
       "source": "Mia always dishes out others voice",
@@ -2475,14 +2544,21 @@
       "first_learned_at": "2026-08-01T20:57:54+08:00",
       "last_learned_at": "2026-08-01T20:57:54+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 10.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-05T13:01:34+08:00",
+      "next_review_at": "2026-09-04T13:01:34+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-08-05T13:01:34+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:provide-service-not-serve-service": {
       "id": "errors:provide-service-not-serve-service",
