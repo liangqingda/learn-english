@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 123,
+  "revision": 127,
   "category": "grammar",
   "records": {
     "grammar:can-i-get-you-offer-food-drink": {
@@ -261,6 +261,32 @@
           "new_status": "learning"
         }
       ]
+    },
+    "grammar:prepositional-phrase-sentence-functions": {
+      "id": "grammar:prepositional-phrase-sentence-functions",
+      "category": "grammar",
+      "status": "learning",
+      "title": "介词短语在句子中的作用和成分",
+      "explanation": "介词通常不能单独充当完整成分，而是和名词、代词、动名词等组成介词短语，用来说明时间、地点、方向、原因、方式、对象、所属关系等。介词短语在句中常作状语、后置定语、表语、宾语补足语，少数情况下也可作主语补语或名词/形容词/动词的补足成分。",
+      "source": "介词的作用是什么，在句子结构中通常充当什么成分",
+      "example": "She left after lunch. / The book on the desk is mine. / He is in trouble.",
+      "tags": [
+        "grammar",
+        "preposition",
+        "prepositional phrase",
+        "sentence element"
+      ],
+      "first_learned_at": "2026-08-06T07:37:43+08:00",
+      "last_learned_at": "2026-08-06T07:37:43+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "grammar:while-clause-simultaneous-actions": {
       "id": "grammar:while-clause-simultaneous-actions",
