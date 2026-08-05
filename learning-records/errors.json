@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 119,
+  "revision": 120,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -210,6 +210,29 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:at-the-second-intersection-for-directions": {
+      "id": "errors:at-the-second-intersection-for-directions",
+      "category": "errors",
+      "status": "learning",
+      "title": "指路时用 at the second intersection 表示在第二个路口",
+      "explanation": "指路语境中的“路口”通常是 intersection；序数词 second 前需要定冠词 the，并用 at 表示转弯发生的位置。",
+      "source": "Continue along this road until you see second road and turn right.",
+      "example": "Continue along this road and turn right at the second intersection.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-05T08:47:17+08:00",
+      "last_learned_at": "2026-08-05T08:47:17+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:auxiliary-do-not-followed-by-past-tense": {
       "id": "errors:auxiliary-do-not-followed-by-past-tense",
@@ -1725,7 +1748,7 @@
     "errors:on-the-way-used-for-along-this-road": {
       "id": "errors:on-the-way-used-for-along-this-road",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "把 on the way 误当作 along this road",
       "explanation": "on the way 通常表示“在去某地的路上/途中”，不等于“沿着这条路继续走”。表达路线指引时，应说 continue on this road 或 continue along this road。",
       "source": "Continue on the way until you see a bank.",
@@ -1736,14 +1759,21 @@
       "first_learned_at": "2026-08-02T17:34:58+08:00",
       "last_learned_at": "2026-08-02T17:34:58+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 10.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-05T08:47:17+08:00",
+      "next_review_at": "2026-09-04T08:47:17+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-08-05T08:47:17+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:opened-not-closed-for-opening-event": {
       "id": "errors:opened-not-closed-for-opening-event",
@@ -2199,6 +2229,29 @@
       ],
       "first_learned_at": "2026-08-02T21:43:15+08:00",
       "last_learned_at": "2026-08-02T21:43:15+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:preserve-pronoun-gender-in-translation": {
+      "id": "errors:preserve-pronoun-gender-in-translation",
+      "category": "errors",
+      "status": "learning",
+      "title": "翻译时保持人称代词性别一致",
+      "explanation": "中文原文指女性时，宾格应使用 her，不能换成表示男性的 him。翻译需要保持指代对象一致。",
+      "source": "I called him on the way to the airport.",
+      "example": "I called her on the way to the airport.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-05T08:47:17+08:00",
+      "last_learned_at": "2026-08-05T08:47:17+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
