@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 124,
+  "revision": 125,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -225,14 +225,21 @@
       "first_learned_at": "2026-08-05T13:01:34+08:00",
       "last_learned_at": "2026-08-05T13:01:34+08:00",
       "learned_count": 2,
-      "mastery_score": 0.0,
-      "review_count": 0,
+      "mastery_score": 7.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-08-05T17:15:51+08:00",
+      "next_review_at": "2026-08-08T17:15:51+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-08-05T17:15:51+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
     },
     "errors:at-the-second-intersection-for-directions": {
       "id": "errors:at-the-second-intersection-for-directions",
@@ -1988,6 +1995,29 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:past-tense-in-completed-event-sequence": {
+      "id": "errors:past-tense-in-completed-event-sequence",
+      "category": "errors",
+      "status": "learning",
+      "title": "已完成的过去事件序列使用一般过去时",
+      "explanation": "叙述已经发生并完成的一连串动作时，时间从句和主句通常都用一般过去时。",
+      "source": "I called my sister as soon as I hear the message.",
+      "example": "I called my sister as soon as I heard the news.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-05T17:15:51+08:00",
+      "last_learned_at": "2026-08-05T17:15:51+08:00",
+      "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:past-tense-needed-in-reported-clause": {
       "id": "errors:past-tense-needed-in-reported-clause",
       "category": "errors",
@@ -3126,6 +3156,29 @@
       ],
       "first_learned_at": "2026-08-03T12:37:25+08:00",
       "last_learned_at": "2026-08-03T12:37:25+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:third-person-singular-s-in-dependent-clause": {
+      "id": "errors:third-person-singular-s-in-dependent-clause",
+      "category": "errors",
+      "status": "learning",
+      "title": "第三人称单数从句谓语漏加 -s",
+      "explanation": "一般现在时中，从句主语为第三人称单数时，谓语动词也要使用第三人称单数形式。",
+      "source": "As long as the manager approve the plan, we’ll begin the project.",
+      "example": "As soon as the manager approves the plan, we’ll begin the project.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-05T17:15:51+08:00",
+      "last_learned_at": "2026-08-05T17:15:51+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
