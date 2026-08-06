@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 126,
+  "revision": 128,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -305,7 +305,7 @@
     "errors:back-east-direction-misuse": {
       "id": "errors:back-east-direction-misuse",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "back east 不能表示西行方向",
       "explanation": "back east 通常指美国东部或从其他地区回望美国东部，不能用来描述从纽约去洛杉矶这类西向行程；这种语境应说 travel west、travel westward，或直接说 travel to Los Angeles。",
       "source": "She lives in New York and travels to Los Angeles back east every summer.",
@@ -316,11 +316,11 @@
       "first_learned_at": "2026-07-28T23:17:51+08:00",
       "last_learned_at": "2026-07-30T15:42:51+08:00",
       "learned_count": 2,
-      "mastery_score": 4.0,
-      "review_count": 3,
-      "high_score_streak": 0,
-      "last_reviewed_at": "2026-07-31T08:29:22+08:00",
-      "next_review_at": "2026-08-03T08:29:22+08:00",
+      "mastery_score": 10.0,
+      "review_count": 4,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-07T07:33:58+08:00",
+      "next_review_at": "2026-09-06T07:33:58+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
@@ -329,6 +329,12 @@
           "reviewed_at": "2026-07-31T08:29:22+08:00",
           "previous_status": "learning",
           "new_status": "learning"
+        },
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-08-07T07:33:58+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
         }
       ]
     },
