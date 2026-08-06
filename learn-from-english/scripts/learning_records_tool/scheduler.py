@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Any
 
 
@@ -62,13 +62,19 @@ def schedule_review(record: dict[str, Any], score: float, reviewed_at: datetime)
     ).isoformat(timespec="seconds")
 
 
-def review_priority(record: dict[str, Any], now: datetime) -> tuple[int, str, float, int, str]:
+def review_priority(record: dict[str, Any], now: datetime) -> tuple[int, float, int, float, str]:
     due_at = record.get("next_review_at")
-    due = due_at is None or datetime.fromisoformat(due_at) <= now
+    parsed_due = datetime.fromisoformat(due_at) if due_at is not None else None
+    if parsed_due is not None and parsed_due <= now:
+        queue = 0
+    elif parsed_due is None:
+        queue = 1
+    else:
+        queue = 2
     return (
-        0 if due else 1,
-        str(due_at or ""),
+        queue,
         float(record.get("mastery_score", 0)),
         -int(record.get("lapse_count", 0)),
+        parsed_due.astimezone(timezone.utc).timestamp() if parsed_due is not None else 0.0,
         str(record["id"]),
     )

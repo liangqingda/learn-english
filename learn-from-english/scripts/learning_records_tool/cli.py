@@ -83,7 +83,19 @@ def handle_complete_review(args: argparse.Namespace) -> dict[str, Any]:
         score = float(payload.get("score", -1))
     except (TypeError, ValueError) as exc:
         raise RecordError("complete-review score must be a number") from exc
-    return service().complete_review(str(payload.get("id", "")), score, errors)
+    claim_owner = payload.get("claim_owner")
+    claim_token = payload.get("claim_token")
+    if claim_owner is not None and not isinstance(claim_owner, str):
+        raise RecordError("complete-review claim_owner must be a string")
+    if claim_token is not None and not isinstance(claim_token, str):
+        raise RecordError("complete-review claim_token must be a string")
+    return service().complete_review(
+        str(payload.get("id", "")),
+        score,
+        errors,
+        claim_owner=claim_owner,
+        claim_token=claim_token,
+    )
 
 
 def handle_review(args: argparse.Namespace, expected_status: str | None = None) -> dict[str, Any]:
@@ -102,11 +114,7 @@ def handle_legacy_list(args: argparse.Namespace, status: str) -> list[dict[str, 
 
 
 def handle_search(args: argparse.Namespace) -> list[dict[str, Any]]:
-    statuses = {"learning"}
-    if args.include_familiar:
-        statuses.add("familiar")
-    if args.include_mastered:
-        statuses.add("mastered")
+    statuses = set(args.status) if args.status else None
     return service().search(args.query, statuses)
 
 
@@ -144,7 +152,20 @@ def handle_next_review(args: argparse.Namespace) -> dict[str, Any]:
         status=args.status,
         randomize=args.random,
         due_only=args.due_only,
+        claim_owner=args.claim_owner,
     )
+
+
+def handle_release_claim(args: argparse.Namespace) -> dict[str, Any]:
+    return service().release_claim(
+        args.id,
+        claim_owner=args.claim_owner,
+        claim_token=args.claim_token,
+    )
+
+
+def handle_error_clusters(args: argparse.Namespace) -> dict[str, Any]:
+    return service().error_pattern_clusters(minimum_size=args.minimum_size)
 
 
 def parse_period(value: str) -> int:
@@ -217,8 +238,13 @@ def build_parser() -> argparse.ArgumentParser:
 
     search = subparsers.add_parser("search", help="search record content")
     search.add_argument("--query", required=True)
-    search.add_argument("--include-familiar", action="store_true")
-    search.add_argument("--include-mastered", action="store_true")
+    search.add_argument(
+        "--status",
+        action="append",
+        choices=STATUSES,
+        default=[],
+        help="limit results to one or more statuses; defaults to all statuses",
+    )
     search.set_defaults(handler=handle_search)
 
     summary = subparsers.add_parser("summary", help="summarize record counts")
@@ -229,7 +255,7 @@ def build_parser() -> argparse.ArgumentParser:
     menu = subparsers.add_parser("menu", help="build a context-aware review menu")
     menu.add_argument(
         "--context",
-        choices=("initial", "review-complete", "exercise-active"),
+        choices=("initial", "review-complete"),
         default="initial",
     )
     menu.add_argument("--focus", help="current English target used in follow-up labels")
@@ -258,7 +284,22 @@ def build_parser() -> argparse.ArgumentParser:
     )
     next_review.add_argument("--random", action="store_true")
     next_review.add_argument("--due-only", action="store_true")
+    next_review.add_argument("--claim-owner")
     next_review.set_defaults(handler=handle_next_review)
+
+    release_claim = subparsers.add_parser(
+        "release-claim", help="release an active review claim"
+    )
+    release_claim.add_argument("--id", required=True)
+    release_claim.add_argument("--claim-owner", required=True)
+    release_claim.add_argument("--claim-token", required=True)
+    release_claim.set_defaults(handler=handle_release_claim)
+
+    error_clusters = subparsers.add_parser(
+        "error-clusters", help="group similar error records for focused review"
+    )
+    error_clusters.add_argument("--minimum-size", type=int, default=2)
+    error_clusters.set_defaults(handler=handle_error_clusters)
 
     history = subparsers.add_parser("history", help="show one record's review history")
     history.add_argument("--id", required=True)

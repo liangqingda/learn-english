@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import os
 from contextlib import contextmanager
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Callable, TypeVar
 
@@ -823,23 +824,57 @@ class RecordStore:
             self._write_review_claims(claims)
             return result
 
+    def read_review_claims(self) -> dict[str, Any]:
+        with self._exclusive_lock():
+            return self._load_review_claims()
+
     def transaction_releasing_claim(
         self,
         identifier: str,
         operation: Callable[[dict[str, Any]], T],
+        *,
+        claim_owner: str | None = None,
+        claim_token: str | None = None,
     ) -> T:
         with self._exclusive_lock():
             self.learning_dir.mkdir(parents=True, exist_ok=True)
             self.mastered_dir.mkdir(parents=True, exist_ok=True)
             database = self._load()
             claims = self._load_review_claims()
-            removed = claims.setdefault("claims", {}).pop(identifier, None) is not None
+            claim_index = claims.setdefault("claims", {})
+            claim = claim_index.get(identifier)
+            claim_was_present = claim is not None
+            if claim is not None:
+                try:
+                    expires_at = parse_timestamp(claim.get("expires_at"))
+                except (TypeError, ValueError):
+                    expires_at = None
+                if expires_at is None or expires_at <= datetime.now().astimezone():
+                    claim_index.pop(identifier, None)
+                    claim = None
+            if claim is not None:
+                if not claim_owner or not claim_token:
+                    raise RecordError("claim owner and token are required for this review")
+                if claim.get("owner") != claim_owner or claim.get("token") != claim_token:
+                    raise RecordError("review claim owner or token does not match")
+            elif claim_owner is not None or claim_token is not None:
+                raise RecordError(f"review claim does not exist: {identifier}")
+            removed = claim_was_present
             result = operation(database)
             database["revision"] += 1
             database["records"] = dict(sorted(database["records"].items()))
-            if removed:
-                self._write_review_claims(claims)
             self._write(database)
+            claim_warning = None
+            if removed:
+                claim_index.pop(identifier, None)
+                try:
+                    self._write_review_claims(claims)
+                except Exception as exc:
+                    claim_warning = f"review saved but claim cleanup failed: {exc}"
+            if isinstance(result, dict):
+                result["claim_released"] = removed and claim_warning is None
+                if claim_warning is not None:
+                    result["warning"] = claim_warning
             return result
 
     def transaction_unvalidated(

@@ -6,6 +6,7 @@ import json
 import os
 import re
 import uuid
+from collections import Counter
 from difflib import SequenceMatcher
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -34,6 +35,7 @@ LEGACY_LOCATIONS = {
     "mastered-learning-records": "mastered",
 }
 REVIEW_CLAIM_TTL = timedelta(minutes=45)
+NEW_ITEM_REVIEW_INTERVAL = 4
 
 
 class RecordService:
@@ -109,6 +111,25 @@ class RecordService:
     def _encounter(record: dict[str, Any], timestamp: str) -> None:
         record["last_learned_at"] = timestamp
         record["learned_count"] = int(record.get("learned_count", 0)) + 1
+
+    @classmethod
+    def _merge_richer_candidate_content(
+        cls, existing: dict[str, Any], candidate: dict[str, Any]
+    ) -> list[str]:
+        enriched_fields = []
+        merged_tags = normalize_tags([*existing.get("tags", []), *candidate.get("tags", [])])
+        if merged_tags != existing.get("tags", []):
+            existing["tags"] = merged_tags
+            enriched_fields.append("tags")
+        for field in ("explanation", "source", "example"):
+            current = str(existing.get(field) or "").strip()
+            incoming = str(candidate.get(field) or "").strip()
+            if incoming and len(cls._normalized_similarity_text(incoming)) > len(
+                cls._normalized_similarity_text(current)
+            ):
+                existing[field] = incoming
+                enriched_fields.append(field)
+        return enriched_fields
 
     @staticmethod
     def _timestamp_key(value: str | None) -> datetime | None:
@@ -219,6 +240,7 @@ class RecordService:
                 if match is not None:
                     existing, reason, similarity = match
                     self._encounter(existing, timestamp)
+                    enriched_fields = self._merge_richer_candidate_content(existing, candidate)
                     results.append(
                         {
                             "id": existing["id"],
@@ -228,6 +250,7 @@ class RecordService:
                             "similarity": similarity,
                             "status": existing["status"],
                             "learned_count": existing["learned_count"],
+                            "enriched_fields": enriched_fields,
                         }
                     )
                     continue
@@ -280,11 +303,13 @@ class RecordService:
         if match is not None:
             existing, reason, similarity = match
             RecordService._encounter(existing, timestamp)
+            enriched_fields = RecordService._merge_richer_candidate_content(existing, candidate)
             return {
                 "id": existing["id"],
                 "created": False,
                 "match_reason": reason,
                 "similarity": similarity,
+                "enriched_fields": enriched_fields,
             }
         records[candidate["id"]] = candidate
         return {
@@ -352,6 +377,8 @@ class RecordService:
         errors: Iterable[dict[str, Any]] = (),
         *,
         expected_status: str | None = None,
+        claim_owner: str | None = None,
+        claim_token: str | None = None,
     ) -> dict[str, Any]:
         if not 0 <= score <= 10:
             raise RecordError("score must be between 0 and 10")
@@ -403,7 +430,12 @@ class RecordService:
                 "deleted": False,
             }
 
-        result = self.store.transaction_releasing_claim(identifier, operation)
+        result = self.store.transaction_releasing_claim(
+            identifier,
+            operation,
+            claim_owner=claim_owner,
+            claim_token=claim_token,
+        )
         return result
 
     def list_records(
@@ -423,14 +455,131 @@ class RecordService:
         raw_needle = query.casefold().strip()
         if not raw_needle:
             raise RecordError("query must not be empty")
-        results = []
+        if not normalized_needle:
+            raise RecordError("query must contain at least one letter or number")
+        field_weights = {
+            "title": 8,
+            "tags": 7,
+            "source": 5,
+            "example": 4,
+            "explanation": 3,
+        }
+        ranked_results = []
         for record in self.records().values():
             if statuses is not None and record["status"] not in statuses:
                 continue
-            searchable = json.dumps(record, ensure_ascii=False).casefold()
-            if raw_needle in searchable or normalized_needle in normalize_key(searchable):
-                results.append(record)
-        return sorted(results, key=lambda item: item["id"])
+            values = {
+                "title": str(record.get("title", "")),
+                "explanation": str(record.get("explanation", "")),
+                "source": str(record.get("source", "")),
+                "example": str(record.get("example", "")),
+                "tags": " ".join(record.get("tags", [])),
+            }
+            matched_fields = [
+                field
+                for field, value in values.items()
+                if raw_needle in value.casefold()
+                or normalized_needle in normalize_key(value)
+            ]
+            if not matched_fields:
+                continue
+            score = sum(field_weights[field] for field in matched_fields)
+            if values["title"].casefold() == raw_needle:
+                score += 10
+            snippet_field = max(matched_fields, key=lambda field: field_weights[field])
+            snippet = values[snippet_field].strip()
+            if len(snippet) > 180:
+                snippet = snippet[:177].rstrip() + "..."
+            ranked_results.append(
+                (
+                    -score,
+                    record["id"],
+                    {
+                        **record,
+                        "matched_fields": matched_fields,
+                        "snippet": snippet,
+                        "relevance": score,
+                    },
+                )
+            )
+        return [item[2] for item in sorted(ranked_results)]
+
+    def error_pattern_clusters(self, *, minimum_size: int = 2) -> dict[str, Any]:
+        if minimum_size < 2:
+            raise RecordError("minimum cluster size must be at least 2")
+        errors = self.list_records(category="errors", status=None)
+        generic_tags = {
+            "error",
+            "errors",
+            "learning-record",
+            "migrated-mastered-record",
+            "review",
+            "review-error",
+        }
+
+        def meaningful_tags(record: dict[str, Any]) -> set[str]:
+            return {
+                tag.casefold()
+                for tag in record.get("tags", [])
+                if tag.casefold() not in generic_tags
+            }
+
+        def relationship(left: dict[str, Any], right: dict[str, Any]) -> float | None:
+            title_similarity = self._text_similarity(left.get("title"), right.get("title"))
+            explanation_similarity = self._text_similarity(
+                left.get("explanation"), right.get("explanation")
+            )
+            shared_tags = meaningful_tags(left).intersection(meaningful_tags(right))
+            if title_similarity >= 0.68 or explanation_similarity >= 0.78:
+                return max(title_similarity, explanation_similarity)
+            if shared_tags and (title_similarity >= 0.45 or explanation_similarity >= 0.55):
+                return max(title_similarity, explanation_similarity) + 0.1
+            return None
+
+        grouped: list[list[dict[str, Any]]] = []
+        for record in errors:
+            candidates = []
+            for index, group in enumerate(grouped):
+                score = relationship(group[0], record)
+                if score is not None:
+                    candidates.append((score, index))
+            if candidates:
+                _score, group_index = max(candidates, key=lambda item: (item[0], -item[1]))
+                grouped[group_index].append(record)
+            else:
+                grouped.append([record])
+        clusters = []
+        clustered_ids = set()
+        for records in grouped:
+            if len(records) < minimum_size:
+                continue
+            ordered = sorted(
+                records,
+                key=lambda item: (
+                    float(item.get("mastery_score", 0)),
+                    -int(item.get("lapse_count", 0)),
+                    item["id"],
+                ),
+            )
+            clustered_ids.update(item["id"] for item in ordered)
+            common_tags = sorted(set.intersection(*(meaningful_tags(item) for item in ordered)))
+            clusters.append(
+                {
+                    "id": f"error-cluster:{ordered[0]['id'].partition(':')[2]}",
+                    "label": common_tags[0] if common_tags else ordered[0]["title"],
+                    "count": len(ordered),
+                    "record_ids": [item["id"] for item in ordered],
+                    "records": ordered,
+                }
+            )
+        clusters.sort(key=lambda item: (-item["count"], item["id"]))
+        return {
+            "cluster_count": len(clusters),
+            "clusters": clusters,
+            "unclustered": [
+                record for record in errors if record["id"] not in clustered_ids
+            ],
+        }
 
     def summary(self) -> dict[str, Any]:
         return counts_for(self.records())
@@ -443,12 +592,56 @@ class RecordService:
         current_exercise_explained: bool = False,
         has_answer_errors: bool = False,
     ) -> dict[str, Any]:
+        records = self.records()
+        now = datetime.now().astimezone()
+        claims = self.store.read_review_claims().get("claims", {})
+        active_claimed_ids = {
+            identifier
+            for identifier, claim in claims.items()
+            if identifier in records and self._active_review_claim(claim, now) is not None
+        }
+        available = [
+            record for identifier, record in records.items() if identifier not in active_claimed_ids
+        ]
+        claimed = [records[identifier] for identifier in active_claimed_ids]
+        availability_counts = {
+            "by_status": {
+                status: sum(record["status"] == status for record in available)
+                for status in ("learning", "familiar", "mastered")
+            },
+            "by_category": {
+                category: sum(
+                    record["category"] == category and record["status"] == "learning"
+                    for record in available
+                )
+                for category in CATEGORIES
+            },
+            "claimed_by_status": {
+                status: sum(record["status"] == status for record in claimed)
+                for status in ("learning", "familiar", "mastered")
+            },
+            "claimed_by_category": {
+                category: sum(
+                    record["category"] == category and record["status"] == "learning"
+                    for record in claimed
+                )
+                for category in CATEGORIES
+            },
+        }
+        effective_focus = focus.strip() if focus and focus.strip() else None
+        if effective_focus is None:
+            focus_candidates = [record for record in available if record["status"] == "learning"]
+            if focus_candidates:
+                effective_focus = min(
+                    focus_candidates, key=lambda record: review_priority(record, now)
+                )["title"]
         return build_menu(
-            self.records(),
+            records,
             context,
-            focus=focus,
+            focus=effective_focus,
             current_exercise_explained=current_exercise_explained,
             has_answer_errors=has_answer_errors,
+            availability_counts=availability_counts,
         )
 
     @staticmethod
@@ -498,8 +691,46 @@ class RecordService:
             records = database["records"]
             claim_index = claims.setdefault("claims", {})
             for identifier, claim in list(claim_index.items()):
-                if identifier not in records or self._active_review_claim(claim, now) is None:
+                record = records.get(identifier)
+                active_claim = self._active_review_claim(claim, now)
+                try:
+                    claimed_at = parse_timestamp(claim.get("claimed_at"))
+                    last_reviewed_at = parse_timestamp(
+                        record.get("last_reviewed_at") if record is not None else None
+                    )
+                except (TypeError, ValueError):
+                    claimed_at = None
+                    last_reviewed_at = None
+                claimed_review_count = claim.get("review_count")
+                review_completed = (
+                    isinstance(claimed_review_count, int)
+                    and int(record.get("review_count", 0)) > claimed_review_count
+                ) or (
+                    claimed_review_count is None
+                    and claimed_at is not None
+                    and last_reviewed_at is not None
+                    and last_reviewed_at >= claimed_at
+                )
+                if record is None or active_claim is None or review_completed:
                     del claim_index[identifier]
+            resumable = [
+                (identifier, claim)
+                for identifier, claim in claim_index.items()
+                if claim.get("owner") == owner
+                and identifier in records
+                and records[identifier]["status"] == status
+                and records[identifier]["category"] in selected_categories
+            ]
+            if resumable:
+                identifier, claim = min(resumable, key=lambda item: item[0])
+                if not claim.get("token"):
+                    claim["token"] = uuid.uuid4().hex
+                claim.setdefault("review_count", int(records[identifier].get("review_count", 0)))
+                return {
+                    "status": status,
+                    "record": {**records[identifier], "review_claim": claim},
+                    "resumed": True,
+                }
             candidates = [
                 record
                 for record in records.values()
@@ -507,34 +738,70 @@ class RecordService:
                 and record["category"] in selected_categories
                 and record["id"] not in claim_index
             ]
-            due = [record for record in candidates if review_priority(record, now)[0] == 0]
+            overdue = [record for record in candidates if review_priority(record, now)[0] == 0]
+            new_items = [record for record in candidates if review_priority(record, now)[0] == 1]
+            future = [record for record in candidates if review_priority(record, now)[0] == 2]
             if due_only:
-                candidates = due
-            elif due:
-                candidates = due
-            if randomize and candidates:
+                future = []
+            completed_reviews = sum(
+                int(record.get("review_count", 0)) for record in records.values()
+            )
+            if overdue and new_items:
+                selection_pool = (
+                    new_items
+                    if completed_reviews % NEW_ITEM_REVIEW_INTERVAL
+                    == NEW_ITEM_REVIEW_INTERVAL - 1
+                    else overdue
+                )
+            elif overdue:
+                selection_pool = overdue
+            elif new_items:
+                selection_pool = new_items
+            else:
+                selection_pool = future
+            if randomize and selection_pool:
                 import random
 
                 weights = [
                     max(1.0, 11.0 - float(record["mastery_score"]) + record["lapse_count"] * 2)
-                    for record in candidates
+                    for record in selection_pool
                 ]
-                selected = random.choices(candidates, weights=weights, k=1)[0]
+                selected = random.choices(selection_pool, weights=weights, k=1)[0]
             else:
                 selected = (
-                    min(candidates, key=lambda item: review_priority(item, now))
-                    if candidates
+                    min(selection_pool, key=lambda item: review_priority(item, now))
+                    if selection_pool
                     else None
                 )
             if selected is not None:
                 claim = {
                     "owner": owner,
+                    "token": uuid.uuid4().hex,
+                    "review_count": int(selected.get("review_count", 0)),
                     "claimed_at": now.isoformat(timespec="seconds"),
                     "expires_at": (now + REVIEW_CLAIM_TTL).isoformat(timespec="seconds"),
                 }
                 claim_index[selected["id"]] = claim
                 selected = {**selected, "review_claim": claim}
-            return {"status": status, "record": selected}
+            return {"status": status, "record": selected, "resumed": False}
+
+        return self.store.review_claims_transaction(operation)
+
+    def release_claim(
+        self, identifier: str, *, claim_owner: str, claim_token: str
+    ) -> dict[str, Any]:
+        if not claim_owner or not claim_token:
+            raise RecordError("claim owner and token are required")
+
+        def operation(_database: dict[str, Any], claims: dict[str, Any]) -> dict[str, Any]:
+            claim_index = claims.setdefault("claims", {})
+            claim = claim_index.get(identifier)
+            if claim is None:
+                raise RecordError(f"review claim does not exist: {identifier}")
+            if claim.get("owner") != claim_owner or claim.get("token") != claim_token:
+                raise RecordError("review claim owner or token does not match")
+            del claim_index[identifier]
+            return {"id": identifier, "released": True}
 
         return self.store.review_claims_transaction(operation)
 
@@ -547,20 +814,118 @@ class RecordService:
     def stats(self, days: int) -> dict[str, Any]:
         if days <= 0:
             raise RecordError("period must be a positive number of days")
-        cutoff = datetime.now().astimezone() - timedelta(days=days)
+        now = datetime.now().astimezone()
+        start_date = now.date() - timedelta(days=days - 1)
+        cutoff = datetime.combine(start_date, datetime.min.time(), tzinfo=now.tzinfo)
+        records = list(self.records().values())
         events = []
-        for record in self.records().values():
+        for record in records:
             events.extend(
                 {"id": record["id"], "category": record["category"], **event}
                 for event in record["review_history"]
                 if datetime.fromisoformat(event["reviewed_at"]) >= cutoff
             )
         average = sum(float(event["score"]) for event in events) / len(events) if events else None
+        distribution = {"0-4": 0, "5-7": 0, "8-9": 0, "10": 0}
+        daily_index = {
+            (now.date() - timedelta(days=offset)).isoformat(): {
+                "date": (now.date() - timedelta(days=offset)).isoformat(),
+                "review_count": 0,
+                "average_score": None,
+                "lapse_count": 0,
+                "mastery_count": 0,
+                "_score_total": 0.0,
+            }
+            for offset in reversed(range(days))
+        }
+        category_index = {
+            category: {
+                "category": category,
+                "review_count": 0,
+                "average_score": None,
+                "lapse_count": 0,
+                "mastery_count": 0,
+                "_score_total": 0.0,
+            }
+            for category in CATEGORIES
+        }
+        lapse_count = 0
+        mastery_count = 0
+        for event in events:
+            score = float(event["score"])
+            bucket = "10" if score == 10 else "8-9" if score >= 8 else "5-7" if score >= 5 else "0-4"
+            distribution[bucket] += 1
+            lapsed = event.get("previous_status") in {"familiar", "mastered"} and event.get(
+                "new_status"
+            ) == "learning"
+            mastered = event.get("previous_status") != "mastered" and event.get(
+                "new_status"
+            ) == "mastered"
+            lapse_count += int(lapsed)
+            mastery_count += int(mastered)
+            day = datetime.fromisoformat(event["reviewed_at"]).astimezone(now.tzinfo).date().isoformat()
+            for group in (daily_index.get(day), category_index[event["category"]]):
+                if group is None:
+                    continue
+                group["review_count"] += 1
+                group["_score_total"] += score
+                group["lapse_count"] += int(lapsed)
+                group["mastery_count"] += int(mastered)
+        mastery_event_ids = {
+            event["id"]
+            for event in events
+            if event.get("previous_status") != "mastered"
+            and event.get("new_status") == "mastered"
+        }
+        for record in records:
+            mastered_at = parse_timestamp(record.get("mastered_at"))
+            if (
+                record["id"] in mastery_event_ids
+                or mastered_at is None
+                or mastered_at < cutoff
+            ):
+                continue
+            mastery_count += 1
+            day = mastered_at.astimezone(now.tzinfo).date().isoformat()
+            if day in daily_index:
+                daily_index[day]["mastery_count"] += 1
+            category_index[record["category"]]["mastery_count"] += 1
+        for group in [*daily_index.values(), *category_index.values()]:
+            if group["review_count"]:
+                group["average_score"] = round(
+                    group.pop("_score_total") / group["review_count"], 2
+                )
+            else:
+                group.pop("_score_total")
+        due_records = [
+            record
+            for record in records
+            if record["status"] != "mastered"
+            and (
+                record.get("next_review_at") is None
+                or datetime.fromisoformat(record["next_review_at"]) <= now
+            )
+        ]
+        due_by_status = Counter(record["status"] for record in due_records)
+        due_by_category = Counter(record["category"] for record in due_records)
+        snapshot_totals = self.summary()["totals"]
         return {
             "period_days": days,
             "review_count": len(events),
             "average_score": round(average, 2) if average is not None else None,
-            "status_counts": self.summary()["totals"],
+            "status_counts": snapshot_totals,
+            "snapshot_totals": snapshot_totals,
+            "mastered_random_pool": snapshot_totals["mastered"],
+            "daily": list(daily_index.values()),
+            "by_category": list(category_index.values()),
+            "score_distribution": distribution,
+            "due_backlog": {
+                "total": len(due_records),
+                "by_status": {status: due_by_status[status] for status in ("learning", "familiar", "mastered")},
+                "by_category": {category: due_by_category[category] for category in CATEGORIES},
+            },
+            "lapse_count": lapse_count,
+            "mastery_count": mastery_count,
             "events": sorted(events, key=lambda event: event["reviewed_at"]),
         }
 

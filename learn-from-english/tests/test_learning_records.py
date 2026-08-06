@@ -15,6 +15,7 @@ SCRIPT_DIR = Path(__file__).resolve().parents[1] / "scripts"
 sys.path.insert(0, str(SCRIPT_DIR))
 
 from learning_records_tool.models import RecordError, empty_database  # noqa: E402
+from learning_records_tool.menu import build_menu  # noqa: E402
 from learning_records_tool.service import RecordService  # noqa: E402
 from learning_records_tool.store import RecordStore  # noqa: E402
 
@@ -123,6 +124,31 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertEqual(repeated["match_reason"], "same-source-example")
         self.assertEqual(len(self.service.records()), 1)
         self.assertEqual(self.service.records()["errors:back-east-direction"]["learned_count"], 2)
+
+    def test_fuzzy_upsert_enriches_canonical_record_content(self) -> None:
+        original = payload("usage", "polite-request")
+        original["title"] = "polite request with could"
+        original["explanation"] = "Could makes a request polite."
+        original["source"] = "Could you help?"
+        original["example"] = ""
+        original["tags"] = ["requests"]
+        self.service.upsert(original)
+        richer = {**original, "key": "polite-could-request"}
+        richer["explanation"] = "Could you is a conventional way to make a request sound more polite."
+        richer["source"] = "Could you help me carry these boxes after the meeting?"
+        richer["example"] = "Could you open the window, please?"
+        richer["tags"] = ["requests", "politeness"]
+
+        result = self.service.upsert(richer)
+
+        record = self.service.records()["usage:polite-request"]
+        self.assertFalse(result["created"])
+        self.assertEqual(
+            set(result["enriched_fields"]), {"tags", "explanation", "source", "example"}
+        )
+        self.assertEqual(record["tags"], ["politeness", "requests"])
+        self.assertEqual(record["example"], richer["example"])
+        self.assertEqual(record["status"], "learning")
 
     def test_merge_records_combines_counts_and_deletes_sources(self) -> None:
         first = payload("errors", "first-error")
@@ -428,7 +454,6 @@ class LearningRecordsTest(unittest.TestCase):
         mark_mastered(self.service, "usage:usage-item")
 
         initial = self.service.menu("initial")
-        active = self.service.menu("exercise-active", focus="present perfect")
         complete = self.service.menu("review-complete", focus="present perfect")
         complete_with_errors = self.service.menu(
             "review-complete",
@@ -442,26 +467,28 @@ class LearningRecordsTest(unittest.TestCase):
             current_exercise_explained=True,
         )
 
-        for menu in (initial, active, complete, complete_with_errors, explained):
+        for menu in (initial, complete, complete_with_errors, explained):
             other_options = [option for option in menu["options"] if option["group"] == "other"]
+            rendered_options = [
+                rendered
+                for option in menu["options"]
+                for rendered in (option, *option.get("children", []))
+            ]
             self.assertGreaterEqual(len(menu["options"]), 3)
             self.assertGreaterEqual(len(other_options), 3)
             self.assertIn("popular", {option["group"] for option in menu["options"]})
             self.assertIn("scenario-dialogue", {option["id"] for option in menu["options"]})
             self.assertEqual(
-                len({option["icon"] for option in menu["options"]}),
-                len(menu["options"]),
+                len({option["icon"] for option in rendered_options}),
+                len(rendered_options),
             )
             self.assertGreaterEqual(
                 sum(option["kind"] == "follow-up-learning" for option in other_options),
                 2,
             )
             for option in menu["options"]:
-                if "count" in option:
+                if "count" in option and option["id"] != "mastered-cet-paper":
                     self.assertTrue(option["label"].endswith(f"（{option['count']}）"))
-        self.assertNotIn(
-            "explain-current-exercise", {item["id"] for item in active["options"]}
-        )
         self.assertNotIn(
             "explain-current-exercise", {item["id"] for item in complete["options"]}
         )
@@ -472,45 +499,62 @@ class LearningRecordsTest(unittest.TestCase):
         )
         self.assertEqual(complete_explain["group"], "popular")
         self.assertEqual(complete_explain["label"], "讲解错题")
+        self.assertEqual(complete_with_errors["options"][0], complete_explain)
         self.assertNotIn(
             "explain-current-exercise", {item["id"] for item in explained["options"]}
         )
-        active_mastered_paper = next(
-            item for item in active["options"] if item["id"] == "mastered-cet-paper"
-        )
-        self.assertEqual(active_mastered_paper["count"], 1)
-        self.assertEqual(active_mastered_paper["group"], "popular")
         complete_mastered_paper = next(
             item for item in complete["options"] if item["id"] == "mastered-cet-paper"
         )
         self.assertEqual(complete_mastered_paper["count"], 1)
         self.assertEqual(complete_mastered_paper["group"], "popular")
-        active_labels = {item["id"]: item["label"] for item in active["options"]}
-        self.assertNotIn("cet-practice", active_labels)
-        self.assertIn("mastered-cet-paper", active_labels)
+        self.assertEqual(
+            complete_mastered_paper["label"],
+            "基于 1 个已掌握知识点生成完整四六级套题（不含听力）",
+        )
+        self.assertEqual(complete_mastered_paper["action"], {"command": "mastered-list"})
+        complete_labels = {item["id"]: item["label"] for item in complete["options"]}
+        self.assertNotIn("cet-practice", complete_labels)
+        self.assertIn("mastered-cet-paper", complete_labels)
         self.assertIn(
             "follow-up-learning",
-            {item["kind"] for item in active["options"] if item["group"] == "other"},
+            {item["kind"] for item in complete["options"] if item["group"] == "other"},
         )
         self.assertTrue(
             any(
                 "present perfect" in item["label"]
-                for item in active["options"]
+                for item in complete["options"]
                 if item["kind"] == "follow-up-learning"
             )
         )
-        self.assertIn("present perfect", active_labels["scenario-dialogue"])
-        self.assertIn("完整场景对话", active_labels["scenario-dialogue"])
-        self.assertNotIn("开始一段", active_labels["scenario-dialogue"])
+        self.assertIn("present perfect", complete_labels["scenario-dialogue"])
+        self.assertIn("完整场景对话", complete_labels["scenario-dialogue"])
+        self.assertNotIn("开始一段", complete_labels["scenario-dialogue"])
         initial_labels = {item["id"]: item["label"] for item in initial["options"]}
-        self.assertIn("咖啡店", initial_labels["scenario-dialogue"])
+        self.assertNotIn("咖啡店", initial_labels["scenario-dialogue"])
+        self.assertIn("errors errors-item", initial_labels["scenario-dialogue"])
         self.assertIn("完整场景对话", initial_labels["scenario-dialogue"])
         mastered_paper = next(
             item for item in initial["options"] if item["id"] == "mastered-cet-paper"
         )
         self.assertEqual(mastered_paper["count"], 1)
         self.assertEqual(mastered_paper["group"], "popular")
-        self.assertTrue(mastered_paper["label"].endswith("（1）"))
+        self.assertEqual(
+            mastered_paper["label"],
+            "基于 1 个已掌握知识点生成完整四六级套题（不含听力）",
+        )
+        mastered_review = next(
+            item for item in initial["options"] if item["id"] == "mastered-review"
+        )
+        self.assertEqual(
+            mastered_review["action"],
+            {"command": "next-review", "status": "mastered", "random": True},
+        )
+        self.assertIn("learning-progress", initial_labels)
+        progress = next(
+            item for item in initial["options"] if item["id"] == "learning-progress"
+        )
+        self.assertEqual(progress["action"], {"command": "stats", "period": "30d"})
         self.assertNotIn(
             "复习掌握不稳的知识点、语法和句型",
             {item["label"] for item in initial["options"]},
@@ -563,8 +607,8 @@ class LearningRecordsTest(unittest.TestCase):
             option for option in menu["options"] if option["id"] == "scenario-dialogue"
         )
 
-        self.assertIn("咖啡店", scenario["label"])
-        self.assertEqual(scenario["focus"], "日常英语寒暄和近况表达")
+        self.assertNotIn("咖啡店", scenario["label"])
+        self.assertEqual(scenario["focus"], "grammar whitespace-focus")
 
     def test_merged_review_path_includes_every_category(self) -> None:
         for category in ("errors", "grammar", "vocabulary", "phrases", "usage"):
@@ -579,10 +623,94 @@ class LearningRecordsTest(unittest.TestCase):
 
         self.assertEqual(mixed["count"], menu["counts"]["totals"]["learning"])
         self.assertEqual(mixed["icon"], "🎯")
+        self.assertEqual(len(mixed["children"]), 3)
+        self.assertTrue(
+            all(child["parent_id"] == mixed["id"] for child in mixed["children"])
+        )
+        self.assertEqual(
+            {child["action"]["path"] for child in mixed["children"]},
+            {"errors-grammar", "vocabulary-phrases", "usage"},
+        )
         self.assertEqual(
             set(mixed["categories"]), {"errors", "grammar", "vocabulary", "phrases", "usage"}
         )
         self.assertIn(selected["record"]["category"], mixed["categories"])
+
+    def test_menu_exposes_claim_availability_and_busy_state(self) -> None:
+        self.service.upsert(payload("grammar", "claimed-grammar"))
+        self.service.upsert(payload("vocabulary", "available-vocabulary"))
+        availability_counts = {
+            "by_status": {"learning": 1, "familiar": 0, "mastered": 0},
+            "by_category": {
+                "vocabulary": 1,
+                "phrases": 0,
+                "grammar": 0,
+                "usage": 0,
+                "errors": 0,
+            },
+            "claimed_by_status": {"learning": 1, "familiar": 0, "mastered": 0},
+            "claimed_by_category": {
+                "vocabulary": 0,
+                "phrases": 0,
+                "grammar": 1,
+                "usage": 0,
+                "errors": 0,
+            },
+        }
+
+        initial = build_menu(
+            self.service.records(),
+            "initial",
+            availability_counts=availability_counts,
+        )
+        mixed = next(item for item in initial["options"] if item["kind"] == "review-path")
+        children = {child["id"]: child for child in mixed["children"]}
+        self.assertEqual(mixed["available_count"], 1)
+        self.assertEqual(mixed["claimed_count"], 1)
+        self.assertFalse(mixed["busy"])
+        self.assertTrue(children["errors-grammar"]["busy"])
+        self.assertTrue(children["errors-grammar"]["disabled"])
+        self.assertIn("暂时无可用", children["errors-grammar"]["label"])
+
+        complete = build_menu(
+            self.service.records(),
+            "review-complete",
+            availability_counts=availability_counts,
+        )
+        continuation = next(
+            item for item in complete["options"] if item["id"] == "continue-review"
+        )
+        self.assertEqual(continuation["available_count"], 1)
+        self.assertEqual(continuation["claimed_count"], 1)
+        self.assertIn("可用 1", continuation["label"])
+
+    def test_initial_menu_offers_error_cluster_review_for_multiple_errors(self) -> None:
+        first = distinct_payload("errors", "article-error", "missing article before job title")
+        second = distinct_payload("errors", "preposition-error", "wrong preposition after wait")
+        first["tags"] = ["articles", "review-error"]
+        second["tags"] = ["prepositions"]
+        self.service.upsert(first)
+        self.service.upsert(second)
+
+        menu = self.service.menu("initial")
+        cluster_option = next(
+            item for item in menu["options"] if item["id"] == "error-clusters"
+        )
+
+        self.assertEqual(cluster_option["group"], "other")
+        self.assertEqual(cluster_option["kind"], "error-clusters")
+        self.assertEqual(cluster_option["count"], 2)
+        self.assertEqual(
+            cluster_option["action"],
+            {"command": "error-clusters", "minimum_size": 2},
+        )
+        self.assertGreaterEqual(
+            sum(item["group"] == "other" for item in menu["options"]), 3
+        )
+
+    def test_exercise_active_menu_context_is_rejected(self) -> None:
+        with self.assertRaisesRegex(RecordError, "invalid menu context"):
+            self.service.menu("exercise-active")
 
     def test_next_review_prefers_due_low_score_and_supports_statuses(self) -> None:
         self.service.upsert(payload("grammar", "low"))
@@ -607,31 +735,112 @@ class LearningRecordsTest(unittest.TestCase):
         claims = json.loads(self.store.review_claims_path.read_text(encoding="utf-8"))
         claimed = claims["claims"]["grammar:first"]
         self.assertEqual(claimed["owner"], "session-a")
+        self.assertTrue(claimed["token"])
         self.assertNotIn("review_claim", self.service.records()["grammar:first"])
 
-        self.service.complete_review("grammar:first", 7)
+        self.service.complete_review(
+            "grammar:first",
+            7,
+            claim_owner="session-a",
+            claim_token=claimed["token"],
+        )
 
         self.assertNotIn("review_claim", self.service.records()["grammar:first"])
         claims = json.loads(self.store.review_claims_path.read_text(encoding="utf-8"))
         self.assertNotIn("grammar:first", claims["claims"])
 
-    def test_claim_release_failure_does_not_save_review_score(self) -> None:
+    def test_same_owner_resumes_claim_and_token_guards_completion_and_release(self) -> None:
+        self.service.upsert(payload("grammar", "claim-resume"))
+        first = self.service.next_review(categories=["grammar"], claim_owner="session-a")
+
+        resumed = self.service.next_review(categories=["grammar"], claim_owner="session-a")
+
+        self.assertTrue(resumed["resumed"])
+        self.assertEqual(resumed["record"]["id"], first["record"]["id"])
+        claim = resumed["record"]["review_claim"]
+        self.assertEqual(claim["token"], first["record"]["review_claim"]["token"])
+        with self.assertRaisesRegex(RecordError, "does not match"):
+            self.service.complete_review(
+                "grammar:claim-resume",
+                7,
+                claim_owner="session-a",
+                claim_token="wrong-token",
+            )
+        with self.assertRaisesRegex(RecordError, "does not match"):
+            self.service.release_claim(
+                "grammar:claim-resume",
+                claim_owner="session-b",
+                claim_token=claim["token"],
+            )
+
+        released = self.service.release_claim(
+            "grammar:claim-resume",
+            claim_owner="session-a",
+            claim_token=claim["token"],
+        )
+
+        self.assertTrue(released["released"])
+        self.service.complete_review("grammar:claim-resume", 7)
+
+    def test_claim_release_failure_keeps_saved_score_and_is_cleaned_lazily(self) -> None:
         self.service.upsert(payload("grammar", "claim-release-failure"))
-        self.service.next_review(
+        selected = self.service.next_review(
             categories=["grammar"], claim_owner="failing-claim-session"
         )
+        claim = selected["record"]["review_claim"]
 
         with mock.patch.object(
             self.store,
             "_write_review_claims",
             side_effect=OSError("injected claim write failure"),
         ):
-            with self.assertRaisesRegex(OSError, "injected claim write failure"):
-                self.service.complete_review("grammar:claim-release-failure", 7)
+            result = self.service.complete_review(
+                "grammar:claim-release-failure",
+                7,
+                claim_owner="failing-claim-session",
+                claim_token=claim["token"],
+            )
 
         record = self.service.records()["grammar:claim-release-failure"]
-        self.assertEqual(record["review_count"], 0)
-        self.assertEqual(record["mastery_score"], 0)
+        self.assertEqual(record["review_count"], 1)
+        self.assertEqual(record["mastery_score"], 7)
+        self.assertFalse(result["claim_released"])
+        self.assertIn("cleanup failed", result["warning"])
+
+        selected_again = self.service.next_review(
+            categories=["grammar"], claim_owner="retry-session"
+        )
+
+        self.assertEqual(selected_again["record"]["id"], "grammar:claim-release-failure")
+        self.assertEqual(self.service.records()["grammar:claim-release-failure"]["review_count"], 1)
+
+    def test_database_failure_retains_claim_for_exact_retry(self) -> None:
+        self.service.upsert(payload("grammar", "claim-retry"))
+        selected = self.service.next_review(categories=["grammar"], claim_owner="session-a")
+        claim = selected["record"]["review_claim"]
+        os.environ["LEARN_ENGLISH_FAIL_BEFORE_REPLACE"] = "1"
+        try:
+            with self.assertRaisesRegex(RecordError, "injected failure"):
+                self.service.complete_review(
+                    "grammar:claim-retry",
+                    7,
+                    claim_owner="session-a",
+                    claim_token=claim["token"],
+                )
+        finally:
+            os.environ.pop("LEARN_ENGLISH_FAIL_BEFORE_REPLACE", None)
+
+        persisted_claim = read_json(self.store.review_claims_path)["claims"][
+            "grammar:claim-retry"
+        ]
+        self.assertEqual(persisted_claim["token"], claim["token"])
+        result = self.service.complete_review(
+            "grammar:claim-retry",
+            7,
+            claim_owner="session-a",
+            claim_token=claim["token"],
+        )
+        self.assertEqual(result["review_count"], 1)
 
     def test_expired_review_claims_are_reused(self) -> None:
         self.service.upsert(payload("grammar", "claim-timeout"))
@@ -650,6 +859,63 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertEqual(second["record"]["id"], "grammar:claim-timeout")
         self.assertEqual(second["record"]["review_claim"]["owner"], "session-b")
 
+    def test_overdue_records_precede_new_items_but_new_item_gets_fixed_quota(self) -> None:
+        self.service.upsert(
+            distinct_payload("grammar", "overdue-item", "conditional inversion review")
+        )
+        self.service.complete_review("grammar:overdue-item", 7)
+        self.service.complete_review("grammar:overdue-item", 7)
+        self.service.upsert(
+            distinct_payload("grammar", "new-item", "article choice in newspaper titles")
+        )
+
+        def make_overdue(database: dict[str, object]) -> None:
+            record = database["records"]["grammar:overdue-item"]  # type: ignore[index]
+            record["first_learned_at"] = (
+                datetime.now().astimezone() - timedelta(days=4)
+            ).isoformat(timespec="seconds")
+            record["last_reviewed_at"] = (
+                datetime.now().astimezone() - timedelta(days=3)
+            ).isoformat(timespec="seconds")
+            record["next_review_at"] = (
+                datetime.now().astimezone() - timedelta(days=2)
+            ).isoformat(timespec="seconds")
+
+        self.store.transaction(make_overdue)
+        overdue = self.service.next_review(categories=["grammar"], claim_owner="session-a")
+        self.assertEqual(overdue["record"]["id"], "grammar:overdue-item")
+        claim = overdue["record"]["review_claim"]
+        self.service.complete_review(
+            "grammar:overdue-item",
+            7,
+            claim_owner="session-a",
+            claim_token=claim["token"],
+        )
+        self.store.transaction(make_overdue)
+
+        quota = self.service.next_review(categories=["grammar"], claim_owner="session-b")
+
+        self.assertEqual(quota["record"]["id"], "grammar:new-item")
+
+    def test_review_priority_compares_timezone_offsets_as_instants(self) -> None:
+        self.service.upsert(
+            distinct_payload("grammar", "earlier-instant", "modal deduction timeline")
+        )
+        self.service.upsert(
+            distinct_payload("grammar", "later-instant", "gerund after a preposition")
+        )
+
+        def set_due_times(database: dict[str, object]) -> None:
+            records = database["records"]  # type: ignore[assignment]
+            records["grammar:earlier-instant"]["next_review_at"] = "2020-01-01T08:00:00+08:00"
+            records["grammar:later-instant"]["next_review_at"] = "2020-01-01T01:00:00+00:00"
+
+        self.store.transaction(set_due_times)
+
+        selected = self.service.next_review(categories=["grammar"], claim_owner="timezone-test")
+
+        self.assertEqual(selected["record"]["id"], "grammar:earlier-instant")
+
     def test_search_summary_history_and_stats(self) -> None:
         self.service.upsert(payload("vocabulary", "context-word"))
         self.service.complete_review("vocabulary:context-word", 7)
@@ -660,6 +926,86 @@ class LearningRecordsTest(unittest.TestCase):
         stats = self.service.stats(30)
         self.assertEqual(stats["review_count"], 1)
         self.assertEqual(stats["average_score"], 7)
+
+    def test_search_rejects_punctuation_and_ranks_named_fields_across_statuses(self) -> None:
+        title_match = distinct_payload(
+            "vocabulary", "resilient-title", "resilient"
+        )
+        source_match = distinct_payload(
+            "usage", "resilient-source", "recovering after a difficult event"
+        )
+        source_match["source"] = "The community proved resilient after the storm."
+        self.service.upsert(title_match)
+        self.service.upsert(source_match)
+        self.service.complete_review("usage:resilient-source", 8)
+
+        with self.assertRaisesRegex(RecordError, "letter or number"):
+            self.service.search("!!!")
+        results = self.service.search("resilient")
+
+        self.assertEqual(results[0]["id"], "vocabulary:resilient-title")
+        self.assertIn("title", results[0]["matched_fields"])
+        self.assertIn("source", results[1]["matched_fields"])
+        self.assertEqual(results[1]["status"], "familiar")
+        self.assertTrue(results[1]["snippet"])
+
+    def test_error_pattern_clusters_returns_related_groups_and_unclustered_items(self) -> None:
+        first = distinct_payload(
+            "errors", "missing-article-job", "missing article before a job title"
+        )
+        first["tags"] = ["articles"]
+        second = distinct_payload(
+            "errors", "article-profession", "article omitted before a profession"
+        )
+        second["tags"] = ["articles", "review-error"]
+        unrelated = distinct_payload(
+            "errors", "modal-base-form", "modal verbs require the base form"
+        )
+        unrelated["tags"] = ["modal-verbs", "review-error"]
+        self.service.batch_upsert([first, second, unrelated])
+
+        result = self.service.error_pattern_clusters()
+
+        self.assertEqual(result["cluster_count"], 1)
+        self.assertEqual(
+            set(result["clusters"][0]["record_ids"]),
+            {"errors:missing-article-job", "errors:article-profession"},
+        )
+        self.assertEqual(
+            [record["id"] for record in result["unclustered"]],
+            ["errors:modal-base-form"],
+        )
+
+    def test_stats_include_daily_category_distribution_backlog_and_transitions(self) -> None:
+        self.service.upsert(
+            distinct_payload("grammar", "lapse-stat", "reported speech backshift")
+        )
+        self.service.complete_review("grammar:lapse-stat", 8)
+        self.service.complete_review("grammar:lapse-stat", 6)
+        self.service.upsert(
+            distinct_payload("usage", "mastery-stat", "formal meeting agenda")
+        )
+        mark_mastered(self.service, "usage:mastery-stat")
+        self.service.upsert(
+            distinct_payload("vocabulary", "new-backlog-stat", "queue vocabulary review")
+        )
+
+        stats = self.service.stats(7)
+
+        self.assertEqual(len(stats["daily"]), 7)
+        grammar = next(
+            item for item in stats["by_category"] if item["category"] == "grammar"
+        )
+        self.assertEqual(grammar["review_count"], 2)
+        self.assertEqual(grammar["average_score"], 7)
+        self.assertEqual(stats["score_distribution"]["5-7"], 1)
+        self.assertEqual(stats["score_distribution"]["8-9"], 1)
+        self.assertEqual(stats["lapse_count"], 1)
+        self.assertEqual(stats["mastery_count"], 1)
+        self.assertEqual(stats["snapshot_totals"], stats["status_counts"])
+        self.assertEqual(stats["mastered_random_pool"], 1)
+        self.assertEqual(stats["due_backlog"]["by_status"]["mastered"], 0)
+        self.assertEqual(stats["due_backlog"]["total"], 1)
 
     def test_validate_reports_all_schema_errors(self) -> None:
         self.service.upsert(payload("grammar", "invalid-time"))
@@ -914,6 +1260,154 @@ class LearningRecordsTest(unittest.TestCase):
         )
         self.assertEqual(json.loads(reviewed.stdout)["status"], "familiar")
 
+    def test_cli_review_claim_can_be_released_and_completed(self) -> None:
+        self.service.upsert(payload("grammar", "cli-claim"))
+        environment = {
+            **os.environ,
+            "LEARN_ENGLISH_REPO_ROOT": str(self.root),
+        }
+
+        claimed = subprocess.run(
+            [
+                sys.executable,
+                str(SCRIPT),
+                "next-review",
+                "--claim-owner",
+                "cli-test",
+            ],
+            env=environment,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        claimed_record = json.loads(claimed.stdout)["record"]
+        claim = claimed_record["review_claim"]
+        released = subprocess.run(
+            [
+                sys.executable,
+                str(SCRIPT),
+                "release-claim",
+                "--id",
+                claimed_record["id"],
+                "--claim-owner",
+                claim["owner"],
+                "--claim-token",
+                claim["token"],
+            ],
+            env=environment,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        self.assertTrue(json.loads(released.stdout)["released"])
+
+        reclaimed = subprocess.run(
+            [
+                sys.executable,
+                str(SCRIPT),
+                "next-review",
+                "--claim-owner",
+                "cli-test",
+            ],
+            env=environment,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        reclaimed_record = json.loads(reclaimed.stdout)["record"]
+        reclaimed_claim = reclaimed_record["review_claim"]
+        reviewed = subprocess.run(
+            [sys.executable, str(SCRIPT), "complete-review", "--input", "-"],
+            env=environment,
+            input=json.dumps(
+                {
+                    "id": reclaimed_record["id"],
+                    "score": 7,
+                    "errors": [],
+                    "claim_owner": reclaimed_claim["owner"],
+                    "claim_token": reclaimed_claim["token"],
+                }
+            ),
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(json.loads(reviewed.stdout)["score"], 7)
+
+    def test_cli_search_defaults_to_all_statuses_and_accepts_filters(self) -> None:
+        learning_payload = payload("grammar", "search-learning")
+        familiar_payload = payload("phrases", "search-familiar")
+        mastered_payload = payload("usage", "search-mastered")
+        for item in (learning_payload, familiar_payload, mastered_payload):
+            item["title"] = f"CLI shared marker {item['key']}"
+        self.service.upsert(learning_payload)
+        self.service.upsert(familiar_payload)
+        self.service.complete_review("phrases:search-familiar", 8)
+        self.service.upsert(mastered_payload)
+        mark_mastered(self.service, "usage:search-mastered")
+        environment = {
+            **os.environ,
+            "LEARN_ENGLISH_REPO_ROOT": str(self.root),
+        }
+
+        all_statuses = subprocess.run(
+            [sys.executable, str(SCRIPT), "search", "--query", "CLI shared marker"],
+            env=environment,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        filtered = subprocess.run(
+            [
+                sys.executable,
+                str(SCRIPT),
+                "search",
+                "--query",
+                "CLI shared marker",
+                "--status",
+                "learning",
+                "--status",
+                "mastered",
+            ],
+            env=environment,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
+        self.assertEqual(
+            {item["status"] for item in json.loads(all_statuses.stdout)},
+            {"learning", "familiar", "mastered"},
+        )
+        self.assertEqual(
+            {item["status"] for item in json.loads(filtered.stdout)},
+            {"learning", "mastered"},
+        )
+
+    def test_cli_error_clusters_exposes_minimum_size(self) -> None:
+        environment = {
+            **os.environ,
+            "LEARN_ENGLISH_REPO_ROOT": str(self.root),
+        }
+
+        result = subprocess.run(
+            [
+                sys.executable,
+                str(SCRIPT),
+                "error-clusters",
+                "--minimum-size",
+                "3",
+            ],
+            env=environment,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
+        output = json.loads(result.stdout)
+        self.assertEqual(output["cluster_count"], 0)
+        self.assertEqual(output["clusters"], [])
+
     def test_cli_validate_returns_nonzero_for_invalid_data(self) -> None:
         invalid_root = self.root / "invalid-cli"
         invalid_store = RecordStore(invalid_root)
@@ -967,6 +1461,29 @@ class LearningRecordsTest(unittest.TestCase):
                 )
                 self.assertEqual(result.returncode, 2)
                 self.assertIn("not allowed with argument", result.stderr)
+
+    def test_cli_menu_rejects_removed_exercise_active_context(self) -> None:
+        environment = {
+            **os.environ,
+            "LEARN_ENGLISH_REPO_ROOT": str(self.root),
+        }
+
+        result = subprocess.run(
+            [
+                sys.executable,
+                str(SCRIPT),
+                "menu",
+                "--context",
+                "exercise-active",
+            ],
+            env=environment,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("invalid choice", result.stderr)
 
 
 if __name__ == "__main__":

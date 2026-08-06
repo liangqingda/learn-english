@@ -10,8 +10,10 @@
 - 间隔复习：根据得分、连续高分和遗忘次数计算 `next_review_at`。
 - 掌握判定：复习中同一知识点累计 3 次达到 10 分后才进入 `mastered`。
 - 精简归档：知识点进入 `mastered` 后只保留稳定 ID、标题、讲解和掌握时间；详细学习字段与逐次评分历史会被重置。
-- 集中菜单：脚本根据对话上下文生成 3 至 5 个稳定入口，Skill 只负责渲染。
+- 集中菜单：脚本根据对话上下文生成带 kind、action 和可选 children 的稳定菜单树，Skill 只负责渲染与分派。
 - 数量就近展示：记录数量只标在对应菜单项末尾，不额外输出状态汇总开场。
+- 相关检索与聚类：搜索返回相关度、命中字段和摘要，错题可按可复用模式聚类。
+- 进展分析：统计按日期、类别和分数段汇总，并报告到期积压、遗忘与掌握数量。
 
 ## 架构
 
@@ -37,7 +39,7 @@ mastered-learning-records/<category>.json
 | `store.py` | 按分类合并读取、按库分流、临时文件、`fsync` 和原子替换 |
 | `service.py` | 批量写入、评分协调、查询、迁移、历史与统计 |
 | `scheduler.py` | 状态转换、复习间隔和选题优先级 |
-| `menu.py` | 初始、复习后和习题中三类菜单策略 |
+| `menu.py` | 初始与复习完成后的菜单策略、可用性和嵌套选项 |
 | `cli.py` | 新旧命令的兼容入口 |
 
 原有 `learn-from-english/scripts/learning_records.py` 路径保持不变，它现在是轻量兼容入口。
@@ -111,7 +113,7 @@ python3 learn-from-english/scripts/learning_records.py batch-upsert \
   --input new-records.json
 ```
 
-输入可以是记录数组，也可以是 `{"records": [...]}`。重复 ID 或同类高度相似知识点不覆盖原讲解，而是复用已有记录、增加 `learned_count` 并更新 `last_learned_at`，避免把同一知识点拆成多条。
+输入可以是记录数组，也可以是 `{"records": [...]}`。重复 ID 或同类高度相似知识点会复用已有记录、增加 `learned_count`、更新时间，并用更完整的新内容补齐较弱的 `explanation`、`source` 或 `example`，同时合并标签。返回值用 `reason`、`similarity` 和 `enriched_fields` 说明匹配与补全结果，避免把同一知识点拆成多条。
 
 单条兼容命令仍可使用：
 
@@ -154,33 +156,42 @@ python3 learn-from-english/scripts/learning_records.py merge \
 python3 learn-from-english/scripts/learning_records.py menu --context initial
 python3 learn-from-english/scripts/learning_records.py menu \
   --context review-complete --focus "present perfect"
-python3 learn-from-english/scripts/learning_records.py menu \
-  --context exercise-active --focus "present perfect"
 
-python3 learn-from-english/scripts/learning_records.py next-review --path errors-grammar
-python3 learn-from-english/scripts/learning_records.py next-review --familiar
-python3 learn-from-english/scripts/learning_records.py next-review --mastered
-python3 learn-from-english/scripts/learning_records.py next-review --random
+python3 learn-from-english/scripts/learning_records.py next-review \
+  --path errors-grammar --claim-owner <conversation-owner>
+python3 learn-from-english/scripts/learning_records.py next-review \
+  --mastered --random --claim-owner <conversation-owner>
+python3 learn-from-english/scripts/learning_records.py release-claim \
+  --id <record-id> --claim-owner <owner> --claim-token <token>
 python3 learn-from-english/scripts/learning_records.py mastered-list
 ```
 
-选题先考虑是否到期，再考虑到期时间、掌握分、遗忘次数和稳定 ID。随机复习按低分与遗忘次数加权。完整四六级套题入口使用 `mastered-list` 合并返回 `mastered-learning-records/` 下的已掌握素材。
+菜单 option 以 `kind` 决定分派，并为 CLI 操作提供结构化 `action`；调用方不得从 label 或 ID 猜行为。`action.status` 固定映射为 `next-review --status <value>`，`action.random: true` 映射为 `--random`。综合复习项可以带 `children`，顶层编号为 `1`，子项编号为 `1-1`。菜单还会报告 `available_count`、`claimed_count`、`busy` 和 `disabled`，避免把暂时都被领取的记录显示成可立即抽取。
+
+选题先考虑是否到期，再考虑到期时间、掌握分、遗忘次数和稳定 ID。普通继续复习按低分与遗忘次数加权；已掌握复习使用随机抽查。完整套题入口使用 `mastered-list` 返回已掌握素材。
+
+普通题组、标准答案、作答进度、领取凭据和失败后待重试的写入 payload 只保留在当前对话，不写入学习记录或 session 文件。抽题时为当前对话生成 `claim-owner`，并保留返回的 claim token；`complete-review` payload 携带 `claim_owner` 与 `claim_token`，保存成功时校验并释放领取。未作答练习是当前回复的唯一操作入口。保存失败时保留原 payload 和领取凭据，仅提供重试或放弃；恢复操作优先于尚未展示的练习，保存成功或明确放弃后才出题。放弃或退出题组时调用 `release-claim`。上下文丢失后不能恢复题组，领取等待自动过期。
+
+完整四六级套题同样只保留在当前对话：生成临时 `paper_id`、答案、进度及题目到 mastered ID 的映射。试卷保留 57 个官方题位，其中听力 25 题只保留位置、不生成内容，实际可作答 32 项。支持按题号、Section 或 Part 分段提交；完成或明确交卷后再揭示答案、评分和讲解。因听力缺失不推算官方 710 总分，套题结果也不改变规范记录分数或状态。
 
 ### 查询和统计
 
 ```bash
 python3 learn-from-english/scripts/learning_records.py list --category grammar
 python3 learn-from-english/scripts/learning_records.py search \
-  --query "present perfect" \
-  --include-familiar \
-  --include-mastered
+  --query "present perfect"
+python3 learn-from-english/scripts/learning_records.py search \
+  --query "article" --status learning --status familiar
 python3 learn-from-english/scripts/learning_records.py summary \
   --include-familiar \
   --include-mastered
 python3 learn-from-english/scripts/learning_records.py history \
   --id grammar:present-perfect-experience
 python3 learn-from-english/scripts/learning_records.py stats --period 30d
+python3 learn-from-english/scripts/learning_records.py error-clusters
 ```
+
+`search` 默认检索全部状态，按相关度排序，并返回 `matched_fields`、`snippet` 和 `relevance`；调用方可以用重复的 `--status` 限制范围。`stats` 在基础总数与事件之外返回 `snapshot_totals`、`daily`、`by_category`、`score_distribution`、`due_backlog`、`mastered_random_pool`、`lapse_count` 和 `mastery_count`；其中 `due_backlog` 只统计仍需调度的 learning/familiar 记录，已掌握记录作为随机抽查池单列。`error-clusters` 返回 cluster label、数量、成员和未聚类错题，用于选择一个聚类生成未评分的多模式练习；它不自动合并记录，也不改变多个规范记录的分数。
 
 ### 校验、修复和迁移
 
