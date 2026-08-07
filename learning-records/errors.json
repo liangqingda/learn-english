@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 128,
+  "revision": 129,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -3369,6 +3369,29 @@
       ],
       "first_learned_at": "2026-08-02T18:32:27+08:00",
       "last_learned_at": "2026-08-02T18:32:27+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:use-stay-instead-of-stop-for-remain-in-place": {
+      "id": "errors:use-stay-instead-of-stop-for-remain-in-place",
+      "category": "errors",
+      "status": "learning",
+      "title": "表示留下来应用 stay，而不是 stop",
+      "explanation": "stop 通常表示停止动作或短暂停靠，不能自然表达决定继续住在或留在某地；表达‘留下来’应使用 stay、remain 或 settle there 等。",
+      "source": "He disliked the city at first, but then he decided to stop here.",
+      "example": "He disliked the city at first, but then he decided to stay there.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-07T08:44:05+08:00",
+      "last_learned_at": "2026-08-07T08:44:05+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
