@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 129,
+  "revision": 130,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -2458,6 +2458,30 @@
         }
       ]
     },
+    "errors:proceed-needs-preposition-before-noun-object": {
+      "id": "errors:proceed-needs-preposition-before-noun-object",
+      "category": "errors",
+      "status": "learning",
+      "title": "proceed 后接名词时通常需要介词",
+      "explanation": "proceed 通常不是直接及物动词，不能自然说 proceed the plan；如果后面是名词，常用 proceed with the plan，表示继续推进这件事。",
+      "source": "Once the contract was signed, the team proceeded the implementation plan.",
+      "example": "Once the contract was signed, the team proceeded with the implementation plan.",
+      "tags": [
+        "review-error",
+        "verb-pattern"
+      ],
+      "first_learned_at": "2026-08-07T08:50:44+08:00",
+      "last_learned_at": "2026-08-07T08:50:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:proceed-not-followed-by-gerund": {
       "id": "errors:proceed-not-followed-by-gerund",
       "category": "errors",
@@ -2532,17 +2556,23 @@
       "first_learned_at": "2026-08-01T21:09:01+08:00",
       "last_learned_at": "2026-08-01T21:09:01+08:00",
       "learned_count": 1,
-      "mastery_score": 7.0,
-      "review_count": 1,
+      "mastery_score": 6.0,
+      "review_count": 2,
       "high_score_streak": 0,
-      "last_reviewed_at": "2026-08-02T17:51:39+08:00",
-      "next_review_at": "2026-08-05T17:51:39+08:00",
+      "last_reviewed_at": "2026-08-07T08:50:44+08:00",
+      "next_review_at": "2026-08-10T08:50:44+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
         {
           "score": 7.0,
           "reviewed_at": "2026-08-02T17:51:39+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        },
+        {
+          "score": 6.0,
+          "reviewed_at": "2026-08-07T08:50:44+08:00",
           "previous_status": "learning",
           "new_status": "learning"
         }
