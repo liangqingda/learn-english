@@ -1,12 +1,12 @@
 {
   "schema_version": 2,
-  "revision": 118,
+  "revision": 133,
   "category": "phrases",
   "records": {
     "phrases:back-east-us": {
       "id": "phrases:back-east-us",
       "category": "phrases",
-      "status": "learning",
+      "status": "familiar",
       "title": "back east",
       "explanation": "从美国西部或中部的视角指美国东部；back 带有回望来处或既有地域视角的意味，通常不译为“回到东部”。",
       "source": "Old-timers used it to describe a man who had just arrived from one of the big cities back east",
@@ -17,11 +17,11 @@
       "first_learned_at": "2026-07-28T20:36:08+08:00",
       "last_learned_at": "2026-07-28T20:36:08+08:00",
       "learned_count": 1,
-      "mastery_score": 6.0,
-      "review_count": 3,
-      "high_score_streak": 0,
-      "last_reviewed_at": "2026-07-31T08:05:47+08:00",
-      "next_review_at": "2026-08-03T08:05:47+08:00",
+      "mastery_score": 8.0,
+      "review_count": 4,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-08T08:37:50+08:00",
+      "next_review_at": "2026-08-15T08:37:50+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
@@ -30,6 +30,12 @@
           "reviewed_at": "2026-07-31T08:05:47+08:00",
           "previous_status": "learning",
           "new_status": "learning"
+        },
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-08T08:37:50+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
         }
       ]
     },
