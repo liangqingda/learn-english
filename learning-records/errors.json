@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 136,
+  "revision": 137,
   "category": "errors",
   "records": {
     "errors:accompany-mistaken-as-company-verb": {
@@ -484,7 +484,7 @@
     "errors:be-used-to-describe-not-used-to-people": {
       "id": "errors:be-used-to-describe-not-used-to-people",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "be used to describe 不能省略 describe",
       "explanation": "表示“被用来形容/描述某类人”时，英语常说 be used to describe people；used to 后面不能直接接 the people 表示“形容这些人”。",
       "source": "They say the word is used to the people from the big cities.",
@@ -496,11 +496,11 @@
       "first_learned_at": "2026-08-02T10:44:57+08:00",
       "last_learned_at": "2026-08-02T10:44:57+08:00",
       "learned_count": 1,
-      "mastery_score": 7.0,
-      "review_count": 1,
-      "high_score_streak": 0,
-      "last_reviewed_at": "2026-08-02T13:35:06+08:00",
-      "next_review_at": "2026-08-05T13:35:06+08:00",
+      "mastery_score": 9.0,
+      "review_count": 2,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-08T20:54:19+08:00",
+      "next_review_at": "2026-08-22T20:54:19+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
@@ -509,6 +509,12 @@
           "reviewed_at": "2026-08-02T13:35:06+08:00",
           "previous_status": "learning",
           "new_status": "learning"
+        },
+        {
+          "score": 9.0,
+          "reviewed_at": "2026-08-08T20:54:19+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
         }
       ]
     },
