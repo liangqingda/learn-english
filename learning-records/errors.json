@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 134,
+  "revision": 135,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -3058,7 +3058,7 @@
     "errors:singular-application-mistaken-as-plural-applications": {
       "id": "errors:singular-application-mistaken-as-plural-applications",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "把单数“申请”误写成复数 applications",
       "explanation": "中文“我的申请”通常指一份申请材料，英文应使用单数 application，并搭配 is still under review。只有明确有多份申请时才用 applications are。",
       "source": "My applications are still under review.",
@@ -3069,14 +3069,21 @@
       "first_learned_at": "2026-07-30T21:34:35+08:00",
       "last_learned_at": "2026-07-30T21:34:35+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 9.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-08T20:37:05+08:00",
+      "next_review_at": "2026-08-22T20:37:05+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 9.0,
+          "reviewed_at": "2026-08-08T20:37:05+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:singular-count-noun-missing-article": {
       "id": "errors:singular-count-noun-missing-article",
