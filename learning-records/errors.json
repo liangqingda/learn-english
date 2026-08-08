@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 132,
+  "revision": 133,
   "category": "errors",
   "records": {
     "errors:accuse-for-correction-feedback": {
@@ -1345,6 +1345,29 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:grow-up-irregular-past-grew": {
+      "id": "errors:grow-up-irregular-past-grew",
+      "category": "errors",
+      "status": "learning",
+      "title": "grow up 的过去式是 grew up",
+      "explanation": "grow 是不规则动词，过去式为 grew，不是 growed；因此表示童年经历时应说 grew up。",
+      "source": "She lives in Yalisangna, bug she growed up back east.",
+      "example": "She lives in Arizona, but she grew up back east.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-08T08:37:50+08:00",
+      "last_learned_at": "2026-08-08T08:37:50+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:hear-object-base-verb": {
       "id": "errors:hear-object-base-verb",
       "category": "errors",
@@ -2606,6 +2629,29 @@
           "new_status": "learning"
         }
       ]
+    },
+    "errors:pronoun-agreement-he-she": {
+      "id": "errors:pronoun-agreement-he-she",
+      "category": "errors",
+      "status": "learning",
+      "title": "主语代词前后一致",
+      "explanation": "句子已经用 He 作主语，后面的谓语也应继续用 he；不能在同一个主语链中无理由切换成 she。",
+      "source": "He comes from back east and now she works in California.",
+      "example": "He comes from back east and now works in California.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-08T08:37:50+08:00",
+      "last_learned_at": "2026-08-08T08:37:50+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:pronoun-agreement-with-female-name": {
       "id": "errors:pronoun-agreement-with-female-name",
