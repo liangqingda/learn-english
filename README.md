@@ -14,8 +14,8 @@
 - 数量就近展示：记录数量只标在对应菜单项末尾，不额外输出状态汇总开场。
 - 相关检索与聚类：搜索返回相关度、命中字段和摘要，错题可按可复用模式聚类。
 - 进展分析：统计按日期、类别和分数段汇总，并报告到期积压、遗忘与掌握数量。
-- 套题历史：每张四六级试卷与多次作答保存在同一个文件中，可续答未完成 attempt 或随机重做历史试卷。
-- 无听力评分：写作、阅读和翻译按 65 分计分，达到约 38.91 分时判定通过对应级别的无听力模拟笔试。
+- 套题历史：每张考试试卷与多次作答保存在同一个文件中，可续答未完成 attempt 或随机重做历史试卷。
+- 可配置评分：每张试卷自行定义主客观评分项、原始满分、报告满分、合格线和换算方式；四六级无听力卷报告为 710 分制，425 分合格。
 
 ## 架构
 
@@ -32,7 +32,7 @@ store.py ── 校验、原子替换
     ↓
 learning-records/<category>.json
 mastered-learning-records/<category>.json
-cet-papers/<paper_id>.json
+exam-papers/<paper_id>.json
 ```
 
 实现位于 `learn-from-english/scripts/learning_records_tool/`：
@@ -92,7 +92,9 @@ cet-papers/<paper_id>.json
 
 旧数据迁移会保留已有数量、分数和时间。旧格式没有保存逐次评分，因此 `review_history` 只从 Schema v2 启用后开始积累。
 
-`cet-papers/<paper_id>.json` 使用独立的 Paper Schema v1。文件保存一张试卷的题目、参考答案、mastered 素材映射及全部 `attempts`；每个 attempt 独立保存增量答案、跳过项、状态和最终评分。`paper_id` 采用 `cet4-YYYYMMDDTHHMMSS-<8hex>` 或 `cet6-...`，标题采用 `CET-4 模拟卷｜<主题>｜YYYY-MM-DD`。首次提交答案时创建 `in_progress` attempt，评分成功后转为 `completed`，同一试卷可以继续追加新的 attempt。
+`exam-papers/<paper_id>.json` 使用独立的 Paper Schema v2。文件保存一张试卷的题目、参考答案、mastered 素材映射及全部 `attempts`；每个 attempt 独立保存增量答案、跳过项、状态和最终评分。`paper_id` 采用 `<exam_type>-YYYYMMDDTHHMMSS-<8hex>`，标题采用 `<exam_name> 模拟卷｜<主题>｜YYYY-MM-DD`。首次提交答案时创建 `in_progress` attempt，评分成功后转为 `completed`，同一试卷可以继续追加新的 attempt。
+
+试卷通过 `answer_keys` 定义作答面，通过 `objective_items` 定义可自动判分的答案与分值，通过 `subjective_components` 定义需要人工评价的评分项。`grading_scheme` 独立保存 `raw_max_score`、`reported_max_score`、可为空的 `pass_score`、`linear/identity` 换算方式、小数精度、可选 `rounding_step`、单位和成绩说明。因此存储和菜单不依赖 CET：四六级可以把无听力 65 原始分线性报告为 710 分制，IELTS 风格练习可以配置 9 分制、0.5 Band 舍入及用户目标 Band，没有统一合格线的考试可以把 `pass_score` 设为 `null`。
 
 ## 协调写入与回滚
 
@@ -179,9 +181,11 @@ python3 learn-from-english/scripts/learning_records.py mastered-list
 
 普通复习题组、领取凭据和失败后待重试的写入 payload 只保留在当前对话，不写入学习记录或 session 文件。抽题时为当前对话生成 `claim-owner`，并保留返回的 claim token；`complete-review` payload 携带 `claim_owner` 与 `claim_token`，保存成功时校验并释放领取。未作答练习是当前回复的唯一操作入口。保存失败时保留原 payload 和领取凭据，仅提供重试或放弃；恢复操作优先于尚未展示的练习，保存成功或明确放弃后才出题。放弃或退出题组时调用 `release-claim`。上下文丢失后不能恢复普通题组，领取等待自动过期。
 
-完整四六级套题在首次展示前通过 `paper-create` 保存。试卷保留 57 个官方题位，其中听力 25 题只保留位置、不生成内容，实际可作答 32 项。`paper-submit` 增量保存分段答案，`paper-get` 可在上下文丢失后恢复进行中 attempt，`paper-list --status completed --random` 支持随机重做历史试卷。`paper-complete` 根据参考答案计算 35 分阅读成绩，并与写作、翻译各 15 分合计；达到 `65 × 425 / 710` 时返回无听力模拟通过。该结果不折算官方 710 分，也不改变 mastered 记录的复习状态。
+完整试卷在首次展示前通过 `paper-create` 保存。`paper-submit` 按试卷自己的 `answer_keys` 增量保存答案，`paper-get` 可在上下文丢失后恢复进行中 attempt，`paper-list --status completed --random` 支持随机重做历史试卷。`paper-complete` 自动计算客观题原始分、合并通用 `subjective_scores`，再按该卷的 `grading_scheme` 生成报告分和通过判定；结果不改变 mastered 记录的复习状态。
 
-### 四六级试卷历史
+当前 CET profile 仍保留 57 个官方题位，其中听力 25 题只保留位置、不生成内容，实际可作答 32 项。写作、阅读、翻译合计 65 原始分并线性报告为 710 分制，报告分达到 425 判定通过；成绩说明必须标注“无听力模拟折算分，不是官方成绩”。
+
+### 考试试卷历史
 
 ```bash
 python3 learn-from-english/scripts/learning_records.py paper-create --input paper.json
@@ -243,7 +247,7 @@ python3 learn-from-english/scripts/learning_records.py migrate-v2 --dry-run
 │   ├── phrases.json
 │   ├── usage.json
 │   └── vocabulary.json
-├── cet-papers/
+├── exam-papers/
 │   └── <paper_id>.json
 ├── learn-from-english/
 │   ├── SKILL.md

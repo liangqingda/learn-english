@@ -1,6 +1,6 @@
 ---
 name: practice-learning-records
-description: 从规范学习记录中选择到期或低分知识点开展复习，按回答记录 0 至 10 分，并在一次协调写操作中保存评分、状态变化和实际错题；也支持复习已标熟或已掌握知识点、查看历史统计，以及基于已掌握知识点生成、持久化、续答、重做和评分完整四六级套题。当用户消息去除首尾空白后仅为“你好”“复习”，或不区分大小写的“hello”“review”时必须使用；在本 Skill 打开的复习或套题流程中，用户回复最近菜单中的数字或答案时也使用。上述精确触发词出现时，本 Skill 优先于 learn-from-english。
+description: 从规范学习记录中选择到期或低分知识点开展复习，按回答记录 0 至 10 分，并在一次协调写操作中保存评分、状态变化和实际错题；也支持复习已标熟或已掌握知识点、查看历史统计，以及基于已掌握知识点生成、持久化、续答、重做和评分四六级、IELTS 风格或其他可配置英语考试套题。当用户消息去除首尾空白后仅为“你好”“复习”，或不区分大小写的“hello”“review”时必须使用；在本 Skill 打开的复习或套题流程中，用户回复最近菜单中的数字或答案时也使用。上述精确触发词出现时，本 Skill 优先于 learn-from-english。
 ---
 
 # 复习英语学习记录
@@ -15,7 +15,7 @@ description: 从规范学习记录中选择到期或低分知识点开展复习�
 python3 learn-from-english/scripts/learning_records.py menu --context initial
 ```
 
-严格按返回的 `options` 顺序、`label` 原文和 `group` 展示菜单，不自行增加、删除、重新分组或估算数量。数量只保留在脚本生成的标签末尾。顶层选项跨分组连续编号为 `1`、`2`；option 含 `children` 时，在父项下把子项编号为 `1-1`、`1-2`，更深层继续追加段。把编号路径与 option 对象只保留在当前对话。脚本保证 `Other Menus` 至少动态生成 3 项；把 `mastered-cet-paper` 和返回的历史试卷选项原样放在 `Popular Menus`。把 `disabled: true` 的项显示为暂不可用但不执行；用户选择时说明记录正被其他会话领取并保持当前菜单。
+严格按返回的 `options` 顺序、`label` 原文和 `group` 展示菜单，不自行增加、删除、重新分组或估算数量。数量只保留在脚本生成的标签末尾。顶层选项跨分组连续编号为 `1`、`2`；option 含 `children` 时，在父项下把子项编号为 `1-1`、`1-2`，更深层继续追加段。把编号路径与 option 对象只保留在当前对话。脚本保证 `Other Menus` 至少动态生成 3 项；把 `mastered-exam-paper` 和返回的历史试卷选项原样放在 `Popular Menus`。把 `disabled: true` 的项显示为暂不可用但不执行；用户选择时说明记录正被其他会话领取并保持当前菜单。
 
 若 `state` 为 `empty`，说明目前没有学习记录，并直接展示脚本返回的状态、基础练习和咖啡店场景入口，不编造历史知识点。
 
@@ -27,7 +27,7 @@ python3 learn-from-english/scripts/learning_records.py menu --context initial
 - `continue-review`：运行 `next-review --random`。
 - `familiar-review`：按 action 运行 `next-review --status familiar`。
 - `mastered-review`：按 action 运行 `next-review --status mastered --random`，把它作为已掌握知识点的随机抽查。
-- `mastered-cet-paper`：运行 `mastered-list`。
+- `mastered-exam-paper`：运行 `mastered-list`；用户已指定考试类型时使用相应 profile，未指定时根据当前学习目标选择合适类型并在卷首明确考试名称和评分规则。
 - `paper-history`：只作为包含历史试卷 children 的导航父项，不直接执行。
 - `historical-unanswered-paper`：按 action 运行 `paper-get --paper-id <paper_id>`，展示不含答案和解析的原卷；选择本身不创建作答。
 - `continue-paper-attempt`：按 action 运行带 `paper_id` 和 `attempt_id` 的 `paper-get`，恢复已保存答案，只列出仍缺少的可作答项并继续该 attempt。
@@ -185,7 +185,7 @@ python3 learn-from-english/scripts/learning_records.py complete-review --input <
 
 - `status: learning`：继续留在待巩固状态。
 - `status: familiar`：本次达到 8 分及以上但尚未满足 `mastered` 条件，进入或留在已标熟状态。
-- `status: mastered`：同一知识点累计第 3 次达到 10 分，进入已掌握状态，并作为完整四六级套题素材；未满 3 次的 10 分仍显示为 `familiar`。
+- `status: mastered`：同一知识点累计第 3 次达到 10 分，进入已掌握状态，并作为完整英语考试套题素材；未满 3 次的 10 分仍显示为 `familiar`。
 - `lapse_count` 增加：原已标熟或已掌握知识点出现遗忘。
 
 命令还会返回 `next_review_at`。向用户展示得分、最关键建议和下一次建议复习时间。写入失败时仍完成教学反馈，说明“本轮评分与错题未能保存；本轮记录变更已回滚”，并把含 `claim_owner`、`claim_token` 的完整 payload 只保留在当前对话。此时不要生成正常复习菜单，只显示“重试保存本轮评分”和“放弃保存并返回菜单”；重试时原样调用 `complete-review` 并复用凭据，放弃时必须确保本轮评分、状态、历史、错题和 claim 全部清除，再清除 payload。若回滚未完整成功，说明可能残留部分变更并停止后续写入。上下文丢失时说明无法重试并返回初始菜单。
@@ -208,7 +208,9 @@ python3 learn-from-english/scripts/learning_records.py menu \
 
 未作为评分复习任务的互动角色扮演不调用 `complete-review`。默认的完整场景对话脚本只是示例材料，不记录错题。只有用户明确参与互动角色扮演并确实出现、得到纠正的英语错误时，才把本轮所有错误组成一批 `errors` 记录，运行一次 `batch-upsert`。完全正确时不写错误记录。
 
-## 完整四六级套题
+## 完整英语考试套题
+
+先确定本卷的 `exam_type`、考试名称、题型和评分 profile。用户明确指定考试时服从；未指定时根据已掌握素材选择 CET-4 或 CET-6。生成 CET 之外的考试前，先查证该考试当前的官方题型与计分方式；如果考试没有统一合格线，把 `pass_score` 设为 `null`，除非用户给出目标分，此时将目标分作为本卷合格线并在 `score_note` 说明。不要把 710 分制、425 合格线或省略听力规则套到其他考试。
 
 生成新套题的入口先运行：
 
@@ -222,14 +224,18 @@ python3 learn-from-english/scripts/learning_records.py mastered-list
 python3 learn-from-english/scripts/learning_records.py paper-create --input <JSON 文件或 ->
 ```
 
-输入必须包含 `level`、简短 `theme`、`source_record_ids`、`sections` 和覆盖 `writing`、Questions 26-55、`translation` 的 `record_map`。严格使用以下 section 结构：
+当前四六级套题使用通用 Paper Schema v2 的 CET profile。输入必须包含 `exam_type`（`cet4` 或 `cet6`）、对应的 `exam_name`（`CET-4` 或 `CET-6`）、`format_id: cet-no-listening-v1`、简短 `theme`、`source_record_ids`、`sections`、`answer_keys`、`objective_items`、`subjective_components`、`grading_scheme`，以及覆盖全部 answer key 的 `record_map`。严格使用以下配置：
 
 - `writing`：`directions`、`prompt`、`word_requirement`、`reference_answer`。
 - `listening`：固定为 `{"omitted": true, "question_slots": 25}`。
 - `reading.section_a`、`section_b`、`section_c`：各含 `directions`、`passage` 和 10 个 `questions`；每题含正确范围内的 `number`、`prompt`、字符串 `choices`、`answer` 和 `explanation`。
 - `translation`：`directions`、`source_text`、`reference_answer`。
+- `answer_keys`：依次为 `writing`、字符串 `26` 至 `55`、`translation`。
+- `objective_items`：Questions 26-35 每题 0.5 原始分，36-45 每题 1 分，46-55 每题 2 分；每项同时保存 `answer`。
+- `subjective_components`：`writing.max_score` 和 `translation.max_score` 均为 15。
+- `grading_scheme`：`raw_max_score: 65`、`reported_max_score: 710`、`pass_score: 425`、`conversion: linear`、`precision: 2`、`rounding_step: null`、`score_unit: 分`，并用 `score_note` 明确这是无听力模拟折算分。
 
-`record_map` 的每个值是至少含一个 source ID 的数组。只把命令返回的 `paper_id` 和标准标题显示在卷首，不向用户展示存储的参考答案、解析或映射。所有 source 和 mapping ID 必须是当前 `mastered` 记录。文件自动保存到 `cet-papers/<paper_id>.json`，一卷一文件。
+`record_map` 的每个值是至少含一个 source ID 的数组。只把命令返回的 `paper_id` 和标准标题显示在卷首，不向用户展示存储的参考答案、解析或映射。所有 source 和 mapping ID 必须是当前 `mastered` 记录。文件自动保存到 `exam-papers/<paper_id>.json`，一卷一文件。其他考试可使用不同 `exam_type`、answer keys、主客观评分项与 `grading_scheme`，不要把 CET 题型或 710 分制写成通用规则。
 
 按 CET-4/CET-6 笔试形式生成，不声称来自官方真题。卷首同时标明“官方题位 57、当前实际生成并可作答 32”：写作 1 题、听力题位 25 个但不生成、阅读 30 题、翻译 1 题。保留官方考试时间和占比：CET-4 125 分钟、CET-6 130 分钟；写作 15%、听力 35%、阅读 35%、翻译 15%。不要把省略听力后的试卷称为 65% 满分或减少版。
 
@@ -260,7 +266,7 @@ python3 learn-from-english/scripts/learning_records.py paper-submit --input <JSO
 python3 learn-from-english/scripts/learning_records.py paper-complete --input <JSON 文件或 ->
 ```
 
-输入包含 `paper_id`、`attempt_id`、0 至 15 的 `writing_score`、0 至 15 的 `translation_score`、完整 `feedback` 和 `errors`。工具按存储的参考答案计算阅读：Section A 5 分、Section B 10 分、Section C 20 分；合计写作 15、阅读 35、翻译 15，满分 65。总分达到 `65 × 425 / 710`，即约 38.91，返回 `passed: true`。向用户明确说明这是对应 CET 级别的“无听力模拟通过判定”，不得给出或暗示官方 710 分成绩。
+输入包含 `paper_id`、`attempt_id`、`subjective_scores: {"writing": 0-15, "translation": 0-15}`、完整 `feedback` 和 `errors`。工具按存储的参考答案计算 35 原始阅读分，与写作、翻译组成 65 原始分，再按试卷的线性配置报告为 710 分制。报告满分为 710，达到 425 返回 `passed: true`。向用户展示 `reported_score / 710` 和 425 合格线，同时明确说明这是对应 CET 级别的“无听力模拟折算分”，不是官方考试成绩。
 
 `paper-complete` 在同一写锁下保存 completed attempt 和实际错误；不调用 `complete-review`，不改变 mastered 记录的分数、状态、次数或调度。保存失败时保留完整 payload，只显示“重试保存本次试卷评分”和“放弃评分保存并保留进行中作答”；放弃时不得删除已保存答案，且不得声称成绩或错误已保存。保存成功后再显示正常复习菜单。
 

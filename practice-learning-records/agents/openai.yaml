@@ -1,4 +1,4 @@
 interface:
   display_name: "英语知识点复习"
-  short_description: "复习英语知识点，并生成、续答、重做和评分持久化四六级套题"
-  default_prompt: "使用 $practice-learning-records 复习到期或低分知识点、原子记录评分与错题，或生成、续答和评分一套不含听力的持久化四六级套题。"
+  short_description: "复习英语知识点，并生成、续答、重做和评分多种英语考试套题"
+  default_prompt: "使用 $practice-learning-records 复习知识点，或生成、续答和评分一套采用目标考试评分规则的持久化英语试卷。"

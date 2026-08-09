@@ -327,12 +327,12 @@ def _initial_options(
     if counts["totals"]["mastered"]:
         options.append(
             _option(
-                "mastered-cet-paper",
+                "mastered-exam-paper",
                 "📝",
-                f"基于 {counts['totals']['mastered']} 个已掌握知识点生成完整四六级套题（不含听力）",
+                f"基于 {counts['totals']['mastered']} 个已掌握知识点生成完整英语考试套题",
                 "popular",
                 append_count=False,
-                kind="mastered-cet-paper",
+                kind="mastered-exam-paper",
                 count=counts["totals"]["mastered"],
                 action={"command": "mastered-list"},
             )
@@ -434,12 +434,12 @@ def _follow_up_options(
     if mastered_count:
         options.append(
             _option(
-                "mastered-cet-paper",
+                "mastered-exam-paper",
                 "📝",
-                f"基于 {mastered_count} 个已掌握知识点生成完整四六级套题（不含听力）",
+                f"基于 {mastered_count} 个已掌握知识点生成完整英语考试套题",
                 "popular",
                 append_count=False,
-                kind="mastered-cet-paper",
+                kind="mastered-exam-paper",
                 count=mastered_count,
                 action={"command": "mastered-list"},
             )

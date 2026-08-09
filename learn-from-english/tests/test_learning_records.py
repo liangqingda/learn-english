@@ -16,7 +16,7 @@ sys.path.insert(0, str(SCRIPT_DIR))
 
 from learning_records_tool.models import RecordError, empty_database  # noqa: E402
 from learning_records_tool.menu import build_menu  # noqa: E402
-from learning_records_tool.papers import ANSWER_KEYS, PASS_SCORE, PaperService  # noqa: E402
+from learning_records_tool.papers import CET_ANSWER_KEYS, CET_FORMAT, PaperService  # noqa: E402
 from learning_records_tool.service import RecordService  # noqa: E402
 from learning_records_tool.store import RecordStore  # noqa: E402
 
@@ -59,7 +59,9 @@ def write_json(path: Path, value: object) -> None:
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
-def paper_payload(source_id: str, *, level: str = "cet4", theme: str = "校园与成长") -> dict[str, object]:
+def paper_payload(
+    source_id: str, *, exam_type: str = "cet4", theme: str = "校园与成长"
+) -> dict[str, object]:
     def questions(first: int) -> list[dict[str, object]]:
         return [
             {
@@ -73,7 +75,9 @@ def paper_payload(source_id: str, *, level: str = "cet4", theme: str = "校园�
         ]
 
     return {
-        "level": level,
+        "exam_type": exam_type,
+        "exam_name": "CET-4" if exam_type == "cet4" else "CET-6",
+        "format_id": CET_FORMAT,
         "theme": theme,
         "source_record_ids": [source_id],
         "sections": {
@@ -107,7 +111,63 @@ def paper_payload(source_id: str, *, level: str = "cet4", theme: str = "校园�
                 "reference_answer": "This is a translation passage.",
             },
         },
-        "record_map": {key: [source_id] for key in ANSWER_KEYS},
+        "answer_keys": list(CET_ANSWER_KEYS),
+        "objective_items": {
+            str(number): {
+                "answer": "A",
+                "points": 0.5 if number <= 35 else 1.0 if number <= 45 else 2.0,
+            }
+            for number in range(26, 56)
+        },
+        "subjective_components": {
+            "writing": {"max_score": 15.0},
+            "translation": {"max_score": 15.0},
+        },
+        "grading_scheme": {
+            "raw_max_score": 65.0,
+            "reported_max_score": 710.0,
+            "pass_score": 425.0,
+            "conversion": "linear",
+            "precision": 2,
+            "rounding_step": None,
+            "score_unit": "分",
+            "score_note": "无听力模拟折算分，不是官方成绩。",
+        },
+        "record_map": {key: [source_id] for key in CET_ANSWER_KEYS},
+    }
+
+
+def ielts_paper_payload(source_id: str) -> dict[str, object]:
+    return {
+        "exam_type": "ielts",
+        "exam_name": "IELTS",
+        "format_id": "ielts-writing-speaking-v1",
+        "theme": "Education and Technology",
+        "source_record_ids": [source_id],
+        "sections": {
+            "writing": {"prompt": "Discuss technology in education."},
+            "speaking": {"prompt": "Describe a useful learning tool."},
+        },
+        "answer_keys": ["writing", "speaking"],
+        "objective_items": {},
+        "subjective_components": {
+            "writing": {"max_score": 9.0},
+            "speaking": {"max_score": 9.0},
+        },
+        "grading_scheme": {
+            "raw_max_score": 18.0,
+            "reported_max_score": 9.0,
+            "pass_score": 6.5,
+            "conversion": "linear",
+            "precision": 1,
+            "rounding_step": 0.5,
+            "score_unit": "Band",
+            "score_note": "IELTS 风格练习分，以本卷配置的目标 Band 判定。",
+        },
+        "record_map": {
+            "writing": [source_id],
+            "speaking": [source_id],
+        },
     }
 
 
@@ -491,7 +551,7 @@ class LearningRecordsTest(unittest.TestCase):
 
         menu = self.service.menu("initial")
         mastered_paper = next(
-            option for option in menu["options"] if option["id"] == "mastered-cet-paper"
+            option for option in menu["options"] if option["id"] == "mastered-exam-paper"
         )
         selected = self.service.next_review(status="mastered")
 
@@ -540,7 +600,7 @@ class LearningRecordsTest(unittest.TestCase):
                 2,
             )
             for option in menu["options"]:
-                if "count" in option and option["id"] != "mastered-cet-paper":
+                if "count" in option and option["id"] != "mastered-exam-paper":
                     self.assertTrue(option["label"].endswith(f"（{option['count']}）"))
         self.assertNotIn(
             "explain-current-exercise", {item["id"] for item in complete["options"]}
@@ -557,18 +617,18 @@ class LearningRecordsTest(unittest.TestCase):
             "explain-current-exercise", {item["id"] for item in explained["options"]}
         )
         complete_mastered_paper = next(
-            item for item in complete["options"] if item["id"] == "mastered-cet-paper"
+            item for item in complete["options"] if item["id"] == "mastered-exam-paper"
         )
         self.assertEqual(complete_mastered_paper["count"], 1)
         self.assertEqual(complete_mastered_paper["group"], "popular")
         self.assertEqual(
             complete_mastered_paper["label"],
-            "基于 1 个已掌握知识点生成完整四六级套题（不含听力）",
+            "基于 1 个已掌握知识点生成完整英语考试套题",
         )
         self.assertEqual(complete_mastered_paper["action"], {"command": "mastered-list"})
         complete_labels = {item["id"]: item["label"] for item in complete["options"]}
         self.assertNotIn("cet-practice", complete_labels)
-        self.assertIn("mastered-cet-paper", complete_labels)
+        self.assertIn("mastered-exam-paper", complete_labels)
         self.assertIn(
             "follow-up-learning",
             {item["kind"] for item in complete["options"] if item["group"] == "other"},
@@ -588,13 +648,13 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertIn("errors errors-item", initial_labels["scenario-dialogue"])
         self.assertIn("完整场景对话", initial_labels["scenario-dialogue"])
         mastered_paper = next(
-            item for item in initial["options"] if item["id"] == "mastered-cet-paper"
+            item for item in initial["options"] if item["id"] == "mastered-exam-paper"
         )
         self.assertEqual(mastered_paper["count"], 1)
         self.assertEqual(mastered_paper["group"], "popular")
         self.assertEqual(
             mastered_paper["label"],
-            "基于 1 个已掌握知识点生成完整四六级套题（不含听力）",
+            "基于 1 个已掌握知识点生成完整英语考试套题",
         )
         mastered_review = next(
             item for item in initial["options"] if item["id"] == "mastered-review"
@@ -645,7 +705,7 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertNotIn("continue-review", mixed_ids)
         self.assertIn("familiar-review", mixed_ids)
         self.assertIn("mastered-review", mixed_ids)
-        self.assertIn("mastered-cet-paper", mixed_ids)
+        self.assertIn("mastered-exam-paper", mixed_ids)
         self.assertIn("explain-current-exercise", mixed_ids)
         self.assertTrue(any(option["group"] == "popular" for option in mixed["options"]))
         self.assertTrue(
@@ -1539,7 +1599,7 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertIn("invalid choice", result.stderr)
 
 
-class CETPaperTest(unittest.TestCase):
+class ExamPaperTest(unittest.TestCase):
     def setUp(self) -> None:
         self.temporary_directory = tempfile.TemporaryDirectory()
         self.addCleanup(self.temporary_directory.cleanup)
@@ -1562,13 +1622,13 @@ class CETPaperTest(unittest.TestCase):
                 else "A complete translation response." if key == "translation"
                 else value
             )
-            for key in ANSWER_KEYS
+            for key in CET_ANSWER_KEYS
         }
 
     def test_paper_create_persists_one_titled_paper_and_menu_history(self) -> None:
         created = self.create_paper()
         paper_id = str(created["paper_id"])
-        path = self.root / "cet-papers" / f"{paper_id}.json"
+        path = self.root / "exam-papers" / f"{paper_id}.json"
 
         self.assertRegex(paper_id, r"^cet4-\d{8}T\d{6}-[0-9a-f]{8}$")
         self.assertRegex(str(created["title"]), r"^CET-4 模拟卷｜校园与成长｜\d{4}-\d{2}-\d{2}$")
@@ -1589,7 +1649,36 @@ class CETPaperTest(unittest.TestCase):
         with self.assertRaisesRegex(RecordError, "must reference mastered records"):
             self.papers.create(paper_payload("grammar:not-mastered"))
 
-        self.assertFalse((self.root / "cet-papers").exists())
+        self.assertFalse((self.root / "exam-papers").exists())
+
+    def test_generic_profile_supports_ielts_style_band_scoring(self) -> None:
+        created = self.papers.create(ielts_paper_payload("grammar:paper-source"))
+        paper_id = str(created["paper_id"])
+        attempt = self.papers.submit(
+            {
+                "paper_id": paper_id,
+                "answers": {
+                    "writing": "Technology can improve access to education.",
+                    "speaking": "A dictionary app is useful for daily study.",
+                },
+            }
+        )
+        completed = self.papers.complete(
+            {
+                "paper_id": paper_id,
+                "attempt_id": attempt["attempt_id"],
+                "subjective_scores": {"writing": 7, "speaking": 6.2},
+                "feedback": "The configured target Band was reached.",
+                "errors": [],
+            }
+        )
+
+        self.assertRegex(paper_id, r"^ielts-\d{8}T\d{6}-[0-9a-f]{8}$")
+        self.assertEqual(created["exam_name"], "IELTS")
+        self.assertEqual(completed["reported_score"], 6.5)
+        self.assertEqual(completed["reported_max_score"], 9)
+        self.assertEqual(completed["pass_score"], 6.5)
+        self.assertTrue(completed["passed"])
 
     def test_validate_includes_persisted_paper_files(self) -> None:
         created = self.create_paper()
@@ -1636,8 +1725,7 @@ class CETPaperTest(unittest.TestCase):
             {
                 "paper_id": paper_id,
                 "attempt_id": attempt_id,
-                "writing_score": 2,
-                "translation_score": 2,
+                "subjective_scores": {"writing": 2, "translation": 2},
                 "feedback": "The no-listening paper meets the simulated pass threshold.",
                 "errors": [],
             }
@@ -1646,10 +1734,12 @@ class CETPaperTest(unittest.TestCase):
             {"paper_id": paper_id, "answers": {"writing": "A second attempt."}}
         )
 
-        self.assertEqual(completed["reading_score"], 35)
-        self.assertEqual(completed["total_score"], 39)
+        self.assertEqual(completed["objective_score"], 35)
+        self.assertEqual(completed["raw_score"], 39)
+        self.assertEqual(completed["reported_score"], 426)
+        self.assertEqual(completed["reported_max_score"], 710)
+        self.assertEqual(completed["pass_score"], 425)
         self.assertTrue(completed["passed"])
-        self.assertGreater(39, PASS_SCORE)
         self.assertNotEqual(second["attempt_id"], attempt_id)
         paper = self.papers.get(paper_id)
         self.assertEqual(len(paper["attempts"]), 2)
@@ -1659,7 +1749,7 @@ class CETPaperTest(unittest.TestCase):
         random_paper = self.papers.list("completed", randomize=True)
         self.assertEqual(random_paper["paper_id"], paper_id)
 
-    def test_pass_boundary_uses_remaining_65_points(self) -> None:
+    def test_cet_reports_710_point_scale_and_425_pass_line(self) -> None:
         paper_id = str(self.create_paper()["paper_id"])
         failed_attempt = self.papers.submit(
             {"paper_id": paper_id, "answers": self.full_answers()}
@@ -1668,8 +1758,7 @@ class CETPaperTest(unittest.TestCase):
             {
                 "paper_id": paper_id,
                 "attempt_id": failed_attempt["attempt_id"],
-                "writing_score": 1.95,
-                "translation_score": 1.95,
+                "subjective_scores": {"writing": 1.95, "translation": 1.95},
                 "feedback": "Just below the threshold.",
                 "errors": [],
             }
@@ -1681,18 +1770,21 @@ class CETPaperTest(unittest.TestCase):
             {
                 "paper_id": paper_id,
                 "attempt_id": passed_attempt["attempt_id"],
-                "writing_score": 1.955,
-                "translation_score": 1.955,
+                "subjective_scores": {"writing": 1.955, "translation": 1.955},
                 "feedback": "At the rounded threshold.",
                 "errors": [],
             }
         )
 
-        self.assertEqual(failed["total_score"], 38.9)
+        self.assertEqual(failed["raw_score"], 38.9)
+        self.assertEqual(failed["reported_score"], 424.91)
         self.assertFalse(failed["passed"])
-        self.assertEqual(passed["total_score"], 38.91)
+        self.assertEqual(passed["raw_score"], 38.91)
+        self.assertEqual(passed["reported_score"], 425.02)
         self.assertTrue(passed["passed"])
-        self.assertIsNone(passed["official_score_equivalent"])
+        self.assertEqual(passed["reported_max_score"], 710)
+        self.assertEqual(passed["pass_score"], 425)
+        self.assertIn("不是官方成绩", passed["score_note"])
 
     def test_paper_completion_records_errors_and_rolls_back_both_files_on_failure(self) -> None:
         paper_id = str(self.create_paper()["paper_id"])
@@ -1703,8 +1795,7 @@ class CETPaperTest(unittest.TestCase):
             {
                 "paper_id": paper_id,
                 "attempt_id": attempt["attempt_id"],
-                "writing_score": 10,
-                "translation_score": 10,
+                "subjective_scores": {"writing": 10, "translation": 10},
                 "feedback": "One reusable article error was explained.",
                 "errors": [
                     {
@@ -1734,8 +1825,7 @@ class CETPaperTest(unittest.TestCase):
                     {
                         "paper_id": paper_id,
                         "attempt_id": failing_attempt["attempt_id"],
-                        "writing_score": 10,
-                        "translation_score": 10,
+                        "subjective_scores": {"writing": 10, "translation": 10},
                         "feedback": "This result must roll back.",
                         "errors": [
                             {

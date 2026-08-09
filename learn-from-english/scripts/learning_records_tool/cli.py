@@ -330,7 +330,7 @@ def build_parser() -> argparse.ArgumentParser:
     error_clusters.add_argument("--minimum-size", type=int, default=2)
     error_clusters.set_defaults(handler=handle_error_clusters)
 
-    paper_create = subparsers.add_parser("paper-create", help="persist one generated CET paper")
+    paper_create = subparsers.add_parser("paper-create", help="persist one generated exam paper")
     paper_create.add_argument("--input", required=True, help="JSON file path or - for stdin")
     paper_create.set_defaults(handler=handle_paper_create)
 
@@ -339,7 +339,7 @@ def build_parser() -> argparse.ArgumentParser:
     paper_get.add_argument("--attempt-id")
     paper_get.set_defaults(handler=handle_paper_get)
 
-    paper_list = subparsers.add_parser("paper-list", help="list persisted CET papers")
+    paper_list = subparsers.add_parser("paper-list", help="list persisted exam papers")
     paper_list.add_argument("--status", choices=PAPER_STATUSES)
     paper_list.add_argument("--random", action="store_true")
     paper_list.set_defaults(handler=handle_paper_list)
