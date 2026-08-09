@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 145,
+  "revision": 146,
   "category": "errors",
   "records": {
     "errors:accompany-mistaken-as-company-verb": {
@@ -715,6 +715,29 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:clouds-are-not-piece-of-clouds": {
+      "id": "errors:clouds-are-not-piece-of-clouds",
+      "category": "errors",
+      "status": "learning",
+      "title": "云通常用 clouds 表达",
+      "explanation": "表示云朵从某个地点上方飘过，要用 drifted over 或 flew over；the top of mountain 缺少限定词，也不如 the mountain peak 自然。",
+      "source": "In the afternoon, some piece of clouds flew the top of mountain.",
+      "example": "In the afternoon, some clouds drifted over the mountain peak.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-09T16:51:25+08:00",
+      "last_learned_at": "2026-08-09T16:51:25+08:00",
+      "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:common-place-name-english-not-pinyin": {
       "id": "errors:common-place-name-english-not-pinyin",
@@ -1847,7 +1870,7 @@
     "errors:missing-finite-verb-after-subject-phrase": {
       "id": "errors:missing-finite-verb-after-subject-phrase",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "英语完整句中主语短语后不能漏掉谓语动词",
       "explanation": "用户想表达“一阵凉爽的微风穿过花园”，但写成 A cool breeze through the garden after noon. 时，A cool breeze 只是主语名词短语，through the garden 是介词短语，整句缺少表示动作的谓语动词。完整句需要加入 blew、passed 或 drifted 等动词。",
       "source": "A cool breeze through the garden after noon.",
@@ -1858,11 +1881,11 @@
       "first_learned_at": "2026-08-04T07:08:12+08:00",
       "last_learned_at": "2026-08-04T07:08:12+08:00",
       "learned_count": 2,
-      "mastery_score": 7.0,
-      "review_count": 1,
-      "high_score_streak": 0,
-      "last_reviewed_at": "2026-08-05T08:52:48+08:00",
-      "next_review_at": "2026-08-08T08:52:48+08:00",
+      "mastery_score": 8.0,
+      "review_count": 2,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-09T16:51:25+08:00",
+      "next_review_at": "2026-08-16T16:51:25+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
@@ -1871,6 +1894,12 @@
           "reviewed_at": "2026-08-05T08:52:48+08:00",
           "previous_status": "learning",
           "new_status": "learning"
+        },
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-09T16:51:25+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
         }
       ]
     },
