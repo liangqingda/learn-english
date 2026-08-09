@@ -1,12 +1,12 @@
 {
   "schema_version": 2,
-  "revision": 139,
+  "revision": 140,
   "category": "errors",
   "records": {
     "errors:accompany-mistaken-as-company-verb": {
       "id": "errors:accompany-mistaken-as-company-verb",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "陪伴某人用 accompany，不用 company",
       "explanation": "accompany 是动词，表示陪伴；company 通常是名词“公司”或“陪伴这一状态”，不能在这里直接作动词表示陪伴。",
       "source": "After living for years in Seattle, he decided back east to company his parents.",
@@ -16,6 +16,36 @@
       ],
       "first_learned_at": "2026-08-08T20:45:15+08:00",
       "last_learned_at": "2026-08-08T20:45:15+08:00",
+      "learned_count": 1,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-09T09:37:29+08:00",
+      "next_review_at": "2026-08-16T09:37:29+08:00",
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-09T09:37:29+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
+    },
+    "errors:accompany-someone-to-place-no-go": {
+      "id": "errors:accompany-someone-to-place-no-go",
+      "category": "errors",
+      "status": "learning",
+      "title": "accompany 后直接接人和目的地",
+      "explanation": "accompany someone to the airport 已经包含陪某人去机场的意思，不需要再加 to go；airport 前通常加 the。",
+      "source": "I will accompany you to go airport.",
+      "example": "I will accompany you to the airport.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-09T09:37:29+08:00",
+      "last_learned_at": "2026-08-09T09:37:29+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -1992,6 +2022,29 @@
       ],
       "first_learned_at": "2026-08-05T13:01:34+08:00",
       "last_learned_at": "2026-08-05T13:01:34+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:nurse-agreement-and-checkup-collocation": {
+      "id": "errors:nurse-agreement-and-checkup-collocation",
+      "category": "errors",
+      "status": "learning",
+      "title": "第三人称单数与 checkup 搭配",
+      "explanation": "一般现在时主语 the nurse 是第三人称单数，accompany 要加 -s；表示去做检查时，go for a checkup 或 accompany someone to an examination 比 do check 更自然。",
+      "source": "The nurse accompany the elder to do check.",
+      "example": "The nurse accompanies the elderly man to his checkup.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-09T09:37:29+08:00",
+      "last_learned_at": "2026-08-09T09:37:29+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
