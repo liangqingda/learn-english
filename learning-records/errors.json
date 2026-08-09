@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 142,
+  "revision": 143,
   "category": "errors",
   "records": {
     "errors:accompany-mistaken-as-company-verb": {
@@ -1578,6 +1578,29 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:it-was-always-full-word-order": {
+      "id": "errors:it-was-always-full-word-order",
+      "category": "errors",
+      "status": "learning",
+      "title": "be 动词在 it was always full 中的位置",
+      "explanation": "描述过去状态时，主语 it 后先接 be 动词 was，再用 always 修饰形容词 full；自然语序是 it was always full。",
+      "source": "I remember It always was full when the restaurant had just opened",
+      "example": "I remember it was always full when the restaurant had just opened.",
+      "tags": [
+        "follow-up-exercise-error"
+      ],
+      "first_learned_at": "2026-08-09T15:59:33+08:00",
+      "last_learned_at": "2026-08-09T15:59:33+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:known-presentation-needs-definite-article": {
       "id": "errors:known-presentation-needs-definite-article",
       "category": "errors",
@@ -2145,6 +2168,29 @@
       ],
       "first_learned_at": "2026-08-01T20:53:07+08:00",
       "last_learned_at": "2026-08-01T20:53:07+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:opened-spelling-past-participle": {
+      "id": "errors:opened-spelling-past-participle",
+      "category": "errors",
+      "status": "learning",
+      "title": "opened 的过去式和过去分词拼写",
+      "explanation": "open 的过去式和过去分词是 opened，拼写中包含 e 和 d，不能写成 opend。",
+      "source": "I visited the bookstore when it had just opend.",
+      "example": "I visited the bookstore when it had just opened.",
+      "tags": [
+        "follow-up-exercise-error"
+      ],
+      "first_learned_at": "2026-08-09T15:59:33+08:00",
+      "last_learned_at": "2026-08-09T15:59:33+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
