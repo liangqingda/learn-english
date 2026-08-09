@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 133,
+  "revision": 148,
   "category": "phrases",
   "records": {
     "phrases:back-east-us": {
@@ -103,6 +103,29 @@
         }
       ]
     },
+    "phrases:continue-doing-activity": {
+      "id": "phrases:continue-doing-activity",
+      "category": "phrases",
+      "status": "learning",
+      "title": "continue doing：继续做某事",
+      "explanation": "continue doing something 直接接动名词，强调动作或活动继续进行，如 continue explaining the second point。continue to do 也可以，但 continue doing 更直接地突出动作的延续。",
+      "source": "The speaker continued explaining the second point.",
+      "example": "She continued answering questions after the presentation.",
+      "tags": [
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-08-09T20:53:45+08:00",
+      "last_learned_at": "2026-08-09T20:53:45+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "phrases:continue-on": {
       "id": "phrases:continue-on",
       "category": "phrases",
@@ -198,6 +221,29 @@
       ],
       "first_learned_at": "2026-07-31T14:00:14+08:00",
       "last_learned_at": "2026-07-31T14:00:14+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:go-on-with-activity": {
+      "id": "phrases:go-on-with-activity",
+      "category": "phrases",
+      "status": "learning",
+      "title": "go on with：继续某项活动",
+      "explanation": "go on with + 名词表示继续进行某项活动，语气比 resume 更口语；go on doing 则表示继续做某个动作。",
+      "source": "Please go on with your presentation.",
+      "example": "After answering the question, the speaker went on with the presentation.",
+      "tags": [
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-08-09T20:53:45+08:00",
+      "last_learned_at": "2026-08-09T20:53:45+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -338,6 +384,29 @@
       "review_count": 3,
       "high_score_streak": 0,
       "last_reviewed_at": "2026-07-30T20:11:00+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:resume-activity-after-break": {
+      "id": "phrases:resume-activity-after-break",
+      "category": "phrases",
+      "status": "learning",
+      "title": "resume：休息后重新开始",
+      "explanation": "resume 是较正式的动词，表示中断后重新开始某项活动，常接名词，如 resume the presentation、resume the meeting。",
+      "source": "We resumed the presentation after a short break.",
+      "example": "The committee resumed the discussion after lunch.",
+      "tags": [
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-08-09T20:53:45+08:00",
+      "last_learned_at": "2026-08-09T20:53:45+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
