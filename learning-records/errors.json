@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 146,
+  "revision": 147,
   "category": "errors",
   "records": {
     "errors:accompany-mistaken-as-company-verb": {
@@ -830,6 +830,29 @@
         }
       ]
     },
+    "errors:continue-with-explain-point": {
+      "id": "errors:continue-with-explain-point",
+      "category": "errors",
+      "status": "learning",
+      "title": "继续讲解要点的动词结构",
+      "explanation": "表示继续讲解某个要点，可以说 continue with the explanation of the second point 或 continue explaining the second point；不能写 continue on talk second information。",
+      "source": "The speech continued on talk second information.",
+      "example": "The speaker continued explaining the second point.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-09T20:46:53+08:00",
+      "last_learned_at": "2026-08-09T20:46:53+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:continue-with-noun": {
       "id": "errors:continue-with-noun",
       "category": "errors",
@@ -845,17 +868,23 @@
       "first_learned_at": "2026-07-29T21:19:14+08:00",
       "last_learned_at": "2026-07-29T21:19:16+08:00",
       "learned_count": 2,
-      "mastery_score": 6.0,
-      "review_count": 1,
+      "mastery_score": 5.0,
+      "review_count": 2,
       "high_score_streak": 0,
-      "last_reviewed_at": "2026-08-01T21:42:55+08:00",
-      "next_review_at": "2026-08-04T21:42:55+08:00",
+      "last_reviewed_at": "2026-08-09T20:46:53+08:00",
+      "next_review_at": "2026-08-12T20:46:53+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
         {
           "score": 6.0,
           "reviewed_at": "2026-08-01T21:42:55+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        },
+        {
+          "score": 5.0,
+          "reviewed_at": "2026-08-09T20:46:53+08:00",
           "previous_status": "learning",
           "new_status": "learning"
         }
@@ -2821,6 +2850,29 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:presentation-not-representation-for-report": {
+      "id": "errors:presentation-not-representation-for-report",
+      "category": "errors",
+      "status": "learning",
+      "title": "汇报场景使用 presentation",
+      "explanation": "presentation 表示演示、汇报或演讲；representation 通常表示代表、表现形式或代理，不用于这里的课堂/工作汇报。",
+      "source": "After resting for a few minutes, he continued with his representation.",
+      "example": "After resting for a few minutes, he continued with his presentation.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-09T20:46:53+08:00",
+      "last_learned_at": "2026-08-09T20:46:53+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:preserve-name-vs-word-in-translation": {
       "id": "errors:preserve-name-vs-word-in-translation",
       "category": "errors",
@@ -3443,6 +3495,29 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:short-rest-not-short-resting": {
+      "id": "errors:short-rest-not-short-resting",
+      "category": "errors",
+      "status": "learning",
+      "title": "休息一会儿用 a short rest",
+      "explanation": "表示一次短暂休息时，使用可数名词短语 a short rest；short resting 不是自然的名词表达。",
+      "source": "After short resting, the students continued with group representation.",
+      "example": "After a short rest, the students continued with their group presentation.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-09T20:46:53+08:00",
+      "last_learned_at": "2026-08-09T20:46:53+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:simple-past-fall-without-be-auxiliary": {
       "id": "errors:simple-past-fall-without-be-auxiliary",
