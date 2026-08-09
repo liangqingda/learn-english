@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 144,
+  "revision": 145,
   "category": "errors",
   "records": {
     "errors:accompany-mistaken-as-company-verb": {
@@ -539,6 +539,29 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:be-preparing-present-progressive": {
+      "id": "errors:be-preparing-present-progressive",
+      "category": "errors",
+      "status": "learning",
+      "title": "现在进行时需要 be 加现在分词",
+      "explanation": "主语 mom 后面已有 is，因此 prepare 要变成现在分词 preparing；表示正在准备晚餐时应说 is preparing dinner。",
+      "source": "The children are setting the table and mom is prepare for dinner.",
+      "example": "The children are setting the table, and Mom is preparing dinner.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-09T16:31:13+08:00",
+      "last_learned_at": "2026-08-09T16:31:13+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:be-used-to-describe-not-used-to-people": {
       "id": "errors:be-used-to-describe-not-used-to-people",
@@ -3335,7 +3358,7 @@
     "errors:set-the-table-not-put-the-table": {
       "id": "errors:set-the-table-not-put-the-table",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "set the table：摆好餐桌",
       "explanation": "表示吃饭前摆放餐具、布置餐桌时，英语固定说 set the table；put the table 会被理解成“放置桌子”这个家具，不能表达摆餐具。",
       "source": "Could you dish it up while I put the table?",
@@ -3348,14 +3371,21 @@
       "first_learned_at": "2026-08-03T22:09:54+08:00",
       "last_learned_at": "2026-08-03T22:09:54+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-09T16:31:13+08:00",
+      "next_review_at": "2026-08-16T16:31:13+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-09T16:31:13+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:several-plus-plural-count-noun": {
       "id": "errors:several-plus-plural-count-noun",
