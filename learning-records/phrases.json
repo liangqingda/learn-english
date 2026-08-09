@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 148,
+  "revision": 149,
   "category": "phrases",
   "records": {
     "phrases:back-east-us": {
@@ -155,6 +155,29 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "phrases:continue-on-movement-next-stage": {
+      "id": "phrases:continue-on-movement-next-stage",
+      "category": "phrases",
+      "status": "learning",
+      "title": "continue on：继续前进或转入下一阶段",
+      "explanation": "continue on 常表示继续前进、继续下去，或 continue on to + 名词/动词表示转入下一个阶段或话题，如 continue on down the road、continue on to the next section。它不适合替代 continue with the presentation 来表示继续进行汇报。",
+      "source": "We continued on to the next section after answering questions.",
+      "example": "After discussing the budget, the manager continued on to the project timeline.",
+      "tags": [
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-08-09T20:59:29+08:00",
+      "last_learned_at": "2026-08-09T20:59:29+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "phrases:dish-out-distribute-or-give": {
       "id": "phrases:dish-out-distribute-or-give",
