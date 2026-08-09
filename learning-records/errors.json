@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 137,
+  "revision": 138,
   "category": "errors",
   "records": {
     "errors:accompany-mistaken-as-company-verb": {
@@ -963,6 +963,29 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:duration-compound-adjective-needs-hyphen": {
+      "id": "errors:duration-compound-adjective-needs-hyphen",
+      "category": "errors",
+      "status": "learning",
+      "title": "时长作复合形容词时需要连字符",
+      "explanation": "表示继续某项活动时，continue with the meeting 比 continue on meeting 自然；continue on 通常表示继续前进或继续做某事，后面不直接这样接 meeting。",
+      "source": "After ten-minute rest, we continued on meeting.",
+      "example": "After a ten-minute rest, we continued with the meeting.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-09T09:26:28+08:00",
+      "last_learned_at": "2026-08-09T09:26:28+08:00",
+      "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:duration-rest-possessive-or-hyphenated-form": {
       "id": "errors:duration-rest-possessive-or-hyphenated-form",
       "category": "errors",
@@ -978,17 +1001,23 @@
       "first_learned_at": "2026-08-01T21:42:55+08:00",
       "last_learned_at": "2026-08-01T21:42:55+08:00",
       "learned_count": 1,
-      "mastery_score": 5.0,
-      "review_count": 1,
+      "mastery_score": 3.0,
+      "review_count": 2,
       "high_score_streak": 0,
-      "last_reviewed_at": "2026-08-03T12:53:17+08:00",
-      "next_review_at": "2026-08-06T12:53:17+08:00",
+      "last_reviewed_at": "2026-08-09T09:26:28+08:00",
+      "next_review_at": "2026-08-10T09:26:28+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
         {
           "score": 5.0,
           "reviewed_at": "2026-08-03T12:53:17+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        },
+        {
+          "score": 3.0,
+          "reviewed_at": "2026-08-09T09:26:28+08:00",
           "previous_status": "learning",
           "new_status": "learning"
         }
@@ -2851,6 +2880,29 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:regain-concentration-collocation": {
+      "id": "errors:regain-concentration-collocation",
+      "category": "errors",
+      "status": "learning",
+      "title": "恢复注意力的自然搭配",
+      "explanation": "表示重新集中注意力，英语更常用 regain her concentration、refocus 或 get her focus back；restore attention 不是这里的自然搭配。",
+      "source": "After five-minute rest, she restored attention.",
+      "example": "After a five-minute rest, she regained her concentration.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-09T09:26:28+08:00",
+      "last_learned_at": "2026-08-09T09:26:28+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:registration-vs-register-noun-event": {
       "id": "errors:registration-vs-register-noun-event",
       "category": "errors",
@@ -3172,6 +3224,29 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:singular-countable-rest-needs-article": {
+      "id": "errors:singular-countable-rest-needs-article",
+      "category": "errors",
+      "status": "learning",
+      "title": "单数可数的 rest 前缺少限定词",
+      "explanation": "rest 表示一次具体的休息时，通常是可数名词，需要 a/an 或其他限定词；因此应说 a ten-minute rest，而不能直接说 ten-minute rest。",
+      "source": "She needed ten-minute rest before the interview.",
+      "example": "She needed a ten-minute rest before the interview.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-09T09:26:28+08:00",
+      "last_learned_at": "2026-08-09T09:26:28+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:slice-into-thin-slices-not-to-slice": {
       "id": "errors:slice-into-thin-slices-not-to-slice",
