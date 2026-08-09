@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 140,
+  "revision": 141,
   "category": "errors",
   "records": {
     "errors:accompany-mistaken-as-company-verb": {
@@ -2266,6 +2266,29 @@
       "first_learned_at": "2026-07-29T20:34:14+08:00",
       "last_learned_at": "2026-07-29T20:34:14+08:00",
       "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:past-tense-after-after-clause": {
+      "id": "errors:past-tense-after-after-clause",
+      "category": "errors",
+      "status": "learning",
+      "title": "after 从句中的过去时",
+      "explanation": "叙述过去发生的动作时，after 引导的从句使用一般过去时；dish up 的过去式是 dished up。",
+      "source": "After the chef dish up the dishes, he plated it with some fresh herbs.",
+      "example": "After the chef dished up the vegetables, he plated them with fresh herbs.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-09T09:46:08+08:00",
+      "last_learned_at": "2026-08-09T09:46:08+08:00",
+      "learned_count": 2,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,
