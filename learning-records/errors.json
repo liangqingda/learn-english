@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 138,
+  "revision": 139,
   "category": "errors",
   "records": {
     "errors:accompany-mistaken-as-company-verb": {
@@ -1548,6 +1548,29 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:known-presentation-needs-definite-article": {
+      "id": "errors:known-presentation-needs-definite-article",
+      "category": "errors",
+      "status": "learning",
+      "title": "已知演讲活动前需要 the",
+      "explanation": "当 presentation 指双方都知道的那场演讲时，通常用 the presentation；continue with the presentation 表示继续这场演讲。",
+      "source": "After a ten-minute rest, we continued with presentation.",
+      "example": "After a ten-minute rest, we continued with the presentation.",
+      "tags": [
+        "follow-up-exercise-error"
+      ],
+      "first_learned_at": "2026-08-09T09:32:59+08:00",
+      "last_learned_at": "2026-08-09T09:32:59+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:life-as-general-condition-without-the": {
       "id": "errors:life-as-general-condition-without-the",
       "category": "errors",
@@ -1589,6 +1612,29 @@
       "review_count": 1,
       "high_score_streak": 0,
       "last_reviewed_at": "2026-07-29T12:47:18+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:minute-spelling-in-duration-expression": {
+      "id": "errors:minute-spelling-in-duration-expression",
+      "category": "errors",
+      "status": "learning",
+      "title": "minute 的拼写错误",
+      "explanation": "表示时间单位时，minute 的拼写中包含字母 u；minutes 不是 mibutes。",
+      "source": "After ten mibutes of rest, he returned to work.",
+      "example": "After ten minutes of rest, he returned to work.",
+      "tags": [
+        "follow-up-exercise-error"
+      ],
+      "first_learned_at": "2026-08-09T09:32:59+08:00",
+      "last_learned_at": "2026-08-09T09:32:59+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
@@ -2562,6 +2608,29 @@
       ],
       "first_learned_at": "2026-08-05T13:01:34+08:00",
       "last_learned_at": "2026-08-05T13:01:34+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:preserve-number-in-translation": {
+      "id": "errors:preserve-number-in-translation",
+      "category": "errors",
+      "status": "learning",
+      "title": "翻译时保持原句数量信息",
+      "explanation": "中文的“十五分钟”必须对应 fifteen minutes 或 a fifteen-minute，不能改成 ten-minute；数量信息也是句意的一部分。",
+      "source": "She needs a ten-minute rest to regain her concentration.",
+      "example": "She needs a fifteen-minute rest to regain her concentration.",
+      "tags": [
+        "follow-up-exercise-error"
+      ],
+      "first_learned_at": "2026-08-09T09:32:59+08:00",
+      "last_learned_at": "2026-08-09T09:32:59+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
