@@ -16,6 +16,7 @@ sys.path.insert(0, str(SCRIPT_DIR))
 
 from learning_records_tool.models import RecordError, empty_database  # noqa: E402
 from learning_records_tool.menu import build_menu  # noqa: E402
+from learning_records_tool.papers import ANSWER_KEYS, PASS_SCORE, PaperService  # noqa: E402
 from learning_records_tool.service import RecordService  # noqa: E402
 from learning_records_tool.store import RecordStore  # noqa: E402
 
@@ -56,6 +57,58 @@ def read_json(path: Path) -> object:
 
 def write_json(path: Path, value: object) -> None:
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def paper_payload(source_id: str, *, level: str = "cet4", theme: str = "校园与成长") -> dict[str, object]:
+    def questions(first: int) -> list[dict[str, object]]:
+        return [
+            {
+                "number": number,
+                "prompt": f"Question {number}",
+                "choices": ["A", "B", "C", "D"],
+                "answer": "A",
+                "explanation": f"Explanation for Question {number}.",
+            }
+            for number in range(first, first + 10)
+        ]
+
+    return {
+        "level": level,
+        "theme": theme,
+        "source_record_ids": [source_id],
+        "sections": {
+            "writing": {
+                "directions": "Write an essay.",
+                "prompt": "Discuss effective learning habits.",
+                "word_requirement": "120-180 words",
+                "reference_answer": "A reference essay.",
+            },
+            "listening": {"omitted": True, "question_slots": 25},
+            "reading": {
+                "section_a": {
+                    "directions": "Choose words.",
+                    "passage": "Section A passage.",
+                    "questions": questions(26),
+                },
+                "section_b": {
+                    "directions": "Match paragraphs.",
+                    "passage": "Section B passage.",
+                    "questions": questions(36),
+                },
+                "section_c": {
+                    "directions": "Read carefully.",
+                    "passage": "Section C passage.",
+                    "questions": questions(46),
+                },
+            },
+            "translation": {
+                "directions": "Translate the paragraph.",
+                "source_text": "这是一段翻译材料。",
+                "reference_answer": "This is a translation passage.",
+            },
+        },
+        "record_map": {key: [source_id] for key in ANSWER_KEYS},
+    }
 
 
 class LearningRecordsTest(unittest.TestCase):
@@ -1484,6 +1537,263 @@ class LearningRecordsTest(unittest.TestCase):
 
         self.assertEqual(result.returncode, 2)
         self.assertIn("invalid choice", result.stderr)
+
+
+class CETPaperTest(unittest.TestCase):
+    def setUp(self) -> None:
+        self.temporary_directory = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temporary_directory.cleanup)
+        self.root = Path(self.temporary_directory.name)
+        self.store = RecordStore(self.root)
+        self.store.initialize(empty_database())
+        self.records = RecordService(self.store)
+        self.records.upsert(distinct_payload("grammar", "paper-source", "CET paper source"))
+        mark_mastered(self.records, "grammar:paper-source")
+        self.papers = PaperService(self.store)
+
+    def create_paper(self) -> dict[str, object]:
+        return self.papers.create(paper_payload("grammar:paper-source"))
+
+    @staticmethod
+    def full_answers(value: str = "A") -> dict[str, str]:
+        return {
+            key: (
+                "A complete writing response." if key == "writing"
+                else "A complete translation response." if key == "translation"
+                else value
+            )
+            for key in ANSWER_KEYS
+        }
+
+    def test_paper_create_persists_one_titled_paper_and_menu_history(self) -> None:
+        created = self.create_paper()
+        paper_id = str(created["paper_id"])
+        path = self.root / "cet-papers" / f"{paper_id}.json"
+
+        self.assertRegex(paper_id, r"^cet4-\d{8}T\d{6}-[0-9a-f]{8}$")
+        self.assertRegex(str(created["title"]), r"^CET-4 模拟卷｜校园与成长｜\d{4}-\d{2}-\d{2}$")
+        self.assertTrue(path.exists())
+        self.assertEqual(len(list(path.parent.glob("*.json"))), 1)
+        self.assertEqual(len(self.papers.get(paper_id)["attempts"]), 0)
+
+        options = self.papers.menu_options()
+        history = next(item for item in options if item["id"] == "historical-unanswered-papers")
+        self.assertEqual(history["group"], "popular")
+        self.assertEqual(history["children"][0]["label"], created["title"])
+        integrated = self.records.menu("initial")
+        self.assertIn("historical-unanswered-papers", {item["id"] for item in integrated["options"]})
+
+    def test_paper_requires_mastered_sources(self) -> None:
+        self.records.upsert(payload("grammar", "not-mastered"))
+
+        with self.assertRaisesRegex(RecordError, "must reference mastered records"):
+            self.papers.create(paper_payload("grammar:not-mastered"))
+
+        self.assertFalse((self.root / "cet-papers").exists())
+
+    def test_validate_includes_persisted_paper_files(self) -> None:
+        created = self.create_paper()
+        valid = self.records.validate()
+        paper_path = self.papers.paper_path(str(created["paper_id"]))
+        document = read_json(paper_path)
+        document["sections"]["listening"]["question_slots"] = 24
+        write_json(paper_path, document)
+        invalid = self.records.validate()
+
+        self.assertTrue(valid["valid"])
+        self.assertEqual(valid["paper_count"], 1)
+        self.assertFalse(invalid["valid"])
+        self.assertIn("question_slots must be 25", invalid["issues"][0]["message"])
+
+    def test_incremental_attempt_can_resume_and_same_paper_accepts_multiple_attempts(self) -> None:
+        paper_id = str(self.create_paper()["paper_id"])
+        first_part = self.papers.submit(
+            {"paper_id": paper_id, "answers": {"writing": "First draft", "26": "A"}}
+        )
+        attempt_id = str(first_part["attempt_id"])
+        continued = self.papers.submit(
+            {"paper_id": paper_id, "attempt_id": attempt_id, "answers": {"27": "A"}}
+        )
+
+        self.assertEqual(continued["answered_count"], 3)
+        restored = self.papers.get(paper_id, attempt_id)
+        self.assertEqual(restored["attempt"]["answers"]["writing"], "First draft")
+        self.assertEqual(restored["attempt"]["answers"]["27"], "A")
+        self.assertNotIn(
+            "historical-unanswered-papers", {item["id"] for item in self.papers.menu_options()}
+        )
+        self.assertIn("in-progress-papers", {item["id"] for item in self.papers.menu_options()})
+
+        remaining = {
+            key: value
+            for key, value in self.full_answers().items()
+            if key not in {"writing", "26", "27"}
+        }
+        self.papers.submit(
+            {"paper_id": paper_id, "attempt_id": attempt_id, "answers": remaining}
+        )
+        completed = self.papers.complete(
+            {
+                "paper_id": paper_id,
+                "attempt_id": attempt_id,
+                "writing_score": 2,
+                "translation_score": 2,
+                "feedback": "The no-listening paper meets the simulated pass threshold.",
+                "errors": [],
+            }
+        )
+        second = self.papers.submit(
+            {"paper_id": paper_id, "answers": {"writing": "A second attempt."}}
+        )
+
+        self.assertEqual(completed["reading_score"], 35)
+        self.assertEqual(completed["total_score"], 39)
+        self.assertTrue(completed["passed"])
+        self.assertGreater(39, PASS_SCORE)
+        self.assertNotEqual(second["attempt_id"], attempt_id)
+        paper = self.papers.get(paper_id)
+        self.assertEqual(len(paper["attempts"]), 2)
+        menu_ids = {item["id"] for item in self.papers.menu_options()}
+        self.assertIn("in-progress-papers", menu_ids)
+        self.assertIn("retry-random-paper", menu_ids)
+        random_paper = self.papers.list("completed", randomize=True)
+        self.assertEqual(random_paper["paper_id"], paper_id)
+
+    def test_pass_boundary_uses_remaining_65_points(self) -> None:
+        paper_id = str(self.create_paper()["paper_id"])
+        failed_attempt = self.papers.submit(
+            {"paper_id": paper_id, "answers": self.full_answers()}
+        )
+        failed = self.papers.complete(
+            {
+                "paper_id": paper_id,
+                "attempt_id": failed_attempt["attempt_id"],
+                "writing_score": 1.95,
+                "translation_score": 1.95,
+                "feedback": "Just below the threshold.",
+                "errors": [],
+            }
+        )
+        passed_attempt = self.papers.submit(
+            {"paper_id": paper_id, "answers": self.full_answers()}
+        )
+        passed = self.papers.complete(
+            {
+                "paper_id": paper_id,
+                "attempt_id": passed_attempt["attempt_id"],
+                "writing_score": 1.955,
+                "translation_score": 1.955,
+                "feedback": "At the rounded threshold.",
+                "errors": [],
+            }
+        )
+
+        self.assertEqual(failed["total_score"], 38.9)
+        self.assertFalse(failed["passed"])
+        self.assertEqual(passed["total_score"], 38.91)
+        self.assertTrue(passed["passed"])
+        self.assertIsNone(passed["official_score_equivalent"])
+
+    def test_paper_completion_records_errors_and_rolls_back_both_files_on_failure(self) -> None:
+        paper_id = str(self.create_paper()["paper_id"])
+        attempt = self.papers.submit(
+            {"paper_id": paper_id, "answers": self.full_answers()}
+        )
+        result = self.papers.complete(
+            {
+                "paper_id": paper_id,
+                "attempt_id": attempt["attempt_id"],
+                "writing_score": 10,
+                "translation_score": 10,
+                "feedback": "One reusable article error was explained.",
+                "errors": [
+                    {
+                        "key": "paper-missing-article",
+                        "title": "职业名词前缺少冠词",
+                        "explanation": "单数可数职业名词作表语时通常需要冠词。",
+                        "source": "She is teacher.",
+                        "example": "She is a teacher.",
+                        "tags": ["paper-error"],
+                    }
+                ],
+            }
+        )
+        self.assertEqual(len(result["errors"]), 1)
+        self.assertIn("errors:paper-missing-article", self.records.records())
+
+        failing_attempt = self.papers.submit(
+            {"paper_id": paper_id, "answers": self.full_answers("B")}
+        )
+        paper_path = self.papers.paper_path(paper_id)
+        errors_path = self.store.category_path("errors")
+        paper_before = paper_path.read_bytes()
+        errors_before = errors_path.read_bytes()
+        with mock.patch.dict(os.environ, {"LEARN_ENGLISH_FAIL_PAPER_COMPLETE": "1"}):
+            with self.assertRaisesRegex(RecordError, "all changes.*rolled back"):
+                self.papers.complete(
+                    {
+                        "paper_id": paper_id,
+                        "attempt_id": failing_attempt["attempt_id"],
+                        "writing_score": 10,
+                        "translation_score": 10,
+                        "feedback": "This result must roll back.",
+                        "errors": [
+                            {
+                                "key": "rolled-back-paper-error",
+                                "title": "应回滚的试卷错误",
+                                "explanation": "该错误用于验证协调回滚。",
+                                "source": "He go home.",
+                                "example": "He goes home.",
+                                "tags": ["paper-error"],
+                            }
+                        ],
+                    }
+                )
+
+        self.assertEqual(paper_path.read_bytes(), paper_before)
+        self.assertEqual(errors_path.read_bytes(), errors_before)
+        self.assertNotIn("errors:rolled-back-paper-error", self.records.records())
+
+    def test_paper_cli_create_list_submit_and_get(self) -> None:
+        environment = {**os.environ, "LEARN_ENGLISH_REPO_ROOT": str(self.root)}
+        created = subprocess.run(
+            [sys.executable, str(SCRIPT), "paper-create", "--input", "-"],
+            env=environment,
+            input=json.dumps(paper_payload("grammar:paper-source")),
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        paper_id = json.loads(created.stdout)["paper_id"]
+        listed = subprocess.run(
+            [sys.executable, str(SCRIPT), "paper-list", "--status", "unanswered"],
+            env=environment,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        submitted = subprocess.run(
+            [sys.executable, str(SCRIPT), "paper-submit", "--input", "-"],
+            env=environment,
+            input=json.dumps({"paper_id": paper_id, "answers": {"26": "A"}}),
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        attempt_id = json.loads(submitted.stdout)["attempt_id"]
+        fetched = subprocess.run(
+            [
+                sys.executable, str(SCRIPT), "paper-get", "--paper-id", paper_id,
+                "--attempt-id", attempt_id,
+            ],
+            env=environment,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
+        self.assertEqual(json.loads(listed.stdout)[0]["paper_id"], paper_id)
+        self.assertEqual(json.loads(fetched.stdout)["attempt"]["answers"], {"26": "A"})
 
 
 if __name__ == "__main__":

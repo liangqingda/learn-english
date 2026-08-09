@@ -14,6 +14,8 @@
 - 数量就近展示：记录数量只标在对应菜单项末尾，不额外输出状态汇总开场。
 - 相关检索与聚类：搜索返回相关度、命中字段和摘要，错题可按可复用模式聚类。
 - 进展分析：统计按日期、类别和分数段汇总，并报告到期积压、遗忘与掌握数量。
+- 套题历史：每张四六级试卷与多次作答保存在同一个文件中，可续答未完成 attempt 或随机重做历史试卷。
+- 无听力评分：写作、阅读和翻译按 65 分计分，达到约 38.91 分时判定通过对应级别的无听力模拟笔试。
 
 ## 架构
 
@@ -24,11 +26,13 @@ cli.py
     ↓
 service.py ── menu.py
     │         scheduler.py
+    │         papers.py
     ↓
 store.py ── 校验、原子替换
     ↓
 learning-records/<category>.json
 mastered-learning-records/<category>.json
+cet-papers/<paper_id>.json
 ```
 
 实现位于 `learn-from-english/scripts/learning_records_tool/`：
@@ -40,6 +44,7 @@ mastered-learning-records/<category>.json
 | `service.py` | 批量写入、评分协调、查询、迁移、历史与统计 |
 | `scheduler.py` | 状态转换、复习间隔和选题优先级 |
 | `menu.py` | 初始与复习完成后的菜单策略、可用性和嵌套选项 |
+| `papers.py` | 完整套题校验、一卷一文件、多次作答、评分和历史菜单 |
 | `cli.py` | 新旧命令的兼容入口 |
 
 原有 `learn-from-english/scripts/learning_records.py` 路径保持不变，它现在是轻量兼容入口。
@@ -86,6 +91,8 @@ mastered-learning-records/<category>.json
 ```
 
 旧数据迁移会保留已有数量、分数和时间。旧格式没有保存逐次评分，因此 `review_history` 只从 Schema v2 启用后开始积累。
+
+`cet-papers/<paper_id>.json` 使用独立的 Paper Schema v1。文件保存一张试卷的题目、参考答案、mastered 素材映射及全部 `attempts`；每个 attempt 独立保存增量答案、跳过项、状态和最终评分。`paper_id` 采用 `cet4-YYYYMMDDTHHMMSS-<8hex>` 或 `cet6-...`，标题采用 `CET-4 模拟卷｜<主题>｜YYYY-MM-DD`。首次提交答案时创建 `in_progress` attempt，评分成功后转为 `completed`，同一试卷可以继续追加新的 attempt。
 
 ## 协调写入与回滚
 
@@ -170,9 +177,24 @@ python3 learn-from-english/scripts/learning_records.py mastered-list
 
 选题先考虑是否到期，再考虑到期时间、掌握分、遗忘次数和稳定 ID。普通继续复习按低分与遗忘次数加权；已掌握复习使用随机抽查。完整套题入口使用 `mastered-list` 返回已掌握素材。
 
-普通题组、标准答案、作答进度、领取凭据和失败后待重试的写入 payload 只保留在当前对话，不写入学习记录或 session 文件。抽题时为当前对话生成 `claim-owner`，并保留返回的 claim token；`complete-review` payload 携带 `claim_owner` 与 `claim_token`，保存成功时校验并释放领取。未作答练习是当前回复的唯一操作入口。保存失败时保留原 payload 和领取凭据，仅提供重试或放弃；恢复操作优先于尚未展示的练习，保存成功或明确放弃后才出题。放弃或退出题组时调用 `release-claim`。上下文丢失后不能恢复题组，领取等待自动过期。
+普通复习题组、领取凭据和失败后待重试的写入 payload 只保留在当前对话，不写入学习记录或 session 文件。抽题时为当前对话生成 `claim-owner`，并保留返回的 claim token；`complete-review` payload 携带 `claim_owner` 与 `claim_token`，保存成功时校验并释放领取。未作答练习是当前回复的唯一操作入口。保存失败时保留原 payload 和领取凭据，仅提供重试或放弃；恢复操作优先于尚未展示的练习，保存成功或明确放弃后才出题。放弃或退出题组时调用 `release-claim`。上下文丢失后不能恢复普通题组，领取等待自动过期。
 
-完整四六级套题同样只保留在当前对话：生成临时 `paper_id`、答案、进度及题目到 mastered ID 的映射。试卷保留 57 个官方题位，其中听力 25 题只保留位置、不生成内容，实际可作答 32 项。支持按题号、Section 或 Part 分段提交；完成或明确交卷后再揭示答案、评分和讲解。因听力缺失不推算官方 710 总分，套题结果也不改变规范记录分数或状态。
+完整四六级套题在首次展示前通过 `paper-create` 保存。试卷保留 57 个官方题位，其中听力 25 题只保留位置、不生成内容，实际可作答 32 项。`paper-submit` 增量保存分段答案，`paper-get` 可在上下文丢失后恢复进行中 attempt，`paper-list --status completed --random` 支持随机重做历史试卷。`paper-complete` 根据参考答案计算 35 分阅读成绩，并与写作、翻译各 15 分合计；达到 `65 × 425 / 710` 时返回无听力模拟通过。该结果不折算官方 710 分，也不改变 mastered 记录的复习状态。
+
+### 四六级试卷历史
+
+```bash
+python3 learn-from-english/scripts/learning_records.py paper-create --input paper.json
+python3 learn-from-english/scripts/learning_records.py paper-list --status unanswered
+python3 learn-from-english/scripts/learning_records.py paper-list --status completed --random
+python3 learn-from-english/scripts/learning_records.py paper-get \
+  --paper-id <paper-id> --attempt-id <attempt-id>
+python3 learn-from-english/scripts/learning_records.py paper-submit --input answers.json
+python3 learn-from-english/scripts/learning_records.py paper-complete --input grading.json
+python3 learn-from-english/scripts/learning_records.py paper-menu
+```
+
+`paper-menu` 返回未作答试卷树、进行中 attempt 树和随机重做入口，供两个英语技能统一插入 `Popular Menus`。`paper-complete` 在同一写锁下协调保存 completed attempt 和用户实际展示且已解释的错误；任一步失败时恢复试卷与学习记录文件。放弃失败的评分保存只丢弃待提交评分，不删除已经增量保存的答案。
 
 ### 查询和统计
 
@@ -221,6 +243,8 @@ python3 learn-from-english/scripts/learning_records.py migrate-v2 --dry-run
 │   ├── phrases.json
 │   ├── usage.json
 │   └── vocabulary.json
+├── cet-papers/
+│   └── <paper_id>.json
 ├── learn-from-english/
 │   ├── SKILL.md
 │   ├── agents/openai.yaml

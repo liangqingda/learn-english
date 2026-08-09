@@ -635,6 +635,8 @@ class RecordService:
                 effective_focus = min(
                     focus_candidates, key=lambda record: review_priority(record, now)
                 )["title"]
+        from .papers import PaperService
+
         return build_menu(
             records,
             context,
@@ -642,6 +644,7 @@ class RecordService:
             current_exercise_explained=current_exercise_explained,
             has_answer_errors=has_answer_errors,
             availability_counts=availability_counts,
+            paper_options=PaperService(self.store).menu_options(),
         )
 
     @staticmethod
@@ -935,7 +938,16 @@ class RecordService:
         except RecordError as exc:
             return {"valid": False, "issue_count": 1, "issues": [{"message": str(exc)}]}
         issues = validate_database(database)
-        return {"valid": not issues, "issue_count": len(issues), "issues": issues}
+        from .papers import PaperService
+
+        paper_result = PaperService(self.store).validate()
+        combined_issues = [*issues, *paper_result["issues"]]
+        return {
+            "valid": not combined_issues,
+            "issue_count": len(combined_issues),
+            "issues": combined_issues,
+            "paper_count": paper_result["paper_count"],
+        }
 
     def repair(self, *, dry_run: bool) -> dict[str, Any]:
         database = self.store.read_unvalidated()

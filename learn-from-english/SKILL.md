@@ -22,7 +22,7 @@ description: 禁止在用户消息去除首尾空白后仅为“你好”“复�
 3. 解释这些内容为什么这样使用。
 4. 输入是单词或短语时，必须给出简短的历史、地域或文化背景与来源结论；没有值得展开的特定背景时，明确说明这一点。
 5. 给出少量可以迁移到其他场景的例子。
-6. 按仓库根目录 `AGENTS.md` 的英语学习菜单规则提供后续学习路径。
+6. 若本轮可以显示正常菜单，先运行 `python3 learn-from-english/scripts/learning_records.py paper-menu`，再按仓库根目录 `AGENTS.md` 的规则把返回的历史试卷入口与本轮后续学习路径一起展示。
 
 在完成正文并发送回复之前，按照“记录本轮知识点”流程用一次批量写操作保存本轮实际讲解的内容，再根据是否有未作答练习决定是否生成快捷菜单。记录失败不得阻断教学回复，但必须按失败恢复流程处理。
 
@@ -61,6 +61,8 @@ python3 learn-from-english/scripts/learning_records.py search --query <text> --s
 ```
 
 读取 `search` 结果时优先使用 `relevance`、`matched_fields` 和 `snippet`，不要把低相关结果当作精确命中。服务层搜索默认覆盖全部状态；需要缩小范围时显式传入状态过滤。
+
+历史试卷菜单必须按 option 的 `kind` 分派：`historical-unanswered-paper` 按 action 运行 `paper-get` 并展示未附答案的原卷；`continue-paper-attempt` 运行带 `attempt_id` 的 `paper-get`，恢复已保存答案并列出剩余项；`retry-random-paper` 运行 `paper-list --status completed --random` 后读取该试卷，用户首次提交新答案时不传 `attempt_id`，从而创建新的 attempt。`paper-history` 父项本身不执行。
 
 若写入失败，继续发送教学回复，并明确说明“本轮学习记录未能保存；本轮记录变更已回滚”。把原始 `batch-upsert` payload 只保留在当前对话，不写入仓库或其他持久文件；此时不要显示正常学习菜单，也不要展示原计划中的未作答练习，只显示“重试保存本轮记录”和“放弃保存并继续”两个恢复选项。重试成功或用户明确放弃并清除 payload 后，才展示该练习或恢复正常菜单。重试时原样提交同一 payload。若命令报告回滚未完整成功，不得使用“已回滚”，必须说明可能残留部分记录变更并停止后续写入。上下文丢失时说明无法恢复待保存 payload，并返回新的学习菜单。
 

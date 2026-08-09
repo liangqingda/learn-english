@@ -238,6 +238,7 @@ def _initial_options(
     *,
     focus: str | None = None,
     availability_counts: dict[str, Any] | None = None,
+    paper_options: list[dict[str, Any]] | None = None,
 ) -> list[dict[str, Any]]:
     learning_counts = counts["by_status"]["learning"]
     active = []
@@ -255,7 +256,7 @@ def _initial_options(
                     ),
                 }
             )
-    options: list[dict[str, Any]] = []
+    options: list[dict[str, Any]] = list(paper_options or [])
     if len(active) > 1:
         active = sorted(active, key=lambda item: (item["count"], item["id"]))
         mixed_id = "mixed+" + "+".join(item["id"] for item in active)
@@ -374,6 +375,7 @@ def _follow_up_options(
     show_error_explanation: bool,
     focus: str | None,
     availability_counts: dict[str, Any] | None,
+    paper_options: list[dict[str, Any]] | None,
 ) -> list[dict[str, Any]]:
     learning_count = counts["totals"]["learning"]
     familiar_count = counts["totals"]["familiar"]
@@ -389,6 +391,7 @@ def _follow_up_options(
                 kind="explain-current-exercise",
             )
         )
+    options.extend(paper_options or [])
     if learning_count:
         options.append(
             _option(
@@ -452,6 +455,7 @@ def build_menu(
     current_exercise_explained: bool = False,
     has_answer_errors: bool = False,
     availability_counts: dict[str, Any] | None = None,
+    paper_options: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     if context not in {"initial", "review-complete"}:
         raise RecordError(f"invalid menu context: {context}")
@@ -459,6 +463,7 @@ def build_menu(
     if not records:
         options = _with_dynamic_other_options(
             [
+                *(paper_options or []),
                 _option(
                     "status",
                     "📊",
@@ -482,7 +487,10 @@ def build_menu(
         return {"state": "empty", "context": context, "counts": counts, "options": options}
     options = (
         _initial_options(
-            counts, focus=focus, availability_counts=availability_counts
+            counts,
+            focus=focus,
+            availability_counts=availability_counts,
+            paper_options=paper_options,
         )
         if context == "initial"
         else _follow_up_options(
@@ -495,6 +503,7 @@ def build_menu(
             ),
             focus=focus,
             availability_counts=availability_counts,
+            paper_options=paper_options,
         )
     )
     return {"state": "ready", "context": context, "counts": counts, "options": options}

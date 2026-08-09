@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any
 
 from .models import CATEGORIES, STATUSES, RecordError, record_id
+from .papers import PAPER_STATUSES, PaperService
 from .service import RecordService
 from .store import RecordStore
 
@@ -21,6 +22,10 @@ REPO_ROOT = Path(
 
 def service() -> RecordService:
     return RecordService(RecordStore(REPO_ROOT))
+
+
+def paper_service() -> PaperService:
+    return PaperService(RecordStore(REPO_ROOT))
 
 
 def read_input(path: str) -> Any:
@@ -168,6 +173,30 @@ def handle_error_clusters(args: argparse.Namespace) -> dict[str, Any]:
     return service().error_pattern_clusters(minimum_size=args.minimum_size)
 
 
+def handle_paper_create(args: argparse.Namespace) -> dict[str, Any]:
+    return paper_service().create(read_input(args.input))
+
+
+def handle_paper_get(args: argparse.Namespace) -> dict[str, Any]:
+    return paper_service().get(args.paper_id, args.attempt_id)
+
+
+def handle_paper_list(args: argparse.Namespace) -> Any:
+    return paper_service().list(args.status, randomize=args.random)
+
+
+def handle_paper_submit(args: argparse.Namespace) -> dict[str, Any]:
+    return paper_service().submit(read_input(args.input))
+
+
+def handle_paper_complete(args: argparse.Namespace) -> dict[str, Any]:
+    return paper_service().complete(read_input(args.input))
+
+
+def handle_paper_menu(args: argparse.Namespace) -> list[dict[str, Any]]:
+    return paper_service().menu_options()
+
+
 def parse_period(value: str) -> int:
     normalized = value.strip().casefold()
     if normalized.endswith("d"):
@@ -300,6 +329,33 @@ def build_parser() -> argparse.ArgumentParser:
     )
     error_clusters.add_argument("--minimum-size", type=int, default=2)
     error_clusters.set_defaults(handler=handle_error_clusters)
+
+    paper_create = subparsers.add_parser("paper-create", help="persist one generated CET paper")
+    paper_create.add_argument("--input", required=True, help="JSON file path or - for stdin")
+    paper_create.set_defaults(handler=handle_paper_create)
+
+    paper_get = subparsers.add_parser("paper-get", help="read a paper and optional attempt")
+    paper_get.add_argument("--paper-id", required=True)
+    paper_get.add_argument("--attempt-id")
+    paper_get.set_defaults(handler=handle_paper_get)
+
+    paper_list = subparsers.add_parser("paper-list", help="list persisted CET papers")
+    paper_list.add_argument("--status", choices=PAPER_STATUSES)
+    paper_list.add_argument("--random", action="store_true")
+    paper_list.set_defaults(handler=handle_paper_list)
+
+    paper_submit = subparsers.add_parser("paper-submit", help="save incremental paper answers")
+    paper_submit.add_argument("--input", required=True, help="JSON file path or - for stdin")
+    paper_submit.set_defaults(handler=handle_paper_submit)
+
+    paper_complete = subparsers.add_parser(
+        "paper-complete", help="grade a paper attempt and record demonstrated errors"
+    )
+    paper_complete.add_argument("--input", required=True, help="JSON file path or - for stdin")
+    paper_complete.set_defaults(handler=handle_paper_complete)
+
+    paper_menu = subparsers.add_parser("paper-menu", help="build shared paper-history menu options")
+    paper_menu.set_defaults(handler=handle_paper_menu)
 
     history = subparsers.add_parser("history", help="show one record's review history")
     history.add_argument("--id", required=True)
