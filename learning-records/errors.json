@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 141,
+  "revision": 142,
   "category": "errors",
   "records": {
     "errors:accompany-mistaken-as-company-verb": {
@@ -2155,6 +2155,29 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:opening-event-uses-opened-not-close": {
+      "id": "errors:opening-event-uses-opened-not-close",
+      "category": "errors",
+      "status": "learning",
+      "title": "描述开业事件使用 opened",
+      "explanation": "表示剧院、电影院或书店开始营业，要用 open 的过去式或过去分词 opened；close 表示关闭，语义方向相反。had just 后面还需要过去分词，因此应说 had just opened。",
+      "source": "People still remember when the cinema had just close.",
+      "example": "People still remember when the cinema had just opened.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-09T15:46:44+08:00",
+      "last_learned_at": "2026-08-09T15:46:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:passive-clause-needs-be": {
       "id": "errors:passive-clause-needs-be",
       "category": "errors",
@@ -3991,16 +4014,22 @@
       "last_learned_at": "2026-07-30T10:36:25+08:00",
       "learned_count": 1,
       "mastery_score": 7.0,
-      "review_count": 1,
+      "review_count": 2,
       "high_score_streak": 0,
-      "last_reviewed_at": "2026-08-01T20:53:07+08:00",
-      "next_review_at": "2026-08-04T20:53:07+08:00",
+      "last_reviewed_at": "2026-08-09T15:46:44+08:00",
+      "next_review_at": "2026-08-12T15:46:44+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
         {
           "score": 7.0,
           "reviewed_at": "2026-08-01T20:53:07+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        },
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-08-09T15:46:44+08:00",
           "previous_status": "learning",
           "new_status": "learning"
         }
