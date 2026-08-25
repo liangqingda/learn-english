@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 147,
+  "revision": 150,
   "category": "errors",
   "records": {
     "errors:accompany-mistaken-as-company-verb": {
@@ -1073,6 +1073,29 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:dish-out-takes-content-not-person-recipient": {
+      "id": "errors:dish-out-takes-content-not-person-recipient",
+      "category": "errors",
+      "status": "learning",
+      "title": "dish out 的宾语应是被施加或分发的内容",
+      "explanation": "dish out 表示分发或强硬施加某种内容，宾语通常是 criticism、blame、punishment、insults 等，而不是承受批评的人。要表达批评某人，可说 dish out criticism to/at someone，或在惯用语中说 dish it out。",
+      "source": "The editor dishes out the reporters. / She always dishes out others, but she can't take it.",
+      "example": "She always dishes out criticism to others, but she can't take it herself.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-08-26T07:08:38+08:00",
+      "last_learned_at": "2026-08-26T07:08:38+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:double-consonant-in-stopped": {
       "id": "errors:double-consonant-in-stopped",
