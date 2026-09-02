@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 151,
+  "revision": 152,
   "category": "usage",
   "records": {
     "usage:after-不宜直接当-later-连接后续动作": {
@@ -442,6 +442,31 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "usage:should-not-for-negative-expectation": {
+      "id": "usage:should-not-for-negative-expectation",
+      "category": "usage",
+      "status": "learning",
+      "title": "shouldn't：表示预计某事不会发生",
+      "explanation": "shouldn't + 动词除了可以表示不应该做某事，还可以根据上下文表达说话人的判断：按目前情况看，某事预计不会发生。This drizzle shouldn't cause much trouble 表示说话人预计这点毛毛雨不会造成太大麻烦，并非在谈义务或禁止。",
+      "source": "This drizzle shouldn't cause much trouble.",
+      "example": "The delay shouldn't affect our plans.",
+      "tags": [
+        "expectation",
+        "modal-verbs",
+        "translation"
+      ],
+      "first_learned_at": "2026-09-02T20:31:26+08:00",
+      "last_learned_at": "2026-09-02T20:31:26+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     }
   }
 }
