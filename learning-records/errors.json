@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 150,
+  "revision": 151,
   "category": "errors",
   "records": {
     "errors:accompany-mistaken-as-company-verb": {
@@ -1120,6 +1120,29 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:drizzle-vs-shower-for-duration-pattern": {
+      "id": "errors:drizzle-vs-shower-for-duration-pattern",
+      "category": "errors",
+      "status": "learning",
+      "title": "短暂阵雨用 shower，细小持续雨用 drizzle",
+      "explanation": "shower 强调一阵短暂的雨，常可反复出现；drizzle 强调雨滴细小、雨势轻，常给人持续潮湿的感觉。",
+      "source": "1. A; 3. B",
+      "example": "There may be several showers this afternoon, but the morning will stay grey with light drizzle.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-09-02T20:20:49+08:00",
+      "last_learned_at": "2026-09-02T20:20:49+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:duration-compound-adjective-needs-hyphen": {
       "id": "errors:duration-compound-adjective-needs-hyphen",
       "category": "errors",
@@ -1603,6 +1626,29 @@
       "first_learned_at": "2026-08-08T08:37:50+08:00",
       "last_learned_at": "2026-08-08T08:37:50+08:00",
       "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:half-an-hour-article": {
+      "id": "errors:half-an-hour-article",
+      "category": "errors",
+      "status": "learning",
+      "title": "half an hour 需要不定冠词",
+      "explanation": "描述从过去开始、此刻仍在持续的天气过程时，has been drizzling 比 has drizzled 更自然，突出动作持续。",
+      "source": "It has drizzled for half hour.",
+      "example": "It has been drizzling for half an hour.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-09-02T20:20:49+08:00",
+      "last_learned_at": "2026-09-02T20:20:49+08:00",
+      "learned_count": 2,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,
@@ -3711,6 +3757,29 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:sudden-adjective-not-suddenly-before-noun": {
+      "id": "errors:sudden-adjective-not-suddenly-before-noun",
+      "category": "errors",
+      "status": "learning",
+      "title": "名词前用 sudden，不用 suddenly",
+      "explanation": "修饰 rain 或 shower 这类名词需要形容词 sudden；副词 suddenly 用来修饰动词或整件事发生的方式。",
+      "source": "There was a suddenly rain in the afternoon, but it was sunny after ten minutes.",
+      "example": "There was a sudden shower in the afternoon, but the sun came out ten minutes later.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-09-02T20:20:49+08:00",
+      "last_learned_at": "2026-09-02T20:20:49+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:suggest-someone-to-do-instead-of-suggest-that-clause": {
       "id": "errors:suggest-someone-to-do-instead-of-suggest-that-clause",
