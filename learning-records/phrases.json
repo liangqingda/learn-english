@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 149,
+  "revision": 155,
   "category": "phrases",
   "records": {
     "phrases:back-east-us": {
@@ -315,6 +315,31 @@
       ],
       "first_learned_at": "2026-08-03T07:11:13+08:00",
       "last_learned_at": "2026-08-03T07:11:13+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:have-whole-life-ahead-of-someone": {
+      "id": "phrases:have-whole-life-ahead-of-someone",
+      "category": "phrases",
+      "status": "learning",
+      "title": "have your whole life ahead of you",
+      "explanation": "表示一个人未来还有很长的时间和许多可能性，常用于安慰、鼓励年轻人或表达对未来的期待。ahead of someone 在这里指未来尚未经历的日子，而非物理位置。",
+      "source": "I've got my whole life ahead of me.",
+      "example": "Don't worry about one setback; you have your whole life ahead of you.",
+      "tags": [
+        "encouragement",
+        "future",
+        "idiom"
+      ],
+      "first_learned_at": "2026-09-28T07:58:12+08:00",
+      "last_learned_at": "2026-09-28T07:58:12+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

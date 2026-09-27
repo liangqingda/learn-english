@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 127,
+  "revision": 155,
   "category": "grammar",
   "records": {
     "grammar:can-i-get-you-offer-food-drink": {
@@ -130,6 +130,31 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "grammar:have-got-possession-present": {
+      "id": "grammar:have-got-possession-present",
+      "category": "grammar",
+      "status": "learning",
+      "title": "have got 表示现在拥有",
+      "explanation": "口语中 have got 可表示现在拥有或具备，I've got 与 I have 在此句中的意思基本相同；形式上包含 have 和过去分词 got，但整句强调现在的处境，并非强调刚刚得到。",
+      "source": "I've got my whole life ahead of me.",
+      "example": "I've got plenty of time to decide.",
+      "tags": [
+        "have got",
+        "present",
+        "spoken English"
+      ],
+      "first_learned_at": "2026-09-28T07:58:12+08:00",
+      "last_learned_at": "2026-09-28T07:58:12+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "grammar:ill-volunteer-to-do-something": {
       "id": "grammar:ill-volunteer-to-do-something",
