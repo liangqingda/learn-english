@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 153,
+  "revision": 154,
   "category": "errors",
   "records": {
     "errors:accompany-mistaken-as-company-verb": {
@@ -2443,7 +2443,7 @@
     "errors:past-narrative-main-verb-tense": {
       "id": "errors:past-narrative-main-verb-tense",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "过去叙事中用 welcomed 和 arrived from",
       "explanation": "叙述已经发生的欢迎动作时，主句谓语应使用一般过去时 welcomed；表达从某地抵达时用 arrive from + 出发地，因此应说 had just arrived from Boston，而不是 arrived in Boston。",
       "source": "They welcome the traveler who had just arrived in Boston.",
@@ -2455,11 +2455,11 @@
       "first_learned_at": "2026-07-29T20:34:14+08:00",
       "last_learned_at": "2026-07-29T20:34:14+08:00",
       "learned_count": 2,
-      "mastery_score": 0.0,
-      "review_count": 2,
-      "high_score_streak": 0,
-      "last_reviewed_at": "2026-07-31T07:09:57+08:00",
-      "next_review_at": "2026-08-30T07:09:57+08:00",
+      "mastery_score": 9.0,
+      "review_count": 3,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-09-27T08:10:28+08:00",
+      "next_review_at": "2026-10-11T08:10:28+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
@@ -2474,6 +2474,12 @@
           "reviewed_at": "2026-07-31T07:09:57+08:00",
           "previous_status": "learning",
           "new_status": "mastered"
+        },
+        {
+          "score": 9.0,
+          "reviewed_at": "2026-09-27T08:10:28+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
         }
       ]
     },
