@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 155,
+  "revision": 156,
   "category": "grammar",
   "records": {
     "grammar:can-i-get-you-offer-food-drink": {
@@ -130,6 +130,31 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "grammar:gerund-as-subject": {
+      "id": "grammar:gerund-as-subject",
+      "category": "grammar",
+      "status": "learning",
+      "title": "Gerund phrase as sentence subject",
+      "explanation": "When an action itself is the subject of a clause, use the gerund (-ing) form, not the bare infinitive. 'Sacrificing your personal life' functions as a singular subject, so the verb agrees as singular (is, not are). The whole gerund phrase carries its own object ('your personal life').",
+      "source": "sacrificing your personal life is a pretty big price to pay",
+      "example": "Working from home has both advantages and disadvantages.",
+      "tags": [
+        "gerund",
+        "subject",
+        "subject-verb-agreement"
+      ],
+      "first_learned_at": "2026-09-28T08:03:44+08:00",
+      "last_learned_at": "2026-09-28T08:03:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "grammar:have-got-possession-present": {
       "id": "grammar:have-got-possession-present",

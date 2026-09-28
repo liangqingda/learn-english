@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 153,
+  "revision": 156,
   "category": "usage",
   "records": {
     "usage:after-不宜直接当-later-连接后续动作": {
@@ -359,6 +359,32 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "usage:pretty-as-adverb-informal": {
+      "id": "usage:pretty-as-adverb-informal",
+      "category": "usage",
+      "status": "learning",
+      "title": "pretty as an informal intensifier",
+      "explanation": "In informal spoken American English, 'pretty' acts as an adverb meaning 'fairly, quite, rather' before an adjective or adverb (pretty big, pretty good, pretty fast). It softens the claim rather than strongly amplifying it. Best avoided in formal academic or business writing; use 'quite' or 'rather' there.",
+      "source": "a pretty big price to pay",
+      "example": "The movie was pretty good, but the ending disappointed me.",
+      "tags": [
+        "adverb",
+        "american-english",
+        "informal",
+        "intensifier"
+      ],
+      "first_learned_at": "2026-09-28T08:03:44+08:00",
+      "last_learned_at": "2026-09-28T08:03:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "usage:serve-food-and-drinks-kitchen-context": {
       "id": "usage:serve-food-and-drinks-kitchen-context",

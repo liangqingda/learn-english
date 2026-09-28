@@ -1,8 +1,33 @@
 {
   "schema_version": 2,
-  "revision": 155,
+  "revision": 156,
   "category": "phrases",
   "records": {
+    "phrases:a-price-to-pay": {
+      "id": "phrases:a-price-to-pay",
+      "category": "phrases",
+      "status": "learning",
+      "title": "a price to pay",
+      "explanation": "A fixed collocation meaning a cost, loss, or consequence accepted in exchange for something gained. 'A big price to pay' = a heavy cost. The infinitive 'to pay' post-modifies 'price'. Core pattern: pay a price for something / there is a price to pay for sth.",
+      "source": "a pretty big price to pay",
+      "example": "There is a price to pay for success, and it is called discipline.",
+      "tags": [
+        "collocation",
+        "cost",
+        "infinitive-postmodifier"
+      ],
+      "first_learned_at": "2026-09-28T08:03:44+08:00",
+      "last_learned_at": "2026-09-28T08:03:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "phrases:back-east-us": {
       "id": "phrases:back-east-us",
       "category": "phrases",
@@ -432,6 +457,31 @@
       "review_count": 3,
       "high_score_streak": 0,
       "last_reviewed_at": "2026-07-30T20:11:00+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:regret-to-say": {
+      "id": "phrases:regret-to-say",
+      "category": "phrases",
+      "status": "learning",
+      "title": "regret to say",
+      "explanation": "A fixed formal phrase used to introduce unwelcome or apologistic news. 'I regret to say that...' signals the speaker is about to deliver something unpleasant. It uses regret + infinitive, reserved for formal or polite communication. Contrast with regret + gerund (regret saying/having said), which refers to a past action one wishes undone.",
+      "source": "I regret to say that sacrificing your personal life is a pretty big price to pay.",
+      "example": "We regret to inform you that your application has not been successful.",
+      "tags": [
+        "apology",
+        "fixed-phrase",
+        "formal"
+      ],
+      "first_learned_at": "2026-09-28T08:03:44+08:00",
+      "last_learned_at": "2026-09-28T08:03:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
