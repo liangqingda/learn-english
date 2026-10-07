@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 154,
+  "revision": 157,
   "category": "errors",
   "records": {
     "errors:accompany-mistaken-as-company-verb": {
@@ -4341,6 +4341,29 @@
           "new_status": "learning"
         }
       ]
+    },
+    "errors:while-clause-missing-linking-verb": {
+      "id": "errors:while-clause-missing-linking-verb",
+      "category": "errors",
+      "status": "learning",
+      "title": "while 时间状语从句缺系动词",
+      "explanation": "while 引导时间状语从句时必须带完整主谓结构，不能省略 be 动词，原句 while I outside 缺了 was。同时注意语义：要表达“出门时已经停了”，更自然的是 by the time I went out, it had stopped，而不是 while I was outside（后者会让人理解为雨是在你还在外面的时候才停）。",
+      "source": "It was a shower in the morning and it had stopped while I outside.",
+      "example": "By the time I went out, it had already stopped.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-10-07T19:40:46+08:00",
+      "last_learned_at": "2026-10-07T19:40:46+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:you-used-instead-of-your-before-noun": {
       "id": "errors:you-used-instead-of-your-before-noun",
