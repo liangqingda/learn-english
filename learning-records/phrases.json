@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 156,
+  "revision": 158,
   "category": "phrases",
   "records": {
     "phrases:a-price-to-pay": {
@@ -571,6 +571,31 @@
       ],
       "first_learned_at": "2026-08-03T12:54:13+08:00",
       "last_learned_at": "2026-08-03T12:54:13+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:walk-the-dog": {
+      "id": "phrases:walk-the-dog",
+      "category": "phrases",
+      "status": "learning",
+      "title": "walk the dog（遛狗）",
+      "explanation": "固定搭配，意为“带狗出去散步/遛狗”。walk 在此作及物动词，直接带宾语 the dog。连读要点：walk 结尾的爆破音 /k/ 与 the 开头的 /ð/ 直接衔接、几乎不爆破（不完全爆破），the 弱读为 /ðə/，整句听感近似一个词 /wɔːkðədɒɡ/。",
+      "source": "用户提问 walk the dog 如何连读",
+      "example": "I walk the dog every morning before breakfast.",
+      "tags": [
+        "固定搭配",
+        "连读",
+        "遛狗"
+      ],
+      "first_learned_at": "2026-10-08T06:56:11+08:00",
+      "last_learned_at": "2026-10-08T06:56:11+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
