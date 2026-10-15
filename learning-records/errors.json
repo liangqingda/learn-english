@@ -945,6 +945,29 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:did-use-to-base-form": {
+      "id": "errors:did-use-to-base-form",
+      "category": "errors",
+      "status": "learning",
+      "title": "Did 后用 use to，不用 used to",
+      "explanation": "一般过去时疑问句由 did 承担过去时标记，后面的动词使用原形，因此写 Did you use to live back east?。",
+      "source": "Did you used to live back east?",
+      "example": "Did you use to live back east?",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-10-16T07:51:21+08:00",
+      "last_learned_at": "2026-10-16T07:51:21+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:direct-question-word-order-and-look-at": {
       "id": "errors:direct-question-word-order-and-look-at",
       "category": "errors",
@@ -2693,11 +2716,11 @@
       "first_learned_at": "2026-07-30T17:14:23+08:00",
       "last_learned_at": "2026-08-01T08:41:13+08:00",
       "learned_count": 3,
-      "mastery_score": 0.0,
-      "review_count": 1,
+      "mastery_score": 7.0,
+      "review_count": 2,
       "high_score_streak": 0,
-      "last_reviewed_at": "2026-08-01T09:02:41+08:00",
-      "next_review_at": "2026-08-31T09:02:41+08:00",
+      "last_reviewed_at": "2026-10-16T07:51:21+08:00",
+      "next_review_at": "2026-10-19T07:51:21+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
@@ -2706,6 +2729,12 @@
           "reviewed_at": "2026-08-01T09:02:41+08:00",
           "previous_status": "learning",
           "new_status": "mastered"
+        },
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-10-16T07:51:21+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
         }
       ]
     },
@@ -4165,6 +4194,29 @@
       ],
       "first_learned_at": "2026-08-07T08:44:05+08:00",
       "last_learned_at": "2026-08-07T08:44:05+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:used-to-missing-base-verb": {
+      "id": "errors:used-to-missing-base-verb",
+      "category": "errors",
+      "status": "learning",
+      "title": "used to 后不能省略动作动词",
+      "explanation": "表示过去的习惯或状态时，used to 后接动词原形；back east 只说明地点，不能代替 live。应使用 used to live back east。",
+      "source": "My uncle used to back east, but now he lives in California.",
+      "example": "My uncle used to live back east, but now he lives in California.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-10-16T07:51:21+08:00",
+      "last_learned_at": "2026-10-16T07:51:21+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
