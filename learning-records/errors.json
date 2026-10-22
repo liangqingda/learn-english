@@ -1,8 +1,33 @@
 {
   "schema_version": 2,
-  "revision": 157,
+  "revision": 158,
   "category": "errors",
   "records": {
+    "errors:weather-shower-there-was-not-it-had": {
+      "id": "errors:weather-shower-there-was-not-it-had",
+      "category": "errors",
+      "status": "learning",
+      "title": "描述阵雨用 there was a shower，不用天气 it had a shower",
+      "explanation": "天气 it 可用于 It was drizzling，但不能沿用为 had a shower 的主语；have a shower 通常表示洗澡。描述发生一阵雨用 there was a shower 或 we had a shower。",
+      "source": "It was drizzling in the morning and suddenly had a shower after lunch, but it stopped after ten minutes.",
+      "example": "It was drizzling all morning, and there was suddenly a heavy shower after lunch, but it stopped after ten minutes.",
+      "tags": [
+        "review-error",
+        "sentence-structure",
+        "weather"
+      ],
+      "first_learned_at": "2026-10-22T08:01:46+08:00",
+      "last_learned_at": "2026-10-22T08:01:46+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:accompany-mistaken-as-company-verb": {
       "id": "errors:accompany-mistaken-as-company-verb",
       "category": "errors",
