@@ -1,33 +1,8 @@
 {
   "schema_version": 2,
-  "revision": 158,
+  "revision": 166,
   "category": "errors",
   "records": {
-    "errors:weather-shower-there-was-not-it-had": {
-      "id": "errors:weather-shower-there-was-not-it-had",
-      "category": "errors",
-      "status": "learning",
-      "title": "描述阵雨用 there was a shower，不用天气 it had a shower",
-      "explanation": "天气 it 可用于 It was drizzling，但不能沿用为 had a shower 的主语；have a shower 通常表示洗澡。描述发生一阵雨用 there was a shower 或 we had a shower。",
-      "source": "It was drizzling in the morning and suddenly had a shower after lunch, but it stopped after ten minutes.",
-      "example": "It was drizzling all morning, and there was suddenly a heavy shower after lunch, but it stopped after ten minutes.",
-      "tags": [
-        "review-error",
-        "sentence-structure",
-        "weather"
-      ],
-      "first_learned_at": "2026-10-22T08:01:46+08:00",
-      "last_learned_at": "2026-10-22T08:01:46+08:00",
-      "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
-    },
     "errors:accompany-mistaken-as-company-verb": {
       "id": "errors:accompany-mistaken-as-company-verb",
       "category": "errors",
@@ -519,17 +494,23 @@
       "first_learned_at": "2026-07-31T08:05:47+08:00",
       "last_learned_at": "2026-07-31T08:05:47+08:00",
       "learned_count": 1,
-      "mastery_score": 7.0,
-      "review_count": 1,
+      "mastery_score": 6.0,
+      "review_count": 2,
       "high_score_streak": 0,
-      "last_reviewed_at": "2026-08-01T08:40:25+08:00",
-      "next_review_at": "2026-08-04T08:40:25+08:00",
+      "last_reviewed_at": "2026-10-15T20:39:36+08:00",
+      "next_review_at": "2026-10-18T20:39:36+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
         {
           "score": 7.0,
           "reviewed_at": "2026-08-01T08:40:25+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        },
+        {
+          "score": 6.0,
+          "reviewed_at": "2026-10-15T20:39:36+08:00",
           "previous_status": "learning",
           "new_status": "learning"
         }
@@ -881,23 +862,24 @@
     "errors:continue-with-noun": {
       "id": "errors:continue-with-noun",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "continue with 后接名词，presentation 表示汇报",
       "explanation": "表示继续某项活动、流程或内容时，可使用 continue with + 名词，如 continue with the presentation；presentation 是演示或汇报，performing 更偏表演或执行动作，不能直接替代 presentation。",
       "source": "After short resting, she continue on performing.",
       "example": "After a short rest, she continued with her presentation.",
       "tags": [
+        "review-error",
         "verb-pattern",
         "word-choice"
       ],
       "first_learned_at": "2026-07-29T21:19:14+08:00",
-      "last_learned_at": "2026-07-29T21:19:16+08:00",
-      "learned_count": 2,
-      "mastery_score": 5.0,
-      "review_count": 2,
-      "high_score_streak": 0,
-      "last_reviewed_at": "2026-08-09T20:46:53+08:00",
-      "next_review_at": "2026-08-12T20:46:53+08:00",
+      "last_learned_at": "2026-10-15T20:26:23+08:00",
+      "learned_count": 3,
+      "mastery_score": 8.0,
+      "review_count": 3,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-10-15T20:26:23+08:00",
+      "next_review_at": "2026-10-22T20:26:23+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
@@ -912,6 +894,12 @@
           "reviewed_at": "2026-08-09T20:46:53+08:00",
           "previous_status": "learning",
           "new_status": "learning"
+        },
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-10-15T20:26:23+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
         }
       ]
     },
@@ -946,6 +934,29 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:countable-noun-missing-article": {
+      "id": "errors:countable-noun-missing-article",
+      "category": "errors",
+      "status": "learning",
+      "title": "可数名词单数前缺冠词",
+      "explanation": "continue with the presentation、a five-minute rest、the tea break 这类可数名词单数前需要 a/the，不能裸写 presentation / rest / tea break。",
+      "source": "After five-minute rest, we continued with presentation.",
+      "example": "After a five-minute rest, we continued with the presentation.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-10-15T20:26:23+08:00",
+      "last_learned_at": "2026-10-15T20:26:23+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:decide-requires-to-infinitive-for-action": {
       "id": "errors:decide-requires-to-infinitive-for-action",
@@ -1868,6 +1879,29 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:life-no-article-generic": {
+      "id": "errors:life-no-article-generic",
+      "category": "errors",
+      "status": "learning",
+      "title": "泛指 life 不加 the",
+      "explanation": "泛指「生活/人生」时 life 不加冠词，用 what life was like；the life 用于特指某段特定生活。",
+      "source": "I wonder what the life was like before they moved to Shanghai.",
+      "example": "I wonder what life was like before they moved to Shanghai.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-10-15T20:49:30+08:00",
+      "last_learned_at": "2026-10-15T20:49:30+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:los-angeles-english-place-name": {
       "id": "errors:los-angeles-english-place-name",
       "category": "errors",
@@ -1886,6 +1920,29 @@
       "review_count": 1,
       "high_score_streak": 0,
       "last_reviewed_at": "2026-07-29T12:47:18+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:lovely-day-to-must-follow-base-verb": {
+      "id": "errors:lovely-day-to-must-follow-base-verb",
+      "category": "errors",
+      "status": "learning",
+      "title": "Lovely day to 后必须接动词原形",
+      "explanation": "to 后需接动词原形（go/head 等），outside 是副词/介词不能直接跟在 to 后，也不要出现重复的 to。",
+      "source": "Lovely day to to outside.",
+      "example": "Lovely day to go outside.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-10-22T20:36:13+08:00",
+      "last_learned_at": "2026-10-22T20:36:13+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
@@ -2161,7 +2218,7 @@
     "errors:move-to-place-preposition": {
       "id": "errors:move-to-place-preposition",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "move to + 地点：搬到某地",
       "explanation": "表示“搬到某地”时，move 后面接地点通常要用介词 to，不能直接说 move Shanghai。",
       "source": "I wonder what the life was like before they moved Shanghai.",
@@ -2172,14 +2229,21 @@
       "first_learned_at": "2026-08-03T21:57:02+08:00",
       "last_learned_at": "2026-08-03T21:57:02+08:00",
       "learned_count": 2,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-10-15T20:49:30+08:00",
+      "next_review_at": "2026-10-22T20:49:30+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-10-15T20:49:30+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:much-before-simple-adjective-cold-error": {
       "id": "errors:much-before-simple-adjective-cold-error",
@@ -2249,6 +2313,29 @@
       ],
       "first_learned_at": "2026-08-02T18:29:05+08:00",
       "last_learned_at": "2026-08-02T18:29:05+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:no-preposition-before-out-west": {
+      "id": "errors:no-preposition-before-out-west",
+      "category": "errors",
+      "status": "learning",
+      "title": "out west / back east 前不加介词",
+      "explanation": "out west 和 back east 是方向副词短语，前面不需要 in/to；说 live out west、move out west。对比：live in the West（名词需 in + the）。",
+      "source": "She now lives in out west.",
+      "example": "She now lives out west.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-10-15T20:39:36+08:00",
+      "last_learned_at": "2026-10-15T20:39:36+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -2600,6 +2687,29 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:past-tense-continue-continued": {
+      "id": "errors:past-tense-continue-continued",
+      "category": "errors",
+      "status": "learning",
+      "title": "过去时主谓：she continued",
+      "explanation": "描述已经发生的动作要用过去式，continue 应为 continued。",
+      "source": "After short resting, she continue with presentation.",
+      "example": "After a short rest, she continued with her presentation.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-10-15T20:26:23+08:00",
+      "last_learned_at": "2026-10-15T20:26:23+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:past-tense-in-completed-event-sequence": {
       "id": "errors:past-tense-in-completed-event-sequence",
       "category": "errors",
@@ -2825,6 +2935,29 @@
       ],
       "first_learned_at": "2026-08-01T21:26:24+08:00",
       "last_learned_at": "2026-08-01T21:26:24+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:plate-x-with-y-garnish": {
+      "id": "errors:plate-x-with-y-garnish",
+      "category": "errors",
+      "status": "learning",
+      "title": "plate X with Y：摆盘并加点缀",
+      "explanation": "plate 作动词表示把食物摆盘；若要说明点缀物，用 plate 某食物 with 点缀物（如 with Parmesan cheese），不要写成 covered the cheek——cheek 是脸颊，cheese 才是奶酪。",
+      "source": "He plated the pasta and covered the cheek.",
+      "example": "He plated the pasta with Parmesan cheese.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-10-15T20:15:54+08:00",
+      "last_learned_at": "2026-10-15T20:15:54+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -3754,6 +3887,29 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:sit-in-the-coffee-drink-as-place": {
+      "id": "errors:sit-in-the-coffee-drink-as-place",
+      "category": "errors",
+      "status": "learning",
+      "title": "把饮品名当作地点：sit in the coffee",
+      "explanation": "coffee 是饮品不是地点，不能 sit in。要表达地点需用地点名词，如 sit outside a coffee shop（坐在咖啡馆外）。",
+      "source": "Lovely day to sit in the coffee outside to drink coffee.",
+      "example": "Lovely day to sit outside a coffee shop with a coffee.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-10-22T20:36:13+08:00",
+      "last_learned_at": "2026-10-22T20:36:13+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:slice-into-thin-slices-not-to-slice": {
       "id": "errors:slice-into-thin-slices-not-to-slice",
       "category": "errors",
@@ -4381,6 +4537,31 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:weather-shower-there-was-not-it-had": {
+      "id": "errors:weather-shower-there-was-not-it-had",
+      "category": "errors",
+      "status": "learning",
+      "title": "描述阵雨用 there was a shower，不用天气 it had a shower",
+      "explanation": "天气 it 可用于 It was drizzling，但不能沿用为 had a shower 的主语；have a shower 通常表示洗澡。描述发生一阵雨用 there was a shower 或 we had a shower。",
+      "source": "It was drizzling in the morning and suddenly had a shower after lunch, but it stopped after ten minutes.",
+      "example": "It was drizzling all morning, and there was suddenly a heavy shower after lunch, but it stopped after ten minutes.",
+      "tags": [
+        "review-error",
+        "sentence-structure",
+        "weather"
+      ],
+      "first_learned_at": "2026-10-22T08:01:46+08:00",
+      "last_learned_at": "2026-10-22T08:01:46+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:when-clause-open-event-tense": {
       "id": "errors:when-clause-open-event-tense",
