@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 166,
+  "revision": 167,
   "category": "errors",
   "records": {
     "errors:accompany-mistaken-as-company-verb": {
@@ -3997,6 +3997,29 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:suggest-object-plus-bare-verb-missing-that-or-gerund": {
+      "id": "errors:suggest-object-plus-bare-verb-missing-that-or-gerund",
+      "category": "errors",
+      "status": "learning",
+      "title": "suggest 后带宾语＋动词原形，缺少 that 或动名词",
+      "explanation": "suggest 不能接“宾语＋动词”，去掉 to 后依然错。表达“建议某人做某事”要用 suggest that 某人 do something（虚拟语气，动词原形），或 suggest doing；也可改用 advise someone to do。",
+      "source": "My friend suggested me go to the new cafe.",
+      "example": "My friend suggested that I go to the new cafe.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-10-22T20:49:57+08:00",
+      "last_learned_at": "2026-10-22T20:49:57+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:suggest-someone-to-do-instead-of-suggest-that-clause": {
       "id": "errors:suggest-someone-to-do-instead-of-suggest-that-clause",
       "category": "errors",
@@ -4012,14 +4035,21 @@
       "first_learned_at": "2026-08-02T13:39:53+08:00",
       "last_learned_at": "2026-08-02T13:39:53+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
+      "mastery_score": 5.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-10-22T20:49:57+08:00",
+      "next_review_at": "2026-10-25T20:49:57+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 5.0,
+          "reviewed_at": "2026-10-22T20:49:57+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
     },
     "errors:tense-agreement-narrative-continue": {
       "id": "errors:tense-agreement-narrative-continue",
