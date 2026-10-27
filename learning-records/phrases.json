@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 169,
+  "revision": 170,
   "category": "phrases",
   "records": {
     "phrases:a-price-to-pay": {
@@ -244,6 +244,30 @@
       ],
       "first_learned_at": "2026-07-31T09:13:38+08:00",
       "last_learned_at": "2026-07-31T09:13:38+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:get-down-to-business": {
+      "id": "phrases:get-down-to-business",
+      "category": "phrases",
+      "status": "learning",
+      "title": "get down to business：开始办正事",
+      "explanation": "get down to business 是固定习语，意思是停止闲聊或铺垫，开始着手处理真正重要、实际的事务。此处的 business 不是'生意'，而是'the matter/task at hand'（手头正事）。get down to 表示从闲聊/准备状态转入专注执行。语气中性偏口语，常见于会议、工作、谈判开场。可替换为 get to work、cut to the chase（更随意）。",
+      "source": "Let's get down to business.",
+      "example": "We've had enough small talk — let's get down to business.",
+      "tags": [
+        "idiom",
+        "meeting"
+      ],
+      "first_learned_at": "2026-10-28T07:47:49+08:00",
+      "last_learned_at": "2026-10-28T07:47:49+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 168,
+  "revision": 170,
   "category": "grammar",
   "records": {
     "grammar:can-i-get-you-offer-food-drink": {
@@ -146,6 +146,30 @@
       ],
       "first_learned_at": "2026-09-28T08:03:44+08:00",
       "last_learned_at": "2026-09-28T08:03:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:get-down-to-preposition": {
+      "id": "grammar:get-down-to-preposition",
+      "category": "grammar",
+      "status": "learning",
+      "title": "get down to + 名词/动名词：开始认真做某事",
+      "explanation": "get down to 里的 to 是介词而非不定式标记，所以后面接名词或动名词（-ing），不能接动词原形。这是高频易错点：要说 get down to doing/working，而不是 get down to do。整句结构：Let's get down to + 任务。可用于 get down to work / get down to the details / get down to planning。",
+      "source": "Let's get down to business.",
+      "example": "We need to get down to writing the report today.",
+      "tags": [
+        "gerund",
+        "preposition"
+      ],
+      "first_learned_at": "2026-10-28T07:47:49+08:00",
+      "last_learned_at": "2026-10-28T07:47:49+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
