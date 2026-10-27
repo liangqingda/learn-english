@@ -1,8 +1,33 @@
 {
   "schema_version": 2,
-  "revision": 166,
+  "revision": 168,
   "category": "usage",
   "records": {
+    "usage:a-little-bit": {
+      "id": "usage:a-little-bit",
+      "category": "usage",
+      "status": "learning",
+      "title": "a little bit：有一点、稍微",
+      "explanation": "程度副词，表示“略微、一点点”，用于弱化语气、让表达更柔和口语化，常修饰形容词、动词或不可数名词。口语高频；书面正式表达更常用 a little / slightly。",
+      "source": "We'll talk about that a little bit later on.",
+      "example": "I'm a little bit tired today. / 我今天有点累。",
+      "tags": [
+        "colloquial",
+        "degree",
+        "usage"
+      ],
+      "first_learned_at": "2026-10-28T07:29:40+08:00",
+      "last_learned_at": "2026-10-28T07:29:40+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "usage:after-不宜直接当-later-连接后续动作": {
       "id": "usage:after-不宜直接当-later-连接后续动作",
       "category": "usage",

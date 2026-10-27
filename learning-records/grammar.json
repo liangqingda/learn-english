@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 156,
+  "revision": 168,
   "category": "grammar",
   "records": {
     "grammar:can-i-get-you-offer-food-drink": {
@@ -328,6 +328,31 @@
       ],
       "first_learned_at": "2026-08-06T07:37:43+08:00",
       "last_learned_at": "2026-08-06T07:37:43+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:we-will-contraction": {
+      "id": "grammar:we-will-contraction",
+      "category": "grammar",
+      "status": "learning",
+      "title": "We'll = We will：表将来/计划",
+      "explanation": "口语中 will 与主语缩写为 'll，读 /wiːl/。用于表达将来的动作、临时决定或承诺，语气比 be going to 更即时。这里表示“我们稍后会再谈这个话题”。",
+      "source": "We'll talk about that a little bit later on.",
+      "example": "We'll call you when we get home. / 我们到家后给你打电话。",
+      "tags": [
+        "contraction",
+        "future",
+        "grammar"
+      ],
+      "first_learned_at": "2026-10-28T07:29:40+08:00",
+      "last_learned_at": "2026-10-28T07:29:40+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
