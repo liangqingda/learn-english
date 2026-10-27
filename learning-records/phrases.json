@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 168,
+  "revision": 169,
   "category": "phrases",
   "records": {
     "phrases:a-price-to-pay": {
@@ -340,6 +340,31 @@
       ],
       "first_learned_at": "2026-08-03T07:11:13+08:00",
       "last_learned_at": "2026-08-03T07:11:13+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:have-sth-covered": {
+      "id": "phrases:have-sth-covered",
+      "category": "phrases",
+      "status": "learning",
+      "title": "have / get ... covered（一切已安排妥当、准备齐全）",
+      "explanation": "口语习语，表示所有必要的事项、准备工作或风险都已处理妥当，无需担心。get = have 的口语形式，cover 在此意为「覆盖到、应付得了」。",
+      "source": "用户输入：We've got our bases covered.",
+      "example": "Don't worry about the venue — we've got that covered. 别担心场地，我们已经安排好了。",
+      "tags": [
+        "idiom",
+        "informal",
+        "preparation"
+      ],
+      "first_learned_at": "2026-10-28T07:36:34+08:00",
+      "last_learned_at": "2026-10-28T07:36:34+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

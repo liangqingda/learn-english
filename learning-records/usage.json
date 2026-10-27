@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 168,
+  "revision": 169,
   "category": "usage",
   "records": {
     "usage:a-little-bit": {
@@ -427,6 +427,30 @@
       ],
       "first_learned_at": "2026-09-28T08:03:44+08:00",
       "last_learned_at": "2026-09-28T08:03:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "usage:reassure-prepared-tone": {
+      "id": "usage:reassure-prepared-tone",
+      "category": "usage",
+      "status": "learning",
+      "title": "用 got ... covered 表达安抚、宽慰语气",
+      "explanation": "该表达带宽慰语气，强调「已安排妥当、可放心」。常用于团队分工、活动筹备等非正式场合；正式书面可用 has been taken care of / has been handled 替代。",
+      "source": "We've got our bases covered.",
+      "example": "Relax, the whole itinerary is covered. 放心，整个行程都安排好了。",
+      "tags": [
+        "register",
+        "tone"
+      ],
+      "first_learned_at": "2026-10-28T07:36:34+08:00",
+      "last_learned_at": "2026-10-28T07:36:34+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

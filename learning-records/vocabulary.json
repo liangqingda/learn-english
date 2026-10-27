@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 141,
+  "revision": 169,
   "category": "vocabulary",
   "records": {
     "vocabulary:across-preposition-adverb-vs-cross-verb": {
@@ -84,6 +84,30 @@
         }
       ]
     },
+    "vocabulary:cover-deal-with": {
+      "id": "vocabulary:cover-deal-with",
+      "category": "vocabulary",
+      "status": "learning",
+      "title": "cover（应付、处理、足以涵盖）",
+      "explanation": "动词 cover 除「覆盖」外，口语/商务中常表示「处理得了、足以应付或涵盖」。如 cover the cost（承担费用）、cover the basics（覆盖基础事项）。",
+      "source": "We've got our bases covered.",
+      "example": "This budget covers all travel expenses. 这笔预算涵盖所有差旅费用。",
+      "tags": [
+        "business",
+        "verb"
+      ],
+      "first_learned_at": "2026-10-28T07:36:34+08:00",
+      "last_learned_at": "2026-10-28T07:36:34+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "vocabulary:drizzle-light-rain": {
       "id": "vocabulary:drizzle-light-rain",
       "category": "vocabulary",
@@ -137,7 +161,7 @@
     "vocabulary:plate-as-verb-arrange-food": {
       "id": "vocabulary:plate-as-verb-arrange-food",
       "category": "vocabulary",
-      "status": "learning",
+      "status": "familiar",
       "title": "plate 作动词：摆盘",
       "explanation": "plate 作动词时通常指把食物放到盘子上并摆放得好看，常见于厨师、餐厅或烹饪节目语境，比 dish up 更强调外观和呈现。",
       "source": "2",
@@ -150,11 +174,11 @@
       "first_learned_at": "2026-07-31T09:16:35+08:00",
       "last_learned_at": "2026-07-31T09:16:35+08:00",
       "learned_count": 1,
-      "mastery_score": 6.0,
-      "review_count": 2,
-      "high_score_streak": 0,
-      "last_reviewed_at": "2026-08-09T09:46:08+08:00",
-      "next_review_at": "2026-08-12T09:46:08+08:00",
+      "mastery_score": 8.0,
+      "review_count": 3,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-10-15T20:15:54+08:00",
+      "next_review_at": "2026-10-22T20:15:54+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
@@ -169,6 +193,12 @@
           "reviewed_at": "2026-08-09T09:46:08+08:00",
           "previous_status": "learning",
           "new_status": "learning"
+        },
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-10-15T20:15:54+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
         }
       ]
     },
