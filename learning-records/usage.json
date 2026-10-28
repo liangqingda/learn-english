@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 174,
+  "revision": 175,
   "category": "usage",
   "records": {
     "usage:a-little-bit": {
@@ -372,6 +372,31 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "usage:go-for-it-vs-go-ahead": {
+      "id": "usage:go-for-it-vs-go-ahead",
+      "category": "usage",
+      "status": "learning",
+      "title": "go for it 与 go ahead 的语气差异",
+      "explanation": "go for it 是口语打气语，带朋友间的温度与鼓励，偏“加油、去争取”；go ahead 更像“批准/允许”，回答别人请示时用，意思是“可以，去吧”。正式书面场合一般不用 go for it。",
+      "source": "go for it",
+      "example": "A: I'm nervous about the audition. B: Don't be — go for it!",
+      "tags": [
+        "易混",
+        "语域",
+        "语气"
+      ],
+      "first_learned_at": "2026-10-29T07:52:52+08:00",
+      "last_learned_at": "2026-10-29T07:52:52+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "usage:lovely-day-comment-suggestion": {
       "id": "usage:lovely-day-comment-suggestion",

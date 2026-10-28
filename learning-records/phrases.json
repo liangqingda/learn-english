@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 174,
+  "revision": 175,
   "category": "phrases",
   "records": {
     "phrases:a-price-to-pay": {
@@ -367,6 +367,32 @@
       ],
       "first_learned_at": "2026-07-31T14:00:14+08:00",
       "last_learned_at": "2026-07-31T14:00:14+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:go-for-it-encouragement": {
+      "id": "phrases:go-for-it-encouragement",
+      "category": "phrases",
+      "status": "learning",
+      "title": "go for it 鼓励别人放手去做",
+      "explanation": "口语鼓励表达，意思是“放手去做吧/去争取吧/试试看”，当对方想做某事却犹豫时用来打气。go for 本义“去争取、去拿下”，it 虚指对方心里想的那件事，无需明说。可直接以祈使句使用：You've been training for months — go for it!",
+      "source": "go for it",
+      "example": "You've been training for months — go for it!",
+      "tags": [
+        "口语",
+        "短语",
+        "祈使句",
+        "鼓励"
+      ],
+      "first_learned_at": "2026-10-29T07:52:52+08:00",
+      "last_learned_at": "2026-10-29T07:52:52+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
