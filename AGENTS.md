@@ -10,9 +10,9 @@
 
 # English learning menus
 
-These rules apply to every skill and every user-facing response in this repository that actually teaches, explains, corrects, practices, or reviews English. They do not apply to repository maintenance, skill design, or other meta-level discussions merely because they mention English.
+These rules apply to every user-facing response in this repository whenever the user's message contains any English — any word, phrase, letter, abbreviation, or expression, regardless of length, intent, or message type. Any English input, even a single word like "hi", hard-triggers the English learning flow; ordinary English and unrelated messages are never exempt. The only exception is a conversation that is itself explicitly discussing or modifying this rule file (meta-level rule dialogue), which is answered before any teaching.
 
-- A user message prefixed with `learn:` forces the English skill to trigger for that content, regardless of whether it would otherwise qualify as an English learning request. Strip the `learn:` prefix before processing the rest of the message as the English learning input (knowledge-point summary, teaching, exercise, or review as the content warrants). The prefix is a hard trigger: it overrides the "meta discussion / ordinary English / unrelated message" exemptions above.
+- A user message prefixed with `learn:` forces the English skill to trigger even when the message contains no English, and makes the learning intent explicit. Strip the `learn:` prefix before processing the rest of the message as the English learning input (knowledge-point summary, teaching, exercise, or review as the content warrants). The prefix is a hard trigger that overrides the single meta-dialogue exception above; any message already containing English triggers without it.
 
 - End the teaching content with a numbered menu containing concrete next-step learning options. Exception: any response that presents an unanswered exercise, review question, or complete exam paper must use that exercise as the sole action surface: do not show a menu, and wait for the user's answer or explicit exit.
 - Introduce the menu with `➡️ 接下来可以回复数字：`, and always place one Markdown divider (`---`) immediately before that menu intro line in every English learning response that shows a menu.
