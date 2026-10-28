@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 173,
+  "revision": 174,
   "category": "usage",
   "records": {
     "usage:a-little-bit": {
@@ -105,6 +105,30 @@
       "review_count": 3,
       "high_score_streak": 1,
       "last_reviewed_at": "2026-07-30T17:18:46+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "usage:cannot-vs-cant": {
+      "id": "usage:cannot-vs-cant",
+      "category": "usage",
+      "status": "learning",
+      "title": "cannot 与 can't 的语域差异",
+      "explanation": "cannot 更正式，书面语与强调句中常用；can't 是口语缩略，日常对话更自然。",
+      "source": "I cannot stand the smell of smoke.",
+      "example": "I cannot (can't) stand waiting in line.",
+      "tags": [
+        "正式度",
+        "缩略形式"
+      ],
+      "first_learned_at": "2026-10-29T07:50:36+08:00",
+      "last_learned_at": "2026-10-29T07:50:36+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
@@ -614,6 +638,30 @@
       ],
       "first_learned_at": "2026-09-02T20:31:26+08:00",
       "last_learned_at": "2026-09-02T20:31:26+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "usage:stand-vs-bear-putupwith": {
+      "id": "usage:stand-vs-bear-putupwith",
+      "category": "usage",
+      "status": "learning",
+      "title": "stand / bear / put up with / tolerate 近义辨析",
+      "explanation": "stand 表“忍受”几乎只用于否定或疑问句；bear 语气更强、更书面；put up with 口语化、表“容忍”；tolerate 最正式。肯定句中要表达“忍受”时优先用 bear 或 put up with。",
+      "source": "I cannot stand the smell of smoke.",
+      "example": "How can you put up with that noise every day?",
+      "tags": [
+        "语域",
+        "近义词"
+      ],
+      "first_learned_at": "2026-10-29T07:50:36+08:00",
+      "last_learned_at": "2026-10-29T07:50:36+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

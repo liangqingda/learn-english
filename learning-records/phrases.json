@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 173,
+  "revision": 174,
   "category": "phrases",
   "records": {
     "phrases:a-price-to-pay": {
@@ -88,6 +88,31 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "phrases:can-t-stand-tolerate": {
+      "id": "phrases:can-t-stand-tolerate",
+      "category": "phrases",
+      "status": "learning",
+      "title": "can't stand + 名词/动名词（受不了…）",
+      "explanation": "cannot/can't stand 表示“无法忍受”，后接名词或动名词（V-ing），一般不用 to do；主要用于否定与疑问语境。",
+      "source": "I cannot stand the smell of smoke.",
+      "example": "I can't stand people smoking next to me in restaurants.",
+      "tags": [
+        "动名词",
+        "否定语境",
+        "固定搭配"
+      ],
+      "first_learned_at": "2026-10-29T07:50:36+08:00",
+      "last_learned_at": "2026-10-29T07:50:36+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "phrases:clear-the-table-after-meal": {
       "id": "phrases:clear-the-table-after-meal",

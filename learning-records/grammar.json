@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 173,
+  "revision": 174,
   "category": "grammar",
   "records": {
     "grammar:can-i-get-you-offer-food-drink": {
@@ -376,6 +376,30 @@
       ],
       "first_learned_at": "2026-08-06T07:37:43+08:00",
       "last_learned_at": "2026-08-06T07:37:43+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:the-smell-of-noun": {
+      "id": "grammar:the-smell-of-noun",
+      "category": "grammar",
+      "status": "learning",
+      "title": "the smell of + 名词 表“…的气味”",
+      "explanation": "用 of 引出气味来源，“the smell of smoke”比名词复合形式更自然、正式；口语中也常说 smells like smoke。",
+      "source": "I cannot stand the smell of smoke.",
+      "example": "The smell of fresh bread filled the room.",
+      "tags": [
+        "of 结构",
+        "名词短语"
+      ],
+      "first_learned_at": "2026-10-29T07:50:36+08:00",
+      "last_learned_at": "2026-10-29T07:50:36+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
