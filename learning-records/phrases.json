@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 170,
+  "revision": 171,
   "category": "phrases",
   "records": {
     "phrases:a-price-to-pay": {
@@ -244,6 +244,30 @@
       ],
       "first_learned_at": "2026-07-31T09:13:38+08:00",
       "last_learned_at": "2026-07-31T09:13:38+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:get-down-to-brass-tacks": {
+      "id": "phrases:get-down-to-brass-tacks",
+      "category": "phrases",
+      "status": "learning",
+      "title": "get down to brass tacks：直入主题（美式口语）",
+      "explanation": "get down to brass tacks 是美式口语习语，意为'停止铺垫、直接谈正题/关键实质'，语气比 get down to business 更随意、更强调'谈要点本身'。常见于会议、谈判、朋友间催促进入重点。tacks 为黄铜平头钉，其确切词源有争议（常见联想为布匹店按钉售布），但作为记忆联想即可。",
+      "source": "OK, let's get down to brass tacks.",
+      "example": "Enough small talk — let's get down to brass tacks and talk about money.",
+      "tags": [
+        "american-colloquial",
+        "idiom"
+      ],
+      "first_learned_at": "2026-10-28T08:00:45+08:00",
+      "last_learned_at": "2026-10-28T08:00:45+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
