@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 170,
+  "revision": 173,
   "category": "grammar",
   "records": {
     "grammar:can-i-get-you-offer-food-drink": {
@@ -89,6 +89,30 @@
       ],
       "first_learned_at": "2026-07-31T12:48:40+08:00",
       "last_learned_at": "2026-07-31T12:48:40+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:do-you-think-we-can": {
+      "id": "grammar:do-you-think-we-can",
+      "category": "grammar",
+      "status": "learning",
+      "title": "Do you think we can...?（委婉征求意见句型）",
+      "explanation": "用 Do you think + 主语 + can + 动词原形，把请求包装成你觉得是否可行，比直接的 Can we...? 更委婉，适合礼貌地提建议或请求。回答可用 Yes, I think so. / I'm afraid not.",
+      "source": "Do you think we can make a pit stop?",
+      "example": "Do you think we can finish this by five?（你觉得我们五点前能做完吗？）",
+      "tags": [
+        "grammar",
+        "politeness"
+      ],
+      "first_learned_at": "2026-10-28T08:09:21+08:00",
+      "last_learned_at": "2026-10-28T08:09:21+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

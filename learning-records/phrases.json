@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 172,
+  "revision": 173,
   "category": "phrases",
   "records": {
     "phrases:a-price-to-pay": {
@@ -519,6 +519,31 @@
       ],
       "first_learned_at": "2026-10-28T07:29:40+08:00",
       "last_learned_at": "2026-10-28T07:29:40+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:make-a-pit-stop": {
+      "id": "phrases:make-a-pit-stop",
+      "category": "phrases",
+      "status": "learning",
+      "title": "make a pit stop（短暂停留）",
+      "explanation": "源自赛车运动（pit 为赛道维修区，赛车进站加油换胎），现口语中借指旅途中的短暂停留，常委婉指上厕所、买吃的或加油。字面意义与喻义有清晰关联：先进站再短暂停靠。",
+      "source": "Do you think we can make a pit stop?",
+      "example": "Let's make a pit stop before we hit the highway.（上高速前我们先停一下吧。）",
+      "tags": [
+        "idiom",
+        "phrase",
+        "travel"
+      ],
+      "first_learned_at": "2026-10-28T08:09:21+08:00",
+      "last_learned_at": "2026-10-28T08:09:21+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
