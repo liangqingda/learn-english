@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 169,
+  "revision": 172,
   "category": "usage",
   "records": {
     "usage:a-little-bit": {
@@ -61,6 +61,31 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "usage:all-set-register": {
+      "id": "usage:all-set-register",
+      "category": "usage",
+      "status": "learning",
+      "title": "all set 的语气与场景",
+      "explanation": "偏口语、亲切安抚的语气，美式英语高频。常见于餐厅点餐后服务员问 Are you all set?（点好了吗）、出发前确认 All set?、以及向对方保证 All set—we've taken care of everything。比 ready 更口语、更有人情味。",
+      "source": "用户输入 \"It's all set.\"",
+      "example": "All set! The tickets are booked and the bags are packed. / Don't worry, everything's all set for the meeting.",
+      "tags": [
+        "american-english",
+        "register",
+        "spoken"
+      ],
+      "first_learned_at": "2026-10-28T08:01:39+08:00",
+      "last_learned_at": "2026-10-28T08:01:39+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "usage:back-east-in-the-east-eastward-contrast": {
       "id": "usage:back-east-in-the-east-eastward-contrast",

@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 171,
+  "revision": 172,
   "category": "phrases",
   "records": {
     "phrases:a-price-to-pay": {
@@ -18,6 +18,31 @@
       ],
       "first_learned_at": "2026-09-28T08:03:44+08:00",
       "last_learned_at": "2026-09-28T08:03:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:all-set-ready": {
+      "id": "phrases:all-set-ready",
+      "category": "phrases",
+      "status": "learning",
+      "title": "It's all set（一切就绪/搞定）",
+      "explanation": "非正式口语惯用语，意思是『一切都准备好了/安排妥当了/没问题了』。set 在此是形容词，意为 ready / arranged（准备好、安置妥当），all 加强语气。常用在告知别人事情已搞定、可以放心时。",
+      "source": "用户输入 \"It's all set.\"",
+      "example": "The table is all set for dinner — everyone can sit down now. / Are you all set? We're leaving in five minutes.",
+      "tags": [
+        "colloquial",
+        "idiom",
+        "reassurance"
+      ],
+      "first_learned_at": "2026-10-28T08:01:39+08:00",
+      "last_learned_at": "2026-10-28T08:01:39+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
