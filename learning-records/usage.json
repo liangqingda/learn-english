@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 175,
+  "revision": 177,
   "category": "usage",
   "records": {
     "usage:a-little-bit": {
@@ -514,18 +514,20 @@
       "category": "usage",
       "status": "learning",
       "title": "pretty as an informal intensifier",
-      "explanation": "In informal spoken American English, 'pretty' acts as an adverb meaning 'fairly, quite, rather' before an adjective or adverb (pretty big, pretty good, pretty fast). It softens the claim rather than strongly amplifying it. Best avoided in formal academic or business writing; use 'quite' or 'rather' there.",
+      "explanation": "Here pretty is not the adjective 'beautiful'; it functions as an informal adverb meaning fairly, quite or rather, softening the degree: pretty laid back = fairly relaxed, not extremely relaxed. Common in spoken American English; in formal writing use fairly, quite or rather instead. Common collocations: pretty good, pretty much, pretty sure, pretty busy.",
       "source": "a pretty big price to pay",
-      "example": "The movie was pretty good, but the ending disappointed me.",
+      "example": "The movie was pretty good, but the ending was disappointing.",
       "tags": [
         "adverb",
         "american-english",
+        "degree",
+        "false-friend",
         "informal",
         "intensifier"
       ],
       "first_learned_at": "2026-09-28T08:03:44+08:00",
-      "last_learned_at": "2026-09-28T08:03:44+08:00",
-      "learned_count": 1,
+      "last_learned_at": "2026-10-29T07:55:58+08:00",
+      "learned_count": 2,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,

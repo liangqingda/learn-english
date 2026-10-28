@@ -1,8 +1,32 @@
 {
   "schema_version": 2,
-  "revision": 174,
+  "revision": 177,
   "category": "grammar",
   "records": {
+    "grammar:alternative-question-a-or-b": {
+      "id": "grammar:alternative-question-a-or-b",
+      "category": "grammar",
+      "status": "learning",
+      "title": "选择疑问句 Are you A or B?",
+      "explanation": "在 be 动词后直接跟两个并列选项 A or B，构成选择疑问句，语气比一般疑问句更具体，让对方二选一。",
+      "source": "Are you a night owl or an early bird?",
+      "example": "Do you prefer tea or coffee?",
+      "tags": [
+        "口语",
+        "句型"
+      ],
+      "first_learned_at": "2026-10-29T07:54:05+08:00",
+      "last_learned_at": "2026-10-29T07:54:05+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "grammar:can-i-get-you-offer-food-drink": {
       "id": "grammar:can-i-get-you-offer-food-drink",
       "category": "grammar",
@@ -359,6 +383,32 @@
           "new_status": "learning"
         }
       ]
+    },
+    "grammar:prefer-x-rather-than-y": {
+      "id": "grammar:prefer-x-rather-than-y",
+      "category": "grammar",
+      "status": "learning",
+      "title": "prefer X rather than Y：比起 Y 更喜欢 X（平行结构）",
+      "explanation": "prefer A to B is the most compact pattern (prefer tea to coffee). prefer X rather than Y also works to contrast two options; X and Y must be grammatically parallel (both nouns, both gerunds, both full clauses). In the source sentence X = a night of playing cards with friends, Y = a loud and crazy dance party, two noun phrases kept parallel. Avoid mixing a gerund with a bare noun after rather than.",
+      "source": "prefer a night of playing cards with friends rather than a loud and crazy dance party",
+      "example": "I prefer staying in and cooking rather than going out to a crowded restaurant.",
+      "tags": [
+        "comparison",
+        "parallelism",
+        "prefer",
+        "rather-than"
+      ],
+      "first_learned_at": "2026-10-29T07:55:58+08:00",
+      "last_learned_at": "2026-10-29T07:55:58+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "grammar:prepositional-phrase-sentence-functions": {
       "id": "grammar:prepositional-phrase-sentence-functions",

@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 175,
+  "revision": 177,
   "category": "phrases",
   "records": {
     "phrases:a-price-to-pay": {
@@ -555,6 +555,33 @@
           "new_status": "learning"
         }
       ]
+    },
+    "phrases:laid-back-relaxed": {
+      "id": "phrases:laid-back-relaxed",
+      "category": "phrases",
+      "status": "learning",
+      "title": "laid back / laid-back：随和、松弛、不紧张",
+      "explanation": "Informal adjective describing a person, attitude, place or event that is calm, relaxed and easygoing, not easily stressed or agitated. Predicative use after be: He is laid back. Attributive use before a noun needs a hyphen: a laid-back attitude / a laid-back bar. It is the opposite of uptight, tense or high-strung. Note the spelling: laid (past participle of lay), not layed.",
+      "source": "I'm pretty laid back and prefer a night of playing cards with friends rather than a loud and crazy dance party.",
+      "example": "My boss has a laid-back management style; she rarely raises her voice.",
+      "tags": [
+        "adjective",
+        "hyphen",
+        "informal",
+        "opposite-uptight",
+        "personality"
+      ],
+      "first_learned_at": "2026-10-29T07:55:58+08:00",
+      "last_learned_at": "2026-10-29T07:55:58+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "phrases:later-on": {
       "id": "phrases:later-on",
