@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 178,
+  "revision": 177,
   "category": "vocabulary",
   "records": {
     "vocabulary:across-preposition-adverb-vs-cross-verb": {
@@ -268,29 +268,6 @@
       "review_count": 1,
       "high_score_streak": 1,
       "last_reviewed_at": "2026-07-30T13:21:12+08:00",
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
-    },
-    "vocabulary:review-see-again-review-critique": {
-      "id": "vocabulary:review-see-again-review-critique",
-      "category": "vocabulary",
-      "status": "learning",
-      "title": "review：再看一遍→复习、评论、审查",
-      "explanation": "review 兼作名词与动词，核心义源自拉丁语 revidere（re- 再 + videre 看），即“再看一遍”，由此分出三条高频义：①复习/回顾（study again，常接 for an exam 或 the notes）；②评论/评审（对书、电影、餐厅的评价，a book/movie review）；③审查/复核（正式检查，under review、peer review）。作动词是及物动词，直接加宾语。",
-      "source": "I need to review for tomorrow's exam.",
-      "example": "She wrote a detailed review of the new restaurant.",
-      "tags": [
-        "learn-from-english"
-      ],
-      "first_learned_at": "2026-10-30T07:34:35+08:00",
-      "last_learned_at": "2026-10-30T07:34:35+08:00",
-      "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
