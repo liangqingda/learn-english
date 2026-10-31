@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 167,
+  "revision": 178,
   "category": "errors",
   "records": {
     "errors:accompany-mistaken-as-company-verb": {
@@ -903,6 +903,29 @@
         }
       ]
     },
+    "errors:contraction-isnt-apostrophe-misplaced": {
+      "id": "errors:contraction-isnt-apostrophe-misplaced",
+      "category": "errors",
+      "status": "learning",
+      "title": "缩写 isn't 的撇号位置错误",
+      "explanation": "is not 的标准缩写是 isn't，撇号放在 n 和 t 之间，代替被省略的 o。写成 isnt' 或 isnt 都是缩写形态错误，在书面语中会显得不规范。",
+      "source": "Lovely day for take the children to the zoo, isnt' it?",
+      "example": "Lovely day to take the children to the zoo, isn't it?",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-10-31T10:26:13+08:00",
+      "last_learned_at": "2026-10-31T10:26:13+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:cool-breeze-adjective-omitted": {
       "id": "errors:cool-breeze-adjective-omitted",
       "category": "errors",
@@ -1497,6 +1520,29 @@
         }
       ]
     },
+    "errors:for-plus-base-verb-instead-of-to-infinitive": {
+      "id": "errors:for-plus-base-verb-instead-of-to-infinitive",
+      "category": "errors",
+      "status": "learning",
+      "title": "for + 动词原形（应为 to + 原形或 for + 动名词）",
+      "explanation": "for 是介词，后面只能接名词或动名词，不能接动词原形。表示“适合做某事”时用 to + 动词原形，或用 for + doing；两种结构不能混用。",
+      "source": "Lovely day for take the children to the zoo.",
+      "example": "Lovely day to take the children to the zoo, isn't it?",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-10-31T10:26:13+08:00",
+      "last_learned_at": "2026-10-31T10:26:13+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:for-the-first-time-expression": {
       "id": "errors:for-the-first-time-expression",
       "category": "errors",
@@ -1920,6 +1966,29 @@
       "review_count": 1,
       "high_score_streak": 0,
       "last_reviewed_at": "2026-07-29T12:47:18+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:lovely-day-to-missing-to-before-base-verb": {
+      "id": "errors:lovely-day-to-missing-to-before-base-verb",
+      "category": "errors",
+      "status": "learning",
+      "title": "Lovely day to + 原形：漏掉 to",
+      "explanation": "Lovely day 后面接一个动作时，要用后置不定式 to + 动词原形，to 不能省略。省略后 lovely day grab 变成两个成分直接并置，既没有句法连接，也失去了“适合做某事”的不定式含义。",
+      "source": "Lovely day grab a sandwich and eat in the park?",
+      "example": "Lovely day to grab a sandwich and eat in the park, isn't it?",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-10-31T10:26:13+08:00",
+      "last_learned_at": "2026-10-31T10:26:13+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
