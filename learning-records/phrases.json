@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 183,
+  "revision": 186,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -111,6 +111,31 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "phrases:be-home-to": {
+      "id": "phrases:be-home-to",
+      "category": "phrases",
+      "status": "learning",
+      "title": "be home to — 是……的家园/所在地",
+      "explanation": "固定搭配，表示某地/某物是某类人、动物或事物的家园、栖息地或所在地。主语通常是地点（国家、城市、地区、场馆），home 此处作名词，前不加冠词。常用于介绍性、说明性语境。",
+      "source": "It's home to more than 50 distinct ethnic groups.",
+      "example": "The rainforest is home to thousands of rare species. 这片雨林是数千种珍稀物种的家园。",
+      "tags": [
+        "固定表达",
+        "搭配",
+        "说明文"
+      ],
+      "first_learned_at": "2026-11-01T19:12:18+08:00",
+      "last_learned_at": "2026-11-01T19:12:18+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "phrases:can-t-stand-tolerate": {
       "id": "phrases:can-t-stand-tolerate",

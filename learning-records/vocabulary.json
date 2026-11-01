@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 180,
+  "revision": 186,
   "category": "vocabulary",
   "records": {
     "vocabulary:across-preposition-adverb-vs-cross-verb": {
@@ -108,6 +108,31 @@
       "mastered_at": null,
       "review_history": []
     },
+    "vocabulary:distinct-adj": {
+      "id": "vocabulary:distinct-adj",
+      "category": "vocabulary",
+      "status": "learning",
+      "title": "distinct — 不同的、独特的、明显的",
+      "explanation": "形容词。此处强调“彼此不同、各自独立、可以区分开来”的意思，比 different 更强，暗示这些群体之间有明显可辨的差异或独立性。也可表“清晰明显的”（如 a distinct smell）。",
+      "source": "more than 50 distinct ethnic groups",
+      "example": "The two languages are distinct in sound and structure. 这两种语言在语音和结构上都截然不同。",
+      "tags": [
+        "different",
+        "形容词",
+        "近义辨析"
+      ],
+      "first_learned_at": "2026-11-01T19:12:18+08:00",
+      "last_learned_at": "2026-11-01T19:12:18+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "vocabulary:drizzle-light-rain": {
       "id": "vocabulary:drizzle-light-rain",
       "category": "vocabulary",
@@ -147,6 +172,31 @@
       ],
       "first_learned_at": "2026-10-29T07:54:05+08:00",
       "last_learned_at": "2026-10-29T07:54:05+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "vocabulary:ethnic-group": {
+      "id": "vocabulary:ethnic-group",
+      "category": "vocabulary",
+      "status": "learning",
+      "title": "ethnic group — 族群、民族",
+      "explanation": "指拥有共同文化、语言、历史或血缘认同的人群。常以复数 ethnic groups 出现，用于讨论一个国家的民族构成。China 通常说有 56 个民族（ethnic groups / nationalities）。",
+      "source": "more than 50 distinct ethnic groups",
+      "example": "China is home to 56 ethnic groups, including the Han majority. 中国有 56 个民族，其中汉族占多数。",
+      "tags": [
+        "名词",
+        "文化",
+        "民族"
+      ],
+      "first_learned_at": "2026-11-01T19:12:18+08:00",
+      "last_learned_at": "2026-11-01T19:12:18+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
