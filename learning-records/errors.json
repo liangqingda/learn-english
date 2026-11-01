@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 184,
+  "revision": 185,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -1683,6 +1683,29 @@
       ],
       "first_learned_at": "2026-08-02T10:30:20+08:00",
       "last_learned_at": "2026-08-02T10:30:20+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:go-to-bed-early-vs-sleep-early": {
+      "id": "errors:go-to-bed-early-vs-sleep-early",
+      "category": "errors",
+      "status": "learning",
+      "title": "“早点睡”应用 go to bed early/earlier，而非 sleep early",
+      "explanation": "“早点睡”更自然的英文是 go to bed early；对比常态时用比较级 earlier：go to bed earlier。sleep early 可理解但不够地道。",
+      "source": "I suggested that he sleep early.",
+      "example": "I suggested that he go to bed earlier.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-01T18:55:24+08:00",
+      "last_learned_at": "2026-11-01T18:55:24+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -4138,7 +4161,7 @@
     "errors:suggest-someone-to-do-instead-of-suggest-that-clause": {
       "id": "errors:suggest-someone-to-do-instead-of-suggest-that-clause",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "误用 suggest someone to do 表达建议某人做某事",
       "explanation": "suggest 后面不能自然接 someone to do；表达“建议某人做某事”常用 suggest that someone do something，或改用 advise someone to do something。",
       "source": "The doctor suggests us to eat more fruit every day.",
@@ -4150,11 +4173,11 @@
       "first_learned_at": "2026-08-02T13:39:53+08:00",
       "last_learned_at": "2026-08-02T13:39:53+08:00",
       "learned_count": 1,
-      "mastery_score": 5.0,
-      "review_count": 1,
-      "high_score_streak": 0,
-      "last_reviewed_at": "2026-10-22T20:49:57+08:00",
-      "next_review_at": "2026-10-25T20:49:57+08:00",
+      "mastery_score": 8.0,
+      "review_count": 2,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-11-01T18:55:24+08:00",
+      "next_review_at": "2026-11-08T18:55:24+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
@@ -4163,6 +4186,12 @@
           "reviewed_at": "2026-10-22T20:49:57+08:00",
           "previous_status": "learning",
           "new_status": "learning"
+        },
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-11-01T18:55:24+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
         }
       ]
     },
