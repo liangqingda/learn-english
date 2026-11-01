@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 180,
+  "revision": 181,
   "category": "grammar",
   "records": {
     "grammar:alternative-question-a-or-b": {
@@ -451,6 +451,53 @@
       ],
       "first_learned_at": "2026-08-06T07:37:43+08:00",
       "last_learned_at": "2026-08-06T07:37:43+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:present-perfect-for-duration": {
+      "id": "grammar:present-perfect-for-duration",
+      "category": "grammar",
+      "status": "learning",
+      "title": "现在完成时 + for 时间段：从过去持续到现在的反复动作",
+      "explanation": "For centuries, travellers to China have told tales... 中 have told 是现在完成时，搭配 for centuries 表示'几个世纪以来一直如此'，即动作在过去开始、反复发生并延续到现在。现在完成时强调'到目前为止'的累计/持续，而非具体过去时间点。",
+      "source": "For Centuries, travellers to China have told tales of magical landscapes and surprising creatures.",
+      "example": "People have told stories about this mountain for hundreds of years. (几百年来人们一直在讲述这座山的故事。)",
+      "tags": [
+        "for-duration",
+        "present-perfect"
+      ],
+      "first_learned_at": "2026-11-01T17:04:34+08:00",
+      "last_learned_at": "2026-11-01T17:04:34+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:surprising-surprised": {
+      "id": "grammar:surprising-surprised",
+      "category": "grammar",
+      "status": "learning",
+      "title": "-ing 形容词 surprising（令人…的）vs -ed 形容词 surprised（感到…的）",
+      "explanation": "surprising 形容'令人惊讶的事物'（修饰物/事件），surprised 形容'感到惊讶的人'（修饰人）。surprising creatures 意为'令人惊讶的生物'，说明这些生物本身让人惊讶。",
+      "source": "...tales of magical landscapes and surprising creatures.",
+      "example": "The news was surprising, and I was really surprised. (这个消息令人惊讶，我真的很吃惊。)",
+      "tags": [
+        "ing-ed-adjectives"
+      ],
+      "first_learned_at": "2026-11-01T17:04:34+08:00",
+      "last_learned_at": "2026-11-01T17:04:34+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
