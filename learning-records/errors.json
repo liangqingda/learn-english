@@ -1,8 +1,31 @@
 {
   "schema_version": 2,
-  "revision": 178,
+  "revision": 182,
   "category": "errors",
   "records": {
+    "errors:a-little-bit-earlier-comparative": {
+      "id": "errors:a-little-bit-earlier-comparative",
+      "category": "errors",
+      "status": "learning",
+      "title": "用 a little bit 表“稍早一点”时要用比较级 earlier",
+      "explanation": "“出发早一点”对比的是计划时间，应使用比较级 earlier 而不是原级 early；“出发”也更自然用 leave 而非 go。",
+      "source": "Can we go a little bit early?",
+      "example": "Can we leave a little bit earlier?",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-01T18:21:17+08:00",
+      "last_learned_at": "2026-11-01T18:21:17+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:accompany-mistaken-as-company-verb": {
       "id": "errors:accompany-mistaken-as-company-verb",
       "category": "errors",
