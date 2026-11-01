@@ -200,9 +200,9 @@ python3 learn-from-english/scripts/learning_records.py menu \
   --focus <当前知识点标题或核心表达>
 ```
 
-`review-complete` 菜单只在用户答案实际存在错误且当前错题尚未讲解过时保留 `explain-current-exercise`。运行命令时加 `--has-answer-errors`，并把脚本返回的 `🔍 讲解错题` 放在全部菜单项第一位。完全正确时不要加该参数。错题讲解后加 `--current-exercise-explained`，后续菜单不再显示该项。
+只要本轮答案实际存在错误，评分后的回复就必须**直接附带错题讲解**：严格按“讲解错题”一节的四步顺序逐条说明每个错题（覆盖考点、错误机制、英语表达逻辑与正确表达及可迁移用法），不得把“讲解错题”只留作待用户选择的选项。讲解已包含在回复中，因此生成 `review-complete` 菜单时加 `--current-exercise-explained`，不再显示 `explain-current-exercise` 项。完全正确时不要加 `--has-answer-errors`，也不附带讲解。
 
-新题展示或答题尚未完成时不生成菜单；等用户完成作答且评分保存成功或明确放弃保存后，再生成 `review-complete` 菜单。讲解错题后加 `--current-exercise-explained`。
+新题展示或答题尚未完成时不生成菜单；等用户完成作答且评分保存成功或明确放弃保存后，再生成 `review-complete` 菜单。若用户在已附带讲解后又明确要求再讲一遍，仍可按“讲解错题”一节补充更细的讲解。
 
 ## 场景对话错题
 
