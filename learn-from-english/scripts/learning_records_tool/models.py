@@ -9,7 +9,7 @@ from typing import Any
 
 
 SCHEMA_VERSION = 2
-CATEGORIES = ("vocabulary", "phrases", "grammar", "usage", "errors")
+CATEGORIES = ("vocabulary", "phrases", "grammar", "usage", "errors", "pronunciation")
 STATUSES = ("learning", "familiar", "mastered")
 REQUIRED_TEXT_FIELDS = ("title", "explanation", "source", "example")
 
