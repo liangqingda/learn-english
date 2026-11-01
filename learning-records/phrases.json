@@ -1,12 +1,12 @@
 {
   "schema_version": 2,
-  "revision": 186,
+  "revision": 192,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
       "id": "phrases:a-bit-informal-degree",
       "category": "phrases",
-      "status": "learning",
+      "status": "familiar",
       "title": "a bit：有点（口语程度副词）",
       "explanation": "a bit 是口语化的程度副词，表示“有点、略微”，与 a little bit 意思相近但更简短；修饰形容词、副词、动词，接不可数名词时用 a bit of。",
       "source": "The movie was a bit long.",
@@ -17,14 +17,21 @@
       "first_learned_at": "2026-11-01T18:44:49+08:00",
       "last_learned_at": "2026-11-01T18:44:49+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 10.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-11-01T20:05:11+08:00",
+      "next_review_at": "2026-12-01T20:05:11+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-11-01T20:05:11+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "phrases:a-price-to-pay": {
       "id": "phrases:a-price-to-pay",
