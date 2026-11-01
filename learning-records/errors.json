@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 191,
+  "revision": 194,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -1349,7 +1349,7 @@
     "errors:duration-rest-possessive-or-hyphenated-form": {
       "id": "errors:duration-rest-possessive-or-hyphenated-form",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "ten minutes rest 缺少所有格或复合形容词结构",
       "explanation": "表示一段时间的休息，可以说 after ten minutes of rest、after a ten-minute rest，或较正式地说 after ten minutes rest with an apostrophe after minutes。直接写 ten minutes rest 不够完整。",
       "source": "After ten minutes rest, he continued with his project presentation.",
@@ -1361,11 +1361,11 @@
       "first_learned_at": "2026-08-01T21:42:55+08:00",
       "last_learned_at": "2026-08-01T21:42:55+08:00",
       "learned_count": 1,
-      "mastery_score": 3.0,
-      "review_count": 2,
-      "high_score_streak": 0,
-      "last_reviewed_at": "2026-08-09T09:26:28+08:00",
-      "next_review_at": "2026-08-10T09:26:28+08:00",
+      "mastery_score": 10.0,
+      "review_count": 3,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-11-01T20:10:29+08:00",
+      "next_review_at": "2026-12-01T20:10:29+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
@@ -1380,6 +1380,12 @@
           "reviewed_at": "2026-08-09T09:26:28+08:00",
           "previous_status": "learning",
           "new_status": "learning"
+        },
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-11-01T20:10:29+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
         }
       ]
     },
@@ -2385,6 +2391,29 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:misspelling-energy": {
+      "id": "errors:misspelling-energy",
+      "category": "errors",
+      "status": "learning",
+      "title": "energy 拼写错误（误写为 egegy）",
+      "explanation": "energy 正确拼写为 e-n-e-r-g-y。该词高频且拼写稳定，写错会破坏句子可读性，考试中属于可识别的低级失误。",
+      "source": "regained egegy",
+      "example": "After a ten-minute rest, I regained my energy.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-01T20:10:29+08:00",
+      "last_learned_at": "2026-11-01T20:10:29+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:misunderstand-go-out-with-as-literal-exit": {
       "id": "errors:misunderstand-go-out-with-as-literal-exit",
@@ -3727,6 +3756,29 @@
       ],
       "first_learned_at": "2026-08-03T22:03:55+08:00",
       "last_learned_at": "2026-08-03T22:03:55+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:regain-again-redundancy": {
+      "id": "errors:regain-again-redundancy",
+      "category": "errors",
+      "status": "learning",
+      "title": "regain 与 again 语义重复",
+      "explanation": "regain 本身已含\"重新获得、恢复\"（get back）之意，再加 again 造成语义冗余，应删去 again。",
+      "source": "I regained egegy again",
+      "example": "After a ten-minute rest, I regained my energy.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-01T20:10:29+08:00",
+      "last_learned_at": "2026-11-01T20:10:29+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
