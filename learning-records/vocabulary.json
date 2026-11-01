@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 187,
+  "revision": 193,
   "category": "vocabulary",
   "records": {
     "vocabulary:across-preposition-adverb-vs-cross-verb": {
@@ -349,6 +349,29 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "vocabulary:range": {
+      "id": "vocabulary:range",
+      "category": "vocabulary",
+      "status": "learning",
+      "title": "range（范围；一系列/种类）",
+      "explanation": "作名词表示'范围、系列、种类'，常与 of 连用构成 a range of... 与 variety 的区别：range 侧重覆盖面的广与范围，variety 侧重类型之间的多样性；多数场景可互换。",
+      "source": "a wide range of",
+      "example": "This course covers a broad range of topics. 这门课涵盖范围很广的话题。",
+      "tags": [
+        "vocabulary"
+      ],
+      "first_learned_at": "2026-11-01T20:08:36+08:00",
+      "last_learned_at": "2026-11-01T20:08:36+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "vocabulary:review-core-meaning": {
       "id": "vocabulary:review-core-meaning",

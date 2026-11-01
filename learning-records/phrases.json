@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 192,
+  "revision": 193,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -48,6 +48,30 @@
       ],
       "first_learned_at": "2026-09-28T08:03:44+08:00",
       "last_learned_at": "2026-09-28T08:03:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:a-wide-range-of": {
+      "id": "phrases:a-wide-range-of",
+      "category": "phrases",
+      "status": "learning",
+      "title": "a wide range of（种类繁多的/广泛多样的）",
+      "explanation": "意为'大量的、种类繁多的、覆盖范围很广的'，置于名词前，表示某个集合/范围内包含很多不同类型的东西。结构：a + (wide/broad/full) + range + of + 复数可数名词或不可数名词。近义表达：a wide/broad variety of、a wide selection of、plenty of。正式与口语皆可用，略偏正式。",
+      "source": "a wide range of",
+      "example": "The store offers a wide range of products. 这家店提供种类繁多的商品。",
+      "tags": [
+        "collocation",
+        "phrases"
+      ],
+      "first_learned_at": "2026-11-01T20:08:36+08:00",
+      "last_learned_at": "2026-11-01T20:08:36+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
