@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 194,
+  "revision": 195,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -4393,6 +4393,31 @@
       ],
       "first_learned_at": "2026-07-31T13:51:59+08:00",
       "last_learned_at": "2026-07-31T13:51:59+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:terminology-not-journal": {
+      "id": "errors:terminology-not-journal",
+      "category": "errors",
+      "status": "learning",
+      "title": "误把「学术期刊」译成 terminology（应为 academic journal）",
+      "explanation": "terminology 指'术语/专业用语体系'，是抽象不可数名词，一般不说 terminologies；它不是'期刊'。'期刊'应为 journal / academic journal。译写时不要用 terminology 代替期刊。",
+      "source": "The bookstore has a wide range of books from novels to terminologies.",
+      "example": "The bookstore has a wide range of books, from novels to academic journals.",
+      "tags": [
+        "errors",
+        "uncountable",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-11-01T20:12:26+08:00",
+      "last_learned_at": "2026-11-01T20:12:26+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
