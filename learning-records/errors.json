@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 185,
+  "revision": 188,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -338,6 +338,29 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:as-a-kid-missing-article": {
+      "id": "errors:as-a-kid-missing-article",
+      "category": "errors",
+      "status": "learning",
+      "title": "“小时候”表达 as a kid 需加冠词 a",
+      "explanation": "kid 是可数名词单数，as a kid 需加不定冠词 a；另外“公园”对应 park，garden 指花园。",
+      "source": "He used to play in the garden as kid.",
+      "example": "He used to play in the park as a kid.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-01T19:27:57+08:00",
+      "last_learned_at": "2026-11-01T19:27:57+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:as-soon-as-not-as-long-as-for-immediate-event": {
       "id": "errors:as-soon-as-not-as-long-as-for-immediate-event",
@@ -4562,7 +4585,7 @@
     "errors:used-to-missing-base-verb": {
       "id": "errors:used-to-missing-base-verb",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "used to 后不能省略动作动词",
       "explanation": "表示过去的习惯或状态时，used to 后接动词原形；back east 只说明地点，不能代替 live。应使用 used to live back east。",
       "source": "My uncle used to back east, but now he lives in California.",
@@ -4573,14 +4596,21 @@
       "first_learned_at": "2026-10-16T07:51:21+08:00",
       "last_learned_at": "2026-10-16T07:51:21+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 10.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-11-01T19:27:57+08:00",
+      "next_review_at": "2026-12-01T19:27:57+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-11-01T19:27:57+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:using-shall-you-for-friendly-suggestion": {
       "id": "errors:using-shall-you-for-friendly-suggestion",
