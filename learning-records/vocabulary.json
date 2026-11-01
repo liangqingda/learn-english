@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 177,
+  "revision": 180,
   "category": "vocabulary",
   "records": {
     "vocabulary:across-preposition-adverb-vs-cross-verb": {
@@ -173,6 +173,31 @@
       "first_learned_at": "2026-08-03T07:15:39+08:00",
       "last_learned_at": "2026-08-03T07:28:25+08:00",
       "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "vocabulary:hidden-adjective": {
+      "id": "vocabulary:hidden-adjective",
+      "category": "vocabulary",
+      "status": "learning",
+      "title": "hidden — 隐藏的、未被发现的",
+      "explanation": "形容词，来自动词 hide（藏）。比 secret 更侧重“客观看不见/鲜为人知”，是纪录片、旅游与探险文案里营造“秘境感”的高频词。",
+      "source": "The last hidden world",
+      "example": "A hidden valley untouched by tourists. → 一处未被游客踏足的隐秘山谷。",
+      "tags": [
+        "hidden",
+        "形容词",
+        "秘境"
+      ],
+      "first_learned_at": "2026-11-01T16:56:21+08:00",
+      "last_learned_at": "2026-11-01T16:56:21+08:00",
+      "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,

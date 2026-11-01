@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 177,
+  "revision": 180,
   "category": "grammar",
   "records": {
     "grammar:alternative-question-a-or-b": {
@@ -42,6 +42,31 @@
       ],
       "first_learned_at": "2026-07-31T14:04:13+08:00",
       "last_learned_at": "2026-07-31T14:04:13+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:comma-appositive-renaming": {
+      "id": "grammar:comma-appositive-renaming",
+      "category": "grammar",
+      "status": "learning",
+      "title": "用逗号连接的同位语结构（具体名称点明前文所指）",
+      "explanation": "名词短语 + 逗号 + 具体名称，后者是前者的同位语，说明“……正是……”。The last hidden world, China 意为“最后的隐秘之地——正是中国”。这种结构适合先抛概念再点名，语气偏书面，常见于标题、纪录片解说或隆重介绍。",
+      "source": "The last hidden world, China",
+      "example": "My dream city, Paris, never fails to amaze me. → 我梦想的城市巴黎，总让我惊叹。",
+      "tags": [
+        "appositive",
+        "同位语",
+        "标题表达"
+      ],
+      "first_learned_at": "2026-11-01T16:56:21+08:00",
+      "last_learned_at": "2026-11-01T16:56:21+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
