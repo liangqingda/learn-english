@@ -1,8 +1,31 @@
 {
   "schema_version": 2,
-  "revision": 181,
+  "revision": 183,
   "category": "phrases",
   "records": {
+    "phrases:a-bit-informal-degree": {
+      "id": "phrases:a-bit-informal-degree",
+      "category": "phrases",
+      "status": "learning",
+      "title": "a bit：有点（口语程度副词）",
+      "explanation": "a bit 是口语化的程度副词，表示“有点、略微”，与 a little bit 意思相近但更简短；修饰形容词、副词、动词，接不可数名词时用 a bit of。",
+      "source": "The movie was a bit long.",
+      "example": "It's a bit cold outside, so take a jacket.",
+      "tags": [
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-11-01T18:44:49+08:00",
+      "last_learned_at": "2026-11-01T18:44:49+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "phrases:a-price-to-pay": {
       "id": "phrases:a-price-to-pay",
       "category": "phrases",
