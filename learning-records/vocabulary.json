@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 186,
+  "revision": 187,
   "category": "vocabulary",
   "records": {
     "vocabulary:across-preposition-adverb-vs-cross-verb": {
@@ -257,6 +257,31 @@
       "mastered_at": null,
       "review_history": []
     },
+    "vocabulary:mind-numbing": {
+      "id": "vocabulary:mind-numbing",
+      "category": "vocabulary",
+      "status": "learning",
+      "title": "mind-numbing (adj.) 冷到麻木的/令人麻木的",
+      "explanation": "复合形容词，结构为名词 mind + 现在分词 numbing（numb 使麻木），口语带夸张色彩；mind-numbing cold 指冷到失去知觉。同类结构：heart-breaking、breath-taking、time-saving。",
+      "source": "Vast deserts ranging from searing hot to mind-numbing cold.",
+      "example": "The mind-numbing cold of the desert night caught them off guard.（沙漠夜晚彻骨的寒冷让他们措手不及。）",
+      "tags": [
+        "colloquial",
+        "compound-adjective",
+        "extreme-weather"
+      ],
+      "first_learned_at": "2026-11-01T19:16:52+08:00",
+      "last_learned_at": "2026-11-01T19:16:52+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "vocabulary:night-owl": {
       "id": "vocabulary:night-owl",
       "category": "vocabulary",
@@ -348,6 +373,31 @@
       "mastered_at": null,
       "review_history": []
     },
+    "vocabulary:searing": {
+      "id": "vocabulary:searing",
+      "category": "vocabulary",
+      "status": "learning",
+      "title": "searing (adj.) 灼热的",
+      "explanation": "searing 源自动词 sear（灼烧、烤焦表面），作形容词表示极热、滚烫，常搭配 searing heat，比 hot 更有画面感，强调热到像被火灼。",
+      "source": "Vast deserts ranging from searing hot to mind-numbing cold.",
+      "example": "The searing afternoon heat made the pavement too hot to touch.（炙热的午后把路面晒得烫手。）",
+      "tags": [
+        "adjective",
+        "desert",
+        "weather"
+      ],
+      "first_learned_at": "2026-11-01T19:16:52+08:00",
+      "last_learned_at": "2026-11-01T19:16:52+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "vocabulary:slice-cut-into-thin-pieces": {
       "id": "vocabulary:slice-cut-into-thin-pieces",
       "category": "vocabulary",
@@ -395,6 +445,30 @@
       ],
       "first_learned_at": "2026-07-31T10:09:57+08:00",
       "last_learned_at": "2026-07-31T10:09:57+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "vocabulary:vast": {
+      "id": "vocabulary:vast",
+      "category": "vocabulary",
+      "status": "learning",
+      "title": "vast (adj.) 广袤的、巨大的",
+      "explanation": "vast 强调极其广大、无边无际，比 huge 更适合修饰沙漠、海洋、平原等大空间；常见搭配 vast desert / territory / area。",
+      "source": "Vast deserts ranging from searing hot to mind-numbing cold.",
+      "example": "A vast desert stretched to the horizon.（一片广袤的沙漠延伸到天边。）",
+      "tags": [
+        "adjective",
+        "scale"
+      ],
+      "first_learned_at": "2026-11-01T19:16:52+08:00",
+      "last_learned_at": "2026-11-01T19:16:52+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
