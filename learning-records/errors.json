@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 195,
+  "revision": 197,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -2301,6 +2301,30 @@
         }
       ]
     },
+    "errors:missing-definite-article-before-singular-countable-noun": {
+      "id": "errors:missing-definite-article-before-singular-countable-noun",
+      "category": "errors",
+      "status": "learning",
+      "title": "遗漏单数可数名词前的定冠词 the",
+      "explanation": "上下文中已明确特指的单数可数名词（如 the manager、the new project）前需要用定冠词 the；中文没有冠词，所以容易漏掉。",
+      "source": "After manager approved, we proceeded with the budget and proceeded to handle new project.",
+      "example": "After the manager approved, we proceeded with the budget and proceeded to handle the new project.",
+      "tags": [
+        "article",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-02T07:57:40+08:00",
+      "last_learned_at": "2026-11-02T07:57:40+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:missing-finite-verb-after-subject-phrase": {
       "id": "errors:missing-finite-verb-after-subject-phrase",
       "category": "errors",
@@ -3611,10 +3635,10 @@
       "last_learned_at": "2026-08-01T21:09:01+08:00",
       "learned_count": 1,
       "mastery_score": 6.0,
-      "review_count": 2,
+      "review_count": 3,
       "high_score_streak": 0,
-      "last_reviewed_at": "2026-08-07T08:50:44+08:00",
-      "next_review_at": "2026-08-10T08:50:44+08:00",
+      "last_reviewed_at": "2026-11-02T07:57:40+08:00",
+      "next_review_at": "2026-11-05T07:57:40+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
@@ -3627,6 +3651,12 @@
         {
           "score": 6.0,
           "reviewed_at": "2026-08-07T08:50:44+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        },
+        {
+          "score": 6.0,
+          "reviewed_at": "2026-11-02T07:57:40+08:00",
           "previous_status": "learning",
           "new_status": "learning"
         }
