@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 182,
+  "revision": 184,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -16,6 +16,29 @@
       ],
       "first_learned_at": "2026-11-01T18:21:17+08:00",
       "last_learned_at": "2026-11-01T18:21:17+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:a-little-bit-of-noun-missing-of": {
+      "id": "errors:a-little-bit-of-noun-missing-of",
+      "category": "errors",
+      "status": "learning",
+      "title": "a little bit 后接名词时缺少 of",
+      "explanation": "a little bit 修饰不可数名词时须用 a little bit of + 名词，不能把 a little bit 直接贴到名词前；recently 常与现在完成时搭配，口语中 luck 比 good fortune 更自然。",
+      "source": "He has a little bit good fortune recently.",
+      "example": "He's had a little bit of good luck recently.",
+      "tags": [
+        "follow-up-error"
+      ],
+      "first_learned_at": "2026-11-01T18:49:37+08:00",
+      "last_learned_at": "2026-11-01T18:49:37+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
