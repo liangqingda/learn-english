@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 190,
+  "revision": 191,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -1277,6 +1277,29 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:drive-westward-past-tense": {
+      "id": "errors:drive-westward-past-tense",
+      "category": "errors",
+      "status": "learning",
+      "title": "“开车向西穿过”过去动作应用 drove",
+      "explanation": "“他们开车向西穿过了沙漠”是过去完成的事件，应用过去式 drove；现在时 drive 表示一般习惯。沙漠用 across the desert。",
+      "source": "They drive westward through deserts.",
+      "example": "They drove westward across the desert.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-01T19:58:25+08:00",
+      "last_learned_at": "2026-11-01T19:58:25+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:drizzle-vs-shower-for-duration-pattern": {
       "id": "errors:drizzle-vs-shower-for-duration-pattern",
       "category": "errors",
@@ -1399,7 +1422,7 @@
     "errors:eastward-used-for-westbound-trip": {
       "id": "errors:eastward-used-for-westbound-trip",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "eastward 不能修饰西向行程",
       "explanation": "eastward 表示“向东”，与从芝加哥去旧金山这种向西的路线不符；如果方向信息重要，应使用 west 或 westward。",
       "source": "He flew to Seattle eastward for a business trip.",
@@ -1408,11 +1431,11 @@
       "first_learned_at": "2026-07-30T15:42:51+08:00",
       "last_learned_at": "2026-08-03T17:17:24+08:00",
       "learned_count": 2,
-      "mastery_score": 6.0,
-      "review_count": 1,
-      "high_score_streak": 0,
-      "last_reviewed_at": "2026-08-03T17:17:24+08:00",
-      "next_review_at": "2026-08-06T17:17:24+08:00",
+      "mastery_score": 10.0,
+      "review_count": 2,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-11-01T19:58:25+08:00",
+      "next_review_at": "2026-12-01T19:58:25+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
@@ -1421,6 +1444,12 @@
           "reviewed_at": "2026-08-03T17:17:24+08:00",
           "previous_status": "learning",
           "new_status": "learning"
+        },
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-11-01T19:58:25+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
         }
       ]
     },
@@ -1718,6 +1747,29 @@
       ],
       "first_learned_at": "2026-08-02T10:30:20+08:00",
       "last_learned_at": "2026-08-02T10:30:20+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:go-ahead-northward-wrong-verb": {
+      "id": "errors:go-ahead-northward-wrong-verb",
+      "category": "errors",
+      "status": "learning",
+      "title": "“向北行进”应用 head/march northward，而非 go ahead northward",
+      "explanation": "go ahead 表“继续/着手进行”，不是“朝某方向行进”；向北行进应说 head northward 或 march northward。另注意 the team 作单数，动词用 goes。",
+      "source": "The team go ahead northward.",
+      "example": "The team headed northward.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-01T19:58:25+08:00",
+      "last_learned_at": "2026-11-01T19:58:25+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
