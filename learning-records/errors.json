@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 197,
+  "revision": 198,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -313,6 +313,29 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:after-time-clause-future-tense": {
+      "id": "errors:after-time-clause-future-tense",
+      "category": "errors",
+      "status": "learning",
+      "title": "after 时间从句在未来语境误用过去时",
+      "explanation": "主句用 will 表示将来时，after/once 等时间从句要用一般现在时或现在完成时，不用过去时。after we received 应改为 after we receive，或写成被动 after all the documents are confirmed。",
+      "source": "We'll proceed with your visa application after we received all the documents.",
+      "example": "We will proceed with your visa application after all the documents are confirmed.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-03T20:23:23+08:00",
+      "last_learned_at": "2026-11-03T20:23:23+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:application-vs-applicant-for-request-or-submission": {
       "id": "errors:application-vs-applicant-for-request-or-submission",
@@ -910,6 +933,29 @@
           "new_status": "learning"
         }
       ]
+    },
+    "errors:continue-on-instead-of-proceed-with": {
+      "id": "errors:continue-on-instead-of-proceed-with",
+      "category": "errors",
+      "status": "learning",
+      "title": "continue on 误用为 proceed with",
+      "explanation": "表示继续办理某件事时，英语的固定搭配是 proceed with + 名词，而不是 continue on + 名词。continue on 更多用在旅程或路径上继续前进，不带“办理某项事务”的含义。",
+      "source": "The manager will continue on the hiring process after the background check is confirmed.",
+      "example": "The manager will proceed with the hiring process after the background check is confirmed.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-03T20:23:23+08:00",
+      "last_learned_at": "2026-11-03T20:23:23+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:continue-with-explain-point": {
       "id": "errors:continue-with-explain-point",
@@ -2831,11 +2877,11 @@
       "first_learned_at": "2026-07-29T21:06:51+08:00",
       "last_learned_at": "2026-07-29T21:06:51+08:00",
       "learned_count": 2,
-      "mastery_score": 6.0,
-      "review_count": 2,
+      "mastery_score": 7.0,
+      "review_count": 3,
       "high_score_streak": 0,
-      "last_reviewed_at": "2026-08-08T20:18:54+08:00",
-      "next_review_at": "2026-08-11T20:18:54+08:00",
+      "last_reviewed_at": "2026-11-03T20:23:23+08:00",
+      "next_review_at": "2026-11-06T20:23:23+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
@@ -2848,6 +2894,12 @@
         {
           "score": 6.0,
           "reviewed_at": "2026-08-08T20:18:54+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        },
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-11-03T20:23:23+08:00",
           "previous_status": "learning",
           "new_status": "learning"
         }
