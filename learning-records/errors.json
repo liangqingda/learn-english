@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 200,
+  "revision": 201,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -1822,6 +1822,29 @@
       ],
       "first_learned_at": "2026-11-01T19:58:25+08:00",
       "last_learned_at": "2026-11-01T19:58:25+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:go-the-seaside-missing-to": {
+      "id": "errors:go-the-seaside-missing-to",
+      "category": "errors",
+      "status": "learning",
+      "title": "go 后接地点漏掉 to",
+      "explanation": "go 是不及物动词，接具体地点名词前要用 to：go to the seaside / go to the beach。go the seaside 缺少介词 to。",
+      "source": "Lovely day to go the seaside, isn't it?",
+      "example": "Lovely day to go to the beach, isn't it?",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-03T20:40:45+08:00",
+      "last_learned_at": "2026-11-03T20:40:45+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
