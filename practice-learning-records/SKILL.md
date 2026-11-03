@@ -152,7 +152,7 @@ python3 learn-from-english/scripts/learning_records.py batch-upsert --input <JSO
 
 在调用 `complete-review` 前必须执行一次「评分自检」，逐项核对全部通过后才允许写入：
 
-1. 用一句话写出现行目标知识点（取自当前记录的 title 或 explanation）。
+1. 用一句话写出现行目标知识点，**以记录的 title（主规则）为唯一锚点**：explanation 中与 title 同一规则、支撑 title 的细则属于目标点；而 explanation 里标注为“更自然/更贴切/更口语”等次要自然度或语用偏好（例如某语境用某词更自然）**不构成目标点**，除非 title 本身就以该偏好为核心。拿不准时一律按 title 判定。
 2. 逐题归因：把每道题及每个错误标记为「属于目标点」或「独立于目标点」。
 3. 目标分数只由「属于目标点」的作答决定；任何「独立于目标点」的错误都只放入 `errors`，绝不降低目标分。
 4. 只要答案里存在「独立于目标点」的错误，先确认它们已收录进本轮 `errors`，再提交评分。
