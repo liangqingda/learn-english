@@ -103,6 +103,10 @@ def handle_complete_review(args: argparse.Namespace) -> dict[str, Any]:
     )
 
 
+def handle_rescore(args: argparse.Namespace) -> dict[str, Any]:
+    return service().rescore(args.id, args.score)
+
+
 def handle_review(args: argparse.Namespace, expected_status: str | None = None) -> dict[str, Any]:
     identifier = record_id(args.category, args.key)
     return service().complete_review(
@@ -246,6 +250,13 @@ def build_parser() -> argparse.ArgumentParser:
     )
     complete.add_argument("--input", required=True, help="JSON file path or - for stdin")
     complete.set_defaults(handler=handle_complete_review)
+
+    rescore = subparsers.add_parser(
+        "rescore", help="correct the most recent review score of one record"
+    )
+    rescore.add_argument("--id", required=True)
+    rescore.add_argument("--score", required=True, type=float)
+    rescore.set_defaults(handler=handle_rescore)
 
     for command, expected_status in (("review", "learning"), ("familiar-review", "familiar")):
         review = subparsers.add_parser(command, help=f"score one {expected_status} record")

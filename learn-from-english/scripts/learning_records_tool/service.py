@@ -25,7 +25,14 @@ from .models import (
     record_id,
     validate_database,
 )
-from .scheduler import review_priority, schedule_review, status_for_score, ten_score_count
+from .scheduler import (
+    REQUIRED_MASTERY_TEN_COUNT,
+    interval_days,
+    review_priority,
+    schedule_review,
+    status_for_score,
+    ten_score_count,
+)
 from .store import RecordStore
 
 
@@ -437,6 +444,93 @@ class RecordService:
             claim_token=claim_token,
         )
         return result
+
+    def rescore(self, identifier: str, score: float) -> dict[str, Any]:
+        """Correct the most recent review score and replay derived review state.
+
+        Replaces the score of the latest review-history event, then recomputes
+        status, high-score streak, lapse count, mastery time and the next review
+        time from the corrected history. It does not add a review, so
+        ``review_count`` is left unchanged.
+        """
+        if not 0 <= score <= 10:
+            raise RecordError("score must be between 0 and 10")
+
+        def operation(database: dict[str, Any]) -> dict[str, Any]:
+            record = database["records"].get(identifier)
+            if record is None:
+                raise RecordError(f"record does not exist: {identifier}")
+            history = record.get("review_history", [])
+            if not history:
+                raise RecordError(f"record has no review history to rescore: {identifier}")
+            latest = max(history, key=lambda event: event.get("reviewed_at", ""))
+            latest["score"] = float(score)
+            events = sorted(history, key=lambda event: event.get("reviewed_at", ""))
+            streak = 0
+            lapse = 0
+            status = "learning"
+            mastered_at = None
+            next_review_at = None
+            last_reviewed_at = None
+            ten_count = 0
+            for event in events:
+                event_score = float(event.get("score", -1))
+                reviewed_at = parse_timestamp(event.get("reviewed_at"))
+                if reviewed_at is None:
+                    reviewed_at = datetime.now().astimezone()
+                previous_status = status
+                if event_score >= 8:
+                    streak += 1
+                else:
+                    streak = 0
+                if event_score < 8 and previous_status in {"familiar", "mastered"}:
+                    lapse += 1
+                if event_score == 10:
+                    ten_count += 1
+                if event_score == 10:
+                    if status == "mastered":
+                        status = "mastered"
+                    elif ten_count >= REQUIRED_MASTERY_TEN_COUNT:
+                        status = "mastered"
+                    else:
+                        status = "familiar"
+                elif event_score >= 8:
+                    status = "familiar"
+                else:
+                    status = "learning"
+                if status == "mastered" and mastered_at is None:
+                    mastered_at = event.get("reviewed_at")
+                elif status != "mastered":
+                    mastered_at = None
+                days = interval_days({"high_score_streak": streak}, event_score)
+                next_review_at = (
+                    reviewed_at + timedelta(days=days)
+                ).isoformat(timespec="seconds")
+                last_reviewed_at = event.get("reviewed_at")
+                event["previous_status"] = previous_status
+                event["new_status"] = status
+            record["mastery_score"] = float(score)
+            record["status"] = status
+            record["high_score_streak"] = streak
+            record["lapse_count"] = lapse
+            record["mastered_at"] = mastered_at
+            record["next_review_at"] = next_review_at
+            record["last_reviewed_at"] = last_reviewed_at
+            return {
+                "id": identifier,
+                "score": float(score),
+                "status": record["status"],
+                "mastery_score": record["mastery_score"],
+                "review_count": record["review_count"],
+                "high_score_streak": record["high_score_streak"],
+                "lapse_count": record["lapse_count"],
+                "last_reviewed_at": record["last_reviewed_at"],
+                "next_review_at": record["next_review_at"],
+                "mastered_at": record["mastered_at"],
+                "rescaled_event": latest.get("reviewed_at"),
+            }
+
+        return self.store.transaction(operation)
 
     def list_records(
         self, *, category: str | None = None, status: str | None = None
