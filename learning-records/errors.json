@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 198,
+  "revision": 199,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -2673,7 +2673,7 @@
     "errors:not-sure-how-to-pronounce-for-uncertain-pronunciation": {
       "id": "errors:not-sure-how-to-pronounce-for-uncertain-pronunciation",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "用 not sure how to pronounce 表达不确定读音",
       "explanation": "表示自己不知道某个名称怎么读时，I’m not sure how to pronounce... 比 I can’t confirm the correct pronunciation... 更直接自然；confirm 通常表示核实信息，而不是单纯不确定。",
       "source": "I can't confirm the correct pronunciation of the word.",
@@ -2684,14 +2684,21 @@
       "first_learned_at": "2026-08-05T13:01:34+08:00",
       "last_learned_at": "2026-08-05T13:01:34+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 9.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-11-03T20:32:58+08:00",
+      "next_review_at": "2026-11-17T20:32:58+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 9.0,
+          "reviewed_at": "2026-11-03T20:32:58+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:nurse-agreement-and-checkup-collocation": {
       "id": "errors:nurse-agreement-and-checkup-collocation",
@@ -4153,6 +4160,29 @@
       ],
       "first_learned_at": "2026-08-09T20:46:53+08:00",
       "last_learned_at": "2026-08-09T20:46:53+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:sign-mistaken-for-brand": {
+      "id": "errors:sign-mistaken-for-brand",
+      "category": "errors",
+      "status": "learning",
+      "title": "sign 误用为 brand",
+      "explanation": "表达“品牌”用 brand；sign 指“标牌/招牌/标识”，如 a store sign。the name of the sign 不符合原意，应为 this brand's name 或 the name of this brand。",
+      "source": "I'm not sure how to pronounce this name of the sign.",
+      "example": "I'm not sure how to pronounce this brand's name.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-03T20:32:58+08:00",
+      "last_learned_at": "2026-11-03T20:32:58+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
