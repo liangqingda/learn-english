@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 205,
+  "revision": 206,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -380,6 +380,56 @@
       ],
       "first_learned_at": "2026-11-06T20:54:13+08:00",
       "last_learned_at": "2026-11-06T20:54:13+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:all-set-vs-deliver-to-place": {
+      "id": "errors:all-set-vs-deliver-to-place",
+      "category": "errors",
+      "status": "learning",
+      "title": "all set 不能表示「送到/递交到某处」",
+      "explanation": "all set 表示「（人或整体安排）已完全就绪」，是状态描述，不能像 deliver/send 那样接 to + 地点表示「把东西送到某地」。the luggage was all set to the hotel lobby 缺少真正的动作动词，应说 was delivered to the hotel lobby。",
+      "source": "第3题误选 A（All set? Then let's head downstairs.），认为该句不成立",
+      "example": "The luggage was delivered to the hotel lobby by noon.",
+      "tags": [
+        "all-set",
+        "review-error",
+        "semantic-boundary"
+      ],
+      "first_learned_at": "2026-11-06T20:56:44+08:00",
+      "last_learned_at": "2026-11-06T20:56:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:all-the-time-vs-anytime": {
+      "id": "errors:all-the-time-vs-anytime",
+      "category": "errors",
+      "status": "learning",
+      "title": "all the time（总是）≠ anytime（随时）",
+      "explanation": "all the time 表示频率「一直、总是」；要表达「随时可以出发」应用 anytime 或 at any time。另外 The luggage is all set, we can go … 用逗号直接连接两个句子构成逗号拼接，应改为 and/so 连接或分成两句。",
+      "source": "The luggage is all set, we can go all the time.",
+      "example": "The luggage is all packed, so we can leave anytime.",
+      "tags": [
+        "adverb",
+        "review-error",
+        "time-expression"
+      ],
+      "first_learned_at": "2026-11-06T20:56:44+08:00",
+      "last_learned_at": "2026-11-06T20:56:44+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
