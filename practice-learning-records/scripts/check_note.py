@@ -107,6 +107,11 @@ def check(path: Path) -> list[dict]:
             inner = body[table_open + 1 : table_close]
             if any(l.strip() in ("<thead>", "</thead>") or "<th>" in l for l in inner):
                 add(start + table_open, "追踪表格不允许表头：不要写 `<thead>` / `<th>`，也不要用 `| 字段 | 值 |`")
+            if not any("<colgroup>" in l for l in inner):
+                add(
+                    start + table_open,
+                    "追踪表格必须固定列宽：紧跟 `<table>` 写 `<colgroup><col width=\"28%\"><col width=\"72%\"></colgroup>`",
+                )
             rows = [m.group(1).strip() for l in inner if (m := TABLE_ROW_RE.match(l.strip()))]
             if rows != TRACKING_ROWS:
                 add(
