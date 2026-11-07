@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 193,
+  "revision": 196,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -877,6 +877,30 @@
       ],
       "first_learned_at": "2026-07-31T14:01:53+08:00",
       "last_learned_at": "2026-07-31T14:01:53+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:steaming-forests-nature-writing": {
+      "id": "phrases:steaming-forests-nature-writing",
+      "category": "phrases",
+      "status": "learning",
+      "title": "steaming forests：热带雨林的文学化写法",
+      "explanation": "steaming forests 是自然纪录片、探险文学和旅游写作中形容热带雨林（尤其亚马逊）的常用意象：湿热空气让水汽在树冠上升腾。强调环境的炎热与潮湿，比 jungle 更「具象、有画面感」。可搭配 jungle、rainforest、lowlands 等同场景词。",
+      "source": "steaming forests of the Amazon",
+      "example": "Mist rose from the steaming forests at dawn.",
+      "tags": [
+        "imagery",
+        "nature"
+      ],
+      "first_learned_at": "2026-11-02T07:51:13+08:00",
+      "last_learned_at": "2026-11-02T07:51:13+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

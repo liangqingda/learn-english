@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 187,
+  "revision": 196,
   "category": "grammar",
   "records": {
     "grammar:alternative-question-a-or-b": {
@@ -451,6 +451,30 @@
       ],
       "first_learned_at": "2026-08-06T07:37:43+08:00",
       "last_learned_at": "2026-08-06T07:37:43+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:present-participle-as-adj": {
+      "id": "grammar:present-participle-as-adj",
+      "category": "grammar",
+      "status": "learning",
+      "title": "现在分词作形容词：表示主动、正在进行的特征",
+      "explanation": "V-ing 形式作定语/表语时表示「主动且正在进行的性质」，如 steaming forests = forests that are steaming（正冒着蒸汽的森林）。与之相对，过去分词 -ed 表示被动或已完成的状态（a steamed bun 蒸好的包子）。可迁移到 boiling water（沸腾的水）/ boiled water（烧开过的水）、running water 等。",
+      "source": "steaming forests（正在冒蒸汽的森林）",
+      "example": "Boiling water is dangerous, but boiled water is safe to drink.",
+      "tags": [
+        "adjective",
+        "participle"
+      ],
+      "first_learned_at": "2026-11-02T07:51:13+08:00",
+      "last_learned_at": "2026-11-02T07:51:13+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

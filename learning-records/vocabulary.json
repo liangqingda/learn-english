@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 193,
+  "revision": 196,
   "category": "vocabulary",
   "records": {
     "vocabulary:across-preposition-adverb-vs-cross-verb": {
@@ -452,6 +452,30 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "vocabulary:steaming-steam-adj": {
+      "id": "vocabulary:steaming-steam-adj",
+      "category": "vocabulary",
+      "status": "learning",
+      "title": "steaming：雾气蒸腾的、热气腾腾的",
+      "explanation": "steaming 是动词 steam 的现在分词，用作形容词，形容潮湿闷热环境中不断冒出水汽的状态，常用于描述热带雨林、刚出锅食物等。作形容词时比 steamy 更强调「正在冒热气/水汽蒸腾」的动态画面。",
+      "source": "The hiking trail wound through the steaming forests of the Amazon.",
+      "example": "We sat down to a plate of steaming dumplings.",
+      "tags": [
+        "adj",
+        "nature"
+      ],
+      "first_learned_at": "2026-11-02T07:51:13+08:00",
+      "last_learned_at": "2026-11-02T07:51:13+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "vocabulary:stir-mix-by-moving-spoon": {
       "id": "vocabulary:stir-mix-by-moving-spoon",
