@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 208,
+  "revision": 210,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -46,6 +46,32 @@
       ],
       "first_learned_at": "2026-11-01T18:49:37+08:00",
       "last_learned_at": "2026-11-01T18:49:37+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:abstract-price-needs-indefinite-article": {
+      "id": "errors:abstract-price-needs-indefinite-article",
+      "category": "errors",
+      "key": "abstract-price-needs-indefinite-article",
+      "status": "learning",
+      "title": "抽象代价 price 前需要不定冠词，且不宜用 need 硬译“需要代价”",
+      "explanation": "表示“要付出的代价”时，price 是可数单数抽象名词，必须有限定词：a price。而中文“需要付出代价”不能直译成 need price，英语更常用 there is a price to pay for sth 或 sth comes at a price，把代价处理成事物自带的属性，而不是用 need 表示需求。",
+      "source": "Any shortcuts need price to pay and the most expansive things at later.",
+      "example": "Every shortcut comes at a price, and there is always a price to pay for it.",
+      "tags": [
+        "article",
+        "collocation",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-07T21:29:11+08:00",
+      "last_learned_at": "2026-11-07T21:29:11+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -1729,6 +1755,31 @@
         }
       ]
     },
+    "errors:expensive-vs-expansive": {
+      "id": "errors:expensive-vs-expansive",
+      "category": "errors",
+      "key": "expensive-vs-expansive",
+      "status": "learning",
+      "title": "expensive 与 expansive 词义不同，不能混用",
+      "explanation": "expensive 表示价格高、昂贵；expansive 表示范围广阔、可扩展，几乎不用于价格语境。写价格时用 expensive / costly / high-priced，避免由发音相近推出的错误词形。",
+      "source": "the most expansive things at later",
+      "example": "The most expensive part comes later.",
+      "tags": [
+        "review-error",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-11-07T21:29:11+08:00",
+      "last_learned_at": "2026-11-07T21:29:11+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:fetch-use-get-not-take": {
       "id": "errors:fetch-use-get-not-take",
       "category": "errors",
@@ -2280,6 +2331,32 @@
       ],
       "first_learned_at": "2026-08-09T09:32:59+08:00",
       "last_learned_at": "2026-08-09T09:32:59+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:later-adverb-takes-no-at": {
+      "id": "errors:later-adverb-takes-no-at",
+      "category": "errors",
+      "key": "later-adverb-takes-no-at",
+      "status": "learning",
+      "title": "later 单独作时间副词，不加介词 at",
+      "explanation": "later 本身是时间副词，直接修饰动词或句子即可；at 只用于 at a later stage、at a later date 这类带名词的时间短语。",
+      "source": "at later",
+      "example": "The bill arrives later.",
+      "tags": [
+        "adverb",
+        "preposition",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-07T21:29:11+08:00",
+      "last_learned_at": "2026-11-07T21:29:11+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -3700,6 +3777,32 @@
       ],
       "first_learned_at": "2026-11-07T20:22:45+08:00",
       "last_learned_at": "2026-11-07T20:22:45+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:postmodifier-object-topicalization-double-pronoun": {
+      "id": "errors:postmodifier-object-topicalization-double-pronoun",
+      "category": "errors",
+      "key": "postmodifier-object-topicalization-double-pronoun",
+      "status": "learning",
+      "title": "不定式后置修饰的名词短语不能前置成话题再用 it 重复",
+      "explanation": "英语不把带后置修饰的名词短语直接搬到句首当话题，再用代词回指。要表达“还有做不完的活”，用 there be 结构：There is work to do that I cannot finish now；或保持正常语序：I cannot finish the work I have to do now。",
+      "source": "The work to do I can't do it now.",
+      "example": "There is a lot of work to do that I cannot finish today.",
+      "tags": [
+        "pronoun",
+        "review-error",
+        "word-order"
+      ],
+      "first_learned_at": "2026-11-07T21:29:11+08:00",
+      "last_learned_at": "2026-11-07T21:29:11+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
