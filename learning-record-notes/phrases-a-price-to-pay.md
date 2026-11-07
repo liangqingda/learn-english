@@ -212,3 +212,10 @@ Working night shifts cost her her health, and she knew it.
 4. **正确表达**：Working night shifts **came at a heavy price for her health**, and she knew it.；也可写成 **Her health was a price she had to pay for working night shifts**, and she knew it.；可迁移：`The promotion came at a price for his marriage.` / `He paid a price for saying yes too quickly.`
 
 </details>
+
+### 菜单与讲解
+
+#### 1. 菜单：看一套围绕「a price to pay」的完整场景对话
+
+**讲解要点**：对话把同一知识点的三种句式放在真实语流里对比——`there is a price to pay for sth`（代价属于事情本身）、`pay a heavy price for sth`（当事人主动付出）、`come at a price`（代价是某个机会的入场券）；另引出 `a price worth paying` 用于判断“值不值得”，以及 `pay the price for` 的口语化用法。
+**可迁移表达**：`Nobody told me there'd be a price to pay for saying yes.` / `Every promotion comes at a price.` / `It's not a price I can afford for three more years.`
