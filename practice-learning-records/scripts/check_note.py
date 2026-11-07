@@ -129,7 +129,7 @@ MENU_EMOJI_RE = re.compile(
 )
 MENU_FIELD_RE = re.compile(r"^\*\*(讲解要点|可迁移表达)\*\*：")
 NOTE_DIR_NAME = "learning-record-notes"
-NOTE_CATEGORIES = ("vocabulary", "phrases", "grammar", "usage", "errors", "paper")
+NOTE_CATEGORIES = ("vocabulary", "phrases", "grammar", "usage", "errors", "paper", "mixed")
 STRUCTURED_LINE_RE = re.compile(r"^(?:[-*] |\d+\. )")
 
 

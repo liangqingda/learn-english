@@ -213,10 +213,14 @@ class MenuItemNoteTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             notes = Path(directory) / "learning-record-notes"
             notes.mkdir()
-            path = notes / "mixed-a-price-to-pay.md"
+            path = notes / "misc-a-price-to-pay.md"
             path.write_text(self.base_note(), encoding="utf-8")
             issues = check_note.check(path)
             self.assertTrue(any("自造前缀" in issue["message"] for issue in issues))
+
+            path = notes / "mixed-a-price-to-pay.md"
+            path.write_text(self.base_note(), encoding="utf-8")
+            self.assertEqual(check_note.check(path), [])
 
             path = notes / "phrases-a-price-to-pay.md"
             path.write_text(self.base_note(), encoding="utf-8")
