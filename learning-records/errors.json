@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 206,
+  "revision": 207,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -1941,6 +1941,31 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:get-promoted-past-participle": {
+      "id": "errors:get-promoted-past-participle",
+      "category": "errors",
+      "key": "get-promoted-past-participle",
+      "status": "learning",
+      "title": "get + 过去分词表示被提拔，不能接动词原形",
+      "explanation": "get 表示状态变化时后接过去分词，get promoted 才表示“被提拔”；get 后直接跟动词原形会让结构变成错误的主动形式。earn a promotion / be promoted 是更正式的表达。",
+      "source": "In order to get promote, he comes at heavy price and almost miss the whole period of his daughter.",
+      "example": "He worked overtime for months to get promoted ahead of schedule.",
+      "tags": [
+        "review-error",
+        "verb-form"
+      ],
+      "first_learned_at": "2026-11-07T20:22:45+08:00",
+      "last_learned_at": "2026-11-07T20:22:45+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:go-ahead-northward-wrong-verb": {
       "id": "errors:go-ahead-northward-wrong-verb",
       "category": "errors",
@@ -3162,6 +3187,31 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:past-narrative-tense-consistency": {
+      "id": "errors:past-narrative-tense-consistency",
+      "category": "errors",
+      "key": "past-narrative-tense-consistency",
+      "status": "learning",
+      "title": "过去叙事中并列谓语保持过去时",
+      "explanation": "句子前半用一般过去时叙述已发生的事，后面的并列动词也应用过去式，miss 与 comes 都应改为过去形式，否则时态错位。",
+      "source": "he comes at heavy price and almost miss the whole period of his daughter",
+      "example": "He paid a heavy price for the promotion and almost missed his daughter's entire childhood.",
+      "tags": [
+        "review-error",
+        "tense"
+      ],
+      "first_learned_at": "2026-11-07T20:22:45+08:00",
+      "last_learned_at": "2026-11-07T20:22:45+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:past-perfect-requires-past-participle": {
       "id": "errors:past-perfect-requires-past-participle",
       "category": "errors",
@@ -3593,6 +3643,31 @@
       ],
       "first_learned_at": "2026-11-01T19:39:33+08:00",
       "last_learned_at": "2026-11-01T19:39:33+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:possessive-daughter-childhood": {
+      "id": "errors:possessive-daughter-childhood",
+      "category": "errors",
+      "key": "possessive-daughter-childhood",
+      "status": "learning",
+      "title": "“某人的整个童年”用名词所有格，不用 of 结构硬译",
+      "explanation": "英语中表达人与其人生阶段的所属关系时，通常用名词所有格 his daughter's childhood；the whole period of his daughter 会读成“女儿的某段时期”，且语义含糊。",
+      "source": "almost miss the whole period of his daughter",
+      "example": "He almost missed his daughter's whole childhood.",
+      "tags": [
+        "noun-phrase",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-07T20:22:45+08:00",
+      "last_learned_at": "2026-11-07T20:22:45+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -5300,6 +5375,31 @@
       ],
       "first_learned_at": "2026-10-07T19:40:46+08:00",
       "last_learned_at": "2026-10-07T19:40:46+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:worth-no-preposition": {
+      "id": "errors:worth-no-preposition",
+      "category": "errors",
+      "key": "worth-no-preposition",
+      "status": "learning",
+      "title": "worth 直接接宾语，不加 of",
+      "explanation": "worth 是形容词性补语词，后面直接跟名词、代词或动名词，不需要介词 of；be worth it 表示“值得”。",
+      "source": "and some of them say it was worth of it",
+      "example": "Some of them say the sacrifice was worth it.",
+      "tags": [
+        "preposition",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-07T20:22:45+08:00",
+      "last_learned_at": "2026-11-07T20:22:45+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
