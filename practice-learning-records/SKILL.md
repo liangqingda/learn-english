@@ -260,8 +260,8 @@ python3 learn-from-english/scripts/learning_records.py menu \
 - 未评分的作答同样写笔记：`error-clusters` 专题练习、`follow-up-learning` 练习、用户明确参与并出现作答的场景对话，只要用户提交了答案就写一份，追踪字段的「本轮得分」与「分类 · 状态变化」写 `— · 未评分`，不调用 `complete-review`。
 - 文件名**不带日期**：`learning-record-notes/<category>-<slug>.md`。`category` 用记录 category（混合知识点的聚焦练习用 `mixed`），`slug` 取记录 `id` 或 `paper_id` 的语义部分，只保留小写字母、数字和连字符（如 `errors-back-west-spacing.md`）。未评分练习没有记录 ID 时，`slug` 用该轮 `focus` 或错题 cluster 的主题语义（如 `mixed-down-south-up-north.md`），主题相同就继续复用同一文件，不得按日期或轮次生成新 slug。同一个知识点反复复习时**始终复用同一个文件**，按轮次在文件内追加日期分组，不要每轮新建文件。区块标题里的时间用 `date '+%Y-%m-%d %H:%M'` 取本轮结束时的本地时间。
 - 记录移动到 `mastered-learning-records/` 后 `id` 不变，继续写同一个文件；只有记录 ID 真正变化（新建了另一条记录）时才另建文件。
-- 写之前先 `ls learning-record-notes/` 确认是否已有同名文件：已有就追加，绝不因为标题或分类写法不同而新建近义文件。
-- 文件里只追加、不改写历史：每一轮在文件末尾追加一个 `# <YYYY-MM-DD> <HH:MM> · 复习`（或 `· 练习`、`· 套题`）区块，其中包含本轮的追踪表格与习题记录。不要删除、重写或重新排序更早的日期区块；只有当本轮自己刚写错时才就地修正本轮那一段。
+- 文件名确定后不必先 `ls`：`note-append` 会在同一把排他锁内复查文件是否存在——已存在就在末尾追加本轮区块，不存在就新建并写入第一个区块。仍不得因为标题或分类写法不同而另建近义文件。
+- 文件里只追加、不改写历史：每一轮在文件末尾追加一个 `# <YYYY-MM-DD> <HH:MM> · 复习`（或 `· 练习`、`· 套题`）区块，其中包含本轮的追踪表格与习题记录。不要删除、重写或重新排序更早的日期区块；只有当本轮自己刚写错时才用 `note-replace-block` 就地修正本轮那一段。
 - 笔记里不写 `claim_owner`、`claim_token`、临时 payload 路径或其他会话内凭据。
 
 ### 文件结构（固定模板）
@@ -294,7 +294,19 @@ python3 learn-from-english/scripts/learning_records.py menu \
 - 纯导航与查询（`status` 统计、重新打开菜单、`history`）不写。
 - 如果本轮用户没有选择任何讲解型菜单项，就不追加任何菜单标题，不要在习题后留空小节。
 
-追加流程：先 `Read` 已有笔记文件 → 在文件末尾（最后一个区块之后、加一行 `---`）追加本轮区块 → 用一次 `Write` 写回。新建文件时直接写第一个日期区块（`# …`，它就是文件的一级标题），不额外写文件级 H1；不得为“整理格式”重写旧区块、调整旧的日期顺序或删除历史。
+追加流程（笔记**唯一**写入方式，禁止用 `Write` 直接改写笔记文件）：
+
+1. 把本轮区块的完整 Markdown 写到临时文件（如 `/tmp/note-block.md`）：第一行必须是 `# <YYYY-MM-DD HH:MM> · <复习|练习|套题>`，一个区块只能有一个这样的标题行。
+2. 运行：
+   ```bash
+   python3 learn-from-english/scripts/learning_records.py note-append \
+     --file learning-record-notes/<category>-<slug>.md \
+     --content-file /tmp/note-block.md \
+     --check
+   ```
+3. 该命令在 `learning-record-notes/.notes.lock` 上取排他锁，锁内完成“读现有文件 → 在末尾补一行 `---` 分隔 → 原子替换”，因此多个会话同时写同一文件不会互相覆盖，顺序由锁排队决定。
+4. 返回值 `appended: true` 即写入成功；`appended: false, duplicate: true` 表示该标题的区块已存在（重试或并发冲突的产物），按已写入处理，不要重试、不要手工补写。
+5. 新建文件时同样走这条命令：第一个区块会直接成为文件的一级标题，不额外写文件级 H1；不得为“整理格式”重写旧区块、调整旧的日期顺序或删除历史。
 
 模板演进的迁移例外：当模板本身变更（新增/重命名折叠块、增加字段口径）导致历史笔记不再通过校验时，允许对历史笔记做一次性迁移，但必须满足三条：只做追加块或替换 `<summary>` 标签文字；不得改动题干、`我的答案`、判定、正文讲解与历史顺序；迁移前后用 `git diff` 确认没有正文删除。迁移不适用于日常整理，也不得借此重排旧日期区块。
 
@@ -308,13 +320,26 @@ python3 learn-from-english/scripts/learning_records.py menu \
 - 套题同样使用上面的固定骨架，并且同样每道可作答题都要写 `知识点讲解`（阅读 30 题、写作与翻译都算）：每题一个 `### <n>. <题型>`（写作记 `短写作`、翻译记 `翻译`），不额外加 Part 小标题；`主观题得分` 行填 `写作 x/15 · 翻译 x/15`，`本轮得分` 填 `xxx / 710（无听力模拟折算分）`。套题笔记因此会比普通复习长得多，这是规则要求的结果，不要为了控制篇幅删减知识点讲解。
 - 笔记只反映本轮事实：得分、状态与 `complete-review` / `paper-complete` 的返回值一致；`题量与错题数` 的 M 是**实际写出的 `错题讲解` 块数**（含判错、部分正确、未完成/漏答），**不含未作答**——未作答题只在括号里以 `（另有 K 题未作答）` 说明。M 与本次写入 `errors` 的记录条数允许不同：属于目标知识点的错误计入扣分但不单独入库，独立错误才入 `errors`。
 
-写完后必须运行校验并通过：
+写完后必须校验通过。`note-append --check` 已经自动运行同一条命令，返回值里带 `check.ok`；需要单独复查时才手动运行：
 
 ```bash
 python3 practice-learning-records/scripts/check_note.py learning-record-notes/<category>-<slug>.md
 ```
 
-返回 `ok: true` 表示笔记合规。返回 `ok: false` 时先按每条 issue 的 `line` 与 `message` 就地修正并重跑一次；第二次仍不通过时，不要改用其他写法绕过校验，也不要为了修笔记推迟整个回复：正常发送批改与讲解正文，并在正文里如实说明“本轮笔记未通过校验，已保留待修正”，把校验 issue 记在当前对话，下一轮优先修正该文件。
+`check.ok: true` 表示笔记合规。`check.ok: false` 时按 issue 的 `line` 与 `message` 修正：
+
+- issue 落在本轮刚追加的区块内：把修正后的**完整区块**写到临时文件，用同一把锁的替换命令就地替换，不要整文件重写、也不要追加第二遍：
+  ```bash
+  python3 learn-from-english/scripts/learning_records.py note-replace-block \
+    --file learning-record-notes/<category>-<slug>.md \
+    --heading "# <本轮标题，与追加时完全一致>" \
+    --content-file /tmp/note-block-fixed.md \
+    --check
+  ```
+  替换命令只改动该标题的区块，其他日期区块原样保留；替换区块的标题行必须与 `--heading` 完全一致。
+- issue 落在更早的历史区块内：不要借本轮修改历史，也不要为通过校验重排旧区块；按上面“第二次仍不通过”处理。
+
+修正后重跑一次；第二次仍不通过时，不要改用其他写法绕过校验，也不要为了修笔记推迟整个回复：正常发送批改与讲解正文，并在正文里如实说明“本轮笔记未通过校验，已保留待修正”，把校验 issue 记在当前对话，下一轮优先修正该文件。
 
 ## 场景对话错题
 
@@ -407,6 +432,7 @@ python3 learn-from-english/scripts/learning_records.py stats --period 30d
 | `batch-upsert` 保存知识点失败 | 继续发送教学正文 | 只显示「重试保存本轮记录」「放弃保存并继续」 | 只留在当前对话 | 说明可能残留部分记录变更并停止后续写入，不得说“已回滚” |
 | `complete-review` 保存评分失败 | 继续发送批改正文 | 只显示「重试保存本轮评分」「放弃保存并返回菜单」 | 只留在当前对话，重试原样携带 `claim_owner` / `claim_token` | 同上；领取凭据失效的提示语见“评分与协调记录” |
 | `paper-complete` 保存套题评分失败 | 继续发送批改正文 | 只显示「重试保存本次试卷评分」「放弃评分保存并保留进行中作答」 | 只留在当前对话 | 同上；放弃时不得删除已保存答案 |
+| `note-append` / `note-replace-block` 写入失败（路径不合规、区块缺标题、文件被占用等） | 继续发送当天正文；命令报错原样说明原因 | 正常菜单照常显示 | 修正后的区块只留在当前对话 | 不得改用 `Write` 直接改写笔记文件来绕过失败 |
 | `check_note.py` 校验失败（第二次仍失败） | 正常发送当天正文 | 正常菜单照常显示 | 不涉及 | 正文如实说明笔记未通过校验并留待下一轮修正 |
 | `menu` / `next-review` / 查询类命令失败 | 说明命令失败原因，按上下文退回初始菜单或直接回答 | 初始菜单 | 不涉及 | 不适用 |
 

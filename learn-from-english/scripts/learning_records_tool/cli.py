@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any
 
 from .models import CATEGORIES, STATUSES, RecordError, record_id
+from .notes import NoteStore
 from .papers import PAPER_STATUSES, PaperService
 from .service import RecordService
 from .store import RecordStore
@@ -26,6 +27,19 @@ def service() -> RecordService:
 
 def paper_service() -> PaperService:
     return PaperService(RecordStore(REPO_ROOT))
+
+
+def note_store() -> NoteStore:
+    return NoteStore(REPO_ROOT)
+
+
+def read_text_input(path: str) -> str:
+    try:
+        if path == "-":
+            return sys.stdin.read()
+        return Path(path).read_text(encoding="utf-8")
+    except OSError as exc:
+        raise RecordError(f"cannot read note content: {exc}") from exc
 
 
 def read_input(path: str) -> Any:
@@ -200,6 +214,24 @@ def handle_paper_complete(args: argparse.Namespace) -> dict[str, Any]:
 
 def handle_paper_menu(args: argparse.Namespace) -> list[dict[str, Any]]:
     return paper_service().menu_options()
+
+
+def handle_note_append(args: argparse.Namespace) -> dict[str, Any]:
+    store = note_store()
+    content = read_text_input(args.content_file)
+    result = store.append(args.file, content)
+    if args.check:
+        result["check"] = store.check(args.file)
+    return result
+
+
+def handle_note_replace_block(args: argparse.Namespace) -> dict[str, Any]:
+    store = note_store()
+    content = read_text_input(args.content_file)
+    result = store.replace_block(args.file, args.heading, content)
+    if args.check:
+        result["check"] = store.check(args.file)
+    return result
 
 
 def parse_period(value: str) -> int:
@@ -384,6 +416,43 @@ def build_parser() -> argparse.ArgumentParser:
 
     paper_menu = subparsers.add_parser("paper-menu", help="build shared paper-history menu options")
     paper_menu.set_defaults(handler=handle_paper_menu)
+
+    note_append = subparsers.add_parser(
+        "note-append",
+        help="append one round block to a review note under an exclusive lock",
+    )
+    note_append.add_argument(
+        "--file", required=True, help="learning-record-notes/<category>-<slug>.md"
+    )
+    note_append.add_argument(
+        "--content-file", required=True, help="raw Markdown block path or - for stdin"
+    )
+    note_append.add_argument(
+        "--check",
+        action="store_true",
+        help="run practice-learning-records check_note.py afterwards",
+    )
+    note_append.set_defaults(handler=handle_note_append)
+
+    note_replace = subparsers.add_parser(
+        "note-replace-block",
+        help="replace one existing round block in place under the same exclusive lock",
+    )
+    note_replace.add_argument(
+        "--file", required=True, help="learning-record-notes/<category>-<slug>.md"
+    )
+    note_replace.add_argument(
+        "--heading", required=True, help="exact level-1 heading line of the round to replace"
+    )
+    note_replace.add_argument(
+        "--content-file", required=True, help="raw Markdown block path or - for stdin"
+    )
+    note_replace.add_argument(
+        "--check",
+        action="store_true",
+        help="run practice-learning-records check_note.py afterwards",
+    )
+    note_replace.set_defaults(handler=handle_note_replace_block)
 
     history = subparsers.add_parser("history", help="show one record's review history")
     history.add_argument("--id", required=True)

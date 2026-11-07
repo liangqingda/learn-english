@@ -201,6 +201,23 @@ python3 learn-from-english/scripts/learning_records.py paper-menu
 
 `paper-menu` 返回未作答试卷树、进行中 attempt 树和随机重做入口，供两个英语技能统一插入 `Popular Menus`。`paper-complete` 在同一写锁下协调保存 completed attempt 和用户实际展示且已解释的错误；任一步失败时恢复试卷与学习记录文件。放弃失败的评分保存只丢弃待提交评分，不删除已经增量保存的答案。
 
+### 复习笔记
+
+`learning-record-notes/` 下的 Markdown 笔记是可读副本，也只能通过脚本写入：
+
+```bash
+python3 learn-from-english/scripts/learning_records.py note-append \
+  --file learning-record-notes/errors-back-west-spacing.md \
+  --content-file /tmp/note-block.md \
+  --check
+python3 learn-from-english/scripts/learning_records.py note-replace-block \
+  --file learning-record-notes/errors-back-west-spacing.md \
+  --heading "# 2026-11-07 21:30 · 复习" \
+  --content-file /tmp/note-block-fixed.md
+```
+
+`note-append` 在 `learning-record-notes/.notes.lock` 上取排他锁，锁内完成“读现有文件 → 追加 `---` 分隔 → `os.replace` 原子替换”，因此多个会话同时写同一个笔记文件不会互相覆盖；同标题区块已存在时返回 `appended: false, duplicate: true`，重试不会写重复区块。`note-replace-block` 用同一把锁只替换指定标题的区块，保留其他轮次原样。`--check` 会运行 `practice-learning-records/scripts/check_note.py` 并把结果放进 `check` 字段。
+
 ### 查询和统计
 
 ```bash

@@ -10,3 +10,5 @@ learning-records/.txn-journal.json
 learning-records/.txn/
 learning-records/.txn-recovery.log
 .DS_Store
+learning-record-notes/.notes.lock
+learning-record-notes/.*.tmp
