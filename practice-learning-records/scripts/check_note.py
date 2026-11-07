@@ -46,6 +46,8 @@ DETAIL_ITEM_RE = re.compile(r"^(\d)\. \*\*(考点|为什么错|英语的表达�
 MERGED_CHOICES_RE = re.compile(r"A\.\s.*B\.\s")
 MERGED_SUBITEMS_RE = re.compile(r"\(a\)[^\n]*\(b\)")
 TABLE_ROW_RE = re.compile(r"<tr>\s*<td>(.*?)</td>\s*<td>(.*?)</td>\s*</tr>")
+MENU_ITEM_RE = re.compile(r"^#### (\d+)\. 菜单：(\S.*)$")
+MENU_FIELD_RE = re.compile(r"^\*\*(讲解要点|可迁移表达)\*\*：")
 
 
 def check(path: Path) -> list[dict]:
@@ -91,7 +93,7 @@ def check(path: Path) -> list[dict]:
             add(start, "区块内缺少 `### 本轮习题`")
 
         for line_off, line in enumerate(body):
-            if line.startswith("### ") and line.strip() != "### 本轮习题":
+            if line.startswith("### ") and line.strip() not in ("### 本轮习题", "### 菜单与讲解"):
                 add(start + line_off, f"不允许出现非模板三级标题：`{line.strip()}`")
 
         # 追踪表：无表头的 HTML 表格，紧跟日期区块，位于 `### 本轮习题` 之前
@@ -130,11 +132,13 @@ def check(path: Path) -> list[dict]:
             if line.strip().startswith("| 字段 |"):
                 add(start + line_off, "追踪信息不再使用 Markdown 表头行，改用无表头 HTML 表格")
 
-        # 6. 题目
+        # 6. 题目（只统计 `### 本轮习题` 到 `### 菜单与讲解` 之间的题）
+        menu_idx = next((k for k, l in enumerate(body) if l.strip() == "### 菜单与讲解"), None)
+        quiz_end = menu_idx if menu_idx is not None else len(body)
         question_starts = [
             (start + k, int(m.group(1)), m.group(2))
-            for k, line in enumerate(body)
-            if (m := QUESTION_RE.match(line))
+            for k, line in enumerate(body[:quiz_end])
+            if (m := QUESTION_RE.match(line)) and not MENU_ITEM_RE.match(line)
         ]
         if not question_starts:
             add(start, "区块内没有任何 `#### <n>. <题型>` 题目")
@@ -146,7 +150,7 @@ def check(path: Path) -> list[dict]:
 
         for k in range(len(question_starts)):
             q_start = question_starts[k][0] - start
-            q_end = question_starts[k + 1][0] - start if k + 1 < len(question_starts) else len(body)
+            q_end = question_starts[k + 1][0] - start if k + 1 < len(question_starts) else quiz_end
             block = body[q_start:q_end]
             base_line = start + q_start
 
@@ -196,6 +200,30 @@ def check(path: Path) -> list[dict]:
                     add(base_line, "错题讲解必须严格为 1→4 四步")
                 if labels != ["考点", "为什么错", "英语的表达逻辑", "正确表达"]:
                     add(base_line, "错题讲解四步标签必须依次为 考点 / 为什么错 / 英语的表达逻辑 / 正确表达")
+
+        # 6b. 菜单与讲解（可选；出现则位于习题之后）
+        if menu_idx is not None:
+            menu_items = [
+                (start + k, int(m.group(1)), m.group(2))
+                for k, line in enumerate(body[menu_idx:], start=menu_idx)
+                if (m := MENU_ITEM_RE.match(line))
+            ]
+            if not menu_items:
+                add(start + menu_idx, "`### 菜单与讲解` 下至少要有 `#### <n>. 菜单：<选项原文>` 一条")
+            if question_starts and menu_items and menu_items[0][0] < question_starts[-1][0]:
+                add(start + menu_idx, "`### 菜单与讲解` 必须放在所有习题之后")
+            for order, (line_no, number, text) in enumerate(menu_items, start=1):
+                if number != order:
+                    add(line_no, f"菜单编号必须从 1 连续递增，当前第 {order} 条的编号是 {number}")
+                if text.strip() in ("", "—"):
+                    add(line_no, "菜单项必须写出用户实际选中的选项原文")
+            for k in range(len(menu_items)):
+                m_start = menu_items[k][0] - start
+                m_end = menu_items[k + 1][0] - start if k + 1 < len(menu_items) else len(body)
+                mblock = body[m_start:m_end]
+                mfields = [m.group(1) for line in mblock if (m := MENU_FIELD_RE.match(line))]
+                if mfields[:2] != ["讲解要点", "可迁移表达"]:
+                    add(start + m_start, "每条菜单必须依次包含 `**讲解要点**：`、`**可迁移表达**：` 两个字段")
 
         # 7. 渲染合并检查
         for k, line in enumerate(body):
