@@ -45,6 +45,7 @@ VERDICT_RE = re.compile(r"^(\*\*判定\*\*：)(✅|⚠️|❌) ?(.*)$")
 DETAIL_ITEM_RE = re.compile(r"^(\d)\. \*\*(考点|为什么错|英语的表达逻辑|正确表达)\*\*：")
 MERGED_CHOICES_RE = re.compile(r"A\.\s.*B\.\s")
 MERGED_SUBITEMS_RE = re.compile(r"\(a\)[^\n]*\(b\)")
+TABLE_ROW_RE = re.compile(r"<tr>\s*<td>(.*?)</td>\s*<td>(.*?)</td>\s*</tr>")
 
 
 def check(path: Path) -> list[dict]:
@@ -87,37 +88,37 @@ def check(path: Path) -> list[dict]:
         end = sections[idx + 1][0] - 1 if idx + 1 < len(sections) else len(lines)
         body = lines[start:end]
 
-        if "### 追踪" not in body:
-            add(start, "区块内缺少 `### 追踪`")
-        if "### 本轮习题" not in body:
+        if any(l.strip() == "### 追踪" for l in body):
+            add(start, "不再使用 `### 追踪` 子标题，追踪信息直接以无表头表格紧跟日期区块")
+        if not any(l.strip() == "### 本轮习题" for l in body):
             add(start, "区块内缺少 `### 本轮习题`")
 
         for line_off, line in enumerate(body):
-            if line.startswith("### ") and line.strip() not in ("### 追踪", "### 本轮习题"):
+            if line.startswith("### ") and line.strip() != "### 本轮习题":
                 add(start + line_off, f"不允许出现非模板三级标题：`{line.strip()}`")
 
-        track_idx = next((k for k, l in enumerate(body) if l.strip() == "### 追踪"), None)
+        # 追踪表：无表头的 HTML 表格，紧跟日期区块，位于 `### 本轮习题` 之前
+        table_open = next((k for k, l in enumerate(body) if l.strip() == "<table>"), None)
+        table_close = next((k for k, l in enumerate(body) if l.strip() == "</table>"), None)
         quiz_idx = next((k for k, l in enumerate(body) if l.strip() == "### 本轮习题"), None)
-        if track_idx is not None:
-            header_off = track_idx + 1
-            while header_off < len(body) and body[header_off].strip() == "":
-                header_off += 1
-            if header_off >= len(body) or body[header_off].strip() != "| 字段 | 值 |":
-                add(start + header_off, "追踪表表头必须是 `| 字段 | 值 |`")
-            else:
-                rows_off = header_off + 2
-                actual: list[str] = []
-                while rows_off < len(body) and body[rows_off].startswith("|"):
-                    cells = [c.strip() for c in body[rows_off].strip("|").split("|")]
-                    actual.append(cells[0] if cells else "")
-                    rows_off += 1
-                if actual != TRACKING_ROWS:
-                    add(
-                        start + header_off,
-                        "追踪表字段必须严格为固定 9 行且顺序不变：" + " / ".join(TRACKING_ROWS),
-                    )
-                if quiz_idx is not None and quiz_idx <= rows_off:
-                    add(start + quiz_idx, "`### 本轮习题` 必须位于追踪表之后")
+        if table_open is None or table_close is None or table_close < table_open:
+            add(start, "缺少无表头追踪表格：必须写成 `<table>` … `</table>`，每行 `<tr><td>字段</td><td>值</td></tr>`")
+        else:
+            inner = body[table_open + 1 : table_close]
+            if any(l.strip() in ("<thead>", "</thead>") or "<th>" in l for l in inner):
+                add(start + table_open, "追踪表格不允许表头：不要写 `<thead>` / `<th>`，也不要用 `| 字段 | 值 |`")
+            rows = [m.group(1).strip() for l in inner if (m := TABLE_ROW_RE.match(l.strip()))]
+            if rows != TRACKING_ROWS:
+                add(
+                    start + table_open,
+                    "追踪表格必须固定 9 行且顺序不变：" + " / ".join(TRACKING_ROWS),
+                )
+            if quiz_idx is not None and quiz_idx <= table_close:
+                add(start + quiz_idx, "`### 本轮习题` 必须在追踪表格之后")
+
+        for line_off, line in enumerate(body):
+            if line.strip().startswith("| 字段 |"):
+                add(start + line_off, "追踪信息不再使用 Markdown 表头行，改用无表头 HTML 表格")
 
         # 6. 题目
         question_starts = [

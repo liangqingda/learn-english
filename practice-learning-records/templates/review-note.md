@@ -2,19 +2,17 @@
 
 ## <YYYY-MM-DD HHMM> · <复习 | 练习 | 套题>
 
-### 追踪
-
-| 字段 | 值 |
-|---|---|
-| 记录 ID / 试卷 ID | <record_id 或 paper_id> |
-| 分类 · 状态变化 | <category> · <旧状态> → <新状态>，未评分写 `<category> · 未评分` |
-| 本轮得分 | <x / 10> 或 <xxx / 710（无听力模拟折算分）>，未评分写 `—` |
-| 题量与错题数 | <N 题 / M 处错误> |
-| 目标知识点 | <title> |
-| 累计复习次数 | <n>，未评分写 `—` |
-| 下次复习 | <YYYY-MM-DD HHMM>，未知写 `—` |
-| 主观题得分 | <写作 x/15 · 翻译 x/15>，非套题写 `—` |
-| 笔记生成时间 | <YYYY-MM-DD HHMM> |
+<table>
+<tr><td>记录 ID / 试卷 ID</td><td><record_id 或 paper_id></td></tr>
+<tr><td>分类 · 状态变化</td><td><category> · <旧状态> → <新状态>；未评分写 `<category> · 未评分`</td></tr>
+<tr><td>本轮得分</td><td><x / 10> 或 <xxx / 710（无听力模拟折算分）>；未评分写 `—`</td></tr>
+<tr><td>题量与错题数</td><td><N 题 / M 处错误></td></tr>
+<tr><td>目标知识点</td><td><title></td></tr>
+<tr><td>累计复习次数</td><td><n>；未评分写 `—`</td></tr>
+<tr><td>下次复习</td><td><YYYY-MM-DD HHMM>；未知写 `—`</td></tr>
+<tr><td>主观题得分</td><td><写作 x/15 · 翻译 x/15>；非套题写 `—`</td></tr>
+<tr><td>笔记生成时间</td><td><YYYY-MM-DD HHMM></td></tr>
+</table>
 
 ### 本轮习题
 

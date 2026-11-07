@@ -2,19 +2,17 @@
 
 ## 2026-11-06 20:54 · 复习
 
-### 追踪
-
-| 字段 | 值 |
-|---|---|
-| 记录 ID / 试卷 ID | errors:back-west-spacing |
-| 分类 · 状态变化 | errors · learning → familiar |
-| 本轮得分 | 9 / 10 |
-| 题量与错题数 | 6 题 / 3 处错误 |
-| 目标知识点 | out west 不是 outwest |
-| 累计复习次数 | 3 |
-| 下次复习 | 2026-11-20 20:54 |
-| 主观题得分 | — |
-| 笔记生成时间 | 2026-11-06 21:10 |
+<table>
+<tr><td>记录 ID / 试卷 ID</td><td>errors:back-west-spacing</td></tr>
+<tr><td>分类 · 状态变化</td><td>errors · learning → familiar</td></tr>
+<tr><td>本轮得分</td><td>9 / 10</td></tr>
+<tr><td>题量与错题数</td><td>6 题 / 3 处错误</td></tr>
+<tr><td>目标知识点</td><td>out west 不是 outwest</td></tr>
+<tr><td>累计复习次数</td><td>3</td></tr>
+<tr><td>下次复习</td><td>2026-11-20 20:54</td></tr>
+<tr><td>主观题得分</td><td>—</td></tr>
+<tr><td>笔记生成时间</td><td>2026-11-06 21:10</td></tr>
+</table>
 
 ### 本轮习题
 
