@@ -121,7 +121,8 @@ DETAIL_ITEM_RE = re.compile(
 MERGED_CHOICES_RE = re.compile(r"A\.\s.*B\.\s")
 MERGED_SUBITEMS_RE = re.compile(r"\(a\)[^\n]*\(b\)")
 TABLE_ROW_RE = re.compile(r"<tr>\s*<td>(.*?)</td>\s*<td>(.*?)</td>\s*</tr>")
-MENU_ITEM_RE = re.compile(r"^### (\d+)\. 菜单：(\S.*)$")
+MENU_ITEM_RE = re.compile(r"^### (\S.*?)\s*$")
+LEGACY_MENU_ITEM_RE = re.compile(r"^\d+\.\s|^菜单：")
 MENU_FIELD_RE = re.compile(r"^\*\*(讲解要点|可迁移表达)\*\*：")
 
 
@@ -214,7 +215,7 @@ def check(path: Path) -> list[dict]:
         question_starts = [
             (start + k, int(m.group(1)), m.group(2))
             for k, line in enumerate(body[:quiz_end])
-            if (m := QUESTION_RE.match(line)) and not MENU_ITEM_RE.match(line)
+            if (m := QUESTION_RE.match(line))
         ]
         if not question_starts:
             add(start, "区块内没有任何 `### <n>. <题型>` 题目")
@@ -323,19 +324,19 @@ def check(path: Path) -> list[dict]:
         # 6b. 菜单与讲解（可选；出现则位于习题之后）
         if menu_idx is not None:
             menu_items = [
-                (start + k, int(m.group(1)), m.group(2))
-                for k, line in enumerate(body[menu_idx:], start=menu_idx)
+                (start + k, m.group(1))
+                for k, line in enumerate(body[menu_idx + 1 :], start=menu_idx + 1)
                 if (m := MENU_ITEM_RE.match(line))
             ]
             if not menu_items:
-                add(start + menu_idx, "`## 菜单与讲解` 下至少要有 `### <n>. 菜单：<选项原文>` 一条")
+                add(start + menu_idx, "`## 菜单与讲解` 下至少要有 `### <菜单项原文>` 一条")
             if question_starts and menu_items and menu_items[0][0] < question_starts[-1][0]:
                 add(start + menu_idx, "`## 菜单与讲解` 必须放在所有习题之后")
-            for order, (line_no, number, text) in enumerate(menu_items, start=1):
-                if number != order:
-                    add(line_no, f"菜单编号必须从 1 连续递增，当前第 {order} 条的编号是 {number}")
+            for line_no, text in menu_items:
                 if text.strip() in ("", "—"):
                     add(line_no, "菜单项必须写出用户实际选中的选项原文")
+                elif LEGACY_MENU_ITEM_RE.match(text.strip()):
+                    add(line_no, "菜单标题直接写选项原文：不要加编号，也不要写 `菜单：` 前缀")
             for k in range(len(menu_items)):
                 m_start = menu_items[k][0] - start
                 m_end = menu_items[k + 1][0] - start if k + 1 < len(menu_items) else len(body)
