@@ -142,3 +142,13 @@ Working night shifts cost her her health, and she knew it.
 **我的答案**：6. 不会
 
 **判定**：⚠️ 未作答
+
+<details>
+<summary>展开讲解</summary>
+
+1. **考点**：用 `price` 结构改写“代价”句，要把原句的 `cost sb sth` 拆成“代价名词 + 承付动作 + 换取对象”三层。
+2. **为什么答不出**：卡在重新切分句子成分上——只换词不换结构（把 `cost` 直接换成 `pay`），就没有位置放 `her health`、`night shifts` 和 `for`，句子写不下去。
+3. **英语的表达逻辑**：英语把“健康受损”处理成可数名词短语 `a price` 充当主语或表语，`for working night shifts` 标出交换对象，`pay` 或 `come at` 表示承担动作，三者各占一个句法位置。
+4. **正确表达**：Working night shifts **came at a heavy price for her health**, and she knew it.；也可写成 **Her health was a price she had to pay for working night shifts**, and she knew it.；可迁移：`The promotion came at a price for his marriage.` / `He paid a price for saying yes too quickly.`
+
+</details>
