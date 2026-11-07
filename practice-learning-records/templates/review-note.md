@@ -1,5 +1,4 @@
 ## <YYYY-MM-DD HHMM> · <复习 | 练习 | 套题>
-
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
 <tr><td>记录 ID / 试卷 ID</td><td><record_id 或 paper_id></td></tr>

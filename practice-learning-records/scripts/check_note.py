@@ -96,6 +96,8 @@ def check(path: Path) -> list[dict]:
 
         # 追踪表：无表头的 HTML 表格，紧跟日期区块，位于 `### 本轮习题` 之前
         table_open = next((k for k, l in enumerate(body) if l.strip().startswith("<table")), None)
+        if table_open is not None and table_open >= 1 and all(l.strip() == "" for l in body[:table_open]):
+            add(start + 1, "日期标题与追踪表格之间不能留空行：标题下一行必须直接是 `<table …>`")
         table_close = next((k for k, l in enumerate(body) if l.strip() == "</table>"), None)
         quiz_idx = next((k for k, l in enumerate(body) if l.strip() == "### 本轮习题"), None)
         if table_open is None or table_close is None or table_close < table_open:
