@@ -447,6 +447,60 @@ def _follow_up_options(
     return _with_dynamic_other_options(options, context, focus)
 
 
+def _learn_options(
+    counts: dict[str, Any],
+    focus: str | None,
+    *,
+    grammar_explained: bool,
+    availability_counts: dict[str, Any] | None,
+    paper_options: list[dict[str, Any]] | None,
+) -> list[dict[str, Any]]:
+    """Menu for the teaching flow: every option continues from the same focus."""
+    target = _focus_label(focus)
+    options: list[dict[str, Any]] = list(paper_options or [])
+    if counts["totals"]["learning"]:
+        options.append(
+            _option(
+                "continue-review",
+                "▶️",
+                "继续复习，从复习库随机抽一道题",
+                "popular",
+                kind="continue-review",
+                count=counts["totals"]["learning"],
+                action={"command": "next-review", "random": True},
+                **_availability_fields(availability_counts, status="learning"),
+            )
+        )
+    suggestions = [
+        suggestion
+        for suggestion in FOLLOW_UP_SUGGESTIONS
+        if not (grammar_explained and suggestion[3] == "follow-up-learning" and suggestion[1] == "🧩")
+    ]
+    options.extend(
+        _option(
+            option_id,
+            icon,
+            label.format(focus=target),
+            "other",
+            kind=kind,
+            focus=target,
+        )
+        for option_id, icon, label, kind in suggestions
+    )
+    options.append(_scenario_option(focus))
+    options.append(
+        _option(
+            "learning-progress",
+            "📊",
+            "查看学习进度与复习统计",
+            "other",
+            kind="status",
+            action={"command": "stats", "period": "30d"},
+        )
+    )
+    return options
+
+
 def build_menu(
     records: dict[str, dict[str, Any]],
     context: str,
@@ -454,10 +508,11 @@ def build_menu(
     focus: str | None = None,
     current_exercise_explained: bool = False,
     has_answer_errors: bool = False,
+    grammar_explained: bool = False,
     availability_counts: dict[str, Any] | None = None,
     paper_options: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
-    if context not in {"initial", "review-complete"}:
+    if context not in {"initial", "review-complete", "learn"}:
         raise RecordError(f"invalid menu context: {context}")
     counts = counts_for(records)
     if not records:
@@ -485,15 +540,23 @@ def build_menu(
             _option("starter-practice", "📝", "做一组日常英语基础练习", "other", kind="starter-practice"),
         )
         return {"state": "empty", "context": context, "counts": counts, "options": options}
-    options = (
-        _initial_options(
+    if context == "initial":
+        options = _initial_options(
             counts,
             focus=focus,
             availability_counts=availability_counts,
             paper_options=paper_options,
         )
-        if context == "initial"
-        else _follow_up_options(
+    elif context == "learn":
+        options = _learn_options(
+            counts,
+            focus,
+            grammar_explained=grammar_explained,
+            availability_counts=availability_counts,
+            paper_options=paper_options,
+        )
+    else:
+        options = _follow_up_options(
             counts,
             context,
             show_error_explanation=(
@@ -505,5 +568,4 @@ def build_menu(
             availability_counts=availability_counts,
             paper_options=paper_options,
         )
-    )
     return {"state": "ready", "context": context, "counts": counts, "options": options}

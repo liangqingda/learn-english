@@ -5,7 +5,7 @@ description: 从规范学习记录中选择到期或低分知识点开展复习�
 
 # 复习英语学习记录
 
-使用仓库根目录 `learning-records/` 与 `mastered-learning-records/` 中按 category 拆分的规范记录开展复习。`learning-records/<category>.json` 保存 `learning` 与 `familiar` 记录；同一知识点累计第 3 次达到 10 分后，写操作会把它移动到 `mastered-learning-records/<category>.json`。mastered 分类文件参考旧版 `mastered.json`，根节点直接是精简数组，每条只保留稳定 `id`、`title`、`explanation` 和 `mastered_at`。读取时工具会用 `explanation` 补 `source`，并把 `example`、`tags`、逐次评分历史和历史计数重置为空或初始值；若记录此后失分回到 `learning`，这些补齐值会成为新的记录起点，掌握前的细节不会恢复。所有读取和写入必须通过 `learn-from-english/scripts/learning_records.py`；不得直接编辑 JSON。
+使用仓库根目录 `learning-records/` 与 `mastered-learning-records/` 中按 category 拆分的规范记录开展复习。`learning-records/<category>.json` 保存 `learning` 与 `familiar` 记录；同一知识点累计第 3 次达到 10 分后，写操作会把它移动到 `mastered-learning-records/<category>.json`。mastered 分类文件参考旧版 `mastered.json`，根节点直接是精简数组，每条保留稳定 `id`、`key`、`title`、`explanation`、`example`、`tags` 和 `mastered_at`。读取时工具会用 `explanation` 补 `source`，逐次评分历史和历史计数会重置；若记录此后失分回到 `learning`，`example` 与 `tags` 仍然可用，掌握前的逐次评分历史不会恢复。所有读取和写入必须通过 `learn-from-english/scripts/learning_records.py`；不得直接编辑 JSON。
 
 ## 打开复习菜单
 
@@ -36,7 +36,7 @@ python3 learn-from-english/scripts/learning_records.py menu --context initial
 - `scenario-dialogue`：有当前记录或 focus 时围绕它输出完整多轮场景对话；仅在两者都不存在时使用脚本给出的日常场景。不要把已有记录替换成咖啡店主题，也不要默认开启互动角色扮演，除非用户明确要求 role-play。
 - `follow-up-learning`：围绕 option label 和 `focus` 生成语法、词汇、对比、发音或产出内容。若生成未作答练习，不显示菜单；用户提交后批改，但不调用 `complete-review`。只把实际展示的可复用错误用一次 `batch-upsert` 保存。若讲解引入新的稳定知识点，按“后续学习知识点记录”保存。
 - `explain-current-exercise`：只在用户刚完成的复习答案存在错误时解释错题，不生成新题；必须说明考点、错误原因和正确表达背后的英语计量、语义或结构逻辑。
-- `error-clusters`：运行 `error-clusters`，按返回顺序展示每个 cluster 的 label 与 count，并用 `<父编号>-1`、`<父编号>-2` 等路径让用户选择。选择后围绕该 cluster 的多个错误模式生成一组聚焦练习；明确这是未评分练习，不显示菜单，不调用 `complete-review`，也不批量修改成员记录。用户作答后只把本次实际展示的新可复用错误用一次 `batch-upsert` 保存。
+- `error-clusters`：运行 `error-clusters`，按返回顺序展示每个 cluster 的 label 与 count，并用 `<父编号>-1`、`<父编号>-2` 等路径让用户选择。当返回的 `unclustered_count` 大于 0 时，必须在 cluster 列表之后补一个「复习未归类错题（`unclustered_count`）」入口，用这些 `unclustered` 记录组成聚焦练习；`tag_families` 用于说明错题集中在哪类问题上。选择任一入口后围绕对应错误模式生成一组聚焦练习；明确这是未评分练习，不显示菜单，不调用 `complete-review`，也不批量修改成员记录。用户作答后只把本次实际展示的新可复用错误用一次 `batch-upsert` 保存。
 - `status`：执行返回的 action；初始进度入口通常运行 `stats --period 30d`，只请求分类数量时运行 `summary --include-familiar --include-mastered`。
 
 上下文丢失或数字路径无效时重新运行初始菜单。不要要求用户重新发送“你好”，也不要尝试从规范学习记录恢复普通复习题组或待保存 payload；持久化套题必须通过 `paper-menu`、`paper-get` 和 attempt 数据恢复。
@@ -238,7 +238,7 @@ python3 learn-from-english/scripts/learning_records.py menu \
 - 文件名**不带日期**：`learning-record-notes/<category>-<slug>.md`。`category` 用记录 category（混合知识点的聚焦练习用 `mixed`），`slug` 取记录 `id` 或 `paper_id` 的语义部分，只保留小写字母、数字和连字符（如 `errors-back-west-spacing.md`）。未评分练习没有记录 ID 时，`slug` 用该轮 `focus` 或错题 cluster 的主题语义（如 `mixed-down-south-up-north.md`），主题相同就继续复用同一文件，不得按日期或轮次生成新 slug。同一个知识点反复复习时**始终复用同一个文件**，按轮次在文件内追加日期分组，不要每轮新建文件。区块标题里的时间用 `date '+%Y-%m-%d %H:%M'` 取本轮结束时的本地时间。
 - 记录移动到 `mastered-learning-records/` 后 `id` 不变，继续写同一个文件；只有记录 ID 真正变化（新建了另一条记录）时才另建文件。
 - 写之前先 `ls learning-record-notes/` 确认是否已有同名文件：已有就追加，绝不因为标题或分类写法不同而新建近义文件。
-- 文件里只追加、不改写历史：每一轮在文件末尾追加一个 `## <YYYY-MM-DD> <HHMM> · 复习`（或 `· 练习`、`· 套题`）区块，其中包含本轮的追踪表格与习题记录。不要删除、重写或重新排序更早的日期区块；只有当本轮自己刚写错时才就地修正本轮那一段。
+- 文件里只追加、不改写历史：每一轮在文件末尾追加一个 `## <YYYY-MM-DD> <HH:MM> · 复习`（或 `· 练习`、`· 套题`）区块，其中包含本轮的追踪表格与习题记录。不要删除、重写或重新排序更早的日期区块；只有当本轮自己刚写错时才就地修正本轮那一段。
 - 笔记里不写 `claim_owner`、`claim_token`、临时 payload 路径或其他会话内凭据。
 
 ### 文件结构（固定模板）
@@ -249,8 +249,8 @@ python3 learn-from-english/scripts/learning_records.py menu \
 
 | 层级 | 固定写法 |
 |---|---|
-| 文件开头 | **不写一级标题**：文件直接从第一个 `## <YYYY-MM-DD HHMM> · <复习｜练习｜套题>` 区块开始；记录 ID 与知识点写在追踪表格的 `记录 ID / 试卷 ID` 和 `目标知识点` 两行 |
-| 轮次区块 | `## <YYYY-MM-DD HHMM> · <复习｜练习｜套题>`；两个以上区块之间必须有一行 `---` |
+| 文件开头 | **不写一级标题**：文件直接从第一个 `## <YYYY-MM-DD HH:MM> · <复习｜练习｜套题>` 区块开始；记录 ID 与知识点写在追踪表格的 `记录 ID / 试卷 ID` 和 `目标知识点` 两行 |
+| 轮次区块 | `## <YYYY-MM-DD HH:MM> · <复习｜练习｜套题>`；两个以上区块之间必须有一行 `---` |
 | 追踪表格 | 紧跟日期区块（**标题下一行必须直接是 `<table …>`，中间不留空行**），**不写 `### 追踪` 子标题、也没有表头行**：`<table style="border-collapse:collapse;width:auto">` → `<colgroup><col width="150"><col></colgroup>` → 9 行 `<tr><td>字段</td><td>值</td></tr>` → `</table>`，字段顺序固定：记录 ID / 试卷 ID → 分类 · 状态变化 → 本轮得分 → 题量与错题数 → 目标知识点 → 累计复习次数 → 下次复习 → 主观题得分 → 笔记生成时间（Markdown 表格必须有表头才能渲染，因此固定用无表头 HTML 表格；`width:auto` + 150px 首列让表格按内容紧凑收缩，不拉满整行） |
 | 习题区 | `### 本轮习题`，每题一个 `#### <n>. <题型>`，题号从 `1` 连续递增 |
 | 每题字段 | 依次 `**题目**：` → `**我的答案**：` → `**判定**：`，字段之间空一行 |
@@ -285,7 +285,7 @@ python3 learn-from-english/scripts/learning_records.py menu \
 python3 practice-learning-records/scripts/check_note.py learning-record-notes/<category>-<slug>.md
 ```
 
-返回 `ok: true` 才算写完并可以回复用户；返回 `ok: false` 时按每条 issue 的 `line` 与 `message` 就地修正后重跑，不得改用其他写法绕过校验，也不得跳过校验直接回复。
+返回 `ok: true` 表示笔记合规。返回 `ok: false` 时先按每条 issue 的 `line` 与 `message` 就地修正并重跑一次；第二次仍不通过时，不要改用其他写法绕过校验，也不要为了修笔记推迟整个回复：正常发送批改与讲解正文，并在正文里如实说明“本轮笔记未通过校验，已保留待修正”，把校验 issue 记在当前对话，下一轮优先修正该文件。
 
 ## 场景对话错题
 
@@ -368,6 +368,20 @@ python3 learn-from-english/scripts/learning_records.py stats --period 30d
 ```
 
 使用 `snapshot_totals`、`daily`、`by_category`、`score_distribution`、`due_backlog`、`lapse_count` 和 `mastery_count` 说明当前规模、每日趋势、类别弱点、分数分布、积压、遗忘与掌握情况。明确说明 mastered 精简归档会清除掌握前的逐次历史，因此平均分、近期事件和分类统计只覆盖当前仍保留的事件；不要把它们描述成终身完整统计。
+
+## 失败恢复矩阵
+
+所有写操作的失败处理都落到同一套动作，不再按命令分别发明流程：
+
+| 场景 | 立即动作 | 菜单 | payload | 回滚不完整时 |
+|---|---|---|---|---|
+| `batch-upsert` 保存知识点失败 | 继续发送教学正文 | 只显示「重试保存本轮记录」「放弃保存并继续」 | 只留在当前对话 | 说明可能残留部分记录变更并停止后续写入，不得说“已回滚” |
+| `complete-review` 保存评分失败 | 继续发送批改正文 | 只显示「重试保存本轮评分」「放弃保存并返回菜单」 | 只留在当前对话，重试原样携带 `claim_owner` / `claim_token` | 同上；领取凭据失效的提示语见“评分与协调记录” |
+| `paper-complete` 保存套题评分失败 | 继续发送批改正文 | 只显示「重试保存本次试卷评分」「放弃评分保存并保留进行中作答」 | 只留在当前对话 | 同上；放弃时不得删除已保存答案 |
+| `check_note.py` 校验失败（第二次仍失败） | 正常发送当天正文 | 正常菜单照常显示 | 不涉及 | 正文如实说明笔记未通过校验并留待下一轮修正 |
+| `menu` / `next-review` / 查询类命令失败 | 说明命令失败原因，按上下文退回初始菜单或直接回答 | 初始菜单 | 不涉及 | 不适用 |
+
+跨文件写入由脚本的事务日志兜底：写入前把目标文件的原始内容备份到 `learning-records/.txn/` 并记录 `.txn-journal.json`；中途失败会立即回滚，进程被杀时下一次任意写操作或 `validate` 会先恢复再继续。看到 `.txn-recovery.log` 记录时，如实说明“上次未完成的写入已自动回滚”，不要描述成“已回滚本轮”。
 
 ## 数据边界
 

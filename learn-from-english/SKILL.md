@@ -22,7 +22,7 @@ description: 当用户发送英文单词、短语、句子、段落、对话、�
 3. 解释这些内容为什么这样使用。
 4. 输入是单词或短语时，必须给出简短的历史、地域或文化背景与来源结论；没有值得展开的特定背景时，明确说明这一点。
 5. 给出少量可以迁移到其他场景的例子。
-6. 若本轮可以显示正常菜单，先运行 `python3 learn-from-english/scripts/learning_records.py paper-menu`，再按仓库根目录 `AGENTS.md` 的规则把返回的历史试卷入口与本轮后续学习路径一起展示。
+6. 若本轮可以显示正常菜单，运行 `python3 learn-from-english/scripts/learning_records.py menu --context learn --focus "<本轮核心表达>"`，严格按返回的 `options` 顺序、`label` 原文与 `group` 渲染菜单；本轮已经实质讲解过语法时追加 `--grammar-explained`，跳过通用语法入口。历史试卷入口已由该命令合并返回，不再单独运行 `paper-menu`。
 
 在完成正文并发送回复之前，按照“记录本轮知识点”流程用一次批量写操作保存本轮实际讲解的内容，再根据是否有未作答练习决定是否生成快捷菜单。记录失败不得阻断教学回复，但必须按失败恢复流程处理。
 
@@ -48,7 +48,7 @@ description: 当用户发送英文单词、短语、句子、段落、对话、�
 python3 learn-from-english/scripts/learning_records.py batch-upsert --input <JSON 文件或 ->
 ```
 
-输入格式为 `{"records": [{"category": "grammar", "key": "present-perfect-experience", "title": "...", "explanation": "...", "source": "...", "example": "...", "tags": ["..."]}]}`。同类同义知识点必须复用同一个 `key`；键只表达知识点本身，不包含日期、会话或例句。脚本会生成稳定 ID；相同 ID 或同类高度相似知识点会复用已有记录并保持当前状态，不用较弱内容覆盖较完整内容，但会用更丰富的新 `explanation`、`source`、`example` 和标签补全已有记录。根据返回的 `reason`、`similarity` 与 `enriched_fields` 判断匹配和补全结果。整批输入先校验后写入，任一知识点无效时整批不保存。多个分类文件由本机写锁协调并逐个原子替换；中途失败时脚本会尽力回滚本轮已替换的文件，但跨文件写入不是单次文件系统事务。
+输入格式为 `{"records": [{"category": "grammar", "key": "present-perfect-experience", "title": "...", "explanation": "...", "source": "...", "example": "...", "tags": ["..."]}]}`。同类同义知识点必须复用同一个 `key`；键只表达知识点本身，不包含日期、会话或例句。脚本会生成稳定 ID；相同 ID 或同类高度相似知识点会复用已有记录并保持当前状态，不用较弱内容覆盖较完整内容，但会用更丰富的新 `explanation`、`source`、`example` 和标签补全已有记录。根据返回的 `reason`、`similarity` 与 `enriched_fields` 判断匹配和补全结果。整批输入先校验后写入，任一知识点无效时整批不保存。多个分类文件由本机写锁协调并逐个原子替换；写入前脚本会把目标文件的原始内容备份到 `learning-records/.txn/` 并记录 `.txn-journal.json`；中途失败立即回滚，进程被杀时下一次写操作会先自动恢复再继续。
 
 不要在每轮预读全部记录。只有在用户要求复习、查询学习历史，或确实需要判断既往知识点时，才调用：
 
@@ -62,7 +62,7 @@ python3 learn-from-english/scripts/learning_records.py search --query <text> --s
 
 历史试卷菜单必须按 option 的 `kind` 分派：`historical-unanswered-paper` 按 action 运行 `paper-get` 并展示未附答案的原卷；`continue-paper-attempt` 运行带 `attempt_id` 的 `paper-get`，恢复已保存答案并列出剩余项；`retry-random-paper` 运行 `paper-list --status completed --random` 后读取该试卷，用户首次提交新答案时不传 `attempt_id`，从而创建新的 attempt。`paper-history` 父项本身不执行。
 
-若写入失败，继续发送教学回复，并明确说明“本轮学习记录未能保存；本轮记录变更已回滚”。把原始 `batch-upsert` payload 只保留在当前对话，不写入仓库或其他持久文件；此时不要显示正常学习菜单，也不要展示原计划中的未作答练习，只显示“重试保存本轮记录”和“放弃保存并继续”两个恢复选项。重试成功或用户明确放弃并清除 payload 后，才展示该练习或恢复正常菜单。重试时原样提交同一 payload。若命令报告回滚未完整成功，不得使用“已回滚”，必须说明可能残留部分记录变更并停止后续写入。上下文丢失时说明无法恢复待保存 payload，并返回新的学习菜单。
+若写入失败，继续发送教学回复，并明确说明“本轮学习记录未能保存；本轮记录变更已回滚”。把原始 `batch-upsert` payload 只保留在当前对话，不写入仓库或其他持久文件；此时不要显示正常学习菜单，也不要展示原计划中的未作答练习，只显示“重试保存本轮记录”和“放弃保存并继续”两个恢复选项。重试时原样提交同一 payload；重试成功或用户明确放弃并清除 payload 后才恢复练习或正常菜单。完整的失败处理矩阵（含 `complete-review`、`paper-complete` 与笔记校验）只在 `practice-learning-records/SKILL.md` 的「失败恢复矩阵」一处维护，不要自行另写一套。若命令报告回滚未完整成功，不得使用“已回滚”，必须说明可能残留部分记录变更并停止后续写入；上下文丢失时说明无法恢复待保存 payload，并返回新的学习菜单。
 
 ## 根据输入选择讲解方式
 

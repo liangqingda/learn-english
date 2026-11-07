@@ -1,4 +1,4 @@
-## <YYYY-MM-DD HHMM> · <复习 | 练习 | 套题>
+## <YYYY-MM-DD HH:MM> · <复习 | 练习 | 套题>
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
 <tr><td>记录 ID / 试卷 ID</td><td><record_id 或 paper_id></td></tr>
@@ -7,9 +7,9 @@
 <tr><td>题量与错题数</td><td><N 题 / M 处错误></td></tr>
 <tr><td>目标知识点</td><td><title></td></tr>
 <tr><td>累计复习次数</td><td><n>；未评分写 `—`</td></tr>
-<tr><td>下次复习</td><td><YYYY-MM-DD HHMM>；未知写 `—`</td></tr>
+<tr><td>下次复习</td><td><YYYY-MM-DD HH:MM>；未知写 `—`</td></tr>
 <tr><td>主观题得分</td><td><写作 x/15 · 翻译 x/15>；非套题写 `—`</td></tr>
-<tr><td>笔记生成时间</td><td><YYYY-MM-DD HHMM></td></tr>
+<tr><td>笔记生成时间</td><td><YYYY-MM-DD HH:MM></td></tr>
 </table>
 
 ### 本轮习题

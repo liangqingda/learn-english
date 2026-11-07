@@ -38,7 +38,61 @@ QUESTION_TYPES = [
     "综合运用",
 ]
 
-SECTION_RE = re.compile(r"^## (\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}) · (复习|练习|套题)\s*$")
+TEMPLATE_PATH = Path(__file__).resolve().parents[1] / "templates" / "review-note.md"
+DEFAULT_TABLE_TAG = '<table style="border-collapse:collapse;width:auto">'
+DEFAULT_COL_WIDTH = 150
+DEFAULT_KINDS = ("复习", "练习", "套题")
+DEFAULT_SUMMARY = "展开错题讲解"
+DEFAULT_DETAIL_LABELS = ("考点", "为什么错", "英语的表达逻辑", "正确表达")
+
+
+def load_template(path: Path | None = None) -> dict[str, object]:
+    """Read the canonical note template so the validator and the template cannot drift."""
+    template_path = path or TEMPLATE_PATH
+    try:
+        text = template_path.read_text(encoding="utf-8")
+    except OSError:
+        return {
+            "tracking_rows": TRACKING_ROWS,
+            "table_tag": DEFAULT_TABLE_TAG,
+            "col_width": DEFAULT_COL_WIDTH,
+            "kinds": DEFAULT_KINDS,
+            "summary": DEFAULT_SUMMARY,
+            "detail_labels": DEFAULT_DETAIL_LABELS,
+        }
+    rows = [
+        match.group(1).strip()
+        for match in re.finditer(r"<tr><td>(.*?)</td>", text)
+        if match.group(1).strip()
+    ]
+    table_tag_match = re.search(r"<table[^>]*>", text)
+    col_width_match = re.search(r'<col width="(\d+)"', text)
+    kinds_match = re.search(r"· <([^<>|]+\|[^<>]+)>", text)
+    kinds = (
+        tuple(part.strip() for part in kinds_match.group(1).split("|"))
+        if kinds_match
+        else DEFAULT_KINDS
+    )
+    summary_match = re.search(r"<summary>(.*?)</summary>", text)
+    detail_labels = tuple(
+        match.group(1)
+        for match in re.finditer(r"^\d\. \*\*([^*]+)\*\*：", text, re.MULTILINE)
+    )
+    return {
+        "tracking_rows": rows or TRACKING_ROWS,
+        "table_tag": table_tag_match.group(0) if table_tag_match else DEFAULT_TABLE_TAG,
+        "col_width": int(col_width_match.group(1)) if col_width_match else DEFAULT_COL_WIDTH,
+        "kinds": kinds or DEFAULT_KINDS,
+        "summary": summary_match.group(1) if summary_match else DEFAULT_SUMMARY,
+        "detail_labels": detail_labels or DEFAULT_DETAIL_LABELS,
+    }
+
+
+TEMPLATE = load_template()
+KIND_PATTERN = "|".join(TEMPLATE["kinds"])
+SECTION_RE = re.compile(
+    rf"^## (\d{{4}}-\d{{2}}-\d{{2}}) (\d{{2}}:\d{{2}}) · ({KIND_PATTERN})\s*$"
+)
 QUESTION_RE = re.compile(r"^#### (\d+)\. " r"(\S.*?)\s*$")
 FIELD_RE = re.compile(r"^\*\*(题目|我的答案|判定)\*\*：")
 VERDICT_RE = re.compile(r"^(\*\*判定\*\*：)(✅|⚠️|❌) ?(.*)$")
@@ -108,22 +162,23 @@ def check(path: Path) -> list[dict]:
             inner = body[table_open + 1 : table_close]
             if any(l.strip() in ("<thead>", "</thead>") or "<th>" in l for l in inner):
                 add(start + table_open, "追踪表格不允许表头：不要写 `<thead>` / `<th>`，也不要用 `| 字段 | 值 |`")
-            if not any("<colgroup>" in l and 'width="150"' in l for l in inner):
+            if not any("<colgroup>" in l and f'width="{TEMPLATE["col_width"]}"' in l for l in inner):
                 add(
                     start + table_open,
-                    "追踪表格必须固定紧凑列宽：紧跟 `<table …>` 写 `<colgroup><col width=\"150\"><col></colgroup>`",
+                    f"追踪表格必须固定紧凑列宽：紧跟 `<table …>` 写 `<colgroup><col width=\"{TEMPLATE['col_width']}\"><col></colgroup>`",
                 )
             table_tag = next((l for l in body[max(0, table_open - 1) : table_open + 1] if l.strip().startswith("<table")), "")
-            if "width:auto" not in table_tag:
+            if "width:auto" not in table_tag or 'border-collapse:collapse' not in table_tag:
                 add(
                     start + table_open,
-                    "追踪表格标签必须是 `<table style=\"border-collapse:collapse;width:auto\">`，避免渲染成整行宽而显得松散",
+                    f"追踪表格标签必须与模板一致：`{TEMPLATE['table_tag']}`，避免渲染成整行宽而显得松散",
                 )
             rows = [m.group(1).strip() for l in inner if (m := TABLE_ROW_RE.match(l.strip()))]
-            if rows != TRACKING_ROWS:
+            if rows != TEMPLATE["tracking_rows"]:
                 add(
                     start + table_open,
-                    "追踪表格必须固定 9 行且顺序不变：" + " / ".join(TRACKING_ROWS),
+                    "追踪表格行数与顺序必须与模板一致："
+                    + " / ".join(str(row) for row in TEMPLATE["tracking_rows"]),
                 )
             if quiz_idx is not None and quiz_idx <= table_close:
                 add(start + quiz_idx, "`### 本轮习题` 必须在追踪表格之后")
@@ -169,16 +224,17 @@ def check(path: Path) -> list[dict]:
             details_open = sum(1 for l in block if l.strip() == "<details>")
             details_close = sum(1 for l in block if l.strip() == "</details>")
             summaries = [l.strip() for l in block if l.strip().startswith("<summary>")]
+            expected_summary = str(TEMPLATE["summary"])
             if details_open != details_close:
                 add(base_line, "`<details>` 与 `</details>` 数量必须一致")
-            if len(summaries) == 1 and summaries[0] != "<summary>展开错题讲解</summary>":
-                add(base_line, f"单个折叠块 summary 必须固定为 `展开错题讲解`，当前为 `{summaries[0]}`")
+            if len(summaries) == 1 and summaries[0] != f"<summary>{expected_summary}</summary>":
+                add(base_line, f"单个折叠块 summary 必须固定为 `{expected_summary}`，当前为 `{summaries[0]}`")
             elif len(summaries) > 1:
                 for i, summary in enumerate(summaries, start=1):
-                    if summary != f"<summary>展开错题讲解 {i}</summary>":
+                    if summary != f"<summary>{expected_summary} {i}</summary>":
                         add(
                             base_line,
-                            f"同一题有多处错误时，summary 必须按顺序写成 `展开错题讲解 1`、`2`…，当前第 {i} 个为 `{summary}`",
+                            f"同一题有多处错误时，summary 必须按顺序写成 `{expected_summary} 1`、`2`…，当前第 {i} 个为 `{summary}`",
                         )
 
             # 每个折叠块内部固定四步（同一题有多处错误时，各占一个折叠块）
@@ -198,8 +254,12 @@ def check(path: Path) -> list[dict]:
                 labels = [m.group(2) for m in items]
                 if order != [1, 2, 3, 4]:
                     add(base_line, "错题讲解必须严格为 1→4 四步")
-                if labels != ["考点", "为什么错", "英语的表达逻辑", "正确表达"]:
-                    add(base_line, "错题讲解四步标签必须依次为 考点 / 为什么错 / 英语的表达逻辑 / 正确表达")
+                if labels != list(TEMPLATE["detail_labels"]):
+                    add(
+                        base_line,
+                        "错题讲解四步标签必须与模板一致："
+                        + " / ".join(str(label) for label in TEMPLATE["detail_labels"]),
+                    )
 
         # 6b. 菜单与讲解（可选；出现则位于习题之后）
         if menu_idx is not None:

@@ -9,13 +9,14 @@
 - 三级状态：`learning`、`familiar`、`mastered`。
 - 间隔复习：根据得分、连续高分和遗忘次数计算 `next_review_at`。
 - 掌握判定：复习中同一知识点累计 3 次达到 10 分后才进入 `mastered`。
-- 精简归档：知识点进入 `mastered` 后只保留稳定 ID、标题、讲解和掌握时间；详细学习字段与逐次评分历史会被重置。
-- 集中菜单：脚本根据对话上下文生成带 kind、action 和可选 children 的稳定菜单树，Skill 只负责渲染与分派。
+- 精简归档：知识点进入 `mastered` 后保留稳定 ID、语义 `key`、标题、讲解、代表例句、标签和掌握时间；逐次评分历史与计数会被重置，失分回落时例句与标签仍然可用。
+- 集中菜单：脚本按对话上下文生成菜单树 —— `initial`、`review-complete`、`learn`（教学侧）三种上下文共用同一生成器，历史试卷入口默认合并进 `menu` 输出；Skill 只负责渲染与分派。
 - 数量就近展示：记录数量只标在对应菜单项末尾，不额外输出状态汇总开场。
-- 相关检索与聚类：搜索返回相关度、命中字段和摘要，错题可按可复用模式聚类。
+- 相关检索与聚类：搜索返回相关度、命中字段和摘要；`error-clusters` 按可复用模式聚类，并把无法成组的错题作为 `unclustered` 单独列出，同时给出 `tag_families`；`duplicates --threshold 0.85` 列出可合并的近义记录。
 - 进展分析：统计按日期、类别和分数段汇总，并报告到期积压、遗忘与掌握数量。
 - 套题历史：每张考试试卷与多次作答保存在同一个文件中，可续答未完成 attempt 或随机重做历史试卷。
 - 可配置评分：每张试卷自行定义主客观评分项、原始满分、报告满分、合格线和换算方式；四六级无听力卷报告为 710 分制，425 分合格。
+- 崩溃可恢复：跨文件写入前把目标文件原始内容备份到 `learning-records/.txn/` 并写 `.txn-journal.json`；中途失败立即回滚，进程被杀时下一次写操作自动恢复并记账到 `.txn-recovery.log`。
 
 ## 架构
 
@@ -28,7 +29,7 @@ service.py ── menu.py
     │         scheduler.py
     │         papers.py
     ↓
-store.py ── 校验、原子替换
+store.py ── 校验、原子替换、事务日志
     ↓
 learning-records/<category>.json
 mastered-learning-records/<category>.json
@@ -57,7 +58,7 @@ exam-papers/<paper_id>.json
 
 `mastered-learning-records/` 下的每个分类文件参考旧版 `mastered.json`，根节点直接是数组，每条只保留稳定 `id`、`title`、`explanation` 和 `mastered_at`。同一知识点累计第 3 次达到 10 分后才移动到对应的 mastered 分类文件。
 
-读取精简记录时，工具会补齐复习流程需要的运行字段，但不会恢复掌握前的详细数据：`source` 使用 `explanation`，`example` 为空，`tags` 为空，首次与最近学习时间使用 `mastered_at`，`learned_count` 为 1，`mastery_score` 为 10，`review_count` 与 `lapse_count` 为 0，`high_score_streak` 为 1，`last_reviewed_at` 使用 `mastered_at`，`next_review_at` 为空，`review_history` 为空。若已掌握记录复习失分并回到 `learning`，这些补齐值会成为新一轮学习记录的起点；掌握前的例句、标签、计数和逐次历史不会恢复。这是当前精简存储的有意取舍。
+读取精简记录时，工具会补齐复习流程需要的运行字段：`source` 使用 `explanation`，`key` 由记录 ID 后缀补齐，`example` 与 `tags` 直接读归档值（旧版归档没有这两个字段时为空），首次与最近学习时间使用 `mastered_at`，`learned_count` 为 1，`mastery_score` 为 10，`review_count` 与 `lapse_count` 为 0，`high_score_streak` 为 1，`last_reviewed_at` 使用 `mastered_at`，`next_review_at` 为空，`review_history` 为空。若已掌握记录复习失分并回到 `learning`，例句与标签仍然保留，掌握前的计数与逐次评分历史不会恢复。
 
 ```json
 {

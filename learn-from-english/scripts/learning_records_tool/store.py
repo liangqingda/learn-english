@@ -26,8 +26,11 @@ T = TypeVar("T")
 class RecordStore:
     MASTERED_FIELDS = (
         "id",
+        "key",
         "title",
         "explanation",
+        "example",
+        "tags",
         "mastered_at",
     )
 
@@ -40,6 +43,9 @@ class RecordStore:
         self.data_path = self.legacy_data_path
         self.mastered_path = self.legacy_mastered_path
         self.review_claims_path = self.learning_dir / ".review-claims.json"
+        self.txn_dir = self.learning_dir / ".txn"
+        self.txn_journal_path = self.learning_dir / ".txn-journal.json"
+        self.txn_recovery_log_path = self.learning_dir / ".txn-recovery.log"
 
     def category_path(self, category: str) -> Path:
         self._require_category(category)
@@ -386,6 +392,7 @@ class RecordStore:
             records[identifier] = {
                 "id": identifier,
                 "category": category,
+                "key": record.get("key") or identifier.partition(":")[2],
                 "status": "mastered",
                 "title": record["title"],
                 "explanation": record["explanation"],
@@ -658,6 +665,124 @@ class RecordStore:
     def _canonical_json(value: Any) -> str:
         return json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
 
+    def _begin_transaction_journal(
+        self,
+        writes: list[tuple[Path, Any, Callable[[Any], list[dict[str, Any]]]]],
+        snapshots: dict[Path, tuple[bytes | None, int | None]],
+        revision: int,
+    ) -> None:
+        """Persist pre-images of every target file before any replace happens.
+
+        If the process dies mid-write, the next command restores these
+        pre-images instead of leaving half of a coordinated write applied.
+        """
+        import shutil
+        import tempfile
+
+        self.txn_dir.mkdir(parents=True, exist_ok=True)
+        entries: list[dict[str, Any]] = []
+        for index, (path, _document, _validator) in enumerate(writes):
+            content, mode = snapshots[path]
+            backup_path = None
+            if content is not None:
+                backup_path = self.txn_dir / f"backup-{index}.json"
+                backup_path.write_bytes(content)
+                shutil.copystat(path, backup_path)
+            entries.append(
+                {
+                    "target": str(path),
+                    "backup": str(backup_path) if backup_path is not None else None,
+                    "mode": mode,
+                }
+            )
+        journal = {"revision": revision, "entries": entries}
+        descriptor, temporary_name = tempfile.mkstemp(
+            prefix=".txn-journal.", suffix=".tmp", dir=self.learning_dir
+        )
+        try:
+            with os.fdopen(descriptor, "w", encoding="utf-8") as handle:
+                json.dump(journal, handle, ensure_ascii=False, indent=2)
+                handle.write("\n")
+                handle.flush()
+                os.fsync(handle.fileno())
+            os.replace(temporary_name, self.txn_journal_path)
+        except Exception:
+            try:
+                os.unlink(temporary_name)
+            except FileNotFoundError:
+                pass
+            raise
+
+    def _finish_transaction_journal(self) -> None:
+        import shutil
+
+        try:
+            self.txn_journal_path.unlink()
+        except FileNotFoundError:
+            pass
+        if self.txn_dir.exists():
+            shutil.rmtree(self.txn_dir, ignore_errors=True)
+
+    def _restore_transaction_journal(self, journal: dict[str, Any]) -> list[str]:
+        errors: list[str] = []
+        for entry in journal.get("entries", []):
+            target = Path(str(entry.get("target", "")))
+            backup = entry.get("backup")
+            content: bytes | None = None
+            if backup:
+                backup_path = Path(str(backup))
+                try:
+                    content = backup_path.read_bytes()
+                except OSError as exc:
+                    errors.append(f"{target}: cannot read backup {backup_path}: {exc}")
+                    continue
+            try:
+                self._restore_file(target, content, entry.get("mode"))
+            except Exception as exc:  # pragma: no cover - defensive
+                errors.append(f"{target}: {exc}")
+        return errors
+
+    def recover_incomplete_transaction(self) -> dict[str, Any] | None:
+        """Restore a journal left behind by an interrupted coordinated write."""
+        if not self.txn_journal_path.exists():
+            return None
+        try:
+            journal = json.loads(self.txn_journal_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise RecordError(
+                f"cannot read pending transaction journal {self.txn_journal_path}: {exc}"
+            ) from exc
+        if not isinstance(journal, dict):
+            raise RecordError("pending transaction journal is invalid")
+        errors = self._restore_transaction_journal(journal)
+        if errors:
+            raise RecordError(
+                "pending transaction recovery failed, files were left untouched: "
+                + "; ".join(errors)
+            )
+        self._finish_transaction_journal()
+        stamp = datetime.now().astimezone().isoformat(timespec="seconds")
+        try:
+            with self.txn_recovery_log_path.open("a", encoding="utf-8") as handle:
+                handle.write(
+                    f"{stamp} recovered revision {journal.get('revision')} "
+                    f"({len(journal.get('entries', []))} files)\n"
+                )
+        except OSError:
+            pass
+        return journal
+
+    def pending_transaction(self) -> dict[str, Any] | None:
+        if not self.txn_journal_path.exists():
+            return None
+        try:
+            journal = json.loads(self.txn_journal_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            return {"invalid": True, "path": str(self.txn_journal_path)}
+        if isinstance(journal, dict):
+            return journal
+        return {"invalid": True, "path": str(self.txn_journal_path)}
+
     def _current_document(self, path: Path) -> Any | None:
         if not path.exists():
             return None
@@ -754,6 +879,12 @@ class RecordStore:
             for path, _document, _validator in writes
         }
         attempted: list[Path] = []
+        journal_created = False
+        if writes:
+            self._begin_transaction_journal(
+                writes, snapshots, int(database.get("revision", 0))
+            )
+            journal_created = True
         try:
             for path, document, validator in writes:
                 attempted.append(path)
@@ -766,6 +897,8 @@ class RecordStore:
                     self._restore_file(path, content, mode)
                 except Exception as rollback_error:
                     rollback_errors.append(f"{path}: {rollback_error}")
+            if journal_created and not rollback_errors:
+                self._finish_transaction_journal()
             if rollback_errors:
                 raise RecordError(
                     f"record write failed ({write_error}); rollback also failed: "
@@ -774,6 +907,9 @@ class RecordStore:
             raise RecordError(
                 f"record write failed; all changes from this operation were rolled back: {write_error}"
             ) from write_error
+        else:
+            if journal_created:
+                self._finish_transaction_journal()
 
     def initialize(
         self,
@@ -802,6 +938,7 @@ class RecordStore:
         with self._exclusive_lock():
             self.learning_dir.mkdir(parents=True, exist_ok=True)
             self.mastered_dir.mkdir(parents=True, exist_ok=True)
+            self.recover_incomplete_transaction()
             if before_write:
                 before_write()
             database = self._load()
@@ -818,6 +955,7 @@ class RecordStore:
         operation: Callable[[dict[str, Any], dict[str, Any]], T],
     ) -> T:
         with self._exclusive_lock():
+            self.recover_incomplete_transaction()
             database = self._load()
             claims = self._load_review_claims()
             result = operation(database, claims)
@@ -839,6 +977,7 @@ class RecordStore:
         with self._exclusive_lock():
             self.learning_dir.mkdir(parents=True, exist_ok=True)
             self.mastered_dir.mkdir(parents=True, exist_ok=True)
+            self.recover_incomplete_transaction()
             database = self._load()
             claims = self._load_review_claims()
             claim_index = claims.setdefault("claims", {})
@@ -887,6 +1026,7 @@ class RecordStore:
         with self._exclusive_lock():
             self.learning_dir.mkdir(parents=True, exist_ok=True)
             self.mastered_dir.mkdir(parents=True, exist_ok=True)
+            self.recover_incomplete_transaction()
             if before_write:
                 before_write()
             database = self.read_unvalidated()
@@ -908,6 +1048,7 @@ class RecordStore:
         with self._exclusive_lock():
             self.learning_dir.mkdir(parents=True, exist_ok=True)
             self.mastered_dir.mkdir(parents=True, exist_ok=True)
+            self.recover_incomplete_transaction()
             if before_write:
                 before_write()
             database["revision"] = int(database.get("revision", 0)) + 1

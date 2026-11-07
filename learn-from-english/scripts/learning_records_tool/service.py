@@ -599,8 +599,8 @@ class RecordService:
         return [item[2] for item in sorted(ranked_results)]
 
     def error_pattern_clusters(self, *, minimum_size: int = 2) -> dict[str, Any]:
-        if minimum_size < 2:
-            raise RecordError("minimum cluster size must be at least 2")
+        if minimum_size < 1:
+            raise RecordError("minimum cluster size must be at least 1")
         errors = self.list_records(category="errors", status=None)
         generic_tags = {
             "error",
@@ -667,12 +667,72 @@ class RecordService:
                 }
             )
         clusters.sort(key=lambda item: (-item["count"], item["id"]))
+        tag_families = {}
+        for record in errors:
+            for tag in meaningful_tags(record):
+                tag_families[tag] = tag_families.get(tag, 0) + 1
+        unclustered = [
+            record for record in errors if record["id"] not in clustered_ids
+        ]
         return {
             "cluster_count": len(clusters),
             "clusters": clusters,
-            "unclustered": [
-                record for record in errors if record["id"] not in clustered_ids
+            "unclustered": unclustered,
+            "unclustered_count": len(unclustered),
+            "tag_families": [
+                {"tag": tag, "count": count}
+                for tag, count in sorted(tag_families.items(), key=lambda item: (-item[1], item[0]))
             ],
+        }
+
+    def duplicate_candidates(
+        self, *, threshold: float = 0.85, category: str | None = None
+    ) -> dict[str, Any]:
+        """List same-category record pairs whose text is similar enough to merge."""
+        if not 0 < threshold <= 1:
+            raise RecordError("duplicate threshold must be between 0 and 1")
+        by_category: dict[str, list[dict[str, Any]]] = {}
+        for record in self.records().values():
+            if category is not None and record["category"] != category:
+                continue
+            by_category.setdefault(record["category"], []).append(record)
+        pairs: list[dict[str, Any]] = []
+        for records in by_category.values():
+            ordered = sorted(records, key=lambda record: record["id"])
+            for index, left in enumerate(ordered):
+                for right in ordered[index + 1 :]:
+                    title_similarity = self._text_similarity(left.get("title"), right.get("title"))
+                    explanation_similarity = self._text_similarity(
+                        left.get("explanation"), right.get("explanation")
+                    )
+                    similarity = max(title_similarity, explanation_similarity)
+                    if similarity < threshold:
+                        continue
+                    pairs.append(
+                        {
+                            "category": left["category"],
+                            "similarity": round(similarity, 3),
+                            "title_similarity": round(title_similarity, 3),
+                            "explanation_similarity": round(explanation_similarity, 3),
+                            "left": {
+                                "id": left["id"],
+                                "title": left["title"],
+                                "status": left["status"],
+                            },
+                            "right": {
+                                "id": right["id"],
+                                "title": right["title"],
+                                "status": right["status"],
+                            },
+                        }
+                    )
+        pairs.sort(key=lambda pair: (-pair["similarity"], pair["left"]["id"], pair["right"]["id"]))
+        return {
+            "category": category,
+            "threshold": threshold,
+            "candidate_count": len(pairs),
+            "merge_hint": "python3 learn-from-english/scripts/learning_records.py merge --target <保留的 id> --source <被并入的 id>",
+            "pairs": pairs,
         }
 
     def summary(self) -> dict[str, Any]:
@@ -685,6 +745,7 @@ class RecordService:
         focus: str | None = None,
         current_exercise_explained: bool = False,
         has_answer_errors: bool = False,
+        grammar_explained: bool = False,
     ) -> dict[str, Any]:
         records = self.records()
         now = datetime.now().astimezone()
@@ -737,6 +798,7 @@ class RecordService:
             focus=effective_focus,
             current_exercise_explained=current_exercise_explained,
             has_answer_errors=has_answer_errors,
+            grammar_explained=grammar_explained,
             availability_counts=availability_counts,
             paper_options=PaperService(self.store).menu_options(),
         )
@@ -1036,11 +1098,17 @@ class RecordService:
 
         paper_result = PaperService(self.store).validate()
         combined_issues = [*issues, *paper_result["issues"]]
+        pending_transaction = self.store.pending_transaction()
         return {
             "valid": not combined_issues,
             "issue_count": len(combined_issues),
             "issues": combined_issues,
             "paper_count": paper_result["paper_count"],
+            "pending_transaction": (
+                "未完成的事务日志将在下一次写操作时先自动回滚"
+                if pending_transaction
+                else None
+            ),
         }
 
     def repair(self, *, dry_run: bool) -> dict[str, Any]:
@@ -1057,6 +1125,10 @@ class RecordService:
                 if normalized != record.get("tags"):
                     changes.append({"id": record["id"], "field": "tags"})
                     record["tags"] = normalized
+                expected_key = record["id"].partition(":")[2]
+                if record.get("key") != expected_key:
+                    changes.append({"id": record["id"], "field": "key"})
+                    record["key"] = expected_key
                 score = float(record.get("mastery_score", 0))
                 expected_status = status_for_score(score, record)
                 if record.get("status") != expected_status:

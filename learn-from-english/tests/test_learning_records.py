@@ -434,16 +434,20 @@ class LearningRecordsTest(unittest.TestCase):
             set(stored[0]),
             {
                 "id",
+                "key",
                 "title",
                 "explanation",
+                "example",
+                "tags",
                 "mastered_at",
             },
         )
         self.assertEqual(stored[0]["id"], "usage:polite-request")
+        self.assertEqual(stored[0]["key"], "polite-request")
         self.assertEqual(record["status"], "mastered")
         self.assertEqual(record["source"], "Explanation for polite-request")
-        self.assertEqual(record["example"], "")
-        self.assertEqual(record["tags"], [])
+        self.assertEqual(record["example"], "Example for polite-request")
+        self.assertEqual(record["tags"], ["core", "review"])
 
     def test_mastered_records_move_to_mastered_category_file(self) -> None:
         titles = [
@@ -474,8 +478,11 @@ class LearningRecordsTest(unittest.TestCase):
             set(first_mastered),
             {
                 "id",
+                "key",
                 "title",
                 "explanation",
+                "example",
+                "tags",
                 "mastered_at",
             },
         )
@@ -526,8 +533,11 @@ class LearningRecordsTest(unittest.TestCase):
             set(rewritten[0]),
             {
                 "id",
+                "key",
                 "title",
                 "explanation",
+                "example",
+                "tags",
                 "mastered_at",
             },
         )

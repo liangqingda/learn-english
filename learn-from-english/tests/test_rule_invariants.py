@@ -1,0 +1,284 @@
+"""Cross-cutting invariants: menu rules, doc/CLI drift, note template, transactions."""
+
+from __future__ import annotations
+
+import json
+import re
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+SCRIPTS_DIR = REPO_ROOT / "learn-from-english" / "scripts"
+sys.path.insert(0, str(SCRIPTS_DIR))
+sys.path.insert(0, str(REPO_ROOT / "practice-learning-records" / "scripts"))
+
+import check_note  # noqa: E402
+
+from learning_records_tool.cli import build_parser  # noqa: E402
+from learning_records_tool.menu import build_menu  # noqa: E402
+from learning_records_tool.models import empty_database, normalize_key  # noqa: E402
+from learning_records_tool.service import RecordService  # noqa: E402
+from learning_records_tool.store import RecordStore  # noqa: E402
+
+
+def payload(category: str, key: str, title: str | None = None) -> dict[str, object]:
+    return {
+        "category": category,
+        "key": key,
+        "title": title or f"{category} {key}",
+        "explanation": f"Explanation for {key}",
+        "source": f"Source for {key}",
+        "example": f"Example for {key}",
+        "tags": ["core"],
+    }
+
+
+class MenuInvariantTest(unittest.TestCase):
+    def setUp(self) -> None:
+        self.temporary_directory = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temporary_directory.cleanup)
+        self.store = RecordStore(Path(self.temporary_directory.name))
+        self.store.initialize(empty_database())
+        self.service = RecordService(self.store)
+        for category in ("vocabulary", "phrases", "grammar", "usage", "errors"):
+            self.service.upsert(payload(category, f"{category}-item"))
+
+    def context_menu(self, context: str) -> dict[str, object]:
+        return build_menu(
+            self.service.records(),
+            context,
+            focus="help yourself",
+        )
+
+    def test_every_context_has_scenario_and_three_other_options(self) -> None:
+        for context in ("initial", "review-complete", "learn"):
+            menu = self.context_menu(context)
+            options = menu["options"]
+            self.assertEqual(menu["state"], "ready")
+            self.assertIn("scenario-dialogue", {option["kind"] for option in options})
+            self.assertGreaterEqual(
+                sum(1 for option in options if option["group"] == "other"),
+                3,
+                f"{context} must offer at least three other options",
+            )
+            self.assertGreaterEqual(
+                sum(1 for option in options if option["group"] == "popular"),
+                1,
+                f"{context} must offer at least one popular option",
+            )
+            for option in options:
+                self.assertIn(option["group"], {"popular", "other"})
+                self.assertIn("kind", option)
+                self.assertTrue(option["label"].strip())
+
+    def test_sibling_icons_are_distinct(self) -> None:
+        for context in ("initial", "review-complete", "learn"):
+            options = self.context_menu(context)["options"]
+            for group in ("popular", "other"):
+                icons = [option["icon"] for option in options if option["group"] == group]
+                self.assertEqual(
+                    len(icons),
+                    len(set(icons)),
+                    f"{context}/{group} has duplicate sibling icons: {icons}",
+                )
+
+    def test_learn_menu_puts_grammar_first_and_drops_it_when_explained(self) -> None:
+        menu = build_menu(self.service.records(), "learn", focus="help yourself")
+        first_other = next(
+            option for option in menu["options"] if option["group"] == "other"
+        )
+        self.assertEqual(first_other["icon"], "🧩")
+
+        explained = build_menu(
+            self.service.records(),
+            "learn",
+            focus="help yourself",
+            grammar_explained=True,
+        )
+        icons = [option["icon"] for option in explained["options"]]
+        self.assertNotIn("🧩", icons)
+
+
+class NoteTemplateTest(unittest.TestCase):
+    def test_validator_reads_the_same_template(self) -> None:
+        self.assertEqual(check_note.TEMPLATE["tracking_rows"], check_note.TRACKING_ROWS)
+        self.assertEqual(
+            check_note.TEMPLATE["detail_labels"], check_note.DEFAULT_DETAIL_LABELS
+        )
+        self.assertEqual(check_note.TEMPLATE["summary"], check_note.DEFAULT_SUMMARY)
+        self.assertEqual(check_note.TEMPLATE["col_width"], 150)
+
+    def note_text(self) -> str:
+        rows = "\n".join(
+            f"<tr><td>{row}</td><td>x</td></tr>"
+            for row in check_note.TEMPLATE["tracking_rows"]
+        )
+        return (
+            "## 2026-11-07 12:00 · 复习\n"
+            f"{check_note.DEFAULT_TABLE_TAG}\n"
+            '<colgroup><col width="150"><col></colgroup>\n'
+            f"{rows}\n"
+            "</table>\n\n"
+            "### 本轮习题\n\n"
+            "#### 1. 单项选择\n\n"
+            "**题目**：Pick one.\n\n"
+            "**我的答案**：B\n\n"
+            "**判定**：❌ 错误\n\n"
+            "<details>\n"
+            f"<summary>{check_note.DEFAULT_SUMMARY}</summary>\n\n"
+            "1. **考点**：x\n"
+            "2. **为什么错**：x\n"
+            "3. **英语的表达逻辑**：x\n"
+            "4. **正确表达**：x\n\n"
+            "</details>\n"
+        )
+
+    def test_valid_note_passes_and_drift_is_reported(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "note.md"
+            path.write_text(self.note_text(), encoding="utf-8")
+            self.assertEqual(check_note.check(path), [])
+
+            path.write_text(
+                self.note_text().replace(
+                    f"<summary>{check_note.DEFAULT_SUMMARY}</summary>",
+                    "<summary>展开讲解</summary>",
+                ),
+                encoding="utf-8",
+            )
+            issues = check_note.check(path)
+            self.assertTrue(any("summary" in issue["message"] for issue in issues))
+
+
+class DocumentationDriftTest(unittest.TestCase):
+    def test_documented_commands_exist(self) -> None:
+        parser = build_parser()
+        commands = set(parser._subparsers._group_actions[0].choices.keys())
+        docs = [
+            REPO_ROOT / "AGENTS.md",
+            REPO_ROOT / "learn-from-english" / "SKILL.md",
+            REPO_ROOT / "practice-learning-records" / "SKILL.md",
+        ]
+        for doc in docs:
+            text = doc.read_text(encoding="utf-8")
+            referenced = set(re.findall(r"learning_records\.py ([a-z][a-z-]+)", text))
+            referenced |= set(re.findall(r"learning_records\.py\s*\\?\s*\n?\s*([a-z][a-z-]+)", text))
+            missing = {command for command in referenced if command != "scripts"}
+            self.assertFalse(
+                missing - commands,
+                f"{doc.name} references unknown CLI commands: {sorted(missing - commands)}",
+            )
+
+    def test_learn_skill_uses_the_script_menu(self) -> None:
+        text = (REPO_ROOT / "learn-from-english" / "SKILL.md").read_text(encoding="utf-8")
+        self.assertIn("--context learn", text)
+
+
+class ServiceInvariantTest(unittest.TestCase):
+    def setUp(self) -> None:
+        self.temporary_directory = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temporary_directory.cleanup)
+        self.store = RecordStore(Path(self.temporary_directory.name))
+        self.store.initialize(empty_database())
+        self.service = RecordService(self.store)
+
+    def test_key_is_persisted_and_repair_backfills_legacy_records(self) -> None:
+        self.service.upsert(payload("grammar", "present-perfect"))
+        database = json.loads(
+            self.store.category_path("grammar").read_text(encoding="utf-8")
+        )
+        record = database["records"]["grammar:present-perfect"]
+        self.assertEqual(record["key"], normalize_key("present-perfect"))
+
+        record.pop("key")
+        self.store.category_path("grammar").write_text(
+            json.dumps(database, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
+        dry = self.service.repair(dry_run=True)
+        self.assertTrue(
+            any(change["field"] == "key" for change in dry["changes"]),
+            dry,
+        )
+        self.service.repair(dry_run=False)
+        repaired = self.service.records()["grammar:present-perfect"]
+        self.assertEqual(repaired["key"], "present-perfect")
+
+    def test_error_clusters_report_unclustered_and_tag_families(self) -> None:
+        distinct = [
+            ("article before countable noun", "单数可数名词前需要限定词，这是英语计量的基本规则。", "article"),
+            ("verb tense backshift", "间接引语中的时态需要向过去推移一层，与主句时态呼应。", "tense"),
+            ("preposition choice", "介词搭配取决于惯用法，不能按中文语序直译。", "preposition"),
+        ]
+        for index, (title, explanation, tag) in enumerate(distinct):
+            self.service.upsert(
+                {
+                    "category": "errors",
+                    "key": f"error-{index}",
+                    "title": title,
+                    "explanation": explanation,
+                    "source": f"Totally different sentence number {index}.",
+                    "example": "",
+                    "tags": [tag],
+                }
+            )
+        result = self.service.error_pattern_clusters(minimum_size=2)
+        self.assertEqual(result["unclustered_count"], len(result["unclustered"]))
+        self.assertEqual(result["unclustered_count"], 3)
+        self.assertTrue(any(item["tag"] == "article" for item in result["tag_families"]))
+
+    def test_duplicate_candidates_are_reported(self) -> None:
+        from learning_records_tool.models import new_record
+
+        self.service.upsert(payload("phrases", "look-after", "look after someone"))
+
+        def add_twin(database: dict[str, object]) -> dict[str, object]:
+            record = new_record(
+                {
+                    "category": "phrases",
+                    "key": "look-after-carefully",
+                    "title": "look after someone carefully",
+                    "explanation": "look after someone carefully 表示细心照顾某人。",
+                    "source": "She looks after her sister carefully.",
+                    "example": "",
+                    "tags": ["care"],
+                }
+            )
+            database["records"][record["id"]] = record
+            return {"added": record["id"]}
+
+        self.store.transaction(add_twin)
+        result = self.service.duplicate_candidates(threshold=0.6)
+        self.assertGreaterEqual(result["candidate_count"], 1)
+        pair = result["pairs"][0]
+        self.assertIn("merge", result["merge_hint"])
+        self.assertNotEqual(pair["left"]["id"], pair["right"]["id"])
+
+    def test_interrupted_transaction_is_rolled_back_on_next_run(self) -> None:
+        self.service.upsert(payload("grammar", "journal-target"))
+        target = self.store.category_path("grammar")
+        original = target.read_bytes()
+
+        self.store.txn_dir.mkdir(parents=True, exist_ok=True)
+        backup = self.store.txn_dir / "backup-0.json"
+        backup.write_bytes(original)
+        journal = {
+            "revision": 1,
+            "entries": [{"target": str(target), "backup": str(backup), "mode": 0o644}],
+        }
+        self.store.txn_journal_path.write_text(
+            json.dumps(journal, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
+        target.write_text('{"schema_version": 2, "records": {}, "broken', encoding="utf-8")
+
+        self.service.upsert(payload("phrases", "after-recovery"))
+
+        self.assertEqual(target.read_bytes(), original)
+        self.assertFalse(self.store.txn_journal_path.exists())
+        self.assertFalse(self.store.txn_dir.exists())
+        self.assertTrue(self.store.txn_recovery_log_path.exists())
+
+
+if __name__ == "__main__":
+    unittest.main()

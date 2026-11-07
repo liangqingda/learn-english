@@ -151,6 +151,7 @@ def handle_menu(args: argparse.Namespace) -> dict[str, Any]:
         focus=args.focus,
         current_exercise_explained=args.current_exercise_explained,
         has_answer_errors=args.has_answer_errors,
+        grammar_explained=args.grammar_explained,
     )
 
 
@@ -292,10 +293,10 @@ def build_parser() -> argparse.ArgumentParser:
     summary.add_argument("--include-mastered", action="store_true")
     summary.set_defaults(handler=handle_summary)
 
-    menu = subparsers.add_parser("menu", help="build a context-aware review menu")
+    menu = subparsers.add_parser("menu", help="build a context-aware menu")
     menu.add_argument(
         "--context",
-        choices=("initial", "review-complete"),
+        choices=("initial", "review-complete", "learn"),
         default="initial",
     )
     menu.add_argument("--focus", help="current English target used in follow-up labels")
@@ -308,6 +309,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--has-answer-errors",
         action="store_true",
         help="show the error-explanation option after a reviewed answer has mistakes",
+    )
+    menu.add_argument(
+        "--grammar-explained",
+        action="store_true",
+        help="learn context only: drop the generic grammar-entry option",
     )
     menu.set_defaults(handler=handle_menu)
 
@@ -340,6 +346,17 @@ def build_parser() -> argparse.ArgumentParser:
     )
     error_clusters.add_argument("--minimum-size", type=int, default=2)
     error_clusters.set_defaults(handler=handle_error_clusters)
+
+    duplicates = subparsers.add_parser(
+        "duplicates", help="list near-duplicate records that are worth merging"
+    )
+    duplicates.add_argument("--threshold", type=float, default=0.85)
+    duplicates.add_argument("--category", choices=CATEGORIES)
+    duplicates.set_defaults(
+        handler=lambda args: service().duplicate_candidates(
+            threshold=args.threshold, category=args.category
+        )
+    )
 
     paper_create = subparsers.add_parser("paper-create", help="persist one generated exam paper")
     paper_create.add_argument("--input", required=True, help="JSON file path or - for stdin")

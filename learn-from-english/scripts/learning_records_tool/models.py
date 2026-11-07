@@ -71,7 +71,9 @@ def new_record(payload: dict[str, Any], *, timestamp: str | None = None) -> dict
     for field in ("title", "explanation", "source"):
         if not isinstance(payload.get(field), str) or not payload[field].strip():
             raise RecordError(f"{field} must not be empty")
-    identifier = record_id(category, str(payload.get("key") or payload["title"]))
+    key_source = payload.get("key") or payload["title"]
+    canonical_key = normalize_key(str(key_source))
+    identifier = record_id(category, str(key_source))
     learned_at = timestamp or now_iso()
     raw_tags = payload.get("tags", payload.get("tag", []))
     if not isinstance(raw_tags, list) or not all(isinstance(tag, str) for tag in raw_tags):
@@ -82,6 +84,7 @@ def new_record(payload: dict[str, Any], *, timestamp: str | None = None) -> dict
     return {
         "id": identifier,
         "category": category,
+        "key": canonical_key,
         "status": "learning",
         "title": payload["title"].strip(),
         "explanation": payload["explanation"].strip(),
@@ -125,6 +128,15 @@ def validate_record(identifier: str, record: Any) -> list[dict[str, Any]]:
                 issues.append(_issue(identifier, "id", "record id suffix is not normalized"))
         except RecordError:
             issues.append(_issue(identifier, "id", "record id is invalid"))
+
+    if "key" in record:
+        key = record.get("key")
+        if not isinstance(key, str) or not key.strip():
+            issues.append(_issue(identifier, "key", "key must be a non-empty string"))
+        elif normalize_key(key) != key:
+            issues.append(_issue(identifier, "key", "key must be normalized"))
+        elif record.get("status") != "mastered" and identifier.partition(":")[2] != key:
+            issues.append(_issue(identifier, "key", "key must match the record id suffix"))
 
     if record.get("status") not in STATUSES:
         issues.append(_issue(identifier, "status", "status is invalid"))
