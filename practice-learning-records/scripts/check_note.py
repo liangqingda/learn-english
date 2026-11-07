@@ -72,16 +72,7 @@ def load_template(path: Path | None = None) -> dict[str, object]:
     try:
         text = template_path.read_text(encoding="utf-8")
     except OSError:
-        return {
-            "tracking_rows": TRACKING_ROWS,
-            "table_tag": DEFAULT_TABLE_TAG,
-            "col_width": DEFAULT_COL_WIDTH,
-            "kinds": DEFAULT_KINDS,
-            "summaries": (DEFAULT_SUMMARY, DEFAULT_ERROR_SUMMARY),
-            "knowledge_labels": DEFAULT_KNOWLEDGE_LABELS,
-            "error_labels": DEFAULT_DETAIL_LABELS,
-            "unanswered_labels": DEFAULT_UNANSWERED_LABELS,
-        }
+        text = ""
     meta = parse_meta(text)
     rows = [
         match.group(1).strip()
@@ -98,27 +89,20 @@ def load_template(path: Path | None = None) -> dict[str, object]:
         if kinds_match
         else DEFAULT_KINDS
     )
-    summary_match = re.search(r"<summary>(.*?)</summary>", text)
-    detail_labels = tuple(
-        match.group(1)
-        for match in re.finditer(r"^\d\. \*\*([^*]+)\*\*：", text, re.MULTILINE)
-    )
-    if "summaries" in meta:
-        summaries = tuple(meta["summaries"])
-        while len(summaries) < 2:
-            summaries += (DEFAULT_ERROR_SUMMARY,)
-    elif summary_match:
-        summaries = (summary_match.group(1), DEFAULT_ERROR_SUMMARY)
-    else:
-        summaries = (DEFAULT_SUMMARY, DEFAULT_ERROR_SUMMARY)
+    # 折叠块标题与四步标签一律以 meta 声明为准；meta 缺失时退回常量，不从正文猜
+    knowledge_summary = (meta.get("knowledge-summary") or [DEFAULT_SUMMARY])[0]
+    error_summary = (meta.get("error-summary") or [DEFAULT_ERROR_SUMMARY])[0]
+    summaries = (knowledge_summary, error_summary)
     return {
         "tracking_rows": rows or TRACKING_ROWS,
         "table_tag": table_tag_match.group(0) if table_tag_match else DEFAULT_TABLE_TAG,
         "col_width": int(col_width_match.group(1)) if col_width_match else DEFAULT_COL_WIDTH,
         "kinds": kinds or DEFAULT_KINDS,
         "summaries": summaries,
+        "knowledge_summary": knowledge_summary,
+        "error_summary": error_summary,
         "knowledge_labels": tuple(meta.get("knowledge-labels", ())) or DEFAULT_KNOWLEDGE_LABELS,
-        "error_labels": tuple(meta.get("error-labels", ())) or detail_labels or DEFAULT_DETAIL_LABELS,
+        "error_labels": tuple(meta.get("error-labels", ())) or DEFAULT_DETAIL_LABELS,
         "unanswered_labels": tuple(meta.get("unanswered-labels", ())) or DEFAULT_UNANSWERED_LABELS,
     }
 
@@ -251,10 +235,13 @@ def check(path: Path) -> list[dict]:
                 add(base_line, "每道题必须依次包含 `**题目**：`、`**我的答案**：`、`**判定**：` 三个字段")
 
             verdict_line = next((l for l in block if VERDICT_RE.match(l)), None)
+            mark = ""
+            verdict_text = ""
             if verdict_line is None:
                 add(base_line, "`**判定**：` 必须以 ✅ / ⚠️ / ❌ 之一开头")
             else:
                 mark = VERDICT_RE.match(verdict_line).group(2)
+                verdict_text = VERDICT_RE.match(verdict_line).group(3)
                 if mark not in ("✅", "⚠️", "❌"):
                     add(base_line, "判定标记只能是 ✅ / ⚠️ / ❌")
 
@@ -283,8 +270,8 @@ def check(path: Path) -> list[dict]:
                 return ""
 
             summaries = [block_summary(detail_block) for detail_block in blocks]
-            knowledge_summary = str(TEMPLATE["summaries"][0])
-            error_summary = str(TEMPLATE["summaries"][1])
+            knowledge_summary = str(TEMPLATE["knowledge_summary"])
+            error_summary = str(TEMPLATE["error_summary"])
 
             if not blocks:
                 add(base_line, f"每道题都必须有 `{knowledge_summary}` 折叠块，答对的题也要写")
@@ -293,15 +280,15 @@ def check(path: Path) -> list[dict]:
             if summaries.count(knowledge_summary) > 1:
                 add(base_line, f"`{knowledge_summary}` 每题只能有一个")
 
-            verdict_text = VERDICT_RE.match(verdict_line).group(3) if verdict_line else ""
-            mark = VERDICT_RE.match(verdict_line).group(2) if verdict_line else ""
-            is_unanswered = "未作答" in verdict_text
+            # 未作答、未完成、漏答一律按“没答出来”处理，四步第 2 步写“为什么答不出”
+            is_unanswered = any(word in verdict_text for word in ("未作答", "未完成", "漏答"))
             error_blocks = [summary for summary in summaries[1:] if summary != knowledge_summary]
-            if mark == "✅" and not is_unanswered and error_blocks:
+            chinese_mark = {"✅": "完全正确", "⚠️": "⚠️", "❌": "❌"}.get(mark, mark)
+            if mark == "✅" and error_blocks:
                 add(base_line, f"完全正确的题只写 `{knowledge_summary}`，不写 `{error_summary}`")
             elif mark in ("⚠️", "❌"):
                 if not error_blocks:
-                    add(base_line, f"判定为 {mark} 的题必须再写 `{error_summary}` 折叠块")
+                    add(base_line, f"判定为 {chinese_mark} 的题必须再写 `{error_summary}` 折叠块")
                 elif len(error_blocks) == 1 and error_blocks[0] != error_summary:
                     add(base_line, f"单个错误折叠块 summary 必须固定为 `{error_summary}`，当前为 `{error_blocks[0]}`")
                 elif len(error_blocks) > 1:
@@ -326,7 +313,7 @@ def check(path: Path) -> list[dict]:
                     hint = "知识点讲解四步标签必须为："
                 elif is_unanswered:
                     expected_labels = error_labels
-                    hint = "未作答题的错题讲解四步标签必须为："
+                    hint = "未作答/未完成题的四步标签必须为："
                 else:
                     expected_labels = error_labels
                     hint = "错题讲解四步标签必须与模板一致："
