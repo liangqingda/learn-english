@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 207,
+  "revision": 208,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -2293,7 +2293,7 @@
     "errors:leave-vs-go-departure": {
       "id": "errors:leave-vs-go-departure",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "表“出发/离开”用 leave 比 go 更明确",
       "explanation": "强调“比计划早点离开某地”时，用 leave a little bit earlier 语义最明确；go 也能表“去”，但在出发语境下不如 leave 贴切。",
       "source": "Can we go a little bit earlier?",
@@ -2304,14 +2304,21 @@
       "first_learned_at": "2026-11-03T21:02:23+08:00",
       "last_learned_at": "2026-11-03T21:02:23+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 9.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-11-07T21:02:40+08:00",
+      "next_review_at": "2026-11-21T21:02:40+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 9.0,
+          "reviewed_at": "2026-11-07T21:02:40+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ]
     },
     "errors:life-as-general-condition-without-the": {
       "id": "errors:life-as-general-condition-without-the",
@@ -2702,6 +2709,31 @@
       ],
       "first_learned_at": "2026-07-29T15:41:43+08:00",
       "last_learned_at": "2026-07-29T15:41:43+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:modal-verb-takes-base-form": {
+      "id": "errors:modal-verb-takes-base-form",
+      "category": "errors",
+      "key": "modal-verb-takes-base-form",
+      "status": "learning",
+      "title": "情态动词后接动词原形",
+      "explanation": "could、can、must 等情态动词后面必须跟动词原形，不能用过去式；Could we leave… 才是正确的礼貌请求。",
+      "source": "Could we left the hotel earlier.",
+      "example": "Could we leave the hotel a little earlier than planned?",
+      "tags": [
+        "review-error",
+        "verb-form"
+      ],
+      "first_learned_at": "2026-11-07T21:02:40+08:00",
+      "last_learned_at": "2026-11-07T21:02:40+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -4089,6 +4121,31 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:purpose-infinitive-not-for-verb": {
+      "id": "errors:purpose-infinitive-not-for-verb",
+      "category": "errors",
+      "key": "purpose-infinitive-not-for-verb",
+      "status": "learning",
+      "title": "表示目的用不定式 to do，不用 for + 动词原形",
+      "explanation": "表达“为了做某事”时，英语用 to + 动词原形作目的状语；for 后面只能接名词或动名词，接动词原形会破坏结构。原句本来已有正确的 to catch，不需要改成 for catch。",
+      "source": "She left the hotel at dawn for catch the first bus.",
+      "example": "She left the hotel at dawn to catch the first bus.",
+      "tags": [
+        "non-finite-verb",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-07T21:02:40+08:00",
+      "last_learned_at": "2026-11-07T21:02:40+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:refrigerator-spelling-not-refrigerater": {
       "id": "errors:refrigerator-spelling-not-refrigerater",
