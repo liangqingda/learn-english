@@ -42,9 +42,11 @@ TEMPLATE_PATH = Path(__file__).resolve().parents[1] / "templates" / "review-note
 DEFAULT_TABLE_TAG = '<table style="border-collapse:collapse;width:auto">'
 DEFAULT_COL_WIDTH = 150
 DEFAULT_KINDS = ("复习", "练习", "套题")
-DEFAULT_SUMMARY = "展开错题讲解"
+DEFAULT_SUMMARY = "知识点讲解"
+DEFAULT_ERROR_SUMMARY = "错题讲解"
 DEFAULT_DETAIL_LABELS = ("考点", "为什么错", "英语的表达逻辑", "正确表达")
 DEFAULT_UNANSWERED_LABELS = ("考点", "为什么答不出", "英语的表达逻辑", "正确表达")
+DEFAULT_KNOWLEDGE_LABELS = ("本题知识点", "规则与机制", "英语的表达逻辑", "可迁移表达")
 
 
 def parse_meta(text: str) -> dict[str, list[str]]:
@@ -75,7 +77,8 @@ def load_template(path: Path | None = None) -> dict[str, object]:
             "table_tag": DEFAULT_TABLE_TAG,
             "col_width": DEFAULT_COL_WIDTH,
             "kinds": DEFAULT_KINDS,
-            "summaries": (DEFAULT_SUMMARY, "展开讲解"),
+            "summaries": (DEFAULT_SUMMARY, DEFAULT_ERROR_SUMMARY),
+            "knowledge_labels": DEFAULT_KNOWLEDGE_LABELS,
             "error_labels": DEFAULT_DETAIL_LABELS,
             "unanswered_labels": DEFAULT_UNANSWERED_LABELS,
         }
@@ -103,17 +106,18 @@ def load_template(path: Path | None = None) -> dict[str, object]:
     if "summaries" in meta:
         summaries = tuple(meta["summaries"])
         while len(summaries) < 2:
-            summaries += (summaries[0] if summaries else DEFAULT_SUMMARY,)
+            summaries += (DEFAULT_ERROR_SUMMARY,)
     elif summary_match:
-        summaries = (summary_match.group(1), "展开讲解")
+        summaries = (summary_match.group(1), DEFAULT_ERROR_SUMMARY)
     else:
-        summaries = (DEFAULT_SUMMARY, "展开讲解")
+        summaries = (DEFAULT_SUMMARY, DEFAULT_ERROR_SUMMARY)
     return {
         "tracking_rows": rows or TRACKING_ROWS,
         "table_tag": table_tag_match.group(0) if table_tag_match else DEFAULT_TABLE_TAG,
         "col_width": int(col_width_match.group(1)) if col_width_match else DEFAULT_COL_WIDTH,
         "kinds": kinds or DEFAULT_KINDS,
         "summaries": summaries,
+        "knowledge_labels": tuple(meta.get("knowledge-labels", ())) or DEFAULT_KNOWLEDGE_LABELS,
         "error_labels": tuple(meta.get("error-labels", ())) or detail_labels or DEFAULT_DETAIL_LABELS,
         "unanswered_labels": tuple(meta.get("unanswered-labels", ())) or DEFAULT_UNANSWERED_LABELS,
     }
@@ -127,7 +131,9 @@ SECTION_RE = re.compile(
 QUESTION_RE = re.compile(r"^#### (\d+)\. " r"(\S.*?)\s*$")
 FIELD_RE = re.compile(r"^\*\*(题目|我的答案|判定)\*\*：")
 VERDICT_RE = re.compile(r"^(\*\*判定\*\*：)(✅|⚠️|❌) ?(.*)$")
-DETAIL_ITEM_RE = re.compile(r"^(\d)\. \*\*(考点|为什么错|为什么答不出|英语的表达逻辑|正确表达)\*\*：")
+DETAIL_ITEM_RE = re.compile(
+    r"^(\d)\. \*\*(本题知识点|规则与机制|考点|为什么错|为什么答不出|英语的表达逻辑|正确表达|可迁移表达)\*\*："
+)
 MERGED_CHOICES_RE = re.compile(r"A\.\s.*B\.\s")
 MERGED_SUBITEMS_RE = re.compile(r"\(a\)[^\n]*\(b\)")
 TABLE_ROW_RE = re.compile(r"<tr>\s*<td>(.*?)</td>\s*<td>(.*?)</td>\s*</tr>")
@@ -254,34 +260,10 @@ def check(path: Path) -> list[dict]:
 
             details_open = sum(1 for l in block if l.strip() == "<details>")
             details_close = sum(1 for l in block if l.strip() == "</details>")
-            summaries = [l.strip() for l in block if l.strip().startswith("<summary>")]
-            verdict_text = VERDICT_RE.match(verdict_line).group(3) if verdict_line else ""
-            is_unanswered = "未作答" in verdict_text
-            error_summary = str(TEMPLATE["summaries"][0])
-            unanswered_summary = str(TEMPLATE["summaries"][1])
             if details_open != details_close:
                 add(base_line, "`<details>` 与 `</details>` 数量必须一致")
-            if not is_unanswered and verdict_line is not None and VERDICT_RE.match(verdict_line).group(2) == "✅" and details_open:
-                add(base_line, "完全正确的题不写折叠块")
-            summary_texts = [s[len("<summary>") : -len("</summary>")].strip() for s in summaries]
-            if is_unanswered:
-                if not details_open:
-                    add(base_line, f"未作答题也要写讲解折叠块，summary 固定为 `{unanswered_summary}`")
-                elif len(summaries) != 1:
-                    add(base_line, f"未作答题只写一个折叠块，summary 固定为 `{unanswered_summary}`")
-                elif summary_texts[0] != unanswered_summary:
-                    add(base_line, f"未作答题的 summary 必须固定为 `{unanswered_summary}`，当前为 `{summaries[0]}`")
-            elif len(summaries) == 1 and summary_texts[0] != error_summary:
-                add(base_line, f"单个折叠块 summary 必须固定为 `{error_summary}`，当前为 `{summaries[0]}`")
-            elif len(summaries) > 1:
-                for i, summary_text in enumerate(summary_texts, start=1):
-                    if summary_text != f"{error_summary} {i}":
-                        add(
-                            base_line,
-                            f"同一题有多处错误时，summary 必须按顺序写成 `{error_summary} 1`、`2`…，当前第 {i} 个为 `{summary_text}`",
-                        )
 
-            # 每个折叠块内部固定四步（同一题有多处错误时，各占一个折叠块）
+            # 折叠块：每题第一个必须是 `知识点讲解`，错误/未作答再追加 `错题讲解`
             blocks: list[list[str]] = []
             current: list[str] | None = None
             for line in block:
@@ -292,21 +274,64 @@ def check(path: Path) -> list[dict]:
                     current = None
                 elif current is not None:
                     current.append(line)
-            expected_labels = (
-                list(TEMPLATE["unanswered_labels"]) if is_unanswered else list(TEMPLATE["error_labels"])
-            )
+
+            def block_summary(detail_block: list[str]) -> str:
+                for line in detail_block:
+                    stripped = line.strip()
+                    if stripped.startswith("<summary>"):
+                        return stripped[len("<summary>") : -len("</summary>")].strip()
+                return ""
+
+            summaries = [block_summary(detail_block) for detail_block in blocks]
+            knowledge_summary = str(TEMPLATE["summaries"][0])
+            error_summary = str(TEMPLATE["summaries"][1])
+
+            if not blocks:
+                add(base_line, f"每道题都必须有 `{knowledge_summary}` 折叠块，答对的题也要写")
+            elif summaries[0] != knowledge_summary:
+                add(base_line, f"每题第一个折叠块必须是 `{knowledge_summary}`，当前为 `{summaries[0]}`")
+            if summaries.count(knowledge_summary) > 1:
+                add(base_line, f"`{knowledge_summary}` 每题只能有一个")
+
+            verdict_text = VERDICT_RE.match(verdict_line).group(3) if verdict_line else ""
+            mark = VERDICT_RE.match(verdict_line).group(2) if verdict_line else ""
+            is_unanswered = "未作答" in verdict_text
+            error_blocks = [summary for summary in summaries[1:] if summary != knowledge_summary]
+            if mark == "✅" and not is_unanswered and error_blocks:
+                add(base_line, f"完全正确的题只写 `{knowledge_summary}`，不写 `{error_summary}`")
+            elif mark in ("⚠️", "❌"):
+                if not error_blocks:
+                    add(base_line, f"判定为 {mark} 的题必须再写 `{error_summary}` 折叠块")
+                elif len(error_blocks) == 1 and error_blocks[0] != error_summary:
+                    add(base_line, f"单个错误折叠块 summary 必须固定为 `{error_summary}`，当前为 `{error_blocks[0]}`")
+                elif len(error_blocks) > 1:
+                    for i, summary in enumerate(error_blocks, start=1):
+                        if summary != f"{error_summary} {i}":
+                            add(
+                                base_line,
+                                f"同一题有多处错误时，summary 必须按顺序写成 `{error_summary} 1`、`2`…，当前第 {i} 个为 `{summary}`",
+                            )
+
+            knowledge_labels = list(TEMPLATE["knowledge_labels"])
+            error_labels = list(TEMPLATE["unanswered_labels"]) if is_unanswered else list(TEMPLATE["error_labels"])
             for detail_block in blocks:
+                summary = block_summary(detail_block)
                 items = [m for line in detail_block if (m := DETAIL_ITEM_RE.match(line))]
                 order = [int(m.group(1)) for m in items]
                 labels = [m.group(2) for m in items]
                 if order != [1, 2, 3, 4]:
                     add(base_line, "讲解折叠块必须严格为 1→4 四步")
+                if summary == knowledge_summary:
+                    expected_labels = knowledge_labels
+                    hint = "知识点讲解四步标签必须为："
+                elif is_unanswered:
+                    expected_labels = error_labels
+                    hint = "未作答题的错题讲解四步标签必须为："
+                else:
+                    expected_labels = error_labels
+                    hint = "错题讲解四步标签必须与模板一致："
                 if labels != expected_labels:
-                    add(
-                        base_line,
-                        ("未作答题讲解四步标签必须为：" if is_unanswered else "错题讲解四步标签必须与模板一致：")
-                        + " / ".join(str(label) for label in expected_labels),
-                    )
+                    add(base_line, hint + " / ".join(str(label) for label in expected_labels))
 
         # 6b. 菜单与讲解（可选；出现则位于习题之后）
         if menu_idx is not None:

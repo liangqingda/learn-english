@@ -105,9 +105,18 @@ class NoteTemplateTest(unittest.TestCase):
     def test_validator_reads_the_same_template(self) -> None:
         self.assertEqual(check_note.TEMPLATE["tracking_rows"], check_note.TRACKING_ROWS)
         self.assertEqual(
-            check_note.TEMPLATE["detail_labels"], check_note.DEFAULT_DETAIL_LABELS
+            check_note.TEMPLATE["error_labels"], check_note.DEFAULT_DETAIL_LABELS
         )
-        self.assertEqual(check_note.TEMPLATE["summary"], check_note.DEFAULT_SUMMARY)
+        self.assertEqual(
+            check_note.TEMPLATE["knowledge_labels"], check_note.DEFAULT_KNOWLEDGE_LABELS
+        )
+        self.assertEqual(
+            check_note.TEMPLATE["unanswered_labels"], check_note.DEFAULT_UNANSWERED_LABELS
+        )
+        self.assertEqual(
+            check_note.TEMPLATE["summaries"],
+            (check_note.DEFAULT_SUMMARY, check_note.DEFAULT_ERROR_SUMMARY),
+        )
         self.assertEqual(check_note.TEMPLATE["col_width"], 150)
 
     def note_text(self) -> str:
@@ -128,6 +137,13 @@ class NoteTemplateTest(unittest.TestCase):
             "**判定**：❌ 错误\n\n"
             "<details>\n"
             f"<summary>{check_note.DEFAULT_SUMMARY}</summary>\n\n"
+            "1. **本题知识点**：x\n"
+            "2. **规则与机制**：x\n"
+            "3. **英语的表达逻辑**：x\n"
+            "4. **可迁移表达**：x\n\n"
+            "</details>\n\n"
+            "<details>\n"
+            f"<summary>{check_note.DEFAULT_ERROR_SUMMARY}</summary>\n\n"
             "1. **考点**：x\n"
             "2. **为什么错**：x\n"
             "3. **英语的表达逻辑**：x\n"
@@ -143,13 +159,23 @@ class NoteTemplateTest(unittest.TestCase):
 
             path.write_text(
                 self.note_text().replace(
+                    f"<summary>{check_note.DEFAULT_ERROR_SUMMARY}</summary>",
+                    "<summary>展开错题讲解</summary>",
+                ),
+                encoding="utf-8",
+            )
+            issues = check_note.check(path)
+            self.assertTrue(any("summary" in issue["message"] for issue in issues))
+
+            path.write_text(
+                self.note_text().replace(
                     f"<summary>{check_note.DEFAULT_SUMMARY}</summary>",
                     "<summary>展开讲解</summary>",
                 ),
                 encoding="utf-8",
             )
             issues = check_note.check(path)
-            self.assertTrue(any("summary" in issue["message"] for issue in issues))
+            self.assertTrue(any("知识点讲解" in issue["message"] for issue in issues))
 
 
 class DocumentationDriftTest(unittest.TestCase):
