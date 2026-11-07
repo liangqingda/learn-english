@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 196,
+  "revision": 209,
   "category": "grammar",
   "records": {
     "grammar:alternative-question-a-or-b": {
@@ -309,6 +309,32 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "grammar:infinitive-postmodifier-active-form-passive-meaning": {
+      "id": "grammar:infinitive-postmodifier-active-form-passive-meaning",
+      "category": "grammar",
+      "key": "infinitive-postmodifier-active-form-passive-meaning",
+      "status": "learning",
+      "title": "主动不定式后置修饰名词时表被动意义",
+      "explanation": "名词后接主动形式的不定式（a price to pay, a lot of work to do, nothing to worry about）时，不定式作后置定语，逻辑上却是被动的：相当于 a price that must be paid。因为承受者在语境中已明确，英语不再额外加被动标记；写成 a price to be paid 只有在需要强调“将由某人支付”、承受者未定时才更合适。",
+      "source": "There is a price to pay for that kind of fame.",
+      "example": "There is a price to pay for that kind of fame, and a lot of work to do before it arrives.",
+      "tags": [
+        "follow-up-learning",
+        "infinitive",
+        "postmodifier"
+      ],
+      "first_learned_at": "2026-11-07T21:22:36+08:00",
+      "last_learned_at": "2026-11-07T21:22:36+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "grammar:may-condition-if": {
       "id": "grammar:may-condition-if",
