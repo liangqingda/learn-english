@@ -128,15 +128,48 @@ MENU_EMOJI_RE = re.compile(
     "^[\U0001F000-\U0001FAFF\u2600-\u27BF\u2B00-\u2BFF\u2190-\u21FF\uFE0F\u200D]"
 )
 MENU_FIELD_RE = re.compile(r"^\*\*(讲解要点|可迁移表达)\*\*：")
+NOTE_DIR_NAME = "learning-record-notes"
+NOTE_CATEGORIES = ("vocabulary", "phrases", "grammar", "usage", "errors", "paper")
+STRUCTURED_LINE_RE = re.compile(r"^(?:[-*] |\d+\. )")
+
+
+def check_filename(path: Path) -> list[dict]:
+    """分类前缀只允许五类学习记录分类，禁止 `mixed` 等自造前缀。"""
+
+    if path.parent.name != NOTE_DIR_NAME:
+        return []
+    match = re.match(r"^([a-z]+)-[a-z0-9][a-z0-9-]*\.md$", path.name)
+    if not match:
+        return [
+            {
+                "line": 1,
+                "message": f"笔记文件名必须是 `<category>-<slug>.md`：category 取 {', '.join(NOTE_CATEGORIES)} 之一，当前为 `{path.name}`",
+            }
+        ]
+    prefix = match.group(1)
+    if prefix not in NOTE_CATEGORIES:
+        return [
+            {
+                "line": 1,
+                "message": f"文件名前缀只能取五类学习记录分类（{', '.join(NOTE_CATEGORIES)}），不得使用 `{prefix}` 等自造前缀：主题相同请复用既有文件",
+            }
+        ]
+    return []
 
 
 def check(path: Path) -> list[dict]:
     issues: list[dict] = []
+    if path.name.lower() == "readme.md":
+        # 目录说明文件不是轮次笔记，不参与模板校验
+        return issues
     text = path.read_text(encoding="utf-8")
     lines = text.splitlines()
 
     def add(line_no: int, message: str) -> None:
         issues.append({"line": line_no, "message": message})
+
+    for issue in check_filename(path):
+        add(issue["line"], issue["message"])
 
     # 1. 一级标题只允许日期区块：记录 ID 与知识点写在追踪表格里
     for i, line in enumerate(lines):
@@ -357,6 +390,15 @@ def check(path: Path) -> list[dict]:
                 mfields = [m.group(1) for line in mblock if (m := MENU_FIELD_RE.match(line))]
                 if mfields[:2] != ["讲解要点", "可迁移表达"]:
                     add(start + m_start, "每条菜单必须依次包含 `**讲解要点**：`、`**可迁移表达**：` 两个字段")
+                structured = any(
+                    STRUCTURED_LINE_RE.match(line.strip()) or line.strip().startswith("<table")
+                    for line in mblock
+                )
+                if not structured:
+                    add(
+                        start + m_start,
+                        "菜单项的讲解必须拆成有序列表、无序列表或表格逐条记录：不要把多条规则揉成一整段文字",
+                    )
 
         # 7. 渲染合并检查
         for k, line in enumerate(body):

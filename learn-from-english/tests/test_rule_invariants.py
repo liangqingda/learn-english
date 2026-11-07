@@ -191,7 +191,36 @@ class MenuItemNoteTest(unittest.TestCase):
         return NoteTemplateTest().note_text()
 
     def item(self, label: str = "看一套围绕「a price to pay」的完整场景对话") -> str:
-        return f"### {label}\n\n**讲解要点**：x\n\n**可迁移表达**：y\n"
+        return (
+            f"### {label}\n\n"
+            "**讲解要点**：\n\n"
+            "- x\n\n"
+            "**可迁移表达**：\n\n"
+            "- y\n"
+        )
+
+    def test_paragraph_menu_item_is_rejected(self) -> None:
+        text = (
+            self.base_note()
+            + "\n### 看一套围绕「a price to pay」的完整场景对话\n\n"
+            "**讲解要点**：第一条规则；第二条规则；第三条规则全部揉在一段。\n\n"
+            "**可迁移表达**：y\n"
+        )
+        issues = self.check_text(text)
+        self.assertTrue(any("有序列表、无序列表或表格" in issue["message"] for issue in issues))
+
+    def test_mixed_filename_prefix_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            notes = Path(directory) / "learning-record-notes"
+            notes.mkdir()
+            path = notes / "mixed-a-price-to-pay.md"
+            path.write_text(self.base_note(), encoding="utf-8")
+            issues = check_note.check(path)
+            self.assertTrue(any("自造前缀" in issue["message"] for issue in issues))
+
+            path = notes / "phrases-a-price-to-pay.md"
+            path.write_text(self.base_note(), encoding="utf-8")
+            self.assertEqual(check_note.check(path), [])
 
     def test_menu_item_after_questions_passes(self) -> None:
         self.assertEqual(self.check_text(self.base_note() + "\n" + self.item()), [])
