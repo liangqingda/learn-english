@@ -265,14 +265,14 @@ python3 learn-from-english/scripts/learning_records.py menu \
 - 统一入口是 `practice-learning-records/scripts/note.py`：`append` / `replace` / `list` / `context` 转发给
   `learn-from-english` 的命令，`check` 直接用本 skill 的校验器；只在这一条命令上写笔记，禁止用 `Write` 改写笔记文件，
   也禁止先落固定路径的临时区块文件。
-- 写之前先跑 `note.py context --id <record id>` 取追踪字段（记录 ID、状态变化、本轮得分、累计次数、下次复习、目标知识点），
-  不要从上下文手工抄；只有 `题量与错题数` 必须按本轮实际题数与 `错题讲解` 块数自己数。要确认某条记录已经写在哪个文件、哪一轮时跑
-  `note.py list --id <record id>`，不要靠猜文件名。
+- 追踪表由写入命令自动审查：`append` / `replace` 会把 `目标知识点`、`分类 · 状态变化`、`本轮得分`、`累计复习次数`、
+  `下次复习` 等字段与规范记录逐字段比对，不一致时返回 `tracking_mismatch` 与 `tracking_expected`，按它改完再用 `replace`；
+  `题量与错题数` 仍须自己按本轮实际题数与 `错题讲解` 块数填写。给已存在于其他文件的记录另建文件会被直接拒绝，并给出应复用的路径。
 - `append` 返回 `heading_adjusted: true` 时，说明这一分钟已被占用或写入会打乱时间升序，本轮已按顺延后的 `heading` 保存；
   两轮内容都保留，后续修正用返回的 `heading`。只有 `duplicate: true`（同标题同内容）才表示已经写过，不要重试。
 - `note_status` 为 `valid` 才算通过；`invalid` 表示写入成功但校验未过（退出码 1），用替换命令就地修正；
-  `unverified` 表示校验器不可用，必须在回复里说明「本轮笔记未校验」。校验失败时先跑
-  `note.py check --all --fix` 处理行尾空格、答案题号前缀、缺失的 `---` 这三类无争议问题，再处理剩余 issue。
+  `unverified` 表示校验器不可用，必须在回复里说明「本轮笔记未校验」。行尾空格、答案题号前缀、缺失的 `---`
+  这三类无争议问题由写入命令自动修完再复检，结果在 `auto_fixed`；剩下的 issue 才需要按 `line` / `message` 手工修正。
 
 ## 场景对话错题
 
@@ -370,6 +370,7 @@ python3 learn-from-english/scripts/learning_records.py stats --period 30d
 | `note-append` 返回 `heading_adjusted: true` | 按返回的 `heading` 继续，两轮内容都已保留 | 正常菜单照常显示 | 不涉及 | 不要用原请求时间再追加一遍 |
 | `note_status: invalid`（校验失败，退出码 1） | 写入已成功，用替换命令修正本轮区块后重跑 | 正常菜单照常显示 | 不涉及 | 不得把退出码 1 当成写入失败去重试；第二次仍失败时正文如实说明并留待下一轮修正 |
 | `note_status: unverified`（校验器不可用） | 正常发送正文 | 正常菜单照常显示 | 不涉及 | 正文如实说明「本轮笔记未校验」，不得当作已通过 |
+| 返回 `tracking_mismatch`（追踪表与记录不符） | 按 `tracking_expected` 改完本轮区块，用 `replace` 重写并复检 | 正常菜单照常显示 | 不涉及 | 不要改记录数据去迁就手抄值；`题量与错题数` 不在比对范围内 |
 | `note.py` 找不到 `learning_records.py`（只装了复习 skill） | 说明缺少写入命令的位置，先跑 `note.py check --all` 确认校验可用 | 正常菜单照常显示 | 不涉及 | 不得改用 `Write` 直接落盘；按报错里的 `probed` 路径提示安装 learn-from-english 或设置 `LEARN_ENGLISH_CLI` |
 | `menu` / `next-review` / 查询类命令失败 | 说明命令失败原因，按上下文退回初始菜单或直接回答 | 初始菜单 | 不涉及 | 不适用 |
 

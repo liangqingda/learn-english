@@ -26,9 +26,9 @@
 ## 追加与修正
 
 笔记的**唯一**写入方式是脚本命令，禁止用 `Write` 改写笔记文件。统一入口是本 skill 自带的
-`practice-learning-records/scripts/note.py`：它把 `append` / `replace` / `list` / `context` 转发给
-`learn-from-english` 的 `learning_records.py`（先看 `$LEARN_ENGLISH_CLI`，再看仓库内同级目录与安装位），
-`check` 则直接用本 skill 的 `check_note.py`，因此只装任一 skill 时都能定位到自己需要的那一半。
+`practice-learning-records/scripts/note.py`：它把 `append` / `replace` 转发给 `learn-from-english` 的
+`learning_records.py`（先看 `$LEARN_ENGLISH_CLI`，再看仓库内同级目录与安装位），`check` 则直接用本 skill 的
+`check_note.py`，因此只装任一 skill 时都能定位到自己需要的那一半。
 
 1. 用 heredoc 把本轮区块通过标准输入传给命令，**不要**先写固定路径的临时文件（如 `/tmp/note-block.md`）；
    确需文件时用 `mktemp`。区块第一行必须是 `# <YYYY-MM-DD HH:MM> · <复习|练习|套题>`，一个区块只能有一个标题行。
@@ -153,9 +153,11 @@ python3 practice-learning-records/scripts/note.py check --all --fix    # 先修�
 python3 practice-learning-records/scripts/note.py check learning-record-notes/<category>-<slug>.md
 ```
 
-`--all` 用 `$LEARN_ENGLISH_REPO_ROOT`（缺省取本脚本所在仓库根）定位 `learning-record-notes/`，跳过 `README.md`。
-`--fix` 只处理三类无争议问题：行尾空格、`我的答案` 的题号前缀、缺失的区块 `---` 分隔；它不改题干、讲解、
-判定与区块顺序，其余 issue 仍按下面两条处理，报告里用 `fixed` 列出实际改动。
+`--all` 用 `$LEARN_ENGLISH_REPO_ROOT`（缺省取本脚本所在仓库根）定位 `learning-record-notes/`，跳过 `README.md`；
+CI 每次 push 跑这一条。`--fix` 只处理三类无争议问题：行尾空格、`我的答案` 的题号前缀、缺失的区块 `---` 分隔，
+不改题干、讲解、判定与区块顺序；它不需要人工触发——`append` / `replace --check` 发现校验失败时会自动修完再复检，
+并用 `auto_fixed` 回传改了什么。追踪表的身份字段（记录 ID、状态变化、本轮得分、累计复习次数、下次复习、目标知识点）
+同样由写入命令自动比对，不一致时返回 `tracking_mismatch` 与 `tracking_expected`。
 
 `ok: true` 表示笔记合规。`ok: false` 时按 issue 的 `line` 与 `message` 修正：
 

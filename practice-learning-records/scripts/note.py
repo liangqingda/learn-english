@@ -4,11 +4,9 @@
 用法：
     python3 practice-learning-records/scripts/note.py append --file <note.md> --content-file - [--check]
     python3 practice-learning-records/scripts/note.py replace --file <note.md> --heading "<# ...>" --content-file -
-    python3 practice-learning-records/scripts/note.py list [--id <record id>]
-    python3 practice-learning-records/scripts/note.py context --id <record id>
     python3 practice-learning-records/scripts/note.py check --all [--fix]
 
-`append` / `replace` / `list` / `context` 会转发到 learn-from-english 的 learning_records.py：
+`append` / `replace` 会转发到 learn-from-english 的 learning_records.py：
 先看 `$LEARN_ENGLISH_CLI`，再看 `$LEARN_ENGLISH_REPO_ROOT` 与仓库内同级目录，
 最后看 `~/.agents/skills/learn-from-english` 等安装位。找不到时明确报错，不静默降级。
 `check` 始终使用本 skill 自带的 check_note.py，因此只安装 practice-learning-records 也能校验。
@@ -24,8 +22,6 @@ from pathlib import Path
 COMMANDS = {
     "append": "note-append",
     "replace": "note-replace-block",
-    "list": "note-list",
-    "context": "note-context",
 }
 
 CHECK_COMMANDS = ("check", "validate")

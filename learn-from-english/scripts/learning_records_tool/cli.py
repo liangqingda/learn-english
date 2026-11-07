@@ -5,12 +5,13 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
 from pathlib import Path
 from typing import Any
 
 from .models import CATEGORIES, STATUSES, RecordError, record_id
-from .notes import NoteStore
+from .notes import NoteStore, _split_blocks
 from .papers import PAPER_STATUSES, PaperService
 from .service import RecordService
 from .store import RecordStore
@@ -218,7 +219,7 @@ def handle_release_claim(args: argparse.Namespace) -> dict[str, Any]:
 
 def handle_error_clusters(args: argparse.Namespace) -> dict[str, Any]:
     return service().error_pattern_clusters(
-        minimum_size=args.minimum_size, include_records=args.with_records
+        minimum_size=args.minimum_size
     )
 
 
@@ -255,12 +256,57 @@ def handle_paper_menu(args: argparse.Namespace) -> list[dict[str, Any]]:
     return paper_service().menu_options()
 
 
+TRACKING_ROW_RE = re.compile(
+    r"<tr><td>(记录 ID / 试卷 ID|分类 · 状态变化|本轮得分|目标知识点|累计复习次数|下次复习|主观题得分|笔记生成时间)</td><td>(.*?)</td></tr>"
+)
+TRACKING_SKIP = ("题量与错题数", "笔记生成时间")
+
+
+def verify_tracking(store: NoteStore, file: str, heading: str) -> dict[str, Any]:
+    """Compare the written tracking rows with the canonical record, so nobody copies them by hand."""
+    target = store.resolve(file)
+    block = next(
+        (body for title, body in _split_blocks(target.read_text(encoding="utf-8")) if title == heading),
+        None,
+    )
+    if block is None:
+        return {}
+    rows = {field: value.strip() for field, value in TRACKING_ROW_RE.findall(block)}
+    identifier = rows.get("记录 ID / 试卷 ID", "")
+    try:
+        expected = service().note_context(identifier)["tracking"]
+    except (RecordError, ValueError):
+        return {}
+    mismatches = [
+        {"field": field, "expected": value, "actual": rows.get(field)}
+        for field, value in expected.items()
+        if field not in TRACKING_SKIP and rows.get(field) != value
+    ]
+    if not mismatches:
+        return {}
+    return {"tracking_mismatch": mismatches, "tracking_expected": expected}
+
+
+def validate_after_write(store: NoteStore, result: dict[str, Any]) -> dict[str, Any]:
+    """Check, auto-repair the safe issues, re-check, then verify tracking rows."""
+    heading = result.get("heading", "")
+    check = store.check(result["file"])
+    if check.get("ok") is False:
+        repaired = store.check(result["file"], fix=True)
+        if repaired.get("fixed"):
+            result["auto_fixed"] = repaired["fixed"]
+            check = store.check(result["file"])
+    result["check"] = check
+    result.update(verify_tracking(store, result["file"], heading))
+    return result
+
+
 def handle_note_append(args: argparse.Namespace) -> dict[str, Any]:
     store = note_store()
     content = read_text_input(args.content_file)
     result = store.append(args.file, content)
     if args.check:
-        result["check"] = store.check(args.file)
+        validate_after_write(store, result)
     return result
 
 
@@ -269,17 +315,8 @@ def handle_note_replace_block(args: argparse.Namespace) -> dict[str, Any]:
     content = read_text_input(args.content_file)
     result = store.replace_block(args.file, args.heading, content)
     if args.check:
-        result["check"] = store.check(args.file)
+        validate_after_write(store, result)
     return result
-
-
-def handle_note_list(args: argparse.Namespace) -> dict[str, Any]:
-    entries = note_store().list_notes(args.id)
-    return {"count": len(entries), "notes": entries}
-
-
-def handle_note_context(args: argparse.Namespace) -> dict[str, Any]:
-    return service().note_context(args.id)
 
 
 def parse_period(value: str) -> int:
@@ -434,11 +471,6 @@ def build_parser() -> argparse.ArgumentParser:
         "error-clusters", help="group similar error records for focused review"
     )
     error_clusters.add_argument("--minimum-size", type=int, default=2)
-    error_clusters.add_argument(
-        "--with-records",
-        action="store_true",
-        help="include full records in clusters (large output; prefer error-cluster-get)",
-    )
     error_clusters.set_defaults(handler=handle_error_clusters)
 
     cluster_get = subparsers.add_parser(
@@ -532,20 +564,6 @@ def build_parser() -> argparse.ArgumentParser:
         help="run practice-learning-records check_note.py afterwards",
     )
     note_replace.set_defaults(handler=handle_note_replace_block)
-
-    note_list = subparsers.add_parser(
-        "note-list",
-        help="list note blocks, or find the note that tracks one record id",
-    )
-    note_list.add_argument("--id", default=None, help="record id such as errors:back-west-spacing")
-    note_list.set_defaults(handler=handle_note_list)
-
-    note_context = subparsers.add_parser(
-        "note-context",
-        help="return the tracking rows a note needs for one record",
-    )
-    note_context.add_argument("--id", required=True, help="record id")
-    note_context.set_defaults(handler=handle_note_context)
 
     history = subparsers.add_parser("history", help="show one record's review history")
     history.add_argument("--id", required=True)

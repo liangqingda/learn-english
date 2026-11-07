@@ -598,9 +598,7 @@ class RecordService:
             )
         return [item[2] for item in sorted(ranked_results)]
 
-    def error_pattern_clusters(
-        self, *, minimum_size: int = 2, include_records: bool = False
-    ) -> dict[str, Any]:
+    def error_pattern_clusters(self, *, minimum_size: int = 2) -> dict[str, Any]:
         clusters, unclustered, tag_families = self._error_groups(minimum_size)
         brief_clusters = [
             {
@@ -608,7 +606,6 @@ class RecordService:
                 "label": cluster["label"],
                 "count": cluster["count"],
                 "record_ids": cluster["record_ids"],
-                **({"records": cluster["records"]} if include_records else {}),
             }
             for cluster in clusters
         ]
@@ -639,7 +636,7 @@ class RecordService:
             "cluster_count": len(clusters),
             "clusters": brief_clusters,
             "options": options,
-            "unclustered": unclustered if include_records else [item["id"] for item in unclustered],
+            "unclustered": [item["id"] for item in unclustered],
             "unclustered_count": len(unclustered),
             "tag_families": tag_families[:12],
             "tag_family_total": len(tag_families),

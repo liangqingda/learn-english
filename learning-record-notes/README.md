@@ -11,7 +11,7 @@
   记录 ID 必须与文件名一致（`errors:back-west-spacing` → `errors-back-west-spacing.md`）。
 - 一轮一个 `# YYYY-MM-DD HH:MM · 复习|练习|套题` 区块，旧区块永不删除或改写，按时间升序排列。
 - 写入只能走 `practice-learning-records/scripts/note.py`：`append` 追加、`replace` 修正本轮区块（同一把锁内原子替换），
-  `list --id` 反查记录落在哪个文件，`context --id` 取追踪字段；禁止用 `Write` 改写整个文件，也不要用固定路径的中转文件。
+  写入时会自动拒绝「同一记录另建文件」、自动修可安全修复项、自动比对追踪表；禁止用 `Write` 改写整个文件，也不要用固定路径的中转文件。
 - 笔记是可读副本，不是规范数据源：评分、状态与复习调度以 `learning-records/`、`mastered-learning-records/`、
   `exam-papers/` 为准，删除笔记不影响任何评分或复习计划。
 

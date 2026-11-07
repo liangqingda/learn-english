@@ -279,9 +279,23 @@ class NoteStore:
             raise
 
     # -- public operations ----------------------------------------------
+    def find_note_for_record(self, record_id: str) -> str | None:
+        for entry in self.list_notes(record_id):
+            if entry["record_id"] == record_id:
+                return entry["file"]
+        return None
+
     def append(self, path: str, content: str) -> dict[str, Any]:
         target = self.resolve(path)
         block = _normalize_block(content)
+        declared = RECORD_ID_ROW_RE.search(block)
+        if declared and not target.exists():
+            tracked = self.find_note_for_record(declared.group(1).strip())
+            if tracked and tracked != self.relative(target):
+                raise RecordError(
+                    f"record {declared.group(1).strip()} already has a note at {tracked}; "
+                    f"append to that file instead of creating {self.relative(target)}"
+                )
         requested_heading = _block_heading(block)
         with self._exclusive_lock():
             existing = self._read(target)
@@ -410,14 +424,14 @@ class NoteStore:
                 )
         return entries
 
-    def check(self, path: str) -> dict[str, Any]:
+    def check(self, path: str, *, fix: bool = False) -> dict[str, Any]:
         target = self.resolve(path)
         checker = self.checker_path
         if not checker.is_file():
             return {"ok": None, "skipped": "validator script not found", "issues": []}
         try:
             completed = subprocess.run(
-                [sys.executable, str(checker), str(target)],
+                [sys.executable, str(checker), str(target), *(["--fix"] if fix else [])],
                 capture_output=True,
                 text=True,
                 check=False,

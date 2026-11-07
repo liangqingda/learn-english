@@ -22,7 +22,7 @@ jobs:
       - name: Validate review notes
         run: |
           if ls learning-record-notes/*-*.md >/dev/null 2>&1; then
-            python3 practice-learning-records/scripts/check_note.py learning-record-notes/*-*.md
+            python3 practice-learning-records/scripts/note.py check --all
           fi
       - name: Compile Python sources
         run: python3 -m compileall -q learn-from-english/scripts learn-from-english/tests practice-learning-records/scripts

@@ -308,6 +308,24 @@ class NoteCliTest(unittest.TestCase):
         self.assertTrue(payload["appended"])
         self.assertTrue(payload["check"]["ok"])
 
+    def test_cli_auto_fixes_safe_issues_before_reporting(self) -> None:
+        completed = self.run_cli(
+            [
+                "note-append",
+                "--file",
+                "learning-record-notes/errors-out-west.md",
+                "--content-file",
+                "-",
+                "--check",
+            ],
+            VALID_BLOCK.format(heading="2026-11-09 09:00 · 复习", answer="1. west"),
+        )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        payload = json.loads(completed.stdout)
+        self.assertEqual(payload["note_status"], "valid")
+        self.assertIn("去掉 `我的答案` 的题号前缀", payload["auto_fixed"][0]["fixes"])
+        self.assertNotIn("1. west", self.note.read_text(encoding="utf-8"))
+
     def test_cli_check_failure_sets_nonzero_exit_code(self) -> None:
         completed = self.run_cli(
             [
@@ -345,7 +363,7 @@ class NoteCliTest(unittest.TestCase):
         self.assertEqual(payload["note_status"], "valid")
         self.assertTrue(payload["check_ok"])
 
-    def test_cli_note_list_finds_the_file_tracking_a_record(self) -> None:
+    def test_new_file_for_a_record_that_already_has_one_is_refused(self) -> None:
         self.run_cli(
             [
                 "note-append",
@@ -356,12 +374,19 @@ class NoteCliTest(unittest.TestCase):
             ],
             VALID_BLOCK.format(heading="2026-11-09 09:00 · 复习", answer="west"),
         )
-        listed = self.run_cli(["note-list", "--id", "errors:out-west"])
-        payload = json.loads(listed.stdout)
-        self.assertEqual(payload["count"], 1)
-        self.assertEqual(payload["notes"][0]["file"], "learning-record-notes/errors-out-west.md")
-        empty = json.loads(self.run_cli(["note-list", "--id", "errors:nope"]).stdout)
-        self.assertEqual(empty["count"], 0)
+        refused = self.run_cli(
+            [
+                "note-append",
+                "--file",
+                "learning-record-notes/errors-out-west-again.md",
+                "--content-file",
+                "-",
+            ],
+            VALID_BLOCK.format(heading="2026-11-10 09:00 · 复习", answer="west"),
+        )
+        self.assertEqual(refused.returncode, 2)
+        self.assertIn("already has a note at learning-record-notes/errors-out-west.md", refused.stderr)
+        self.assertFalse((self.repo / "learning-record-notes" / "errors-out-west-again.md").exists())
 
     def test_cli_replace_block_rewrites_only_that_round(self) -> None:
         for heading in ("2026-11-09 09:00 · 复习", "2026-11-10 09:00 · 复习"):
@@ -403,6 +428,45 @@ def result_order(text: str) -> list[str]:
     ]
 
 
+    def test_tracking_rows_are_checked_against_the_record(self) -> None:
+        import learning_records_tool.cli as cli_module
+
+        class StubService:
+            def note_context(self, identifier: str) -> dict:
+                return {
+                    "tracking": {
+                        "记录 ID / 试卷 ID": "errors:out-west",
+                        "分类 · 状态变化": "errors · learning → familiar",
+                        "本轮得分": "10 / 10",
+                        "目标知识点": "out west 不是 outwest",
+                        "累计复习次数": "2",
+                        "下次复习": "2026-11-23 09:00",
+                        "主观题得分": "—",
+                        "笔记生成时间": "2026-11-09 09:05",
+                    }
+                }
+
+        self.run_cli(
+            [
+                "note-append",
+                "--file",
+                "learning-record-notes/errors-out-west.md",
+                "--content-file",
+                "-",
+            ],
+            VALID_BLOCK.format(heading="2026-11-09 09:00 · 复习", answer="west"),
+        )
+        original = cli_module.service
+        cli_module.service = lambda: StubService()
+        try:
+            result = cli_module.verify_tracking(
+                NoteStore(self.repo), "learning-record-notes/errors-out-west.md", "# 2026-11-09 09:00 · 复习"
+            )
+        finally:
+            cli_module.service = original
+        self.assertEqual(result, {})
+
+
 class NoteContextTest(unittest.TestCase):
     """追踪字段由记录推导，模型不再手抄。"""
 
@@ -442,7 +506,6 @@ class NoteContextTest(unittest.TestCase):
         self.assertEqual(tracking["分类 · 状态变化"], "errors · 未评分")
         self.assertEqual(tracking["本轮得分"], "—")
         self.assertEqual(tracking["下次复习"], "—")
-
 
 if __name__ == "__main__":
     unittest.main()
