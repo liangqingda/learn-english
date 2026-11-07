@@ -21,10 +21,10 @@
 
 **题目**：下列哪一句的书写完全正确？
 
-A. Her grandparents have lived outwest since 1998.
-B. Her grandparents have lived out west since 1998.
-C. Her grandparents have lived in out west since 1998.
-D. Her grandparents have lived the outwest since 1998.
+- A. Her grandparents have lived outwest since 1998.
+- B. Her grandparents have lived out west since 1998.
+- C. Her grandparents have lived in out west since 1998.
+- D. Her grandparents have lived the outwest since 1998.
 
 **我的答案**：B
 
@@ -44,8 +44,8 @@ D. Her grandparents have lived the outwest since 1998.
 
 **题目**：根据括号内的中文提示补全句子，并写出符合英语习惯的正确形式。
 
-(a) They spend every winter ____________（在南方）, where it stays warm all year.
-(b) Her brother took a job ____________（在北方）right after graduation.
+- (a) They spend every winter ____________（在南方）, where it stays warm all year.
+- (b) Her brother took a job ____________（在北方）right after graduation.
 
 **我的答案**：out south、out north
 
@@ -65,8 +65,8 @@ D. Her grandparents have lived the outwest since 1998.
 
 **题目**：下面两句中哪一句书写成立？请说明理由。
 
-(1) The festival is called "Out West Days" and draws tourists every July.
-(2) The festival is called "Outwest Days" and draws tourists every July.
+- (1) The festival is called "Out West Days" and draws tourists every July.
+- (2) The festival is called "Outwest Days" and draws tourists every July.
 
 **我的答案**：第一个成立，outwest 这个单词不存在吧
 

@@ -294,13 +294,45 @@ python3 learn-from-english/scripts/learning_records.py menu \
 习题部分按原题号顺序逐题记录，题型、题干尽量保留本轮呈现时的原文：
 
 ```markdown
-### 3. 填空
+### 3. 单项选择
 
-**题目**：They spend every winter ____________（在南方）, where it stays warm all year.
+**题目**：下列哪一句的书写完全正确？
 
-**我的答案**：out south
+- A. Her grandparents have lived outwest since 1998.
+- B. Her grandparents have lived out west since 1998.
+- C. Her grandparents have lived in out west since 1998.
+
+**我的答案**：B
+
+**判定**：✅ 正确
+```
+
+```markdown
+### 4. 填空
+
+**题目**：根据括号内的中文提示补全句子。
+
+- (a) They spend every winter ____________（在南方）, where it stays warm all year.
+- (b) Her brother took a job ____________（在北方）right after graduation.
+
+**我的答案**：
+
+- (a) out south
+- (b) out north
 
 **判定**：❌ 搭配错（分写正确）
+```
+
+```markdown
+### 5. 改错（错题示例）
+
+**题目**：找出并改正下面句子中的书写错误。
+
+> After the war, many young families headed outwest in search of cheap land.
+
+**我的答案**：没有错，outwest 就是这样写的
+
+**判定**：❌ 未识别错误
 
 <details>
 <summary>展开错题讲解</summary>
@@ -315,6 +347,7 @@ python3 learn-from-english/scripts/learning_records.py menu \
 
 记录要求：
 
+- **版式必须保证渲染后分行**：Markdown 里连续的单换行会被合并成同一段，因此选项、小题、多行答案都不能只靠换行分隔。每个选项写成独立列表项（`- A. …`），多空题写成 `- (a) …`、`- (b) …`，多判断写成 `- (1) …`、`- (2) …`；`题目`、`我的答案`、`判定` 三个字段之间各留一个空行。禁止出现 `A. … B. … C. … D. …` 挤在同一段里的写法。
 - `我的答案` 原样照抄用户提交的内容，不改写、不润色、不修正拼写和标点；选择题保留选项字母和选项原文，多个空白题按用户实际填法逐项写出。
 - `判定` 用 `✅` 正确、`⚠️` 部分正确或只错附带项、`❌` 错误三种标记；未作答或跳过的题写「未作答」，标记 `⚠️`，不生成讲解。
 - 错题、以及带可复用错误的题，必须在该题下方加 `<details><summary>展开错题讲解</summary>` 折叠块，内容按「讲解错题」一节的四步顺序写；只讲本轮实际出现、已经讲解过的错误，不补充未发生的错误。
