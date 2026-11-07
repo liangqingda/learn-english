@@ -61,6 +61,7 @@ These rules apply to every skill that presents an English exercise and evaluates
 - When committing, stage only the changes made for the current task. Do not include unrelated user changes.
 - Use `[records]: xxx` when the commit changes only the canonical `learning-records/` data.
 - Use `[papers]: xxx` when the commit changes only persisted files under `exam-papers/`.
+- Use `[notes]: xxx` when the commit changes only review notes under `learning-record-notes/`.
 - Use `[skill]: xxx` when the commit changes only skill files.
 - Use `[readme-doc]: xxx` when the commit changes only `README.md`.
 - Use `[agents-doc]: xxx` when the commit changes only `AGENTS.md`.
