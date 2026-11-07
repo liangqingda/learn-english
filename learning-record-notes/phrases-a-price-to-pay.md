@@ -218,3 +218,9 @@ Working night shifts cost her her health, and she knew it.
 **讲解要点**：对话把同一知识点的三种句式放在真实语流里对比——`there is a price to pay for sth`（代价属于事情本身）、`pay a heavy price for sth`（当事人主动付出）、`come at a price`（代价是某个机会的入场券）；另引出 `a price worth paying` 用于判断“值不值得”，以及 `pay the price for` 的口语化用法。
 
 **可迁移表达**：`Nobody told me there'd be a price to pay for saying yes.` / `Every promotion comes at a price.` / `It's not a price I can afford for three more years.`
+
+### 练习「a price to pay」的关键语法结构
+
+**讲解要点**：拆开这个短语的三层语法——① 不定式作名词后置定语（`a lot of work to do`），与目的状语同形不同功能；② 主动形式的不定式承担被动含义（`a price to pay` = `a price that must be paid`），只有需要点明承付者时才用 `to be paid by …`；③ 完整名词短语的固定层级：限定词 → 形容词 → 名词 → 不定式 → `for` + 交换对象（`a heavy price to pay for fame`）；④ 定语从句可整体压缩为不定式，`the price that people have to pay for shortcuts` → `the price to pay for shortcuts`。
+
+**可迁移表达**：`There is still a lot of work to do before Friday.` / `a heavy price to pay for fame` / `I still have two reports to write.`
