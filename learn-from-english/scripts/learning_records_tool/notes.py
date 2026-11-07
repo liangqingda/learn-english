@@ -76,9 +76,14 @@ def _count_blocks(text: str) -> int:
 
 
 def _comparable(text: str) -> str:
-    """Normalize a block body so trivial whitespace differences do not register."""
+    """Normalize a block so trivial whitespace and separators do not register.
+
+    ``_split_blocks`` keeps the ``---`` separator that follows a block, so a
+    retried append inside a multi-round file must ignore it; otherwise the
+    same round looks new and gets appended a second time under a bumped minute.
+    """
     lines = [line.rstrip() for line in _normalize_text(text).strip("\n").split("\n")]
-    while lines and not lines[-1]:
+    while lines and (not lines[-1] or lines[-1] == "---"):
         lines.pop()
     return "\n".join(lines)
 
@@ -322,8 +327,8 @@ class NoteStore:
             "heading_adjusted": adjusted,
             "requested_heading": requested_heading,
             "hint": (
-                f"another round already used {requested_heading}; this block was saved as "
-                f"{heading} to keep both rounds and the ascending order"
+                f"{requested_heading} is already taken or would break the ascending order; "
+                f"this block was saved as {heading} instead, with both rounds kept"
                 if adjusted
                 else None
             ),

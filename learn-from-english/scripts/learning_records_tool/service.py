@@ -646,10 +646,19 @@ class RecordService:
         }
 
     def error_cluster_records(
-        self, cluster_id: str | None = None, *, unclustered: bool = False, limit: int | None = None
+        self,
+        cluster_id: str | None = None,
+        *,
+        unclustered: bool = False,
+        limit: int | None = None,
+        minimum_size: int = 2,
     ) -> dict[str, Any]:
-        """Return the full practice material for one cluster or for unclustered errors."""
-        clusters, clustered_outliers, _tag_families = self._error_groups(2)
+        """Return the full practice material for one cluster or for unclustered errors.
+
+        ``minimum_size`` must match the value used when ``error-clusters`` built the ids,
+        otherwise a cluster id returned there may not resolve here.
+        """
+        clusters, clustered_outliers, _tag_families = self._error_groups(minimum_size)
         if unclustered:
             picked = [self._practice_view(item) for item in clustered_outliers]
             if limit is not None and limit > 0:

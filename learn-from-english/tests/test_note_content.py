@@ -133,6 +133,37 @@ class NoteContentValidationTest(unittest.TestCase):
         text = note_text() + "\n---\n\n" + older
         self.assert_caught(text, "按时间从早到晚排列")
 
+    def test_same_minute_with_another_kind_is_not_misread_as_descending(self) -> None:
+        practice = note_text(stamp="2026-11-07 12:00").replace("· 复习", "· 练习")
+        text = note_text() + "\n---\n\n" + practice
+        issues = self.check(text)
+        self.assertFalse(any("从早到晚排列" in item["message"] for item in issues))
+
+    def test_paper_score_and_abandoned_score_forms_are_accepted(self) -> None:
+        for score in ("550.5 / 710（无听力模拟折算分）", "710 / 710（无听力模拟折算分）", "—", "评分未保存（已放弃）"):
+            with self.subTest(score=score):
+                self.assertEqual(self.check(note_text(score=score)), [])
+
+    def test_explanation_mentioning_option_letters_is_not_a_merged_option(self) -> None:
+        text = note_text(knowledge="选项 A. 与 B. 的区别在于是否保留介词")
+        self.assertEqual(self.check(text), [])
+
+    def test_reported_line_points_at_the_offending_row(self) -> None:
+        text = note_text()
+        target = next(
+            line for line in text.splitlines() if line.startswith("<tr><td>主观题得分")
+        )
+        text = text.replace(target, "<tr><td>主观题得分</td><td>x</td></tr>")
+        line_no = next(
+            index
+            for index, line in enumerate(text.splitlines(), start=1)
+            if line.startswith("<tr><td>主观题得分")
+        )
+        issues = self.check(text)
+        matched = [item for item in issues if "主观题得分" in item["message"]]
+        self.assertTrue(matched)
+        self.assertEqual(matched[0]["line"], line_no)
+
 
 class RealNotesTest(unittest.TestCase):
     """仓库里真实笔记必须持续通过校验，模板改版时这里会先响。"""

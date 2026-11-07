@@ -12,7 +12,7 @@ unanswered-labels: 考点 | 为什么答不出 | 英语的表达逻辑 | 正确�
 <colgroup><col width="150"><col></colgroup>
 <tr><td>记录 ID / 试卷 ID</td><td><record_id 或 paper_id></td></tr>
 <tr><td>分类 · 状态变化</td><td><category> · <旧状态> → <新状态>；未评分写 `<category> · 未评分`</td></tr>
-<tr><td>本轮得分</td><td><x / 10> 或 <xxx / 710（无听力模拟折算分）>；未评分写 `—`</td></tr>
+<tr><td>本轮得分</td><td><x / 10> 或 <xxx / 710（无听力模拟折算分）>；未评分写 `—`，保存失败且已放弃写 `评分未保存（已放弃）`</td></tr>
 <tr><td>题量与错题数</td><td><N 题 / M 处错误>；M = `错题讲解` 块数，不含未作答；有未作答时补 `（另有 K 题未作答）`</td></tr>
 <tr><td>目标知识点</td><td><title></td></tr>
 <tr><td>累计复习次数</td><td><n>；未评分写 `—`</td></tr>

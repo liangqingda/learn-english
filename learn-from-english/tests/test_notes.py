@@ -87,6 +87,16 @@ class NoteAppendTest(unittest.TestCase):
         self.assertTrue(result["duplicate"])
         self.assertEqual(result["blocks"], 1)
 
+    def test_retry_inside_a_multi_block_file_is_still_a_duplicate(self) -> None:
+        # 文件里已有两个区块时，第一块后面会带 `---` 分隔符；重试同一轮不能被判成新内容
+        self.store.append(self.note, round_block("2026-11-07 21:00"))
+        self.store.append(self.note, round_block("2026-11-07 21:05", body="第 2 轮"))
+        before = self.note.read_text(encoding="utf-8")
+        result = self.store.append(self.note, round_block("2026-11-07 21:00"))
+        self.assertTrue(result["duplicate"])
+        self.assertFalse(result["appended"])
+        self.assertEqual(self.note.read_text(encoding="utf-8"), before)
+
     def test_relative_and_bare_paths_resolve_to_notes_dir(self) -> None:
         result = self.store.append("errors-out-west.md", round_block())
         self.assertEqual(result["file"], "learning-record-notes/errors-out-west.md")

@@ -41,8 +41,9 @@
 3. 命令在 `learning-record-notes/.notes.lock` 上取排他锁，锁内完成「读现有文件 → 补 `---` 分隔 → 原子替换」。
 4. 返回值语义：
    - `appended: true, heading_adjusted: false`：正常写入。
-   - `appended: true, heading_adjusted: true`：同一文件已有另一轮用了这一分钟，**本轮已用顺延后的分钟保存**，
-     `heading` 是实际写入的标题，`requested_heading` 是原请求；两轮内容都保留，按 `heading` 继续后续修正。
+   - `appended: true, heading_adjusted: true`：这一分钟已被另一轮占用，或直接写入会打乱时间升序，
+     **本轮已用顺延后的分钟保存**，`heading` 是实际写入的标题，`requested_heading` 是原请求；
+     两轮内容都保留，按 `heading` 继续后续修正。
    - `appended: false, duplicate: true`：该标题的**同样内容**已存在（重试或并发冲突的产物），按已写入处理，
      不要重试、不要手工补写。
 5. 本轮区块刚写错时用同一把锁的替换命令（同样走 stdin，标题行必须与追加时返回的 `heading` 完全一致）：
@@ -91,7 +92,7 @@
 |---|---|
 | 记录 ID / 试卷 ID | `<category>:<key>` 或试卷 `paper_id`；须与文件名一致 |
 | 分类 · 状态变化 | `<category> · <旧状态> → <新状态>`；未评分写 `<category> · 未评分` |
-| 本轮得分 | `x / 10`、`xxx / 710（无听力模拟折算分）`、未评分 `—` |
+| 本轮得分 | `x / 10`、`xxx / 710（无听力模拟折算分）`、未评分 `—`；保存失败且已放弃写 `评分未保存（已放弃）` |
 | 题量与错题数 | `N 题 / M 处错误`；有未作答时补 `（另有 K 题未作答）` |
 | 目标知识点 | 记录 `title` |
 | 累计复习次数 | 数字，未评分 `—` |

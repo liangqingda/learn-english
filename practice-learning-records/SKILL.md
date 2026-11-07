@@ -36,7 +36,7 @@ python3 learn-from-english/scripts/learning_records.py menu --context initial
 - `scenario-dialogue`：有当前记录或 focus 时围绕它输出完整多轮场景对话；仅在两者都不存在时使用脚本给出的日常场景。不要把已有记录替换成咖啡店主题，也不要默认开启互动角色扮演，除非用户明确要求 role-play。
 - `follow-up-learning`：围绕 option label 和 `focus` 生成语法、词汇、对比、发音或产出内容。若生成未作答练习，不显示菜单；用户提交后批改，但不调用 `complete-review`。只把实际展示的可复用错误用一次 `batch-upsert` 保存。若讲解引入新的稳定知识点，按“后续学习知识点记录”保存。
 - `explain-current-exercise`：只在用户刚完成的复习答案存在错误或存在未作答题时解释该题组，不生成新题；错题说明考点、错误机制与正确表达，未作答题说明卡点与参考表达背后的英语计量、语义或结构逻辑。
-- `error-clusters`：运行 `error-clusters`，按返回的 `options` 顺序与 `label` 原文展示（脚本已经生成尽可选项，**禁止**再手工拼 `1-1` 子项、自行追加「未归类」入口或调整分组）。`tag_families` 只用来说明错题集中在哪类问题。
+- `error-clusters`：运行 `error-clusters`，按返回的 `options` 顺序与 `label` 原文展示（脚本已生成全部可选项，**禁止**再手工拼 `1-1` 子项、自行追加「未归类」入口或调整分组）。`tag_families` 只用来说明错题集中在哪类问题。
 - `error-cluster-review`：用返回的 `cluster_id` 运行 `error-cluster-get --id <cluster_id>`，按取回的材料围绕该错误模式生成一组聚焦练习；明确这是未评分练习，不显示菜单，不调用 `complete-review`，也不批量修改成员记录。
 - `error-cluster-review-unclustered`：运行 `error-cluster-get --unclustered --limit 8`，用取回的记录组成聚焦练习，其余规则同上。
 - 上述两类练习在用户作答后，只把本次实际展示的新可复用错误用一次 `batch-upsert` 保存。
@@ -263,7 +263,7 @@ python3 learn-from-english/scripts/learning_records.py menu \
 本 Skill 只保留三条硬约束：
 
 - 唯一写入方式是 `note-append` / `note-replace-block`，禁止用 `Write` 改写笔记文件，也禁止先落固定路径的临时区块文件。
-- `note-append` 返回 `heading_adjusted: true` 时，说明同文件已有另一轮占用了这一分钟，本轮已按顺延后的 `heading` 保存；
+- `note-append` 返回 `heading_adjusted: true` 时，说明这一分钟已被占用或写入会打乱时间升序，本轮已按顺延后的 `heading` 保存；
   两轮内容都保留，后续修正用返回的 `heading`。只有 `duplicate: true`（同标题同内容）才表示已经写过，不要重试。
 - `note_status` 为 `valid` 才算通过；`invalid` 表示写入成功但校验未过（退出码 1），用替换命令就地修正；
   `unverified` 表示校验器不可用，必须在回复里说明「本轮笔记未校验」。

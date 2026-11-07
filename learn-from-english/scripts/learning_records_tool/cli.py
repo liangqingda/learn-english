@@ -224,7 +224,10 @@ def handle_error_clusters(args: argparse.Namespace) -> dict[str, Any]:
 
 def handle_error_cluster_get(args: argparse.Namespace) -> dict[str, Any]:
     return service().error_cluster_records(
-        args.id, unclustered=args.unclustered, limit=args.limit
+        args.id,
+        unclustered=args.unclustered,
+        limit=args.limit,
+        minimum_size=args.minimum_size,
     )
 
 
@@ -438,6 +441,12 @@ def build_parser() -> argparse.ArgumentParser:
         "--unclustered", action="store_true", help="load unclustered error records"
     )
     cluster_get.add_argument("--limit", type=int, default=None)
+    cluster_get.add_argument(
+        "--minimum-size",
+        type=int,
+        default=2,
+        help="must match the value used when error-clusters built the ids",
+    )
     cluster_get.set_defaults(handler=handle_error_cluster_get)
 
     duplicates = subparsers.add_parser(

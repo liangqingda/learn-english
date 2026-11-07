@@ -118,12 +118,14 @@ VERDICT_RE = re.compile(r"^(\*\*判定\*\*：)(✅|⚠️|❌) ?(.*)$")
 DETAIL_ITEM_RE = re.compile(
     r"^(\d)\. \*\*(本题知识点|规则与机制|考点|为什么错|为什么答不出|英语的表达逻辑|正确表达|可迁移表达)\*\*：(.*)$"
 )
-MERGED_CHOICES_RE = re.compile(r"[A-D]\.\s.*[A-D]\.\s")
+MERGED_CHOICES_RE = re.compile(r"^\s*(?:[-*]\s+)?[A-D]\.\s.*[A-D]\.\s")
 MERGED_SUBITEMS_RE = re.compile(r"\(a\)[^\n]*\(b\)")
 TABLE_ROW_RE = re.compile(r"<tr>\s*<td>(.*?)</td>\s*<td>(.*?)</td>\s*</tr>")
 DATE_SUFFIX_RE = re.compile(r"-\d{4}-\d{2}-\d{2}\.md$")
 RECORD_CATEGORIES = ("vocabulary", "phrases", "grammar", "usage", "errors")
-SCORE_RE = re.compile(r"^(?:\d+(?:\.\d+)? / 10|\d+ / 710(?:（无听力模拟折算分）)?|—)$")
+SCORE_RE = re.compile(
+    r"^(?:\d+(?:\.\d+)? / 10|\d+(?:\.\d+)? / 710(?:（无听力模拟折算分）)?|—|评分未保存（已放弃）)$"
+)
 COUNTS_RE = re.compile(
     r"^(?P<total>\d+) 题 / (?P<errors>\d+) 处错误(?:（另有 (?P<unanswered>\d+) 题未作答）)?$"
 )
@@ -163,30 +165,32 @@ def check_filename(path: Path) -> list[dict]:
 
     if path.parent.name != NOTE_DIR_NAME:
         return []
+    issues: list[dict] = []
     if DATE_SUFFIX_RE.search(path.name):
-        return [
+        issues.append(
             {
                 "line": 1,
                 "message": f"笔记文件名不得带日期：主题相同一律复用同一文件，当前为 `{path.name}`",
             }
-        ]
+        )
     match = re.match(r"^([a-z]+)-[a-z0-9][a-z0-9-]*\.md$", path.name)
     if not match:
-        return [
+        issues.append(
             {
                 "line": 1,
                 "message": f"笔记文件名必须是 `<category>-<slug>.md`：category 取 {', '.join(NOTE_CATEGORIES)} 之一，当前为 `{path.name}`",
             }
-        ]
+        )
+        return issues
     prefix = match.group(1)
     if prefix not in NOTE_CATEGORIES:
-        return [
+        issues.append(
             {
                 "line": 1,
                 "message": f"文件名前缀只能取五类学习记录分类（{', '.join(NOTE_CATEGORIES)}），不得使用 `{prefix}` 等自造前缀：主题相同请复用既有文件",
             }
-        ]
-    return []
+        )
+    return issues
 
 
 def check(path: Path) -> list[dict]:
@@ -218,11 +222,14 @@ def check(path: Path) -> list[dict]:
 
     # 2b. 区块标题不得重复，且必须按时间升序排列（新轮次只能追加在末尾）
     headings = [f"{date} {time} · {kind}" for _, date, time, kind in sections]
+    # 排序只比较时间戳：同一分钟的两轮（复习后再练习）用不同 kind 是合法的，
+    # 不能因为 `· 复习` / `· 练习` 的字符顺序被判成倒序。
+    stamps = [f"{date} {time}" for _, date, time, _kind in sections]
     for index, heading in enumerate(headings):
         if headings.count(heading) > 1 and headings.index(heading) == index:
             add(sections[index][0], f"同一日期区块标题重复出现：`# {heading}`；一轮只能有一个区块")
-    for index in range(len(headings) - 1):
-        if headings[index] > headings[index + 1]:
+    for index in range(len(stamps) - 1):
+        if stamps[index] > stamps[index + 1]:
             add(
                 sections[index + 1][0],
                 "日期区块必须按时间从早到晚排列：旧区块保留在文件前部，新一轮只追加到末尾",
@@ -256,6 +263,8 @@ def check(path: Path) -> list[dict]:
 
         # 追踪表：无表头的 HTML 表格，紧跟日期区块，位于第一个二级标题之前
         table_open = next((k for k, l in enumerate(body) if l.strip().startswith("<table")), None)
+        # 表格各行的 1-based 行号：body[0] 对应 start + 1
+        table_line = start + table_open + 1 if table_open is not None else start
         if table_open is not None and table_open >= 1 and all(l.strip() == "" for l in body[:table_open]):
             add(start + 1, "日期标题与追踪表格之间不能留空行：标题下一行必须直接是 `<table …>`")
         table_close = next((k for k, l in enumerate(body) if l.strip() == "</table>"), None)
@@ -265,98 +274,111 @@ def check(path: Path) -> list[dict]:
         else:
             inner = body[table_open + 1 : table_close]
             if any(l.strip() in ("<thead>", "</thead>") or "<th>" in l for l in inner):
-                add(start + table_open, "追踪表格不允许表头：不要写 `<thead>` / `<th>`，也不要用 `| 字段 | 值 |`")
+                add(table_line, "追踪表格不允许表头：不要写 `<thead>` / `<th>`，也不要用 `| 字段 | 值 |`")
             if not any("<colgroup>" in l and f'width="{TEMPLATE["col_width"]}"' in l for l in inner):
                 add(
-                    start + table_open,
+                    table_line,
                     f"追踪表格必须固定紧凑列宽：紧跟 `<table …>` 写 `<colgroup><col width=\"{TEMPLATE['col_width']}\"><col></colgroup>",
                 )
             table_tag = next((l for l in body[max(0, table_open - 1) : table_open + 1] if l.strip().startswith("<table")), "").strip()
             if table_tag != TEMPLATE["table_tag"]:
                 add(
-                    start + table_open,
+                    table_line,
                     f"追踪表格标签必须与模板一致：`{TEMPLATE['table_tag']}`，避免渲染成整行宽而显得松散",
                 )
-            rows = [m.group(1).strip() for l in inner if (m := TABLE_ROW_RE.match(l.strip()))]
+            row_lines: list[tuple[int, str, str]] = []
+            for offset, line in enumerate(inner):
+                match = TABLE_ROW_RE.match(line.strip())
+                if match:
+                    # inner[offset] 的 1-based 行号
+                    row_lines.append(
+                        (
+                            start + table_open + offset + 2,
+                            match.group(1).strip(),
+                            match.group(2).strip(),
+                        )
+                    )
+            rows = [row for _, row, _value in row_lines]
+            values = [value for _, _row, value in row_lines]
             if rows != TEMPLATE["tracking_rows"]:
                 add(
-                    start + table_open,
+                    table_line,
                     "追踪表格行数与顺序必须与模板一致："
                     + " / ".join(str(row) for row in TEMPLATE["tracking_rows"]),
                 )
-            values = [m.group(2).strip() for l in inner if (m := TABLE_ROW_RE.match(l.strip()))]
             tracking = dict(zip(rows, values))
+            row_line = {row: line_no for line_no, row, _value in row_lines}
             section_tracking = tracking
-            for index, (row, value) in enumerate(zip(rows, values)):
+            for line_no, row, value in row_lines:
                 if not value:
-                    add(start + table_open, f"追踪表格 `{row}` 的值不能为空；未知时写 `—`")
+                    add(line_no, f"追踪表格 `{row}` 的值不能为空；未知时写 `—`")
             record_id = tracking.get("记录 ID / 试卷 ID", "")
             if record_id:
                 if note_category in RECORD_CATEGORIES:
                     match = RECORD_ID_RE.match(record_id)
                     if not match:
                         add(
-                            start + table_open,
+                            row_line.get("记录 ID / 试卷 ID", table_line),
                             f"`记录 ID / 试卷 ID` 必须写成 `<category>:<key>`：当前为 `{record_id}`",
                         )
                     else:
                         if match.group(1) != note_category:
                             add(
-                                start + table_open,
+                                row_line.get("记录 ID / 试卷 ID", table_line),
                                 f"记录 ID 的分类 `{match.group(1)}` 与文件名前缀 `{note_category}` 不一致",
                             )
                         if f"{note_category}-{match.group(2)}.md" != path.name:
                             add(
-                                start + table_open,
+                                row_line.get("记录 ID / 试卷 ID", table_line),
                                 f"记录 ID 与文件名不一致：`{record_id}` 应对应 `{note_category}-{match.group(2)}.md`，当前为 `{path.name}`",
                             )
                 elif note_category not in ("mixed", "paper") and not RECORD_ID_RE.match(record_id):
-                    add(start + table_open, f"`记录 ID / 试卷 ID` 格式无效：`{record_id}`")
+                    add(table_line, f"`记录 ID / 试卷 ID` 格式无效：`{record_id}`")
             transition = tracking.get("分类 · 状态变化", "")
             if transition and not TRANSITION_RE.match(transition):
                 add(
-                    start + table_open,
+                    row_line.get("分类 · 状态变化", table_line),
                     f"`分类 · 状态变化` 必须写成 `<category> · <旧状态> → <新状态>` 或 `<category> · 未评分`：当前为 `{transition}`",
                 )
             score = tracking.get("本轮得分", "")
             if score and not SCORE_RE.match(score):
                 add(
-                    start + table_open,
+                    row_line.get("本轮得分", table_line),
                     f"`本轮得分` 只能是 `x / 10`、`xxx / 710（无听力模拟折算分）` 或 `—`：当前为 `{score}`",
                 )
             counts_value = tracking.get("题量与错题数", "")
             if counts_value and not COUNTS_RE.match(counts_value):
                 add(
-                    start + table_open,
+                    row_line.get("题量与错题数", table_line),
                     f"`题量与错题数` 必须写成 `N 题 / M 处错误`（有未作答时补 `（另有 K 题未作答）`）：当前为 `{counts_value}`",
                 )
             review_count = tracking.get("累计复习次数", "")
             if review_count and not REVIEW_COUNT_RE.match(review_count):
-                add(start + table_open, f"`累计复习次数` 只能是数字或 `—`：当前为 `{review_count}`")
+                add(table_line, f"`累计复习次数` 只能是数字或 `—`：当前为 `{review_count}`")
             next_review = tracking.get("下次复习", "")
             if next_review and not NEXT_REVIEW_RE.match(next_review):
                 add(
-                    start + table_open,
+                    row_line.get("下次复习", table_line),
                     f"`下次复习` 必须是 `YYYY-MM-DD HH:MM` 或 `—`：当前为 `{next_review}`",
                 )
             subjective = tracking.get("主观题得分", "")
             if subjective and not SUBJECTIVE_RE.match(subjective):
                 add(
-                    start + table_open,
+                    row_line.get("主观题得分", table_line),
                     f"`主观题得分` 必须是 `写作 x/15 · 翻译 x/15` 或 `—`：当前为 `{subjective}`",
                 )
             generated_at = tracking.get("笔记生成时间", "")
             if generated_at and not TIMESTAMP_RE.match(generated_at):
                 add(
-                    start + table_open,
+                    row_line.get("笔记生成时间", table_line),
                     f"`笔记生成时间` 必须是 `YYYY-MM-DD HH:MM`：当前为 `{generated_at}`",
                 )
             if first_group is not None and first_group <= table_close:
-                add(start + first_group, "`## 本轮习题` 必须在追踪表格之后")
+                add(start + first_group + 1, "`## 本轮习题` 必须在追踪表格之后")
 
         for line_off, line in enumerate(body):
             if line.strip().startswith("| 字段 |"):
-                add(start + line_off, "追踪信息不再使用 Markdown 表头行，改用无表头 HTML 表格")
+                add(start + line_off + 1, "追踪信息不再使用 Markdown 表头行，改用无表头 HTML 表格")
 
         # 6. 二级标题分组：第一个必须是 `## 本轮习题`，其余每组对应一个菜单项
         groups: list[tuple[int, str, int]] = []
@@ -367,9 +389,10 @@ def check(path: Path) -> list[dict]:
 
         quiz_index = next((i for i, (_, title, _) in enumerate(groups) if title == QUIZ_SECTION), None)
         if quiz_index is None:
-            add(start, "区块内缺少 `## 本轮习题`")
+            if group_heads:  # 一个二级标题都没有时只报一次，避免重复提示
+                add(start, "区块内缺少 `## 本轮习题`")
         elif quiz_index != 0:
-            add(start + groups[0][0], "第一个二级标题必须是 `## 本轮习题`")
+            add(start + groups[0][0] + 1, "第一个二级标题必须是 `## 本轮习题`")
 
         # 旧写法：菜单项仍写成三级标题
         for k, line in enumerate(body):
@@ -423,9 +446,9 @@ def check(path: Path) -> list[dict]:
                 number = int(QUESTION_RE.match(body[q_pos]).group(1))
                 qtype = QUESTION_RE.match(body[q_pos]).group(2)
                 if number != order:
-                    add(start + q_pos, f"题号必须从 1 连续递增，当前第 {order} 题的编号是 {number}")
+                    add(start + q_pos + 1, f"题号必须从 1 连续递增，当前第 {order} 题的编号是 {number}")
                 if qtype not in QUESTION_TYPES:
-                    add(start + q_pos, f"题型必须是固定集合之一：{' / '.join(QUESTION_TYPES)}；当前为 `{qtype}`")
+                    add(start + q_pos + 1, f"题型必须是固定集合之一：{' / '.join(QUESTION_TYPES)}；当前为 `{qtype}`")
 
             for qi, q_pos in enumerate(q_all):
                 block = body[q_pos : (q_all[qi + 1] if qi + 1 < len(q_all) else g_end)]
@@ -569,9 +592,9 @@ def check(path: Path) -> list[dict]:
         # 8. 渲染合并检查
         for k, line in enumerate(body):
             if MERGED_CHOICES_RE.search(line):
-                add(start + k, "选择题选项必须在同一行只放一个（用 `- A. …` 列表项），不得挤在一行")
+                add(start + k + 1, "选择题选项必须在同一行只放一个（用 `- A. …` 列表项），不得挤在一行")
             if MERGED_SUBITEMS_RE.search(line):
-                add(start + k, "多小题的 (a)/(b) 必须逐条写成列表项，不得挤在一行")
+                add(start + k + 1, "多小题的 (a)/(b) 必须逐条写成列表项，不得挤在一行")
 
     return issues
 
