@@ -167,8 +167,8 @@ def check(path: Path) -> list[dict]:
                     start + table_open,
                     f"追踪表格必须固定紧凑列宽：紧跟 `<table …>` 写 `<colgroup><col width=\"{TEMPLATE['col_width']}\"><col></colgroup>`",
                 )
-            table_tag = next((l for l in body[max(0, table_open - 1) : table_open + 1] if l.strip().startswith("<table")), "")
-            if "width:auto" not in table_tag or 'border-collapse:collapse' not in table_tag:
+            table_tag = next((l for l in body[max(0, table_open - 1) : table_open + 1] if l.strip().startswith("<table")), "").strip()
+            if table_tag != TEMPLATE["table_tag"]:
                 add(
                     start + table_open,
                     f"追踪表格标签必须与模板一致：`{TEMPLATE['table_tag']}`，避免渲染成整行宽而显得松散",

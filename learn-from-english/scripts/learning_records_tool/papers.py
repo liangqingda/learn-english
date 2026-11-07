@@ -764,7 +764,7 @@ class PaperService:
                 for target in [*record_paths, path]
             }
             try:
-                self.store._write(database)
+                self.store._write(database, extra_pre_images={path: snapshots[path]})
                 if os.environ.get("LEARN_ENGLISH_FAIL_PAPER_COMPLETE") == "1":
                     raise RecordError("injected paper completion failure")
                 self.store._write_file(path, paper, validate=validate_paper)

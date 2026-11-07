@@ -279,6 +279,33 @@ class ServiceInvariantTest(unittest.TestCase):
         self.assertFalse(self.store.txn_dir.exists())
         self.assertTrue(self.store.txn_recovery_log_path.exists())
 
+    def test_new_write_never_clobbers_a_pending_journal(self) -> None:
+        self.service.upsert(payload("phrases", "journal-guard"))
+        database = self.store._load()
+        target = self.store.category_path("phrases")
+        backup = self.store.txn_dir / "backup-0.json"
+        self.store.txn_dir.mkdir(parents=True, exist_ok=True)
+        backup.write_bytes(target.read_bytes())
+        journal = {
+            "revision": 9,
+            "entries": [{"target": str(target), "backup": str(backup), "mode": 0o644}],
+        }
+        self.store.txn_journal_path.write_text(
+            json.dumps(journal, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
+        target.unlink()
+
+        # A write path that does not pre-recover (e.g. papers.py) must still
+        # recover the stale journal instead of overwriting it with new backups.
+        self.store._write(database, force_all=True)
+
+        self.assertTrue(target.exists())
+        self.assertFalse(self.store.txn_journal_path.exists())
+        self.assertIn(
+            "revision 9",
+            self.store.txn_recovery_log_path.read_text(encoding="utf-8"),
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

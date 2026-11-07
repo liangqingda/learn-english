@@ -667,8 +667,7 @@ class RecordStore:
 
     def _begin_transaction_journal(
         self,
-        writes: list[tuple[Path, Any, Callable[[Any], list[dict[str, Any]]]]],
-        snapshots: dict[Path, tuple[bytes | None, int | None]],
+        pre_images: list[tuple[Path, bytes | None, int | None]],
         revision: int,
     ) -> None:
         """Persist pre-images of every target file before any replace happens.
@@ -679,15 +678,20 @@ class RecordStore:
         import shutil
         import tempfile
 
+        if self.txn_journal_path.exists():
+            # Never clobber recovery data from an earlier interrupted write.
+            self.recover_incomplete_transaction()
         self.txn_dir.mkdir(parents=True, exist_ok=True)
         entries: list[dict[str, Any]] = []
-        for index, (path, _document, _validator) in enumerate(writes):
-            content, mode = snapshots[path]
+        for index, (path, content, mode) in enumerate(pre_images):
             backup_path = None
             if content is not None:
-                backup_path = self.txn_dir / f"backup-{index}.json"
+                backup_path = self.txn_dir / f"backup-{index}-{path.name}"
                 backup_path.write_bytes(content)
-                shutil.copystat(path, backup_path)
+                try:
+                    shutil.copystat(path, backup_path)
+                except OSError:
+                    pass
             entries.append(
                 {
                     "target": str(path),
@@ -750,15 +754,17 @@ class RecordStore:
             journal = json.loads(self.txn_journal_path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError) as exc:
             raise RecordError(
-                f"cannot read pending transaction journal {self.txn_journal_path}: {exc}"
+                f"cannot read pending transaction journal {self.txn_journal_path}: {exc}; "
+                "inspect the file manually (its pre-images live in the same .txn/ directory) "
+                "before deleting it"
             ) from exc
         if not isinstance(journal, dict):
             raise RecordError("pending transaction journal is invalid")
         errors = self._restore_transaction_journal(journal)
         if errors:
             raise RecordError(
-                "pending transaction recovery failed, files were left untouched: "
-                + "; ".join(errors)
+                "pending transaction recovery failed; some files may already be restored, "
+                "check each target before writing again: " + "; ".join(errors)
             )
         self._finish_transaction_journal()
         stamp = datetime.now().astimezone().isoformat(timespec="seconds")
@@ -813,7 +819,17 @@ class RecordStore:
             mastered[category] = self._slim_mastered_records(mastered_records)
         return learning, mastered
 
-    def _write(self, database: dict[str, Any], *, force_all: bool = False) -> None:
+    def _write(
+        self,
+        database: dict[str, Any],
+        *,
+        force_all: bool = False,
+        extra_pre_images: dict[Path, tuple[bytes | None, int | None]] | None = None,
+    ) -> None:
+        # Recover before snapshotting: rollback images must describe the
+        # post-recovery state, not files a previous crash half-overwrote.
+        if self.txn_journal_path.exists():
+            self.recover_incomplete_transaction()
         if os.environ.get("LEARN_ENGLISH_FAIL_BEFORE_REPLACE") == "1":
             raise RecordError("injected failure before atomic replace")
 
@@ -880,9 +896,13 @@ class RecordStore:
         }
         attempted: list[Path] = []
         journal_created = False
-        if writes:
+        pre_images = [(path, *snapshots[path]) for path, _document, _validator in writes]
+        for path, snapshot in (extra_pre_images or {}).items():
+            if path not in snapshots:
+                pre_images.append((path, *snapshot))
+        if pre_images:
             self._begin_transaction_journal(
-                writes, snapshots, int(database.get("revision", 0))
+                pre_images, int(database.get("revision", 0))
             )
             journal_created = True
         try:

@@ -705,7 +705,9 @@ class RecordService:
                     explanation_similarity = self._text_similarity(
                         left.get("explanation"), right.get("explanation")
                     )
-                    similarity = max(title_similarity, explanation_similarity)
+                    # Title carries the knowledge point; explanation only breaks ties,
+                    # so a shared generic sentence cannot make two distinct items pair up.
+                    similarity = 0.7 * title_similarity + 0.3 * explanation_similarity
                     if similarity < threshold:
                         continue
                     pairs.append(
