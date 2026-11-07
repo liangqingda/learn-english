@@ -221,7 +221,9 @@ python3 learn-from-english/scripts/learning_records.py note-replace-block \
 EOF
 ```
 
-区块走标准输入，不落中间文件；确需文件时用 `mktemp` 生成唯一路径，**不要**用 `/tmp/note-block.md` 这类固定路径，否则并行会话会互相覆盖内容源。`note-append` 在 `learning-record-notes/.notes.lock` 上取排他锁，锁内完成“读现有文件 → 追加 `---` 分隔 → `os.replace` 原子替换”，因此多个会话同时写同一个笔记文件不会互相覆盖；同标题区块已存在时返回 `appended: false, duplicate: true` 并在 `hint` 提示改用替换命令，重试不会写重复区块。`note-replace-block` 用同一把锁只替换指定标题的区块，保留其他轮次原样。`--check` 会运行 `practice-learning-records/scripts/check_note.py` 并把结果放进 `check` 字段，校验不通过时进程退出码为 1。
+区块走标准输入，不落中间文件；确需文件时用 `mktemp` 生成唯一路径，**不要**用 `/tmp/note-block.md` 这类固定路径，否则并行会话会互相覆盖内容源。`note-append` 在 `learning-record-notes/.notes.lock` 上取排他锁，锁内完成“读现有文件 → 追加 `---` 分隔 → `os.replace` 原子替换”，因此多个会话同时写同一个笔记文件不会互相覆盖。判重按「标题 + 正文」：同标题同内容返回 `appended: false, duplicate: true`（不要重试）；同标题但内容不同不会丢内容，命令会把时间顺延到不冲突且保持升序的分钟并返回 `heading_adjusted: true` 与新的 `heading`。`note-replace-block` 用同一把锁只替换指定标题的区块，保留其他轮次原样。
+
+`--check` 会运行 `practice-learning-records/scripts/check_note.py`，结果放进 `check` 字段，并用 `check_ok` / `note_status` 区分写入与合规：`valid` 通过，`invalid` 表示写入成功但校验未过（进程退出码 1），`unverified` 表示校验器不可用。笔记格式的唯一规则来源是 `practice-learning-records/references/note-format.md`，版式以 `templates/review-note.md` 为准。
 
 ### 查询和统计
 
@@ -238,9 +240,16 @@ python3 learn-from-english/scripts/learning_records.py history \
   --id grammar:present-perfect-experience
 python3 learn-from-english/scripts/learning_records.py stats --period 30d
 python3 learn-from-english/scripts/learning_records.py error-clusters
+python3 learn-from-english/scripts/learning_records.py error-cluster-get \
+  --id <cluster-id>
+python3 learn-from-english/scripts/learning_records.py error-cluster-get \
+  --unclustered --limit 8
+python3 learn-from-english/scripts/learning_records.py familiar-list --brief
 ```
 
-`search` 默认检索全部状态，按相关度排序，并返回 `matched_fields`、`snippet` 和 `relevance`；调用方可以用重复的 `--status` 限制范围。`stats` 在基础总数与事件之外返回 `snapshot_totals`、`daily`、`by_category`、`score_distribution`、`due_backlog`、`mastered_random_pool`、`lapse_count` 和 `mastery_count`；其中 `due_backlog` 只统计仍需调度的 learning/familiar 记录，已掌握记录作为随机抽查池单列。`error-clusters` 返回 cluster label、数量、成员和未聚类错题，用于选择一个聚类生成未评分的多模式练习；它不自动合并记录，也不改变多个规范记录的分数。
+`search` 默认检索全部状态，按相关度排序，并返回 `matched_fields`、`snippet` 和 `relevance`；调用方可以用重复的 `--status` 限制范围。`stats` 在基础总数与事件之外返回 `snapshot_totals`、`daily`、`by_category`、`score_distribution`、`due_backlog`、`mastered_random_pool`、`lapse_count` 和 `mastery_count`；其中 `due_backlog` 只统计仍需调度的 learning/familiar 记录，已掌握记录作为随机抽查池单列。
+
+`error-clusters` 默认返回**精简**结果：`clusters`（id / label / count / record_ids）与 `options`（脚本生成的错题专题菜单项，含未归类入口）、`unclustered_count`、`tag_families`（最多 12 条）+ `tag_family_total`，不再内联全部记录（142 条错题从 230 KB 降到 17 KB）。需要某一类的完整材料时用 `error-cluster-get` 取回精简字段（id / title / explanation / source / example / tags）；`--with-records` 保留旧的完整输出，仅用于排查。它不自动合并记录，也不改变多个规范记录的分数。`list` / `familiar-list` / `mastered-list` 加 `--brief` 可省略 `review_history` 与调度时间戳。
 
 ### 校验、修复和迁移
 
@@ -284,6 +293,7 @@ python3 learn-from-english/scripts/learning_records.py migrate-v2 --dry-run
 │   └── tests/
 ├── practice-learning-records/
 │   ├── SKILL.md
+│   ├── references/note-format.md
 │   ├── templates/review-note.md
 │   ├── scripts/check_note.py
 │   └── agents/openai.yaml

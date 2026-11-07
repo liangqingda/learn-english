@@ -1094,10 +1094,24 @@ class LearningRecordsTest(unittest.TestCase):
             set(result["clusters"][0]["record_ids"]),
             {"errors:missing-article-job", "errors:article-profession"},
         )
+        self.assertEqual(result["unclustered"], ["errors:modal-base-form"])
         self.assertEqual(
-            [record["id"] for record in result["unclustered"]],
-            ["errors:modal-base-form"],
+            result["options"][-1]["label"], "复习未归类的错题（1）"
         )
+        self.assertEqual(
+            result["options"][-1]["kind"], "error-cluster-review-unclustered"
+        )
+        material = self.service.error_cluster_records(result["clusters"][0]["id"])
+        self.assertEqual(
+            {record["id"] for record in material["records"]},
+            {"errors:missing-article-job", "errors:article-profession"},
+        )
+        self.assertNotIn("review_history", material["records"][0])
+        unclustered_material = self.service.error_cluster_records(
+            unclustered=True, limit=1
+        )
+        self.assertEqual(unclustered_material["count"], 1)
+        self.assertEqual(unclustered_material["remaining_count"], 0)
 
     def test_stats_include_daily_category_distribution_backlog_and_transitions(self) -> None:
         self.service.upsert(

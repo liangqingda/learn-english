@@ -598,7 +598,105 @@ class RecordService:
             )
         return [item[2] for item in sorted(ranked_results)]
 
-    def error_pattern_clusters(self, *, minimum_size: int = 2) -> dict[str, Any]:
+    def error_pattern_clusters(
+        self, *, minimum_size: int = 2, include_records: bool = False
+    ) -> dict[str, Any]:
+        clusters, unclustered, tag_families = self._error_groups(minimum_size)
+        brief_clusters = [
+            {
+                "id": cluster["id"],
+                "label": cluster["label"],
+                "count": cluster["count"],
+                "record_ids": cluster["record_ids"],
+                **({"records": cluster["records"]} if include_records else {}),
+            }
+            for cluster in clusters
+        ]
+        options: list[dict[str, Any]] = [
+            {
+                "id": cluster["id"],
+                "icon": "🗂️",
+                "label": f"{cluster['label']}（{cluster['count']}）",
+                "group": "other",
+                "kind": "error-cluster-review",
+                "cluster_id": cluster["id"],
+                "count": cluster["count"],
+            }
+            for cluster in clusters
+        ]
+        if unclustered:
+            options.append(
+                {
+                    "id": "error-cluster-unclustered",
+                    "icon": "📌",
+                    "label": f"复习未归类的错题（{len(unclustered)}）",
+                    "group": "other",
+                    "kind": "error-cluster-review-unclustered",
+                    "count": len(unclustered),
+                }
+            )
+        return {
+            "cluster_count": len(clusters),
+            "clusters": brief_clusters,
+            "options": options,
+            "unclustered": unclustered if include_records else [item["id"] for item in unclustered],
+            "unclustered_count": len(unclustered),
+            "tag_families": tag_families[:12],
+            "tag_family_total": len(tag_families),
+        }
+
+    def error_cluster_records(
+        self, cluster_id: str | None = None, *, unclustered: bool = False, limit: int | None = None
+    ) -> dict[str, Any]:
+        """Return the full practice material for one cluster or for unclustered errors."""
+        clusters, clustered_outliers, _tag_families = self._error_groups(2)
+        if unclustered:
+            picked = [self._practice_view(item) for item in clustered_outliers]
+            if limit is not None and limit > 0:
+                picked = picked[:limit]
+            return {
+                "source": "unclustered",
+                "count": len(picked),
+                "remaining_count": len(clustered_outliers) - len(picked),
+                "records": picked,
+            }
+        if not cluster_id:
+            raise RecordError("error-cluster-get needs --id or --unclustered")
+        matched = next((item for item in clusters if item["id"] == cluster_id), None)
+        if matched is None:
+            raise RecordError(f"error cluster does not exist: {cluster_id}")
+        records = [self._practice_view(item) for item in matched["records"]]
+        if limit is not None and limit > 0:
+            records = records[:limit]
+        return {
+            "source": "cluster",
+            "cluster_id": cluster_id,
+            "label": matched["label"],
+            "count": len(records),
+            "remaining_count": matched["count"] - len(records),
+            "records": records,
+        }
+
+    @staticmethod
+    def _practice_view(record: dict[str, Any]) -> dict[str, Any]:
+        """Only the fields needed to design a focused practice set."""
+        return {
+            field: record.get(field)
+            for field in (
+                "id",
+                "category",
+                "status",
+                "title",
+                "explanation",
+                "source",
+                "example",
+                "tags",
+            )
+        }
+
+    def _error_groups(
+        self, minimum_size: int
+    ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
         if minimum_size < 1:
             raise RecordError("minimum cluster size must be at least 1")
         errors = self.list_records(category="errors", status=None)
@@ -667,23 +765,16 @@ class RecordService:
                 }
             )
         clusters.sort(key=lambda item: (-item["count"], item["id"]))
-        tag_families = {}
+        tag_counts: dict[str, int] = {}
         for record in errors:
             for tag in meaningful_tags(record):
-                tag_families[tag] = tag_families.get(tag, 0) + 1
-        unclustered = [
-            record for record in errors if record["id"] not in clustered_ids
+                tag_counts[tag] = tag_counts.get(tag, 0) + 1
+        tag_families = [
+            {"tag": tag, "count": count}
+            for tag, count in sorted(tag_counts.items(), key=lambda item: (-item[1], item[0]))
         ]
-        return {
-            "cluster_count": len(clusters),
-            "clusters": clusters,
-            "unclustered": unclustered,
-            "unclustered_count": len(unclustered),
-            "tag_families": [
-                {"tag": tag, "count": count}
-                for tag, count in sorted(tag_families.items(), key=lambda item: (-item[1], item[0]))
-            ],
-        }
+        unclustered = [record for record in errors if record["id"] not in clustered_ids]
+        return clusters, unclustered, tag_families
 
     def duplicate_candidates(
         self, *, threshold: float = 0.85, category: str | None = None

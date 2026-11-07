@@ -120,8 +120,19 @@ class NoteTemplateTest(unittest.TestCase):
         self.assertEqual(check_note.TEMPLATE["col_width"], 150)
 
     def note_text(self) -> str:
+        values = {
+            "记录 ID / 试卷 ID": "errors:out-west",
+            "分类 · 状态变化": "errors · learning → familiar",
+            "本轮得分": "9 / 10",
+            "题量与错题数": "1 题 / 1 处错误",
+            "目标知识点": "out west 不是 outwest",
+            "累计复习次数": "2",
+            "下次复习": "2026-11-20 12:00",
+            "主观题得分": "—",
+            "笔记生成时间": "2026-11-07 12:05",
+        }
         rows = "\n".join(
-            f"<tr><td>{row}</td><td>x</td></tr>"
+            f"<tr><td>{row}</td><td>{values.get(row, 'x')}</td></tr>"
             for row in check_note.TEMPLATE["tracking_rows"]
         )
         return (
@@ -262,7 +273,10 @@ class MenuItemNoteTest(unittest.TestCase):
             self.assertEqual(check_note.check(path), [])
 
             path = notes / "phrases-a-price-to-pay.md"
-            path.write_text(self.base_note(), encoding="utf-8")
+            path.write_text(
+                self.base_note().replace("errors:out-west", "phrases:a-price-to-pay"),
+                encoding="utf-8",
+            )
             self.assertEqual(check_note.check(path), [])
 
     def test_menu_item_after_questions_passes(self) -> None:

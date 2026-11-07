@@ -64,12 +64,28 @@ class NoteAppendTest(unittest.TestCase):
         self.assertTrue(result["duplicate"])
         self.assertEqual(self.note.read_bytes(), before)
 
-    def test_duplicate_heading_with_changed_body_is_not_silently_dropped(self) -> None:
+    def test_duplicate_heading_with_changed_body_keeps_both_rounds(self) -> None:
         self.store.append(self.note, round_block())
         result = self.store.append(self.note, round_block(body="改过的内容"))
+        self.assertTrue(result["appended"])
+        self.assertTrue(result["heading_adjusted"])
+        self.assertEqual(result["requested_heading"], "# 2026-11-07 21:00 · 复习")
+        self.assertNotEqual(result["heading"], result["requested_heading"])
+        text = self.note.read_text(encoding="utf-8")
+        self.assertIn("改过的内容", text)
+        self.assertIn("第 1 轮", text)
+        self.assertEqual(result["blocks"], 2)
+        self.assertLess(
+            text.index("# 2026-11-07 21:00 · 复习"),
+            text.index(result["heading"]),
+        )
+
+    def test_identical_content_with_same_heading_is_a_duplicate(self) -> None:
+        self.store.append(self.note, round_block())
+        result = self.store.append(self.note, round_block())
+        self.assertFalse(result["appended"])
         self.assertTrue(result["duplicate"])
-        self.assertIn("note-replace-block", result["hint"])
-        self.assertNotIn("改过的内容", self.note.read_text(encoding="utf-8"))
+        self.assertEqual(result["blocks"], 1)
 
     def test_relative_and_bare_paths_resolve_to_notes_dir(self) -> None:
         result = self.store.append("errors-out-west.md", round_block())
@@ -167,7 +183,11 @@ class NoteAppendTest(unittest.TestCase):
         contents = []
         for index in range(total):
             path = self.repo / f"block-{index}.md"
-            path.write_text(round_block(f"2026-11-07 21:{index:02d}"), encoding="utf-8")
+            # 每轮内容是独立的，避免把不同轮次误判成同一次重试
+            path.write_text(
+                round_block(f"2026-11-07 21:{index:02d}", body=f"第 {index} 轮"),
+                encoding="utf-8",
+            )
             contents.append(path)
         environment = dict(os.environ, LEARN_ENGLISH_REPO_ROOT=str(self.repo))
         processes = [
@@ -292,8 +312,27 @@ class NoteCliTest(unittest.TestCase):
         self.assertEqual(completed.returncode, 1, completed.stderr)
         payload = json.loads(completed.stdout)
         self.assertTrue(payload["ok"])
+        self.assertTrue(payload["appended"])
+        self.assertEqual(payload["note_status"], "invalid")
+        self.assertFalse(payload["check_ok"])
         self.assertFalse(payload["check"]["ok"])
         self.assertTrue(payload["check"]["issues"])
+
+    def test_cli_reports_valid_note_status(self) -> None:
+        completed = self.run_cli(
+            [
+                "note-append",
+                "--file",
+                "learning-record-notes/errors-out-west.md",
+                "--content-file",
+                "-",
+                "--check",
+            ],
+            VALID_BLOCK.format(heading="2026-11-09 09:00 · 复习", answer="west"),
+        )
+        payload = json.loads(completed.stdout)
+        self.assertEqual(payload["note_status"], "valid")
+        self.assertTrue(payload["check_ok"])
 
     def test_cli_replace_block_rewrites_only_that_round(self) -> None:
         for heading in ("2026-11-09 09:00 · 复习", "2026-11-10 09:00 · 复习"):

@@ -116,11 +116,28 @@ QUESTION_RE = re.compile(r"^### (\d+)\. " r"(\S.*?)\s*$")
 FIELD_RE = re.compile(r"^\*\*(题目|我的答案|判定)\*\*：")
 VERDICT_RE = re.compile(r"^(\*\*判定\*\*：)(✅|⚠️|❌) ?(.*)$")
 DETAIL_ITEM_RE = re.compile(
-    r"^(\d)\. \*\*(本题知识点|规则与机制|考点|为什么错|为什么答不出|英语的表达逻辑|正确表达|可迁移表达)\*\*："
+    r"^(\d)\. \*\*(本题知识点|规则与机制|考点|为什么错|为什么答不出|英语的表达逻辑|正确表达|可迁移表达)\*\*：(.*)$"
 )
-MERGED_CHOICES_RE = re.compile(r"A\.\s.*B\.\s")
+MERGED_CHOICES_RE = re.compile(r"[A-D]\.\s.*[A-D]\.\s")
 MERGED_SUBITEMS_RE = re.compile(r"\(a\)[^\n]*\(b\)")
 TABLE_ROW_RE = re.compile(r"<tr>\s*<td>(.*?)</td>\s*<td>(.*?)</td>\s*</tr>")
+DATE_SUFFIX_RE = re.compile(r"-\d{4}-\d{2}-\d{2}\.md$")
+RECORD_CATEGORIES = ("vocabulary", "phrases", "grammar", "usage", "errors")
+SCORE_RE = re.compile(r"^(?:\d+(?:\.\d+)? / 10|\d+ / 710(?:（无听力模拟折算分）)?|—)$")
+COUNTS_RE = re.compile(
+    r"^(?P<total>\d+) 题 / (?P<errors>\d+) 处错误(?:（另有 (?P<unanswered>\d+) 题未作答）)?$"
+)
+NUMBER_PREFIX_RE = re.compile(r"^\d+[.)、]\s*")
+REVIEW_COUNT_RE = re.compile(r"^(\d+|—)$")
+NEXT_REVIEW_RE = re.compile(r"^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}|—)$")
+SUBJECTIVE_RE = re.compile(r"^(—|写作 \d+/15 · 翻译 \d+/15)$")
+TIMESTAMP_RE = re.compile(r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$")
+RECORD_ID_RE = re.compile(r"^(vocabulary|phrases|grammar|usage|errors):([a-z0-9]+(?:-[a-z0-9]+)*)$")
+TRANSITION_RE = re.compile(
+    r"^(vocabulary|phrases|grammar|usage|errors|mixed|paper) · "
+    r"((learning|familiar|mastered) → (learning|familiar|mastered)|未评分)$"
+)
+UNANSWERED_WORDS = ("未作答", "未完成", "漏答")
 MENU_ITEM_RE = re.compile(r"^### (\S.*?)\s*$")
 QUIZ_SECTION = "本轮习题"
 SECTION2_RE = re.compile(r"^## (?!#|追踪)(\S.*?)\s*$")
@@ -135,11 +152,24 @@ NOTE_CATEGORIES = ("vocabulary", "phrases", "grammar", "usage", "errors", "paper
 STRUCTURED_LINE_RE = re.compile(r"^(?:[-*] |\d+\. )")
 
 
+def filename_category(path: Path) -> str | None:
+    """Return the `<category>` prefix of a note file name."""
+    match = re.match(r"^([a-z]+)-[a-z0-9][a-z0-9-]*\.md$", path.name)
+    return match.group(1) if match else None
+
+
 def check_filename(path: Path) -> list[dict]:
-    """分类前缀只允许五类学习记录分类，禁止 `mixed` 等自造前缀。"""
+    """分类前缀只允许五类学习记录分类，禁止 `mixed` 等自造前缀；文件名不带日期。"""
 
     if path.parent.name != NOTE_DIR_NAME:
         return []
+    if DATE_SUFFIX_RE.search(path.name):
+        return [
+            {
+                "line": 1,
+                "message": f"笔记文件名不得带日期：主题相同一律复用同一文件，当前为 `{path.name}`",
+            }
+        ]
     match = re.match(r"^([a-z]+)-[a-z0-9][a-z0-9-]*\.md$", path.name)
     if not match:
         return [
@@ -173,6 +203,8 @@ def check(path: Path) -> list[dict]:
     for issue in check_filename(path):
         add(issue["line"], issue["message"])
 
+    note_category = filename_category(path)
+
     # 1. 一级标题只允许日期区块：记录 ID 与知识点写在追踪表格里
     for i, line in enumerate(lines):
         if re.match(r"^# ", line) and not SECTION_RE.match(line):
@@ -183,6 +215,18 @@ def check(path: Path) -> list[dict]:
     if not sections:
         add(1, "缺少轮次区块标题，格式为 `# <YYYY-MM-DD HH:MM> · <复习|练习|套题>`")
         return issues
+
+    # 2b. 区块标题不得重复，且必须按时间升序排列（新轮次只能追加在末尾）
+    headings = [f"{date} {time} · {kind}" for _, date, time, kind in sections]
+    for index, heading in enumerate(headings):
+        if headings.count(heading) > 1 and headings.index(heading) == index:
+            add(sections[index][0], f"同一日期区块标题重复出现：`# {heading}`；一轮只能有一个区块")
+    for index in range(len(headings) - 1):
+        if headings[index] > headings[index + 1]:
+            add(
+                sections[index + 1][0],
+                "日期区块必须按时间从早到晚排列：旧区块保留在文件前部，新一轮只追加到末尾",
+            )
 
     # 3. 旧的错误标题格式（把日期区块写成 `## 追踪` 或降成二级标题）
     for i, line in enumerate(lines):
@@ -201,6 +245,7 @@ def check(path: Path) -> list[dict]:
     for idx, (start, date, time, kind) in enumerate(sections):
         end = sections[idx + 1][0] - 1 if idx + 1 < len(sections) else len(lines)
         body = lines[start:end]
+        section_tracking: dict[str, str] = {}
 
         if any(l.strip() == "## 追踪" for l in body):
             add(start, "不再使用 `## 追踪` 子标题，追踪信息直接以无表头表格紧跟日期区块")
@@ -238,6 +283,73 @@ def check(path: Path) -> list[dict]:
                     start + table_open,
                     "追踪表格行数与顺序必须与模板一致："
                     + " / ".join(str(row) for row in TEMPLATE["tracking_rows"]),
+                )
+            values = [m.group(2).strip() for l in inner if (m := TABLE_ROW_RE.match(l.strip()))]
+            tracking = dict(zip(rows, values))
+            section_tracking = tracking
+            for index, (row, value) in enumerate(zip(rows, values)):
+                if not value:
+                    add(start + table_open, f"追踪表格 `{row}` 的值不能为空；未知时写 `—`")
+            record_id = tracking.get("记录 ID / 试卷 ID", "")
+            if record_id:
+                if note_category in RECORD_CATEGORIES:
+                    match = RECORD_ID_RE.match(record_id)
+                    if not match:
+                        add(
+                            start + table_open,
+                            f"`记录 ID / 试卷 ID` 必须写成 `<category>:<key>`：当前为 `{record_id}`",
+                        )
+                    else:
+                        if match.group(1) != note_category:
+                            add(
+                                start + table_open,
+                                f"记录 ID 的分类 `{match.group(1)}` 与文件名前缀 `{note_category}` 不一致",
+                            )
+                        if f"{note_category}-{match.group(2)}.md" != path.name:
+                            add(
+                                start + table_open,
+                                f"记录 ID 与文件名不一致：`{record_id}` 应对应 `{note_category}-{match.group(2)}.md`，当前为 `{path.name}`",
+                            )
+                elif note_category not in ("mixed", "paper") and not RECORD_ID_RE.match(record_id):
+                    add(start + table_open, f"`记录 ID / 试卷 ID` 格式无效：`{record_id}`")
+            transition = tracking.get("分类 · 状态变化", "")
+            if transition and not TRANSITION_RE.match(transition):
+                add(
+                    start + table_open,
+                    f"`分类 · 状态变化` 必须写成 `<category> · <旧状态> → <新状态>` 或 `<category> · 未评分`：当前为 `{transition}`",
+                )
+            score = tracking.get("本轮得分", "")
+            if score and not SCORE_RE.match(score):
+                add(
+                    start + table_open,
+                    f"`本轮得分` 只能是 `x / 10`、`xxx / 710（无听力模拟折算分）` 或 `—`：当前为 `{score}`",
+                )
+            counts_value = tracking.get("题量与错题数", "")
+            if counts_value and not COUNTS_RE.match(counts_value):
+                add(
+                    start + table_open,
+                    f"`题量与错题数` 必须写成 `N 题 / M 处错误`（有未作答时补 `（另有 K 题未作答）`）：当前为 `{counts_value}`",
+                )
+            review_count = tracking.get("累计复习次数", "")
+            if review_count and not REVIEW_COUNT_RE.match(review_count):
+                add(start + table_open, f"`累计复习次数` 只能是数字或 `—`：当前为 `{review_count}`")
+            next_review = tracking.get("下次复习", "")
+            if next_review and not NEXT_REVIEW_RE.match(next_review):
+                add(
+                    start + table_open,
+                    f"`下次复习` 必须是 `YYYY-MM-DD HH:MM` 或 `—`：当前为 `{next_review}`",
+                )
+            subjective = tracking.get("主观题得分", "")
+            if subjective and not SUBJECTIVE_RE.match(subjective):
+                add(
+                    start + table_open,
+                    f"`主观题得分` 必须是 `写作 x/15 · 翻译 x/15` 或 `—`：当前为 `{subjective}`",
+                )
+            generated_at = tracking.get("笔记生成时间", "")
+            if generated_at and not TIMESTAMP_RE.match(generated_at):
+                add(
+                    start + table_open,
+                    f"`笔记生成时间` 必须是 `YYYY-MM-DD HH:MM`：当前为 `{generated_at}`",
                 )
             if first_group is not None and first_group <= table_close:
                 add(start + first_group, "`## 本轮习题` 必须在追踪表格之后")
@@ -301,6 +413,8 @@ def check(path: Path) -> list[dict]:
         # 7. 逐组、逐题校验（每组题号都从 1 开始，练习与主习题共用同一套模板）
         for g_start, g_title, g_end in groups:
             q_all = [g_start + k for k, line in enumerate(body[g_start:g_end]) if QUESTION_RE.match(line)]
+            errors_count = 0
+            unanswered_count = 0
             if not q_all:
                 if g_title == QUIZ_SECTION:
                     add(start, "`## 本轮习题` 内没有任何 `### <n>. <题型>` 题目")
@@ -320,6 +434,20 @@ def check(path: Path) -> list[dict]:
                 fields = [m.group(1) for line in block if (m := FIELD_RE.match(line))]
                 if fields[:3] != ["题目", "我的答案", "判定"]:
                     add(base_line, "每道题必须依次包含 `**题目**：`、`**我的答案**：`、`**判定**：` 三个字段")
+
+                field_values: dict[str, str] = {}
+                for line in block:
+                    match = re.match(r"^\*\*(题目|我的答案|判定)\*\*：\s*(.*)$", line)
+                    if match and match.group(1) not in field_values:
+                        field_values[match.group(1)] = match.group(2).strip()
+                question_text = field_values.get("题目", "")
+                answer_text = field_values.get("我的答案", "")
+                if not question_text:
+                    add(base_line, "`**题目**：` 必须写出完整题干，不能为空")
+                if not answer_text:
+                    add(base_line, "`**我的答案**：` 必须写出用户实际答案（未作答也要写明，如“不会”），不能为空")
+                elif NUMBER_PREFIX_RE.match(answer_text):
+                    add(base_line, "`**我的答案**：` 只写答案本身，去掉题号前缀与列表标记（例如 `1. B` 记为 `B`）")
 
                 verdict_line = next((l for l in block if VERDICT_RE.match(l)), None)
                 mark = ""
@@ -366,8 +494,12 @@ def check(path: Path) -> list[dict]:
                 if summaries.count(knowledge_summary) > 1:
                     add(base_line, f"`{knowledge_summary}` 每题只能有一个")
 
-                is_unanswered = any(word in verdict_text for word in ("未作答", "未完成", "漏答"))
+                is_unanswered = any(word in verdict_text for word in UNANSWERED_WORDS)
                 error_blocks = [summary for summary in summaries[1:] if summary != knowledge_summary]
+                if is_unanswered:
+                    unanswered_count += 1
+                else:
+                    errors_count += len(error_blocks)
                 chinese_mark = {"✅": "完全正确", "⚠️": "⚠️", "❌": "❌"}.get(mark, mark)
                 if mark == "✅" and error_blocks:
                     add(base_line, f"完全正确的题只写 `{knowledge_summary}`，不写 `{error_summary}`")
@@ -392,6 +524,12 @@ def check(path: Path) -> list[dict]:
                     items = [m for line in detail_block if (m := DETAIL_ITEM_RE.match(line))]
                     order = [int(m.group(1)) for m in items]
                     labels = [m.group(2) for m in items]
+                    empty_labels = [m.group(2) for m in items if not m.group(3).strip()]
+                    if empty_labels:
+                        add(
+                            base_line,
+                            "讲解折叠块的步骤不能只写标签：`" + "`/`".join(empty_labels) + "` 后面必须写出内容",
+                        )
                     if order != [1, 2, 3, 4]:
                         add(base_line, "讲解折叠块必须严格为 1→4 四步")
                     if summary == knowledge_summary:
@@ -405,6 +543,28 @@ def check(path: Path) -> list[dict]:
                         hint = "错题讲解四步标签必须与模板一致："
                     if labels != expected_labels:
                         add(base_line, hint + " / ".join(str(label) for label in expected_labels))
+
+            if g_title == QUIZ_SECTION and section_tracking.get("题量与错题数"):
+                counts_match = COUNTS_RE.match(section_tracking["题量与错题数"])
+                if counts_match:
+                    declared_total = int(counts_match.group("total"))
+                    declared_errors = int(counts_match.group("errors"))
+                    declared_unanswered = int(counts_match.group("unanswered") or 0)
+                    if declared_total != len(q_all):
+                        add(
+                            start,
+                            f"`题量与错题数` 的题量写成 {declared_total}，本轮实际 {len(q_all)} 题",
+                        )
+                    if declared_errors != errors_count:
+                        add(
+                            start,
+                            f"`题量与错题数` 的错误数写成 {declared_errors}，本轮实际写出 {errors_count} 个 `{TEMPLATE['error_summary']}` 块（不含未作答）",
+                        )
+                    if declared_unanswered != unanswered_count:
+                        add(
+                            start,
+                            f"`题量与错题数` 的未作答数写成 {declared_unanswered}，本轮实际 {unanswered_count} 题未作答",
+                        )
 
         # 8. 渲染合并检查
         for k, line in enumerate(body):

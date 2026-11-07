@@ -21,6 +21,7 @@ import subprocess
 import sys
 import tempfile
 from contextlib import contextmanager
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -72,6 +73,67 @@ def _ends_with_divider(text: str) -> bool:
 
 def _count_blocks(text: str) -> int:
     return sum(1 for line in _normalize_text(text).split("\n") if line.startswith("# "))
+
+
+def _comparable(text: str) -> str:
+    """Normalize a block body so trivial whitespace differences do not register."""
+    lines = [line.rstrip() for line in _normalize_text(text).strip("\n").split("\n")]
+    while lines and not lines[-1]:
+        lines.pop()
+    return "\n".join(lines)
+
+
+def _split_blocks(text: str) -> list[tuple[str, str]]:
+    """Return ``(heading, block text)`` for each level-1 block in a note."""
+    lines = _normalize_text(text).split("\n")
+    starts = [index for index, line in enumerate(lines) if line.startswith("# ")]
+    blocks: list[tuple[str, str]] = []
+    for position, start in enumerate(starts):
+        end = starts[position + 1] if position + 1 < len(starts) else len(lines)
+        body = "\n".join(lines[start:end])
+        blocks.append((lines[start].strip(), body))
+    return blocks
+
+
+def _next_free_heading(heading: str, existing: list[str]) -> str:
+    """Give the incoming block a heading that keeps the file in ascending order.
+
+    Two rounds can legitimately finish within the same minute (concurrent
+    conversations, or a review followed by a practice). Reusing the heading
+    would either drop the new block or overwrite the previous one, so the
+    timestamp is moved to ``max(existing)+1min`` until it is both unique and
+    monotonic.
+    """
+    match = HEADING_RE.match(heading)
+    if not match:
+        raise RecordError(f"note heading is invalid: {heading}")
+    requested = datetime.strptime(
+        f"{match.group('date')} {match.group('time')}", "%Y-%m-%d %H:%M"
+    )
+    latest = requested
+    for existing_heading in existing:
+        other = HEADING_RE.match(existing_heading.strip())
+        if not other:
+            continue
+        stamp = datetime.strptime(
+            f"{other.group('date')} {other.group('time')}", "%Y-%m-%d %H:%M"
+        )
+        if stamp > latest:
+            latest = stamp
+    candidate_stamp = max(requested, latest)
+    taken = {item.strip() for item in existing}
+    while True:
+        candidate = (
+            f"# {candidate_stamp.strftime('%Y-%m-%d %H:%M')} · {match.group('kind')}"
+        )
+        if candidate not in taken:
+            return candidate
+        candidate_stamp += timedelta(minutes=1)
+
+
+def _swap_heading(block: str, heading: str) -> str:
+    body = block.split("\n", 1)
+    return heading if len(body) == 1 else f"{heading}\n{body[1]}"
 
 
 class NoteStore:
@@ -214,22 +276,34 @@ class NoteStore:
     def append(self, path: str, content: str) -> dict[str, Any]:
         target = self.resolve(path)
         block = _normalize_block(content)
-        heading = _block_heading(block)
+        requested_heading = _block_heading(block)
         with self._exclusive_lock():
             existing = self._read(target)
-            if heading in existing.split("\n"):
-                return {
-                    "ok": True,
-                    "appended": False,
-                    "duplicate": True,
-                    "hint": (
-                        "this round already exists; use note-replace-block with the same "
-                        "heading if its content needs a correction"
-                    ),
-                    "file": self.relative(target),
-                    "heading": heading,
-                    "blocks": _count_blocks(existing),
-                }
+            existing_blocks = _split_blocks(existing)
+            headings = [item[0] for item in existing_blocks]
+            if requested_heading in headings:
+                written = next(
+                    item for item in existing_blocks if item[0] == requested_heading
+                )
+                if _comparable(written[1]) == _comparable(block):
+                    return {
+                        "ok": True,
+                        "appended": False,
+                        "duplicate": True,
+                        "heading_adjusted": False,
+                        "requested_heading": requested_heading,
+                        "hint": (
+                            "this round is already saved with identical content; do not "
+                            "append again and do not rewrite it"
+                        ),
+                        "file": self.relative(target),
+                        "heading": requested_heading,
+                        "blocks": _count_blocks(existing),
+                    }
+            heading = _next_free_heading(requested_heading, headings)
+            adjusted = heading != requested_heading
+            if adjusted:
+                block = _swap_heading(block, heading)
             body = _normalize_text(existing).rstrip("\n")
             # 历史区块之间缺少分隔符时只追加本轮，不回填历史，
             # 以免“整理旧格式”改写别的会话已经写下的内容。
@@ -245,6 +319,14 @@ class NoteStore:
             "ok": True,
             "appended": True,
             "duplicate": False,
+            "heading_adjusted": adjusted,
+            "requested_heading": requested_heading,
+            "hint": (
+                f"another round already used {requested_heading}; this block was saved as "
+                f"{heading} to keep both rounds and the ascending order"
+                if adjusted
+                else None
+            ),
             "file": self.relative(target),
             "heading": heading,
             "blocks": blocks,

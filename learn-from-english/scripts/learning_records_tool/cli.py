@@ -129,11 +129,39 @@ def handle_review(args: argparse.Namespace, expected_status: str | None = None) 
 
 
 def handle_list(args: argparse.Namespace) -> list[dict[str, Any]]:
-    return service().list_records(category=args.category, status=args.status)
+    return _maybe_brief(
+        service().list_records(category=args.category, status=args.status), args.brief
+    )
 
 
 def handle_legacy_list(args: argparse.Namespace, status: str) -> list[dict[str, Any]]:
-    return service().list_records(status=status)
+    return _maybe_brief(service().list_records(status=status), getattr(args, "brief", False))
+
+
+def _maybe_brief(
+    records: list[dict[str, Any]], brief: bool
+) -> list[dict[str, Any]]:
+    """Drop review history and scheduling noise when a list is only a chooser."""
+    if not brief:
+        return records
+    return [
+        {
+            key: record.get(key)
+            for key in (
+                "id",
+                "category",
+                "status",
+                "title",
+                "explanation",
+                "source",
+                "example",
+                "mastery_score",
+                "review_count",
+                "lapse_count",
+            )
+        }
+        for record in records
+    ]
 
 
 def handle_search(args: argparse.Namespace) -> list[dict[str, Any]]:
@@ -189,7 +217,15 @@ def handle_release_claim(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def handle_error_clusters(args: argparse.Namespace) -> dict[str, Any]:
-    return service().error_pattern_clusters(minimum_size=args.minimum_size)
+    return service().error_pattern_clusters(
+        minimum_size=args.minimum_size, include_records=args.with_records
+    )
+
+
+def handle_error_cluster_get(args: argparse.Namespace) -> dict[str, Any]:
+    return service().error_cluster_records(
+        args.id, unclustered=args.unclustered, limit=args.limit
+    )
 
 
 def handle_paper_create(args: argparse.Namespace) -> dict[str, Any]:
@@ -303,10 +339,19 @@ def build_parser() -> argparse.ArgumentParser:
     listing = subparsers.add_parser("list", help="list records")
     listing.add_argument("--category", choices=CATEGORIES)
     listing.add_argument("--status", choices=STATUSES, default="learning")
+    listing.add_argument(
+        "--brief", action="store_true", help="omit review history and scheduling timestamps"
+    )
     listing.set_defaults(handler=handle_list)
     familiar = subparsers.add_parser("familiar-list", help="list familiar records")
+    familiar.add_argument(
+        "--brief", action="store_true", help="omit review history and scheduling timestamps"
+    )
     familiar.set_defaults(handler=lambda args: handle_legacy_list(args, "familiar"))
     mastered = subparsers.add_parser("mastered-list", help="list mastered records")
+    mastered.add_argument(
+        "--brief", action="store_true", help="omit review history and scheduling timestamps"
+    )
     mastered.set_defaults(handler=lambda args: handle_legacy_list(args, "mastered"))
 
     search = subparsers.add_parser("search", help="search record content")
@@ -377,7 +422,23 @@ def build_parser() -> argparse.ArgumentParser:
         "error-clusters", help="group similar error records for focused review"
     )
     error_clusters.add_argument("--minimum-size", type=int, default=2)
+    error_clusters.add_argument(
+        "--with-records",
+        action="store_true",
+        help="include full records in clusters (large output; prefer error-cluster-get)",
+    )
     error_clusters.set_defaults(handler=handle_error_clusters)
+
+    cluster_get = subparsers.add_parser(
+        "error-cluster-get", help="load the practice material for one error cluster"
+    )
+    group = cluster_get.add_mutually_exclusive_group(required=True)
+    group.add_argument("--id", help="cluster id returned by error-clusters")
+    group.add_argument(
+        "--unclustered", action="store_true", help="load unclustered error records"
+    )
+    cluster_get.add_argument("--limit", type=int, default=None)
+    cluster_get.set_defaults(handler=handle_error_cluster_get)
 
     duplicates = subparsers.add_parser(
         "duplicates", help="list near-duplicate records that are worth merging"
@@ -479,13 +540,25 @@ def main() -> int:
         result = args.handler(args)
     except (RecordError, ValueError) as exc:
         parser.error(str(exc))
+    exit_code = 0
+    if isinstance(result, dict):
+        check = result.get("check")
+        if isinstance(check, dict):
+            # 写入是否成功看 appended / replaced，是否合规看 check.ok。
+            # 用 note_status 把两者分开，避免 ok:true 配退出码 1 被读成写入失败。
+            check_ok = check.get("ok")
+            result["check_ok"] = check_ok
+            result["note_status"] = (
+                "valid"
+                if check_ok is True
+                else "invalid"
+                if check_ok is False
+                else "unverified"
+            )
+            if check_ok is False:
+                exit_code = 1
     json.dump(result, sys.stdout, ensure_ascii=False, indent=2)
     sys.stdout.write("\n")
     if args.command == "validate" and not result.get("valid", False):
         return 1
-    if isinstance(result, dict):
-        check = result.get("check")
-        if isinstance(check, dict) and check.get("ok") is False:
-            # 写入本身成功，但笔记不合规；让 CI 与脚本能用退出码判定。
-            return 1
-    return 0
+    return exit_code
