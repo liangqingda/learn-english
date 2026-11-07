@@ -251,7 +251,7 @@ python3 learn-from-english/scripts/learning_records.py migrate-v2 --dry-run
 │   └── <paper_id>.json
 ├── learning-record-notes/
 │   ├── README.md
-│   └── <YYYY-MM-DD>-<HHMM>-<category>-<slug>.md
+│   └── <category>-<slug>.md
 ├── learn-from-english/
 │   ├── SKILL.md
 │   ├── agents/openai.yaml
