@@ -4,7 +4,7 @@
 
 - 命名规则：`<category>-<slug>.md`，**不带日期**。`category` 为记录分类，混合知识点用 `mixed`，套题用 `paper`，例如 `errors-back-west-spacing.md`。
 - 一个知识点只有一个文件：同一知识点反复复习时始终写回同一个文件，每轮在文件末尾追加一个 `## <YYYY-MM-DD> <HHMM> · 复习` 区块（纯练习用 `· 练习`，套题用 `· 套题`），旧区块永不删除或改写。
-- 每个日期区块内紧跟一个**无表头表格**（`<table>` + `<colgroup><col width="28%"><col width="72%"></colgroup>` + 9 行 `<tr><td>字段</td><td>值</td></tr>`，不写 `### 追踪` 子标题）：记录 ID、状态变化、本轮得分、题量与错题数、目标知识点、累计复习次数、下次复习、主观题得分、生成时间。
+- 每个日期区块内紧跟一个**无表头表格**（`<table style="border-collapse:collapse;width:auto">` + `<colgroup><col width="150"><col></colgroup>` + 9 行 `<tr><td>字段</td><td>值</td></tr>`，不写 `### 追踪` 子标题）：记录 ID、状态变化、本轮得分、题量与错题数、目标知识点、累计复习次数、下次复习、主观题得分、生成时间。
 - 再放「本轮习题」：逐题记录题干、用户原样答案与判定；错题在同一题下方用 `<details>` 折叠块给出四步讲解（考点 / 为什么错 / 英语表达逻辑 / 正确表达与可迁移）。
 
 格式唯一来源是 `practice-learning-records/templates/review-note.md`；写完后必须通过校验（要求返回 `ok: true`）：

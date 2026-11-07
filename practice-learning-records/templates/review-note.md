@@ -2,8 +2,8 @@
 
 ## <YYYY-MM-DD HHMM> · <复习 | 练习 | 套题>
 
-<table>
-<colgroup><col width="28%"><col width="72%"></colgroup>
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
 <tr><td>记录 ID / 试卷 ID</td><td><record_id 或 paper_id></td></tr>
 <tr><td>分类 · 状态变化</td><td><category> · <旧状态> → <新状态>；未评分写 `<category> · 未评分`</td></tr>
 <tr><td>本轮得分</td><td><x / 10> 或 <xxx / 710（无听力模拟折算分）>；未评分写 `—`</td></tr>

@@ -98,7 +98,7 @@ def check(path: Path) -> list[dict]:
                 add(start + line_off, f"不允许出现非模板三级标题：`{line.strip()}`")
 
         # 追踪表：无表头的 HTML 表格，紧跟日期区块，位于 `### 本轮习题` 之前
-        table_open = next((k for k, l in enumerate(body) if l.strip() == "<table>"), None)
+        table_open = next((k for k, l in enumerate(body) if l.strip().startswith("<table")), None)
         table_close = next((k for k, l in enumerate(body) if l.strip() == "</table>"), None)
         quiz_idx = next((k for k, l in enumerate(body) if l.strip() == "### 本轮习题"), None)
         if table_open is None or table_close is None or table_close < table_open:
@@ -107,10 +107,16 @@ def check(path: Path) -> list[dict]:
             inner = body[table_open + 1 : table_close]
             if any(l.strip() in ("<thead>", "</thead>") or "<th>" in l for l in inner):
                 add(start + table_open, "追踪表格不允许表头：不要写 `<thead>` / `<th>`，也不要用 `| 字段 | 值 |`")
-            if not any("<colgroup>" in l for l in inner):
+            if not any("<colgroup>" in l and 'width="150"' in l for l in inner):
                 add(
                     start + table_open,
-                    "追踪表格必须固定列宽：紧跟 `<table>` 写 `<colgroup><col width=\"28%\"><col width=\"72%\"></colgroup>`",
+                    "追踪表格必须固定紧凑列宽：紧跟 `<table …>` 写 `<colgroup><col width=\"150\"><col></colgroup>`",
+                )
+            table_tag = next((l for l in body[max(0, table_open - 1) : table_open + 1] if l.strip().startswith("<table")), "")
+            if "width:auto" not in table_tag:
+                add(
+                    start + table_open,
+                    "追踪表格标签必须是 `<table style=\"border-collapse:collapse;width:auto\">`，避免渲染成整行宽而显得松散",
                 )
             rows = [m.group(1).strip() for l in inner if (m := TABLE_ROW_RE.match(l.strip()))]
             if rows != TRACKING_ROWS:

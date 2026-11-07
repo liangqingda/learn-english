@@ -2,8 +2,8 @@
 
 ## 2026-11-06 20:54 · 复习
 
-<table>
-<colgroup><col width="28%"><col width="72%"></colgroup>
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
 <tr><td>记录 ID / 试卷 ID</td><td>errors:back-west-spacing</td></tr>
 <tr><td>分类 · 状态变化</td><td>errors · learning → familiar</td></tr>
 <tr><td>本轮得分</td><td>9 / 10</td></tr>
