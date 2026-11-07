@@ -1,5 +1,3 @@
-# <record_id> · <知识点标题>
-
 ## <YYYY-MM-DD HHMM> · <复习 | 练习 | 套题>
 
 <table style="border-collapse:collapse;width:auto">

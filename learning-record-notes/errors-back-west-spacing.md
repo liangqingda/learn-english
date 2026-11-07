@@ -1,5 +1,3 @@
-# errors:back-west-spacing · out west 不是 outwest
-
 ## 2026-11-06 20:54 · 复习
 
 <table style="border-collapse:collapse;width:auto">

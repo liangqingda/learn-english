@@ -56,11 +56,10 @@ def check(path: Path) -> list[dict]:
     def add(line_no: int, message: str) -> None:
         issues.append({"line": line_no, "message": message})
 
-    # 1. 文件标题
-    if not lines or not lines[0].startswith("# "):
-        add(1, "第 1 行必须是文件标题 `# <record_id> · <知识点标题>`")
-    elif "·" not in lines[0]:
-        add(1, "文件标题必须包含 `·`，格式为 `# <record_id> · <知识点标题>`")
+    # 1. 不允许一级标题：记录 ID 与知识点写在追踪表格里
+    for i, line in enumerate(lines):
+        if re.match(r"^# ", line):
+            add(i + 1, "不使用一级标题：记录 ID 与知识点写进追踪表格的 `记录 ID / 试卷 ID` 与 `目标知识点` 行")
 
     # 2. 区块标题
     sections = [(i + 1, m.group(1), m.group(2), m.group(3)) for i, line in enumerate(lines) if (m := SECTION_RE.match(line))]
@@ -71,9 +70,7 @@ def check(path: Path) -> list[dict]:
     # 3. 旧的错误标题格式（把时间写进一级标题或区块写成 `## 追踪`）
     for i, line in enumerate(lines):
         if re.match(r"^## 追踪\s*$", line):
-            add(i + 1, "`## 追踪` 应为三级标题 `### 追踪`，且必须位于日期区块内")
-        if re.match(r"^# \d{4}-\d{2}-\d{2}", line):
-            add(i + 1, "一级标题不得放日期，日期只出现在 `## <YYYY-MM-DD HHMM> · <类型>` 区块标题里")
+            add(i + 1, "`## 追踪` 应为无表头表格，且必须位于日期区块内")
 
     # 4. 区块之间必须有 --- 分隔
     if len(sections) >= 2:
