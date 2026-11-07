@@ -165,9 +165,15 @@ def check(path: Path) -> list[dict]:
             summaries = [l.strip() for l in block if l.strip().startswith("<summary>")]
             if details_open != details_close:
                 add(base_line, "`<details>` 与 `</details>` 数量必须一致")
-            for summary in summaries:
-                if summary != "<summary>展开错题讲解</summary>":
-                    add(base_line, f"折叠块 summary 必须固定为 `展开错题讲解`，当前为 `{summary}`")
+            if len(summaries) == 1 and summaries[0] != "<summary>展开错题讲解</summary>":
+                add(base_line, f"单个折叠块 summary 必须固定为 `展开错题讲解`，当前为 `{summaries[0]}`")
+            elif len(summaries) > 1:
+                for i, summary in enumerate(summaries, start=1):
+                    if summary != f"<summary>展开错题讲解 {i}</summary>":
+                        add(
+                            base_line,
+                            f"同一题有多处错误时，summary 必须按顺序写成 `展开错题讲解 1`、`2`…，当前第 {i} 个为 `{summary}`",
+                        )
 
             # 每个折叠块内部固定四步（同一题有多处错误时，各占一个折叠块）
             blocks: list[list[str]] = []

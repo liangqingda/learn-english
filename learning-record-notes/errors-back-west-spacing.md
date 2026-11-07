@@ -91,7 +91,7 @@
 **判定**：⚠️ 部分正确（out west / back east 目标短语均正确，另有 2 处错误）
 
 <details>
-<summary>展开错题讲解</summary>
+<summary>展开错题讲解 1</summary>
 
 1. **考点**：年龄的表语结构完整性（`when he was twenty years`）。
 2. **为什么错**：`twenty years` 是“二十年（时长）”的名词短语，不能直接作表语表示“二十岁”；表示年龄需要 `twenty years old`，或直接用数词 `twenty`。省掉 old 后句子变成“当他二十年的时候”，语义不成立。
@@ -101,7 +101,7 @@
 </details>
 
 <details>
-<summary>展开错题讲解</summary>
+<summary>展开错题讲解 2</summary>
 
 1. **考点**：从属连词引导的分句不能独立收尾（`and after he went back east`）。
 2. **为什么错**：`after` 在这里引导时间状语从句，属于从属分句，必须依附一个主句；放在 `and` 后面就结束了句子，等于只有从句没有主句，形成残缺句。
