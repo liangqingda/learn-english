@@ -9,10 +9,15 @@
 
 - 若同一轮里用户还选了讲解型快捷菜单（语法/词汇扩展、场景对话、专题讲解等），在所有习题之后**直接**追加三级标题 `### <选项原文>`（去掉 emoji，不加编号、不写 `菜单：` 前缀，与习题标题同级），下面接 `**讲解要点**：` + `**可迁移表达**：`；不写 `菜单与讲解` 小节标题。会切换题组的选项（继续复习、换知识点、换套题等）不属于本轮，另起日期区块记录。
 
-格式唯一来源是 `practice-learning-records/templates/review-note.md`；写完后必须通过校验（要求返回 `ok: true`）：
+格式唯一来源是 `practice-learning-records/templates/review-note.md`。写入只能通过脚本完成，禁止直接 `Write` 整个文件：
 
 ```bash
-python3 practice-learning-records/scripts/check_note.py learning-record-notes/<category>-<slug>.md
+python3 learn-from-english/scripts/learning_records.py note-append \
+  --file learning-record-notes/<category>-<slug>.md \
+  --content-file /tmp/note-block.md \
+  --check
 ```
+
+`note-append` 在 `learning-record-notes/.notes.lock` 上取排他锁，锁内完成“读现有文件 → 补 `---` 分隔 → 原子替换”，多个会话同时写同一文件不会互相覆盖；返回 `appended: false, duplicate: true` 表示该标题区块已存在，按已写入处理。修正自己刚写的区块用同一把锁的 `note-replace-block --heading "# <本轮标题>"`，不要整文件重写。`--check` 会调用 `practice-learning-records/scripts/check_note.py`，要求返回 `ok: true`。
 
 笔记是可读副本，不是规范数据源：评分、状态、复习调度都以 `learning-records/`、`mastered-learning-records/` 和 `exam-papers/` 为准，删除笔记不会影响任何评分或复习计划。
