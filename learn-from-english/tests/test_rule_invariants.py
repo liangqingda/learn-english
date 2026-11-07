@@ -125,13 +125,13 @@ class NoteTemplateTest(unittest.TestCase):
             for row in check_note.TEMPLATE["tracking_rows"]
         )
         return (
-            "## 2026-11-07 12:00 · 复习\n"
+            "# 2026-11-07 12:00 · 复习\n"
             f"{check_note.DEFAULT_TABLE_TAG}\n"
             '<colgroup><col width="150"><col></colgroup>\n'
             f"{rows}\n"
             "</table>\n\n"
-            "### 本轮习题\n\n"
-            "#### 1. 单项选择\n\n"
+            "## 本轮习题\n\n"
+            "### 1. 单项选择\n\n"
             "**题目**：Pick one.\n\n"
             "**我的答案**：B\n\n"
             "**判定**：❌ 错误\n\n"

@@ -7,7 +7,7 @@ knowledge-labels: 本题知识点 | 规则与机制 | 英语的表达逻辑 | �
 error-labels: 考点 | 为什么错 | 英语的表达逻辑 | 正确表达
 unanswered-labels: 考点 | 为什么答不出 | 英语的表达逻辑 | 正确表达
 -->
-## <YYYY-MM-DD HH:MM> · <复习 | 练习 | 套题>
+# <YYYY-MM-DD HH:MM> · <复习 | 练习 | 套题>
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
 <tr><td>记录 ID / 试卷 ID</td><td><record_id 或 paper_id></td></tr>
@@ -21,9 +21,9 @@ unanswered-labels: 考点 | 为什么答不出 | 英语的表达逻辑 | 正确�
 <tr><td>笔记生成时间</td><td><YYYY-MM-DD HH:MM></td></tr>
 </table>
 
-### 本轮习题
+## 本轮习题
 
-#### 1. <题型>
+### 1. <题型>
 
 **题目**：<题干原文，选项或多空逐条写成列表项>
 
@@ -51,7 +51,7 @@ unanswered-labels: 考点 | 为什么答不出 | 英语的表达逻辑 | 正确�
 
 </details>
 
-#### 2. <题型>
+### 2. <题型>
 
 **题目**：<题干原文>
 
@@ -69,7 +69,7 @@ unanswered-labels: 考点 | 为什么答不出 | 英语的表达逻辑 | 正确�
 
 </details>
 
-#### 3. <题型>
+### 3. <题型>
 
 **题目**：<题干原文>
 
@@ -97,15 +97,15 @@ unanswered-labels: 考点 | 为什么答不出 | 英语的表达逻辑 | 正确�
 
 </details>
 
-### 菜单与讲解
+## 菜单与讲解
 
-#### 1. 菜单：<用户选中的菜单项原文，去掉前面的 emoji>
+### 1. 菜单：<用户选中的菜单项原文，去掉前面的 emoji>
 
 **讲解要点**：<本轮实际讲到的知识点、规则或对比结论>
 
 **可迁移表达**：<可迁移例句或句型；没有可写 `—`>
 
-#### 2. 菜单：<用户选中的菜单项原文，去掉前面的 emoji>
+### 2. 菜单：<用户选中的菜单项原文，去掉前面的 emoji>
 
 **讲解要点**：<同上>
 

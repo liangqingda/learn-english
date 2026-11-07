@@ -110,9 +110,9 @@ def load_template(path: Path | None = None) -> dict[str, object]:
 TEMPLATE = load_template()
 KIND_PATTERN = "|".join(TEMPLATE["kinds"])
 SECTION_RE = re.compile(
-    rf"^## (\d{{4}}-\d{{2}}-\d{{2}}) (\d{{2}}:\d{{2}}) · ({KIND_PATTERN})\s*$"
+    rf"^# (\d{{4}}-\d{{2}}-\d{{2}}) (\d{{2}}:\d{{2}}) · ({KIND_PATTERN})\s*$"
 )
-QUESTION_RE = re.compile(r"^#### (\d+)\. " r"(\S.*?)\s*$")
+QUESTION_RE = re.compile(r"^### (\d+)\. " r"(\S.*?)\s*$")
 FIELD_RE = re.compile(r"^\*\*(题目|我的答案|判定)\*\*：")
 VERDICT_RE = re.compile(r"^(\*\*判定\*\*：)(✅|⚠️|❌) ?(.*)$")
 DETAIL_ITEM_RE = re.compile(
@@ -121,7 +121,7 @@ DETAIL_ITEM_RE = re.compile(
 MERGED_CHOICES_RE = re.compile(r"A\.\s.*B\.\s")
 MERGED_SUBITEMS_RE = re.compile(r"\(a\)[^\n]*\(b\)")
 TABLE_ROW_RE = re.compile(r"<tr>\s*<td>(.*?)</td>\s*<td>(.*?)</td>\s*</tr>")
-MENU_ITEM_RE = re.compile(r"^#### (\d+)\. 菜单：(\S.*)$")
+MENU_ITEM_RE = re.compile(r"^### (\d+)\. 菜单：(\S.*)$")
 MENU_FIELD_RE = re.compile(r"^\*\*(讲解要点|可迁移表达)\*\*：")
 
 
@@ -133,18 +133,18 @@ def check(path: Path) -> list[dict]:
     def add(line_no: int, message: str) -> None:
         issues.append({"line": line_no, "message": message})
 
-    # 1. 不允许一级标题：记录 ID 与知识点写在追踪表格里
+    # 1. 一级标题只允许日期区块：记录 ID 与知识点写在追踪表格里
     for i, line in enumerate(lines):
-        if re.match(r"^# ", line):
-            add(i + 1, "不使用一级标题：记录 ID 与知识点写进追踪表格的 `记录 ID / 试卷 ID` 与 `目标知识点` 行")
+        if re.match(r"^# ", line) and not SECTION_RE.match(line):
+            add(i + 1, "一级标题只能写成 `# <YYYY-MM-DD HH:MM> · <复习|练习|套题>`：记录 ID 与知识点写进追踪表格的 `记录 ID / 试卷 ID` 与 `目标知识点` 行")
 
     # 2. 区块标题
     sections = [(i + 1, m.group(1), m.group(2), m.group(3)) for i, line in enumerate(lines) if (m := SECTION_RE.match(line))]
     if not sections:
-        add(1, "缺少轮次区块标题，格式为 `## <YYYY-MM-DD HHMM> · <复习|练习|套题>`")
+        add(1, "缺少轮次区块标题，格式为 `# <YYYY-MM-DD HH:MM> · <复习|练习|套题>`")
         return issues
 
-    # 3. 旧的错误标题格式（把时间写进一级标题或区块写成 `## 追踪`）
+    # 3. 旧的错误标题格式（把日期区块写成 `## 追踪` 或降成二级标题）
     for i, line in enumerate(lines):
         if re.match(r"^## 追踪\s*$", line):
             add(i + 1, "`## 追踪` 应为无表头表格，且必须位于日期区块内")
@@ -162,21 +162,21 @@ def check(path: Path) -> list[dict]:
         end = sections[idx + 1][0] - 1 if idx + 1 < len(sections) else len(lines)
         body = lines[start:end]
 
-        if any(l.strip() == "### 追踪" for l in body):
-            add(start, "不再使用 `### 追踪` 子标题，追踪信息直接以无表头表格紧跟日期区块")
-        if not any(l.strip() == "### 本轮习题" for l in body):
-            add(start, "区块内缺少 `### 本轮习题`")
+        if any(l.strip() == "## 追踪" for l in body):
+            add(start, "不再使用 `## 追踪` 子标题，追踪信息直接以无表头表格紧跟日期区块")
+        if not any(l.strip() == "## 本轮习题" for l in body):
+            add(start, "区块内缺少 `## 本轮习题`")
 
         for line_off, line in enumerate(body):
-            if line.startswith("### ") and line.strip() not in ("### 本轮习题", "### 菜单与讲解"):
-                add(start + line_off, f"不允许出现非模板三级标题：`{line.strip()}`")
+            if line.startswith("## ") and line.strip() not in ("## 本轮习题", "## 菜单与讲解"):
+                add(start + line_off, f"不允许出现非模板二级标题：`{line.strip()}`")
 
-        # 追踪表：无表头的 HTML 表格，紧跟日期区块，位于 `### 本轮习题` 之前
+        # 追踪表：无表头的 HTML 表格，紧跟日期区块，位于 `## 本轮习题` 之前
         table_open = next((k for k, l in enumerate(body) if l.strip().startswith("<table")), None)
         if table_open is not None and table_open >= 1 and all(l.strip() == "" for l in body[:table_open]):
             add(start + 1, "日期标题与追踪表格之间不能留空行：标题下一行必须直接是 `<table …>`")
         table_close = next((k for k, l in enumerate(body) if l.strip() == "</table>"), None)
-        quiz_idx = next((k for k, l in enumerate(body) if l.strip() == "### 本轮习题"), None)
+        quiz_idx = next((k for k, l in enumerate(body) if l.strip() == "## 本轮习题"), None)
         if table_open is None or table_close is None or table_close < table_open:
             add(start, "缺少无表头追踪表格：必须写成 `<table>` … `</table>`，每行 `<tr><td>字段</td><td>值</td></tr>`")
         else:
@@ -202,14 +202,14 @@ def check(path: Path) -> list[dict]:
                     + " / ".join(str(row) for row in TEMPLATE["tracking_rows"]),
                 )
             if quiz_idx is not None and quiz_idx <= table_close:
-                add(start + quiz_idx, "`### 本轮习题` 必须在追踪表格之后")
+                add(start + quiz_idx, "`## 本轮习题` 必须在追踪表格之后")
 
         for line_off, line in enumerate(body):
             if line.strip().startswith("| 字段 |"):
                 add(start + line_off, "追踪信息不再使用 Markdown 表头行，改用无表头 HTML 表格")
 
-        # 6. 题目（只统计 `### 本轮习题` 到 `### 菜单与讲解` 之间的题）
-        menu_idx = next((k for k, l in enumerate(body) if l.strip() == "### 菜单与讲解"), None)
+        # 6. 题目（只统计 `## 本轮习题` 到 `## 菜单与讲解` 之间的题）
+        menu_idx = next((k for k, l in enumerate(body) if l.strip() == "## 菜单与讲解"), None)
         quiz_end = menu_idx if menu_idx is not None else len(body)
         question_starts = [
             (start + k, int(m.group(1)), m.group(2))
@@ -217,7 +217,7 @@ def check(path: Path) -> list[dict]:
             if (m := QUESTION_RE.match(line)) and not MENU_ITEM_RE.match(line)
         ]
         if not question_starts:
-            add(start, "区块内没有任何 `#### <n>. <题型>` 题目")
+            add(start, "区块内没有任何 `### <n>. <题型>` 题目")
         for order, (line_no, number, qtype) in enumerate(question_starts, start=1):
             if number != order:
                 add(line_no, f"题号必须从 1 连续递增，当前第 {order} 题的编号是 {number}")
@@ -328,9 +328,9 @@ def check(path: Path) -> list[dict]:
                 if (m := MENU_ITEM_RE.match(line))
             ]
             if not menu_items:
-                add(start + menu_idx, "`### 菜单与讲解` 下至少要有 `#### <n>. 菜单：<选项原文>` 一条")
+                add(start + menu_idx, "`## 菜单与讲解` 下至少要有 `### <n>. 菜单：<选项原文>` 一条")
             if question_starts and menu_items and menu_items[0][0] < question_starts[-1][0]:
-                add(start + menu_idx, "`### 菜单与讲解` 必须放在所有习题之后")
+                add(start + menu_idx, "`## 菜单与讲解` 必须放在所有习题之后")
             for order, (line_no, number, text) in enumerate(menu_items, start=1):
                 if number != order:
                     add(line_no, f"菜单编号必须从 1 连续递增，当前第 {order} 条的编号是 {number}")

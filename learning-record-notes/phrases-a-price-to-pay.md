@@ -1,4 +1,4 @@
-## 2026-11-07 20:22 · 复习
+# 2026-11-07 20:22 · 复习
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
 <tr><td>记录 ID / 试卷 ID</td><td>phrases:a-price-to-pay</td></tr>
@@ -12,9 +12,9 @@
 <tr><td>笔记生成时间</td><td>2026-11-07 20:22</td></tr>
 </table>
 
-### 本轮习题
+## 本轮习题
 
-#### 1. 语境判断
+### 1. 语境判断
 
 **题目**：下面哪种情形最适合用 “Every shortcut comes with a price” 来评论？
 - A. A supermarket marks down its vegetables near closing time.
@@ -36,7 +36,7 @@
 
 </details>
 
-#### 2. 填空
+### 2. 填空
 
 **题目**：用 `heavy` 的恰当形式补全句子，注意冠词。
 Remote work saves a lot of commuting time, but for many people it often comes at ______ price.
@@ -65,7 +65,7 @@ Remote work saves a lot of commuting time, but for many people it often comes at
 
 </details>
 
-#### 3. 改错
+### 3. 改错
 
 **题目**：下面这句有一处介词用错，请改正整句。
 Many athletes pay a price of the fame they chased, and some of them say it was worth it.
@@ -104,7 +104,7 @@ Many athletes pay a price of the fame they chased, and some of them say it was w
 
 </details>
 
-#### 4. 单项选择
+### 4. 单项选择
 
 **题目**：在 “That promotion came with a price” 中，`price` 最接近的意思是：
 - A. the money charged in a shop
@@ -126,7 +126,7 @@ Many athletes pay a price of the fame they chased, and some of them say it was w
 
 </details>
 
-#### 5. 翻译
+### 5. 翻译
 
 **题目**：译成英语：为了提前升职，他付出了沉重的代价——几乎错过了女儿整个童年。
 
@@ -184,7 +184,7 @@ Many athletes pay a price of the fame they chased, and some of them say it was w
 
 </details>
 
-#### 6. 改写
+### 6. 改写
 
 **题目**：不用 `cost` 重写下面这句，表达同样的因果与代价关系。
 Working night shifts cost her her health, and she knew it.
