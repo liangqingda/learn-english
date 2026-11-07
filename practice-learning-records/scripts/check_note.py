@@ -124,6 +124,9 @@ TABLE_ROW_RE = re.compile(r"<tr>\s*<td>(.*?)</td>\s*<td>(.*?)</td>\s*</tr>")
 MENU_ITEM_RE = re.compile(r"^### (\S.*?)\s*$")
 LEGACY_MENU_HEADING_RE = re.compile(r"^### \d+\.\s+菜单：")
 LEGACY_MENU_ITEM_RE = re.compile(r"^\d+\.\s|^菜单：")
+MENU_EMOJI_RE = re.compile(
+    "^[\U0001F000-\U0001FAFF\u2600-\u27BF\u2B00-\u2BFF\u2190-\u21FF\uFE0F\u200D]"
+)
 MENU_FIELD_RE = re.compile(r"^\*\*(讲解要点|可迁移表达)\*\*：")
 
 
@@ -210,17 +213,16 @@ def check(path: Path) -> list[dict]:
             if line.strip().startswith("| 字段 |"):
                 add(start + line_off, "追踪信息不再使用 Markdown 表头行，改用无表头 HTML 表格")
 
-        # 6. 题目与菜单：习题区为 `## 本轮习题` 之后、第一条菜单项三级标题之前
+        # 6. 题目与菜单项：各自在整块内独立定位，先得到真实位置再判断两者顺序
+        heading_positions = [k for k, line in enumerate(body) if MENU_ITEM_RE.match(line)]
         menu_starts = [
-            k
-            for k, line in enumerate(body)
-            if MENU_ITEM_RE.match(line)
-            and (not QUESTION_RE.match(line) or LEGACY_MENU_HEADING_RE.match(line))
+            (k, MENU_ITEM_RE.match(body[k]).group(1))
+            for k in heading_positions
+            if not QUESTION_RE.match(body[k]) or LEGACY_MENU_HEADING_RE.match(body[k])
         ]
-        quiz_end = menu_starts[0] if menu_starts else len(body)
         question_starts = [
             (start + k, int(m.group(1)), m.group(2))
-            for k, line in enumerate(body[:quiz_end])
+            for k, line in enumerate(body)
             if (m := QUESTION_RE.match(line)) and not LEGACY_MENU_HEADING_RE.match(line)
         ]
         if not question_starts:
@@ -233,7 +235,7 @@ def check(path: Path) -> list[dict]:
 
         for k in range(len(question_starts)):
             q_start = question_starts[k][0] - start
-            q_end = question_starts[k + 1][0] - start if k + 1 < len(question_starts) else quiz_end
+            q_end = next((pos for pos in heading_positions if pos > q_start), len(body))
             block = body[q_start:q_end]
             base_line = start + q_start
 
@@ -329,10 +331,11 @@ def check(path: Path) -> list[dict]:
 
         # 6b. 菜单项（可选）：不写小节标题，直接以 `### <选项原文>` 接在习题之后
         if menu_starts:
-            menu_items = [(start + k, MENU_ITEM_RE.match(body[k]).group(1)) for k in menu_starts]
-            if question_starts and menu_starts[0] < question_starts[-1][0] - start:
-                add(start + menu_starts[0], "菜单项必须放在所有习题之后")
-            for line_no, text in menu_items:
+            first_menu_pos = menu_starts[0][0]
+            if question_starts and first_menu_pos < question_starts[-1][0] - start:
+                add(start + first_menu_pos, "菜单项必须放在所有习题之后：某道习题出现在菜单项之后")
+            for k, text in menu_starts:
+                line_no = start + k
                 stripped = text.strip()
                 if stripped in ("", "—"):
                     add(line_no, "菜单项必须写出用户实际选中的选项原文")
@@ -340,9 +343,16 @@ def check(path: Path) -> list[dict]:
                     add(line_no, "不再写 `菜单与讲解` 小节标题：直接以 `### <选项原文>` 展示所选菜单")
                 elif LEGACY_MENU_ITEM_RE.match(stripped):
                     add(line_no, "菜单标题直接写选项原文：不要加编号，也不要写 `菜单：` 前缀")
-            for k in range(len(menu_starts)):
-                m_start = menu_starts[k]
-                m_end = menu_starts[k + 1] if k + 1 < len(menu_starts) else len(body)
+                elif stripped in QUESTION_TYPES:
+                    add(line_no, f"题目必须写成 `### <n>. <题型>`：`{stripped}` 缺少题号")
+                elif MENU_EMOJI_RE.match(stripped):
+                    add(line_no, "菜单标题只写选项原文：去掉 emoji")
+            for k, _ in menu_starts:
+                m_start = k
+                malformed_question = MENU_ITEM_RE.match(body[k]).group(1).strip() in QUESTION_TYPES
+                if malformed_question:
+                    continue
+                m_end = next((pos for pos in heading_positions if pos > m_start), len(body))
                 mblock = body[m_start:m_end]
                 mfields = [m.group(1) for line in mblock if (m := MENU_FIELD_RE.match(line))]
                 if mfields[:2] != ["讲解要点", "可迁移表达"]:

@@ -178,6 +178,50 @@ class NoteTemplateTest(unittest.TestCase):
             self.assertTrue(any("知识点讲解" in issue["message"] for issue in issues))
 
 
+class MenuItemNoteTest(unittest.TestCase):
+    """菜单项直接以三级标题追加在习题之后；错位与旧写法都必须被拦住。"""
+
+    def check_text(self, text: str) -> list[dict]:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "note.md"
+            path.write_text(text, encoding="utf-8")
+            return check_note.check(path)
+
+    def base_note(self) -> str:
+        return NoteTemplateTest().note_text()
+
+    def item(self, label: str = "看一套围绕「a price to pay」的完整场景对话") -> str:
+        return f"### {label}\n\n**讲解要点**：x\n\n**可迁移表达**：y\n"
+
+    def test_menu_item_after_questions_passes(self) -> None:
+        self.assertEqual(self.check_text(self.base_note() + "\n" + self.item()), [])
+
+    def test_wrapper_heading_is_rejected(self) -> None:
+        text = self.base_note() + "\n## 菜单与讲解\n\n" + self.item()
+        issues = self.check_text(text)
+        self.assertTrue(any("非模板二级标题" in issue["message"] for issue in issues))
+
+    def test_legacy_prefix_is_rejected(self) -> None:
+        text = self.base_note() + "\n" + self.item("1. 菜单：看一套围绕「a price to pay」的完整场景对话")
+        issues = self.check_text(text)
+        self.assertTrue(any("不要加编号" in issue["message"] for issue in issues))
+
+    def test_menu_item_before_questions_is_rejected(self) -> None:
+        text = self.base_note().replace("## 本轮习题\n\n", "## 本轮习题\n\n" + self.item() + "\n", 1)
+        issues = self.check_text(text)
+        self.assertTrue(any("菜单项必须放在所有习题之后" in issue["message"] for issue in issues))
+
+    def test_emoji_label_is_rejected(self) -> None:
+        text = self.base_note() + "\n" + self.item("🎭 看一套围绕「a price to pay」的完整场景对话")
+        issues = self.check_text(text)
+        self.assertTrue(any("去掉 emoji" in issue["message"] for issue in issues))
+
+    def test_missing_menu_fields_are_rejected(self) -> None:
+        text = self.base_note() + "\n### 看一套围绕「a price to pay」的完整场景对话\n\n**讲解要点**：x\n"
+        issues = self.check_text(text)
+        self.assertTrue(any("每条菜单必须依次包含" in issue["message"] for issue in issues))
+
+
 class DocumentationDriftTest(unittest.TestCase):
     def test_documented_commands_exist(self) -> None:
         parser = build_parser()
