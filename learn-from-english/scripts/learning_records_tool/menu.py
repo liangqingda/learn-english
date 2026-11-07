@@ -27,12 +27,6 @@ REVIEW_PATHS = (
         "label": "复习语气、自然度和场景选择",
         "categories": ("usage",),
     },
-    {
-        "id": "pronunciation",
-        "icon": "🎧",
-        "label": "复习发音、连读和语调",
-        "categories": ("pronunciation",),
-    },
 )
 
 FOLLOW_UP_SUGGESTIONS = (
