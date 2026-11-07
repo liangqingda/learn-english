@@ -235,7 +235,9 @@ python3 learn-from-english/scripts/learning_records.py menu \
 - 保存失败时只在当前对话保留内容，不落盘，避免笔记与规范记录不一致；用户明确放弃保存后仍写笔记，但必须在追踪字段标注「评分未保存（已放弃）」。
 - 一轮复习只写一个文件；分段提交答案时，只在最终评分结束时写一次完整版本。套题按整套写一个文件，不按 Part 拆成多个文件。
 - 未评分的作答同样写笔记：`error-clusters` 专题练习、`follow-up-learning` 练习、用户明确参与并出现作答的场景对话，只要用户提交了答案就写一份，追踪字段的「本轮得分」与「分类 · 状态变化」写 `— · 未评分`，不调用 `complete-review`。
-- 文件名**不带日期**：`learning-record-notes/<category>-<slug>.md`。`category` 用记录 category（混合知识点的聚焦练习用 `mixed`），`slug` 取记录 `id` 或 `paper_id` 的语义部分，只保留小写字母、数字和连字符（如 `errors-back-west-spacing.md`）。同一个知识点反复复习时**始终复用同一个文件**，按轮次在文件内追加日期分组，不要每轮新建文件。区块标题里的时间用 `date '+%Y-%m-%d %H:%M'` 取本轮结束时的本地时间。
+- 文件名**不带日期**：`learning-record-notes/<category>-<slug>.md`。`category` 用记录 category（混合知识点的聚焦练习用 `mixed`），`slug` 取记录 `id` 或 `paper_id` 的语义部分，只保留小写字母、数字和连字符（如 `errors-back-west-spacing.md`）。未评分练习没有记录 ID 时，`slug` 用该轮 `focus` 或错题 cluster 的主题语义（如 `mixed-down-south-up-north.md`），主题相同就继续复用同一文件，不得按日期或轮次生成新 slug。同一个知识点反复复习时**始终复用同一个文件**，按轮次在文件内追加日期分组，不要每轮新建文件。区块标题里的时间用 `date '+%Y-%m-%d %H:%M'` 取本轮结束时的本地时间。
+- 记录移动到 `mastered-learning-records/` 后 `id` 不变，继续写同一个文件；只有记录 ID 真正变化（新建了另一条记录）时才另建文件。
+- 写之前先 `ls learning-record-notes/` 确认是否已有同名文件：已有就追加，绝不因为标题或分类写法不同而新建近义文件。
 - 文件里只追加、不改写历史：每一轮在文件末尾追加一个 `## <YYYY-MM-DD> <HHMM> · 复习`（或 `· 练习`、`· 套题`）区块，其中包含本轮的追踪表格与习题记录。不要删除、重写或重新排序更早的日期区块；只有当本轮自己刚写错时才就地修正本轮那一段。
 - 笔记里不写 `claim_owner`、`claim_token`、临时 payload 路径或其他会话内凭据。
 
