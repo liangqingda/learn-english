@@ -261,6 +261,8 @@ python3 learn-from-english/scripts/learning_records.py migrate-v2 --dry-run
 │   └── tests/
 ├── practice-learning-records/
 │   ├── SKILL.md
+│   ├── templates/review-note.md
+│   ├── scripts/check_note.py
 │   └── agents/openai.yaml
 └── .github/workflows/check.yml
 ```

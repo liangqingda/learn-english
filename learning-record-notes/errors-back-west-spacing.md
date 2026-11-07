@@ -13,6 +13,7 @@
 | 目标知识点 | out west 不是 outwest |
 | 累计复习次数 | 3 |
 | 下次复习 | 2026-11-20 20:54 |
+| 主观题得分 | — |
 | 笔记生成时间 | 2026-11-06 21:10 |
 
 ### 本轮习题
@@ -90,27 +91,24 @@
 
 **我的答案**：He stayed out west for several years when he was twenty years, and after he went back east.
 
-**判定**：⚠️ 目标短语正确，句内另有 2 处错误
+**判定**：⚠️ 部分正确（out west / back east 目标短语均正确，另有 2 处错误）
 
 <details>
 <summary>展开错题讲解</summary>
 
-**目标短语**：`out west`、`back east` 均书写正确，目标知识点判定通过。
-
-**错误 A：when he was twenty years**
-
-1. **考点**：年龄的表语结构完整性。
+1. **考点**：年龄的表语结构完整性（`when he was twenty years`）。
 2. **为什么错**：`twenty years` 是“二十年（时长）”的名词短语，不能直接作表语表示“二十岁”；表示年龄需要 `twenty years old`，或直接用数词 `twenty`。省掉 old 后句子变成“当他二十年的时候”，语义不成立。
 3. **英语的表达逻辑**：英语把“年龄”当作人身上的属性值，用 `be + 数词` 或 `be + 数词 + years old`；只给 `years` 就退回成时间长度，属于计量对象错位。
 4. **正确表达**：`when he was twenty` / `at twenty` / `in his twenties`；可迁移：`She started college at eighteen.`、`He made his first million in his thirties.`
 
-**错误 B：and after he went back east**
+</details>
 
-1. **考点**：从属连词引导的分句不能独立收尾。
+<details>
+<summary>展开错题讲解</summary>
+
+1. **考点**：从属连词引导的分句不能独立收尾（`and after he went back east`）。
 2. **为什么错**：`after` 在这里引导时间状语从句，属于从属分句，必须依附一个主句；放在 `and` 后面就结束了句子，等于只有从句没有主句，形成残缺句。
 3. **英语的表达逻辑**：英语依靠“主句 + 从句”的层级关系承载时间先后；要表达“之后”，需要用能独立作状语的副词（later、afterwards、then），而不是引出从句的连词。
-4. **正确表达**：`and later moved back east to his hometown`；可迁移：`He left the company and later started his own firm.`（不能写 `and after he started his own firm` 结尾）
-
-**整句参考版本**：`He spent a few years out west in his twenties and later moved back east to his hometown.`
+4. **正确表达**：`and later moved back east to his hometown`，整句 `He spent a few years out west in his twenties and later moved back east to his hometown.`；可迁移：`He left the company and later started his own firm.`（不能写 `and after he started his own firm` 结尾）
 
 </details>

@@ -1,0 +1,213 @@
+#!/usr/bin/env python3
+"""校验 learning-record-notes 下的复习笔记是否符合固定模板。
+
+用法：
+    python3 practice-learning-records/scripts/check_note.py <note.md> [<note.md> ...]
+
+成功时输出 {"ok": true, "checked": [...]}；失败时输出逐条 issue 并以退出码 1 结束。
+"""
+
+from __future__ import annotations
+
+import json
+import re
+import sys
+from pathlib import Path
+
+TRACKING_ROWS = [
+    "记录 ID / 试卷 ID",
+    "分类 · 状态变化",
+    "本轮得分",
+    "题量与错题数",
+    "目标知识点",
+    "累计复习次数",
+    "下次复习",
+    "主观题得分",
+    "笔记生成时间",
+]
+
+QUESTION_TYPES = [
+    "单项选择",
+    "填空",
+    "改错",
+    "改写",
+    "翻译",
+    "语境判断",
+    "造句",
+    "短写作",
+    "综合运用",
+]
+
+SECTION_RE = re.compile(r"^## (\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}) · (复习|练习|套题)\s*$")
+QUESTION_RE = re.compile(r"^#### (\d+)\. " r"(\S.*?)\s*$")
+FIELD_RE = re.compile(r"^\*\*(题目|我的答案|判定)\*\*：")
+VERDICT_RE = re.compile(r"^(\*\*判定\*\*：)(✅|⚠️|❌) ?(.*)$")
+DETAIL_ITEM_RE = re.compile(r"^(\d)\. \*\*(考点|为什么错|英语的表达逻辑|正确表达)\*\*：")
+MERGED_CHOICES_RE = re.compile(r"A\.\s.*B\.\s")
+MERGED_SUBITEMS_RE = re.compile(r"\(a\)[^\n]*\(b\)")
+
+
+def check(path: Path) -> list[dict]:
+    issues: list[dict] = []
+    text = path.read_text(encoding="utf-8")
+    lines = text.splitlines()
+
+    def add(line_no: int, message: str) -> None:
+        issues.append({"line": line_no, "message": message})
+
+    # 1. 文件标题
+    if not lines or not lines[0].startswith("# "):
+        add(1, "第 1 行必须是文件标题 `# <record_id> · <知识点标题>`")
+    elif "·" not in lines[0]:
+        add(1, "文件标题必须包含 `·`，格式为 `# <record_id> · <知识点标题>`")
+
+    # 2. 区块标题
+    sections = [(i + 1, m.group(1), m.group(2), m.group(3)) for i, line in enumerate(lines) if (m := SECTION_RE.match(line))]
+    if not sections:
+        add(1, "缺少轮次区块标题，格式为 `## <YYYY-MM-DD HHMM> · <复习|练习|套题>`")
+        return issues
+
+    # 3. 旧的错误标题格式（把时间写进一级标题或区块写成 `## 追踪`）
+    for i, line in enumerate(lines):
+        if re.match(r"^## 追踪\s*$", line):
+            add(i + 1, "`## 追踪` 应为三级标题 `### 追踪`，且必须位于日期区块内")
+        if re.match(r"^# \d{4}-\d{2}-\d{2}", line):
+            add(i + 1, "一级标题不得放日期，日期只出现在 `## <YYYY-MM-DD HHMM> · <类型>` 区块标题里")
+
+    # 4. 区块之间必须有 --- 分隔
+    if len(sections) >= 2:
+        for idx in range(len(sections) - 1):
+            start_next = sections[idx + 1][0]
+            gap = [l.strip() for l in lines[sections[idx][0] : start_next - 1]]
+            if "---" not in gap:
+                add(start_next, "两个日期区块之间必须有一行 `---` 分隔")
+
+    # 5. 每个区块的内部结构
+    for idx, (start, date, time, kind) in enumerate(sections):
+        end = sections[idx + 1][0] - 1 if idx + 1 < len(sections) else len(lines)
+        body = lines[start:end]
+
+        if "### 追踪" not in body:
+            add(start, "区块内缺少 `### 追踪`")
+        if "### 本轮习题" not in body:
+            add(start, "区块内缺少 `### 本轮习题`")
+
+        for line_off, line in enumerate(body):
+            if line.startswith("### ") and line.strip() not in ("### 追踪", "### 本轮习题"):
+                add(start + line_off, f"不允许出现非模板三级标题：`{line.strip()}`")
+
+        track_idx = next((k for k, l in enumerate(body) if l.strip() == "### 追踪"), None)
+        quiz_idx = next((k for k, l in enumerate(body) if l.strip() == "### 本轮习题"), None)
+        if track_idx is not None:
+            header_off = track_idx + 1
+            while header_off < len(body) and body[header_off].strip() == "":
+                header_off += 1
+            if header_off >= len(body) or body[header_off].strip() != "| 字段 | 值 |":
+                add(start + header_off, "追踪表表头必须是 `| 字段 | 值 |`")
+            else:
+                rows_off = header_off + 2
+                actual: list[str] = []
+                while rows_off < len(body) and body[rows_off].startswith("|"):
+                    cells = [c.strip() for c in body[rows_off].strip("|").split("|")]
+                    actual.append(cells[0] if cells else "")
+                    rows_off += 1
+                if actual != TRACKING_ROWS:
+                    add(
+                        start + header_off,
+                        "追踪表字段必须严格为固定 9 行且顺序不变：" + " / ".join(TRACKING_ROWS),
+                    )
+                if quiz_idx is not None and quiz_idx <= rows_off:
+                    add(start + quiz_idx, "`### 本轮习题` 必须位于追踪表之后")
+
+        # 6. 题目
+        question_starts = [
+            (start + k, int(m.group(1)), m.group(2))
+            for k, line in enumerate(body)
+            if (m := QUESTION_RE.match(line))
+        ]
+        if not question_starts:
+            add(start, "区块内没有任何 `#### <n>. <题型>` 题目")
+        for order, (line_no, number, qtype) in enumerate(question_starts, start=1):
+            if number != order:
+                add(line_no, f"题号必须从 1 连续递增，当前第 {order} 题的编号是 {number}")
+            if qtype not in QUESTION_TYPES:
+                add(line_no, f"题型必须是固定集合之一：{' / '.join(QUESTION_TYPES)}；当前为 `{qtype}`")
+
+        for k in range(len(question_starts)):
+            q_start = question_starts[k][0] - start
+            q_end = question_starts[k + 1][0] - start if k + 1 < len(question_starts) else len(body)
+            block = body[q_start:q_end]
+            base_line = start + q_start
+
+            fields = [m.group(1) for line in block if (m := FIELD_RE.match(line))]
+            if fields[:3] != ["题目", "我的答案", "判定"]:
+                add(base_line, "每道题必须依次包含 `**题目**：`、`**我的答案**：`、`**判定**：` 三个字段")
+
+            verdict_line = next((l for l in block if VERDICT_RE.match(l)), None)
+            if verdict_line is None:
+                add(base_line, "`**判定**：` 必须以 ✅ / ⚠️ / ❌ 之一开头")
+            else:
+                mark = VERDICT_RE.match(verdict_line).group(2)
+                if mark not in ("✅", "⚠️", "❌"):
+                    add(base_line, "判定标记只能是 ✅ / ⚠️ / ❌")
+
+            details_open = sum(1 for l in block if l.strip() == "<details>")
+            details_close = sum(1 for l in block if l.strip() == "</details>")
+            summaries = [l.strip() for l in block if l.strip().startswith("<summary>")]
+            if details_open != details_close:
+                add(base_line, "`<details>` 与 `</details>` 数量必须一致")
+            for summary in summaries:
+                if summary != "<summary>展开错题讲解</summary>":
+                    add(base_line, f"折叠块 summary 必须固定为 `展开错题讲解`，当前为 `{summary}`")
+
+            # 每个折叠块内部固定四步（同一题有多处错误时，各占一个折叠块）
+            blocks: list[list[str]] = []
+            current: list[str] | None = None
+            for line in block:
+                if line.strip() == "<details>":
+                    current = []
+                elif line.strip() == "</details>" and current is not None:
+                    blocks.append(current)
+                    current = None
+                elif current is not None:
+                    current.append(line)
+            for detail_block in blocks:
+                items = [m for line in detail_block if (m := DETAIL_ITEM_RE.match(line))]
+                order = [int(m.group(1)) for m in items]
+                labels = [m.group(2) for m in items]
+                if order != [1, 2, 3, 4]:
+                    add(base_line, "错题讲解必须严格为 1→4 四步")
+                if labels != ["考点", "为什么错", "英语的表达逻辑", "正确表达"]:
+                    add(base_line, "错题讲解四步标签必须依次为 考点 / 为什么错 / 英语的表达逻辑 / 正确表达")
+
+        # 7. 渲染合并检查
+        for k, line in enumerate(body):
+            if MERGED_CHOICES_RE.search(line):
+                add(start + k, "选择题选项必须在同一行只放一个（用 `- A. …` 列表项），不得挤在一行")
+            if MERGED_SUBITEMS_RE.search(line):
+                add(start + k, "多小题的 (a)/(b) 必须逐条写成列表项，不得挤在一行")
+
+    return issues
+
+
+def main(argv: list[str]) -> int:
+    paths = [Path(p) for p in argv[1:]]
+    if not paths:
+        print(__doc__)
+        return 2
+    report = {"ok": True, "checked": [], "issues": []}
+    for path in paths:
+        if not path.is_file():
+            report["ok"] = False
+            report["issues"].append({"file": str(path), "line": 0, "message": "文件不存在"})
+            continue
+        report["checked"].append(str(path))
+        for issue in check(path):
+            report["ok"] = False
+            report["issues"].append({"file": str(path), **issue})
+    print(json.dumps(report, ensure_ascii=False, indent=2))
+    return 0 if report["ok"] else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))
