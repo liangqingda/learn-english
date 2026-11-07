@@ -3,13 +3,19 @@
 
 用法：
     python3 practice-learning-records/scripts/check_note.py <note.md> [<note.md> ...]
+    python3 practice-learning-records/scripts/check_note.py --all
+    python3 practice-learning-records/scripts/check_note.py --all --fix
 
-成功时输出 {"ok": true, "checked": [...]}；失败时输出逐条 issue 并以退出码 1 结束。
+`--all` 校验默认 notes 目录（`$LEARN_ENGLISH_REPO_ROOT/learning-record-notes`）下的全部笔记；
+`--fix` 只修可以无争议判定的问题（行尾空格、`我的答案` 的题号前缀、区块之间缺失的 `---`），
+修完再跑一次校验。成功时输出 {"ok": true, "checked": [...]}；失败时输出逐条 issue 并以退出码 1 结束。
 """
 
 from __future__ import annotations
 
+import argparse
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -140,6 +146,7 @@ TRANSITION_RE = re.compile(
     r"((learning|familiar|mastered) → (learning|familiar|mastered)|未评分)$"
 )
 UNANSWERED_WORDS = ("未作答", "未完成", "漏答")
+KNOWLEDGE_REF_RE = re.compile(r"^\*\*知识点\*\*：同\s*第\s*(\d+)\s*题")
 MENU_ITEM_RE = re.compile(r"^### (\S.*?)\s*$")
 QUIZ_SECTION = "本轮习题"
 SECTION2_RE = re.compile(r"^## (?!#|追踪)(\S.*?)\s*$")
@@ -450,9 +457,11 @@ def check(path: Path) -> list[dict]:
                 if qtype not in QUESTION_TYPES:
                     add(start + q_pos + 1, f"题型必须是固定集合之一：{' / '.join(QUESTION_TYPES)}；当前为 `{qtype}`")
 
+            knowledge_by_number: dict[int, bool] = {}
             for qi, q_pos in enumerate(q_all):
                 block = body[q_pos : (q_all[qi + 1] if qi + 1 < len(q_all) else g_end)]
                 base_line = start + q_pos
+                question_number = int(QUESTION_RE.match(body[q_pos]).group(1))
 
                 fields = [m.group(1) for line in block if (m := FIELD_RE.match(line))]
                 if fields[:3] != ["题目", "我的答案", "判定"]:
@@ -510,12 +519,35 @@ def check(path: Path) -> list[dict]:
                 knowledge_summary = str(TEMPLATE["knowledge_summary"])
                 error_summary = str(TEMPLATE["error_summary"])
 
+                reference_line = next(
+                    (line.strip() for line in block if KNOWLEDGE_REF_RE.match(line.strip())),
+                    None,
+                )
+                merged_ref = (
+                    int(KNOWLEDGE_REF_RE.match(reference_line).group(1))
+                    if reference_line
+                    else None
+                )
                 if not blocks:
-                    add(base_line, f"每道题都必须有 `{knowledge_summary}` 折叠块，答对的题也要写")
+                    if note_category == "paper" and merged_ref is not None:
+                        if not (1 <= merged_ref < question_number) or not knowledge_by_number.get(merged_ref):
+                            add(
+                                base_line,
+                                f"`**知识点**：同第 {merged_ref} 题` 必须指向本节内更早、且已写 `{knowledge_summary}` 的题目",
+                            )
+                    else:
+                        add(
+                            base_line,
+                            f"每道题都必须有 `{knowledge_summary}` 折叠块，答对的题也要写；"
+                            f"套题可按 Passage/Part 合并讲解，写成 `**知识点**：同第 <n> 题`",
+                        )
+                elif merged_ref is not None:
+                    add(base_line, "已经写了折叠块时不要再写 `**知识点**：同第 <n> 题`")
                 elif summaries[0] != knowledge_summary:
                     add(base_line, f"每题第一个折叠块必须是 `{knowledge_summary}`，当前为 `{summaries[0]}`")
                 if summaries.count(knowledge_summary) > 1:
                     add(base_line, f"`{knowledge_summary}` 每题只能有一个")
+                knowledge_by_number[question_number] = bool(blocks) and summaries[0] == knowledge_summary
 
                 is_unanswered = any(word in verdict_text for word in UNANSWERED_WORDS)
                 error_blocks = [summary for summary in summaries[1:] if summary != knowledge_summary]
@@ -599,17 +631,91 @@ def check(path: Path) -> list[dict]:
     return issues
 
 
+def repo_root() -> Path:
+    override = os.environ.get("LEARN_ENGLISH_REPO_ROOT")
+    if override:
+        return Path(override).expanduser().resolve()
+    # practice-learning-records/scripts/check_note.py → 仓库根
+    return Path(__file__).resolve().parents[2]
+
+
+def all_note_paths() -> list[Path]:
+    notes_dir = repo_root() / "learning-record-notes"
+    return sorted(path for path in notes_dir.glob("*.md") if path.name.lower() != "readme.md")
+
+
+def apply_safe_fixes(text: str) -> tuple[str, list[str]]:
+    """只修无争议项；任何会改变语义或版式取舍的问题都留给调用方。"""
+    fixes: list[str] = []
+    lines = text.splitlines()
+    cleaned = [line.rstrip() for line in lines]
+    if cleaned != lines:
+        fixes.append("去掉行尾空格")
+        lines = cleaned
+
+    rewritten: list[str] = []
+    changed = False
+    for line in lines:
+        match = re.match(r"^(\*\*我的答案\*\*：)(\d+[.)、]\s*)(\S.*)$", line)
+        if match:
+            rewritten.append(f"{match.group(1)}{match.group(3)}")
+            changed = True
+        else:
+            rewritten.append(line)
+    if changed:
+        fixes.append("去掉 `我的答案` 的题号前缀")
+        lines = rewritten
+
+    output: list[str] = []
+    inserted = False
+    for line in lines:
+        if line.startswith("# ") and SECTION_RE.match(line) and output:
+            last = len(output) - 1
+            while last >= 0 and not output[last].strip():
+                last -= 1
+            if last >= 0 and output[last].strip() != "---":
+                while output and not output[-1].strip():
+                    output.pop()
+                output.extend(["", "---", ""])
+                inserted = True
+        output.append(line)
+    if inserted:
+        fixes.append("补上区块之间缺失的 `---` 分隔")
+
+    result = "\n".join(output)
+    if text.endswith("\n") or not text:
+        result += "\n"
+    return result, fixes
+
+
 def main(argv: list[str]) -> int:
-    paths = [Path(p) for p in argv[1:]]
+    parser = argparse.ArgumentParser(add_help=True, description="校验复习笔记格式")
+    parser.add_argument("paths", nargs="*", help="要校验的笔记文件")
+    parser.add_argument("--all", action="store_true", help="校验默认 notes 目录下的全部笔记")
+    parser.add_argument("--fix", action="store_true", help="修复无争议问题后再校验")
+    args = parser.parse_args(argv[1:])
+
+    paths = [Path(item) for item in args.paths]
+    if args.all or not paths:
+        paths = paths or all_note_paths()
     if not paths:
         print(__doc__)
         return 2
-    report = {"ok": True, "checked": [], "issues": []}
+
+    report: dict = {"ok": True, "checked": [], "issues": []}
+    if args.fix:
+        report["fixed"] = []
     for path in paths:
         if not path.is_file():
             report["ok"] = False
             report["issues"].append({"file": str(path), "line": 0, "message": "文件不存在"})
             continue
+        if args.fix:
+            before = path.read_text(encoding="utf-8")
+            after, fixes = apply_safe_fixes(before)
+            if fixes:
+                path.write_text(after, encoding="utf-8")
+                report["fixed"].append({"file": str(path), "fixes": fixes})
         report["checked"].append(str(path))
         for issue in check(path):
             report["ok"] = False

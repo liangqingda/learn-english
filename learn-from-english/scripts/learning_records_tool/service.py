@@ -645,6 +645,44 @@ class RecordService:
             "tag_family_total": len(tag_families),
         }
 
+    def note_context(self, identifier: str) -> dict[str, Any]:
+        """Return tracking values a review note needs, so the model stops copying them by hand."""
+        record = self.records().get(identifier)
+        if record is None:
+            raise RecordError(f"record does not exist: {identifier}")
+        history = record.get("review_history") or []
+        last = history[-1] if history else None
+        category = record["category"]
+        if last:
+            transition = f"{category} · {last.get('previous_status')} → {last.get('new_status')}"
+            score_text = f"{float(last.get('score')):g} / 10"
+        else:
+            transition = f"{category} · 未评分"
+            score_text = "—"
+        next_review_at = record.get("next_review_at")
+        next_text = "—"
+        if next_review_at:
+            next_text = datetime.fromisoformat(next_review_at).astimezone().strftime("%Y-%m-%d %H:%M")
+        key = record.get("key") or (identifier.split(":", 1)[1] if ":" in identifier else None)
+        return {
+            "record_id": identifier,
+            "category": category,
+            "status": record["status"],
+            "title": record["title"],
+            "note_file": f"learning-record-notes/{category}-{key}.md" if key else None,
+            "tracking": {
+                "记录 ID / 试卷 ID": identifier,
+                "分类 · 状态变化": transition,
+                "本轮得分": score_text,
+                "目标知识点": record["title"],
+                "累计复习次数": str(record.get("review_count", 0)),
+                "下次复习": next_text,
+                "主观题得分": "—",
+                "笔记生成时间": datetime.now().astimezone().strftime("%Y-%m-%d %H:%M"),
+            },
+            "note": "`题量与错题数` 必须按本轮实际题数与 `错题讲解` 块数填写，脚本无法推断",
+        }
+
     def error_cluster_records(
         self,
         cluster_id: str | None = None,

@@ -273,6 +273,15 @@ def handle_note_replace_block(args: argparse.Namespace) -> dict[str, Any]:
     return result
 
 
+def handle_note_list(args: argparse.Namespace) -> dict[str, Any]:
+    entries = note_store().list_notes(args.id)
+    return {"count": len(entries), "notes": entries}
+
+
+def handle_note_context(args: argparse.Namespace) -> dict[str, Any]:
+    return service().note_context(args.id)
+
+
 def parse_period(value: str) -> int:
     normalized = value.strip().casefold()
     if normalized.endswith("d"):
@@ -523,6 +532,20 @@ def build_parser() -> argparse.ArgumentParser:
         help="run practice-learning-records check_note.py afterwards",
     )
     note_replace.set_defaults(handler=handle_note_replace_block)
+
+    note_list = subparsers.add_parser(
+        "note-list",
+        help="list note blocks, or find the note that tracks one record id",
+    )
+    note_list.add_argument("--id", default=None, help="record id such as errors:back-west-spacing")
+    note_list.set_defaults(handler=handle_note_list)
+
+    note_context = subparsers.add_parser(
+        "note-context",
+        help="return the tracking rows a note needs for one record",
+    )
+    note_context.add_argument("--id", required=True, help="record id")
+    note_context.set_defaults(handler=handle_note_context)
 
     history = subparsers.add_parser("history", help="show one record's review history")
     history.add_argument("--id", required=True)

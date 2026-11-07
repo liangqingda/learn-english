@@ -206,13 +206,14 @@ python3 learn-from-english/scripts/learning_records.py paper-menu
 `learning-record-notes/` 下的 Markdown 笔记是可读副本，也只能通过脚本写入：
 
 ```bash
-python3 learn-from-english/scripts/learning_records.py note-append \
+python3 practice-learning-records/scripts/note.py context --id errors:back-west-spacing   # 追踪字段由此取，不手抄
+python3 practice-learning-records/scripts/note.py append \
   --file learning-record-notes/errors-back-west-spacing.md \
   --content-file - --check <<'EOF'
 # 2026-11-07 21:30 · 复习
 …本轮区块全文…
 EOF
-python3 learn-from-english/scripts/learning_records.py note-replace-block \
+python3 practice-learning-records/scripts/note.py replace \
   --file learning-record-notes/errors-back-west-spacing.md \
   --heading "# 2026-11-07 21:30 · 复习" \
   --content-file - <<'EOF'
@@ -223,7 +224,7 @@ EOF
 
 区块走标准输入，不落中间文件；确需文件时用 `mktemp` 生成唯一路径，**不要**用 `/tmp/note-block.md` 这类固定路径，否则并行会话会互相覆盖内容源。`note-append` 在 `learning-record-notes/.notes.lock` 上取排他锁，锁内完成“读现有文件 → 追加 `---` 分隔 → `os.replace` 原子替换”，因此多个会话同时写同一个笔记文件不会互相覆盖。判重按「标题 + 正文」：同标题同内容返回 `appended: false, duplicate: true`（不要重试）；同标题但内容不同不会丢内容，命令会把时间顺延到不冲突且保持升序的分钟并返回 `heading_adjusted: true` 与新的 `heading`。`note-replace-block` 用同一把锁只替换指定标题的区块，保留其他轮次原样。
 
-`--check` 会运行 `practice-learning-records/scripts/check_note.py`，结果放进 `check` 字段，并用 `check_ok` / `note_status` 区分写入与合规：`valid` 通过，`invalid` 表示写入成功但校验未过（进程退出码 1），`unverified` 表示校验器不可用。笔记格式的唯一规则来源是 `practice-learning-records/references/note-format.md`，版式以 `templates/review-note.md` 为准。
+`practice-learning-records/scripts/note.py` 是复习笔记的统一入口：`append` / `replace` / `list` / `context` 转发到 `learning_records.py`（按 `$LEARN_ENGLISH_CLI`、仓库内同级目录、安装位依次查找），`check` 直接用本 skill 的 `check_note.py`，只装任一 skill 时也能找到自己需要的那一半。`note.py list --id <record id>` 反查记录落在哪个文件、哪一轮；`note.py check --all [--fix]` 全量校验，`--fix` 只修行尾空格、`我的答案` 题号前缀与缺失的区块 `---`。`--check` 结果放进 `check` 字段，并用 `check_ok` / `note_status` 区分写入与合规：`valid` 通过，`invalid` 表示写入成功但校验未过（进程退出码 1），`unverified` 表示校验器不可用。笔记格式的唯一规则来源是 `practice-learning-records/references/note-format.md`，版式以 `templates/review-note.md` 为准。
 
 ### 查询和统计
 
@@ -296,6 +297,7 @@ python3 learn-from-english/scripts/learning_records.py migrate-v2 --dry-run
 │   ├── references/note-format.md
 │   ├── templates/review-note.md
 │   ├── scripts/check_note.py
+│   ├── scripts/note.py
 │   └── agents/openai.yaml
 └── .github/workflows/check.yml
 ```

@@ -260,13 +260,19 @@ python3 learn-from-english/scripts/learning_records.py menu \
 追加与修正命令、菜单项记法、校验与迁移全部在那里，**不要凭记忆或旧轮次猜格式**），并按
 `practice-learning-records/templates/review-note.md` 逐字替换占位符。
 
-本 Skill 只保留三条硬约束：
+本 Skill 只保留四条硬约束：
 
-- 唯一写入方式是 `note-append` / `note-replace-block`，禁止用 `Write` 改写笔记文件，也禁止先落固定路径的临时区块文件。
-- `note-append` 返回 `heading_adjusted: true` 时，说明这一分钟已被占用或写入会打乱时间升序，本轮已按顺延后的 `heading` 保存；
+- 统一入口是 `practice-learning-records/scripts/note.py`：`append` / `replace` / `list` / `context` 转发给
+  `learn-from-english` 的命令，`check` 直接用本 skill 的校验器；只在这一条命令上写笔记，禁止用 `Write` 改写笔记文件，
+  也禁止先落固定路径的临时区块文件。
+- 写之前先跑 `note.py context --id <record id>` 取追踪字段（记录 ID、状态变化、本轮得分、累计次数、下次复习、目标知识点），
+  不要从上下文手工抄；只有 `题量与错题数` 必须按本轮实际题数与 `错题讲解` 块数自己数。要确认某条记录已经写在哪个文件、哪一轮时跑
+  `note.py list --id <record id>`，不要靠猜文件名。
+- `append` 返回 `heading_adjusted: true` 时，说明这一分钟已被占用或写入会打乱时间升序，本轮已按顺延后的 `heading` 保存；
   两轮内容都保留，后续修正用返回的 `heading`。只有 `duplicate: true`（同标题同内容）才表示已经写过，不要重试。
 - `note_status` 为 `valid` 才算通过；`invalid` 表示写入成功但校验未过（退出码 1），用替换命令就地修正；
-  `unverified` 表示校验器不可用，必须在回复里说明「本轮笔记未校验」。
+  `unverified` 表示校验器不可用，必须在回复里说明「本轮笔记未校验」。校验失败时先跑
+  `note.py check --all --fix` 处理行尾空格、答案题号前缀、缺失的 `---` 这三类无争议问题，再处理剩余 issue。
 
 ## 场景对话错题
 
@@ -364,6 +370,7 @@ python3 learn-from-english/scripts/learning_records.py stats --period 30d
 | `note-append` 返回 `heading_adjusted: true` | 按返回的 `heading` 继续，两轮内容都已保留 | 正常菜单照常显示 | 不涉及 | 不要用原请求时间再追加一遍 |
 | `note_status: invalid`（校验失败，退出码 1） | 写入已成功，用替换命令修正本轮区块后重跑 | 正常菜单照常显示 | 不涉及 | 不得把退出码 1 当成写入失败去重试；第二次仍失败时正文如实说明并留待下一轮修正 |
 | `note_status: unverified`（校验器不可用） | 正常发送正文 | 正常菜单照常显示 | 不涉及 | 正文如实说明「本轮笔记未校验」，不得当作已通过 |
+| `note.py` 找不到 `learning_records.py`（只装了复习 skill） | 说明缺少写入命令的位置，先跑 `note.py check --all` 确认校验可用 | 正常菜单照常显示 | 不涉及 | 不得改用 `Write` 直接落盘；按报错里的 `probed` 路径提示安装 learn-from-english 或设置 `LEARN_ENGLISH_CLI` |
 | `menu` / `next-review` / 查询类命令失败 | 说明命令失败原因，按上下文退回初始菜单或直接回答 | 初始菜单 | 不涉及 | 不适用 |
 
 跨文件写入由脚本的事务日志兜底：写入前把目标文件的原始内容备份到 `learning-records/.txn/` 并记录 `.txn-journal.json`；中途失败会立即回滚，进程被杀时下一次任意写操作或 `validate` 会先恢复再继续。看到 `.txn-recovery.log` 记录时，如实说明“上次未完成的写入已自动回滚”，不要描述成“已回滚本轮”。

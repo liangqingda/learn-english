@@ -14,6 +14,7 @@ sys.path.insert(0, str(SCRIPT_DIR))
 
 from learning_records_tool.models import RecordError  # noqa: E402
 from learning_records_tool.notes import NoteStore, _normalize_block  # noqa: E402
+from learning_records_tool.service import RecordService  # noqa: E402
 
 
 SCRIPT = SCRIPT_DIR / "learning_records.py"
@@ -344,6 +345,24 @@ class NoteCliTest(unittest.TestCase):
         self.assertEqual(payload["note_status"], "valid")
         self.assertTrue(payload["check_ok"])
 
+    def test_cli_note_list_finds_the_file_tracking_a_record(self) -> None:
+        self.run_cli(
+            [
+                "note-append",
+                "--file",
+                "learning-record-notes/errors-out-west.md",
+                "--content-file",
+                "-",
+            ],
+            VALID_BLOCK.format(heading="2026-11-09 09:00 · 复习", answer="west"),
+        )
+        listed = self.run_cli(["note-list", "--id", "errors:out-west"])
+        payload = json.loads(listed.stdout)
+        self.assertEqual(payload["count"], 1)
+        self.assertEqual(payload["notes"][0]["file"], "learning-record-notes/errors-out-west.md")
+        empty = json.loads(self.run_cli(["note-list", "--id", "errors:nope"]).stdout)
+        self.assertEqual(empty["count"], 0)
+
     def test_cli_replace_block_rewrites_only_that_round(self) -> None:
         for heading in ("2026-11-09 09:00 · 复习", "2026-11-10 09:00 · 复习"):
             completed = self.run_cli(
@@ -382,6 +401,47 @@ def result_order(text: str) -> list[str]:
         for line in text.split("\n")
         if line.startswith("# 2026-")
     ]
+
+
+class NoteContextTest(unittest.TestCase):
+    """追踪字段由记录推导，模型不再手抄。"""
+
+    class StubStore:
+        def __init__(self, records: dict) -> None:
+            self.records_payload = records
+
+        def read(self) -> dict:
+            return {"records": self.records_payload}
+
+    def test_tracking_rows_come_from_the_record(self) -> None:
+        record = {
+            "id": "errors:out-west",
+            "category": "errors",
+            "title": "out west 不是 outwest",
+            "status": "familiar",
+            "review_count": 2,
+            "next_review_at": "2026-11-20T20:54:00+08:00",
+            "review_history": [
+                {"score": 9.0, "previous_status": "learning", "new_status": "familiar"}
+            ],
+        }
+        service = RecordService(self.StubStore({"errors:out-west": record}))
+        result = service.note_context("errors:out-west")
+        self.assertEqual(result["note_file"], "learning-record-notes/errors-out-west.md")
+        tracking = result["tracking"]
+        self.assertEqual(tracking["分类 · 状态变化"], "errors · learning → familiar")
+        self.assertEqual(tracking["本轮得分"], "9 / 10")
+        self.assertEqual(tracking["累计复习次数"], "2")
+        self.assertEqual(tracking["下次复习"], "2026-11-20 20:54")
+        self.assertEqual(tracking["目标知识点"], "out west 不是 outwest")
+
+    def test_unreviewed_record_uses_placeholder_values(self) -> None:
+        record = {"id": "errors:new", "category": "errors", "title": "t", "status": "learning", "review_history": []}
+        service = RecordService(self.StubStore({"errors:new": record}))
+        tracking = service.note_context("errors:new")["tracking"]
+        self.assertEqual(tracking["分类 · 状态变化"], "errors · 未评分")
+        self.assertEqual(tracking["本轮得分"], "—")
+        self.assertEqual(tracking["下次复习"], "—")
 
 
 if __name__ == "__main__":

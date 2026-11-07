@@ -35,6 +35,7 @@ HEADING_RE = re.compile(
     r"^# (?P<date>\d{4}-\d{2}-\d{2}) (?P<time>\d{2}:\d{2}) · (?P<kind>复习|练习|套题)$"
 )
 DIVIDER = "---"
+RECORD_ID_ROW_RE = re.compile(r"<tr><td>记录 ID / 试卷 ID</td><td>(.*?)</td></tr>")
 
 
 def _normalize_text(text: str) -> str:
@@ -386,6 +387,28 @@ class NoteStore:
             "blocks": blocks,
             "bytes": len(composed.encode("utf-8")),
         }
+
+    def list_notes(self, record_id: str | None = None) -> list[dict[str, Any]]:
+        """List note blocks, optionally filtered by the record id they track."""
+        if not self.notes_dir.is_dir():
+            return []
+        entries: list[dict[str, Any]] = []
+        for path in sorted(self.notes_dir.glob("*.md")):
+            if path.name.lower() == "readme.md":
+                continue
+            for heading, block in _split_blocks(path.read_text(encoding="utf-8")):
+                match = RECORD_ID_ROW_RE.search(block)
+                tracked = match.group(1).strip() if match else None
+                if record_id is not None and tracked != record_id:
+                    continue
+                entries.append(
+                    {
+                        "file": self.relative(path),
+                        "heading": heading,
+                        "record_id": tracked,
+                    }
+                )
+        return entries
 
     def check(self, path: str) -> dict[str, Any]:
         target = self.resolve(path)

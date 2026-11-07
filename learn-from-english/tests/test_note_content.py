@@ -63,6 +63,59 @@ def note_text(
     )
 
 
+def paper_note_text(*, second_reference: str | None = "第 1 题", second_details: bool = False) -> str:
+    """两题套题笔记；第二题可以只用 `**知识点**：同第 <n> 题` 合并讲解。"""
+    rows = {
+        "记录 ID / 试卷 ID": "paper:cet4-20261107T220000-abcdef12",
+        "分类 · 状态变化": "paper · 未评分",
+        "本轮得分": "—",
+        "题量与错题数": "2 题 / 0 处错误",
+        "目标知识点": "CET-4 阅读 Passage 1",
+        "累计复习次数": "—",
+        "下次复习": "—",
+        "主观题得分": "写作 8/15 · 翻译 9/15",
+        "笔记生成时间": "2026-11-07 12:05",
+    }
+    table = "\n".join(
+        f"<tr><td>{row}</td><td>{rows[row]}</td></tr>" for row in check_note.TRACKING_ROWS
+    )
+    knowledge = (
+        "<details>\n<summary>知识点讲解</summary>\n\n"
+        "1. **本题知识点**：Passage 1 的主旨句在首段末句\n"
+        "2. **规则与机制**：主题句常带转折连词\n"
+        "3. **英语的表达逻辑**：先让步后转折\n"
+        "4. **可迁移表达**：While …, the study argues …\n\n"
+        "</details>\n"
+    )
+    second_tail = (
+        knowledge
+        if second_details
+        else (f"**知识点**：同 {second_reference}\n" if second_reference else "")
+    )
+    return (
+        "# 2026-11-07 12:00 · 套题\n"
+        '<table style="border-collapse:collapse;width:auto">\n'
+        '<colgroup><col width="150"><col></colgroup>\n'
+        f"{table}\n"
+        "</table>\n\n"
+        "## 本轮习题\n\n"
+        "### 1. 单项选择\n\n"
+        "**题目**：What is the main idea?\n\n"
+        "- A. first\n"
+        "- B. second\n\n"
+        "**我的答案**：A\n\n"
+        "**判定**：✅ 正确\n\n"
+        f"{knowledge}"
+        "\n### 2. 单项选择\n\n"
+        "**题目**：Which detail supports it?\n\n"
+        "- A. line 1\n"
+        "- B. line 2\n\n"
+        "**我的答案**：B\n\n"
+        "**判定**：✅ 正确\n\n"
+        f"{second_tail}"
+    )
+
+
 class NoteContentValidationTest(unittest.TestCase):
     def check(self, text: str, name: str = "errors-out-west.md") -> list[dict]:
         with tempfile.TemporaryDirectory() as directory:
@@ -148,6 +201,72 @@ class NoteContentValidationTest(unittest.TestCase):
         text = note_text(knowledge="选项 A. 与 B. 的区别在于是否保留介词")
         self.assertEqual(self.check(text), [])
 
+    def test_paper_note_can_merge_knowledge_per_passage(self) -> None:
+        self.assertEqual(
+            self.check(paper_note_text(), "paper-cet4-20261107t220000-abcdef12.md"), []
+        )
+
+    def test_paper_merge_requires_an_earlier_question_with_a_block(self) -> None:
+        self.assert_caught(
+            paper_note_text(second_reference="第 9 题"),
+            "必须指向本节内更早",
+            "paper-cet4-20261107t220000-abcdef12.md",
+        )
+
+    def test_merge_reference_is_rejected_in_a_non_paper_note(self) -> None:
+        without_details = note_text().split("<details>")[0] + "**知识点**：同第 1 题\n"
+        self.assert_caught(without_details, "每道题都必须有")
+
+    def test_paper_question_with_own_block_must_not_also_reference(self) -> None:
+        self.assert_caught(
+            paper_note_text(second_details=True).replace(
+                "<summary>知识点讲解</summary>\n\n1. **本题知识点**：Passage 1 的主旨句在首段末句",
+                "<summary>知识点讲解</summary>\n\n**知识点**：同第 1 题\n\n1. **本题知识点**：Passage 1 的主旨句在首段末句",
+            ),
+            "不要再写",
+            "paper-cet4-20261107t220000-abcdef12.md",
+        )
+
+    def test_fix_repairs_safe_issues_only(self) -> None:
+        broken = note_text().replace("**我的答案**：B", "**我的答案**：1. B")
+        broken = broken.replace("# 2026-11-07 12:00 · 复习", "# 2026-11-07 12:00 · 复习  ")
+        fixed, fixes = check_note.apply_safe_fixes(broken)
+        self.assertIn("去掉行尾空格", fixes)
+        self.assertIn("去掉 `我的答案` 的题号前缀", fixes)
+        self.assertEqual(self.check(fixed), [])
+
+    def test_fix_inserts_the_missing_divider_between_blocks(self) -> None:
+        first = note_text()
+        second = note_text(stamp="2026-11-08 12:00").replace(
+            "# 2026-11-08 12:00 · 复习", "# 2026-11-08 12:00 · 练习"
+        )
+        joined = first.rstrip("\n") + "\n" + second
+        fixed, fixes = check_note.apply_safe_fixes(joined)
+        self.assertIn("补上区块之间缺失的 `---` 分隔", fixes)
+        self.assertEqual(self.check(fixed), [])
+
+    def test_all_mode_walks_the_default_notes_directory(self) -> None:
+        import io
+        import os
+        from contextlib import redirect_stdout
+        from unittest import mock
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            notes = root / NOTES_DIR
+            notes.mkdir()
+            (notes / "errors-out-west.md").write_text(note_text(), encoding="utf-8")
+            (notes / "README.md").write_text("not a note\n", encoding="utf-8")
+            (notes / "errors-broken.md").write_text(note_text(answer=""), encoding="utf-8")
+            buffer = io.StringIO()
+            with mock.patch.dict(os.environ, {"LEARN_ENGLISH_REPO_ROOT": str(root)}):
+                with redirect_stdout(buffer):
+                    code = check_note.main(["check_note.py", "--all"])
+            report = __import__("json").loads(buffer.getvalue())
+            self.assertEqual(code, 1)
+            self.assertEqual(len(report["checked"]), 2)
+            self.assertNotIn("README.md", report["checked"][0])
+
     def test_reported_line_points_at_the_offending_row(self) -> None:
         text = note_text()
         target = next(
@@ -163,6 +282,51 @@ class NoteContentValidationTest(unittest.TestCase):
         matched = [item for item in issues if "主观题得分" in item["message"]]
         self.assertTrue(matched)
         self.assertEqual(matched[0]["line"], line_no)
+
+
+
+class NoteEntryPointTest(unittest.TestCase):
+    """`note.py` 是复习 skill 自己的入口：校验不依赖另一个 skill，写入才转发。"""
+
+    WRAPPER = REPO_ROOT / "practice-learning-records" / "scripts" / "note.py"
+
+    def run_wrapper(self, args: list[str], root: Path, cli: str | None = None):
+        import os
+        import subprocess
+
+        environment = dict(os.environ, LEARN_ENGLISH_REPO_ROOT=str(root))
+        if cli is not None:
+            environment["LEARN_ENGLISH_CLI"] = cli
+        return subprocess.run(
+            [sys.executable, str(self.WRAPPER), *args],
+            capture_output=True,
+            text=True,
+            env=environment,
+            check=False,
+        )
+
+    def test_check_runs_its_own_validator_without_the_other_skill(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            notes = root / NOTES_DIR
+            notes.mkdir()
+            (notes / "errors-out-west.md").write_text(note_text(), encoding="utf-8")
+            completed = self.run_wrapper(["check", "--all"], root, cli=str(root / "missing.py"))
+            self.assertEqual(completed.returncode, 0, completed.stderr)
+            self.assertTrue(__import__("json").loads(completed.stdout)["ok"])
+
+    def test_write_reports_a_missing_business_cli_instead_of_silently_failing(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            completed = self.run_wrapper(
+                ["append", "--file", "learning-record-notes/errors-out-west.md", "--content-file", "-"],
+                root,
+                cli=str(root / "missing.py"),
+            )
+            self.assertEqual(completed.returncode, 2)
+            payload = __import__("json").loads(completed.stdout)
+            self.assertFalse(payload["ok"])
+            self.assertIn("learning_records.py not found", payload["error"])
 
 
 class RealNotesTest(unittest.TestCase):
