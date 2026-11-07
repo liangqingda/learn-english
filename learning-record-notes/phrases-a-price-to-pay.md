@@ -213,8 +213,6 @@ Working night shifts cost her her health, and she knew it.
 
 </details>
 
-## 菜单与讲解
-
 ### 看一套围绕「a price to pay」的完整场景对话
 
 **讲解要点**：对话把同一知识点的三种句式放在真实语流里对比——`there is a price to pay for sth`（代价属于事情本身）、`pay a heavy price for sth`（当事人主动付出）、`come at a price`（代价是某个机会的入场券）；另引出 `a price worth paying` 用于判断“值不值得”，以及 `pay the price for` 的口语化用法。

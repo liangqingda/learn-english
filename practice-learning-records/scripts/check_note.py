@@ -122,6 +122,7 @@ MERGED_CHOICES_RE = re.compile(r"A\.\s.*B\.\s")
 MERGED_SUBITEMS_RE = re.compile(r"\(a\)[^\n]*\(b\)")
 TABLE_ROW_RE = re.compile(r"<tr>\s*<td>(.*?)</td>\s*<td>(.*?)</td>\s*</tr>")
 MENU_ITEM_RE = re.compile(r"^### (\S.*?)\s*$")
+LEGACY_MENU_HEADING_RE = re.compile(r"^### \d+\.\s+菜单：")
 LEGACY_MENU_ITEM_RE = re.compile(r"^\d+\.\s|^菜单：")
 MENU_FIELD_RE = re.compile(r"^\*\*(讲解要点|可迁移表达)\*\*：")
 
@@ -169,7 +170,7 @@ def check(path: Path) -> list[dict]:
             add(start, "区块内缺少 `## 本轮习题`")
 
         for line_off, line in enumerate(body):
-            if line.startswith("## ") and line.strip() not in ("## 本轮习题", "## 菜单与讲解"):
+            if line.startswith("## ") and line.strip() != "## 本轮习题":
                 add(start + line_off, f"不允许出现非模板二级标题：`{line.strip()}`")
 
         # 追踪表：无表头的 HTML 表格，紧跟日期区块，位于 `## 本轮习题` 之前
@@ -209,13 +210,18 @@ def check(path: Path) -> list[dict]:
             if line.strip().startswith("| 字段 |"):
                 add(start + line_off, "追踪信息不再使用 Markdown 表头行，改用无表头 HTML 表格")
 
-        # 6. 题目（只统计 `## 本轮习题` 到 `## 菜单与讲解` 之间的题）
-        menu_idx = next((k for k, l in enumerate(body) if l.strip() == "## 菜单与讲解"), None)
-        quiz_end = menu_idx if menu_idx is not None else len(body)
+        # 6. 题目与菜单：习题区为 `## 本轮习题` 之后、第一条菜单项三级标题之前
+        menu_starts = [
+            k
+            for k, line in enumerate(body)
+            if MENU_ITEM_RE.match(line)
+            and (not QUESTION_RE.match(line) or LEGACY_MENU_HEADING_RE.match(line))
+        ]
+        quiz_end = menu_starts[0] if menu_starts else len(body)
         question_starts = [
             (start + k, int(m.group(1)), m.group(2))
             for k, line in enumerate(body[:quiz_end])
-            if (m := QUESTION_RE.match(line))
+            if (m := QUESTION_RE.match(line)) and not LEGACY_MENU_HEADING_RE.match(line)
         ]
         if not question_starts:
             add(start, "区块内没有任何 `### <n>. <题型>` 题目")
@@ -321,25 +327,22 @@ def check(path: Path) -> list[dict]:
                 if labels != expected_labels:
                     add(base_line, hint + " / ".join(str(label) for label in expected_labels))
 
-        # 6b. 菜单与讲解（可选；出现则位于习题之后）
-        if menu_idx is not None:
-            menu_items = [
-                (start + k, m.group(1))
-                for k, line in enumerate(body[menu_idx + 1 :], start=menu_idx + 1)
-                if (m := MENU_ITEM_RE.match(line))
-            ]
-            if not menu_items:
-                add(start + menu_idx, "`## 菜单与讲解` 下至少要有 `### <菜单项原文>` 一条")
-            if question_starts and menu_items and menu_items[0][0] < question_starts[-1][0]:
-                add(start + menu_idx, "`## 菜单与讲解` 必须放在所有习题之后")
+        # 6b. 菜单项（可选）：不写小节标题，直接以 `### <选项原文>` 接在习题之后
+        if menu_starts:
+            menu_items = [(start + k, MENU_ITEM_RE.match(body[k]).group(1)) for k in menu_starts]
+            if question_starts and menu_starts[0] < question_starts[-1][0] - start:
+                add(start + menu_starts[0], "菜单项必须放在所有习题之后")
             for line_no, text in menu_items:
-                if text.strip() in ("", "—"):
+                stripped = text.strip()
+                if stripped in ("", "—"):
                     add(line_no, "菜单项必须写出用户实际选中的选项原文")
-                elif LEGACY_MENU_ITEM_RE.match(text.strip()):
+                elif stripped == "菜单与讲解":
+                    add(line_no, "不再写 `菜单与讲解` 小节标题：直接以 `### <选项原文>` 展示所选菜单")
+                elif LEGACY_MENU_ITEM_RE.match(stripped):
                     add(line_no, "菜单标题直接写选项原文：不要加编号，也不要写 `菜单：` 前缀")
-            for k in range(len(menu_items)):
-                m_start = menu_items[k][0] - start
-                m_end = menu_items[k + 1][0] - start if k + 1 < len(menu_items) else len(body)
+            for k in range(len(menu_starts)):
+                m_start = menu_starts[k]
+                m_end = menu_starts[k + 1] if k + 1 < len(menu_starts) else len(body)
                 mblock = body[m_start:m_end]
                 mfields = [m.group(1) for line in mblock if (m := MENU_FIELD_RE.match(line))]
                 if mfields[:2] != ["讲解要点", "可迁移表达"]:
