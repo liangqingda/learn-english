@@ -192,17 +192,56 @@ class MenuItemNoteTest(unittest.TestCase):
 
     def item(self, label: str = "看一套围绕「a price to pay」的完整场景对话") -> str:
         return (
-            f"### {label}\n\n"
+            f"## {label}\n\n"
             "**讲解要点**：\n\n"
             "- x\n\n"
             "**可迁移表达**：\n\n"
             "- y\n"
         )
 
+    def practice(self, label: str = "练习「a price to pay」的关键语法结构") -> str:
+        """菜单项下的练习与主习题共用同一套题目模板，题号在小节内从 1 重新开始。"""
+        return (
+            f"## {label}\n\n"
+            "**讲解要点**：\n\n"
+            "- x\n\n"
+            "**可迁移表达**：\n\n"
+            "- y\n\n"
+            "### 1. 填空\n\n"
+            "**题目**：Fill in the blank.\n\n"
+            "**我的答案**：a price\n\n"
+            "**判定**：✅ 正确\n\n"
+            "<details>\n"
+            f"<summary>{check_note.DEFAULT_SUMMARY}</summary>\n\n"
+            "1. **本题知识点**：x\n"
+            "2. **规则与机制**：x\n"
+            "3. **英语的表达逻辑**：x\n"
+            "4. **可迁移表达**：x\n\n"
+            "</details>\n\n"
+            "### 2. 翻译\n\n"
+            "**题目**：Translate this.\n\n"
+            "**我的答案**：no idea\n\n"
+            "**判定**：❌ 错误\n\n"
+            "<details>\n"
+            f"<summary>{check_note.DEFAULT_SUMMARY}</summary>\n\n"
+            "1. **本题知识点**：x\n"
+            "2. **规则与机制**：x\n"
+            "3. **英语的表达逻辑**：x\n"
+            "4. **可迁移表达**：x\n\n"
+            "</details>\n\n"
+            "<details>\n"
+            f"<summary>{check_note.DEFAULT_ERROR_SUMMARY}</summary>\n\n"
+            "1. **考点**：x\n"
+            "2. **为什么错**：x\n"
+            "3. **英语的表达逻辑**：x\n"
+            "4. **正确表达**：x\n\n"
+            "</details>\n"
+        )
+
     def test_paragraph_menu_item_is_rejected(self) -> None:
         text = (
             self.base_note()
-            + "\n### 看一套围绕「a price to pay」的完整场景对话\n\n"
+            + "\n## 看一套围绕「a price to pay」的完整场景对话\n\n"
             "**讲解要点**：第一条规则；第二条规则；第三条规则全部揉在一段。\n\n"
             "**可迁移表达**：y\n"
         )
@@ -242,7 +281,16 @@ class MenuItemNoteTest(unittest.TestCase):
     def test_menu_item_before_questions_is_rejected(self) -> None:
         text = self.base_note().replace("## 本轮习题\n\n", "## 本轮习题\n\n" + self.item() + "\n", 1)
         issues = self.check_text(text)
-        self.assertTrue(any("菜单项必须放在所有习题之后" in issue["message"] for issue in issues))
+        self.assertTrue(any("没有任何 `### <n>. <题型>` 题目" in issue["message"] for issue in issues))
+
+    def test_practice_questions_under_menu_pass(self) -> None:
+        text = self.base_note() + "\n" + self.practice()
+        self.assertEqual(self.check_text(text), [])
+
+    def test_third_level_menu_heading_is_rejected(self) -> None:
+        text = self.base_note() + "\n### 看一套围绕「a price to pay」的完整场景对话\n\n**讲解要点**：\n\n- x\n\n**可迁移表达**：\n\n- y\n"
+        issues = self.check_text(text)
+        self.assertTrue(any("菜单项标题必须与 `## 本轮习题` 同级" in issue["message"] for issue in issues))
 
     def test_emoji_label_is_rejected(self) -> None:
         text = self.base_note() + "\n" + self.item("🎭 看一套围绕「a price to pay」的完整场景对话")
@@ -250,7 +298,7 @@ class MenuItemNoteTest(unittest.TestCase):
         self.assertTrue(any("去掉 emoji" in issue["message"] for issue in issues))
 
     def test_missing_menu_fields_are_rejected(self) -> None:
-        text = self.base_note() + "\n### 看一套围绕「a price to pay」的完整场景对话\n\n**讲解要点**：x\n"
+        text = self.base_note() + "\n## 看一套围绕「a price to pay」的完整场景对话\n\n**讲解要点**：x\n"
         issues = self.check_text(text)
         self.assertTrue(any("每条菜单必须依次包含" in issue["message"] for issue in issues))
 

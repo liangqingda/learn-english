@@ -122,6 +122,8 @@ MERGED_CHOICES_RE = re.compile(r"A\.\s.*B\.\s")
 MERGED_SUBITEMS_RE = re.compile(r"\(a\)[^\n]*\(b\)")
 TABLE_ROW_RE = re.compile(r"<tr>\s*<td>(.*?)</td>\s*<td>(.*?)</td>\s*</tr>")
 MENU_ITEM_RE = re.compile(r"^### (\S.*?)\s*$")
+QUIZ_SECTION = "本轮习题"
+SECTION2_RE = re.compile(r"^## (?!#|追踪)(\S.*?)\s*$")
 LEGACY_MENU_HEADING_RE = re.compile(r"^### \d+\.\s+菜单：")
 LEGACY_MENU_ITEM_RE = re.compile(r"^\d+\.\s|^菜单：")
 MENU_EMOJI_RE = re.compile(
@@ -195,26 +197,24 @@ def check(path: Path) -> list[dict]:
             if "---" not in gap:
                 add(start_next, "两个日期区块之间必须有一行 `---` 分隔")
 
-    # 5. 每个区块的内部结构
+    # 5. 每个区块的内部结构：二级标题分组（## 本轮习题 + 每个菜单项各一组）
     for idx, (start, date, time, kind) in enumerate(sections):
         end = sections[idx + 1][0] - 1 if idx + 1 < len(sections) else len(lines)
         body = lines[start:end]
 
         if any(l.strip() == "## 追踪" for l in body):
             add(start, "不再使用 `## 追踪` 子标题，追踪信息直接以无表头表格紧跟日期区块")
-        if not any(l.strip() == "## 本轮习题" for l in body):
+
+        group_heads = [k for k, l in enumerate(body) if SECTION2_RE.match(l)]
+        if not group_heads:
             add(start, "区块内缺少 `## 本轮习题`")
 
-        for line_off, line in enumerate(body):
-            if line.startswith("## ") and line.strip() != "## 本轮习题":
-                add(start + line_off, f"不允许出现非模板二级标题：`{line.strip()}`")
-
-        # 追踪表：无表头的 HTML 表格，紧跟日期区块，位于 `## 本轮习题` 之前
+        # 追踪表：无表头的 HTML 表格，紧跟日期区块，位于第一个二级标题之前
         table_open = next((k for k, l in enumerate(body) if l.strip().startswith("<table")), None)
         if table_open is not None and table_open >= 1 and all(l.strip() == "" for l in body[:table_open]):
             add(start + 1, "日期标题与追踪表格之间不能留空行：标题下一行必须直接是 `<table …>`")
         table_close = next((k for k, l in enumerate(body) if l.strip() == "</table>"), None)
-        quiz_idx = next((k for k, l in enumerate(body) if l.strip() == "## 本轮习题"), None)
+        first_group = group_heads[0] if group_heads else None
         if table_open is None or table_close is None or table_close < table_open:
             add(start, "缺少无表头追踪表格：必须写成 `<table>` … `</table>`，每行 `<tr><td>字段</td><td>值</td></tr>`")
         else:
@@ -224,7 +224,7 @@ def check(path: Path) -> list[dict]:
             if not any("<colgroup>" in l and f'width="{TEMPLATE["col_width"]}"' in l for l in inner):
                 add(
                     start + table_open,
-                    f"追踪表格必须固定紧凑列宽：紧跟 `<table …>` 写 `<colgroup><col width=\"{TEMPLATE['col_width']}\"><col></colgroup>`",
+                    f"追踪表格必须固定紧凑列宽：紧跟 `<table …>` 写 `<colgroup><col width=\"{TEMPLATE['col_width']}\"><col></colgroup>",
                 )
             table_tag = next((l for l in body[max(0, table_open - 1) : table_open + 1] if l.strip().startswith("<table")), "").strip()
             if table_tag != TEMPLATE["table_tag"]:
@@ -239,168 +239,174 @@ def check(path: Path) -> list[dict]:
                     "追踪表格行数与顺序必须与模板一致："
                     + " / ".join(str(row) for row in TEMPLATE["tracking_rows"]),
                 )
-            if quiz_idx is not None and quiz_idx <= table_close:
-                add(start + quiz_idx, "`## 本轮习题` 必须在追踪表格之后")
+            if first_group is not None and first_group <= table_close:
+                add(start + first_group, "`## 本轮习题` 必须在追踪表格之后")
 
         for line_off, line in enumerate(body):
             if line.strip().startswith("| 字段 |"):
                 add(start + line_off, "追踪信息不再使用 Markdown 表头行，改用无表头 HTML 表格")
 
-        # 6. 题目与菜单项：各自在整块内独立定位，先得到真实位置再判断两者顺序
-        heading_positions = [k for k, line in enumerate(body) if MENU_ITEM_RE.match(line)]
-        menu_starts = [
-            (k, MENU_ITEM_RE.match(body[k]).group(1))
-            for k in heading_positions
-            if not QUESTION_RE.match(body[k]) or LEGACY_MENU_HEADING_RE.match(body[k])
-        ]
-        question_starts = [
-            (start + k, int(m.group(1)), m.group(2))
-            for k, line in enumerate(body)
-            if (m := QUESTION_RE.match(line)) and not LEGACY_MENU_HEADING_RE.match(line)
-        ]
-        if not question_starts:
-            add(start, "区块内没有任何 `### <n>. <题型>` 题目")
-        for order, (line_no, number, qtype) in enumerate(question_starts, start=1):
-            if number != order:
-                add(line_no, f"题号必须从 1 连续递增，当前第 {order} 题的编号是 {number}")
-            if qtype not in QUESTION_TYPES:
-                add(line_no, f"题型必须是固定集合之一：{' / '.join(QUESTION_TYPES)}；当前为 `{qtype}`")
+        # 6. 二级标题分组：第一个必须是 `## 本轮习题`，其余每组对应一个菜单项
+        groups: list[tuple[int, str, int]] = []
+        for gidx, k in enumerate(group_heads):
+            title = SECTION2_RE.match(body[k]).group(1).strip()
+            g_end = group_heads[gidx + 1] if gidx + 1 < len(group_heads) else len(body)
+            groups.append((k, title, g_end))
 
-        for k in range(len(question_starts)):
-            q_start = question_starts[k][0] - start
-            q_end = next((pos for pos in heading_positions if pos > q_start), len(body))
-            block = body[q_start:q_end]
-            base_line = start + q_start
+        quiz_index = next((i for i, (_, title, _) in enumerate(groups) if title == QUIZ_SECTION), None)
+        if quiz_index is None:
+            add(start, "区块内缺少 `## 本轮习题`")
+        elif quiz_index != 0:
+            add(start + groups[0][0], "第一个二级标题必须是 `## 本轮习题`")
 
-            fields = [m.group(1) for line in block if (m := FIELD_RE.match(line))]
-            if fields[:3] != ["题目", "我的答案", "判定"]:
-                add(base_line, "每道题必须依次包含 `**题目**：`、`**我的答案**：`、`**判定**：` 三个字段")
-
-            verdict_line = next((l for l in block if VERDICT_RE.match(l)), None)
-            mark = ""
-            verdict_text = ""
-            if verdict_line is None:
-                add(base_line, "`**判定**：` 必须以 ✅ / ⚠️ / ❌ 之一开头")
-            else:
-                mark = VERDICT_RE.match(verdict_line).group(2)
-                verdict_text = VERDICT_RE.match(verdict_line).group(3)
-                if mark not in ("✅", "⚠️", "❌"):
-                    add(base_line, "判定标记只能是 ✅ / ⚠️ / ❌")
-
-            details_open = sum(1 for l in block if l.strip() == "<details>")
-            details_close = sum(1 for l in block if l.strip() == "</details>")
-            if details_open != details_close:
-                add(base_line, "`<details>` 与 `</details>` 数量必须一致")
-
-            # 折叠块：每题第一个必须是 `知识点讲解`，错误/未作答再追加 `错题讲解`
-            blocks: list[list[str]] = []
-            current: list[str] | None = None
-            for line in block:
-                if line.strip() == "<details>":
-                    current = []
-                elif line.strip() == "</details>" and current is not None:
-                    blocks.append(current)
-                    current = None
-                elif current is not None:
-                    current.append(line)
-
-            def block_summary(detail_block: list[str]) -> str:
-                for line in detail_block:
-                    stripped = line.strip()
-                    if stripped.startswith("<summary>"):
-                        return stripped[len("<summary>") : -len("</summary>")].strip()
-                return ""
-
-            summaries = [block_summary(detail_block) for detail_block in blocks]
-            knowledge_summary = str(TEMPLATE["knowledge_summary"])
-            error_summary = str(TEMPLATE["error_summary"])
-
-            if not blocks:
-                add(base_line, f"每道题都必须有 `{knowledge_summary}` 折叠块，答对的题也要写")
-            elif summaries[0] != knowledge_summary:
-                add(base_line, f"每题第一个折叠块必须是 `{knowledge_summary}`，当前为 `{summaries[0]}`")
-            if summaries.count(knowledge_summary) > 1:
-                add(base_line, f"`{knowledge_summary}` 每题只能有一个")
-
-            # 未作答、未完成、漏答一律按“没答出来”处理，四步第 2 步写“为什么答不出”
-            is_unanswered = any(word in verdict_text for word in ("未作答", "未完成", "漏答"))
-            error_blocks = [summary for summary in summaries[1:] if summary != knowledge_summary]
-            chinese_mark = {"✅": "完全正确", "⚠️": "⚠️", "❌": "❌"}.get(mark, mark)
-            if mark == "✅" and error_blocks:
-                add(base_line, f"完全正确的题只写 `{knowledge_summary}`，不写 `{error_summary}`")
-            elif mark in ("⚠️", "❌"):
-                if not error_blocks:
-                    add(base_line, f"判定为 {chinese_mark} 的题必须再写 `{error_summary}` 折叠块")
-                elif len(error_blocks) == 1 and error_blocks[0] != error_summary:
-                    add(base_line, f"单个错误折叠块 summary 必须固定为 `{error_summary}`，当前为 `{error_blocks[0]}`")
-                elif len(error_blocks) > 1:
-                    for i, summary in enumerate(error_blocks, start=1):
-                        if summary != f"{error_summary} {i}":
-                            add(
-                                base_line,
-                                f"同一题有多处错误时，summary 必须按顺序写成 `{error_summary} 1`、`2`…，当前第 {i} 个为 `{summary}`",
-                            )
-
-            knowledge_labels = list(TEMPLATE["knowledge_labels"])
-            error_labels = list(TEMPLATE["unanswered_labels"]) if is_unanswered else list(TEMPLATE["error_labels"])
-            for detail_block in blocks:
-                summary = block_summary(detail_block)
-                items = [m for line in detail_block if (m := DETAIL_ITEM_RE.match(line))]
-                order = [int(m.group(1)) for m in items]
-                labels = [m.group(2) for m in items]
-                if order != [1, 2, 3, 4]:
-                    add(base_line, "讲解折叠块必须严格为 1→4 四步")
-                if summary == knowledge_summary:
-                    expected_labels = knowledge_labels
-                    hint = "知识点讲解四步标签必须为："
-                elif is_unanswered:
-                    expected_labels = error_labels
-                    hint = "未作答/未完成题的四步标签必须为："
-                else:
-                    expected_labels = error_labels
-                    hint = "错题讲解四步标签必须与模板一致："
-                if labels != expected_labels:
-                    add(base_line, hint + " / ".join(str(label) for label in expected_labels))
-
-        # 6b. 菜单项（可选）：不写小节标题，直接以 `### <选项原文>` 接在习题之后
-        if menu_starts:
-            first_menu_pos = menu_starts[0][0]
-            if question_starts and first_menu_pos < question_starts[-1][0] - start:
-                add(start + first_menu_pos, "菜单项必须放在所有习题之后：某道习题出现在菜单项之后")
-            for k, text in menu_starts:
-                line_no = start + k
-                stripped = text.strip()
-                if stripped in ("", "—"):
-                    add(line_no, "菜单项必须写出用户实际选中的选项原文")
-                elif stripped == "菜单与讲解":
-                    add(line_no, "不再写 `菜单与讲解` 小节标题：直接以 `### <选项原文>` 展示所选菜单")
-                elif LEGACY_MENU_ITEM_RE.match(stripped):
-                    add(line_no, "菜单标题直接写选项原文：不要加编号，也不要写 `菜单：` 前缀")
-                elif stripped in QUESTION_TYPES:
-                    add(line_no, f"题目必须写成 `### <n>. <题型>`：`{stripped}` 缺少题号")
-                elif MENU_EMOJI_RE.match(stripped):
-                    add(line_no, "菜单标题只写选项原文：去掉 emoji")
-            for k, _ in menu_starts:
-                m_start = k
-                malformed_question = MENU_ITEM_RE.match(body[k]).group(1).strip() in QUESTION_TYPES
-                if malformed_question:
-                    continue
-                m_end = next((pos for pos in heading_positions if pos > m_start), len(body))
-                mblock = body[m_start:m_end]
-                mfields = [m.group(1) for line in mblock if (m := MENU_FIELD_RE.match(line))]
-                if mfields[:2] != ["讲解要点", "可迁移表达"]:
-                    add(start + m_start, "每条菜单必须依次包含 `**讲解要点**：`、`**可迁移表达**：` 两个字段")
-                structured = any(
-                    STRUCTURED_LINE_RE.match(line.strip()) or line.strip().startswith("<table")
-                    for line in mblock
+        # 旧写法：菜单项仍写成三级标题
+        for k, line in enumerate(body):
+            if MENU_ITEM_RE.match(line) and not QUESTION_RE.match(line):
+                add(
+                    start + k,
+                    "菜单项标题必须与 `## 本轮习题` 同级：写成 `## <选项原文>`，其下再按 `### <n>. <题型>` 记录练习",
                 )
-                if not structured:
-                    add(
-                        start + m_start,
-                        "菜单项的讲解必须拆成有序列表、无序列表或表格逐条记录：不要把多条规则揉成一整段文字",
-                    )
 
-        # 7. 渲染合并检查
+        for gidx, (g_start, g_title, g_end) in enumerate(groups):
+            if gidx == 0 or g_title == QUIZ_SECTION:
+                continue
+            line_no = start + g_start
+            if g_title in ("", "—"):
+                add(line_no, "菜单项必须写出用户实际选中的选项原文")
+            elif g_title == "菜单与讲解":
+                add(line_no, "不允许出现非模板二级标题：`## 菜单与讲解`；菜单项标题直接写选项原文")
+            elif LEGACY_MENU_ITEM_RE.match(g_title):
+                add(line_no, "菜单标题直接写选项原文：不要加编号，也不要写 `菜单：` 前缀")
+            elif g_title in QUESTION_TYPES:
+                add(line_no, f"题目必须写成 `### <n>. <题型>`：`{g_title}` 缺少题号")
+            elif MENU_EMOJI_RE.match(g_title):
+                add(line_no, "菜单标题只写选项原文：去掉 emoji")
+            if quiz_index is not None and gidx < quiz_index:
+                add(line_no, "菜单项必须放在 `## 本轮习题` 之后：某道习题出现在菜单项之后")
+
+            q_positions = [g_start + k for k, line in enumerate(body[g_start:g_end]) if QUESTION_RE.match(line)]
+            intro = body[g_start + 1 : (q_positions[0] if q_positions else g_end)]
+            mfields = [m.group(1) for line in intro if (m := MENU_FIELD_RE.match(line))]
+            if mfields[:2] != ["讲解要点", "可迁移表达"]:
+                add(line_no, "每条菜单必须依次包含 `**讲解要点**：`、`**可迁移表达**：` 两个字段")
+            if not any(
+                STRUCTURED_LINE_RE.match(line.strip()) or line.strip().startswith("<table")
+                for line in intro
+            ):
+                add(
+                    line_no,
+                    "菜单项的讲解必须拆成有序列表、无序列表或表格逐条记录：不要把多条规则揉成一整段文字",
+                )
+
+        # 7. 逐组、逐题校验（每组题号都从 1 开始，练习与主习题共用同一套模板）
+        for g_start, g_title, g_end in groups:
+            q_all = [g_start + k for k, line in enumerate(body[g_start:g_end]) if QUESTION_RE.match(line)]
+            if not q_all:
+                if g_title == QUIZ_SECTION:
+                    add(start, "`## 本轮习题` 内没有任何 `### <n>. <题型>` 题目")
+                continue
+            for order, q_pos in enumerate(q_all, start=1):
+                number = int(QUESTION_RE.match(body[q_pos]).group(1))
+                qtype = QUESTION_RE.match(body[q_pos]).group(2)
+                if number != order:
+                    add(start + q_pos, f"题号必须从 1 连续递增，当前第 {order} 题的编号是 {number}")
+                if qtype not in QUESTION_TYPES:
+                    add(start + q_pos, f"题型必须是固定集合之一：{' / '.join(QUESTION_TYPES)}；当前为 `{qtype}`")
+
+            for qi, q_pos in enumerate(q_all):
+                block = body[q_pos : (q_all[qi + 1] if qi + 1 < len(q_all) else g_end)]
+                base_line = start + q_pos
+
+                fields = [m.group(1) for line in block if (m := FIELD_RE.match(line))]
+                if fields[:3] != ["题目", "我的答案", "判定"]:
+                    add(base_line, "每道题必须依次包含 `**题目**：`、`**我的答案**：`、`**判定**：` 三个字段")
+
+                verdict_line = next((l for l in block if VERDICT_RE.match(l)), None)
+                mark = ""
+                verdict_text = ""
+                if verdict_line is None:
+                    add(base_line, "`**判定**：` 必须以 ✅ / ⚠️ / ❌ 之一开头")
+                else:
+                    mark = VERDICT_RE.match(verdict_line).group(2)
+                    verdict_text = VERDICT_RE.match(verdict_line).group(3)
+                    if mark not in ("✅", "⚠️", "❌"):
+                        add(base_line, "判定标记只能是 ✅ / ⚠️ / ❌")
+
+                details_open = sum(1 for l in block if l.strip() == "<details>")
+                details_close = sum(1 for l in block if l.strip() == "</details>")
+                if details_open != details_close:
+                    add(base_line, "`<details>` 与 `</details>` 数量必须一致")
+
+                blocks: list[list[str]] = []
+                current: list[str] | None = None
+                for line in block:
+                    if line.strip() == "<details>":
+                        current = []
+                    elif line.strip() == "</details>" and current is not None:
+                        blocks.append(current)
+                        current = None
+                    elif current is not None:
+                        current.append(line)
+
+                def block_summary(detail_block: list[str]) -> str:
+                    for line in detail_block:
+                        stripped = line.strip()
+                        if stripped.startswith("<summary>"):
+                            return stripped[len("<summary>") : -len("</summary>")].strip()
+                    return ""
+
+                summaries = [block_summary(detail_block) for detail_block in blocks]
+                knowledge_summary = str(TEMPLATE["knowledge_summary"])
+                error_summary = str(TEMPLATE["error_summary"])
+
+                if not blocks:
+                    add(base_line, f"每道题都必须有 `{knowledge_summary}` 折叠块，答对的题也要写")
+                elif summaries[0] != knowledge_summary:
+                    add(base_line, f"每题第一个折叠块必须是 `{knowledge_summary}`，当前为 `{summaries[0]}`")
+                if summaries.count(knowledge_summary) > 1:
+                    add(base_line, f"`{knowledge_summary}` 每题只能有一个")
+
+                is_unanswered = any(word in verdict_text for word in ("未作答", "未完成", "漏答"))
+                error_blocks = [summary for summary in summaries[1:] if summary != knowledge_summary]
+                chinese_mark = {"✅": "完全正确", "⚠️": "⚠️", "❌": "❌"}.get(mark, mark)
+                if mark == "✅" and error_blocks:
+                    add(base_line, f"完全正确的题只写 `{knowledge_summary}`，不写 `{error_summary}`")
+                elif mark in ("⚠️", "❌"):
+                    if not error_blocks:
+                        add(base_line, f"判定为 {chinese_mark} 的题必须再写 `{error_summary}` 折叠块")
+                    elif len(error_blocks) == 1:
+                        if error_blocks[0] != error_summary:
+                            add(base_line, f"单个错误折叠块 summary 必须固定为 `{error_summary}`，当前为 `{error_blocks[0]}`")
+                    elif len(error_blocks) > 1:
+                        for i, summary in enumerate(error_blocks, start=1):
+                            if summary != f"{error_summary} {i}":
+                                add(
+                                    base_line,
+                                    f"同一题有多处错误时，summary 必须按顺序写成 `{error_summary} 1`、`2`…，当前第 {i} 个为 `{summary}`",
+                                )
+
+                knowledge_labels = list(TEMPLATE["knowledge_labels"])
+                error_labels = list(TEMPLATE["unanswered_labels"]) if is_unanswered else list(TEMPLATE["error_labels"])
+                for detail_block in blocks:
+                    summary = block_summary(detail_block)
+                    items = [m for line in detail_block if (m := DETAIL_ITEM_RE.match(line))]
+                    order = [int(m.group(1)) for m in items]
+                    labels = [m.group(2) for m in items]
+                    if order != [1, 2, 3, 4]:
+                        add(base_line, "讲解折叠块必须严格为 1→4 四步")
+                    if summary == knowledge_summary:
+                        expected_labels = knowledge_labels
+                        hint = "知识点讲解四步标签必须为："
+                    elif is_unanswered:
+                        expected_labels = error_labels
+                        hint = "未作答/未完成题的四步标签必须为："
+                    else:
+                        expected_labels = error_labels
+                        hint = "错题讲解四步标签必须与模板一致："
+                    if labels != expected_labels:
+                        add(base_line, hint + " / ".join(str(label) for label in expected_labels))
+
+        # 8. 渲染合并检查
         for k, line in enumerate(body):
             if MERGED_CHOICES_RE.search(line):
                 add(start + k, "选择题选项必须在同一行只放一个（用 `- A. …` 列表项），不得挤在一行")
