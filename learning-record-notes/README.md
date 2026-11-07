@@ -16,10 +16,12 @@
 ```bash
 python3 learn-from-english/scripts/learning_records.py note-append \
   --file learning-record-notes/<category>-<slug>.md \
-  --content-file /tmp/note-block.md \
-  --check
+  --content-file - --check <<'EOF'
+# <YYYY-MM-DD HH:MM> · <复习 | 练习 | 套题>
+…本轮区块全文…
+EOF
 ```
 
-`note-append` 在 `learning-record-notes/.notes.lock` 上取排他锁，锁内完成“读现有文件 → 补 `---` 分隔 → 原子替换”，多个会话同时写同一文件不会互相覆盖；返回 `appended: false, duplicate: true` 表示该标题区块已存在，按已写入处理。修正自己刚写的区块用同一把锁的 `note-replace-block --heading "# <本轮标题>"`，不要整文件重写。`--check` 会调用 `practice-learning-records/scripts/check_note.py`，要求返回 `ok: true`。
+区块走标准输入，不落中间文件；确需文件时用 `mktemp` 生成唯一路径，不要用 `/tmp/note-block.md` 这类固定路径。`note-append` 在 `learning-record-notes/.notes.lock` 上取排他锁，锁内完成“读现有文件 → 补 `---` 分隔 → 原子替换”，多个会话同时写同一文件不会互相覆盖；返回 `appended: false, duplicate: true` 表示该标题区块已存在（内容有修正时改用替换命令，不要追加第二遍）。修正自己刚写的区块用同一把锁的 `note-replace-block --heading "# <本轮标题>" --content-file -`，不要整文件重写。`--check` 会调用 `practice-learning-records/scripts/check_note.py`，要求返回 `ok: true`，否则退出码为 1。
 
 笔记是可读副本，不是规范数据源：评分、状态、复习调度都以 `learning-records/`、`mastered-learning-records/` 和 `exam-papers/` 为准，删除笔记不会影响任何评分或复习计划。

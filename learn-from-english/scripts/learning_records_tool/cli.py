@@ -483,4 +483,9 @@ def main() -> int:
     sys.stdout.write("\n")
     if args.command == "validate" and not result.get("valid", False):
         return 1
+    if isinstance(result, dict):
+        check = result.get("check")
+        if isinstance(check, dict) and check.get("ok") is False:
+            # 写入本身成功，但笔记不合规；让 CI 与脚本能用退出码判定。
+            return 1
     return 0

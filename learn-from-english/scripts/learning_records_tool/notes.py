@@ -148,7 +148,9 @@ class NoteStore:
                 release()
 
     @staticmethod
-    def _lock_handle(handle) -> Any:
+    def _lock_handle(handle: Any) -> Any:
+        # POSIX 分支有并发用例覆盖；Windows 分支只在无 fcntl 的平台走到，
+        # 无法在 CI（Ubuntu / macOS）里验证，改动该分支时需手工确认。
         try:
             import fcntl
         except ImportError:  # pragma: no cover - Windows only
@@ -220,11 +222,17 @@ class NoteStore:
                     "ok": True,
                     "appended": False,
                     "duplicate": True,
+                    "hint": (
+                        "this round already exists; use note-replace-block with the same "
+                        "heading if its content needs a correction"
+                    ),
                     "file": self.relative(target),
                     "heading": heading,
                     "blocks": _count_blocks(existing),
                 }
             body = _normalize_text(existing).rstrip("\n")
+            # 历史区块之间缺少分隔符时只追加本轮，不回填历史，
+            # 以免“整理旧格式”改写别的会话已经写下的内容。
             if not body.strip():
                 composed = block
             elif _ends_with_divider(body):

@@ -297,17 +297,32 @@ python3 learn-from-english/scripts/learning_records.py menu \
 
 追加流程（笔记**唯一**写入方式，禁止用 `Write` 直接改写笔记文件）：
 
-1. 把本轮区块的完整 Markdown 写到临时文件（如 `/tmp/note-block.md`）：第一行必须是 `# <YYYY-MM-DD HH:MM> · <复习|练习|套题>`，一个区块只能有一个这样的标题行。
+1. 用 heredoc 把本轮区块通过标准输入直接传给命令，**不要**先写固定路径的临时文件（如 `/tmp/note-block.md`）：并行会话会互相覆盖同一个固定路径，导致把别人的区块写进本文件。确需文件时用 `mktemp` 生成唯一路径。区块第一行必须是 `# <YYYY-MM-DD HH:MM> · <复习|练习|套题>`，一个区块只能有一个这样的标题行。
 2. 运行：
    ```bash
    python3 learn-from-english/scripts/learning_records.py note-append \
      --file learning-record-notes/<category>-<slug>.md \
-     --content-file /tmp/note-block.md \
-     --check
+     --content-file - \
+     --check <<'EOF'
+   # <YYYY-MM-DD HH:MM> · <复习|练习|套题>
+   …本轮区块全文…
+   EOF
    ```
 3. 该命令在 `learning-record-notes/.notes.lock` 上取排他锁，锁内完成“读现有文件 → 在末尾补一行 `---` 分隔 → 原子替换”，因此多个会话同时写同一文件不会互相覆盖，顺序由锁排队决定。
-4. 返回值 `appended: true` 即写入成功；`appended: false, duplicate: true` 表示该标题的区块已存在（重试或并发冲突的产物），按已写入处理，不要重试、不要手工补写。
-5. 新建文件时同样走这条命令：第一个区块会直接成为文件的一级标题，不额外写文件级 H1；不得为“整理格式”重写旧区块、调整旧的日期顺序或删除历史。
+4. 返回值 `appended: true` 即写入成功；`appended: false, duplicate: true` 表示该标题的区块已存在（重试或并发冲突的产物）：内容与已写入的一致就按已写入处理，**不要重试、不要手工补写**；若本次内容相对已存区块有修正，改用第 5 步的替换命令，不要追加第二遍。
+5. 本轮区块刚写错、需要修正时用同一把锁的替换命令（同样走 stdin，标题行必须与追加时完全一致）：
+   ```bash
+   python3 learn-from-english/scripts/learning_records.py note-replace-block \
+     --file learning-record-notes/<category>-<slug>.md \
+     --heading "# <本轮标题>" \
+     --content-file - \
+     --check <<'EOF'
+   # <本轮标题>
+   …修正后的本轮区块全文…
+   EOF
+   ```
+6. 新建文件时同样走这条命令：第一个区块会直接成为文件的一级标题，不额外写文件级 H1；不得为“整理格式”重写旧区块、调整旧的日期顺序或删除历史。历史区块之间若原本缺少 `---` 分隔，本轮只追加、不回填旧格式。
+7. `--check` 失败时命令退出码为 1（JSON 里 `ok: true` 但 `check.ok: false`）：按下面的校验与修正一节处理。
 
 模板演进的迁移例外：当模板本身变更（新增/重命名折叠块、增加字段口径）导致历史笔记不再通过校验时，允许对历史笔记做一次性迁移，但必须满足三条：只做追加块或替换 `<summary>` 标签文字；不得改动题干、`我的答案`、判定、正文讲解与历史顺序；迁移前后用 `git diff` 确认没有正文删除。迁移不适用于日常整理，也不得借此重排旧日期区块。
 
@@ -330,13 +345,16 @@ python3 practice-learning-records/scripts/check_note.py learning-record-notes/<c
 
 `check.ok: true` 表示笔记合规。`check.ok: false` 时按 issue 的 `line` 与 `message` 修正：
 
-- issue 落在本轮刚追加的区块内：把修正后的**完整区块**写到临时文件，用同一把锁的替换命令就地替换，不要整文件重写、也不要追加第二遍：
+- issue 落在本轮刚追加的区块内：把修正后的**完整区块**用 heredoc 交给同一把锁的替换命令就地替换，不要整文件重写、也不要追加第二遍：
   ```bash
   python3 learn-from-english/scripts/learning_records.py note-replace-block \
     --file learning-record-notes/<category>-<slug>.md \
     --heading "# <本轮标题，与追加时完全一致>" \
-    --content-file /tmp/note-block-fixed.md \
-    --check
+    --content-file - \
+    --check <<'EOF'
+  # <本轮标题>
+  …修正后的本轮区块全文…
+  EOF
   ```
   替换命令只改动该标题的区块，其他日期区块原样保留；替换区块的标题行必须与 `--heading` 完全一致。
 - issue 落在更早的历史区块内：不要借本轮修改历史，也不要为通过校验重排旧区块；按上面“第二次仍不通过”处理。

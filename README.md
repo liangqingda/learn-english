@@ -208,15 +208,20 @@ python3 learn-from-english/scripts/learning_records.py paper-menu
 ```bash
 python3 learn-from-english/scripts/learning_records.py note-append \
   --file learning-record-notes/errors-back-west-spacing.md \
-  --content-file /tmp/note-block.md \
-  --check
+  --content-file - --check <<'EOF'
+# 2026-11-07 21:30 · 复习
+…本轮区块全文…
+EOF
 python3 learn-from-english/scripts/learning_records.py note-replace-block \
   --file learning-record-notes/errors-back-west-spacing.md \
   --heading "# 2026-11-07 21:30 · 复习" \
-  --content-file /tmp/note-block-fixed.md
+  --content-file - <<'EOF'
+# 2026-11-07 21:30 · 复习
+…修正后的本轮区块全文…
+EOF
 ```
 
-`note-append` 在 `learning-record-notes/.notes.lock` 上取排他锁，锁内完成“读现有文件 → 追加 `---` 分隔 → `os.replace` 原子替换”，因此多个会话同时写同一个笔记文件不会互相覆盖；同标题区块已存在时返回 `appended: false, duplicate: true`，重试不会写重复区块。`note-replace-block` 用同一把锁只替换指定标题的区块，保留其他轮次原样。`--check` 会运行 `practice-learning-records/scripts/check_note.py` 并把结果放进 `check` 字段。
+区块走标准输入，不落中间文件；确需文件时用 `mktemp` 生成唯一路径，**不要**用 `/tmp/note-block.md` 这类固定路径，否则并行会话会互相覆盖内容源。`note-append` 在 `learning-record-notes/.notes.lock` 上取排他锁，锁内完成“读现有文件 → 追加 `---` 分隔 → `os.replace` 原子替换”，因此多个会话同时写同一个笔记文件不会互相覆盖；同标题区块已存在时返回 `appended: false, duplicate: true` 并在 `hint` 提示改用替换命令，重试不会写重复区块。`note-replace-block` 用同一把锁只替换指定标题的区块，保留其他轮次原样。`--check` 会运行 `practice-learning-records/scripts/check_note.py` 并把结果放进 `check` 字段，校验不通过时进程退出码为 1。
 
 ### 查询和统计
 

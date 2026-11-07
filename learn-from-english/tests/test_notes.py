@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import os
 import subprocess
 import sys
@@ -63,10 +64,26 @@ class NoteAppendTest(unittest.TestCase):
         self.assertTrue(result["duplicate"])
         self.assertEqual(self.note.read_bytes(), before)
 
+    def test_duplicate_heading_with_changed_body_is_not_silently_dropped(self) -> None:
+        self.store.append(self.note, round_block())
+        result = self.store.append(self.note, round_block(body="改过的内容"))
+        self.assertTrue(result["duplicate"])
+        self.assertIn("note-replace-block", result["hint"])
+        self.assertNotIn("改过的内容", self.note.read_text(encoding="utf-8"))
+
     def test_relative_and_bare_paths_resolve_to_notes_dir(self) -> None:
         result = self.store.append("errors-out-west.md", round_block())
         self.assertEqual(result["file"], "learning-record-notes/errors-out-west.md")
         self.assertTrue(self.note.exists())
+
+    def test_legacy_file_without_dividers_is_appended_not_reformatted(self) -> None:
+        legacy = round_block("2026-11-04 10:00") + round_block("2026-11-05 10:00")
+        self.note.parent.mkdir(parents=True, exist_ok=True)
+        self.note.write_text(legacy, encoding="utf-8")
+        self.store.append(self.note, round_block("2026-11-06 10:00"))
+        text = self.note.read_text(encoding="utf-8")
+        self.assertTrue(text.startswith(legacy))
+        self.assertEqual(text.count("\n---\n"), 1)
 
     def test_block_must_start_with_a_round_heading(self) -> None:
         for content in ("", "no heading here\n", "## 本轮习题\n", "\n\n"):
@@ -185,6 +202,129 @@ class NoteAppendTest(unittest.TestCase):
         self.assertFalse(text.startswith("\n"))
         for part in text.split("\n---\n"):
             self.assertTrue(part.lstrip("\n").startswith("# 2026-11-07"))
+
+
+VALID_BLOCK = """# {heading}
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>记录 ID / 试卷 ID</td><td>errors:out-west</td></tr>
+<tr><td>分类 · 状态变化</td><td>errors · learning → familiar</td></tr>
+<tr><td>本轮得分</td><td>10 / 10</td></tr>
+<tr><td>题量与错题数</td><td>1 题 / 0 处错误</td></tr>
+<tr><td>目标知识点</td><td>out west 不是 outwest</td></tr>
+<tr><td>累计复习次数</td><td>2</td></tr>
+<tr><td>下次复习</td><td>2026-11-23 09:00</td></tr>
+<tr><td>主观题得分</td><td>—</td></tr>
+<tr><td>笔记生成时间</td><td>2026-11-09 09:05</td></tr>
+</table>
+
+## 本轮习题
+
+### 1. 填空
+
+**题目**：He drove out ___.
+
+**我的答案**：{answer}
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：out west 是固定搭配
+2. **规则与机制**：方位副词连用，不合并成一个词
+3. **英语的表达逻辑**：英语用两个独立方位词表示方向
+4. **可迁移表达**：They headed out east.
+</details>
+"""
+
+
+class NoteCliTest(unittest.TestCase):
+    """命令级用例：校验退出码、stdin 输入、块级替换。"""
+
+    def setUp(self) -> None:
+        self.directory = tempfile.TemporaryDirectory()
+        self.addCleanup(self.directory.cleanup)
+        self.repo = Path(self.directory.name)
+        self.note = self.repo / "learning-record-notes" / "errors-out-west.md"
+
+    def run_cli(self, args: list[str], stdin_text: str | None = None) -> subprocess.CompletedProcess:
+        environment = dict(os.environ, LEARN_ENGLISH_REPO_ROOT=str(self.repo))
+        return subprocess.run(
+            [sys.executable, str(SCRIPT), *args],
+            input=stdin_text,
+            capture_output=True,
+            text=True,
+            env=environment,
+            check=False,
+        )
+
+    def test_cli_accepts_stdin_and_passes_check(self) -> None:
+        completed = self.run_cli(
+            [
+                "note-append",
+                "--file",
+                "learning-record-notes/errors-out-west.md",
+                "--content-file",
+                "-",
+                "--check",
+            ],
+            VALID_BLOCK.format(heading="2026-11-09 09:00 · 复习", answer="west"),
+        )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        self.assertTrue(self.note.exists())
+        payload = json.loads(completed.stdout)
+        self.assertTrue(payload["appended"])
+        self.assertTrue(payload["check"]["ok"])
+
+    def test_cli_check_failure_sets_nonzero_exit_code(self) -> None:
+        completed = self.run_cli(
+            [
+                "note-append",
+                "--file",
+                "learning-record-notes/errors-out-west.md",
+                "--content-file",
+                "-",
+                "--check",
+            ],
+            "# 2026-11-09 09:00 · 复习\n",
+        )
+        self.assertEqual(completed.returncode, 1, completed.stderr)
+        payload = json.loads(completed.stdout)
+        self.assertTrue(payload["ok"])
+        self.assertFalse(payload["check"]["ok"])
+        self.assertTrue(payload["check"]["issues"])
+
+    def test_cli_replace_block_rewrites_only_that_round(self) -> None:
+        for heading in ("2026-11-09 09:00 · 复习", "2026-11-10 09:00 · 复习"):
+            completed = self.run_cli(
+                [
+                    "note-append",
+                    "--file",
+                    "learning-record-notes/errors-out-west.md",
+                    "--content-file",
+                    "-",
+                ],
+                VALID_BLOCK.format(heading=heading, answer="west"),
+            )
+            self.assertEqual(completed.returncode, 0, completed.stderr)
+        completed = self.run_cli(
+            [
+                "note-replace-block",
+                "--file",
+                "learning-record-notes/errors-out-west.md",
+                "--heading",
+                "# 2026-11-09 09:00 · 复习",
+                "--content-file",
+                "-",
+            ],
+            VALID_BLOCK.format(heading="2026-11-09 09:00 · 复习", answer="westward"),
+        )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        text = self.note.read_text(encoding="utf-8")
+        self.assertIn("westward", text)
+        self.assertIn("2026-11-10 09:00", text)
+        self.assertEqual(result_order(text), ["2026-11-09 09:00", "2026-11-10 09:00"])
 
 
 def result_order(text: str) -> list[str]:
