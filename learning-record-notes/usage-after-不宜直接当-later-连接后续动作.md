@@ -200,6 +200,7 @@ The band released their first album in 2018 and after they toured Europe.
 - **Ben**：Lower, at first. Later on it evened out, and after that I stopped worrying about it.
 - **Nina**：Good. So the sequence was studio, freelance, team, contract.
 - **Ben**：Exactly, and I only had to say each step once — no stray `after` standing in for `later`.
+</details>
 
 
 ## 练习「after 不宜直接当 later 连接后续动作」的关键语法结构

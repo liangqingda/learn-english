@@ -604,6 +604,14 @@ def check(path: Path) -> list[dict]:
                     "场景对话小节必须保留完整对话原文：`<details><summary>场景对话原文</summary>` 不能省，"
                     "只写讲解要点不算完成",
                 )
+            section_opens = section_text.count("<details>")
+            section_closes = section_text.count("</details>")
+            if section_opens != section_closes:
+                add(
+                    line_no,
+                    f"折叠块必须成对闭合：本小节 `<details>` {section_opens} 个、`</details>` {section_closes} 个，"
+                    "漏写闭合标签会把后面的小节整段折进上一个折叠块",
+                )
             if not any(
                 STRUCTURED_LINE_RE.match(line.strip()) or line.strip().startswith("<table")
                 for line in intro

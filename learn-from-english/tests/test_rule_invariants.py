@@ -345,6 +345,16 @@ class MenuItemNoteTest(unittest.TestCase):
         issues = self.check_text(text)
         self.assertTrue(any("只写一组 `**讲解要点**：`" in issue["message"] for issue in issues))
 
+    def test_unclosed_details_block_is_rejected(self) -> None:
+        text = (
+            self.base_note()
+            + "\n## 看一套围绕「a price to pay」的完整场景对话\n\n"
+            "**讲解要点**：\n\n- 要点\n  - 示例\n\n"
+            "<details>\n<summary>场景对话原文</summary>\n\n- **A**：x\n"
+        )
+        issues = self.check_text(text)
+        self.assertTrue(any("折叠块必须成对闭合" in issue["message"] for issue in issues))
+
     def test_scenario_section_without_dialogue_is_rejected(self) -> None:
         text = (
             self.base_note()
