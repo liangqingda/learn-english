@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from .cache import DEFAULT_MAX_AGE_SECONDS, get_snapshot
+from .cache import DEFAULT_MAX_AGE_SECONDS, get_snapshot, git_head
 from .menu import annotate_writes
 from .models import CATEGORIES, STATUSES, RecordError, record_id
 from .notes import NoteStore, _split_blocks
@@ -258,6 +258,24 @@ def handle_paper_menu(args: argparse.Namespace) -> list[dict[str, Any]]:
     return annotate_writes(paper_service().menu_options())
 
 
+def handle_note_sections(args: argparse.Namespace) -> dict[str, Any]:
+    """Index one note's round blocks and `##` sections without a grep."""
+    whole = note_store().sections(args.file)
+    blocks = [
+        block
+        for block in whole["blocks"]
+        if args.heading is None or block["heading"] == args.heading
+    ]
+    result: dict[str, Any] = {**whole, "blocks": blocks}
+    if args.section:
+        queried = args.section.strip()
+        result["queried_section"] = queried
+        result["has_section"] = any(
+            queried in block["sections"] for block in whole["blocks"]
+        )
+    return result
+
+
 def handle_snapshot(args: argparse.Namespace) -> dict[str, Any]:
     """One cheap answer to "where does the repository stand right now?".
 
@@ -267,8 +285,11 @@ def handle_snapshot(args: argparse.Namespace) -> dict[str, Any]:
     """
     snapshot = get_snapshot(REPO_ROOT, refresh=args.refresh, max_age=args.max_age)
     age = float(snapshot.get("age_seconds") or 0.0)
+    live_head = git_head(REPO_ROOT)
     payload: dict[str, Any] = {
         "git_head": snapshot.get("git_head"),
+        "live_git_head": live_head,
+        "head_drift": snapshot.get("git_head") != live_head,
         "generated_at": snapshot.get("generated_at"),
         "age_seconds": age,
         "max_age_seconds": args.max_age,
@@ -278,7 +299,9 @@ def handle_snapshot(args: argparse.Namespace) -> dict[str, Any]:
         "hint": (
             "read-only view for this session; a write through note.append/"
             "append_section/replace refreshes it automatically, so do not "
-            "re-run git status/diff before a read-only display"
+            "re-run git status/diff before a read-only display. When "
+            "head_drift is true the working tree moved on: run --refresh "
+            "before a write, not before a display"
         ),
     }
     if args.record:
@@ -600,6 +623,20 @@ def build_parser() -> argparse.ArgumentParser:
         "--notes", action="store_true", help="include the per-file block/section index"
     )
     snapshot.set_defaults(handler=handle_snapshot)
+
+    note_sections = subparsers.add_parser(
+        "note-sections",
+        help="index one note's round blocks and '##' sections (read-only)",
+    )
+    note_sections.add_argument(
+        "--file", required=True, help="learning-record-notes/<category>-<slug>.md"
+    )
+    note_sections.add_argument("--heading", help="only this exact level-1 heading line")
+    note_sections.add_argument(
+        "--section",
+        help="report has_section for this '## ...' title before composing content",
+    )
+    note_sections.set_defaults(handler=handle_note_sections)
 
     note_append = subparsers.add_parser(
         "note-append",

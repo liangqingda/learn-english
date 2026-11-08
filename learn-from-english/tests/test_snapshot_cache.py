@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 import sys
 import tempfile
 import unittest
@@ -98,12 +97,69 @@ class SnapshotTests(unittest.TestCase):
         )
         self.assertTrue(cache.note_entry_current(self.root, cache.load_snapshot(self.root), entry["file"]))
 
+    def test_sections_reports_blocks_and_section_titles(self) -> None:
+        store = NoteStore(self.root)
+        result = store.sections(f"{cache.NOTES_DIR_NAME}/usage-after.md")
+        self.assertEqual(result["block_count"], 1)
+        self.assertEqual(
+            result["blocks"][0]["sections"],
+            ["## 本轮习题", "## 扩展「after」相关词汇和搭配"],
+        )
+        filtered = store.sections(
+            f"{cache.NOTES_DIR_NAME}/usage-after.md", heading="# 2026-11-08 15:54 · 复习"
+        )
+        self.assertEqual(len(filtered["blocks"]), 1)
+        missing = store.sections(
+            f"{cache.NOTES_DIR_NAME}/usage-after.md", heading="# 2026-01-01 00:00 · 复习"
+        )
+        self.assertEqual(missing["blocks"], [])
+        with self.assertRaises(Exception):
+            store.sections(f"{cache.NOTES_DIR_NAME}/nope.md")
+
+    def test_sections_survive_an_missing_snapshot(self) -> None:
+        store = NoteStore(self.root)
+        cache.invalidate(self.root)
+        result = store.sections(f"{cache.NOTES_DIR_NAME}/usage-after.md")
+        self.assertEqual(result["block_count"], 1)
+
     def test_list_notes_reads_the_index_without_reparsing(self) -> None:
         store = NoteStore(self.root)
         cache.get_snapshot(self.root)
         entries = store.list_notes("usage:after-不宜直接当-later-连接后续动作")
         self.assertEqual(len(entries), 1)
         self.assertEqual(entries[0]["heading"], "# 2026-11-08 15:54 · 复习")
+
+    def test_block_level_record_id_wins_in_both_paths(self) -> None:
+        note = self.root / cache.NOTES_DIR_NAME / "usage-after.md"
+        note.write_text(
+            NOTE_TEXT
+            + "\n# 2026-11-08 20:20 · 练习\n\n"
+            '<table><tr><td>记录 ID / 试卷 ID</td><td>errors:other</td></tr></table>\n\n'
+            "## 本轮习题\n\n1. 题\n",
+            encoding="utf-8",
+        )
+        store = NoteStore(self.root)
+        cache.get_snapshot(self.root, refresh=True)
+        cached = store.list_notes()
+        # 强制走真实解析：让快照条目失真
+        cache.invalidate(self.root)
+        parsed = store.list_notes()
+        self.assertEqual(cached, parsed)
+        self.assertEqual([item["record_id"] for item in cached], [
+            "usage:after-不宜直接当-later-连接后续动作",
+            "errors:other",
+        ])
+
+    def test_naive_or_garbage_timestamp_never_crashes(self) -> None:
+        cache.get_snapshot(self.root)
+        payload = cache.load_snapshot(self.root)
+        payload["generated_at"] = "2026-11-08 20:00"
+        cache._write_snapshot(self.root, payload)
+        # 无时区的时间戳按本地时间解释，不抛 TypeError
+        self.assertIn(cache.get_snapshot(self.root)["source"], {"cache", "rebuild"})
+        payload["generated_at"] = "not-a-date"
+        cache._write_snapshot(self.root, payload)
+        self.assertEqual(cache.get_snapshot(self.root)["source"], "rebuild")
 
 
 class WritesFlagTests(unittest.TestCase):

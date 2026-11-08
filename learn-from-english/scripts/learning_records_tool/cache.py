@@ -24,7 +24,6 @@ import os
 import re
 import subprocess
 import tempfile
-import time
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -68,28 +67,50 @@ def git_head(repo_root: Path) -> str | None:
 
 
 def note_entry(path: Path, *, repo_root: Path | None = None) -> dict[str, Any]:
-    """Describe one note file: its record id, round blocks and sections.
+    """Describe one note file by reading it from disk."""
+    return note_entry_from_text(
+        path, path.read_text(encoding="utf-8"), repo_root=repo_root
+    )
 
-    The entry carries ``size`` and ``mtime`` so a later read can prove the
-    cached description still matches the file on disk.
+
+def note_entry_from_text(
+    path: Path, text: str, *, repo_root: Path | None = None
+) -> dict[str, Any]:
+    """Build the index entry from text the caller already holds.
+
+    The writer passes the exact text it just published, so a refresh never
+    re-reads the file (and never risks describing a half-written state).
     """
-    text = path.read_text(encoding="utf-8")
+    normalized = text.replace("\r\n", "\n").replace("\r", "\n")
     stat = path.stat()
-    record = RECORD_ID_ROW_RE.search(text)
+    record = RECORD_ID_ROW_RE.search(normalized)
     blocks: list[dict[str, Any]] = []
     current: dict[str, Any] | None = None
-    for line in text.replace("\r\n", "\n").split("\n"):
+    chunk: list[str] = []
+    for line in normalized.split("\n"):
         if line.startswith("# "):
+            if current is not None:
+                block_match = RECORD_ID_ROW_RE.search("\n".join(chunk))
+                current["record_id"] = (
+                    block_match.group(1).strip() if block_match else None
+                )
             heading = line.strip()
             match = HEADING_RE.match(heading)
             current = {
                 "heading": heading,
                 "kind": match.group("kind") if match else None,
                 "sections": [],
+                "record_id": None,
             }
             blocks.append(current)
-        elif current is not None and line.startswith("## "):
-            current["sections"].append(line.strip())
+            chunk = [line]
+        elif current is not None:
+            chunk.append(line)
+            if line.startswith("## "):
+                current["sections"].append(line.strip())
+    if current is not None:
+        block_match = RECORD_ID_ROW_RE.search("\n".join(chunk))
+        current["record_id"] = block_match.group(1).strip() if block_match else None
     relative = (
         str(path.resolve().relative_to(repo_root))
         if repo_root is not None
@@ -176,9 +197,10 @@ def _age_seconds(snapshot: dict[str, Any]) -> float:
         return float("inf")
     try:
         parsed = datetime.fromisoformat(stamp)
-    except ValueError:
+        now = datetime.now(parsed.tzinfo) if parsed.tzinfo else datetime.now()
+        return max(0.0, (now - parsed).total_seconds())
+    except (TypeError, ValueError):
         return float("inf")
-    return max(0.0, (datetime.now().astimezone() - parsed).total_seconds())
 
 
 def get_snapshot(
@@ -190,11 +212,11 @@ def get_snapshot(
     """Return a usable snapshot, rebuilding it when missing or too old."""
     root = Path(repo_root).resolve()
     cached = None if refresh else load_snapshot(root)
-    if cached is not None and cached.get("schema") == SNAPSHOT_SCHEMA:
-        if _age_seconds(cached) <= max_age:
-            cached["age_seconds"] = round(_age_seconds(cached), 1)
-            cached["source"] = "cache"
-            return cached
+    age = _age_seconds(cached) if cached is not None else float("inf")
+    if cached is not None and cached.get("schema") == SNAPSHOT_SCHEMA and age <= max_age:
+        cached["age_seconds"] = round(age, 1)
+        cached["source"] = "cache"
+        return cached
     snapshot = build_snapshot(root)
     try:
         _write_snapshot(root, snapshot)
@@ -237,7 +259,7 @@ def refresh_note(repo_root: Path | str, path: Path, text: str) -> None:
     if snapshot is None or snapshot.get("schema") != SNAPSHOT_SCHEMA:
         return
     try:
-        entry = note_entry(path, repo_root=root)
+        entry = note_entry_from_text(path, text, repo_root=root)
     except OSError:
         invalidate(root)
         return
@@ -249,8 +271,8 @@ def refresh_note(repo_root: Path | str, path: Path, text: str) -> None:
     snapshot.setdefault("counts", {})
     snapshot["counts"]["files"] = len(notes)
     snapshot["counts"]["blocks"] = sum(len(item["blocks"]) for item in notes.values())
-    snapshot["git_head"] = git_head(root)
-    snapshot["generated_at"] = _now_iso()
+    # 写入不改变 HEAD，也不续期 generated_at：快照照常 30 分钟后重建，
+    # 期间 HEAD 的变化由 snapshot 命令的实时比对暴露。
     try:
         _write_snapshot(root, snapshot)
     except OSError:

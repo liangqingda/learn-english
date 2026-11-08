@@ -635,7 +635,7 @@ class RecordService:
         return {
             "cluster_count": len(clusters),
             "clusters": brief_clusters,
-            "options": options,
+            "options": annotate_writes(options),
             "unclustered": [item["id"] for item in unclustered],
             "unclustered_count": len(unclustered),
             "tag_families": tag_families[:12],

@@ -627,17 +627,26 @@ class NoteStore:
             relative = self.relative(path)
             cached = cache.note_entry_current(self.repo_root, snapshot, relative)
             if cached is not None:
-                blocks = [(block["heading"], "") for block in cached["blocks"]]
+                blocks = [
+                    (block["heading"], block.get("record_id"))
+                    for block in cached["blocks"]
+                ]
                 file_record = cached["record_id"]
             else:
                 text = path.read_text(encoding="utf-8")
-                blocks = _split_blocks(text)
+                blocks = [
+                    (
+                        heading,
+                        (lambda m: m.group(1).strip() if m else None)(
+                            RECORD_ID_ROW_RE.search(block)
+                        ),
+                    )
+                    for heading, block in _split_blocks(text)
+                ]
                 file_record = self._file_record_id(text)
-            for heading, block in blocks:
-                tracked = file_record
-                match = RECORD_ID_ROW_RE.search(block) if block else None
-                if match:
-                    tracked = match.group(1).strip()
+            for heading, block_record in blocks:
+                # 区块内的记录 ID 行优先于文件级，与真实解析同口径
+                tracked = block_record if block_record is not None else file_record
                 if record_id is not None and tracked != record_id:
                     continue
                 entries.append(
@@ -650,6 +659,43 @@ class NoteStore:
         # 记录 ID 在文件顶部的「基础信息」里，不在任何轮次区块内
         match = RECORD_ID_ROW_RE.search(text)
         return match.group(1).strip() if match else None
+
+    def sections(self, path: str, *, heading: str | None = None) -> dict[str, Any]:
+        """Read-only index of a note's round blocks and their `##` sections.
+
+        Answers "does this section already exist?" from the cached index, so a
+        caller never has to compose a full section and discover the conflict
+        only when the write is rejected.
+        """
+        target = self.resolve(path)
+        if not target.is_file():
+            raise RecordError(f"note does not exist: {self.relative(target)}")
+        relative = self.relative(target)
+        snapshot = cache.get_snapshot(self.repo_root)
+        entry = cache.note_entry_current(self.repo_root, snapshot, relative)
+        if entry is None:
+            entry = cache.note_entry(target, repo_root=self.repo_root)
+            # 让下一次读取命中缓存；写缓存失败不影响本次结果
+            try:
+                cache.refresh_note(
+                    self.repo_root, target, target.read_text(encoding="utf-8")
+                )
+            except OSError:
+                pass
+        blocks = [
+            {
+                "heading": block["heading"],
+                "sections": list(block["sections"]),
+            }
+            for block in entry["blocks"]
+            if heading is None or block["heading"] == heading
+        ]
+        return {
+            "file": relative,
+            "record_id": entry["record_id"],
+            "blocks": blocks,
+            "block_count": len(entry["blocks"]),
+        }
 
     def check(self, path: str, *, fix: bool = False) -> dict[str, Any]:
         target = self.resolve(path)
