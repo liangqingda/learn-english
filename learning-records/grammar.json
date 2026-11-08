@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 209,
+  "revision": 219,
   "category": "grammar",
   "records": {
     "grammar:alternative-question-a-or-b": {
@@ -622,6 +622,33 @@
       ],
       "first_learned_at": "2026-10-28T07:29:40+08:00",
       "last_learned_at": "2026-10-28T07:29:40+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:what-clause-as-predicative": {
+      "id": "grammar:what-clause-as-predicative",
+      "category": "grammar",
+      "key": "what-clause-as-predicative",
+      "status": "learning",
+      "title": "what 引导的表语从句",
+      "explanation": "You are what you eat 的主干是「主语 You + 系动词 are + 表语」。这里的表语不是名词或形容词，而是一个从句 what you eat，所以叫表语从句。what 在从句内部充当 eat 的宾语（eat what → what you eat），同时把整个从句「名词化」，让它能站在系动词后面。这和 that 引导的表语从句不同：that 只起连接作用、不充当成分；what 必须在从句里当成分（主语或宾语）。",
+      "source": "You are what you eat.",
+      "example": "You are what you repeatedly do. / The problem is what he said yesterday.",
+      "tags": [
+        "sentence-structure",
+        "what",
+        "系动词",
+        "表语从句"
+      ],
+      "first_learned_at": "2026-11-09T07:50:18+08:00",
+      "last_learned_at": "2026-11-09T07:50:18+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

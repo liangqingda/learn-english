@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 218,
+  "revision": 219,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -1136,6 +1136,33 @@
       ],
       "first_learned_at": "2026-08-03T07:15:39+08:00",
       "last_learned_at": "2026-08-03T07:15:39+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:you-are-what-you-eat": {
+      "id": "phrases:you-are-what-you-eat",
+      "category": "phrases",
+      "key": "you-are-what-you-eat",
+      "status": "learning",
+      "title": "You are what you eat",
+      "explanation": "英语里最常用的健康谚语之一，字面是「你是你所吃的东西」，实际表达「吃什么、怎么吃，决定你的身体状态和精神状态」。它是整句当名词短语用的固定说法，不能改成 You eat what you are。日常语境里多用于劝人少吃加工食品、多吃天然食物，也常被调侃式使用（比如吃完炸鸡自嘲）。",
+      "source": "You Are What You Eat.",
+      "example": "My trainer keeps saying, \"You are what you eat\" — so no more midnight chips for me.",
+      "tags": [
+        "diet",
+        "health",
+        "proverb",
+        "固定表达"
+      ],
+      "first_learned_at": "2026-11-09T07:50:18+08:00",
+      "last_learned_at": "2026-11-09T07:50:18+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
