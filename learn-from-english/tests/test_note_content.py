@@ -33,7 +33,6 @@ def note_text(
         "目标知识点": "out west 不是 outwest",
         "累计复习次数": "2",
         "下次复习": "2026-11-20 12:00",
-        "主观题得分": "—",
         "笔记生成时间": "2026-11-07 12:05",
         "笔记更新时间": "2026-11-07 12:05",
     }
@@ -80,7 +79,8 @@ def paper_note_text(*, second_reference: str | None = "第 1 题", second_detail
         "笔记更新时间": "2026-11-07 12:05",
     }
     table = "\n".join(
-        f"<tr><td>{row}</td><td>{rows[row]}</td></tr>" for row in check_note.TRACKING_ROWS
+        f"<tr><td>{row}</td><td>{rows[row]}</td></tr>"
+        for row in check_note.expected_tracking_rows("套题")
     )
     knowledge = (
         "<details>\n<summary>知识点讲解</summary>\n\n"
@@ -277,16 +277,16 @@ class NoteContentValidationTest(unittest.TestCase):
     def test_reported_line_points_at_the_offending_row(self) -> None:
         text = note_text()
         target = next(
-            line for line in text.splitlines() if line.startswith("<tr><td>主观题得分")
+            line for line in text.splitlines() if line.startswith("<tr><td>本轮得分")
         )
-        text = text.replace(target, "<tr><td>主观题得分</td><td>x</td></tr>")
+        text = text.replace(target, "<tr><td>本轮得分</td><td>x</td></tr>")
         line_no = next(
             index
             for index, line in enumerate(text.splitlines(), start=1)
-            if line.startswith("<tr><td>主观题得分")
+            if line.startswith("<tr><td>本轮得分")
         )
         issues = self.check(text)
-        matched = [item for item in issues if "主观题得分" in item["message"]]
+        matched = [item for item in issues if "本轮得分" in item["message"]]
         self.assertTrue(matched)
         self.assertEqual(matched[0]["line"], line_no)
 

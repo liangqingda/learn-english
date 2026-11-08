@@ -13,7 +13,6 @@
 <tr><td>目标知识点</td><td>before 后不能直接接 begin 原形动词</td></tr>
 <tr><td>累计复习次数</td><td>2</td></tr>
 <tr><td>下次复习</td><td>2026-11-22 14:39</td></tr>
-<tr><td>主观题得分</td><td>—</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-08 14:39</td></tr>
 <tr><td>笔记更新时间</td><td>2026-11-08 14:39</td></tr>
 </table>

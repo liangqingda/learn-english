@@ -9,6 +9,7 @@ unanswered-labels: 考点 | 为什么答不出 | 英语的表达逻辑 | 正确�
 -->
 # <YYYY-MM-DD HH:MM> · 复习
 <!-- kind 固定取“复习”“练习”“套题”三者之一，直接改写本行；不要再写 `<复习 | 练习 | 套题>` 这类带空格的占位 -->
+<!-- 套题笔记在「下次复习」之后额外加一行 `主观题得分`（`写作 x/15 · 翻译 x/15`）；复习与练习不写这一行 -->
 ## 基础信息
 
 <details>
@@ -23,7 +24,6 @@ unanswered-labels: 考点 | 为什么答不出 | 英语的表达逻辑 | 正确�
 <tr><td>目标知识点</td><td><title></td></tr>
 <tr><td>累计复习次数</td><td><n>；未评分写 `—`</td></tr>
 <tr><td>下次复习</td><td><YYYY-MM-DD HH:MM>；未知写 `—`</td></tr>
-<tr><td>主观题得分</td><td><写作 x/15 · 翻译 x/15>；非套题写 `—`</td></tr>
 <tr><td>笔记生成时间</td><td><YYYY-MM-DD HH:MM></td></tr>
 <tr><td>笔记更新时间</td><td><YYYY-MM-DD HH:MM></td></tr>
 </table>

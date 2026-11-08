@@ -250,7 +250,6 @@ VALID_BLOCK = """# {heading}
 <tr><td>目标知识点</td><td>out west 不是 outwest</td></tr>
 <tr><td>累计复习次数</td><td>2</td></tr>
 <tr><td>下次复习</td><td>2026-11-23 09:00</td></tr>
-<tr><td>主观题得分</td><td>—</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-09 09:05</td></tr>
 <tr><td>笔记更新时间</td><td>2026-11-09 09:05</td></tr>
 </table>
@@ -448,7 +447,6 @@ def result_order(text: str) -> list[str]:
                         "目标知识点": "out west 不是 outwest",
                         "累计复习次数": "2",
                         "下次复习": "2026-11-23 09:00",
-                        "主观题得分": "—",
                         "笔记生成时间": "2026-11-09 09:05",
                         "笔记更新时间": "2026-11-09 09:05",
                     }

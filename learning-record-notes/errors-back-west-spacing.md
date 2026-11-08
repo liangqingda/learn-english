@@ -13,7 +13,6 @@
 <tr><td>目标知识点</td><td>out west 不是 outwest</td></tr>
 <tr><td>累计复习次数</td><td>3</td></tr>
 <tr><td>下次复习</td><td>2026-11-20 20:54</td></tr>
-<tr><td>主观题得分</td><td>—</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-06 21:10</td></tr>
 <tr><td>笔记更新时间</td><td>2026-11-06 21:10</td></tr>
 </table>

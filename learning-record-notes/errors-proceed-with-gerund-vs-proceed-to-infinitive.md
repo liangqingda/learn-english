@@ -13,7 +13,6 @@
 <tr><td>目标知识点</td><td>proceed with doing 与 proceed to do 的语义差别</td></tr>
 <tr><td>累计复习次数</td><td>4</td></tr>
 <tr><td>下次复习</td><td>2026-11-22 12:47</td></tr>
-<tr><td>主观题得分</td><td>—</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-08 12:48</td></tr>
 <tr><td>笔记更新时间</td><td>2026-11-08 12:48</td></tr>
 </table>

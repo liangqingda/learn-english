@@ -8,7 +8,8 @@
 
 `--all` 校验默认 notes 目录（`$LEARN_ENGLISH_REPO_ROOT/learning-record-notes`）下的全部笔记；
 `--fix` 只修可以无争议判定的问题（行尾空格、`我的答案` 的题号前缀、区块之间缺失的 `---`、
-缺失的 `笔记更新时间` 行按 `笔记生成时间` 补齐、把旧版追踪表移进 `## 基础信息` 折叠块），修完再跑一次校验。成功时输出 {"ok": true, "checked": [...]}；失败时输出逐条 issue 并以退出码 1 结束。
+缺失的 `笔记更新时间` 行按 `笔记生成时间` 补齐、把旧版追踪表移进 `## 基础信息` 折叠块、
+删掉非套题笔记里恒为 `—` 的 `主观题得分` 行），修完再跑一次校验。成功时输出 {"ok": true, "checked": [...]}；失败时输出逐条 issue 并以退出码 1 结束。
 """
 
 from __future__ import annotations
@@ -28,10 +29,24 @@ TRACKING_ROWS = [
     "目标知识点",
     "累计复习次数",
     "下次复习",
-    "主观题得分",
     "笔记生成时间",
     "笔记更新时间",
 ]
+
+# 只有套题笔记才写这一行：普通复习没有主观题，恒为 `—` 反而是噪音
+PAPER_ONLY_ROWS = ("主观题得分",)
+PAPER_KIND = "套题"
+
+
+def expected_tracking_rows(kind: str) -> list[str]:
+    """套题在「下次复习」之后多一行主观题得分，其余 kind 与模板逐行一致。"""
+    rows = list(TEMPLATE["tracking_rows"])
+    if kind == PAPER_KIND:
+        for row in PAPER_ONLY_ROWS:
+            if row not in rows:
+                anchor = "笔记生成时间" if "笔记生成时间" in rows else len(rows)
+                rows.insert(rows.index(anchor) if isinstance(anchor, str) else anchor, row)
+    return rows
 
 QUESTION_TYPES = [
     "单项选择",
@@ -335,11 +350,12 @@ def check(path: Path) -> list[dict]:
                     )
             rows = [row for _, row, _value in row_lines]
             values = [value for _, _row, value in row_lines]
-            if rows != TEMPLATE["tracking_rows"]:
+            expected_rows = expected_tracking_rows(kind)
+            if rows != expected_rows:
                 add(
                     table_line,
                     "追踪表格行数与顺序必须与模板一致："
-                    + " / ".join(str(row) for row in TEMPLATE["tracking_rows"]),
+                    + " / ".join(str(row) for row in expected_rows),
                 )
             tracking = dict(zip(rows, values))
             row_line = {row: line_no for line_no, row, _value in row_lines}
@@ -776,6 +792,23 @@ def apply_safe_fixes(text: str) -> tuple[str, list[str]]:
     if "</table>\n\n</details>" in joined:
         lines = joined.replace("</table>\n\n</details>", "</table>\n</details>").split("\n")
         fixes.append("收紧追踪表与 `</details>` 之间的空行")
+
+    pruned: list[str] = []
+    current_kind = ""
+    pruned_any = False
+    for line in lines:
+        heading = SECTION_RE.match(line)
+        if heading:
+            current_kind = heading.group(3)
+        if current_kind != PAPER_KIND and re.match(
+            r"<tr><td>主观题得分</td><td>—</td></tr>", line.strip()
+        ):
+            pruned_any = True
+            continue
+        pruned.append(line)
+    if pruned_any:
+        fixes.append("删掉非套题笔记里恒为 `—` 的 `主观题得分` 行")
+        lines = pruned
 
     output: list[str] = []
     inserted = False
