@@ -37,7 +37,7 @@ HEADING_RE = re.compile(
 DIVIDER = "---"
 RECORD_ID_ROW_RE = re.compile(r"<tr><td>记录 ID / 试卷 ID</td><td>(.*?)</td></tr>")
 # 文件级「基础信息」折叠块：整份笔记唯一一份，只随第一个区块一起写入
-BASIC_HEAD_RE = re.compile(r"^<details>\s*\n<summary>基础信息</summary>.*?</details>\n?", re.S)
+BASIC_HEAD_RE = re.compile(r"^## 基础信息\s*\n.*?(?=^# )", re.S | re.M)
 
 
 def _split_head(text: str) -> tuple[str, str]:
@@ -342,7 +342,7 @@ class NoteStore:
             if not body.strip():
                 if not head:
                     raise RecordError(
-                        "a new note must start with the file-level `<details><summary>基础信息</summary>` block "
+                        "a new note must start with the file-level `## 基础信息` section "
                         "(记录 ID / 试卷 ID、目标知识点、累计复习次数、下次复习、笔记生成时间、笔记更新时间)"
                     )
                 composed = f"{head}\n\n{block}"

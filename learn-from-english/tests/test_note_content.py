@@ -21,11 +21,11 @@ def basic_block(values: dict[str, str]) -> str:
         f"<tr><td>{row}</td><td>{values.get(row, '—')}</td></tr>" for row in check_note.BASIC_ROWS
     )
     return (
-        "<details>\n<summary>基础信息</summary>\n\n"
+        "## 基础信息\n\n"
         '<table style="border-collapse:collapse;width:auto">\n'
         '<colgroup><col width="150"><col></colgroup>\n'
         f"{rows}\n"
-        "</table>\n</details>\n\n"
+        "</table>\n\n"
     )
 
 
@@ -60,11 +60,11 @@ def note_text(
     return (
         basic_block(basic)
         + f"# {stamp} · 复习\n"
-        "\n<details>\n<summary>本轮信息</summary>\n\n"
+        "\n## 本轮信息\n\n"
         '<table style="border-collapse:collapse;width:auto">\n'
         '<colgroup><col width="150"><col></colgroup>\n'
         f"{table}\n"
-        "</table>\n</details>\n\n"
+        "</table>\n\n"
         "## 本轮习题\n\n"
         "### 1. 单项选择\n\n"
         f"**题目**：{question}\n\n"
@@ -119,11 +119,11 @@ def paper_note_text(*, second_reference: str | None = "第 1 题", second_detail
     return (
         basic_block(basic)
         + "# 2026-11-07 12:00 · 套题\n"
-        "\n<details>\n<summary>本轮信息</summary>\n\n"
+        "\n## 本轮信息\n\n"
         '<table style="border-collapse:collapse;width:auto">\n'
         '<colgroup><col width="150"><col></colgroup>\n'
         f"{table}\n"
-        "</table>\n</details>\n\n"
+        "</table>\n\n"
         "## 本轮习题\n\n"
         "### 1. 单项选择\n\n"
         "**题目**：What is the main idea?\n\n"

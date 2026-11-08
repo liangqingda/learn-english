@@ -7,9 +7,8 @@ knowledge-labels: 本题知识点 | 规则与机制 | 英语的表达逻辑 | �
 error-labels: 考点 | 为什么错 | 英语的表达逻辑 | 正确表达
 unanswered-labels: 考点 | 为什么答不出 | 英语的表达逻辑 | 正确表达
 -->
-<!-- 基础信息整个文件只有一份、默认收起，放在文件最顶部：与单次复习无关的记录级字段都在这里 -->
-<details>
-<summary>基础信息</summary>
+<!-- 基础信息整个文件只有一份，放在文件最顶部并用二级标题做导航（固定展示，不折叠） -->
+## 基础信息
 
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
@@ -20,14 +19,12 @@ unanswered-labels: 考点 | 为什么答不出 | 英语的表达逻辑 | 正确�
 <tr><td>笔记生成时间</td><td><YYYY-MM-DD HH:MM></td></tr>
 <tr><td>笔记更新时间</td><td><YYYY-MM-DD HH:MM></td></tr>
 </table>
-</details>
 
 # <YYYY-MM-DD HH:MM> · 复习
 <!-- kind 固定取“复习”“练习”“套题”三者之一，直接改写本行；不要再写 `<复习 | 练习 | 套题>` 这类带空格的占位 -->
 <!-- 套题笔记在「题量与错题数」之后额外加一行 `主观题得分`（`写作 x/15 · 翻译 x/15`）；复习与练习不写这一行 -->
 
-<details>
-<summary>本轮信息</summary>
+## 本轮信息
 
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
@@ -36,7 +33,6 @@ unanswered-labels: 考点 | 为什么答不出 | 英语的表达逻辑 | 正确�
 <tr><td>本轮得分</td><td><x / 10> 或 <xxx / 710（无听力模拟折算分）>；未评分写 `—`，保存失败且已放弃写 `评分未保存（已放弃）`</td></tr>
 <tr><td>题量与错题数</td><td><N 题 / M 处错误>；M = `错题讲解` 块数，不含未作答；有未作答时补 `（另有 K 题未作答）`</td></tr>
 </table>
-</details>
 
 ## 本轮习题
 

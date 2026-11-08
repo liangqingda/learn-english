@@ -1,5 +1,4 @@
-<details>
-<summary>基础信息</summary>
+## 基础信息
 
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
@@ -10,12 +9,10 @@
 <tr><td>笔记生成时间</td><td>2026-11-08 12:48</td></tr>
 <tr><td>笔记更新时间</td><td>2026-11-08 12:48</td></tr>
 </table>
-</details>
 
 # 2026-11-08 12:48 · 复习
 
-<details>
-<summary>本轮信息</summary>
+## 本轮信息
 
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
@@ -24,7 +21,6 @@
 <tr><td>本轮得分</td><td>9 / 10</td></tr>
 <tr><td>题量与错题数</td><td>6 题 / 4 处错误</td></tr>
 </table>
-</details>
 
 ## 本轮习题
 

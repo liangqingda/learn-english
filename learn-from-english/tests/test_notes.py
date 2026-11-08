@@ -22,7 +22,7 @@ SCRIPT = SCRIPT_DIR / "learning_records.py"
 
 def round_block(stamp: str = "2026-11-07 21:00", kind: str = "复习", body: str = "第 1 轮") -> str:
     return (
-        "<details>\n<summary>基础信息</summary>\n\n"
+        "## 基础信息\n\n"
         '<table style="border-collapse:collapse;width:auto">\n'
         '<colgroup><col width="150"><col></colgroup>\n'
         "<tr><td>记录 ID / 试卷 ID</td><td>errors:out-west</td></tr>\n"
@@ -31,7 +31,7 @@ def round_block(stamp: str = "2026-11-07 21:00", kind: str = "复习", body: str
         "<tr><td>下次复习</td><td>2026-11-23 09:00</td></tr>\n"
         "<tr><td>笔记生成时间</td><td>2026-11-07 21:05</td></tr>\n"
         "<tr><td>笔记更新时间</td><td>2026-11-07 21:05</td></tr>\n"
-        "</table>\n</details>\n\n"
+        "</table>\n\n"
         f"# {stamp} · {kind}\n"
         '<table style="border-collapse:collapse;width:auto">\n'
         "<colgroup><col width=\"150\"><col></colgroup>\n"
@@ -55,7 +55,7 @@ class NoteAppendTest(unittest.TestCase):
         self.assertTrue(result["appended"])
         self.assertEqual(result["blocks"], 1)
         text = self.note.read_text(encoding="utf-8")
-        self.assertTrue(text.startswith("<details>\n<summary>基础信息</summary>\n"))
+        self.assertTrue(text.startswith("## 基础信息\n"))
         self.assertIn("# 2026-11-07 21:00 · 复习\n", text)
         self.assertEqual(text.count("\n---\n"), 0)
 
@@ -245,12 +245,11 @@ class NoteAppendTest(unittest.TestCase):
         self.assertFalse(text.startswith("\n"))
         for part in text.split("\n---\n"):
             # 第一段前面还有文件级「基础信息」折叠块
-            self.assertRegex(part.lstrip("\n"), r"^(<details>|<summary>|# 2026-11-07)")
+            self.assertRegex(part.lstrip("\n"), r"^(## 基础信息|# 2026-11-07)")
             self.assertIn("# 2026-11-07", part)
 
 
-NOTE_HEAD = """<details>
-<summary>基础信息</summary>
+NOTE_HEAD = """## 基础信息
 
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
@@ -261,14 +260,12 @@ NOTE_HEAD = """<details>
 <tr><td>笔记生成时间</td><td>2026-11-09 09:05</td></tr>
 <tr><td>笔记更新时间</td><td>2026-11-09 09:05</td></tr>
 </table>
-</details>
 
 """
 
 VALID_BLOCK = """# {heading}
 
-<details>
-<summary>本轮信息</summary>
+## 本轮信息
 
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
@@ -277,7 +274,6 @@ VALID_BLOCK = """# {heading}
 <tr><td>本轮得分</td><td>10 / 10</td></tr>
 <tr><td>题量与错题数</td><td>1 题 / 0 处错误</td></tr>
 </table>
-</details>
 
 ## 本轮习题
 

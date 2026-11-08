@@ -146,13 +146,13 @@ class NoteTemplateTest(unittest.TestCase):
                 "</table>\n"
             )
         return (
-            "<details>\n<summary>基础信息</summary>\n\n"
+            "## 基础信息\n\n"
             + table(basic, check_note.TEMPLATE["basic_rows"])
-            + "</details>\n\n"
+            + "\n"
             "# 2026-11-07 12:00 · 复习\n"
-            "\n<details>\n<summary>本轮信息</summary>\n\n"
+            "\n## 本轮信息\n\n"
             + table(round_values, check_note.TEMPLATE["round_rows"])
-            + "</details>\n\n"
+            + "\n"
             "## 本轮习题\n\n"
             "### 1. 单项选择\n\n"
             "**题目**：Pick one.\n\n"
