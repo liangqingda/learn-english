@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 216,
+  "revision": 218,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -3319,6 +3319,32 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:no-definite-article-before-generic-range-endpoints": {
+      "id": "errors:no-definite-article-before-generic-range-endpoints",
+      "category": "errors",
+      "key": "no-definite-article-before-generic-range-endpoints",
+      "status": "learning",
+      "title": "from A to B 表示范围时两侧类别名词不加定冠词",
+      "explanation": "from climate to education 表达的是“从气候到教育”这类话题类别跨度，属于泛指，两侧名词用零冠词；加了 the 表示特指某一个已知的气候或某一项具体的教育事务，语义跑偏。同类：from beginner to advanced、from design to delivery。",
+      "source": "from the climate to the education",
+      "example": "The report covers a wide range of topics, from climate to education.",
+      "tags": [
+        "articles",
+        "review-error",
+        "usage"
+      ],
+      "first_learned_at": "2026-11-08T20:26:26+08:00",
+      "last_learned_at": "2026-11-08T20:26:26+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:no-preposition-before-out-west": {
       "id": "errors:no-preposition-before-out-west",
       "category": "errors",
@@ -6027,6 +6053,58 @@
       ],
       "first_learned_at": "2026-10-07T19:40:46+08:00",
       "last_learned_at": "2026-10-07T19:40:46+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:wide-range-of-singular-head-verb-agreement": {
+      "id": "errors:wide-range-of-singular-head-verb-agreement",
+      "category": "errors",
+      "key": "wide-range-of-singular-head-verb-agreement",
+      "status": "learning",
+      "title": "a wide range of + 复数名词作主语时谓语应与单数中心词 range 一致",
+      "explanation": "a wide range of activities 的中心词是单数名词 range（quantifier 结构 a ... range of ...），activities 只是介词 of 的宾语，所以谓语用单数 is/was，不用 are 或 will be 这类另起时态的写法。同类结构 a variety of / a series of 也按中心词定单复数。",
+      "source": "A wide range of activities will be available during the festival.",
+      "example": "A wide range of activities is available during the festival.",
+      "tags": [
+        "agreement",
+        "grammar",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-08T20:26:26+08:00",
+      "last_learned_at": "2026-11-08T20:26:26+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:word-choice-topic-not-motif": {
+      "id": "errors:word-choice-topic-not-motif",
+      "category": "errors",
+      "key": "word-choice-topic-not-motif",
+      "status": "learning",
+      "title": "topic（主题/话题）误用为 motif（艺术作品的母题）",
+      "explanation": "motif 指文学、音乐、装饰艺术中反复出现的母题或图案母题，属于专业术语；报告、文章、讨论所涉及的内容范围用 topics 或 subjects。语境是报告涵盖议题时，只能选 topics。",
+      "source": "The report covered a wide range of motifs.",
+      "example": "The report covers a wide range of topics, from climate to education.",
+      "tags": [
+        "review-error",
+        "vocabulary",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-11-08T20:26:26+08:00",
+      "last_learned_at": "2026-11-08T20:26:26+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
