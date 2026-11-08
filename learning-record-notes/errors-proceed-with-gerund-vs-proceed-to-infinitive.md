@@ -182,3 +182,22 @@
 - Let's proceed with the cost review before we move on.
 - We'll now proceed to the next item on the agenda.
 - After the demo, the team proceeded to finalize the schedule.
+**完整场景对话**：
+
+<details>
+<summary>场景对话原文</summary>
+
+- **Mia**：Morning, everyone. We didn't finish the cost issue last Friday, so let's **proceed with** the cost review before anything else.
+- **Leo**：Fine by me. I'll pick up where we stopped and **proceed with** the breakdown of the unit costs.
+- **Ana**：I have the numbers from the factory. Should we **proceed to** the launch timeline after this?
+- **Mia**：Not yet. We still have two items on cost, so we'll **proceed with** the cost review first, then **proceed to** the launch timeline.
+- **Leo**：The unit cost is down to 4.2 dollars. Do we **proceed with** the packaging quotation at the old rate?
+- **Mia**：Hold on, that's a different question. Let's **proceed with** the cost review until Ana confirms the exchange rate.
+- **Ana**：Rate confirmed. I'd say we've closed the cost issue.
+- **Mia**：Great. Now we can **proceed to** the launch timeline. Leo, could you walk us through the dates?
+- **Leo**：Sure. After that, shall we **proceed to** the packaging design?
+- **Mia**：Yes, and once design is signed off, we'll **proceed to** confirm the suppliers.
+- **Ana**：One last thing — if the timeline slips, do we **proceed with** the current packaging plan or wait?
+- **Mia**：We **proceed with** the current plan and flag it to the client. Nobody stops working while we wait.
+
+</details>

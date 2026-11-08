@@ -228,6 +228,25 @@ Working night shifts cost her her health, and she knew it.
 - `Nobody told me there'd be a price to pay for saying yes.`
 - `Every promotion comes at a price.`
 - `It's not a price I can afford for three more years.`
+**完整场景对话**：
+
+<details>
+<summary>场景对话原文</summary>
+
+- **Ryan**：You took the promotion, then? I saw the email this morning.
+- **Kate**：I did. And nobody told me there'd be **a price to pay** for saying yes that fast.
+- **Ryan**：What kind of price are we talking about?
+- **Kate**：Hours. Every promotion **comes at a price**, and mine is about ten extra hours a week.
+- **Ryan**：Did you tell your manager?
+- **Kate**：I did. He said the first year always **comes at a price**, as if that settles it.
+- **Ryan**：That sounds like a line from a training video.
+- **Kate**：It is. But I still think it's **a price worth paying** for the title and the team.
+- **Ryan**：And your health? You'd **pay a heavy price** for sleeping five hours a night.
+- **Kate**：I know. If I keep this up, I'll **pay the price** for it in a year or two.
+- **Ryan**：So what's the plan?
+- **Kate**：Six months. If the hours don't drop, I'll tell them the title isn't **a price I can afford** for three more years.
+
+</details>
 
 ## 练习「a price to pay」的关键语法结构
 
