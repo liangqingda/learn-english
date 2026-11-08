@@ -150,7 +150,7 @@ class NoteTemplateTest(unittest.TestCase):
             + table(basic, check_note.TEMPLATE["basic_rows"])
             + "\n"
             "# 2026-11-07 12:00 · 复习\n"
-            "\n## 本轮信息\n\n"
+            "\n"
             + table(round_values, check_note.TEMPLATE["round_rows"])
             + "\n"
             "## 本轮习题\n\n"

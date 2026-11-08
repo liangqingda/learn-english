@@ -12,8 +12,6 @@
 
 # 2026-11-06 20:54 · 复习
 
-## 本轮信息
-
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
 <tr><td>复习时间</td><td>2026-11-06 20:54</td></tr>

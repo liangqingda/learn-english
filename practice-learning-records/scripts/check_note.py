@@ -407,47 +407,33 @@ def check(path: Path) -> list[dict]:
                 k
                 for k, l in enumerate(body)
                 if SECTION2_RE.match(l)
-                and SECTION2_RE.match(l).group(1).strip() in ("追踪", "追踪信息", BASIC_SECTION)
+                and SECTION2_RE.match(l).group(1).strip() in ("追踪", "追踪信息", ROUND_SECTION, BASIC_SECTION)
             ),
             None,
         )
         if legacy_heading is not None:
             add(
                 start + legacy_heading + 1,
-                f"本轮字段用 `## {ROUND_SECTION}` 承载：不要写 `## 追踪` / `## 基础信息`，基础信息只在文件顶部写一次",
+                "本轮信息不加小标题：表格直接写在日期标题之后；基础信息只在文件顶部写一次",
             )
 
         group_heads = [k for k, l in enumerate(body) if SECTION2_RE.match(l)]
         if not group_heads:
             add(start, "区块内缺少 `## 本轮习题`")
 
-        # 轮次信息：日期标题下直接用 `## 本轮信息` + 表格，固定展示、不折叠
-        info_head = next(
-            (
-                k
-                for k, l in enumerate(body)
-                if SECTION2_RE.match(l) and SECTION2_RE.match(l).group(1).strip() == ROUND_SECTION
-            ),
-            None,
-        )
-        if info_head is None:
-            add(start, f"区块内缺少 `## {ROUND_SECTION}`：复习时间、分类 · 状态变化、本轮得分、题量与错题数都写在这里")
-        else:
-            if any(
-                l.strip().startswith("<details")
-                for l in body[: next((k for k, x in enumerate(body) if SECTION2_RE.match(x) and SECTION2_RE.match(x).group(1).strip() == QUIZ_SECTION), len(body))]
-            ):
-                add(start + info_head + 1, f"`## {ROUND_SECTION}` 固定展示，不要包进 `<details>` 折叠块")
-            if group_heads and group_heads[0] != info_head:
-                add(
-                    start + group_heads[0] + 1,
-                    f"`## {ROUND_SECTION}` 必须是区块内第一个二级标题，紧跟日期标题",
-                )
+        if any(
+            l.strip().startswith("<details")
+            for l in body[: group_heads[0] if group_heads else len(body)]
+        ):
+            add(start, "本轮信息表固定展示，不要包进 `<details>` 折叠块")
+
         table_open = next((k for k, l in enumerate(body) if l.strip().startswith("<table")), None)
         table_line = start + table_open + 1 if table_open is not None else start
         table_close = next((k for k, l in enumerate(body) if l.strip() == "</table>"), None)
         if table_open is None or table_close is None or table_close < table_open:
-            add(start, "缺少无表头轮次信息表：必须写成 `<table>` … `</table>`，每行 `<tr><td>字段</td><td>值</td></tr>`")
+            add(start, "缺少无表头轮次信息表：日期标题下必须直接写 `<table>` … `</table>`，每行 `<tr><td>字段</td><td>值</td></tr>`")
+        elif group_heads and table_open > group_heads[0]:
+            add(table_line, "轮次信息表必须写在 `## 本轮习题` 之前，紧跟日期标题")
         else:
             inner = body[table_open + 1 : table_close]
             if any(l.strip() in ("<thead>", "</thead>") or "<th>" in l for l in inner):
@@ -545,10 +531,10 @@ def check(path: Path) -> list[dict]:
         if quiz_index is None:
             if group_heads:  # 一个二级标题都没有时只报一次，避免重复提示
                 add(start, "区块内缺少 `## 本轮习题`")
-        elif quiz_index != 1:
+        elif quiz_index != 0:
             add(
                 start + groups[quiz_index][0] + 1,
-                f"`## {QUIZ_SECTION}` 必须紧跟 `## {ROUND_SECTION}`（区块内第二个二级标题）",
+                f"`## {QUIZ_SECTION}` 必须是区块内第一个二级标题：轮次信息表不加小标题，直接跟在日期标题后",
             )
 
         # 旧写法：菜单项仍写成三级标题
@@ -834,27 +820,33 @@ def apply_safe_fixes(text: str) -> tuple[str, list[str]]:
         fixes.append("补齐缺失的 `笔记更新时间` 行（按 `笔记生成时间` 迁移）")
         lines = migrated
 
-    wrapped: list[str] = []
-    wrapped_any = False
-    block_has_info = False
-    in_block = False
+    # 每轮信息不加小标题：`## 本轮信息` 直接删掉，表格紧跟日期标题
+    untitled: list[str] = []
+    untitled_any = False
     for line in lines:
-        if line.startswith("# ") and SECTION_RE.match(line):
-            block_has_info = False
-            in_block = True
-        stripped = line.strip()
-        if stripped.startswith(f"## {ROUND_SECTION}") or stripped.startswith("<summary>"):
-            block_has_info = True
-        if in_block and stripped.startswith("<table") and not block_has_info:
-            if wrapped and wrapped[-1].startswith("# "):
-                wrapped.append("")
-            wrapped.extend([f"## {ROUND_SECTION}", ""])
-            block_has_info = True
-            wrapped_any = True
-        wrapped.append(line)
-    if wrapped_any:
-        fixes.append(f"给裸表补上 `## {ROUND_SECTION}` 标题")
-        lines = wrapped
+        if line.strip() == f"## {ROUND_SECTION}":
+            untitled_any = True
+            if untitled and not untitled[-1].strip():
+                untitled.pop()
+            continue
+        untitled.append(line)
+    if untitled_any:
+        fixes.append("去掉每轮多余的 `## 本轮信息` 标题，让表格直接跟在日期标题后")
+        lines = untitled
+
+    # 只压缩「日期标题后」与「表格后」的连续空行（删标题迁移的副产物），不动正文里的空行
+    compact: list[str] = []
+    compact_any = False
+    for line in lines:
+        if not line.strip() and compact and not compact[-1].strip():
+            anchor = next((l for l in reversed(compact) if l.strip()), "")
+            if SECTION_RE.match(anchor) or anchor.strip() == "</table>":
+                compact_any = True
+                continue
+        compact.append(line)
+    if compact_any:
+        fixes.append("把连续空行压缩成一行")
+        lines = compact
 
     # 结构迁移：记录级字段上移到文件顶部唯一一份「基础信息」，每轮只留本轮字段并补 `复习时间`
     headings = [k for k, line in enumerate(lines) if line.startswith("# ") and SECTION_RE.match(line)]

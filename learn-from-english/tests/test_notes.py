@@ -32,7 +32,7 @@ def round_block(stamp: str = "2026-11-07 21:00", kind: str = "复习", body: str
         "<tr><td>笔记生成时间</td><td>2026-11-07 21:05</td></tr>\n"
         "<tr><td>笔记更新时间</td><td>2026-11-07 21:05</td></tr>\n"
         "</table>\n\n"
-        f"# {stamp} · {kind}\n"
+        f"# {stamp} · {kind}\n\n"
         '<table style="border-collapse:collapse;width:auto">\n'
         "<colgroup><col width=\"150\"><col></colgroup>\n"
         f"<tr><td>目标知识点</td><td>{body}</td></tr>\n"
@@ -264,8 +264,6 @@ NOTE_HEAD = """## 基础信息
 """
 
 VALID_BLOCK = """# {heading}
-
-## 本轮信息
 
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>

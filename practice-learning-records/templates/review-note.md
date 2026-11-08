@@ -7,7 +7,7 @@ knowledge-labels: 本题知识点 | 规则与机制 | 英语的表达逻辑 | �
 error-labels: 考点 | 为什么错 | 英语的表达逻辑 | 正确表达
 unanswered-labels: 考点 | 为什么答不出 | 英语的表达逻辑 | 正确表达
 -->
-<!-- 基础信息整个文件只有一份，放在文件最顶部并用二级标题做导航（固定展示，不折叠） -->
+<!-- 基础信息整个文件只有一份，放在文件最顶部并用二级标题做导航（固定展示，不折叠）；每轮的信息表格不加标题，直接跟在日期标题后 -->
 ## 基础信息
 
 <table style="border-collapse:collapse;width:auto">
@@ -23,8 +23,6 @@ unanswered-labels: 考点 | 为什么答不出 | 英语的表达逻辑 | 正确�
 # <YYYY-MM-DD HH:MM> · 复习
 <!-- kind 固定取“复习”“练习”“套题”三者之一，直接改写本行；不要再写 `<复习 | 练习 | 套题>` 这类带空格的占位 -->
 <!-- 套题笔记在「题量与错题数」之后额外加一行 `主观题得分`（`写作 x/15 · 翻译 x/15`）；复习与练习不写这一行 -->
-
-## 本轮信息
 
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
