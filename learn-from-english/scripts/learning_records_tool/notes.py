@@ -25,6 +25,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
+from . import cache
 from .models import RecordError
 
 
@@ -312,8 +313,7 @@ class NoteStore:
         except OSError as exc:
             raise RecordError(f"cannot read note {path}: {exc}") from exc
 
-    @staticmethod
-    def _write(path: Path, text: str) -> None:
+    def _write(self, path: Path, text: str) -> None:
         path.parent.mkdir(parents=True, exist_ok=True)
         mode = path.stat().st_mode & 0o777 if path.exists() else 0o644
         descriptor, temporary_name = tempfile.mkstemp(
@@ -337,6 +337,11 @@ class NoteStore:
             except FileNotFoundError:
                 pass
             raise
+        # the snapshot must never describe a file this write just changed
+        try:
+            cache.refresh_note(self.repo_root, path, text)
+        except OSError:
+            cache.invalidate(self.repo_root)
 
     # -- public operations ----------------------------------------------
     def find_note_for_record(self, record_id: str) -> str | None:
@@ -606,30 +611,45 @@ class NoteStore:
         }
 
     def list_notes(self, record_id: str | None = None) -> list[dict[str, Any]]:
-        """List note blocks, optionally filtered by the record id they track."""
+        """List note blocks, optionally filtered by the record id they track.
+
+        Cheap path first: a snapshot entry is only trusted while the file's
+        ``size``/``mtime`` still match, so a file edited outside this tool
+        falls back to a real parse instead of returning a stale heading list.
+        """
         if not self.notes_dir.is_dir():
             return []
+        snapshot = cache.get_snapshot(self.repo_root)
         entries: list[dict[str, Any]] = []
         for path in sorted(self.notes_dir.glob("*.md")):
             if path.name.lower() == "readme.md":
                 continue
-            text = path.read_text(encoding="utf-8")
-            # 记录 ID 在文件顶部的「基础信息」里，不在任何轮次区块内
-            file_match = RECORD_ID_ROW_RE.search(text)
-            file_record = file_match.group(1).strip() if file_match else None
-            for heading, block in _split_blocks(text):
-                match = RECORD_ID_ROW_RE.search(block)
-                tracked = match.group(1).strip() if match else file_record
+            relative = self.relative(path)
+            cached = cache.note_entry_current(self.repo_root, snapshot, relative)
+            if cached is not None:
+                blocks = [(block["heading"], "") for block in cached["blocks"]]
+                file_record = cached["record_id"]
+            else:
+                text = path.read_text(encoding="utf-8")
+                blocks = _split_blocks(text)
+                file_record = self._file_record_id(text)
+            for heading, block in blocks:
+                tracked = file_record
+                match = RECORD_ID_ROW_RE.search(block) if block else None
+                if match:
+                    tracked = match.group(1).strip()
                 if record_id is not None and tracked != record_id:
                     continue
                 entries.append(
-                    {
-                        "file": self.relative(path),
-                        "heading": heading,
-                        "record_id": tracked,
-                    }
+                    {"file": relative, "heading": heading, "record_id": tracked}
                 )
         return entries
+
+    @staticmethod
+    def _file_record_id(text: str) -> str | None:
+        # 记录 ID 在文件顶部的「基础信息」里，不在任何轮次区块内
+        match = RECORD_ID_ROW_RE.search(text)
+        return match.group(1).strip() if match else None
 
     def check(self, path: str, *, fix: bool = False) -> dict[str, Any]:
         target = self.resolve(path)

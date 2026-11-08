@@ -8,6 +8,20 @@ from typing import Any
 from .models import CATEGORIES, RecordError
 
 
+# 只读选项：选它只是看/查，不会写任何规范记录或笔记。这类选择不需要回头核对
+# 仓库状态（git status/diff、目录扫描），否则一次纯展示会白跑一轮发现成本。
+READ_ONLY_KINDS = frozenset(
+    {
+        "status",
+        "error-clusters",
+        "scenario-dialogue",
+        "explain-current-exercise",
+        "paper-history",
+        "historical-unanswered-paper",
+    }
+)
+
+
 REVIEW_PATHS = (
     {
         "id": "errors-grammar",
@@ -95,7 +109,28 @@ def _option(
             label = f"{label}（{count}，可用 {available_count}）"
         else:
             label = f"{label}（{count}）"
-    return {"id": id, "icon": icon, "label": label, "group": group, **extra}
+    return {
+        "id": id,
+        "icon": icon,
+        "label": label,
+        "group": group,
+        **extra,
+        "writes": str(extra.get("kind")) not in READ_ONLY_KINDS,
+    }
+
+
+def annotate_writes(options: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Mark every option (and child) with ``writes`` so a caller can tell
+    a display-only selection from one that will persist something."""
+    for option in options:
+        kind = option.get("kind")
+        if isinstance(kind, str):
+            option["writes"] = kind not in READ_ONLY_KINDS
+        for child in option.get("children", []) or []:
+            child_kind = child.get("kind")
+            if isinstance(child_kind, str):
+                child["writes"] = child_kind not in READ_ONLY_KINDS
+    return options
 
 
 def _focus_label(focus: str | None) -> str:

@@ -245,11 +245,15 @@ python3 learn-from-english/scripts/learning_records.py error-cluster-get \
 python3 learn-from-english/scripts/learning_records.py error-cluster-get \
   --unclustered --limit 8
 python3 learn-from-english/scripts/learning_records.py familiar-list --brief
+python3 learn-from-english/scripts/learning_records.py snapshot --record "<record-id>"
+python3 learn-from-english/scripts/learning_records.py snapshot --notes
 ```
 
 `search` 默认检索全部状态，按相关度排序，并返回 `matched_fields`、`snippet` 和 `relevance`；调用方可以用重复的 `--status` 限制范围。`stats` 在基础总数与事件之外返回 `snapshot_totals`、`daily`、`by_category`、`score_distribution`、`due_backlog`、`mastered_random_pool`、`lapse_count` 和 `mastery_count`；其中 `due_backlog` 只统计仍需调度的 learning/familiar 记录，已掌握记录作为随机抽查池单列。
 
 `error-clusters` 默认返回**精简**结果：`clusters`（id / label / count / record_ids）与 `options`（脚本生成的错题专题菜单项，含未归类入口）、`unclustered_count`、`tag_families`（最多 12 条）+ `tag_family_total`，不再内联全部记录（`errors` 记录上百条时输出从 230 KB 降到 17 KB 量级）。需要某一类的完整材料时用 `error-cluster-get` 取回精简字段（id / title / explanation / source / example / tags），它的 `--minimum-size` 必须与 `error-clusters` 一致，否则拿到的 cluster id 可能对不上；它不自动合并记录，也不改变多个规范记录的分数。`list` / `familiar-list` / `mastered-list` 加 `--brief` 可省略 `review_history` 与调度时间戳。
+
+`snapshot` 是一次拿齐“仓库现在到哪了”的只读入口：`git_head`、笔记文件清单、每个文件的**轮次区块与 `##` 小节标题索引**、`record_files`（记录 ID → 笔记文件，记录已改名也能定位）。结果缓存在 `.cache/snapshot.json`，默认 30 分钟有效（`--max-age` 可改，`--refresh` 强制重建），命中时带 `source: cache` 与 `age_seconds`。写笔记后 `append` / `append-section` / `replace` 会自动刷新被改文件的条目，因此写入前后都不需要再跑 `git status`/`git log`/`grep`。缓存只是加速层：读索引前会比对文件的 `size` 与 `mtime`，不一致就回退到真实解析，删掉缓存文件也永远安全。菜单 option 现在带 `writes`：`false` 的项（场景对话、学习进度、错题聚类、剖析当前题、历史试卷导航）只展示内容，不做仓库核对；校验器只在写入路径运行。
 
 ### 校验、修复和迁移
 

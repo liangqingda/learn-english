@@ -19,6 +19,21 @@ python3 learn-from-english/scripts/learning_records.py menu --context initial
 
 若 `state` 为 `empty`，说明目前没有学习记录，并直接展示脚本返回的状态、基础练习和咖啡店场景入口，不编造历史知识点。
 
+## 会话效率
+
+只读选择（option 带 `writes: false`，即 `scenario-dialogue`、`status`、`error-clusters`、`explain-current-exercise`、`paper-history`、`historical-unanswered-paper`）只展示内容或查询结果，不核对仓库状态：不运行 `git status`、`git log`、`git diff`，不扫描 `learning-record-notes/` 目录，不用 grep 判断小节是否存在。直接根据当前对话和快照作答。
+
+需要知道“仓库现在到哪了”（HEAD、笔记文件清单、记录→笔记文件映射、某个文件已有哪些区块和小节）时，只运行一次 `snapshot`，不要用多条 `ls` / `git` / `grep` 拼出同一个答案：
+
+```bash
+python3 learn-from-english/scripts/learning_records.py snapshot --record "<record id>"
+python3 learn-from-english/scripts/learning_records.py snapshot --notes
+```
+
+结果来自 30 分钟有效的会话缓存；写入 note 时会自动刷新对应条目，只读路径不必加 `--refresh`。
+
+写笔记前先看快照里目标区块是否已有同名 `##` 小节，再决定用 `append-section`（新增）还是 `replace --rewrite-section`（改写），不要先拼好大段内容再被脚本拒绝。一轮的全部错题用一次 `batch-upsert` 写入（已评分复习用一次 `complete-review`），不逐题调用。只读展示不运行 `check_note.py`；校验只在写入路径上跑，结果如实报告。快照 `stale: true` 或怀疑被别的会话改动时，只读内容照常展示，只在真正写入前重新取一次快照或重读该文件。
+
 ## 处理数字选择
 
 只把对最近一轮菜单的纯数字或纯数字路径回复解释为菜单选择。始终根据 option 的 `kind` 分派，不根据 `label` 或 `id` 猜测行为；有 `action` 时按其中的 command 和参数调用 CLI，option ID 只用于稳定身份和父子关系：

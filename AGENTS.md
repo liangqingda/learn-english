@@ -69,6 +69,15 @@ These rules apply to every skill that presents an English exercise and evaluates
 - A section recording exercises must keep the full question text, options and the user's answers; a section title that promises source material (dialogue, passage, example) may not ship with the material missing.
 - Structural validation passing does not prove content completeness. When a checker only validates structure, say which part of the content it cannot verify.
 
+# Session efficiency
+
+- A read-only menu selection (option `writes: false`: 场景对话、学习进度、错题聚类、剖析当前题、历史试卷导航) must never trigger a repository state check. No `git status`, `git log`, `git diff`, no `learning-record-notes/` scan and no note grep before answering; answer from the current conversation plus the snapshot.
+- When the repository state is genuinely needed (HEAD, note file list, record→note mapping, existing round blocks and `##` sections), run one `python3 learn-from-english/scripts/learning_records.py snapshot [--record <id>] [--notes]` instead of assembling it from several shell commands. It reads a 30-minute cache; every note write refreshes the entry it touched, so only a real write needs a re-check.
+- Before composing note content, ask the snapshot whether the target round block already has a section with that title, then choose `append-section` or `replace --rewrite-section`. Never build a large heredoc first and learn afterwards that the file was renamed or the section already exists.
+- Batch writes: one `batch-upsert` (or one `complete-review` for a scored round) per round's errors, never one call per question.
+- Validation runs only on the write path; a read-only display never runs `check_note.py`. When a write is rejected or `invalid`, say so plainly instead of implying success.
+- If the snapshot is stale or another session may have changed a note, still show read-only content optimistically and re-check only immediately before writing.
+
 # Commit conventions
 
 - After any repository content is added, modified, moved, or deleted, automatically create a Git commit for those changes before finishing the current turn.

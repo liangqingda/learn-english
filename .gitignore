@@ -12,3 +12,4 @@ learning-records/.txn-recovery.log
 .DS_Store
 learning-record-notes/.notes.lock
 learning-record-notes/.*.tmp
+.cache/

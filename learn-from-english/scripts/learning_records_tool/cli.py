@@ -10,6 +10,8 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from .cache import DEFAULT_MAX_AGE_SECONDS, get_snapshot
+from .menu import annotate_writes
 from .models import CATEGORIES, STATUSES, RecordError, record_id
 from .notes import NoteStore, _split_blocks
 from .papers import PAPER_STATUSES, PaperService
@@ -253,7 +255,37 @@ def handle_paper_complete(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def handle_paper_menu(args: argparse.Namespace) -> list[dict[str, Any]]:
-    return paper_service().menu_options()
+    return annotate_writes(paper_service().menu_options())
+
+
+def handle_snapshot(args: argparse.Namespace) -> dict[str, Any]:
+    """One cheap answer to "where does the repository stand right now?".
+
+    Replaces a round of ``ls``/``grep``/``git log`` calls: commit hash, note
+    file index, and the record→note mapping come from a cached snapshot that
+    is rebuilt only when missing or older than ``--max-age``.
+    """
+    snapshot = get_snapshot(REPO_ROOT, refresh=args.refresh, max_age=args.max_age)
+    age = float(snapshot.get("age_seconds") or 0.0)
+    payload: dict[str, Any] = {
+        "git_head": snapshot.get("git_head"),
+        "generated_at": snapshot.get("generated_at"),
+        "age_seconds": age,
+        "max_age_seconds": args.max_age,
+        "source": snapshot.get("source"),
+        "stale": age > args.max_age,
+        "counts": snapshot.get("counts", {}),
+        "hint": (
+            "read-only view for this session; a write through note.append/"
+            "append_section/replace refreshes it automatically, so do not "
+            "re-run git status/diff before a read-only display"
+        ),
+    }
+    if args.record:
+        payload["record_file"] = snapshot.get("record_files", {}).get(args.record)
+    if args.notes:
+        payload["notes"] = snapshot.get("notes", {})
+    return payload
 
 
 TRACKING_ROW_RE = re.compile(
@@ -547,6 +579,27 @@ def build_parser() -> argparse.ArgumentParser:
 
     paper_menu = subparsers.add_parser("paper-menu", help="build shared paper-history menu options")
     paper_menu.set_defaults(handler=handle_paper_menu)
+
+    snapshot = subparsers.add_parser(
+        "snapshot",
+        help="one cheap read-only answer: HEAD, note index, record->note map",
+    )
+    snapshot.add_argument(
+        "--refresh", action="store_true", help="rebuild even when the cache is fresh"
+    )
+    snapshot.add_argument(
+        "--max-age",
+        type=float,
+        default=DEFAULT_MAX_AGE_SECONDS,
+        help="seconds the cached view stays valid (default 1800 = 30 minutes)",
+    )
+    snapshot.add_argument(
+        "--record", help="resolve one record id to the note file that tracks it"
+    )
+    snapshot.add_argument(
+        "--notes", action="store_true", help="include the per-file block/section index"
+    )
+    snapshot.set_defaults(handler=handle_snapshot)
 
     note_append = subparsers.add_parser(
         "note-append",

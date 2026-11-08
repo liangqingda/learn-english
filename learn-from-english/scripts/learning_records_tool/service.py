@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Iterable
 
-from .menu import REVIEW_PATHS, build_menu, counts_for
+from .menu import REVIEW_PATHS, annotate_writes, build_menu, counts_for
 from .models import (
     CATEGORIES,
     RecordError,
@@ -930,7 +930,7 @@ class RecordService:
                 )["title"]
         from .papers import PaperService
 
-        return build_menu(
+        result = build_menu(
             records,
             context,
             focus=effective_focus,
@@ -940,6 +940,8 @@ class RecordService:
             availability_counts=availability_counts,
             paper_options=PaperService(self.store).menu_options(),
         )
+        result["options"] = annotate_writes(list(result.get("options", [])))
+        return result
 
     @staticmethod
     def _categories_for_path(path_id: str) -> list[str]:
