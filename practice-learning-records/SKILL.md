@@ -260,7 +260,7 @@ python3 learn-from-english/scripts/learning_records.py menu \
 追加与修正命令、菜单项记法、校验与迁移全部在那里，**不要凭记忆或旧轮次猜格式**），并按
 `practice-learning-records/templates/review-note.md` 逐字替换占位符。
 
-本 Skill 只保留五条硬约束：
+本 Skill 只保留六条硬约束：
 
 - 统一入口是 `practice-learning-records/scripts/note.py`：`append` / `append-section` / `replace` / `list` /
   `context` 转发给 `learn-from-english` 的命令，`check` 直接用本 skill 的校验器；只在这一条命令上写笔记，
@@ -268,7 +268,12 @@ python3 learn-from-english/scripts/learning_records.py menu \
 - 给已有区块补菜单小节用 `append-section`（锁内只追加一个 `## ` 小节，区块其余内容一字不动），
   **不要**为了加一节去整块 `replace`：同一个日期区块会被不同对话持续追加小节，整块重写就是覆盖事故的来源。
   `replace` 只用于修正本轮自己刚写错的内容，且它在锁内会自动保留新内容没有带上的既有小节（返回 `preserved_sections`）；
-  只有显式 `--drop-section` 列出的小节才会真的删除。
+  只有显式 `--drop-section` 列出的小节才会真的删除。`replace` 一次只允许改一个小节，改了多个会被直接拒绝
+  （报「一次只改一个小节」）；确有批量迁移时对每个小节逐个加 `--rewrite-section`，并在同一轮跑 `check --all`
+  确认结构没被改坏，回复里报告 `modified_sections`。
+- 写入是「自由文本整段替换」最容易出事的环节：批量改写小节时必须用锚点定位到下一个同级标记（下一个 `##`、`###`、
+  `**完整场景对话**：`），禁止按「读到区块结束」收边；临时脚本只负责拼装文本，落地必须经上面这条命令，
+  写完必须核对折叠块 `<details>` / `</details>` 成对、现有小节一个没少。
 - 追踪字段分两处：文件顶部的 `## 基础信息`（全文件唯一一份）放记录 ID / 试卷 ID、目标知识点、累计复习次数、下次复习、
   笔记生成时间、笔记更新时间；每个日期区块的裸表格（不加任何小标题）只放复习时间、分类 · 状态变化、本轮得分、题量与错题数（套题再加主观题得分）。
   两处都固定展示，不写 `<details>`。
@@ -373,6 +378,7 @@ python3 learn-from-english/scripts/learning_records.py stats --period 30d
 | `complete-review` 保存评分失败 | 继续发送批改正文 | 只显示「重试保存本轮评分」「放弃保存并返回菜单」 | 只留在当前对话，重试原样携带 `claim_owner` / `claim_token` | 同上；领取凭据失效的提示语见“评分与协调记录” |
 | `paper-complete` 保存套题评分失败 | 继续发送批改正文 | 只显示「重试保存本次试卷评分」「放弃评分保存并保留进行中作答」 | 只留在当前对话 | 同上；放弃时不得删除已保存答案 |
 | `note-append` / `note-append-section` / `note-replace-block` 写入失败（路径不合规、区块缺标题、文件被占用、同标题小节已存在等） | 继续发送当天正文；命令报错原样说明原因 | 正常菜单照常显示 | 修正后的区块只留在当前对话 | 不得改用 `Write` 直接改写笔记文件来绕过失败；`append-section` 报小节已存在时改用 `replace` 修正，不要追加第二个同标题小节 |
+| `replace` 报「一次只改一个小节」 | 说明这次替换同时重写了多个既有小节 | 正常菜单照常显示 | 修正后的区块只留在当前对话 | 一次只改一节；批量迁移逐节加 `--rewrite-section`，并同轮跑 `check --all` |
 | `replace` 返回非空 `preserved_sections` | 写入成功，这些小节是别的对话的成果，已被自动保留在区块末尾 | 正常菜单照常显示 | 不涉及 | 不要手工删掉它们；确实要删时用 `--drop-section` 明确列出 |
 | `note-append` 返回 `duplicate: true`（同标题同内容） | 按已写入处理，不再追加 | 正常菜单照常显示 | 不涉及 | 不重试、不手工补写；内容有实质修改才用替换命令 |
 | `note-append` 返回 `heading_adjusted: true` | 按返回的 `heading` 继续，两轮内容都已保留 | 正常菜单照常显示 | 不涉及 | 不要用原请求时间再追加一遍 |

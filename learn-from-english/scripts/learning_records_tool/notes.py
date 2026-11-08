@@ -383,7 +383,12 @@ class NoteStore:
         }
 
     def replace_block(
-        self, path: str, heading: str, content: str, allow_drop: tuple[str, ...] = ()
+        self,
+        path: str,
+        heading: str,
+        content: str,
+        allow_drop: tuple[str, ...] = (),
+        allow_sections: tuple[str, ...] = (),
     ) -> dict[str, Any]:
         target = self.resolve(path)
         # 替换只针对轮次区块；模型若顺手带了文件级基础信息头，直接忽略避免重复
@@ -436,6 +441,28 @@ class NoteStore:
                 replacement = replacement + ["", *body.split("\n")]
             if tail:
                 replacement = replacement + ["", DIVIDER, ""] + tail
+            # 一次替换只允许改一个小节：改多个小节意味着在别人的小节里动刀，
+            # 必须由调用方逐个用 --rewrite-section 声明（批量迁移才这么做），
+            # 否则一次范围写宽的替换会静默吃掉整段内容。
+            new_sections = {heading_text: body_text for heading_text, body_text in _sections("\n".join(replacement))}
+            modified = [
+                heading_text
+                for heading_text, body_text in existing_sections
+                if heading_text in new_sections
+                and _comparable(new_sections[heading_text]) != _comparable(body_text)
+            ]
+            undeclared = [
+                heading_text
+                for heading_text in modified
+                if heading_text not in allow_sections
+            ]
+            if len(undeclared) > 1:
+                raise RecordError(
+                    "replacement would rewrite "
+                    f"{len(undeclared)} sections at once: "
+                    + ", ".join(undeclared)
+                    + "; 一次只改一个小节，要批量迁移请对每个小节显式加 --rewrite-section"
+                )
             composed = "\n".join(before + replacement).rstrip("\n") + "\n"
             self._write(target, composed)
             blocks = _count_blocks(composed)
@@ -445,6 +472,7 @@ class NoteStore:
             "file": self.relative(target),
             "heading": wanted,
             "blocks": blocks,
+            "modified_sections": modified,
             "preserved_sections": [section_heading for section_heading, _ in preserved],
             "bytes": len(composed.encode("utf-8")),
         }

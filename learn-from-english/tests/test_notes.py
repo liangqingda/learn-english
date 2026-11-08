@@ -588,6 +588,64 @@ class NoteCliTest(unittest.TestCase):
         self.assertIn("already exists in this block", refused.stderr)
         self.assertIn("- 旧内容", self.note.read_text(encoding="utf-8"))
 
+    def test_cli_replace_rewriting_two_sections_needs_declaration(self) -> None:
+        completed = self.run_cli(
+            [
+                "note-append",
+                "--file",
+                "learning-record-notes/errors-out-west.md",
+                "--content-file",
+                "-",
+            ],
+            block_text(heading="2026-11-09 09:00 · 复习", answer="west")
+            + "\n\n## 小节甲\n\n- 旧甲\n\n## 小节乙\n\n- 旧乙\n",
+        )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        replacement = (
+            block_text(heading="2026-11-09 09:00 · 复习", answer="west")
+            + "\n\n## 小节甲\n\n- 新甲\n\n## 小节乙\n\n- 新乙\n"
+        )
+        refused = self.run_cli(
+            [
+                "note-replace-block",
+                "--file",
+                "learning-record-notes/errors-out-west.md",
+                "--heading",
+                "# 2026-11-09 09:00 · 复习",
+                "--content-file",
+                "-",
+            ],
+            replacement,
+        )
+        self.assertEqual(refused.returncode, 2)
+        self.assertIn("一次只改一个小节", refused.stderr)
+        self.assertIn("- 旧甲", self.note.read_text(encoding="utf-8"))
+
+        allowed = self.run_cli(
+            [
+                "note-replace-block",
+                "--file",
+                "learning-record-notes/errors-out-west.md",
+                "--heading",
+                "# 2026-11-09 09:00 · 复习",
+                "--rewrite-section",
+                "## 小节甲",
+                "--rewrite-section",
+                "## 小节乙",
+                "--content-file",
+                "-",
+            ],
+            replacement,
+        )
+        self.assertEqual(allowed.returncode, 0, allowed.stderr)
+        payload = json.loads(allowed.stdout)
+        self.assertEqual(
+            payload["modified_sections"], ["## 小节甲", "## 小节乙"]
+        )
+        text = self.note.read_text(encoding="utf-8")
+        self.assertIn("- 新甲", text)
+        self.assertIn("- 新乙", text)
+
 
 def result_order(text: str) -> list[str]:
     return [

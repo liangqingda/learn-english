@@ -604,6 +604,18 @@ def check(path: Path) -> list[dict]:
                     "场景对话小节必须保留完整对话原文：`<details><summary>场景对话原文</summary>` 不能省，"
                     "只写讲解要点不算完成",
                 )
+            if "场景对话" in g_title:
+                turns = [
+                    line
+                    for line in section_text.split("\n")
+                    if re.match(r"^- \*\*[^*]+\*\*：", line.strip())
+                ]
+                if len(turns) < 4:
+                    add(
+                        line_no,
+                        f"场景对话原文至少要有 4 句台词（当前 {len(turns)} 句）：对话被截断或只写了开场白，"
+                        "等于这一段没有交付",
+                    )
             section_opens = section_text.count("<details>")
             section_closes = section_text.count("</details>")
             if section_opens != section_closes:

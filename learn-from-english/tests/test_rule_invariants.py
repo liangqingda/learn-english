@@ -222,7 +222,11 @@ class MenuItemNoteTest(unittest.TestCase):
             "<details>\n"
             "<summary>场景对话原文</summary>\n\n"
             "- **A**：x\n"
-            "- **B**：y\n\n"
+            "- **B**：y\n"
+            "- **A**：z\n"
+            "- **B**：w\n"
+            "- **A**：v\n"
+            "- **B**：u\n\n"
             "</details>\n"
         )
 

@@ -328,7 +328,11 @@ def handle_note_replace_block(args: argparse.Namespace) -> dict[str, Any]:
     store = note_store()
     content = read_text_input(args.content_file)
     result = store.replace_block(
-        args.file, args.heading, content, tuple(args.drop_section or ())
+        args.file,
+        args.heading,
+        content,
+        tuple(args.drop_section or ()),
+        tuple(args.rewrite_section or ()),
     )
     if args.check:
         validate_after_write(store, result)
@@ -601,6 +605,15 @@ def build_parser() -> argparse.ArgumentParser:
         help=(
             "allow dropping an existing '## section'; every other section that the new "
             "content omits is preserved automatically"
+        ),
+    )
+    note_replace.add_argument(
+        "--rewrite-section",
+        action="append",
+        metavar="HEADING",
+        help=(
+            "declare a '## section' this replacement is allowed to rewrite; "
+            "without it a single replace may only modify one section"
         ),
     )
     note_replace.add_argument(
