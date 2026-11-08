@@ -228,6 +228,7 @@ Working night shifts cost her her health, and she knew it.
 - `Nobody told me there'd be a price to pay for saying yes.`
 - `Every promotion comes at a price.`
 - `It's not a price I can afford for three more years.`
+
 **完整场景对话**：
 
 <details>

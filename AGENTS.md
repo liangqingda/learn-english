@@ -57,6 +57,18 @@ These rules apply to every skill that presents an English exercise and evaluates
 - Error recording is independent of the active skill and independent of review scoring. When a review exercise tests an existing record, score the current record only by whether the user demonstrated the target knowledge point. If the target knowledge point was answered correctly but the response contains a different English error, treat the current record as passed while recording that separate demonstrated error in the same `complete-review` coordinated write. Scenario dialogue corrections do not by themselves trigger review scoring unless the dialogue is explicitly being used as a scored review task.
 - Record only errors actually demonstrated in the submitted answer. Do not infer or invent additional weaknesses, and do not record an error merely because the overall score is below a threshold.
 
+# Fixing reported problems
+
+- After fixing any problem the user points out, always run a horizontal check for the same class of problem before finishing: the rest of the same section, the other sections of the same file, the other files under the same directory, and any other artifact produced from the same template or skill.
+- Fix every instance found in one turn, not only the one the user named, and report the checked scope plus the result (what was found and what was fixed) in the final response.
+- Verify the fix with the project's own checker or a scan script rather than by reading the diff, and state explicitly when the checker itself cannot catch the problem, so the same issue does not silently recur.
+
+# Note content completeness
+
+- A section in `learning-record-notes/` recording a scenario dialogue must keep the complete dialogue script, not only the bullet points: put the full turns in a `<details><summary>场景对话原文</summary>` block, with one blank line before the `**完整场景对话**：` label so it never merges into the preceding list item.
+- A section recording exercises must keep the full question text, options and the user's answers; a section title that promises source material (dialogue, passage, example) may not ship with the material missing.
+- Structural validation passing does not prove content completeness. When a checker only validates structure, say which part of the content it cannot verify.
+
 # Commit conventions
 
 - After any repository content is added, modified, moved, or deleted, automatically create a Git commit for those changes before finishing the current turn.
