@@ -236,7 +236,6 @@ class NoteAppendTest(unittest.TestCase):
 
 
 VALID_BLOCK = """# {heading}
-## 基础信息
 
 <details>
 <summary>追踪信息</summary>

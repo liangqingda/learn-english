@@ -8,7 +8,7 @@
 
 `--all` 校验默认 notes 目录（`$LEARN_ENGLISH_REPO_ROOT/learning-record-notes`）下的全部笔记；
 `--fix` 只修可以无争议判定的问题（行尾空格、`我的答案` 的题号前缀、区块之间缺失的 `---`、
-缺失的 `笔记更新时间` 行按 `笔记生成时间` 补齐、把旧版追踪表移进 `## 基础信息` 折叠块、
+缺失的 `笔记更新时间` 行按 `笔记生成时间` 补齐、把追踪表移进 `追踪信息` 折叠块、去掉旧版的 `## 基础信息` 标题、
 删掉非套题笔记里恒为 `—` 的 `主观题得分` 行），修完再跑一次校验。成功时输出 {"ok": true, "checked": [...]}；失败时输出逐条 issue 并以退出码 1 结束。
 """
 
@@ -165,7 +165,7 @@ UNANSWERED_WORDS = ("未作答", "未完成", "漏答")
 KNOWLEDGE_REF_RE = re.compile(r"^\*\*知识点\*\*：同\s*第\s*(\d+)\s*题")
 MENU_ITEM_RE = re.compile(r"^### (\S.*?)\s*$")
 QUIZ_SECTION = "本轮习题"
-BASE_SECTION = "基础信息"
+BASE_SECTION = "基础信息"  # 旧版追踪信息的二级标题，迁移时删掉
 TRACKING_SUMMARY = "追踪信息"
 SECTION2_RE = re.compile(r"^## (?!#|追踪)(\S.*?)\s*$")
 LEGACY_MENU_HEADING_RE = re.compile(r"^### \d+\.\s+菜单：")
@@ -279,25 +279,17 @@ def check(path: Path) -> list[dict]:
         body = lines[start:end]
         section_tracking: dict[str, str] = {}
 
-        if any(l.strip() == "## 追踪" for l in body):
-            add(start, "不再使用 `## 追踪` 子标题：追踪信息放进 `## 基础信息` 下的折叠块")
+        if any(l.strip() in ("## 追踪", f"## {BASE_SECTION}") for l in body):
+            add(start, "追踪信息不要任何二级标题：日期标题下直接放 `<details><summary>追踪信息</summary>` 折叠块")
 
         group_heads = [k for k, l in enumerate(body) if SECTION2_RE.match(l)]
         if not group_heads:
-            add(start, "区块内缺少 `## 基础信息` 与 `## 本轮习题`")
+            add(start, "区块内缺少 `## 本轮习题`")
 
-        # 追踪表：位于 `## 基础信息` 之下、`<details><summary>追踪信息</summary>` 折叠块内，默认收起
+        # 追踪表：日期标题下直接一个 `<details><summary>追踪信息</summary>` 折叠块，默认收起，块前不写二级标题
         table_open = next((k for k, l in enumerate(body) if l.strip().startswith("<table")), None)
         # 表格各行的 1-based 行号：body[0] 对应 start + 1
         table_line = start + table_open + 1 if table_open is not None else start
-        base_pos = group_heads[0] if group_heads else None
-        if base_pos is not None:
-            base_title = SECTION2_RE.match(body[base_pos]).group(1).strip()
-            if base_title != BASE_SECTION:
-                add(
-                    start + base_pos + 1,
-                    f"日期标题下第一个二级标题必须是 `## {BASE_SECTION}`：追踪表放在它下面，再是 `## {QUIZ_SECTION}`",
-                )
         details_pos = next((k for k, l in enumerate(body) if l.strip().startswith("<details")), None)
         summary_pos = next((k for k, l in enumerate(body) if l.strip().startswith("<summary>")), None)
         details_end = next((k for k, l in enumerate(body) if l.strip() == "</details>"), None)
@@ -314,9 +306,15 @@ def check(path: Path) -> list[dict]:
             if summary_text != TRACKING_SUMMARY:
                 add(start + summary_pos + 1, f"折叠块 summary 必须是 `{TRACKING_SUMMARY}`：当前为 `{summary_text}`")
             if table_open is not None and not (details_pos < table_open < details_end):
-                add(table_line, "追踪表必须写在 `## 基础信息` 的折叠块内，不要放在折叠块之外")
-            if base_pos is not None and details_pos <= base_pos:
-                add(start + details_pos + 1, f"折叠块必须写在 `## {BASE_SECTION}` 标题之后")
+                add(table_line, "追踪表必须写在折叠块内，不要放在折叠块之外")
+            heading_before = next(
+                (k for k, l in enumerate(body) if SECTION2_RE.match(l) and k < details_pos), None
+            )
+            if heading_before is not None:
+                add(
+                    start + heading_before + 1,
+                    "追踪折叠块之前不能有二级标题：日期标题下直接写 `<details><summary>追踪信息</summary>`",
+                )
         table_close = next((k for k, l in enumerate(body) if l.strip() == "</table>"), None)
         first_group = group_heads[0] if group_heads else None
         if table_open is None or table_close is None or table_close < table_open:
@@ -462,11 +460,8 @@ def check(path: Path) -> list[dict]:
         if quiz_index is None:
             if group_heads:  # 一个二级标题都没有时只报一次，避免重复提示
                 add(start, "区块内缺少 `## 本轮习题`")
-        elif quiz_index != 1:
-            add(
-                start + groups[quiz_index][0] + 1,
-                f"`## {QUIZ_SECTION}` 必须紧跟在 `## {BASE_SECTION}` 之后，菜单项排在它后面",
-            )
+        elif quiz_index != 0:
+            add(start + groups[quiz_index][0] + 1, "第一个二级标题必须是 `## 本轮习题`")
 
         # 旧写法：菜单项仍写成三级标题
         for k, line in enumerate(body):
@@ -477,7 +472,7 @@ def check(path: Path) -> list[dict]:
                 )
 
         for gidx, (g_start, g_title, g_end) in enumerate(groups):
-            if gidx == 0 or g_title in (QUIZ_SECTION, BASE_SECTION):
+            if gidx == 0 or g_title == QUIZ_SECTION:
                 continue
             line_no = start + g_start
             if g_title in ("", "—"):
@@ -765,16 +760,18 @@ def apply_safe_fixes(text: str) -> tuple[str, list[str]]:
             block_has_base = False
         if line.strip() == f"## {BASE_SECTION}":
             block_has_base = True
+        if line.strip() == f"<summary>{TRACKING_SUMMARY}</summary>":
+            block_has_base = True
         if closing and line.strip() == "</table>":
             wrapped.extend([line, "</details>", ""])
             closing = False
             skip_blank = True
             continue
         if line.strip().startswith("<table") and not block_has_base:
+            if wrapped and wrapped[-1].startswith("# "):
+                wrapped.append("")
             wrapped.extend(
                 [
-                    f"## {BASE_SECTION}",
-                    "",
                     "<details>",
                     f"<summary>{TRACKING_SUMMARY}</summary>",
                     "",
@@ -785,8 +782,19 @@ def apply_safe_fixes(text: str) -> tuple[str, list[str]]:
             wrapped_any = True
         wrapped.append(line)
     if wrapped_any:
-        fixes.append(f"把追踪表移进 `## {BASE_SECTION}` 下的折叠块并默认收起")
+        fixes.append(f"把追踪表移进 `<summary>{TRACKING_SUMMARY}</summary>` 折叠块并默认收起")
         lines = wrapped
+
+    stripped: list[str] = []
+    stripped_any = False
+    for line in lines:
+        if line.strip() == f"## {BASE_SECTION}":
+            stripped_any = True
+            continue
+        stripped.append(line)
+    if stripped_any:
+        fixes.append(f"去掉追踪信息上方的 `## {BASE_SECTION}` 标题")
+        lines = stripped
 
     joined = "\n".join(lines)
     if "</table>\n\n</details>" in joined:

@@ -42,7 +42,7 @@ def note_text(
     )
     return (
         f"# {stamp} · 复习\n"
-        "## 基础信息\n\n<details>\n<summary>追踪信息</summary>\n\n"
+        "\n<details>\n<summary>追踪信息</summary>\n\n"
         '<table style="border-collapse:collapse;width:auto">\n'
         '<colgroup><col width="150"><col></colgroup>\n'
         f"{table}\n"
@@ -97,7 +97,7 @@ def paper_note_text(*, second_reference: str | None = "第 1 题", second_detail
     )
     return (
         "# 2026-11-07 12:00 · 套题\n"
-        "## 基础信息\n\n<details>\n<summary>追踪信息</summary>\n\n"
+        "\n<details>\n<summary>追踪信息</summary>\n\n"
         '<table style="border-collapse:collapse;width:auto">\n'
         '<colgroup><col width="150"><col></colgroup>\n'
         f"{table}\n"
