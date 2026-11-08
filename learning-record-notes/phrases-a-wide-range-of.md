@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-11 20:26</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-08 20:26</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-08 20:27</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-08 20:45</td></tr>
 </table>
 
 # 2026-11-08 20:26 · 复习
@@ -169,5 +169,43 @@ The company sells many different types of software for small businesses.
 2. **为什么错**：中文“从气候到教育”是类别泛称，加上 the 就变成特指某一个已知的气候或某一项具体的教育事务，区间两端从“类别”被降级成“具体对象”。
 3. **英语的表达逻辑**：英语的类别名词泛指用零冠词，定冠词留给双方都清楚的具体指称；区间端点作为标签使用时属于泛指。
 4. **正确表达**：from climate to education；可迁移：from design to delivery / from beginner to advanced.
+
+</details>
+
+## 看一套围绕「a wide range of（种类繁多的/广泛多样的）」的完整场景对话
+
+**讲解要点**：
+- a wide range of 用来回答“有多少／有哪些种类”时，后面必须落地到复数可数名词或不可数名词，让 range 有一个真实集合可指
+  - There's a wide range of societies on campus, from debating to robotics.
+  - The centre offers a wide range of courses.
+- 同结构的谓语按单数中心词 range 走，不按后面的复数名词走
+  - A wide range of activities is free for first-year students.
+  - A full range of services is available.
+- wide / broad / full range of 是同一结构的语域变体，正式场合优先 range，口语才用 plenty of
+  - a broad range of options
+  - a full range of services
+- 口语应答里要说明“范围的两端”，用 from A to B 且两端零冠词，这样对话才具体可信
+  - from beginners' Chinese to advanced Spanish
+  - from visa advice to health cover
+
+<details>
+<summary>场景对话原文</summary>
+
+**完整场景对话**：
+
+场景：大学 Student Services 柜台，新生 Emma 咨询社团与支持服务，工作人员 Mark 接待。
+
+- **Mark**：Welcome to Student Services. How can I help you today?
+- **Emma**：I'm new here, and I'd like to join a couple of clubs. Do you have many?
+- **Mark**：We do. There's a wide range of societies on campus, from debating to robotics.
+- **Emma**：That's a lot of options. Is there anything for language learners too?
+- **Mark**：Yes — the Language Centre offers a wide range of courses, from beginners' Chinese to advanced Spanish.
+- **Emma**：Good to know. And what about support for international students?
+- **Mark**：A full range of services is available, including visa advice, housing help and health cover.
+- **Emma**：Perfect. Are these activities free of charge?
+- **Mark**：Most of them are. A wide range of activities is free for first-year students, and only a few clubs charge a fee.
+- **Emma**：That works for me. Could you send me the full list?
+- **Mark**：Of course. I'll email you a broad range of options with the timetable this afternoon.
+- **Emma**：Thanks a lot — that saves me a week of guessing.
 
 </details>
