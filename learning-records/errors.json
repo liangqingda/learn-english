@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 210,
+  "revision": 211,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -1250,6 +1250,32 @@
       ],
       "first_learned_at": "2026-08-08T20:45:15+08:00",
       "last_learned_at": "2026-08-08T20:45:15+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:demonstration-vs-show-formal-event": {
+      "id": "errors:demonstration-vs-show-formal-event",
+      "category": "errors",
+      "key": "demonstration-vs-show-formal-event",
+      "status": "learning",
+      "title": "正式会议语境用 equipment show 指设备演示",
+      "explanation": "show 偏展览会、演出，指会议中的功能演示应用 demonstration 或 demo，与 equipment 的搭配也更自然。",
+      "source": "... let's proceed to the equipment show.",
+      "example": "... let's proceed to the equipment demonstration.",
+      "tags": [
+        "register",
+        "review-error",
+        "vocabulary"
+      ],
+      "first_learned_at": "2026-11-08T12:47:54+08:00",
+      "last_learned_at": "2026-11-08T12:47:54+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -3461,6 +3487,32 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:past-tense-verb-form-for-past-time": {
+      "id": "errors:past-tense-verb-form-for-past-time",
+      "category": "errors",
+      "key": "past-tense-verb-form-for-past-time",
+      "status": "learning",
+      "title": "过去时间语境仍用动词原形",
+      "explanation": "句子用 after the holidays、after lunch 明确指向过去，主句谓语必须用一般过去时，不能保留原形 proceed。",
+      "source": "The board proceed with working on the merger plan after the holidays. / We proceed with the rest proposal after lunch.",
+      "example": "The board proceeded with the merger plan after the holidays.",
+      "tags": [
+        "review-error",
+        "tense",
+        "verb-form"
+      ],
+      "first_learned_at": "2026-11-08T12:47:54+08:00",
+      "last_learned_at": "2026-11-08T12:47:54+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:past-tense-with-finished-past-time-marker": {
       "id": "errors:past-tense-with-finished-past-time-marker",
       "category": "errors",
@@ -4074,7 +4126,7 @@
     "errors:proceed-with-gerund-vs-proceed-to-infinitive": {
       "id": "errors:proceed-with-gerund-vs-proceed-to-infinitive",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "proceed with doing 与 proceed to do 的语义差别",
       "explanation": "proceed to do 表示接下来开始做另一件事；proceed with 后面更自然接名词，表示继续推进某项已有事务。把 After the meeting, we proceeded with discussing the budget 写成 proceed to discuss the budget 更自然。",
       "source": "After the meeting, we proceeded with discussing the budget.",
@@ -4087,11 +4139,11 @@
       "first_learned_at": "2026-08-01T21:09:01+08:00",
       "last_learned_at": "2026-08-01T21:09:01+08:00",
       "learned_count": 1,
-      "mastery_score": 6.0,
-      "review_count": 3,
-      "high_score_streak": 0,
-      "last_reviewed_at": "2026-11-02T07:57:40+08:00",
-      "next_review_at": "2026-11-05T07:57:40+08:00",
+      "mastery_score": 9.0,
+      "review_count": 4,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-11-08T12:47:54+08:00",
+      "next_review_at": "2026-11-22T12:47:54+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
@@ -4112,6 +4164,12 @@
           "reviewed_at": "2026-11-02T07:57:40+08:00",
           "previous_status": "learning",
           "new_status": "learning"
+        },
+        {
+          "score": 9.0,
+          "reviewed_at": "2026-11-08T12:47:54+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
         }
       ]
     },
@@ -4376,6 +4434,32 @@
         }
       ]
     },
+    "errors:remaining-vs-rest-noun-phrase": {
+      "id": "errors:remaining-vs-rest-noun-phrase",
+      "category": "errors",
+      "key": "remaining-vs-rest-noun-phrase",
+      "status": "learning",
+      "title": "剩下的提案误用 the rest proposal",
+      "explanation": "rest 作“其余部分”时通常接 of 短语或单独使用，直接修饰名词要用 remaining，且剩余多份提案需用复数。",
+      "source": "We proceed with the rest proposal after lunch.",
+      "example": "We proceeded with the remaining proposals after lunch.",
+      "tags": [
+        "noun-phrase",
+        "review-error",
+        "vocabulary"
+      ],
+      "first_learned_at": "2026-11-08T12:47:54+08:00",
+      "last_learned_at": "2026-11-08T12:47:54+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:remember-when-past-state-was-not-is": {
       "id": "errors:remember-when-past-state-was-not-is",
       "category": "errors",
@@ -4435,6 +4519,32 @@
       "tags": [],
       "first_learned_at": "2026-07-30T17:50:41+08:00",
       "last_learned_at": "2026-07-30T17:50:41+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:safety-training-not-safety-train": {
+      "id": "errors:safety-training-not-safety-train",
+      "category": "errors",
+      "key": "safety-training-not-safety-train",
+      "status": "learning",
+      "title": "培训误写成 safety train",
+      "explanation": "train 是交通工具或动词“训练”，表示“培训活动”的名词是 training，需要 training 的派生形式。",
+      "source": "The safety train in the morning has finished",
+      "example": "The safety training this morning is over.",
+      "tags": [
+        "derivation",
+        "review-error",
+        "vocabulary"
+      ],
+      "first_learned_at": "2026-11-08T12:47:54+08:00",
+      "last_learned_at": "2026-11-08T12:47:54+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
