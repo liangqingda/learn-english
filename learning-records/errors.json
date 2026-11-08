@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 215,
+  "revision": 216,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -481,6 +481,32 @@
       ],
       "first_learned_at": "2026-11-06T20:56:44+08:00",
       "last_learned_at": "2026-11-06T20:56:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:and-then-clause-needs-finite-verb": {
+      "id": "errors:and-then-clause-needs-finite-verb",
+      "category": "errors",
+      "key": "and-then-clause-needs-finite-verb",
+      "status": "learning",
+      "title": "and then 后面必须是带时态的完整分句",
+      "explanation": "and then 连接的是完整分句，被动语态要写 was/were + 过去分词；只写 be bought 没有时态，句子不成立。",
+      "source": "and then be bought by a bigger company",
+      "example": "and was later acquired by a larger competitor",
+      "tags": [
+        "follow-up-error",
+        "grammar",
+        "tense"
+      ],
+      "first_learned_at": "2026-11-08T16:18:49+08:00",
+      "last_learned_at": "2026-11-08T16:18:49+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -1088,6 +1114,57 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:company-was-founded-in-year": {
+      "id": "errors:company-was-founded-in-year",
+      "category": "errors",
+      "key": "company-was-founded-in-year",
+      "status": "learning",
+      "title": "成立于某年用 was founded in + 年份",
+      "explanation": "记录公司或机构的成立年份用一般过去时 was founded / was established + in + 年份；一般现在时 becomes 表习惯或状态变化，不能带 by 2015 这类年份状语。",
+      "source": "The company becomes by 2015",
+      "example": "The company was founded in 2015.",
+      "tags": [
+        "follow-up-error",
+        "preposition",
+        "tense"
+      ],
+      "first_learned_at": "2026-11-08T16:18:49+08:00",
+      "last_learned_at": "2026-11-08T16:18:49+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:competitor-not-company": {
+      "id": "errors:competitor-not-company",
+      "category": "errors",
+      "key": "competitor-not-company",
+      "status": "learning",
+      "title": "“竞争对手”用 competitor 或 rival，不是 company",
+      "explanation": "company 指公司本身，不表示与己方竞争的一方；表达“竞争对手”要用 competitor 或 rival，比较时写 a larger competitor。",
+      "source": "a bigger company",
+      "example": "a larger competitor",
+      "tags": [
+        "follow-up-error",
+        "vocabulary"
+      ],
+      "first_learned_at": "2026-11-08T16:18:49+08:00",
+      "last_learned_at": "2026-11-08T16:18:49+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:completed-action-uses-past-tense-found": {
       "id": "errors:completed-action-uses-past-tense-found",
