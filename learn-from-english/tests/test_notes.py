@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -120,7 +121,14 @@ class NoteAppendTest(unittest.TestCase):
         self.note.write_text(legacy, encoding="utf-8")
         self.store.append(self.note, round_block("2026-11-06 10:00"))
         text = self.note.read_text(encoding="utf-8")
-        self.assertTrue(text.startswith(legacy))
+        # 只有文件级 `笔记更新时间` 随这次写入刷新，历史区块一个字都不改
+        expected_prefix = re.sub(
+            r"<tr><td>笔记更新时间</td><td>.*?</td></tr>",
+            f"<tr><td>笔记更新时间</td><td>{updated_at_value(self.note)}</td></tr>",
+            legacy,
+            count=1,
+        )
+        self.assertTrue(text.startswith(expected_prefix))
         self.assertEqual(text.count("\n---\n"), 1)
 
     def test_block_must_start_with_a_round_heading(self) -> None:
@@ -156,6 +164,23 @@ class NoteAppendTest(unittest.TestCase):
     def test_lock_file_exists_after_first_write(self) -> None:
         self.store.append(self.note, round_block())
         self.assertTrue((self.repo / "learning-record-notes" / ".notes.lock").exists())
+
+    def test_append_bumps_the_file_level_updated_at(self) -> None:
+        self.store.append(self.note, round_block("2026-11-07 21:00"))
+        self.assertNotEqual(updated_at_value(self.note), "2026-11-07 21:05")
+
+    def test_replace_block_bumps_the_file_level_updated_at(self) -> None:
+        self.store.append(self.note, round_block("2026-11-07 21:00"))
+        self.store.replace_block(
+            self.note,
+            "# 2026-11-07 21:00 · 复习",
+            round_block("2026-11-07 21:00", body="修正后"),
+        )
+        self.assertNotEqual(updated_at_value(self.note), "2026-11-07 21:05")
+
+    def test_updated_at_never_precedes_the_newest_round(self) -> None:
+        self.store.append(self.note, round_block("2030-01-01 08:00"))
+        self.assertEqual(updated_at_value(self.note), "2030-01-01 08:00")
 
     def test_replace_block_keeps_other_rounds_intact(self) -> None:
         self.store.append(self.note, round_block("2026-11-07 21:00", body="第 1 轮"))
@@ -653,6 +678,13 @@ def result_order(text: str) -> list[str]:
         for line in text.split("\n")
         if line.startswith("# 2026-")
     ]
+
+
+def updated_at_value(path: Path) -> str:
+    """Read the file-level `笔记更新时间` row that every note write must refresh."""
+    match = re.search(r"<tr><td>笔记更新时间</td><td>(.*?)</td></tr>", path.read_text(encoding="utf-8"))
+    assert match, "note has no 笔记更新时间 row"
+    return match.group(1)
 
 
     def test_tracking_rows_are_checked_against_the_record(self) -> None:

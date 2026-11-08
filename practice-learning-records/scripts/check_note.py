@@ -169,6 +169,9 @@ REVIEW_COUNT_RE = re.compile(r"^(\d+|—)$")
 NEXT_REVIEW_RE = re.compile(r"^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}|—)$")
 SUBJECTIVE_RE = re.compile(r"^(—|写作 \d+/15 · 翻译 \d+/15)$")
 TIMESTAMP_RE = re.compile(r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$")
+UPDATED_ROW_RE = re.compile(
+    r"(<tr><td>笔记更新时间</td><td>)(\d{4}-\d{2}-\d{2} \d{2}:\d{2})(</td></tr>)"
+)
 # 记录 key 允许与真实学习记录一致的中文片段（例如 after-不宜直接当-later-连接后续动作），
 # 仍保持小写 ASCII + 中文 + 连字符，禁止空白、斜杠与点号，避免路径歧义。
 NOTE_KEY_FRAGMENT = r"[a-z0-9\u4e00-\u9fff][a-z0-9\u4e00-\u9fff\-]*"
@@ -401,6 +404,15 @@ def check(path: Path) -> list[dict]:
                     add(
                         basic_line.get("笔记更新时间", h_table + 1),
                         f"`笔记更新时间` 不能早于 `笔记生成时间`：{updated_at} < {generated_at}",
+                    )
+            if updated_at and TIMESTAMP_RE.match(updated_at) and sections:
+                newest_round = max(
+                    f"{date} {time}" for _, date, time, _kind in sections
+                )
+                if updated_at < newest_round:
+                    add(
+                        basic_line.get("笔记更新时间", h_table + 1),
+                        f"`笔记更新时间` 不能早于最后一个日期区块的时间：{updated_at} < {newest_round}；文件改动后必须更新该字段",
                     )
 
     # 6. 每个区块的内部结构：二级标题分组（## 本轮习题 + 每个菜单项各一组）
@@ -1032,6 +1044,25 @@ def apply_safe_fixes(text: str) -> tuple[str, list[str]]:
     if pruned_any:
         fixes.append("删掉非套题笔记里恒为 `—` 的 `主观题得分` 行")
         lines = pruned
+
+    # `笔记更新时间` 必须反映最后一次写入：早于最后一个日期区块时抬到该区块时间
+    newest_round = None
+    for line in lines:
+        match = SECTION_RE.match(line)
+        if match:
+            stamp = f"{match.group(1)} {match.group(2)}"
+            if newest_round is None or stamp > newest_round:
+                newest_round = stamp
+    if newest_round:
+        bumped = False
+        for index, line in enumerate(lines):
+            row = UPDATED_ROW_RE.match(line.strip())
+            if not row or row.group(2) >= newest_round:
+                continue
+            lines[index] = f"{row.group(1)}{newest_round}{row.group(3)}"
+            bumped = True
+        if bumped:
+            fixes.append("把过期的 `笔记更新时间` 抬到最后一个日期区块的时间")
 
     output: list[str] = []
     inserted = False

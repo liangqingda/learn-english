@@ -36,6 +36,10 @@ HEADING_RE = re.compile(
 )
 DIVIDER = "---"
 RECORD_ID_ROW_RE = re.compile(r"<tr><td>记录 ID / 试卷 ID</td><td>(.*?)</td></tr>")
+UPDATED_ROW_RE = re.compile(r"<tr><td>笔记更新时间</td><td>[^<]*</td></tr>")
+GENERATED_ROW_RE = re.compile(
+    r"<tr><td>笔记生成时间</td><td>(\d{4}-\d{2}-\d{2} \d{2}:\d{2})</td></tr>"
+)
 # 文件级「基础信息」折叠块：整份笔记唯一一份，只随第一个区块一起写入
 BASIC_HEAD_RE = re.compile(r"^## 基础信息\s*\n.*?(?=^# )", re.S | re.M)
 
@@ -163,6 +167,39 @@ def _next_free_heading(heading: str, existing: list[str]) -> str:
 def _swap_heading(block: str, heading: str) -> str:
     body = block.split("\n", 1)
     return heading if len(body) == 1 else f"{heading}\n{body[1]}"
+
+
+def _bump_updated_at(text: str, when: datetime) -> str:
+    """Rewrite the file-level `笔记更新时间` whenever the note file changes.
+
+    Every append, block replace, or section insert edits the file, so the field
+    must show that moment; leaving it at the first write made the stamp look
+    like the note never changed. The stamp never goes below the newest round
+    heading, which keeps it monotonic even when a block is saved under a
+    bumped minute.
+    """
+    normalized = _normalize_text(text)
+    if not UPDATED_ROW_RE.search(normalized):
+        return normalized
+    latest = when
+    for pattern in (GENERATED_ROW_RE, HEADING_RE):
+        for line in normalized.split("\n"):
+            match = pattern.match(line.strip())
+            if not match:
+                continue
+            stamp_text = (
+                f"{match.group('date')} {match.group('time')}"
+                if pattern is HEADING_RE
+                else match.group(1)
+            )
+            stamp = datetime.strptime(stamp_text, "%Y-%m-%d %H:%M")
+            if stamp > latest:
+                latest = stamp
+    return UPDATED_ROW_RE.sub(
+        f"<tr><td>笔记更新时间</td><td>{latest.strftime('%Y-%m-%d %H:%M')}</td></tr>",
+        normalized,
+        count=1,
+    )
 
 
 class NoteStore:
@@ -362,6 +399,7 @@ class NoteStore:
                 composed = f"{body}\n\n{block}"
             else:
                 composed = f"{body}\n\n{DIVIDER}\n\n{block}"
+            composed = _bump_updated_at(composed, datetime.now())
             self._write(target, composed)
             blocks = _count_blocks(composed)
         return {
@@ -464,6 +502,7 @@ class NoteStore:
                     + "; 一次只改一个小节，要批量迁移请对每个小节显式加 --rewrite-section"
                 )
             composed = "\n".join(before + replacement).rstrip("\n") + "\n"
+            composed = _bump_updated_at(composed, datetime.now())
             self._write(target, composed)
             blocks = _count_blocks(composed)
         return {
@@ -552,6 +591,7 @@ class NoteStore:
             if tail:
                 body = body + ["", DIVIDER, ""] + tail
             composed = "\n".join(before + body).rstrip("\n") + "\n"
+            composed = _bump_updated_at(composed, datetime.now())
             self._write(target, composed)
             blocks = _count_blocks(composed)
         return {

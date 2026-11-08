@@ -68,8 +68,8 @@
    - `appended_section: true`：已追加。`duplicate: true`：同一标题同一内容已经在区块里，按已写入处理，不要重试。
    - 报 `section … already exists in this block` 时说明同标题小节已存在且内容不同：改用 `replace` 修正整块，
      不要追加第二个同标题小节。
-6. 本轮区块刚写错时才用替换命令（同样走 stdin，标题行必须与追加时返回的 `heading` 完全一致），
-   并把该区块的 `笔记更新时间` 改成这次替换的分钟：
+6. 本轮区块刚写错时才用替换命令（同样走 stdin，标题行必须与追加时返回的 `heading` 完全一致）；
+   写入命令会自动把 `笔记更新时间` 刷成本次写入的分钟（追加、区块替换、追加小节都算），不要手工改这一行：
    ```bash
    python3 practice-learning-records/scripts/note.py replace \
      --file learning-record-notes/<category>-<slug>.md \
