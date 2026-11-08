@@ -548,3 +548,49 @@ Don't be too hard on her — she's only been here a week, ______ ______.
   - Subsequently, the firm moved its office to a new building.
 - `in the aftermath of` 指灾难或重大事件之后的余波，只用于书面且语义受限。
   - In the aftermath of the storm, the studio stayed closed for a week.
+## 看一套围绕「after 与 later/then/afterwards 的对比」的完整场景对话
+
+**讲解要点**：
+- `after + 名词短语` 必须带宾语，用来建立时间框架
+  - After the last big campaign, I handed in my notice.
+- `after + 从句` 把先发生的动作降级成从属句
+  - After the studio merged with a bigger firm, I took over the whole department.
+- `after that` 是最稳的句首过渡，后面接完整主句
+  - And what did you do after that?
+- `then` 是口语最常用的顺序副词，可跟在 `and` 后面，后面不再补 `after`
+  - Then I took two months off.
+- `afterwards` 独立作状语，可置句首或句末，美式写作 `afterward`
+  - Afterwards, I started freelancing for a small studio.
+- `soon after` 是少数可以单独用 `after` 的固定搭配，表“不久之后”
+  - Soon after I joined, they offered me a full-time role.
+- `later` 可后置，与时间段连用表示“多久之后”，不能换成裸 `after`
+  - Six months later, I became the lead designer.
+- `since then` 划定“从那时到现在”的时间段，谓语必须用现在完成时
+  - Since then, I have hired three people and rebuilt the entire workflow.
+- `subsequently` 属正式书面语域，适合邮件与报告，与口语的 `then` 形成语域对照
+  - Subsequently, the firm moved us to a bigger office.
+
+**完整场景对话**：
+
+<details>
+<summary>场景对话原文</summary>
+
+- **Maya**：I finally left my old agency last March.
+- **Ken**：I remember. You had been thinking about it for months.
+- **Maya**：Right. After the last big campaign, I handed in my notice.
+- **Ken**：And what did you do after that?
+- **Maya**：Then I took two months off. Afterwards, I started freelancing for a small studio.
+- **Ken**：That was quick. How did the studio find you?
+- **Maya**：A former client introduced me. Soon after I joined, they offered me a full-time role.
+- **Ken**：Did you take it?
+- **Maya**：I did. And then, six months later, I became the lead designer.
+- **Ken**：So you are running the team now?
+- **Maya**：After the studio merged with a bigger firm, I took over the whole department.
+- **Ken**：And since then?
+- **Maya**：Since then, I have hired three people and rebuilt the entire workflow.
+- **Ken**：Impressive. Keep me in mind when you are hiring again.
+- **Maya**：Subsequently, the firm moved us to a bigger office — that is the wording from the HR email, not mine.
+- **Ken**：Now you sound like a press release.
+- **Maya**：Sorry. The email literally said the design team would report to the new director subsequently.
+
+</details>
