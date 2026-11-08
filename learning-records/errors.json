@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 211,
+  "revision": 212,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -842,7 +842,7 @@
     "errors:before-begin-gerund-or-clause": {
       "id": "errors:before-begin-gerund-or-clause",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "before 后不能直接接 begin 原形动词",
       "explanation": "before 后面接动作时，常用 before + -ing，或 before + 完整从句；不能说 before begin doing。",
       "source": "The guide asked tourists to turn off their phones before begin visiting.",
@@ -853,11 +853,11 @@
       "first_learned_at": "2026-07-31T08:55:07+08:00",
       "last_learned_at": "2026-07-31T08:55:07+08:00",
       "learned_count": 1,
-      "mastery_score": 7.0,
-      "review_count": 1,
-      "high_score_streak": 0,
-      "last_reviewed_at": "2026-08-01T19:51:05+08:00",
-      "next_review_at": "2026-08-04T19:51:05+08:00",
+      "mastery_score": 9.0,
+      "review_count": 2,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-11-08T14:39:49+08:00",
+      "next_review_at": "2026-11-22T14:39:49+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
@@ -866,8 +866,40 @@
           "reviewed_at": "2026-08-01T19:51:05+08:00",
           "previous_status": "learning",
           "new_status": "learning"
+        },
+        {
+          "score": 9.0,
+          "reviewed_at": "2026-11-08T14:39:49+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
         }
       ]
+    },
+    "errors:before-clause-present-tense-for-future": {
+      "id": "errors:before-clause-present-tense-for-future",
+      "category": "errors",
+      "key": "before-clause-present-tense-for-future",
+      "status": "learning",
+      "title": "before 从句用过去时表达将来",
+      "explanation": "before 引导的时间从句在将来语境里用一般现在时表将来，不能用 came 或 will come；主句 should leave 已承担情态与将来含义。",
+      "source": "We should leave before the storm came.",
+      "example": "We should leave before the storm comes.",
+      "tags": [
+        "review-error",
+        "tense",
+        "time-clause"
+      ],
+      "first_learned_at": "2026-11-08T14:39:49+08:00",
+      "last_learned_at": "2026-11-08T14:39:49+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:but-clause-needs-finite-verb": {
       "id": "errors:but-clause-needs-finite-verb",
@@ -1750,6 +1782,32 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "errors:everyone-passport-plural-possessive": {
+      "id": "errors:everyone-passport-plural-possessive",
+      "category": "errors",
+      "key": "everyone-passport-plural-possessive",
+      "status": "learning",
+      "title": "everyone 语境下护照误用单数 the passport",
+      "explanation": "everyone 指多个人，各自拥有护照时要写 their passports（复数），定冠词 the 会让读者以为只有一本共用护照。",
+      "source": "Please confirm everyone carries the passport before leaving.",
+      "example": "Please make sure everyone has their passports before leaving.",
+      "tags": [
+        "noun-number",
+        "quantifier",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-08T14:39:49+08:00",
+      "last_learned_at": "2026-11-08T14:39:49+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:existential-there-was-no": {
       "id": "errors:existential-there-was-no",
