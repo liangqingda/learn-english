@@ -35,6 +35,7 @@ def note_text(
         "下次复习": "2026-11-20 12:00",
         "主观题得分": "—",
         "笔记生成时间": "2026-11-07 12:05",
+        "笔记更新时间": "2026-11-07 12:05",
     }
     table = "\n".join(
         f"<tr><td>{row}</td><td>{rows[row]}</td></tr>"
@@ -75,6 +76,7 @@ def paper_note_text(*, second_reference: str | None = "第 1 题", second_detail
         "下次复习": "—",
         "主观题得分": "写作 8/15 · 翻译 9/15",
         "笔记生成时间": "2026-11-07 12:05",
+        "笔记更新时间": "2026-11-07 12:05",
     }
     table = "\n".join(
         f"<tr><td>{row}</td><td>{rows[row]}</td></tr>" for row in check_note.TRACKING_ROWS

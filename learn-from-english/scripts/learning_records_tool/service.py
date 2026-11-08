@@ -676,6 +676,7 @@ class RecordService:
                 "下次复习": next_text,
                 "主观题得分": "—",
                 "笔记生成时间": datetime.now().astimezone().strftime("%Y-%m-%d %H:%M"),
+                "笔记更新时间": datetime.now().astimezone().strftime("%Y-%m-%d %H:%M"),
             },
             "note": "`题量与错题数` 必须按本轮实际题数与 `错题讲解` 块数填写，脚本无法推断",
         }

@@ -130,6 +130,7 @@ class NoteTemplateTest(unittest.TestCase):
             "下次复习": "2026-11-20 12:00",
             "主观题得分": "—",
             "笔记生成时间": "2026-11-07 12:05",
+            "笔记更新时间": "2026-11-07 12:05",
         }
         rows = "\n".join(
             f"<tr><td>{row}</td><td>{values.get(row, 'x')}</td></tr>"

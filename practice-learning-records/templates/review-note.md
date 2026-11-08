@@ -20,6 +20,7 @@ unanswered-labels: 考点 | 为什么答不出 | 英语的表达逻辑 | 正确�
 <tr><td>下次复习</td><td><YYYY-MM-DD HH:MM>；未知写 `—`</td></tr>
 <tr><td>主观题得分</td><td><写作 x/15 · 翻译 x/15>；非套题写 `—`</td></tr>
 <tr><td>笔记生成时间</td><td><YYYY-MM-DD HH:MM></td></tr>
+<tr><td>笔记更新时间</td><td><YYYY-MM-DD HH:MM></td></tr>
 </table>
 
 ## 本轮习题

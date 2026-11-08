@@ -7,8 +7,8 @@
     python3 practice-learning-records/scripts/check_note.py --all --fix
 
 `--all` 校验默认 notes 目录（`$LEARN_ENGLISH_REPO_ROOT/learning-record-notes`）下的全部笔记；
-`--fix` 只修可以无争议判定的问题（行尾空格、`我的答案` 的题号前缀、区块之间缺失的 `---`），
-修完再跑一次校验。成功时输出 {"ok": true, "checked": [...]}；失败时输出逐条 issue 并以退出码 1 结束。
+`--fix` 只修可以无争议判定的问题（行尾空格、`我的答案` 的题号前缀、区块之间缺失的 `---`、
+缺失的 `笔记更新时间` 行按 `笔记生成时间` 补齐），修完再跑一次校验。成功时输出 {"ok": true, "checked": [...]}；失败时输出逐条 issue 并以退出码 1 结束。
 """
 
 from __future__ import annotations
@@ -30,6 +30,7 @@ TRACKING_ROWS = [
     "下次复习",
     "主观题得分",
     "笔记生成时间",
+    "笔记更新时间",
 ]
 
 QUESTION_TYPES = [
@@ -380,6 +381,18 @@ def check(path: Path) -> list[dict]:
                     row_line.get("笔记生成时间", table_line),
                     f"`笔记生成时间` 必须是 `YYYY-MM-DD HH:MM`：当前为 `{generated_at}`",
                 )
+            updated_at = tracking.get("笔记更新时间", "")
+            if updated_at and not TIMESTAMP_RE.match(updated_at):
+                add(
+                    row_line.get("笔记更新时间", table_line),
+                    f"`笔记更新时间` 必须是 `YYYY-MM-DD HH:MM`：当前为 `{updated_at}`",
+                )
+            if generated_at and updated_at and TIMESTAMP_RE.match(generated_at) and TIMESTAMP_RE.match(updated_at):
+                if updated_at < generated_at:
+                    add(
+                        row_line.get("笔记更新时间", table_line),
+                        f"`笔记更新时间` 不能早于 `笔记生成时间`：{updated_at} < {generated_at}",
+                    )
             if first_group is not None and first_group <= table_close:
                 add(start + first_group + 1, "`## 本轮习题` 必须在追踪表格之后")
 
@@ -665,6 +678,24 @@ def apply_safe_fixes(text: str) -> tuple[str, list[str]]:
     if changed:
         fixes.append("去掉 `我的答案` 的题号前缀")
         lines = rewritten
+
+    migrated: list[str] = []
+    added_updated = False
+    for index, line in enumerate(lines):
+        migrated.append(line)
+        stamp = re.match(
+            r"<tr><td>笔记生成时间</td><td>(\d{4}-\d{2}-\d{2} \d{2}:\d{2})</td></tr>", line.strip()
+        )
+        if not stamp:
+            continue
+        following = lines[index + 1].strip() if index + 1 < len(lines) else ""
+        if following.startswith("<tr><td>笔记更新时间</td>"):
+            continue
+        migrated.append(f"<tr><td>笔记更新时间</td><td>{stamp.group(1)}</td></tr>")
+        added_updated = True
+    if added_updated:
+        fixes.append("补齐缺失的 `笔记更新时间` 行（按 `笔记生成时间` 迁移）")
+        lines = migrated
 
     output: list[str] = []
     inserted = False
