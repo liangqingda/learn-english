@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 206,
+  "revision": 213,
   "category": "usage",
   "records": {
     "usage:a-little-bit": {
@@ -47,11 +47,11 @@
       "first_learned_at": "2026-07-30T17:25:37+08:00",
       "last_learned_at": "2026-07-30T17:25:37+08:00",
       "learned_count": 1,
-      "mastery_score": 8.0,
-      "review_count": 2,
-      "high_score_streak": 1,
-      "last_reviewed_at": "2026-08-07T08:44:05+08:00",
-      "next_review_at": "2026-08-14T08:44:05+08:00",
+      "mastery_score": 10.0,
+      "review_count": 3,
+      "high_score_streak": 2,
+      "last_reviewed_at": "2026-11-08T15:54:05+08:00",
+      "next_review_at": "2027-01-07T15:54:05+08:00",
       "lapse_count": 1,
       "mastered_at": null,
       "review_history": [
@@ -65,6 +65,12 @@
           "score": 8.0,
           "reviewed_at": "2026-08-07T08:44:05+08:00",
           "previous_status": "learning",
+          "new_status": "familiar"
+        },
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-11-08T15:54:05+08:00",
+          "previous_status": "familiar",
           "new_status": "familiar"
         }
       ]
