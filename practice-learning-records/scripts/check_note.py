@@ -415,6 +415,14 @@ def check(path: Path) -> list[dict]:
                         f"`笔记更新时间` 不能早于最后一个日期区块的时间：{updated_at} < {newest_round}；文件改动后必须更新该字段",
                     )
 
+    # 编号条目直接顶格写：`- 1.` 会被 Markdown 解析成无序列表里再套一层有序列表
+    for number, line in enumerate(lines, start=1):
+        if re.match(r"^\s*- \d+\. ", line):
+            add(
+                number,
+                "编号条目不要写成 `- 1.`：Markdown 会把 `1.` 解析成无序列表内嵌的有序列表；编号直接顶格写 `1.`",
+            )
+
     # 6. 每个区块的内部结构：二级标题分组（## 本轮习题 + 每个菜单项各一组）
     for idx, (start, date, time, kind) in enumerate(sections):
         end = sections[idx + 1][0] - 1 if idx + 1 < len(sections) else len(lines)

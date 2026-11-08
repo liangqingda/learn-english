@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>3</td></tr>
 <tr><td>下次复习</td><td>2027-01-07 15:54</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-08 15:54</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-08 17:21</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-08 17:41</td></tr>
 </table>
 
 # 2026-11-08 15:54 · 复习
@@ -121,9 +121,9 @@ The band released their first album in 2018 and after they toured Europe.
 
 **题目**：下面三句里只有一句的 `after` 用得对，写出正确的那一句的编号：
 
-- 1. After, he apologized to everyone in the room.
-- 2. He apologized to everyone in the room after.
-- 3. He apologized to everyone in the room after the meeting.
+1. After, he apologized to everyone in the room.
+2. He apologized to everyone in the room after.
+3. He apologized to everyone in the room after the meeting.
 
 **我的答案**：#3
 
@@ -511,9 +511,9 @@ Don't be too hard on her — she's only been here a week, ______ ______.
 
 **题目**：下面三句里，哪一句的 `after` 表示“照顾”？
 
-- 1. She looks after her sister every afternoon.
-- 2. The road is named after a local poet.
-- 3. He is after a promotion in the sales team.
+1. She looks after her sister every afternoon.
+2. The road is named after a local poet.
+3. He is after a promotion in the sales team.
 
 **我的答案**：#1
 
