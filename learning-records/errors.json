@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 213,
+  "revision": 215,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -1026,6 +1026,30 @@
       "first_learned_at": "2026-08-09T16:51:25+08:00",
       "last_learned_at": "2026-08-09T16:51:25+08:00",
       "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:comma-splice-two-independent-clauses": {
+      "id": "errors:comma-splice-two-independent-clauses",
+      "category": "errors",
+      "key": "comma-splice-two-independent-clauses",
+      "status": "learning",
+      "title": "两个完整句子之间不能用逗号连接",
+      "explanation": "两个各自能独立成句的主谓结构放在一起，必须用句号、分号或并列连词（and/but）连接；只用逗号会造成 comma splice。",
+      "source": "I played basketball in the morning, afterwards, I had my lunch.",
+      "example": "I played basketball in the morning; afterwards, I had lunch.",
+      "tags": [
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-11-08T16:14:35+08:00",
+      "last_learned_at": "2026-11-08T16:14:35+08:00",
+      "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,
@@ -4541,6 +4565,30 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:redundant-repeated-then": {
+      "id": "errors:redundant-repeated-then",
+      "category": "errors",
+      "key": "redundant-repeated-then",
+      "status": "learning",
+      "title": "同一串动作里不必反复用 then",
+      "explanation": "then 的作用是一次性标记先后关系，连续两个分句都加 then 会造成冗余；只保留一个 then，或用 after doing 改写。",
+      "source": "and then we checked in and then went out for dinner",
+      "example": ", and then we checked in and went out for dinner.",
+      "tags": [
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-11-08T16:14:35+08:00",
+      "last_learned_at": "2026-11-08T16:14:35+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:refrigerator-spelling-not-refrigerater": {
       "id": "errors:refrigerator-spelling-not-refrigerater",
       "category": "errors",
@@ -5740,6 +5788,30 @@
       ],
       "first_learned_at": "2026-08-03T22:08:10+08:00",
       "last_learned_at": "2026-08-03T22:08:10+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:walk-along-coast-not-along-sea": {
+      "id": "errors:walk-along-coast-not-along-sea",
+      "category": "errors",
+      "key": "walk-along-coast-not-along-sea",
+      "status": "learning",
+      "title": "沿着海边走用 along the coast / seafront",
+      "explanation": "sea 指大片水域本身，人走的是岸线，所以“沿海边走”用 walk along the coast、along the seafront 或 by the sea。",
+      "source": "We walked along the sea after supper.",
+      "example": "We walked along the coast after supper.",
+      "tags": [
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-11-08T16:14:35+08:00",
+      "last_learned_at": "2026-11-08T16:14:35+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
