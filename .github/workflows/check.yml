@@ -10,6 +10,9 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      # runner 默认就是 UTC；显式固定，避免再次出现「本机 +08:00 能过、CI 上时间差 8 小时」的用例
+      TZ: UTC
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

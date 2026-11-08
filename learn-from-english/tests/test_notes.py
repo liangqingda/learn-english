@@ -6,6 +6,7 @@ import re
 import subprocess
 import sys
 import tempfile
+import time
 import unittest
 from pathlib import Path
 
@@ -757,6 +758,34 @@ class NoteContextTest(unittest.TestCase):
         self.assertEqual(tracking["累计复习次数"], "2")
         self.assertEqual(tracking["下次复习"], "2026-11-20 20:54")
         self.assertEqual(tracking["目标知识点"], "out west 不是 outwest")
+
+    def test_next_review_display_ignores_the_machine_timezone(self) -> None:
+        """追踪表里的「下次复习」按记录自带偏移排版，换台机器也不能变成别的时间。"""
+        record = {
+            "id": "errors:out-west",
+            "category": "errors",
+            "title": "out west 不是 outwest",
+            "status": "familiar",
+            "review_count": 2,
+            "next_review_at": "2026-11-20T20:54:00+08:00",
+        }
+        if not hasattr(time, "tzset"):
+            self.skipTest("tzset() is POSIX-only")
+        saved = os.environ.get("TZ")
+        try:
+            for zone in ("UTC", "America/New_York", "Asia/Shanghai"):
+                os.environ["TZ"] = zone
+                time.tzset()
+                tracking = RecordService(self.StubStore({"errors:out-west": record})).note_context(
+                    "errors:out-west"
+                )["tracking"]
+                self.assertEqual(tracking["下次复习"], "2026-11-20 20:54", f"TZ={zone}")
+        finally:
+            if saved is None:
+                os.environ.pop("TZ", None)
+            else:
+                os.environ["TZ"] = saved
+            time.tzset()
 
     def test_unreviewed_record_uses_placeholder_values(self) -> None:
         record = {"id": "errors:new", "category": "errors", "title": "t", "status": "learning", "review_history": []}
