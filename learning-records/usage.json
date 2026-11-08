@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 213,
+  "revision": 217,
   "category": "usage",
   "records": {
     "usage:a-little-bit": {
@@ -74,6 +74,31 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "usage:afterwards-vs-afterward-spelling": {
+      "id": "usage:afterwards-vs-afterward-spelling",
+      "category": "usage",
+      "key": "afterwards-vs-afterward-spelling",
+      "status": "learning",
+      "title": "afterwards（英式）与 afterward（美式）",
+      "explanation": "同一副词在英式英语常写 afterwards，美式英语常写 afterward；两者都可以独立作状语、置于句首或句末，不需要补足语。",
+      "source": "We went out for dinner afterwards.",
+      "example": "We went out for dinner afterwards.",
+      "tags": [
+        "comparison",
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-11-08T16:21:04+08:00",
+      "last_learned_at": "2026-11-08T16:21:04+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "usage:all-set-register": {
       "id": "usage:all-set-register",
@@ -713,6 +738,31 @@
       "mastered_at": null,
       "review_history": []
     },
+    "usage:since-then-requires-perfect": {
+      "id": "usage:since-then-requires-perfect",
+      "category": "usage",
+      "key": "since-then-requires-perfect",
+      "status": "learning",
+      "title": "since then 表“从那时起”须搭配完成时",
+      "explanation": "since then 划定一个从过去某点延续到现在的时间段，谓语通常用现在完成时或现在完成进行时；只叙述两次先后动作时不能用它替代 later。",
+      "source": "Since then, I have worked in three different studios.",
+      "example": "Since then, I have worked in three different studios.",
+      "tags": [
+        "comparison",
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-11-08T16:21:04+08:00",
+      "last_learned_at": "2026-11-08T16:21:04+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "usage:slightly-somewhat-formal-degree": {
       "id": "usage:slightly-somewhat-formal-degree",
       "category": "usage",
@@ -750,6 +800,31 @@
       ],
       "first_learned_at": "2026-10-29T07:50:36+08:00",
       "last_learned_at": "2026-10-29T07:50:36+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "usage:subsequently-formal-transition": {
+      "id": "usage:subsequently-formal-transition",
+      "category": "usage",
+      "key": "subsequently-formal-transition",
+      "status": "learning",
+      "title": "subsequently 是正式书面的顺序副词",
+      "explanation": "subsequently 表示“随后”，语域偏正式书面（报告、法律、学术），常置句首并以逗号隔开；日常口语用 later、then、afterwards。",
+      "source": "Subsequently, the company opened two new branches.",
+      "example": "Subsequently, the company opened two new branches.",
+      "tags": [
+        "comparison",
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-11-08T16:21:04+08:00",
+      "last_learned_at": "2026-11-08T16:21:04+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

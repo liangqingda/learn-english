@@ -321,3 +321,22 @@ Don't be too hard on her — she's only been here a week, ______ ______.
 4. **可迁移表达**：She looks after her grandmother.；The street is named after a poet.；He's after a promotion.
 
 </details>
+
+## 对比「after 的三种用法」和相近表达
+
+**讲解要点**：
+- `after` 是介词或连词，必须带补足语：`after dinner`、`after she left`；不能独立作状语。
+- `afterwards` 与 `afterward` 是同一副词，前者英式、后者美式，可独立置句首或句末，不需要宾语。
+- `then` 是口语最常用的顺序副词，同时可表“那么”；不能用 `after then` 这种拼合形式。
+- `later` 指“稍后的时间点”，也可表“后来”，`later on` 更口语；`later` 能后置（`two days later`）。
+- `after that` 是介词短语，最稳的句首过渡，可与从句互换而不改变句法。
+- `since then` 划定“从那时到现在”的时间段，必须搭配完成时，不能当纯粹的先后副使用。
+- `subsequently` 语域正式，多用于报告、法律与学术写作，口语里显得生硬。
+- `in the aftermath of` 指灾难或重大事件之后的余波，只用于书面且语义受限。
+
+**可迁移表达**：
+- After she left the studio, she started freelancing.
+- She left the studio. Afterwards, she started freelancing.
+- She left the studio and later started freelancing.
+- She left the studio in May; since then she has worked for herself.
+- Subsequently, the firm moved its office to a new building.
