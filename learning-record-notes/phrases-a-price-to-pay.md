@@ -1,4 +1,9 @@
 # 2026-11-07 20:22 · 复习
+## 基础信息
+
+<details>
+<summary>追踪信息</summary>
+
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
 <tr><td>记录 ID / 试卷 ID</td><td>phrases:a-price-to-pay</td></tr>
@@ -12,6 +17,7 @@
 <tr><td>笔记生成时间</td><td>2026-11-07 20:22</td></tr>
 <tr><td>笔记更新时间</td><td>2026-11-07 20:22</td></tr>
 </table>
+</details>
 
 ## 本轮习题
 

@@ -43,10 +43,11 @@ def note_text(
     )
     return (
         f"# {stamp} · 复习\n"
+        "## 基础信息\n\n<details>\n<summary>追踪信息</summary>\n\n"
         '<table style="border-collapse:collapse;width:auto">\n'
         '<colgroup><col width="150"><col></colgroup>\n'
         f"{table}\n"
-        "</table>\n\n"
+        "</table>\n</details>\n\n"
         "## 本轮习题\n\n"
         "### 1. 单项选择\n\n"
         f"**题目**：{question}\n\n"
@@ -96,10 +97,11 @@ def paper_note_text(*, second_reference: str | None = "第 1 题", second_detail
     )
     return (
         "# 2026-11-07 12:00 · 套题\n"
+        "## 基础信息\n\n<details>\n<summary>追踪信息</summary>\n\n"
         '<table style="border-collapse:collapse;width:auto">\n'
         '<colgroup><col width="150"><col></colgroup>\n'
         f"{table}\n"
-        "</table>\n\n"
+        "</table>\n</details>\n\n"
         "## 本轮习题\n\n"
         "### 1. 单项选择\n\n"
         "**题目**：What is the main idea?\n\n"
@@ -216,7 +218,10 @@ class NoteContentValidationTest(unittest.TestCase):
         )
 
     def test_merge_reference_is_rejected_in_a_non_paper_note(self) -> None:
-        without_details = note_text().split("<details>")[0] + "**知识点**：同第 1 题\n"
+        without_details = (
+            note_text().split("\n<details>\n<summary>知识点讲解</summary>")[0]
+            + "**知识点**：同第 1 题\n"
+        )
         self.assert_caught(without_details, "每道题都必须有")
 
     def test_paper_question_with_own_block_must_not_also_reference(self) -> None:

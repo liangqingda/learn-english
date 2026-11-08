@@ -8,7 +8,7 @@
 
 `--all` 校验默认 notes 目录（`$LEARN_ENGLISH_REPO_ROOT/learning-record-notes`）下的全部笔记；
 `--fix` 只修可以无争议判定的问题（行尾空格、`我的答案` 的题号前缀、区块之间缺失的 `---`、
-缺失的 `笔记更新时间` 行按 `笔记生成时间` 补齐），修完再跑一次校验。成功时输出 {"ok": true, "checked": [...]}；失败时输出逐条 issue 并以退出码 1 结束。
+缺失的 `笔记更新时间` 行按 `笔记生成时间` 补齐、把旧版追踪表移进 `## 基础信息` 折叠块），修完再跑一次校验。成功时输出 {"ok": true, "checked": [...]}；失败时输出逐条 issue 并以退出码 1 结束。
 """
 
 from __future__ import annotations
@@ -150,6 +150,8 @@ UNANSWERED_WORDS = ("未作答", "未完成", "漏答")
 KNOWLEDGE_REF_RE = re.compile(r"^\*\*知识点\*\*：同\s*第\s*(\d+)\s*题")
 MENU_ITEM_RE = re.compile(r"^### (\S.*?)\s*$")
 QUIZ_SECTION = "本轮习题"
+BASE_SECTION = "基础信息"
+TRACKING_SUMMARY = "追踪信息"
 SECTION2_RE = re.compile(r"^## (?!#|追踪)(\S.*?)\s*$")
 LEGACY_MENU_HEADING_RE = re.compile(r"^### \d+\.\s+菜单：")
 LEGACY_MENU_ITEM_RE = re.compile(r"^\d+\.\s|^菜单：")
@@ -263,18 +265,43 @@ def check(path: Path) -> list[dict]:
         section_tracking: dict[str, str] = {}
 
         if any(l.strip() == "## 追踪" for l in body):
-            add(start, "不再使用 `## 追踪` 子标题，追踪信息直接以无表头表格紧跟日期区块")
+            add(start, "不再使用 `## 追踪` 子标题：追踪信息放进 `## 基础信息` 下的折叠块")
 
         group_heads = [k for k, l in enumerate(body) if SECTION2_RE.match(l)]
         if not group_heads:
-            add(start, "区块内缺少 `## 本轮习题`")
+            add(start, "区块内缺少 `## 基础信息` 与 `## 本轮习题`")
 
-        # 追踪表：无表头的 HTML 表格，紧跟日期区块，位于第一个二级标题之前
+        # 追踪表：位于 `## 基础信息` 之下、`<details><summary>追踪信息</summary>` 折叠块内，默认收起
         table_open = next((k for k, l in enumerate(body) if l.strip().startswith("<table")), None)
         # 表格各行的 1-based 行号：body[0] 对应 start + 1
         table_line = start + table_open + 1 if table_open is not None else start
-        if table_open is not None and table_open >= 1 and all(l.strip() == "" for l in body[:table_open]):
-            add(start + 1, "日期标题与追踪表格之间不能留空行：标题下一行必须直接是 `<table …>`")
+        base_pos = group_heads[0] if group_heads else None
+        if base_pos is not None:
+            base_title = SECTION2_RE.match(body[base_pos]).group(1).strip()
+            if base_title != BASE_SECTION:
+                add(
+                    start + base_pos + 1,
+                    f"日期标题下第一个二级标题必须是 `## {BASE_SECTION}`：追踪表放在它下面，再是 `## {QUIZ_SECTION}`",
+                )
+        details_pos = next((k for k, l in enumerate(body) if l.strip().startswith("<details")), None)
+        summary_pos = next((k for k, l in enumerate(body) if l.strip().startswith("<summary>")), None)
+        details_end = next((k for k, l in enumerate(body) if l.strip() == "</details>"), None)
+        if details_pos is None or summary_pos is None or details_end is None:
+            add(start, f"追踪表必须包在 `<details>` + `<summary>{TRACKING_SUMMARY}</summary>` 折叠块里，默认收起")
+        else:
+            if "<details open" in body[details_pos].strip() or body[details_pos].strip() != "<details>":
+                add(start + details_pos + 1, "追踪信息折叠块必须默认收起：只写 `<details>`，不要加 `open`")
+            summary_text = (
+                body[summary_pos].strip()[len("<summary>") : -len("</summary>")].strip()
+                if body[summary_pos].strip().endswith("</summary>")
+                else ""
+            )
+            if summary_text != TRACKING_SUMMARY:
+                add(start + summary_pos + 1, f"折叠块 summary 必须是 `{TRACKING_SUMMARY}`：当前为 `{summary_text}`")
+            if table_open is not None and not (details_pos < table_open < details_end):
+                add(table_line, "追踪表必须写在 `## 基础信息` 的折叠块内，不要放在折叠块之外")
+            if base_pos is not None and details_pos <= base_pos:
+                add(start + details_pos + 1, f"折叠块必须写在 `## {BASE_SECTION}` 标题之后")
         table_close = next((k for k, l in enumerate(body) if l.strip() == "</table>"), None)
         first_group = group_heads[0] if group_heads else None
         if table_open is None or table_close is None or table_close < table_open:
@@ -393,8 +420,16 @@ def check(path: Path) -> list[dict]:
                         row_line.get("笔记更新时间", table_line),
                         f"`笔记更新时间` 不能早于 `笔记生成时间`：{updated_at} < {generated_at}",
                     )
-            if first_group is not None and first_group <= table_close:
-                add(start + first_group + 1, "`## 本轮习题` 必须在追踪表格之后")
+            quiz_pos = next(
+                (
+                    k
+                    for k, l in enumerate(body)
+                    if SECTION2_RE.match(l) and SECTION2_RE.match(l).group(1).strip() == QUIZ_SECTION
+                ),
+                None,
+            )
+            if quiz_pos is not None and quiz_pos <= table_close:
+                add(start + quiz_pos + 1, f"`## {QUIZ_SECTION}` 必须在追踪表格之后")
 
         for line_off, line in enumerate(body):
             if line.strip().startswith("| 字段 |"):
@@ -411,8 +446,11 @@ def check(path: Path) -> list[dict]:
         if quiz_index is None:
             if group_heads:  # 一个二级标题都没有时只报一次，避免重复提示
                 add(start, "区块内缺少 `## 本轮习题`")
-        elif quiz_index != 0:
-            add(start + groups[0][0] + 1, "第一个二级标题必须是 `## 本轮习题`")
+        elif quiz_index != 1:
+            add(
+                start + groups[quiz_index][0] + 1,
+                f"`## {QUIZ_SECTION}` 必须紧跟在 `## {BASE_SECTION}` 之后，菜单项排在它后面",
+            )
 
         # 旧写法：菜单项仍写成三级标题
         for k, line in enumerate(body):
@@ -423,7 +461,7 @@ def check(path: Path) -> list[dict]:
                 )
 
         for gidx, (g_start, g_title, g_end) in enumerate(groups):
-            if gidx == 0 or g_title == QUIZ_SECTION:
+            if gidx == 0 or g_title in (QUIZ_SECTION, BASE_SECTION):
                 continue
             line_no = start + g_start
             if g_title in ("", "—"):
@@ -696,6 +734,48 @@ def apply_safe_fixes(text: str) -> tuple[str, list[str]]:
     if added_updated:
         fixes.append("补齐缺失的 `笔记更新时间` 行（按 `笔记生成时间` 迁移）")
         lines = migrated
+
+    wrapped: list[str] = []
+    wrapped_any = False
+    block_has_base = False
+    closing = False
+    skip_blank = False
+    for line in lines:
+        if skip_blank and not line.strip():
+            skip_blank = False
+            continue
+        skip_blank = False
+        if line.startswith("# ") and SECTION_RE.match(line):
+            block_has_base = False
+        if line.strip() == f"## {BASE_SECTION}":
+            block_has_base = True
+        if closing and line.strip() == "</table>":
+            wrapped.extend([line, "</details>", ""])
+            closing = False
+            skip_blank = True
+            continue
+        if line.strip().startswith("<table") and not block_has_base:
+            wrapped.extend(
+                [
+                    f"## {BASE_SECTION}",
+                    "",
+                    "<details>",
+                    f"<summary>{TRACKING_SUMMARY}</summary>",
+                    "",
+                ]
+            )
+            block_has_base = True
+            closing = True
+            wrapped_any = True
+        wrapped.append(line)
+    if wrapped_any:
+        fixes.append(f"把追踪表移进 `## {BASE_SECTION}` 下的折叠块并默认收起")
+        lines = wrapped
+
+    joined = "\n".join(lines)
+    if "</table>\n\n</details>" in joined:
+        lines = joined.replace("</table>\n\n</details>", "</table>\n</details>").split("\n")
+        fixes.append("收紧追踪表与 `</details>` 之间的空行")
 
     output: list[str] = []
     inserted = False

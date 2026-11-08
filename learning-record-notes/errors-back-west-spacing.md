@@ -1,4 +1,9 @@
 # 2026-11-06 20:54 · 复习
+## 基础信息
+
+<details>
+<summary>追踪信息</summary>
+
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
 <tr><td>记录 ID / 试卷 ID</td><td>errors:back-west-spacing</td></tr>
@@ -12,6 +17,7 @@
 <tr><td>笔记生成时间</td><td>2026-11-06 21:10</td></tr>
 <tr><td>笔记更新时间</td><td>2026-11-06 21:10</td></tr>
 </table>
+</details>
 
 ## 本轮习题
 

@@ -138,10 +138,11 @@ class NoteTemplateTest(unittest.TestCase):
         )
         return (
             "# 2026-11-07 12:00 · 复习\n"
+            f"## {check_note.BASE_SECTION}\n\n<details>\n<summary>{check_note.TRACKING_SUMMARY}</summary>\n\n"
             f"{check_note.DEFAULT_TABLE_TAG}\n"
             '<colgroup><col width="150"><col></colgroup>\n'
             f"{rows}\n"
-            "</table>\n\n"
+            "</table>\n</details>\n\n"
             "## 本轮习题\n\n"
             "### 1. 单项选择\n\n"
             "**题目**：Pick one.\n\n"
