@@ -448,7 +448,7 @@ class NoteCliTest(unittest.TestCase):
         self.assertIn("2026-11-10 09:00", text)
         self.assertEqual(result_order(text), ["2026-11-09 09:00", "2026-11-10 09:00"])
 
-    def test_cli_replace_refuses_to_drop_existing_sections(self) -> None:
+    def test_cli_replace_keeps_sections_the_new_content_omits(self) -> None:
         completed = self.run_cli(
             [
                 "note-append",
@@ -461,7 +461,7 @@ class NoteCliTest(unittest.TestCase):
             + "\n\n## 扩展练习\n\n- 别的会话追加的小节\n",
         )
         self.assertEqual(completed.returncode, 0, completed.stderr)
-        refused = self.run_cli(
+        replaced = self.run_cli(
             [
                 "note-replace-block",
                 "--file",
@@ -473,11 +473,120 @@ class NoteCliTest(unittest.TestCase):
             ],
             block_text(heading="2026-11-09 09:00 · 复习", answer="westward"),
         )
-        self.assertEqual(refused.returncode, 2)
-        self.assertIn("replacement would drop section(s)", refused.stderr)
+        self.assertEqual(replaced.returncode, 0, replaced.stderr)
+        payload = json.loads(replaced.stdout)
+        self.assertEqual(payload["preserved_sections"], ["## 扩展练习"])
         text = self.note.read_text(encoding="utf-8")
+        self.assertIn("westward", text)
         self.assertIn("## 扩展练习", text)
-        self.assertNotIn("westward", text)
+        self.assertIn("别的会话追加的小节", text)
+
+    def test_cli_replace_drops_a_section_only_when_explicitly_allowed(self) -> None:
+        completed = self.run_cli(
+            [
+                "note-append",
+                "--file",
+                "learning-record-notes/errors-out-west.md",
+                "--content-file",
+                "-",
+            ],
+            block_text(heading="2026-11-09 09:00 · 复习", answer="west")
+            + "\n\n## 扩展练习\n\n- 写错的小节\n",
+        )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        replaced = self.run_cli(
+            [
+                "note-replace-block",
+                "--file",
+                "learning-record-notes/errors-out-west.md",
+                "--heading",
+                "# 2026-11-09 09:00 · 复习",
+                "--drop-section",
+                "## 扩展练习",
+                "--content-file",
+                "-",
+            ],
+            block_text(heading="2026-11-09 09:00 · 复习", answer="westward"),
+        )
+        self.assertEqual(replaced.returncode, 0, replaced.stderr)
+        text = self.note.read_text(encoding="utf-8")
+        self.assertIn("westward", text)
+        self.assertNotIn("## 扩展练习", text)
+
+    def test_cli_append_section_keeps_the_rest_of_the_block(self) -> None:
+        completed = self.run_cli(
+            [
+                "note-append",
+                "--file",
+                "learning-record-notes/errors-out-west.md",
+                "--content-file",
+                "-",
+            ],
+            block_text(heading="2026-11-09 09:00 · 复习", answer="west"),
+        )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        before = self.note.read_text(encoding="utf-8")
+        appended = self.run_cli(
+            [
+                "note-append-section",
+                "--file",
+                "learning-record-notes/errors-out-west.md",
+                "--heading",
+                "# 2026-11-09 09:00 · 复习",
+                "--content-file",
+                "-",
+            ],
+            "## 对比「out west」和相近表达\n\n**讲解要点**：\n\n- 别的会话刚写的小节\n",
+        )
+        self.assertEqual(appended.returncode, 0, appended.stderr)
+        payload = json.loads(appended.stdout)
+        self.assertTrue(payload["appended_section"])
+        text = self.note.read_text(encoding="utf-8")
+        self.assertIn("## 对比「out west」和相近表达", text)
+        self.assertIn(before.strip(), text.strip())
+        again = self.run_cli(
+            [
+                "note-append-section",
+                "--file",
+                "learning-record-notes/errors-out-west.md",
+                "--heading",
+                "# 2026-11-09 09:00 · 复习",
+                "--content-file",
+                "-",
+            ],
+            "## 对比「out west」和相近表达\n\n**讲解要点**：\n\n- 别的会话刚写的小节\n",
+        )
+        self.assertEqual(again.returncode, 0, again.stderr)
+        self.assertTrue(json.loads(again.stdout)["duplicate"])
+
+    def test_cli_append_section_refuses_a_taken_heading(self) -> None:
+        completed = self.run_cli(
+            [
+                "note-append",
+                "--file",
+                "learning-record-notes/errors-out-west.md",
+                "--content-file",
+                "-",
+            ],
+            block_text(heading="2026-11-09 09:00 · 复习", answer="west")
+            + "\n\n## 对比「out west」和相近表达\n\n- 旧内容\n",
+        )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        refused = self.run_cli(
+            [
+                "note-append-section",
+                "--file",
+                "learning-record-notes/errors-out-west.md",
+                "--heading",
+                "# 2026-11-09 09:00 · 复习",
+                "--content-file",
+                "-",
+            ],
+            "## 对比「out west」和相近表达\n\n- 新内容\n",
+        )
+        self.assertEqual(refused.returncode, 2)
+        self.assertIn("already exists in this block", refused.stderr)
+        self.assertIn("- 旧内容", self.note.read_text(encoding="utf-8"))
 
 
 def result_order(text: str) -> list[str]:

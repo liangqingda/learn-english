@@ -17,8 +17,10 @@
 - 文件名不带日期：`learning-record-notes/<category>-<slug>.md`。`category` 取 `vocabulary`、`phrases`、`grammar`、
   `usage`、`errors`；套题用 `paper`；`mixed` **仅**用于一次练习同时实质考查 ≥2 个分类的情况，其余一律用锚点记录所在分类，
   禁止 `misc`、`practice` 等自造前缀。
-- `slug` 取记录 `id` 或 `paper_id` 的语义部分，只保留小写字母、数字和连字符。校验器要求 `<category>-<slug>.md` 与
-  「记录 ID / 试卷 ID」一致：`errors:back-west-spacing` 必须写在 `errors-back-west-spacing.md`。
+- `slug` 取记录 `id` 或 `paper_id` 的语义部分，只保留小写字母、数字、连字符；记录 `id` 本身含中文时（如
+  `usage:after-不宜直接当-later-连接后续动作`）slug 必须原样带上中文，不得自行翻译成英文别名。
+  校验器要求 `<category>-<slug>.md` 与「记录 ID / 试卷 ID」逐字一致：`errors:back-west-spacing` 必须写在
+  `errors-back-west-spacing.md`。
 - 主题相同就复用同一文件：只要本轮焦点与既有文件的记录 ID 或 slug 主题相同、互为包含关系，就必须追加到该文件，
   不得按日期、轮次或「换了一种练法」另建新文件。
 - 记录移动到 `mastered-learning-records/` 后 `id` 不变，继续写同一个文件；只有记录 ID 真正变化时才另建文件。
@@ -28,7 +30,7 @@
 ## 追加与修正
 
 笔记的**唯一**写入方式是脚本命令，禁止用 `Write` 改写笔记文件。统一入口是本 skill 自带的
-`practice-learning-records/scripts/note.py`：它把 `append` / `replace` 转发给 `learn-from-english` 的
+`practice-learning-records/scripts/note.py`：它把 `append` / `append-section` / `replace` 转发给 `learn-from-english` 的
 `learning_records.py`（先看 `$LEARN_ENGLISH_CLI`，再看仓库内同级目录与安装位），`check` 则直接用本 skill 的
 `check_note.py`，因此只装任一 skill 时都能定位到自己需要的那一半。
 
@@ -51,7 +53,22 @@
      两轮内容都保留，按 `heading` 继续后续修正。
    - `appended: false, duplicate: true`：该标题的**同样内容**已存在（重试或并发冲突的产物），按已写入处理，
      不要重试、不要手工补写。
-5. 本轮区块刚写错时用同一把锁的替换命令（同样走 stdin，标题行必须与追加时返回的 `heading` 完全一致），
+5. 追加菜单小节（例如「场景对话」「对比相近表达」）：用**追加小节**命令，锁内只把这一节塞进既有区块，
+   区块其余内容一字不动；**不要**为了加一节而整块 `replace`。
+   ```bash
+   python3 practice-learning-records/scripts/note.py append-section \
+     --file learning-record-notes/<category>-<slug>.md \
+     --heading "# <目标区块标题>" \
+     --content-file - --check <<'EOF'
+   ## <菜单项原文>
+   …本节讲解与习题…
+   EOF
+   ```
+   - 内容必须以 `## ` 开头、不能含一级标题；目标标题必须与文件里已有区块完全一致。
+   - `appended_section: true`：已追加。`duplicate: true`：同一标题同一内容已经在区块里，按已写入处理，不要重试。
+   - 报 `section … already exists in this block` 时说明同标题小节已存在且内容不同：改用 `replace` 修正整块，
+     不要追加第二个同标题小节。
+6. 本轮区块刚写错时才用替换命令（同样走 stdin，标题行必须与追加时返回的 `heading` 完全一致），
    并把该区块的 `笔记更新时间` 改成这次替换的分钟：
    ```bash
    python3 practice-learning-records/scripts/note.py replace \
@@ -62,13 +79,14 @@
    …修正后的本轮区块全文…
    EOF
    ```
-   替换是整块覆盖，而同一个日期区块会被多个会话持续追加小节，所以写入前必须先把文件当前的完整区块读进来、
-   把别处新增的 `## <菜单项>` 小节原样并进修正版；命令会拒绝任何会丢掉现有二级标题小节的替换并返回
-   `replacement would drop section(s): …`，看到这个报错就重新读取笔记再合并，不要删掉那些小节重试。
+   替换是整块覆盖，但命令在锁内做了兜底：凡是新内容没有带上、而文件里已经存在的 `## ` 小节，都会被原样保留在
+   区块末尾，并在返回值 `preserved_sections` 里列出（这些是别的对话的成果，不要手工删）。只有用
+   `--drop-section "## <小节标题>"`（可重复）显式列出的小节才允许真的删除。
    替换只改动该标题的区块，其他日期区块原样保留；不要在标题重复或指向不明时替换。
-6. 新建文件同样走追加命令：第一个区块**必须**在标题行之前带上 `## 基础信息` 与追踪表，命令会把它写到文件最顶部；
+
+7. 新建文件同样走追加命令：第一个区块**必须**在标题行之前带上 `## 基础信息` 与追踪表，命令会把它写到文件最顶部；
    写入已有文件时同一次调用里多带的 `## 基础信息` 会被自动忽略，不会重复落地。缺这一段时创建新文件会被直接拒绝。
-7. `--check` 的结果在返回 JSON 的 `check` 字段，同时给出 `check_ok` 与 `note_status`：
+8. `--check` 的结果在返回 JSON 的 `check` 字段，同时给出 `check_ok` 与 `note_status`：
    - `note_status: "valid"`：笔记合规。
    - `note_status: "invalid"`：写入已成功但笔记不合规（进程退出码 1）。按 issue 的 `line` / `message` 用替换命令就地修正，
      再重跑一次；**不要**把退出码 1 当成写入失败去重试追加。
@@ -100,7 +118,7 @@
 | 知识点折叠块 | **每道题都必须有**（套题可按 Passage/Part 合并，见「内容要求」），且必须是本题第一个折叠块：`<details>` + `<summary>知识点讲解</summary>`；块内固定四步 `1. **本题知识点**：` `2. **规则与机制**：` `3. **英语的表达逻辑**：` `4. **可迁移表达**：`；答对的题同样要写 |
 | 错题折叠块 | 判定位含错误或未作答的题，在知识点讲解之后再写 `<details>`，summary 写 `错题讲解`；同一题多处错误时按序写 `错题讲解 1`、`错题讲解 2`…；块内固定四步 `1. **考点**：` `2. **为什么错**：` `3. **英语的表达逻辑**：` `4. **正确表达**：` |
 | 未作答的错题块 | `⚠️ 未作答` 的题同样写 `错题讲解` 块，第 2 步标签换成 `2. **为什么答不出**：` |
-| 菜单项 | 放在 `## 本轮习题` 之后，不写 `菜单与讲解` 小节：每条直接以 `## <用户选中的菜单项原文，去掉 emoji>` 作标题（与 `## 本轮习题` 同为二级）+ `**讲解要点**：` + `**可迁移表达**`（均用列表逐条写）；其下练习沿用习题区同一套模板，题号在小节内从 `1` 重新开始 |
+| 菜单项 | 放在 `## 本轮习题` 之后，不写 `菜单与讲解` 小节：每条直接以 `## <用户选中的菜单项原文，去掉 emoji>` 作标题（与 `## 本轮习题` 同为二级）+ `**讲解要点**：` + `**可迁移表达**`（均用列表逐条写）；其下练习沿用习题区同一套模板，题号在小节内从 `1` 重新开始。写入用 `append-section`，不要为加一节整块 `replace` |
 
 ## 追踪字段取值
 

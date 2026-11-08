@@ -3,6 +3,7 @@
 
 用法：
     python3 practice-learning-records/scripts/note.py append --file <note.md> --content-file - [--check]
+    python3 practice-learning-records/scripts/note.py append-section --file <note.md> --heading "<# ...>" --content-file - [--check]
     python3 practice-learning-records/scripts/note.py replace --file <note.md> --heading "<# ...>" --content-file -
     python3 practice-learning-records/scripts/note.py check --all [--fix]
 
@@ -21,6 +22,7 @@ from pathlib import Path
 
 COMMANDS = {
     "append": "note-append",
+    "append-section": "note-append-section",
     "replace": "note-replace-block",
 }
 

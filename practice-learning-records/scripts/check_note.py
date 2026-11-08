@@ -169,7 +169,13 @@ REVIEW_COUNT_RE = re.compile(r"^(\d+|—)$")
 NEXT_REVIEW_RE = re.compile(r"^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}|—)$")
 SUBJECTIVE_RE = re.compile(r"^(—|写作 \d+/15 · 翻译 \d+/15)$")
 TIMESTAMP_RE = re.compile(r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$")
-RECORD_ID_RE = re.compile(r"^(vocabulary|phrases|grammar|usage|errors):([a-z0-9]+(?:-[a-z0-9]+)*)$")
+# 记录 key 允许与真实学习记录一致的中文片段（例如 after-不宜直接当-later-连接后续动作），
+# 仍保持小写 ASCII + 中文 + 连字符，禁止空白、斜杠与点号，避免路径歧义。
+NOTE_KEY_FRAGMENT = r"[a-z0-9\u4e00-\u9fff][a-z0-9\u4e00-\u9fff\-]*"
+RECORD_ID_RE = re.compile(
+    rf"^(vocabulary|phrases|grammar|usage|errors):({NOTE_KEY_FRAGMENT})$"
+)
+NOTE_NAME_RE = re.compile(rf"^([a-z]+)-({NOTE_KEY_FRAGMENT})\.md$")
 TRANSITION_RE = re.compile(
     r"^(vocabulary|phrases|grammar|usage|errors|mixed|paper) · "
     r"((learning|familiar|mastered) → (learning|familiar|mastered)|未评分)$"
@@ -196,7 +202,7 @@ STRUCTURED_LINE_RE = re.compile(r"^(?:[-*] |\d+\. )")
 
 def filename_category(path: Path) -> str | None:
     """Return the `<category>` prefix of a note file name."""
-    match = re.match(r"^([a-z]+)-[a-z0-9][a-z0-9-]*\.md$", path.name)
+    match = NOTE_NAME_RE.match(path.name)
     return match.group(1) if match else None
 
 
@@ -213,7 +219,7 @@ def check_filename(path: Path) -> list[dict]:
                 "message": f"笔记文件名不得带日期：主题相同一律复用同一文件，当前为 `{path.name}`",
             }
         )
-    match = re.match(r"^([a-z]+)-[a-z0-9][a-z0-9-]*\.md$", path.name)
+    match = NOTE_NAME_RE.match(path.name)
     if not match:
         issues.append(
             {

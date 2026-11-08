@@ -315,10 +315,21 @@ def handle_note_append(args: argparse.Namespace) -> dict[str, Any]:
     return result
 
 
+def handle_note_append_section(args: argparse.Namespace) -> dict[str, Any]:
+    store = note_store()
+    content = read_text_input(args.content_file)
+    result = store.append_section(args.file, args.heading, content)
+    if args.check and result.get("appended_section"):
+        validate_after_write(store, result)
+    return result
+
+
 def handle_note_replace_block(args: argparse.Namespace) -> dict[str, Any]:
     store = note_store()
     content = read_text_input(args.content_file)
-    result = store.replace_block(args.file, args.heading, content)
+    result = store.replace_block(
+        args.file, args.heading, content, tuple(args.drop_section or ())
+    )
     if args.check:
         validate_after_write(store, result)
     return result
@@ -550,6 +561,26 @@ def build_parser() -> argparse.ArgumentParser:
     )
     note_append.set_defaults(handler=handle_note_append)
 
+    note_append_section = subparsers.add_parser(
+        "note-append-section",
+        help="append one '## section' inside an existing round block under the lock",
+    )
+    note_append_section.add_argument(
+        "--file", required=True, help="learning-record-notes/<category>-<slug>.md"
+    )
+    note_append_section.add_argument(
+        "--heading", required=True, help="exact level-1 heading line of the target round"
+    )
+    note_append_section.add_argument(
+        "--content-file", required=True, help="raw '## ...' Markdown section path or - for stdin"
+    )
+    note_append_section.add_argument(
+        "--check",
+        action="store_true",
+        help="run practice-learning-records check_note.py afterwards",
+    )
+    note_append_section.set_defaults(handler=handle_note_append_section)
+
     note_replace = subparsers.add_parser(
         "note-replace-block",
         help="replace one existing round block in place under the same exclusive lock",
@@ -562,6 +593,15 @@ def build_parser() -> argparse.ArgumentParser:
     )
     note_replace.add_argument(
         "--content-file", required=True, help="raw Markdown block path or - for stdin"
+    )
+    note_replace.add_argument(
+        "--drop-section",
+        action="append",
+        metavar="HEADING",
+        help=(
+            "allow dropping an existing '## section'; every other section that the new "
+            "content omits is preserved automatically"
+        ),
     )
     note_replace.add_argument(
         "--check",

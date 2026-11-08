@@ -30,7 +30,7 @@ from .models import RecordError
 
 NOTES_DIR_NAME = "learning-record-notes"
 LOCK_FILE_NAME = ".notes.lock"
-SLUG_FILE_RE = re.compile(r"^[a-z0-9][a-z0-9-]*\.md$")
+SLUG_FILE_RE = re.compile(r"^[a-z0-9\u4e00-\u9fff][a-z0-9\u4e00-\u9fff\-]*\.md$")
 HEADING_RE = re.compile(
     r"^# (?P<date>\d{4}-\d{2}-\d{2}) (?P<time>\d{2}:\d{2}) · (?P<kind>复习|练习|套题)$"
 )
@@ -110,6 +110,18 @@ def _split_blocks(text: str) -> list[tuple[str, str]]:
         body = "\n".join(lines[start:end])
         blocks.append((lines[start].strip(), body))
     return blocks
+
+
+def _sections(text: str) -> list[tuple[str, str]]:
+    """Split a round block into its ``## section`` chunks, heading included."""
+    lines = _normalize_text(text).split("\n")
+    starts = [index for index, line in enumerate(lines) if line.startswith("## ")]
+    chunks: list[tuple[str, str]] = []
+    for position, start in enumerate(starts):
+        end = starts[position + 1] if position + 1 < len(starts) else len(lines)
+        body = "\n".join(lines[start:end]).rstrip("\n")
+        chunks.append((lines[start].strip(), body))
+    return chunks
 
 
 def _next_free_heading(heading: str, existing: list[str]) -> str:
@@ -370,7 +382,9 @@ class NoteStore:
             "bytes": len(composed.encode("utf-8")),
         }
 
-    def replace_block(self, path: str, heading: str, content: str) -> dict[str, Any]:
+    def replace_block(
+        self, path: str, heading: str, content: str, allow_drop: tuple[str, ...] = ()
+    ) -> dict[str, Any]:
         target = self.resolve(path)
         # 替换只针对轮次区块；模型若顺手带了文件级基础信息头，直接忽略避免重复
         _head, raw_block = _split_head(content)
@@ -401,32 +415,25 @@ class NoteStore:
                 ),
                 len(lines),
             )
-            # 替换只能先读后并：模型会话之间会共用同一个区块，旧内容没被并进新内容时
-            # 整块覆盖会静默删掉别的会话刚追加的小节，因此发现丢小节就拒绝写入。
-            dropped = sorted(
-                {
-                    line.strip()
-                    for line in lines[start + 1 : end]
-                    if line.startswith("## ")
-                }
-                - {
-                    line.strip()
-                    for line in block.split("\n")
-                    if line.startswith("## ")
-                }
-            )
-            if dropped:
-                raise RecordError(
-                    "replacement would drop section(s) that already exist in this block: "
-                    + ", ".join(dropped)
-                    + "; re-read the note and merge them instead of overwriting the whole block"
-                )
+            # 替换是整块覆盖，而同一个区块会被多个会话持续追加小节，
+            # 所以锁内把「旧有但新内容没带上」的小节原样保留在区块末尾，
+            # 只有调用方显式列出的小节才允许真的删掉。
+            existing_sections = _sections("\n".join(lines[start:end]))
+            replacement_sections = {heading for heading, _ in _sections(block)}
+            preserved = [
+                (section_heading, body)
+                for section_heading, body in existing_sections
+                if section_heading not in replacement_sections
+                and section_heading not in allow_drop
+            ]
             tail = lines[end:]
             before = lines[:start]
             # Keep the divider that separated the replaced block from the next one.
             while tail and not tail[0].strip():
                 tail.pop(0)
             replacement = block.split("\n")[:-1]
+            for _section_heading, body in preserved:
+                replacement = replacement + ["", *body.split("\n")]
             if tail:
                 replacement = replacement + ["", DIVIDER, ""] + tail
             composed = "\n".join(before + replacement).rstrip("\n") + "\n"
@@ -437,6 +444,95 @@ class NoteStore:
             "replaced": True,
             "file": self.relative(target),
             "heading": wanted,
+            "blocks": blocks,
+            "preserved_sections": [section_heading for section_heading, _ in preserved],
+            "bytes": len(composed.encode("utf-8")),
+        }
+
+    def append_section(
+        self, path: str, heading: str, content: str
+    ) -> dict[str, Any]:
+        """Insert one ``## section`` (a menu follow-up) into an existing round block.
+
+        Menus keep adding sections to the same date block from several
+        conversations. Rebuilding the whole block to add one section is what
+        used to drop another session's work, so adding a section gets its own
+        lock-protected operation: the existing block is read under the lock,
+        the new section is appended to it, and nothing else is touched.
+        """
+        target = self.resolve(path)
+        section = _normalize_text(content).strip("\n")
+        if not section:
+            raise RecordError("note section is empty")
+        first = section.split("\n")[0].strip()
+        if not first.startswith("## "):
+            raise RecordError("a note section must start with a '## ' heading")
+        for line in section.split("\n")[1:]:
+            if line.startswith("# "):
+                raise RecordError(
+                    "a note section cannot contain a level-1 heading; "
+                    "sections are added inside an existing round block"
+                )
+        section_heading = first
+        wanted = _normalize_text(heading).strip()
+        with self._exclusive_lock():
+            existing = _normalize_text(self._read(target))
+            if not existing:
+                raise RecordError(f"note does not exist: {self.relative(target)}")
+            lines = existing.split("\n")
+            matches = [index for index, line in enumerate(lines) if line.strip() == wanted]
+            if not matches:
+                raise RecordError(f"heading not found in note: {wanted}")
+            if len(matches) > 1:
+                raise RecordError(
+                    f"heading appears {len(matches)} times; refusing an ambiguous append: {wanted}"
+                )
+            start = matches[0]
+            end = next(
+                (
+                    index
+                    for index in range(start + 1, len(lines))
+                    if lines[index].startswith("# ")
+                ),
+                len(lines),
+            )
+            block_lines = lines[start:end]
+            for existing_heading, body in _sections("\n".join(block_lines)):
+                if existing_heading != section_heading:
+                    continue
+                if _comparable(body) == _comparable(section):
+                    return {
+                        "ok": True,
+                        "appended_section": False,
+                        "duplicate": True,
+                        "file": self.relative(target),
+                        "heading": wanted,
+                        "section": section_heading,
+                        "hint": "this section is already in the block; do not append it again",
+                    }
+                raise RecordError(
+                    f"section {section_heading} already exists in this block; "
+                    "replace the block (sections that are missing from the new content "
+                    "are preserved) instead of adding a second one"
+                )
+            block_end = end
+            while end > start + 1 and not lines[end - 1].strip():
+                end -= 1
+            tail = lines[block_end:]
+            before = lines[:end]
+            body = [""] + section.split("\n")
+            if tail:
+                body = body + ["", DIVIDER, ""] + tail
+            composed = "\n".join(before + body).rstrip("\n") + "\n"
+            self._write(target, composed)
+            blocks = _count_blocks(composed)
+        return {
+            "ok": True,
+            "appended_section": True,
+            "duplicate": False,
+            "file": self.relative(target),
+            "heading": wanted,
+            "section": section_heading,
             "blocks": blocks,
             "bytes": len(composed.encode("utf-8")),
         }

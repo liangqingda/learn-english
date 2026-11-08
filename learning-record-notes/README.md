@@ -10,7 +10,7 @@
   套题用 `paper`，`mixed` 仅用于一次练习实质考查 ≥2 个分类。主题相同一律复用同一文件。
   记录 ID 必须与文件名一致（`errors:back-west-spacing` → `errors-back-west-spacing.md`）。
 - 一轮一个 `# YYYY-MM-DD HH:MM · 复习|练习|套题` 区块，旧区块永不删除或改写，按时间升序排列。
-- 写入只能走 `practice-learning-records/scripts/note.py`：`append` 追加、`replace` 修正本轮区块（同一把锁内原子替换），
+- 写入只能走 `practice-learning-records/scripts/note.py`：`append` 追加整轮区块、`append-section` 往既有区块里追加单个 `## ` 小节、`replace` 修正本轮区块（同一把锁内原子替换），
   写入时会自动拒绝「同一记录另建文件」、自动修可安全修复项、自动比对追踪表；禁止用 `Write` 改写整个文件，也不要用固定路径的中转文件。
 - 笔记是可读副本，不是规范数据源：评分、状态与复习调度以 `learning-records/`、`mastered-learning-records/`、
   `exam-papers/` 为准，删除笔记不影响任何评分或复习计划。
@@ -31,6 +31,6 @@ EOF
 返回 `note_status: valid` 才算通过；`invalid` 表示写入成功但校验未过，用替换命令就地修正；`unverified` 表示校验器不可用，
 需要在回复里说明「本轮笔记未校验」。
 
-替换是整块覆盖：同一个日期区块会被不同会话持续追加 `## <菜单项>` 小节，提交修正版前必须先把文件当前内容读进来、
-把别处新增的小节原样并进去。命令会拒绝任何会丢掉现有小节的替换（`replacement would drop section(s)`），
-遇到该报错请重新读取笔记再合并，不要删掉那些小节后重试。
+替换是整块覆盖，但命令在锁内兜底：新内容没带上、而文件里已存在的 `## ` 小节会被原样保留在区块末尾，
+并列入返回值 `preserved_sections`（这些是别的对话的成果，不要手工删）。只有 `--drop-section` 明确列出的小节才允许删除。
+加菜单小节请用 `append-section`，不要为了一节去整块 `replace`。
