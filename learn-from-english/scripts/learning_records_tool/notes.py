@@ -401,6 +401,26 @@ class NoteStore:
                 ),
                 len(lines),
             )
+            # 替换只能先读后并：模型会话之间会共用同一个区块，旧内容没被并进新内容时
+            # 整块覆盖会静默删掉别的会话刚追加的小节，因此发现丢小节就拒绝写入。
+            dropped = sorted(
+                {
+                    line.strip()
+                    for line in lines[start + 1 : end]
+                    if line.startswith("## ")
+                }
+                - {
+                    line.strip()
+                    for line in block.split("\n")
+                    if line.startswith("## ")
+                }
+            )
+            if dropped:
+                raise RecordError(
+                    "replacement would drop section(s) that already exist in this block: "
+                    + ", ".join(dropped)
+                    + "; re-read the note and merge them instead of overwriting the whole block"
+                )
             tail = lines[end:]
             before = lines[:start]
             # Keep the divider that separated the replaced block from the next one.

@@ -448,6 +448,37 @@ class NoteCliTest(unittest.TestCase):
         self.assertIn("2026-11-10 09:00", text)
         self.assertEqual(result_order(text), ["2026-11-09 09:00", "2026-11-10 09:00"])
 
+    def test_cli_replace_refuses_to_drop_existing_sections(self) -> None:
+        completed = self.run_cli(
+            [
+                "note-append",
+                "--file",
+                "learning-record-notes/errors-out-west.md",
+                "--content-file",
+                "-",
+            ],
+            block_text(heading="2026-11-09 09:00 · 复习", answer="west")
+            + "\n\n## 扩展练习\n\n- 别的会话追加的小节\n",
+        )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        refused = self.run_cli(
+            [
+                "note-replace-block",
+                "--file",
+                "learning-record-notes/errors-out-west.md",
+                "--heading",
+                "# 2026-11-09 09:00 · 复习",
+                "--content-file",
+                "-",
+            ],
+            block_text(heading="2026-11-09 09:00 · 复习", answer="westward"),
+        )
+        self.assertEqual(refused.returncode, 2)
+        self.assertIn("replacement would drop section(s)", refused.stderr)
+        text = self.note.read_text(encoding="utf-8")
+        self.assertIn("## 扩展练习", text)
+        self.assertNotIn("westward", text)
+
 
 def result_order(text: str) -> list[str]:
     return [

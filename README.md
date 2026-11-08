@@ -221,7 +221,7 @@ python3 practice-learning-records/scripts/note.py replace \
 EOF
 ```
 
-区块走标准输入，不落中间文件；确需文件时用 `mktemp` 生成唯一路径，**不要**用 `/tmp/note-block.md` 这类固定路径，否则并行会话会互相覆盖内容源。`note-append` 在 `learning-record-notes/.notes.lock` 上取排他锁，锁内完成“读现有文件 → 追加 `---` 分隔 → `os.replace` 原子替换”，因此多个会话同时写同一个笔记文件不会互相覆盖。判重按「标题 + 正文」：同标题同内容返回 `appended: false, duplicate: true`（不要重试）；同标题但内容不同不会丢内容，命令会把时间顺延到不冲突且保持升序的分钟并返回 `heading_adjusted: true` 与新的 `heading`。`note-replace-block` 用同一把锁只替换指定标题的区块，保留其他轮次原样。
+区块走标准输入，不落中间文件；确需文件时用 `mktemp` 生成唯一路径，**不要**用 `/tmp/note-block.md` 这类固定路径，否则并行会话会互相覆盖内容源。`note-append` 在 `learning-record-notes/.notes.lock` 上取排他锁，锁内完成“读现有文件 → 追加 `---` 分隔 → `os.replace` 原子替换”，因此多个会话同时写同一个笔记文件不会互相覆盖。判重按「标题 + 正文」：同标题同内容返回 `appended: false, duplicate: true`（不要重试）；同标题但内容不同不会丢内容，命令会把时间顺延到不冲突且保持升序的分钟并返回 `heading_adjusted: true` 与新的 `heading`。`note-replace-block` 用同一把锁只替换指定标题的区块，保留其他轮次原样；由于同一个日期区块会被别的会话持续追加 `## <菜单项>` 小节，它在写入前核对小节标题，凡新内容会丢掉现有小节就拒绝写入并返回 `replacement would drop section(s)`，此时先重新读取笔记、把那些小节并进修正版再提交。
 
 `practice-learning-records/scripts/note.py` 是复习笔记的统一入口：`append` / `replace` 转发到 `learning_records.py`（按 `$LEARN_ENGLISH_CLI`、仓库内同级目录、安装位依次查找），`check` 直接用本 skill 的 `check_note.py`，只装任一 skill 时也能找到自己需要的那一半。写入命令会自己完成三件事：撞上已有笔记时拒绝另建文件并给出应复用的路径；校验不过时自动执行可安全修复项再复检（`auto_fixed`）；把追踪表与规范记录逐字段比对，不一致时返回 `tracking_mismatch` 与 `tracking_expected`。CI 与本地体检都用 `note.py check --all`。`--check` 结果放进 `check` 字段，并用 `check_ok` / `note_status` 区分写入与合规：`valid` 通过，`invalid` 表示写入成功但校验未过（进程退出码 1），`unverified` 表示校验器不可用。笔记格式的唯一规则来源是 `practice-learning-records/references/note-format.md`，版式以 `templates/review-note.md` 为准。
 
