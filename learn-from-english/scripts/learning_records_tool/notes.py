@@ -36,6 +36,17 @@ HEADING_RE = re.compile(
 )
 DIVIDER = "---"
 RECORD_ID_ROW_RE = re.compile(r"<tr><td>记录 ID / 试卷 ID</td><td>(.*?)</td></tr>")
+# 文件级「基础信息」折叠块：整份笔记唯一一份，只随第一个区块一起写入
+BASIC_HEAD_RE = re.compile(r"^<details>\s*\n<summary>基础信息</summary>.*?</details>\n?", re.S)
+
+
+def _split_head(text: str) -> tuple[str, str]:
+    """把 基础信息 折叠块与轮次区块拆开：head 只在首次写入时落地。"""
+    normalized = _normalize_text(text).strip("\n")
+    match = BASIC_HEAD_RE.match(normalized)
+    if not match:
+        return "", normalized
+    return match.group(0).rstrip("\n"), normalized[match.end() :].lstrip("\n")
 
 
 def _normalize_text(text: str) -> str:
@@ -287,8 +298,9 @@ class NoteStore:
 
     def append(self, path: str, content: str) -> dict[str, Any]:
         target = self.resolve(path)
-        block = _normalize_block(content)
-        declared = RECORD_ID_ROW_RE.search(block)
+        head, raw_block = _split_head(content)
+        block = _normalize_block(raw_block)
+        declared = RECORD_ID_ROW_RE.search(content)
         if declared and not target.exists():
             tracked = self.find_note_for_record(declared.group(1).strip())
             if tracked and tracked != self.relative(target):
@@ -328,7 +340,12 @@ class NoteStore:
             # 历史区块之间缺少分隔符时只追加本轮，不回填历史，
             # 以免“整理旧格式”改写别的会话已经写下的内容。
             if not body.strip():
-                composed = block
+                if not head:
+                    raise RecordError(
+                        "a new note must start with the file-level `<details><summary>基础信息</summary>` block "
+                        "(记录 ID / 试卷 ID、目标知识点、累计复习次数、下次复习、笔记生成时间、笔记更新时间)"
+                    )
+                composed = f"{head}\n\n{block}"
             elif _ends_with_divider(body):
                 composed = f"{body}\n\n{block}"
             else:
@@ -355,7 +372,9 @@ class NoteStore:
 
     def replace_block(self, path: str, heading: str, content: str) -> dict[str, Any]:
         target = self.resolve(path)
-        block = _normalize_block(content)
+        # 替换只针对轮次区块；模型若顺手带了文件级基础信息头，直接忽略避免重复
+        _head, raw_block = _split_head(content)
+        block = _normalize_block(raw_block)
         wanted = _normalize_text(heading).strip()
         if _block_heading(block) != wanted:
             raise RecordError(
@@ -410,9 +429,13 @@ class NoteStore:
         for path in sorted(self.notes_dir.glob("*.md")):
             if path.name.lower() == "readme.md":
                 continue
-            for heading, block in _split_blocks(path.read_text(encoding="utf-8")):
+            text = path.read_text(encoding="utf-8")
+            # 记录 ID 在文件顶部的「基础信息」里，不在任何轮次区块内
+            file_match = RECORD_ID_ROW_RE.search(text)
+            file_record = file_match.group(1).strip() if file_match else None
+            for heading, block in _split_blocks(text):
                 match = RECORD_ID_ROW_RE.search(block)
-                tracked = match.group(1).strip() if match else None
+                tracked = match.group(1).strip() if match else file_record
                 if record_id is not None and tracked != record_id:
                     continue
                 entries.append(

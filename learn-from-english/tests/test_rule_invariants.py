@@ -103,7 +103,8 @@ class MenuInvariantTest(unittest.TestCase):
 
 class NoteTemplateTest(unittest.TestCase):
     def test_validator_reads_the_same_template(self) -> None:
-        self.assertEqual(check_note.TEMPLATE["tracking_rows"], check_note.TRACKING_ROWS)
+        self.assertEqual(check_note.TEMPLATE["basic_rows"], check_note.BASIC_ROWS)
+        self.assertEqual(check_note.TEMPLATE["round_rows"], check_note.ROUND_ROWS)
         self.assertEqual(
             check_note.TEMPLATE["error_labels"], check_note.DEFAULT_DETAIL_LABELS
         )
@@ -120,28 +121,38 @@ class NoteTemplateTest(unittest.TestCase):
         self.assertEqual(check_note.TEMPLATE["col_width"], 150)
 
     def note_text(self) -> str:
-        values = {
+        basic = {
             "记录 ID / 试卷 ID": "errors:out-west",
-            "分类 · 状态变化": "errors · learning → familiar",
-            "本轮得分": "9 / 10",
-            "题量与错题数": "1 题 / 1 处错误",
             "目标知识点": "out west 不是 outwest",
             "累计复习次数": "2",
             "下次复习": "2026-11-20 12:00",
             "笔记生成时间": "2026-11-07 12:05",
             "笔记更新时间": "2026-11-07 12:05",
         }
-        rows = "\n".join(
-            f"<tr><td>{row}</td><td>{values.get(row, 'x')}</td></tr>"
-            for row in check_note.TEMPLATE["tracking_rows"]
-        )
+        round_values = {
+            "复习时间": "2026-11-07 12:00",
+            "分类 · 状态变化": "errors · learning → familiar",
+            "本轮得分": "9 / 10",
+            "题量与错题数": "1 题 / 1 处错误",
+        }
+        def table(values: dict[str, str], order: list[str]) -> str:
+            rows = "\n".join(
+                f"<tr><td>{row}</td><td>{values.get(row, 'x')}</td></tr>" for row in order
+            )
+            return (
+                f"{check_note.DEFAULT_TABLE_TAG}\n"
+                '<colgroup><col width="150"><col></colgroup>\n'
+                f"{rows}\n"
+                "</table>\n"
+            )
         return (
+            "<details>\n<summary>基础信息</summary>\n\n"
+            + table(basic, check_note.TEMPLATE["basic_rows"])
+            + "</details>\n\n"
             "# 2026-11-07 12:00 · 复习\n"
-            "\n<details>\n<summary>追踪信息</summary>\n\n"
-            f"{check_note.DEFAULT_TABLE_TAG}\n"
-            '<colgroup><col width="150"><col></colgroup>\n'
-            f"{rows}\n"
-            "</table>\n</details>\n\n"
+            "\n<details>\n<summary>本轮信息</summary>\n\n"
+            + table(round_values, check_note.TEMPLATE["round_rows"])
+            + "</details>\n\n"
             "## 本轮习题\n\n"
             "### 1. 单项选择\n\n"
             "**题目**：Pick one.\n\n"

@@ -1,19 +1,28 @@
-# 2026-11-07 21:02 · 复习
-
 <details>
-<summary>追踪信息</summary>
+<summary>基础信息</summary>
 
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
 <tr><td>记录 ID / 试卷 ID</td><td>errors:leave-vs-go-departure</td></tr>
-<tr><td>分类 · 状态变化</td><td>errors · learning → familiar</td></tr>
-<tr><td>本轮得分</td><td>9 / 10</td></tr>
-<tr><td>题量与错题数</td><td>6 题 / 2 处错误</td></tr>
 <tr><td>目标知识点</td><td>表“出发/离开”用 leave 比 go 更明确</td></tr>
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 21:02</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-07 21:02</td></tr>
 <tr><td>笔记更新时间</td><td>2026-11-07 21:02</td></tr>
+</table>
+</details>
+
+# 2026-11-07 21:02 · 复习
+
+<details>
+<summary>本轮信息</summary>
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>复习时间</td><td>2026-11-07 21:02</td></tr>
+<tr><td>分类 · 状态变化</td><td>errors · learning → familiar</td></tr>
+<tr><td>本轮得分</td><td>9 / 10</td></tr>
+<tr><td>题量与错题数</td><td>6 题 / 2 处错误</td></tr>
 </table>
 </details>
 

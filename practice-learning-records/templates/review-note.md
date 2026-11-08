@@ -7,24 +7,34 @@ knowledge-labels: 本题知识点 | 规则与机制 | 英语的表达逻辑 | �
 error-labels: 考点 | 为什么错 | 英语的表达逻辑 | 正确表达
 unanswered-labels: 考点 | 为什么答不出 | 英语的表达逻辑 | 正确表达
 -->
-# <YYYY-MM-DD HH:MM> · 复习
-<!-- kind 固定取“复习”“练习”“套题”三者之一，直接改写本行；不要再写 `<复习 | 练习 | 套题>` 这类带空格的占位 -->
-<!-- 套题笔记在「下次复习」之后额外加一行 `主观题得分`（`写作 x/15 · 翻译 x/15`）；复习与练习不写这一行 -->
-
+<!-- 基础信息整个文件只有一份、默认收起，放在文件最顶部：与单次复习无关的记录级字段都在这里 -->
 <details>
-<summary>追踪信息</summary>
+<summary>基础信息</summary>
 
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
 <tr><td>记录 ID / 试卷 ID</td><td><record_id 或 paper_id></td></tr>
-<tr><td>分类 · 状态变化</td><td><category> · <旧状态> → <新状态>；未评分写 `<category> · 未评分`</td></tr>
-<tr><td>本轮得分</td><td><x / 10> 或 <xxx / 710（无听力模拟折算分）>；未评分写 `—`，保存失败且已放弃写 `评分未保存（已放弃）`</td></tr>
-<tr><td>题量与错题数</td><td><N 题 / M 处错误>；M = `错题讲解` 块数，不含未作答；有未作答时补 `（另有 K 题未作答）`</td></tr>
 <tr><td>目标知识点</td><td><title></td></tr>
 <tr><td>累计复习次数</td><td><n>；未评分写 `—`</td></tr>
 <tr><td>下次复习</td><td><YYYY-MM-DD HH:MM>；未知写 `—`</td></tr>
 <tr><td>笔记生成时间</td><td><YYYY-MM-DD HH:MM></td></tr>
 <tr><td>笔记更新时间</td><td><YYYY-MM-DD HH:MM></td></tr>
+</table>
+</details>
+
+# <YYYY-MM-DD HH:MM> · 复习
+<!-- kind 固定取“复习”“练习”“套题”三者之一，直接改写本行；不要再写 `<复习 | 练习 | 套题>` 这类带空格的占位 -->
+<!-- 套题笔记在「题量与错题数」之后额外加一行 `主观题得分`（`写作 x/15 · 翻译 x/15`）；复习与练习不写这一行 -->
+
+<details>
+<summary>本轮信息</summary>
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>复习时间</td><td><YYYY-MM-DD HH:MM>；必须与轮次标题的时间一致</td></tr>
+<tr><td>分类 · 状态变化</td><td><category> · <旧状态> → <新状态>；未评分写 `<category> · 未评分`</td></tr>
+<tr><td>本轮得分</td><td><x / 10> 或 <xxx / 710（无听力模拟折算分）>；未评分写 `—`，保存失败且已放弃写 `评分未保存（已放弃）`</td></tr>
+<tr><td>题量与错题数</td><td><N 题 / M 处错误>；M = `错题讲解` 块数，不含未作答；有未作答时补 `（另有 K 题未作答）`</td></tr>
 </table>
 </details>
 

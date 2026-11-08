@@ -15,6 +15,20 @@ import check_note  # noqa: E402
 NOTES_DIR = "learning-record-notes"
 
 
+def basic_block(values: dict[str, str]) -> str:
+    """文件顶部的「基础信息」折叠块：整个文件唯一一份。"""
+    rows = "\n".join(
+        f"<tr><td>{row}</td><td>{values.get(row, '—')}</td></tr>" for row in check_note.BASIC_ROWS
+    )
+    return (
+        "<details>\n<summary>基础信息</summary>\n\n"
+        '<table style="border-collapse:collapse;width:auto">\n'
+        '<colgroup><col width="150"><col></colgroup>\n'
+        f"{rows}\n"
+        "</table>\n</details>\n\n"
+    )
+
+
 def note_text(
     *,
     stamp: str = "2026-11-07 12:00",
@@ -25,24 +39,28 @@ def note_text(
     answer: str = "B",
     knowledge: str = "out west 是两词短语",
 ) -> str:
-    rows = {
+    basic = {
         "记录 ID / 试卷 ID": record_id,
-        "分类 · 状态变化": "errors · learning → familiar",
-        "本轮得分": score,
-        "题量与错题数": counts,
         "目标知识点": "out west 不是 outwest",
         "累计复习次数": "2",
         "下次复习": "2026-11-20 12:00",
         "笔记生成时间": "2026-11-07 12:05",
         "笔记更新时间": "2026-11-07 12:05",
     }
+    rows = {
+        "复习时间": stamp,
+        "分类 · 状态变化": "errors · learning → familiar",
+        "本轮得分": score,
+        "题量与错题数": counts,
+    }
     table = "\n".join(
         f"<tr><td>{row}</td><td>{rows[row]}</td></tr>"
-        for row in check_note.TRACKING_ROWS
+        for row in check_note.ROUND_ROWS
     )
     return (
-        f"# {stamp} · 复习\n"
-        "\n<details>\n<summary>追踪信息</summary>\n\n"
+        basic_block(basic)
+        + f"# {stamp} · 复习\n"
+        "\n<details>\n<summary>本轮信息</summary>\n\n"
         '<table style="border-collapse:collapse;width:auto">\n'
         '<colgroup><col width="150"><col></colgroup>\n'
         f"{table}\n"
@@ -66,21 +84,24 @@ def note_text(
 
 def paper_note_text(*, second_reference: str | None = "第 1 题", second_details: bool = False) -> str:
     """两题套题笔记；第二题可以只用 `**知识点**：同第 <n> 题` 合并讲解。"""
-    rows = {
+    basic = {
         "记录 ID / 试卷 ID": "paper:cet4-20261107T220000-abcdef12",
-        "分类 · 状态变化": "paper · 未评分",
-        "本轮得分": "—",
-        "题量与错题数": "2 题 / 0 处错误",
         "目标知识点": "CET-4 阅读 Passage 1",
         "累计复习次数": "—",
         "下次复习": "—",
-        "主观题得分": "写作 8/15 · 翻译 9/15",
         "笔记生成时间": "2026-11-07 12:05",
         "笔记更新时间": "2026-11-07 12:05",
     }
+    rows = {
+        "复习时间": "2026-11-07 12:00",
+        "分类 · 状态变化": "paper · 未评分",
+        "本轮得分": "—",
+        "题量与错题数": "2 题 / 0 处错误",
+        "主观题得分": "写作 8/15 · 翻译 9/15",
+    }
     table = "\n".join(
         f"<tr><td>{row}</td><td>{rows[row]}</td></tr>"
-        for row in check_note.expected_tracking_rows("套题")
+        for row in check_note.expected_round_rows("套题")
     )
     knowledge = (
         "<details>\n<summary>知识点讲解</summary>\n\n"
@@ -96,8 +117,9 @@ def paper_note_text(*, second_reference: str | None = "第 1 题", second_detail
         else (f"**知识点**：同 {second_reference}\n" if second_reference else "")
     )
     return (
-        "# 2026-11-07 12:00 · 套题\n"
-        "\n<details>\n<summary>追踪信息</summary>\n\n"
+        basic_block(basic)
+        + "# 2026-11-07 12:00 · 套题\n"
+        "\n<details>\n<summary>本轮信息</summary>\n\n"
         '<table style="border-collapse:collapse;width:auto">\n'
         '<colgroup><col width="150"><col></colgroup>\n'
         f"{table}\n"
@@ -244,7 +266,9 @@ class NoteContentValidationTest(unittest.TestCase):
 
     def test_fix_inserts_the_missing_divider_between_blocks(self) -> None:
         first = note_text()
-        second = note_text(stamp="2026-11-08 12:00").replace(
+        second = note_text(stamp="2026-11-08 12:00")
+        # 第二个区块不再带文件级基础信息头
+        second = second[second.index("# 2026-11-08 12:00") :].replace(
             "# 2026-11-08 12:00 · 复习", "# 2026-11-08 12:00 · 练习"
         )
         joined = first.rstrip("\n") + "\n" + second

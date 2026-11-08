@@ -257,7 +257,7 @@ def handle_paper_menu(args: argparse.Namespace) -> list[dict[str, Any]]:
 
 
 TRACKING_ROW_RE = re.compile(
-    r"<tr><td>(记录 ID / 试卷 ID|分类 · 状态变化|本轮得分|目标知识点|累计复习次数|下次复习|主观题得分|笔记生成时间|笔记更新时间)</td><td>(.*?)</td></tr>"
+    r"<tr><td>(记录 ID / 试卷 ID|目标知识点|累计复习次数|下次复习|分类 · 状态变化|本轮得分|复习时间|主观题得分|笔记生成时间|笔记更新时间)</td><td>(.*?)</td></tr>"
 )
 TRACKING_SKIP = ("题量与错题数", "主观题得分", "笔记生成时间", "笔记更新时间")
 
@@ -271,7 +271,12 @@ def verify_tracking(store: NoteStore, file: str, heading: str) -> dict[str, Any]
     )
     if block is None:
         return {}
-    rows = {field: value.strip() for field, value in TRACKING_ROW_RE.findall(block)}
+    # 记录级字段在文件顶部的「基础信息」里，本轮字段在目标区块里：先读全文件，再用目标区块覆盖
+    full_rows = {
+        field: value.strip()
+        for field, value in TRACKING_ROW_RE.findall(target.read_text(encoding="utf-8"))
+    }
+    rows = {**full_rows, **{field: value.strip() for field, value in TRACKING_ROW_RE.findall(block)}}
     identifier = rows.get("记录 ID / 试卷 ID", "")
     try:
         expected = service().note_context(identifier)["tracking"]

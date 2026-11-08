@@ -22,6 +22,16 @@ SCRIPT = SCRIPT_DIR / "learning_records.py"
 
 def round_block(stamp: str = "2026-11-07 21:00", kind: str = "复习", body: str = "第 1 轮") -> str:
     return (
+        "<details>\n<summary>基础信息</summary>\n\n"
+        '<table style="border-collapse:collapse;width:auto">\n'
+        '<colgroup><col width="150"><col></colgroup>\n'
+        "<tr><td>记录 ID / 试卷 ID</td><td>errors:out-west</td></tr>\n"
+        "<tr><td>目标知识点</td><td>out west 不是 outwest</td></tr>\n"
+        "<tr><td>累计复习次数</td><td>2</td></tr>\n"
+        "<tr><td>下次复习</td><td>2026-11-23 09:00</td></tr>\n"
+        "<tr><td>笔记生成时间</td><td>2026-11-07 21:05</td></tr>\n"
+        "<tr><td>笔记更新时间</td><td>2026-11-07 21:05</td></tr>\n"
+        "</table>\n</details>\n\n"
         f"# {stamp} · {kind}\n"
         '<table style="border-collapse:collapse;width:auto">\n'
         "<colgroup><col width=\"150\"><col></colgroup>\n"
@@ -40,12 +50,13 @@ class NoteAppendTest(unittest.TestCase):
     def tearDown(self) -> None:
         self.directory.cleanup()
 
-    def test_first_append_creates_block_without_file_level_heading(self) -> None:
+    def test_first_append_creates_the_file_level_basic_info_block(self) -> None:
         result = self.store.append(self.note, round_block())
         self.assertTrue(result["appended"])
         self.assertEqual(result["blocks"], 1)
         text = self.note.read_text(encoding="utf-8")
-        self.assertTrue(text.startswith("# 2026-11-07 21:00 · 复习\n"))
+        self.assertTrue(text.startswith("<details>\n<summary>基础信息</summary>\n"))
+        self.assertIn("# 2026-11-07 21:00 · 复习\n", text)
         self.assertEqual(text.count("\n---\n"), 0)
 
     def test_second_append_adds_single_divider_between_blocks(self) -> None:
@@ -184,7 +195,8 @@ class NoteAppendTest(unittest.TestCase):
             )
 
     def test_check_reports_validator_issues(self) -> None:
-        self.store.append(self.note, "# 2026-11-07 21:00 · 复习\n")
+        self.store.append(self.note, round_block())
+        self.store.append(self.note, "# 2026-11-08 09:00 · 复习\n")
         report = self.store.check(self.note)
         self.assertFalse(report["ok"])
         self.assertTrue(report["issues"])
@@ -232,25 +244,38 @@ class NoteAppendTest(unittest.TestCase):
         self.assertEqual(text.count("\n---\n"), total - 1)
         self.assertFalse(text.startswith("\n"))
         for part in text.split("\n---\n"):
-            self.assertTrue(part.lstrip("\n").startswith("# 2026-11-07"))
+            # 第一段前面还有文件级「基础信息」折叠块
+            self.assertRegex(part.lstrip("\n"), r"^(<details>|<summary>|# 2026-11-07)")
+            self.assertIn("# 2026-11-07", part)
 
 
-VALID_BLOCK = """# {heading}
-
-<details>
-<summary>追踪信息</summary>
+NOTE_HEAD = """<details>
+<summary>基础信息</summary>
 
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
 <tr><td>记录 ID / 试卷 ID</td><td>errors:out-west</td></tr>
-<tr><td>分类 · 状态变化</td><td>errors · learning → familiar</td></tr>
-<tr><td>本轮得分</td><td>10 / 10</td></tr>
-<tr><td>题量与错题数</td><td>1 题 / 0 处错误</td></tr>
 <tr><td>目标知识点</td><td>out west 不是 outwest</td></tr>
 <tr><td>累计复习次数</td><td>2</td></tr>
 <tr><td>下次复习</td><td>2026-11-23 09:00</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-09 09:05</td></tr>
 <tr><td>笔记更新时间</td><td>2026-11-09 09:05</td></tr>
+</table>
+</details>
+
+"""
+
+VALID_BLOCK = """# {heading}
+
+<details>
+<summary>本轮信息</summary>
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>复习时间</td><td>{stamp}</td></tr>
+<tr><td>分类 · 状态变化</td><td>errors · learning → familiar</td></tr>
+<tr><td>本轮得分</td><td>10 / 10</td></tr>
+<tr><td>题量与错题数</td><td>1 题 / 0 处错误</td></tr>
 </table>
 </details>
 
@@ -273,6 +298,11 @@ VALID_BLOCK = """# {heading}
 4. **可迁移表达**：They headed out east.
 </details>
 """
+
+
+def block_text(heading: str, answer: str) -> str:
+    """带文件级基础信息头的完整区块；重复追加时写入命令会忽略多出来的头。"""
+    return NOTE_HEAD + VALID_BLOCK.format(heading=heading, stamp=heading.split(" · ")[0], answer=answer)
 
 
 class NoteCliTest(unittest.TestCase):
@@ -305,7 +335,7 @@ class NoteCliTest(unittest.TestCase):
                 "-",
                 "--check",
             ],
-            VALID_BLOCK.format(heading="2026-11-09 09:00 · 复习", answer="west"),
+            block_text(heading="2026-11-09 09:00 · 复习", answer="west"),
         )
         self.assertEqual(completed.returncode, 0, completed.stderr)
         self.assertTrue(self.note.exists())
@@ -323,7 +353,7 @@ class NoteCliTest(unittest.TestCase):
                 "-",
                 "--check",
             ],
-            VALID_BLOCK.format(heading="2026-11-09 09:00 · 复习", answer="1. west"),
+            block_text(heading="2026-11-09 09:00 · 复习", answer="1. west"),
         )
         self.assertEqual(completed.returncode, 0, completed.stderr)
         payload = json.loads(completed.stdout)
@@ -341,7 +371,7 @@ class NoteCliTest(unittest.TestCase):
                 "-",
                 "--check",
             ],
-            "# 2026-11-09 09:00 · 复习\n",
+            NOTE_HEAD + "# 2026-11-09 09:00 · 复习\n",
         )
         self.assertEqual(completed.returncode, 1, completed.stderr)
         payload = json.loads(completed.stdout)
@@ -362,7 +392,7 @@ class NoteCliTest(unittest.TestCase):
                 "-",
                 "--check",
             ],
-            VALID_BLOCK.format(heading="2026-11-09 09:00 · 复习", answer="west"),
+            block_text(heading="2026-11-09 09:00 · 复习", answer="west"),
         )
         payload = json.loads(completed.stdout)
         self.assertEqual(payload["note_status"], "valid")
@@ -377,7 +407,7 @@ class NoteCliTest(unittest.TestCase):
                 "--content-file",
                 "-",
             ],
-            VALID_BLOCK.format(heading="2026-11-09 09:00 · 复习", answer="west"),
+            block_text(heading="2026-11-09 09:00 · 复习", answer="west"),
         )
         refused = self.run_cli(
             [
@@ -387,7 +417,7 @@ class NoteCliTest(unittest.TestCase):
                 "--content-file",
                 "-",
             ],
-            VALID_BLOCK.format(heading="2026-11-10 09:00 · 复习", answer="west"),
+            block_text(heading="2026-11-10 09:00 · 复习", answer="west"),
         )
         self.assertEqual(refused.returncode, 2)
         self.assertIn("already has a note at learning-record-notes/errors-out-west.md", refused.stderr)
@@ -403,7 +433,7 @@ class NoteCliTest(unittest.TestCase):
                     "--content-file",
                     "-",
                 ],
-                VALID_BLOCK.format(heading=heading, answer="west"),
+                block_text(heading=heading, answer="west"),
             )
             self.assertEqual(completed.returncode, 0, completed.stderr)
         completed = self.run_cli(
@@ -416,7 +446,7 @@ class NoteCliTest(unittest.TestCase):
                 "--content-file",
                 "-",
             ],
-            VALID_BLOCK.format(heading="2026-11-09 09:00 · 复习", answer="westward"),
+            block_text(heading="2026-11-09 09:00 · 复习", answer="westward"),
         )
         self.assertEqual(completed.returncode, 0, completed.stderr)
         text = self.note.read_text(encoding="utf-8")
@@ -459,7 +489,7 @@ def result_order(text: str) -> list[str]:
                 "--content-file",
                 "-",
             ],
-            VALID_BLOCK.format(heading="2026-11-09 09:00 · 复习", answer="west"),
+            block_text(heading="2026-11-09 09:00 · 复习", answer="west"),
         )
         original = cli_module.service
         cli_module.service = lambda: StubService()
