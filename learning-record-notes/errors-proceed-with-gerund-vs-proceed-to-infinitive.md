@@ -181,15 +181,16 @@
 ## 看一套围绕「proceed with doing 与 proceed to do 的语义差别」的完整场景对话
 
 **讲解要点**：
-- proceed with + 名词或动名词，用于同一事项尚未结束、要继续推进的场合；with 是介词，后面必须是名词性成分。
-- proceed to + 名词或动词原形，用于当前事项收尾、转入下一项新事项的场合；to 标记目标，动词只能用原形，绝不能说 proceed to doing。
-- 判断口诀：同一件事没做完用 with，换到新议题用 to；介词一换，时间视角就从“延续”变成“开启”。
-- 会议主持常用句型：Let's proceed with ... / We'll now proceed to ...
+- `proceed with + 名词或动名词`，用于同一事项尚未结束、要继续推进的场合；`with` 是介词，后面必须是名词性成分。
+  - Let's proceed with the cost review before we move on.
+- `proceed to + 名词或动词原形`，用于当前事项收尾、转入下一项新事项的场合；`to` 标记目标，动词只能用原形，绝不能说 `proceed to doing`。
+  - We'll now proceed to the next item on the agenda.
+  - After the demo, the team proceeded to finalize the schedule.
+- 判断口诀：同一件事没做完用 `with`，换到新议题用 `to`；介词一换，时间视角就从「延续」变成「开启」。
+  - We proceed with the current plan and flag it to the client.
+- 会议主持常用句型：`Let's proceed with ...` / `We'll now proceed to ...`。
+  - We'll now proceed to the launch timeline.
 
-**可迁移表达**：
-- Let's proceed with the cost review before we move on.
-- We'll now proceed to the next item on the agenda.
-- After the demo, the team proceeded to finalize the schedule.
 
 **完整场景对话**：
 

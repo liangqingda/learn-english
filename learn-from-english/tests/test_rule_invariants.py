@@ -217,9 +217,13 @@ class MenuItemNoteTest(unittest.TestCase):
         return (
             f"## {label}\n\n"
             "**讲解要点**：\n\n"
-            "- x\n\n"
-            "**可迁移表达**：\n\n"
-            "- y\n"
+            "- 要点 x\n"
+            "  - 示例 y\n\n"
+            "<details>\n"
+            "<summary>场景对话原文</summary>\n\n"
+            "- **A**：x\n"
+            "- **B**：y\n\n"
+            "</details>\n"
         )
 
     def practice(self, label: str = "练习「a price to pay」的关键语法结构") -> str:
@@ -227,9 +231,8 @@ class MenuItemNoteTest(unittest.TestCase):
         return (
             f"## {label}\n\n"
             "**讲解要点**：\n\n"
-            "- x\n\n"
-            "**可迁移表达**：\n\n"
-            "- y\n\n"
+            "- 要点 x\n"
+            "  - 示例 y\n\n"
             "### 1. 填空\n\n"
             "**题目**：Fill in the blank.\n\n"
             "**我的答案**：a price\n\n"
@@ -265,8 +268,7 @@ class MenuItemNoteTest(unittest.TestCase):
         text = (
             self.base_note()
             + "\n## 看一套围绕「a price to pay」的完整场景对话\n\n"
-            "**讲解要点**：第一条规则；第二条规则；第三条规则全部揉在一段。\n\n"
-            "**可迁移表达**：y\n"
+            "**讲解要点**：第一条规则；第二条规则；第三条规则全部揉在一段。\n"
         )
         issues = self.check_text(text)
         self.assertTrue(any("有序列表、无序列表或表格" in issue["message"] for issue in issues))
@@ -314,7 +316,7 @@ class MenuItemNoteTest(unittest.TestCase):
         self.assertEqual(self.check_text(text), [])
 
     def test_third_level_menu_heading_is_rejected(self) -> None:
-        text = self.base_note() + "\n### 看一套围绕「a price to pay」的完整场景对话\n\n**讲解要点**：\n\n- x\n\n**可迁移表达**：\n\n- y\n"
+        text = self.base_note() + "\n### 看一套围绕「a price to pay」的完整场景对话\n\n**讲解要点**：\n\n- x\n  - y\n"
         issues = self.check_text(text)
         self.assertTrue(any("菜单项标题必须与 `## 本轮习题` 同级" in issue["message"] for issue in issues))
 
@@ -323,10 +325,34 @@ class MenuItemNoteTest(unittest.TestCase):
         issues = self.check_text(text)
         self.assertTrue(any("去掉 emoji" in issue["message"] for issue in issues))
 
-    def test_missing_menu_fields_are_rejected(self) -> None:
-        text = self.base_note() + "\n## 看一套围绕「a price to pay」的完整场景对话\n\n**讲解要点**：x\n"
+    def test_point_without_child_example_is_rejected(self) -> None:
+        text = (
+            self.base_note()
+            + "\n## 看一套围绕「a price to pay」的完整场景对话\n\n"
+            "**讲解要点**：\n\n- 只有要点，没有示例\n\n"
+            "<details>\n<summary>场景对话原文</summary>\n\n- **A**：x\n\n</details>\n"
+        )
         issues = self.check_text(text)
-        self.assertTrue(any("每条菜单必须依次包含" in issue["message"] for issue in issues))
+        self.assertTrue(any("缩进子项" in issue["message"] for issue in issues))
+
+    def test_second_expression_field_is_rejected(self) -> None:
+        text = (
+            self.base_note()
+            + "\n## 看一套围绕「a price to pay」的完整场景对话\n\n"
+            "**讲解要点**：\n\n- 要点\n  - 示例\n\n"
+            "**可迁移表达**：\n\n- 又一组\n"
+        )
+        issues = self.check_text(text)
+        self.assertTrue(any("只写一组 `**讲解要点**：`" in issue["message"] for issue in issues))
+
+    def test_scenario_section_without_dialogue_is_rejected(self) -> None:
+        text = (
+            self.base_note()
+            + "\n## 看一套围绕「a price to pay」的完整场景对话\n\n"
+            "**讲解要点**：\n\n- 要点\n  - 示例\n"
+        )
+        issues = self.check_text(text)
+        self.assertTrue(any("场景对话原文" in issue["message"] for issue in issues))
 
 
 class DocumentationDriftTest(unittest.TestCase):

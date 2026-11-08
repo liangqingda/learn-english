@@ -195,6 +195,7 @@ MENU_EMOJI_RE = re.compile(
     "^[\U0001F000-\U0001FAFF\u2600-\u27BF\u2B00-\u2BFF\u2190-\u21FF\uFE0F\u200D]"
 )
 MENU_FIELD_RE = re.compile(r"^\*\*(讲解要点|可迁移表达)\*\*：")
+MENU_CHILD_RE = re.compile(r"^(?:\s{2,}|\t)(?:[-*] |\d+\. )")
 NOTE_DIR_NAME = "learning-record-notes"
 NOTE_CATEGORIES = ("vocabulary", "phrases", "grammar", "usage", "errors", "paper", "mixed")
 STRUCTURED_LINE_RE = re.compile(r"^(?:[-*] |\d+\. )")
@@ -571,8 +572,38 @@ def check(path: Path) -> list[dict]:
             q_positions = [g_start + k for k, line in enumerate(body[g_start:g_end]) if QUESTION_RE.match(line)]
             intro = body[g_start + 1 : (q_positions[0] if q_positions else g_end)]
             mfields = [m.group(1) for line in intro if (m := MENU_FIELD_RE.match(line))]
-            if mfields[:2] != ["讲解要点", "可迁移表达"]:
-                add(line_no, "每条菜单必须依次包含 `**讲解要点**：`、`**可迁移表达**：` 两个字段")
+            if mfields and mfields[0] != "讲解要点":
+                add(
+                    line_no,
+                    "每个菜单项的第一组字段必须是 `**讲解要点**：`，不要先写 `**可迁移表达**：`",
+                )
+            if "可迁移表达" in mfields:
+                add(
+                    line_no,
+                    "菜单项只写一组 `**讲解要点**：`：把可迁移表达/示例写成对应要点的缩进子项，不要另起 `**可迁移表达**：`",
+                )
+            if not mfields:
+                add(line_no, "每个菜单项必须有 `**讲解要点**：`，其下用列表逐条写要点")
+            points = [
+                line
+                for line in intro
+                if STRUCTURED_LINE_RE.match(line.strip()) and not MENU_CHILD_RE.match(line)
+            ]
+            children = [line for line in intro if MENU_CHILD_RE.match(line)]
+            if mfields[:1] == ["讲解要点"] and not points:
+                add(line_no, "`**讲解要点**：` 必须用无序/有序列表逐条写要点，不要揉成一段文字")
+            if points and not children:
+                add(
+                    line_no,
+                    "每条讲解要点至少要有一个缩进子项写出对应的可迁移表达或示例（`  - 例句`）",
+                )
+            section_text = "\n".join(body[g_start:g_end])
+            if "场景对话" in g_title and "场景对话原文" not in section_text:
+                add(
+                    line_no,
+                    "场景对话小节必须保留完整对话原文：`<details><summary>场景对话原文</summary>` 不能省，"
+                    "只写讲解要点不算完成",
+                )
             if not any(
                 STRUCTURED_LINE_RE.match(line.strip()) or line.strip().startswith("<table")
                 for line in intro

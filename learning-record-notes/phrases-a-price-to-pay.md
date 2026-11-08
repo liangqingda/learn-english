@@ -224,18 +224,18 @@ Working night shifts cost her her health, and she knew it.
 ## 看一套围绕「a price to pay」的完整场景对话
 
 **讲解要点**：
+- `there is a price to pay for sth`：代价属于事情本身，主语是事情，不点明谁付。
+  - `Nobody told me there'd be a price to pay for saying yes.`
+- `pay a heavy price for sth`：当事人主动付出，主语是人。
+  - `You'd pay a heavy price for sleeping five hours a night.`
+- `come at a price`：代价是得到某个机会的入场券，句子的焦点在「机会」。
+  - `Every promotion comes at a price.`
+- `a price worth paying`：用于判断「值不值得」，`worth` 后直接接动名词。
+  - `I still think it's a price worth paying for the title and the team.`
+- `pay the price for`：口语化用法，用定冠词 `the` 指双方都清楚的那份代价。
+  - `If I keep this up, I'll pay the price for it in a year or two.`
+  - `It's not a price I can afford for three more years.`
 
-1. `there is a price to pay for sth`：代价属于事情本身，主语是事情，不点明谁付。
-2. `pay a heavy price for sth`：当事人主动付出，主语是人。
-3. `come at a price`：代价是得到某个机会的入场券，句子的焦点在“机会”。
-4. `a price worth paying`：用于判断“值不值得”，`worth` 后直接接动名词。
-5. `pay the price for`：口语化用法，用定冠词 `the` 指双方都清楚的那份代价。
-
-**可迁移表达**：
-
-- `Nobody told me there'd be a price to pay for saying yes.`
-- `Every promotion comes at a price.`
-- `It's not a price I can afford for three more years.`
 
 **完整场景对话**：
 
@@ -260,17 +260,15 @@ Working night shifts cost her her health, and she knew it.
 ## 练习「a price to pay」的关键语法结构
 
 **讲解要点**：
+- 不定式作名词后置定语：`There is a lot of work to do.` —— 与目的状语同形不同功能，判断依据是它是否在说明「这个名词要怎么被处理」。
+  - `There is still a lot of work to do before Friday.`
+- 主动形式承担被动含义：`a price to pay` = `a price that must be paid`；只有需要点明承付者时才写 `a price to be paid by …`。
+  - `a price to be paid by taxpayers`
+- 完整名词短语的固定层级：限定词 → 形容词 → 名词 → 不定式 → `for` + 交换对象，例如 `a heavy price to pay for fame`。
+  - `a heavy price to pay for fame`
+- 定语从句可整体压缩为不定式：`the price that people have to pay for shortcuts` → `the price to pay for shortcuts`。
+  - `I still have two reports to write.`
 
-1. 不定式作名词后置定语：`There is a lot of work to do.` —— 与目的状语同形不同功能，判断依据是它是否在说明“这个名词要怎么被处理”。
-2. 主动形式承担被动含义：`a price to pay` = `a price that must be paid`；只有需要点明承付者时才写 `a price to be paid by …`。
-3. 完整名词短语的固定层级：限定词 → 形容词 → 名词 → 不定式 → `for` + 交换对象，例如 `a heavy price to pay for fame`。
-4. 定语从句可整体压缩为不定式：`the price that people have to pay for shortcuts` → `the price to pay for shortcuts`。
-
-**可迁移表达**：
-
-- `There is still a lot of work to do before Friday.`
-- `a heavy price to pay for fame`
-- `I still have two reports to write.`
 
 ### 1. 单项选择
 

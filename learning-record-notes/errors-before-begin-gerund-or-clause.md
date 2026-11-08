@@ -161,15 +161,16 @@
 ## 看一套围绕「before 后不能直接接 begin 原形动词」的完整场景对话
 
 **讲解要点**：
-- before 后接同一主语的动作用 before + 动名词，不能用原形，也不能用 before to do。
-- 两个动作主语不同时，before 后面必须接完整从句，动名词无法带出自己的主语。
-- 将来语境里 before 从句用一般现在时表将来，将来信息由主句的情态动词承担。
-- 名词短语自带数量信息：everyone 之后用 their + 复数名词，避免 the + 单数造成共用误读。
+- `before` 后接同一主语的动作用 `before + 动名词`，不能用原形，也不能用 `before to do`。
+  - Have your forms ready before signing in.
+- 两个动作主语不同时，`before` 后面必须接完整从句，动名词无法带出自己的主语。
+  - Load the bags before the bus leaves at nine.
+- 将来语境里 `before` 从句用一般现在时表将来，将来信息由主句的情态动词承担。
+  - Be in the lobby before the driver arrives.
+  - Turn off the flash before taking any picture.
+- 名词短语自带数量信息：`everyone` 之后用 `their + 复数名词`，避免 `the + 单数` 造成共用误读。
+  - Everyone signs the list before boarding.
 
-**可迁移表达**：
-- Have your forms ready before signing in.
-- Load the bags before the bus leaves.
-- Turn off the flash before taking any picture.
 
 **完整场景对话**：
 
