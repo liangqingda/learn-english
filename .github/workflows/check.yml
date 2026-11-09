@@ -19,7 +19,8 @@ jobs:
         with:
           python-version: "3.12"
       - name: Run unit tests
-        run: python3 -m unittest discover -s learn-from-english/tests -v
+        run: |
+          python3 -m unittest discover -s learn-from-english/tests -v
           python3 -m unittest discover -s study-notes/tests -v
       - name: Validate learning records
         run: python3 learn-from-english/scripts/learning_records.py validate
