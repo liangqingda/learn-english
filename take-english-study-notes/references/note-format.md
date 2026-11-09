@@ -1,8 +1,8 @@
 # 复习笔记格式与写入规则
 
 本文件是 `learning-record-notes/` 笔记的**唯一规则来源**；`SKILL.md`、`README.md`、`learning-record-notes/README.md`
-只做指引，不再复述细则。版式本身以 `study-notes/templates/review-note.md` 为准，校验规则由
-`study-notes/scripts/check_note.py` 强制执行。三处冲突时按「模板 → 校验器 → 本文件」的顺序取用。
+只做指引，不再复述细则。版式本身以 `take-english-study-notes/templates/review-note.md` 为准，校验规则由
+`take-english-study-notes/scripts/check_note.py` 强制执行。三处冲突时按「模板 → 校验器 → 本文件」的顺序取用。
 
 ## 何时写、写到哪
 
@@ -35,7 +35,7 @@
 ## 追加与修正
 
 笔记的**唯一**写入方式是脚本命令，禁止用 `Write` 改写笔记文件。统一入口是本 skill 自带的
-`study-notes/scripts/note.py`：写入由本 skill 的 `note_store.py` 完成（排他锁 + 原子替换），校验由同目录的
+`take-english-study-notes/scripts/note.py`：写入由本 skill 的 `note_store.py` 完成（排他锁 + 原子替换），校验由同目录的
 `check_note.py` 完成，不需要装其他 skill 就能写。唯一跨 skill 依赖是只读的记录事实：追踪表比对通过
 `learning_records.py record-tracking --id <id>` 取回期望值（先看 `$LEARN_ENGLISH_CLI`，再看仓库内同级目录与安装位），
 取不到时返回 `tracking_skipped`，不阻断写入。
@@ -45,7 +45,7 @@
    `· 讲解` 不是合法区块：讲解写文件级 `## 讲解` 小节（见下一条）。
 2. 追加：
    ```bash
-   python3 study-notes/scripts/note.py append \
+   python3 take-english-study-notes/scripts/note.py append \
      --file learning-record-notes/<category>-<slug>.md \
      --content-file - --check <<'EOF'
    # <YYYY-MM-DD HH:MM> · 复习
@@ -63,7 +63,7 @@
 5. 追加菜单小节（例如「场景对话」「对比相近表达」）：用**追加小节**命令，锁内只把这一节塞进既有区块，
    区块其余内容一字不动；**不要**为了加一节而整块 `replace`。
    ```bash
-   python3 study-notes/scripts/note.py append-section \
+   python3 take-english-study-notes/scripts/note.py append-section \
      --file learning-record-notes/<category>-<slug>.md \
      --heading "# <目标区块标题>" \
      --content-file - --check <<'EOF'
@@ -78,7 +78,7 @@
 6. 本轮区块刚写错时才用替换命令（同样走 stdin，标题行必须与追加时返回的 `heading` 完全一致）；
    写入命令会自动把 `笔记更新时间` 刷成本次写入的分钟（追加、区块替换、追加小节都算），不要手工改这一行：
    ```bash
-   python3 study-notes/scripts/note.py replace \
+   python3 take-english-study-notes/scripts/note.py replace \
      --file learning-record-notes/<category>-<slug>.md \
      --heading "# <本轮标题>" \
      --content-file - --check <<'EOF'
@@ -95,7 +95,7 @@
 
 7. 讲解笔记用讲解命令创建（只有 `基础信息 + ## 讲解`，没有日期区块；后续复习再 `append` 追加）：
    ```bash
-   python3 study-notes/scripts/note.py explain      --file learning-record-notes/<category>-<slug>.md      --content-file - --check <<'EOF'
+   python3 take-english-study-notes/scripts/note.py explain      --file learning-record-notes/<category>-<slug>.md      --content-file - --check <<'EOF'
    ## 基础信息
    …追踪表…
    ## 讲解
@@ -117,7 +117,7 @@
 
 ## 模板结构
 
-唯一格式来源是 `study-notes/templates/review-note.md`：只允许替换 `<…>` 占位符，
+唯一格式来源是 `take-english-study-notes/templates/review-note.md`：只允许替换 `<…>` 占位符，
 不得新增、删除、重排任何标题、字段、空行、列表符号或标记，也不得自创 `## 追踪` 这类错层标题。
 文件最顶部放**全文件唯一一份**的 `## 基础信息` 二级标题（用作导航）与紧随其后的追踪表，承载与单次复习无关的记录级字段；
 每个日期标题下**不写任何小标题**，空一行直接放本轮追踪表，只记这一轮发生过什么。两处都**固定展示、不折叠**，不要写 `<details>`。
@@ -218,9 +218,9 @@
 写完必须校验通过。`--check` 已自动运行同一条命令，需要单独复查时运行：
 
 ```bash
-python3 study-notes/scripts/note.py check --all          # 全量校验默认 notes 目录
-python3 study-notes/scripts/note.py check --all --fix    # 先修无争议项再校验
-python3 study-notes/scripts/note.py check learning-record-notes/<category>-<slug>.md
+python3 take-english-study-notes/scripts/note.py check --all          # 全量校验默认 notes 目录
+python3 take-english-study-notes/scripts/note.py check --all --fix    # 先修无争议项再校验
+python3 take-english-study-notes/scripts/note.py check learning-record-notes/<category>-<slug>.md
 ```
 
 `--all` 用 `$LEARN_ENGLISH_REPO_ROOT`（缺省取本脚本所在仓库根）定位 `learning-record-notes/`，跳过 `README.md`；

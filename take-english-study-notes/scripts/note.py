@@ -2,14 +2,14 @@
 """笔记（`learning-record-notes/*.md`）的统一入口：规则、模板、校验、写入都在本 skill 内。
 
 用法：
-    python3 study-notes/scripts/note.py explain --file <note.md> --content-file - [--update] [--check]
-    python3 study-notes/scripts/note.py append --file <note.md> --content-file - [--check]
-    python3 study-notes/scripts/note.py append-section --file <note.md> --heading "<# ...>" --content-file - [--check]
-    python3 study-notes/scripts/note.py replace --file <note.md> --heading "<# ...>" --content-file - [--rewrite-section "## ..."] [--check]
-    python3 study-notes/scripts/note.py sections --file <note.md> [--heading "<# ...>"] [--section "## <小节标题>"]
-    python3 study-notes/scripts/note.py list [--record <id>]
-    python3 study-notes/scripts/note.py check --all [--fix]
-    python3 study-notes/scripts/note.py check learning-record-notes/<category>-<slug>.md
+    python3 take-english-study-notes/scripts/note.py explain --file <note.md> --content-file - [--update] [--check]
+    python3 take-english-study-notes/scripts/note.py append --file <note.md> --content-file - [--check]
+    python3 take-english-study-notes/scripts/note.py append-section --file <note.md> --heading "<# ...>" --content-file - [--check]
+    python3 take-english-study-notes/scripts/note.py replace --file <note.md> --heading "<# ...>" --content-file - [--rewrite-section "## ..."] [--check]
+    python3 take-english-study-notes/scripts/note.py sections --file <note.md> [--heading "<# ...>"] [--section "## <小节标题>"]
+    python3 take-english-study-notes/scripts/note.py list [--record <id>]
+    python3 take-english-study-notes/scripts/note.py check --all [--fix]
+    python3 take-english-study-notes/scripts/note.py check learning-record-notes/<category>-<slug>.md
 
 写入全程在 `learning-record-notes/.notes.lock` 排他锁内完成，调用方不自己改写文件。
 追踪字段（记录 ID、目标知识点、累计复习次数、下次复习、分类 · 状态变化、本轮得分）在写入后自动与

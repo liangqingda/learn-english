@@ -6,7 +6,7 @@
 
 - `learn-from-english`：讲解单词、短语、句子、长文本和英文错误信息，并批量保存本轮知识点。
 - `practice-learning-records`：选择到期或低分记录生成练习，在一次协调写操作中保存评分、状态变化和实际错题。
-- `study-notes`：`learning-record-notes/` 的唯一 owner（规则、模板、校验器、写入实现），前两个 skill 要落笔记时都调它。
+- `take-english-study-notes`：`learning-record-notes/` 的唯一 owner（规则、模板、校验器、写入实现），前两个 skill 要落笔记时都调它。
 - 三级状态：`learning`、`familiar`、`mastered`。
 - 间隔复习：根据得分、连续高分和遗忘次数计算 `next_review_at`。
 - 掌握判定：复习中同一知识点累计 3 次达到 10 分后才进入 `mastered`。
@@ -207,13 +207,13 @@ python3 learn-from-english/scripts/learning_records.py paper-menu
 `learning-record-notes/` 下的 Markdown 笔记是可读副本，也只能通过脚本写入。讲解写成文件级的 `## 讲解` 小节（紧跟 `## 基础信息`、在所有日期区块之前，一个知识点只有一份），同一知识点的复习继续追加到同一个文件：
 
 ```bash
-python3 study-notes/scripts/note.py append \
+python3 take-english-study-notes/scripts/note.py append \
   --file learning-record-notes/errors-back-west-spacing.md \
   --content-file - --check <<'EOF'
 # 2026-11-07 21:30 · 复习
 …本轮区块全文…
 EOF
-python3 study-notes/scripts/note.py replace \
+python3 take-english-study-notes/scripts/note.py replace \
   --file learning-record-notes/errors-back-west-spacing.md \
   --heading "# 2026-11-07 21:30 · 复习" \
   --content-file - <<'EOF'
@@ -224,7 +224,7 @@ EOF
 
 区块走标准输入，不落中间文件；确需文件时用 `mktemp` 生成唯一路径，**不要**用 `/tmp/note-block.md` 这类固定路径，否则并行会话会互相覆盖内容源。`append` 在 `learning-record-notes/.notes.lock` 上取排他锁，锁内完成“读现有文件 → 追加 `---` 分隔 → `os.replace` 原子替换”，因此多个会话同时写同一个笔记文件不会互相覆盖。判重按「标题 + 正文」：同标题同内容返回 `appended: false, duplicate: true`（不要重试）；同标题但内容不同不会丢内容，命令会把时间顺延到不冲突且保持升序的分钟并返回 `heading_adjusted: true` 与新的 `heading`。`append-section` 用同一把锁把单个 `## <菜单项>` 小节塞进既有区块，区块其余内容一字不动，因此给已有区块补一节不需要整块重写；`replace` 只用于修正本轮自己写错的区块，一次只允许改一个小节（批量迁移逐节加 `--rewrite-section`，返回 `modified_sections`），并在锁内自动保留新内容没有带上的既有小节（返回 `preserved_sections`），只有 `--drop-section` 显式列出的小节才允许真的删除。
 
-`study-notes/scripts/note.py` 是复习笔记的统一入口，写入与校验都在 `study-notes` 内完成（`note_store.py` 负责锁与原子替换，`check_note.py` 负责校验），不需要安装其他 skill 才能写。唯一跨 skill 依赖是只读的记录事实：追踪表比对通过 `learning_records.py record-tracking --id <id>` 取回期望值（按 `$LEARN_ENGLISH_CLI`、仓库内同级目录、安装位依次查找），取不到时返回 `tracking_skipped` 而不阻断写入。写入命令会自己完成三件事：撞上已有笔记时拒绝另建文件并给出应复用的路径；校验不过时自动执行可安全修复项再复检（`auto_fixed`）；把追踪表与规范记录逐字段比对，不一致时返回 `tracking_mismatch` 与 `tracking_expected`。CI 与本地体检都用 `note.py check --all`。`--check` 结果放进 `check` 字段，并用 `check_ok` / `note_status` 区分写入与合规：`valid` 通过，`invalid` 表示写入成功但校验未过（进程退出码 1），`unverified` 表示校验器不可用。笔记格式的唯一规则来源是 `study-notes/references/note-format.md`，版式以 `templates/review-note.md` 为准。
+`take-english-study-notes/scripts/note.py` 是复习笔记的统一入口，写入与校验都在 `take-english-study-notes` 内完成（`note_store.py` 负责锁与原子替换，`check_note.py` 负责校验），不需要安装其他 skill 才能写。唯一跨 skill 依赖是只读的记录事实：追踪表比对通过 `learning_records.py record-tracking --id <id>` 取回期望值（按 `$LEARN_ENGLISH_CLI`、仓库内同级目录、安装位依次查找），取不到时返回 `tracking_skipped` 而不阻断写入。写入命令会自己完成三件事：撞上已有笔记时拒绝另建文件并给出应复用的路径；校验不过时自动执行可安全修复项再复检（`auto_fixed`）；把追踪表与规范记录逐字段比对，不一致时返回 `tracking_mismatch` 与 `tracking_expected`。CI 与本地体检都用 `note.py check --all`。`--check` 结果放进 `check` 字段，并用 `check_ok` / `note_status` 区分写入与合规：`valid` 通过，`invalid` 表示写入成功但校验未过（进程退出码 1），`unverified` 表示校验器不可用。笔记格式的唯一规则来源是 `take-english-study-notes/references/note-format.md`，版式以 `templates/review-note.md` 为准。
 
 ### 查询和统计
 
@@ -248,7 +248,7 @@ python3 learn-from-english/scripts/learning_records.py error-cluster-get \
 python3 learn-from-english/scripts/learning_records.py familiar-list --brief
 python3 learn-from-english/scripts/learning_records.py snapshot --record "<record-id>"
 python3 learn-from-english/scripts/learning_records.py snapshot --notes
-python3 learn-from-english/scripts/study-notes/scripts/note.py sections \
+python3 learn-from-english/scripts/take-english-study-notes/scripts/note.py sections \
   --file "learning-record-notes/<note>.md" --section "## <section title>"
 ```
 
@@ -256,7 +256,7 @@ python3 learn-from-english/scripts/study-notes/scripts/note.py sections \
 
 `error-clusters` 默认返回**精简**结果：`clusters`（id / label / count / record_ids）与 `options`（脚本生成的错题专题菜单项，含未归类入口）、`unclustered_count`、`tag_families`（最多 12 条）+ `tag_family_total`，不再内联全部记录（`errors` 记录上百条时输出从 230 KB 降到 17 KB 量级）。需要某一类的完整材料时用 `error-cluster-get` 取回精简字段（id / title / explanation / source / example / tags），它的 `--minimum-size` 必须与 `error-clusters` 一致，否则拿到的 cluster id 可能对不上；它不自动合并记录，也不改变多个规范记录的分数。`list` / `familiar-list` / `mastered-list` 加 `--brief` 可省略 `review_history` 与调度时间戳。
 
-`snapshot` 是一次拿齐“仓库现在到哪了”的只读入口：`git_head`、笔记文件清单、每个文件的**轮次区块与 `##` 小节标题索引**、`record_files`（记录 ID → 笔记文件，记录已改名也能定位）。结果缓存在 `.cache/snapshot.json`，默认 30 分钟有效（`--max-age` 可改，`--refresh` 强制重建），命中时带 `source: cache` 与 `age_seconds`；`live_git_head` 与 `head_drift` 给出一次实时 HEAD 比对，`head_drift: true` 表示工作树已被别的会话推进，只读展示可继续，写入前再 `--refresh`。笔记写入已独立到 `study-notes`，不再刷新这份快照；写前确认目标区块用 `study-notes/scripts/note.py sections`，需要新的仓库索引时再跑 `snapshot --refresh`。缓存只是加速层：读索引前会比对文件的 `size` 与 `mtime`，不一致就回退到真实解析，删掉缓存文件也永远安全。菜单 option 现在带 `writes`：`false` 的项（场景对话、学习进度、错题聚类、剖析当前题、历史试卷导航）只展示内容，不做仓库核对；校验器只在写入路径运行。
+`snapshot` 是一次拿齐“仓库现在到哪了”的只读入口：`git_head`、笔记文件清单、每个文件的**轮次区块与 `##` 小节标题索引**、`record_files`（记录 ID → 笔记文件，记录已改名也能定位）。结果缓存在 `.cache/snapshot.json`，默认 30 分钟有效（`--max-age` 可改，`--refresh` 强制重建），命中时带 `source: cache` 与 `age_seconds`；`live_git_head` 与 `head_drift` 给出一次实时 HEAD 比对，`head_drift: true` 表示工作树已被别的会话推进，只读展示可继续，写入前再 `--refresh`。笔记写入已独立到 `take-english-study-notes`，不再刷新这份快照；写前确认目标区块用 `take-english-study-notes/scripts/note.py sections`，需要新的仓库索引时再跑 `snapshot --refresh`。缓存只是加速层：读索引前会比对文件的 `size` 与 `mtime`，不一致就回退到真实解析，删掉缓存文件也永远安全。菜单 option 现在带 `writes`：`false` 的项（场景对话、学习进度、错题聚类、剖析当前题、历史试卷导航）只展示内容，不做仓库核对；校验器只在写入路径运行。
 
 `sections` 是写笔记前的只读体检：返回该文件的全部轮次标题与每个轮次下的 `##` 小节标题，`--heading` 只看一个轮次；带 `--section "## ..."` 时额外返回 `has_section`，据此决定 `append-section` 还是 `replace --rewrite-section`，不必拼好整段内容再被拒。它同样走缓存索引，文件被外部改动时自动回真实解析。
 

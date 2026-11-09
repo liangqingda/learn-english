@@ -28,16 +28,16 @@ description: 当用户发送英文单词、短语、句子、段落、对话、�
 
 ## 生成本轮讲解笔记
 
-笔记的规则、模板、校验器与写入实现都在 `study-notes` skill 里，本节只说明「什么时候写、哪条记录写什么栏目」；格式细节一律以
-`study-notes/SKILL.md` 与 `study-notes/references/note-format.md` 为准。
+笔记的规则、模板、校验器与写入实现都在 `take-english-study-notes` skill 里，本节只说明「什么时候写、哪条记录写什么栏目」；格式细节一律以
+`take-english-study-notes/SKILL.md` 与 `take-english-study-notes/references/note-format.md` 为准。
 
 记录保存成功后，为**每条实际讲解的记录**在仓库根目录 `learning-record-notes/` 写一份笔记：一个知识点一个文件，之后的复习继续写在同一个文件里。
 
 讲解是**文件级固定小节** `## 讲解`，位置紧跟 `## 基础信息` 表格之后、在所有日期区块之前：一个知识点只有一次首次讲解，只有复习才会多轮，所以讲解不进入轮次编号、不带 `讲解时间` / `分类 · 状态变化` / 本轮得分 / 题量这些本轮字段。
 
-1. 先读 `study-notes/references/note-format.md` 与 `study-notes/templates/review-note.md` 里的讲解骨架，逐字替换占位符；不要凭记忆拼格式。
+1. 先读 `take-english-study-notes/references/note-format.md` 与 `take-english-study-notes/templates/review-note.md` 里的讲解骨架，逐字替换占位符；不要凭记忆拼格式。
 2. 文件名按记录 ID 生成：`<category>-<key>.md`（`phrases:you-are-what-you-eat` → `phrases-you-are-what-you-eat.md`）。同一记录已有笔记时命令会拒绝另建文件并给出应复用的路径。
-3. 只通过 `study-notes/scripts/note.py explain --file learning-record-notes/<category>-<slug>.md --content-file - --check` 创建，内容走标准输入；禁止用 `Write` 改写笔记文件，也不要用固定路径的中转文件。返回 `duplicate: true` 说明该文件已有 `## 讲解`，按已写入处理，不要再写第二份。
+3. 只通过 `take-english-study-notes/scripts/note.py explain --file learning-record-notes/<category>-<slug>.md --content-file - --check` 创建，内容走标准输入；禁止用 `Write` 改写笔记文件，也不要用固定路径的中转文件。返回 `duplicate: true` 说明该文件已有 `## 讲解`，按已写入处理，不要再写第二份。
 4. 基础信息表用脚本返回的 tracking 值（记录 ID、目标知识点、累计复习次数、下次复习、笔记生成时间、笔记更新时间）；讲解小节不写任何追踪行。
 5. `## 讲解` 必须**只讲这条记录自己那一层**，栏目按分类自选、不要求凑齐固定几项（至少两栏，每栏写成列表或表格）：
    - `phrases`：必写 `**核心含义**：`，建议再写 使用场景与语气 / 结构与搭配 / 历史文化背景 / 发音 / 容易混淆 / 可迁移表达。

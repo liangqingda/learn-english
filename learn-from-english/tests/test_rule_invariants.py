@@ -12,7 +12,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SCRIPTS_DIR = REPO_ROOT / "learn-from-english" / "scripts"
 sys.path.insert(0, str(SCRIPTS_DIR))
-sys.path.insert(0, str(REPO_ROOT / "study-notes" / "scripts"))
+sys.path.insert(0, str(REPO_ROOT / "take-english-study-notes" / "scripts"))
 
 import check_note  # noqa: E402
 

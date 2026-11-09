@@ -11,7 +11,7 @@ The snapshot is strictly an acceleration layer:
 * it never feeds a write decision that could corrupt a note, because every
   read revalidates the referenced file's ``mtime`` and ``size`` before the
   cached entry is trusted;
-* note writes now live in the ``study-notes`` skill and no longer refresh this
+* note writes now live in the ``take-english-study-notes`` skill and no longer refresh this
   snapshot (``refresh_note`` stays available for callers that still hold an
   entry, but nothing in this package calls it);
 * a stale snapshot is simply rebuilt, so deleting the cache file is always

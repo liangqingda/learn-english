@@ -1,9 +1,9 @@
 ---
-name: study-notes
+name: take-english-study-notes
 description: 复习笔记（`learning-record-notes/*.md`）的唯一 owner：何时写、文件名、版式骨架、追踪字段口径、写入命令、校验与迁移全在这里。`learn-from-english` 讲解后要落讲解笔记、`practice-learning-records` 复习/练习/套题后要追加笔记，都调用本 skill 的 `scripts/note.py`，不要各自拼格式或直接写文件。
 ---
 
-# 复习笔记（study-notes）
+# 复习笔记（take-english-study-notes）
 
 一个知识点一个 Markdown 文件，放在仓库根 `learning-record-notes/`。笔记是**可读副本，不是规范数据源**：
 不参与 `validate`、统计、抽题或调度，缺失或被删除都不影响评分与复习计划，但它是给人读的唯一入口，
@@ -22,13 +22,13 @@ description: 复习笔记（`learning-record-notes/*.md`）的唯一 owner：何
 ## 唯一入口
 
 ```bash
-python3 study-notes/scripts/note.py explain        --file learning-record-notes/<category>-<slug>.md --content-file - [--update] [--check]
-python3 study-notes/scripts/note.py append         --file learning-record-notes/<category>-<slug>.md --content-file - [--check]
-python3 study-notes/scripts/note.py append-section --file learning-record-notes/<category>-<slug>.md --heading "<# ...>" --content-file - [--check]
-python3 study-notes/scripts/note.py replace        --file learning-record-notes/<category>-<slug>.md --heading "<# ...>" --content-file - [--rewrite-section "## ..."] [--check]
-python3 study-notes/scripts/note.py sections       --file learning-record-notes/<category>-<slug>.md [--heading "<# ...>"] [--section "## <小节标题>"]
-python3 study-notes/scripts/note.py list           [--record <id>]
-python3 study-notes/scripts/note.py check --all [--fix]
+python3 take-english-study-notes/scripts/note.py explain        --file learning-record-notes/<category>-<slug>.md --content-file - [--update] [--check]
+python3 take-english-study-notes/scripts/note.py append         --file learning-record-notes/<category>-<slug>.md --content-file - [--check]
+python3 take-english-study-notes/scripts/note.py append-section --file learning-record-notes/<category>-<slug>.md --heading "<# ...>" --content-file - [--check]
+python3 take-english-study-notes/scripts/note.py replace        --file learning-record-notes/<category>-<slug>.md --heading "<# ...>" --content-file - [--rewrite-section "## ..."] [--check]
+python3 take-english-study-notes/scripts/note.py sections       --file learning-record-notes/<category>-<slug>.md [--heading "<# ...>"] [--section "## <小节标题>"]
+python3 take-english-study-notes/scripts/note.py list           [--record <id>]
+python3 take-english-study-notes/scripts/note.py check --all [--fix]
 ```
 
 - 写入全程在 `learning-record-notes/.notes.lock` 排他锁内完成「读 → 拼装 → `os.replace` 原子替换」，调用方不自己改写文件。
@@ -41,9 +41,9 @@ python3 study-notes/scripts/note.py check --all [--fix]
 冲突时按此顺序取：`templates/review-note.md`（骨架与 meta）→ `scripts/check_note.py`（可机检的硬规则）→
 `references/note-format.md`（口径、字段取值、命令用法、迁移）。三者不能各写一份：模板 meta 与校验器常量必须一致。
 
-- 模板：`study-notes/templates/review-note.md`
-- 校验器：`study-notes/scripts/check_note.py`（独立运行，不依赖任何其他 skill）
-- 口径全集：`study-notes/references/note-format.md`
+- 模板：`take-english-study-notes/templates/review-note.md`
+- 校验器：`take-english-study-notes/scripts/check_note.py`（独立运行，不依赖任何其他 skill）
+- 口径全集：`take-english-study-notes/references/note-format.md`
 
 ## 骨架要点
 

@@ -8,7 +8,7 @@ import unittest
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(REPO_ROOT / "study-notes" / "scripts"))
+sys.path.insert(0, str(REPO_ROOT / "take-english-study-notes" / "scripts"))
 
 import check_note  # noqa: E402
 
@@ -319,7 +319,7 @@ class NoteContentValidationTest(unittest.TestCase):
 class NoteEntryPointTest(unittest.TestCase):
     """`note.py` 是本 skill 的唯一入口：校验与写入都在本 skill 内完成。"""
 
-    WRAPPER = REPO_ROOT / "study-notes" / "scripts" / "note.py"
+    WRAPPER = REPO_ROOT / "take-english-study-notes" / "scripts" / "note.py"
 
     def run_wrapper(
         self, args: list[str], root: Path, cli: str | None = None, stdin_text: str = ""

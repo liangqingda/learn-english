@@ -259,8 +259,8 @@ class NoteStore:
             self.checker_path = self._default_checker()
 
     def _default_checker(self) -> Path:
-        """Prefer the validator in the repo's own study-notes skill, then the installed one."""
-        repo_candidate = self.repo_root / "study-notes" / "scripts" / "check_note.py"
+        """Prefer the validator in the repo's own take-english-study-notes skill, then the installed one."""
+        repo_candidate = self.repo_root / "take-english-study-notes" / "scripts" / "check_note.py"
         if repo_candidate.is_file():
             return repo_candidate
         installed = Path(__file__).resolve().parent / "check_note.py"

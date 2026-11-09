@@ -32,7 +32,7 @@ python3 learn-from-english/scripts/learning_records.py snapshot --notes
 
 结果来自 30 分钟有效的会话缓存；写入 note 时会自动刷新对应条目，只读路径不必加 `--refresh`。
 
-写笔记前先运行 `study-notes/scripts/note.py sections --file <笔记文件> --section "## <小节标题>"`（或 `snapshot --notes`）确认目标区块是否已有同名 `##` 小节，再决定用 `append-section`（新增）还是 `replace --rewrite-section`（改写），不要先拼好大段内容再被脚本拒绝。一轮的全部错题用一次 `batch-upsert` 写入（已评分复习用一次 `complete-review`），不逐题调用。只读展示不运行 `check_note.py`；校验只在写入路径上跑，结果如实报告。快照 `stale: true` 或怀疑被别的会话改动时，只读内容照常展示，只在真正写入前重新取一次快照或重读该文件。
+写笔记前先运行 `take-english-study-notes/scripts/note.py sections --file <笔记文件> --section "## <小节标题>"`（或 `snapshot --notes`）确认目标区块是否已有同名 `##` 小节，再决定用 `append-section`（新增）还是 `replace --rewrite-section`（改写），不要先拼好大段内容再被脚本拒绝。一轮的全部错题用一次 `batch-upsert` 写入（已评分复习用一次 `complete-review`），不逐题调用。只读展示不运行 `check_note.py`；校验只在写入路径上跑，结果如实报告。快照 `stale: true` 或怀疑被别的会话改动时，只读内容照常展示，只在真正写入前重新取一次快照或重读该文件。
 
 ## 处理数字选择
 
@@ -272,12 +272,12 @@ python3 learn-from-english/scripts/learning_records.py menu \
 首次讲解的笔记由 `learn-from-english` 用 `note.py explain` 写入（文件级 `## 讲解` 小节，位于 `## 基础信息` 之后）；这里只负责在同一个文件里按时间追加复习区块，不另建文件、不改讲解小节。
 笔记是**可读副本，不是规范数据源**：它不参与 `validate`、统计、抽题或调度，缺失或被删除都不影响评分与复习计划。
 
-写笔记前必须先读 `study-notes/references/note-format.md`（何时写、文件名、模板骨架、字段取值、
+写笔记前必须先读 `take-english-study-notes/references/note-format.md`（何时写、文件名、模板骨架、字段取值、
 追加与修正命令、菜单项记法、校验与迁移全部在那里，**不要凭记忆或旧轮次猜格式**），并按
-`study-notes/templates/review-note.md` 逐字替换占位符。
+`take-english-study-notes/templates/review-note.md` 逐字替换占位符。
 
-笔记的规则文档、模板、校验器与写入实现全部归 `study-notes` skill；本 Skill 只保留六条硬约束（全部通过
-`study-notes/scripts/note.py` 执行，它自带 `explain` / `append` / `append-section` / `replace` / `sections` / `list` / `check`）：
+笔记的规则文档、模板、校验器与写入实现全部归 `take-english-study-notes` skill；本 Skill 只保留六条硬约束（全部通过
+`take-english-study-notes/scripts/note.py` 执行，它自带 `explain` / `append` / `append-section` / `replace` / `sections` / `list` / `check`）：
 
 - 只在这一条命令上写笔记，禁止用 `Write` 改写笔记文件，也禁止先落固定路径的临时区块文件。
 - 给已有区块补菜单小节用 `append-section`（锁内只追加一个 `## ` 小节，区块其余内容一字不动），

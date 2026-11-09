@@ -282,7 +282,7 @@ def handle_snapshot(args: argparse.Namespace) -> dict[str, Any]:
 def handle_record_tracking(args: argparse.Namespace) -> dict[str, Any]:
     """Read-only tracking values for one record or paper, used by the notes skill.
 
-    The note writer lives in the ``study-notes`` skill; it must not re-derive
+    The note writer lives in the ``take-english-study-notes`` skill; it must not re-derive
     these fields itself, so this command is the single contract for record facts.
     """
     context = service().note_context(args.id)
