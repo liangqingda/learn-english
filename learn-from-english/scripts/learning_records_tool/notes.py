@@ -33,7 +33,7 @@ NOTES_DIR_NAME = "learning-record-notes"
 LOCK_FILE_NAME = ".notes.lock"
 SLUG_FILE_RE = re.compile(r"^[a-z0-9\u4e00-\u9fff][a-z0-9\u4e00-\u9fff\-]*\.md$")
 HEADING_RE = re.compile(
-    r"^# (?P<date>\d{4}-\d{2}-\d{2}) (?P<time>\d{2}:\d{2}) · (?P<kind>复习|练习|套题|讲解)$"
+    r"^# (?P<date>\d{4}-\d{2}-\d{2}) (?P<time>\d{2}:\d{2}) · (?P<kind>复习|练习|套题)$"
 )
 DIVIDER = "---"
 RECORD_ID_ROW_RE = re.compile(r"<tr><td>记录 ID / 试卷 ID</td><td>(.*?)</td></tr>")
@@ -43,6 +43,9 @@ GENERATED_ROW_RE = re.compile(
 )
 # 文件级「基础信息」折叠块：整份笔记唯一一份，只随第一个区块一起写入
 BASIC_HEAD_RE = re.compile(r"^## 基础信息\s*\n.*?(?=^# )", re.S | re.M)
+# 讲解是一个知识点唯一的一份说明，写成文件级小节，不参与轮次编号
+EXPLAIN_SECTION = "讲解"
+EXPLAIN_HEAD_RE = re.compile(r"^## 讲解\s*$", re.M)
 
 
 def _split_head(text: str) -> tuple[str, str]:
@@ -68,7 +71,7 @@ def _normalize_block(text: str) -> str:
         raise RecordError("note block is empty")
     if not HEADING_RE.match(lines[0].strip()):
         raise RecordError(
-            "note block must start with '# <YYYY-MM-DD> <HH:MM> · <复习|练习|套题|讲解>'"
+            "note block must start with '# <YYYY-MM-DD> <HH:MM> · <复习|练习|套题>'"
         )
     for line in lines[1:]:
         if line.startswith("# "):
@@ -400,7 +403,8 @@ class NoteStore:
                         "(记录 ID / 试卷 ID、目标知识点、累计复习次数、下次复习、笔记生成时间、笔记更新时间)"
                     )
                 composed = f"{head}\n\n{block}"
-            elif _ends_with_divider(body):
+            elif _ends_with_divider(body) or not existing_blocks:
+                # 还没有任何日期区块时（只有基础信息与 `## 讲解`），讲解之后直接接本轮区块
                 composed = f"{body}\n\n{block}"
             else:
                 composed = f"{body}\n\n{DIVIDER}\n\n{block}"
@@ -422,6 +426,65 @@ class NoteStore:
             "file": self.relative(target),
             "heading": heading,
             "blocks": blocks,
+            "bytes": len(composed.encode("utf-8")),
+        }
+
+    def write_explanation(self, path: str, content: str) -> dict[str, Any]:
+        """Create a note whose only content is 基础信息 + 文件级 `## 讲解`.
+
+        A knowledge point has exactly one explanation, so it cannot be appended
+        as a dated round: it lives directly under the file header, and every
+        later review round is added below it by :meth:`append`.
+        """
+        target = self.resolve(path)
+        normalized = _normalize_text(content).strip("\n")
+        if normalized.startswith("# ") or "\n# " in normalized:
+            raise RecordError(
+                "an explanation note cannot contain a date heading; reviews are "
+                "added later as `# <date> <time> · 复习` blocks"
+            )
+        if f"## {EXPLAIN_SECTION}" not in normalized:
+            raise RecordError(
+                f"an explanation note must contain a file-level `## {EXPLAIN_SECTION}` section"
+            )
+        if "## 基础信息" not in normalized:
+            raise RecordError(
+                "an explanation note must start with the file-level `## 基础信息` section"
+            )
+        declared = RECORD_ID_ROW_RE.search(content)
+        if declared:
+            tracked = self.find_note_for_record(declared.group(1).strip())
+            if tracked and tracked != self.relative(target):
+                raise RecordError(
+                    f"record {declared.group(1).strip()} already has a note at {tracked}; "
+                    f"write the explanation into that file instead of creating {self.relative(target)}"
+                )
+        with self._exclusive_lock():
+            existing = self._read(target)
+            if existing.strip():
+                if EXPLAIN_HEAD_RE.search(_normalize_text(existing)):
+                    return {
+                        "ok": True,
+                        "appended": False,
+                        "duplicate": True,
+                        "hint": (
+                            "this note already has an `## 讲解` section; a knowledge point "
+                            "keeps exactly one explanation, so do not write a second one"
+                        ),
+                        "file": self.relative(target),
+                    }
+                raise RecordError(
+                    f"note already exists without an `## {EXPLAIN_SECTION}` section: "
+                    f"{self.relative(target)}; append a round block instead of overwriting it"
+                )
+            composed = _bump_updated_at(f"{normalized}\n", datetime.now())
+            self._write(target, composed)
+        return {
+            "ok": True,
+            "appended": True,
+            "duplicate": False,
+            "explanation": True,
+            "file": self.relative(target),
             "bytes": len(composed.encode("utf-8")),
         }
 

@@ -10,15 +10,7 @@
 <tr><td>笔记更新时间</td><td>2026-11-09 07:58</td></tr>
 </table>
 
-# 2026-11-09 07:58 · 讲解
-
-<table style="border-collapse:collapse;width:auto">
-<colgroup><col width="150"><col></colgroup>
-<tr><td>讲解时间</td><td>2026-11-09 07:58</td></tr>
-<tr><td>分类 · 状态变化</td><td>grammar · 新学</td></tr>
-</table>
-
-## 讲解正文
+## 讲解
 
 **英文原文**：You are what you eat.
 

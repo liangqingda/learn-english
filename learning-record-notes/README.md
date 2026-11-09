@@ -9,8 +9,9 @@
 - 文件名 `<category>-<slug>.md`，不带日期；类别取 `vocabulary` / `phrases` / `grammar` / `usage` / `errors`，
   套题用 `paper`，`mixed` 仅用于一次练习实质考查 ≥2 个分类。主题相同一律复用同一文件。
   记录 ID 必须与文件名一致（`errors:back-west-spacing` → `errors-back-west-spacing.md`）。
-- 一轮一个 `# YYYY-MM-DD HH:MM · 讲解|复习|练习|套题` 区块，旧区块永不删除或改写，按时间升序排列；讲解区块排在最前，之后按时间追加复习区块。
-- 写入只能走 `practice-learning-records/scripts/note.py`：`append` 追加整轮区块、`append-section` 往既有区块里追加单个 `## ` 小节、`replace` 修正本轮区块（同一把锁内原子替换），
+- 文件顶部先放 `## 基础信息` 表格；讲解笔记再接文件级 `## 讲解` 小节（一个知识点只有一份，固定在基础信息之后、所有日期区块之前，不带 `讲解时间` 等本轮字段）。
+- 复习 / 练习 / 套题一轮一个 `# YYYY-MM-DD HH:MM · 复习|练习|套题` 区块，旧区块永不删除或改写，按时间升序排列。
+- 写入只能走 `practice-learning-records/scripts/note.py`：`explain` 创建含 `## 讲解` 的笔记、`append` 追加整轮区块、`append-section` 往既有区块里追加单个 `## ` 小节、`replace` 修正本轮区块（同一把锁内原子替换），
   写入时会自动拒绝「同一记录另建文件」、自动修可安全修复项、自动比对追踪表；禁止用 `Write` 改写整个文件，也不要用固定路径的中转文件。
 - 笔记是可读副本，不是规范数据源：评分、状态与复习调度以 `learning-records/`、`mastered-learning-records/`、
   `exam-papers/` 为准，删除笔记不影响任何评分或复习计划。

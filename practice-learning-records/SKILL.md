@@ -269,7 +269,7 @@ python3 learn-from-english/scripts/learning_records.py menu \
 ## 生成本轮学习笔记
 
 每一轮有实际作答的复习、聚焦练习或套题结束后，除写入规范记录外，还要在仓库根目录 `learning-record-notes/` 下写一份 Markdown 笔记。
-首次讲解的笔记（`讲解` 区块）由 `learn-from-english` 写入；这里只负责在同一个文件里按时间追加复习区块，不另建文件。
+首次讲解的笔记由 `learn-from-english` 用 `note.py explain` 写入（文件级 `## 讲解` 小节，位于 `## 基础信息` 之后）；这里只负责在同一个文件里按时间追加复习区块，不另建文件、不改讲解小节。
 笔记是**可读副本，不是规范数据源**：它不参与 `validate`、统计、抽题或调度，缺失或被删除都不影响评分与复习计划。
 
 写笔记前必须先读 `practice-learning-records/references/note-format.md`（何时写、文件名、模板骨架、字段取值、
@@ -278,7 +278,7 @@ python3 learn-from-english/scripts/learning_records.py menu \
 
 本 Skill 只保留六条硬约束：
 
-- 统一入口是 `practice-learning-records/scripts/note.py`：`append` / `append-section` / `replace` / `list` /
+- 统一入口是 `practice-learning-records/scripts/note.py`：`explain` / `append` / `append-section` / `replace` / `list` /
   `context` 转发给 `learn-from-english` 的命令，`check` 直接用本 skill 的校验器；只在这一条命令上写笔记，
   禁止用 `Write` 改写笔记文件，也禁止先落固定路径的临时区块文件。
 - 给已有区块补菜单小节用 `append-section`（锁内只追加一个 `## ` 小节，区块其余内容一字不动），
@@ -292,8 +292,8 @@ python3 learn-from-english/scripts/learning_records.py menu \
   写完必须核对折叠块 `<details>` / `</details>` 成对、现有小节一个没少。
 - 追踪字段分两处：文件顶部的 `## 基础信息`（全文件唯一一份）放记录 ID / 试卷 ID、目标知识点、累计复习次数、下次复习、
   笔记生成时间、笔记更新时间；每个日期区块的裸表格（不加任何小标题）只放复习时间、分类 · 状态变化、本轮得分、题量与错题数（套题再加主观题得分）。
-  首次讲解写下的 `讲解` 区块只有 `讲解时间` 与 `分类 · 状态变化`（`<category> · 新学`）两行，由 `learn-from-english` 写入；
-  复习时若该记录的笔记里已有讲解区块，继续追加到同一个文件，不要另建。
+  文件级的 `## 讲解` 小节不带任何追踪字段：讲解属于记录级内容（一个知识点只有一次首次讲解），由 `learn-from-english` 写在基础信息表之后、所有日期区块之前；
+  复习时继续用 `append` 往同一个文件追加日期区块，讲解小节原样保留，不要另建文件、不要写第二份讲解。
   两处都固定展示，不写 `<details>`。
   写入命令会把记录级与本轮字段与规范记录逐字段比对，不一致时返回 `tracking_mismatch` 与 `tracking_expected`，按它改完再用 `replace`；
   `题量与错题数` 仍须自己按本轮实际题数与 `错题讲解` 块数填写。给已存在于其他文件的记录另建文件会被直接拒绝，并给出应复用的路径。

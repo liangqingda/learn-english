@@ -203,7 +203,7 @@ python3 learn-from-english/scripts/learning_records.py paper-menu
 
 ### 复习笔记
 
-`learning-record-notes/` 下的 Markdown 笔记是可读副本，也只能通过脚本写入。每次讲解写一个 `讲解` 区块，同一知识点的复习继续追加到同一个文件：
+`learning-record-notes/` 下的 Markdown 笔记是可读副本，也只能通过脚本写入。讲解写成文件级的 `## 讲解` 小节（紧跟 `## 基础信息`、在所有日期区块之前，一个知识点只有一份），同一知识点的复习继续追加到同一个文件：
 
 ```bash
 python3 practice-learning-records/scripts/note.py append \

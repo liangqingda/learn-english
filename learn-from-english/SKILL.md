@@ -28,16 +28,19 @@ description: 当用户发送英文单词、短语、句子、段落、对话、�
 
 ## 生成本轮讲解笔记
 
-记录保存成功后，为**每条实际讲解的记录**在仓库根目录 `learning-record-notes/` 写一份 `讲解` 笔记：一个知识点一个文件，之后的复习继续写在同一个文件里。
+记录保存成功后，为**每条实际讲解的记录**在仓库根目录 `learning-record-notes/` 写一份笔记：一个知识点一个文件，之后的复习继续写在同一个文件里。
 
-1. 先读 `practice-learning-records/references/note-format.md` 与 `practice-learning-records/templates/review-note.md` 里的讲解区块骨架，逐字替换占位符；不要凭记忆拼格式。
+讲解是**文件级固定小节** `## 讲解`，位置紧跟 `## 基础信息` 表格之后、在所有日期区块之前：一个知识点只有一次首次讲解，只有复习才会多轮，所以讲解不进入轮次编号、不带 `讲解时间` / `分类 · 状态变化` / 本轮得分 / 题量这些本轮字段。
+
+1. 先读 `practice-learning-records/references/note-format.md` 与 `practice-learning-records/templates/review-note.md` 里的讲解骨架，逐字替换占位符；不要凭记忆拼格式。
 2. 文件名按记录 ID 生成：`<category>-<key>.md`（`phrases:you-are-what-you-eat` → `phrases-you-are-what-you-eat.md`）。同一记录已有笔记时命令会拒绝另建文件并给出应复用的路径。
-3. 只通过 `practice-learning-records/scripts/note.py append --file learning-record-notes/<category>-<slug>.md --content-file - --check` 写入，区块走标准输入；禁止用 `Write` 改写笔记文件，也不要用固定路径的中转文件。
-4. 基础信息表用脚本返回的 tracking 值（记录 ID、目标知识点、累计复习次数、下次复习、笔记生成时间、笔记更新时间）；本轮表只写 `讲解时间`（与标题时间一致）与 `分类 · 状态变化`（`<category> · 新学`）。
-5. `## 讲解正文` 用 `**英文原文**：`、`**核心含义**：`、`**结构与语法**：`、`**词汇与搭配**：`、`**历史文化背景**：`、`**发音**：`、`**容易混淆**：`、`**可迁移表达**：` 分组，每组下每条要点写成一个列表项；没有值得补充的背景时，在背景栏目里明确写「这个表达没有需要特别补充的历史文化背景」。
+3. 只通过 `practice-learning-records/scripts/note.py explain --file learning-record-notes/<category>-<slug>.md --content-file - --check` 创建，内容走标准输入；禁止用 `Write` 改写笔记文件，也不要用固定路径的中转文件。返回 `duplicate: true` 说明该文件已有 `## 讲解`，按已写入处理，不要再写第二份。
+4. 基础信息表用脚本返回的 tracking 值（记录 ID、目标知识点、累计复习次数、下次复习、笔记生成时间、笔记更新时间）；讲解小节不写任何追踪行。
+5. `## 讲解` 下用 `**英文原文**：`、`**核心含义**：`、`**结构与语法**：`、`**词汇与搭配**：`、`**历史文化背景**：`、`**发音**：`、`**容易混淆**：`、`**可迁移表达**：` 分组，每组下每条要点写成一个列表项；没有值得补充的背景时，在背景栏目里明确写「这个表达没有需要特别补充的历史文化背景」。
 6. 只写正文已经实质讲解的内容，不抄菜单、不写未被解释的项目；讲解轮没有作答，因此不写 `## 本轮习题`、不写本轮得分与题量。
-7. 笔记写入失败不阻断教学回复：正文照常发送，并如实说明「本轮讲解笔记未保存」及命令给出的原因；`note_status` 为 `invalid` 时按 issue 用 `replace` 就地修正，`unverified` 时说明「本轮讲解笔记未校验」。
-8. 写入关系到仓库文件，按仓库根目录 `AGENTS.md` 的提交约定处理，不要把它和无关改动混进同一次提交。
+7. 之后的复习由 `practice-learning-records` 用 `note.py append` 往同一个文件追加 `# <时间> · 复习` 区块，讲解小节不动。
+8. 笔记写入失败不阻断教学回复：正文照常发送，并如实说明「本轮讲解笔记未保存」及命令给出的原因；`note_status` 为 `invalid` 时按 issue 用 `replace` 就地修正，`unverified` 时说明「本轮讲解笔记未校验」。
+9. 写入关系到仓库文件，按仓库根目录 `AGENTS.md` 的提交约定处理，不要把它和无关改动混进同一次提交。
 
 不要为了完整而解释每个单词。不要把简单内容讲得过度复杂。
 
