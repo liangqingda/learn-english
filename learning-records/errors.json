@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 218,
+  "revision": 220,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -843,6 +843,30 @@
       ],
       "first_learned_at": "2026-08-09T16:31:13+08:00",
       "last_learned_at": "2026-08-09T16:31:13+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:be-served-for-误用-应为-be-responsible-for": {
+      "id": "errors:be-served-for-误用-应为-be-responsible-for",
+      "category": "errors",
+      "key": "be-served-for-误用-应为-be-responsible-for",
+      "status": "learning",
+      "title": "be served for 误用：负责用 be responsible for",
+      "explanation": "serve 表示“为某人/某事服务”时直接接宾语，如 serve customers，不能用被动 be served for；表示“负责某事”应为 be responsible for + 名词。",
+      "source": "It is served for recruit.",
+      "example": "It is responsible for recruitment.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-09T20:59:39+08:00",
+      "last_learned_at": "2026-11-09T20:59:39+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -4668,6 +4692,30 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:recruit-动词误作名词-应写-recruitment": {
+      "id": "errors:recruit-动词误作名词-应写-recruitment",
+      "category": "errors",
+      "key": "recruit-动词误作名词-应写-recruitment",
+      "status": "learning",
+      "title": "recruit 误作名词，招聘活动用 recruitment",
+      "explanation": "recruit 作名词指“被招募的新人”，表示招聘这项工作或流程要用不可数名词 recruitment（美式也常用 hiring）。",
+      "source": "It is served for recruit.",
+      "example": "It is responsible for recruitment decisions.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-09T20:59:39+08:00",
+      "last_learned_at": "2026-11-09T20:59:39+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:redundant-repeated-then": {
       "id": "errors:redundant-repeated-then",
       "category": "errors",
@@ -6155,6 +6203,30 @@
       "first_learned_at": "2026-08-02T13:46:56+08:00",
       "last_learned_at": "2026-08-02T13:46:56+08:00",
       "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:已批准不必用过去完成时-had-approved": {
+      "id": "errors:已批准不必用过去完成时-had-approved",
+      "category": "errors",
+      "key": "已批准不必用过去完成时-had-approved",
+      "status": "learning",
+      "title": "“已经批准”不必用过去完成时",
+      "explanation": "现在完成 has approved 表示过去的批准动作对现在有影响；过去完成 had approved 需要另一个过去时间点作为参照，单独说“已经批准”用现在完成或一般过去。",
+      "source": "The headquarters had approved our budget proposal.",
+      "example": "Our headquarters has approved our budget proposal.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-09T20:59:39+08:00",
+      "last_learned_at": "2026-11-09T20:59:39+08:00",
+      "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,
