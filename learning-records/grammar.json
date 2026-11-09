@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 219,
+  "revision": 223,
   "category": "grammar",
   "records": {
     "grammar:alternative-question-a-or-b": {
@@ -372,6 +372,32 @@
       ],
       "first_learned_at": "2026-07-29T20:19:15+08:00",
       "last_learned_at": "2026-07-29T20:19:15+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:no-way-that-clause": {
+      "id": "grammar:no-way-that-clause",
+      "category": "grammar",
+      "key": "no-way-that-clause",
+      "status": "learning",
+      "title": "There's no way (that) + 从句：同位语从句与否定范围",
+      "explanation": "There is no way that + 完整句子：that 从句说明 way（可能性）的具体内容，属同位语从句，口语常省略 that；从句用陈述语序。no way 已经把「不可能」放在句首，所以从句内部仍用肯定形式，不能再套一层否定。",
+      "source": "There's no way I'm gonna eat this.",
+      "example": "There's no way she'll finish the report by Friday.（她绝不可能在周五前写完报告。）",
+      "tags": [
+        "appositive-clause",
+        "negation-scope",
+        "there-be"
+      ],
+      "first_learned_at": "2026-11-10T07:51:35+08:00",
+      "last_learned_at": "2026-11-10T07:51:35+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

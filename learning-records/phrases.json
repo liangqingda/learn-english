@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 222,
+  "revision": 223,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -1088,6 +1088,32 @@
       ],
       "first_learned_at": "2026-08-03T12:54:13+08:00",
       "last_learned_at": "2026-08-03T12:54:13+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:there-is-no-way": {
+      "id": "phrases:there-is-no-way",
+      "category": "phrases",
+      "key": "there-is-no-way",
+      "status": "learning",
+      "title": "There's no way (that)… — 强烈否定：绝不可能 / 绝对不干",
+      "explanation": "整体意思是「绝对没有这种可能」：既能表达强烈拒绝（这东西我不吃），也能表达难以置信（这个量我根本吃不下去）。后面接一个完整从句，口语里 that 常省略；no way 否定的是整件事发生的可能性，不是单个动作。语气强、偏非正式，日常口语和影视对白里高频。",
+      "source": "There's no way I'm gonna eat this!",
+      "example": "There's no way I'm gonna eat this!（这东西我绝对不吃！）",
+      "tags": [
+        "refusal",
+        "spoken-english",
+        "strong-negation"
+      ],
+      "first_learned_at": "2026-11-10T07:51:35+08:00",
+      "last_learned_at": "2026-11-10T07:51:35+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

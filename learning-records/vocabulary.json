@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 222,
+  "revision": 223,
   "category": "vocabulary",
   "records": {
     "vocabulary:across-preposition-adverb-vs-cross-verb": {
@@ -224,6 +224,32 @@
       ],
       "first_learned_at": "2026-11-01T19:12:18+08:00",
       "last_learned_at": "2026-11-01T19:12:18+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "vocabulary:gonna": {
+      "id": "vocabulary:gonna",
+      "category": "vocabulary",
+      "key": "gonna",
+      "status": "learning",
+      "title": "gonna — going to 的口语缩略形式",
+      "explanation": "gonna 是 going to 的口语拼写形式，表示「打算 / 将要」，美音读 /ˈɡɑːnə/。它本身已经包含 to，所以不能说 gonna to do。正式写作、考试作文里必须写 going to。",
+      "source": "I'm gonna eat this",
+      "example": "I'm gonna grab a coffee before class.（上课前我去买杯咖啡。）",
+      "tags": [
+        "contraction",
+        "informal",
+        "spoken-english"
+      ],
+      "first_learned_at": "2026-11-10T07:51:35+08:00",
+      "last_learned_at": "2026-11-10T07:51:35+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
