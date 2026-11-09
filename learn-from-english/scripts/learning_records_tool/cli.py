@@ -312,9 +312,11 @@ def handle_snapshot(args: argparse.Namespace) -> dict[str, Any]:
 
 
 TRACKING_ROW_RE = re.compile(
-    r"<tr><td>(记录 ID / 试卷 ID|目标知识点|累计复习次数|下次复习|分类 · 状态变化|本轮得分|复习时间|主观题得分|笔记生成时间|笔记更新时间)</td><td>(.*?)</td></tr>"
+    r"<tr><td>(记录 ID / 试卷 ID|目标知识点|累计复习次数|下次复习|分类 · 状态变化|本轮得分|复习时间|讲解时间|主观题得分|笔记生成时间|笔记更新时间)</td><td>(.*?)</td></tr>"
 )
 TRACKING_SKIP = ("题量与错题数", "主观题得分", "笔记生成时间", "笔记更新时间")
+# 讲解区块没有评分，分类行写 `<category> · 新学`，本轮得分行整行不写：这两项不参与比对
+EXPLAIN_SKIP = ("本轮得分", "分类 · 状态变化")
 
 
 def verify_tracking(store: NoteStore, file: str, heading: str) -> dict[str, Any]:
@@ -340,7 +342,9 @@ def verify_tracking(store: NoteStore, file: str, heading: str) -> dict[str, Any]
     mismatches = [
         {"field": field, "expected": value, "actual": rows.get(field)}
         for field, value in expected.items()
-        if field not in TRACKING_SKIP and rows.get(field) != value
+        if field not in TRACKING_SKIP
+        and not (heading.endswith("· 讲解") and field in EXPLAIN_SKIP)
+        and rows.get(field) != value
     ]
     if not mismatches:
         return {}

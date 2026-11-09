@@ -269,6 +269,7 @@ python3 learn-from-english/scripts/learning_records.py menu \
 ## 生成本轮学习笔记
 
 每一轮有实际作答的复习、聚焦练习或套题结束后，除写入规范记录外，还要在仓库根目录 `learning-record-notes/` 下写一份 Markdown 笔记。
+首次讲解的笔记（`讲解` 区块）由 `learn-from-english` 写入；这里只负责在同一个文件里按时间追加复习区块，不另建文件。
 笔记是**可读副本，不是规范数据源**：它不参与 `validate`、统计、抽题或调度，缺失或被删除都不影响评分与复习计划。
 
 写笔记前必须先读 `practice-learning-records/references/note-format.md`（何时写、文件名、模板骨架、字段取值、
@@ -291,6 +292,8 @@ python3 learn-from-english/scripts/learning_records.py menu \
   写完必须核对折叠块 `<details>` / `</details>` 成对、现有小节一个没少。
 - 追踪字段分两处：文件顶部的 `## 基础信息`（全文件唯一一份）放记录 ID / 试卷 ID、目标知识点、累计复习次数、下次复习、
   笔记生成时间、笔记更新时间；每个日期区块的裸表格（不加任何小标题）只放复习时间、分类 · 状态变化、本轮得分、题量与错题数（套题再加主观题得分）。
+  首次讲解写下的 `讲解` 区块只有 `讲解时间` 与 `分类 · 状态变化`（`<category> · 新学`）两行，由 `learn-from-english` 写入；
+  复习时若该记录的笔记里已有讲解区块，继续追加到同一个文件，不要另建。
   两处都固定展示，不写 `<details>`。
   写入命令会把记录级与本轮字段与规范记录逐字段比对，不一致时返回 `tracking_mismatch` 与 `tracking_expected`，按它改完再用 `replace`；
   `题量与错题数` 仍须自己按本轮实际题数与 `错题讲解` 块数填写。给已存在于其他文件的记录另建文件会被直接拒绝，并给出应复用的路径。

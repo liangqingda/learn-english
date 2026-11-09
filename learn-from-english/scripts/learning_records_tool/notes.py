@@ -33,7 +33,7 @@ NOTES_DIR_NAME = "learning-record-notes"
 LOCK_FILE_NAME = ".notes.lock"
 SLUG_FILE_RE = re.compile(r"^[a-z0-9\u4e00-\u9fff][a-z0-9\u4e00-\u9fff\-]*\.md$")
 HEADING_RE = re.compile(
-    r"^# (?P<date>\d{4}-\d{2}-\d{2}) (?P<time>\d{2}:\d{2}) · (?P<kind>复习|练习|套题)$"
+    r"^# (?P<date>\d{4}-\d{2}-\d{2}) (?P<time>\d{2}:\d{2}) · (?P<kind>复习|练习|套题|讲解)$"
 )
 DIVIDER = "---"
 RECORD_ID_ROW_RE = re.compile(r"<tr><td>记录 ID / 试卷 ID</td><td>(.*?)</td></tr>")
@@ -68,7 +68,7 @@ def _normalize_block(text: str) -> str:
         raise RecordError("note block is empty")
     if not HEADING_RE.match(lines[0].strip()):
         raise RecordError(
-            "note block must start with '# <YYYY-MM-DD> <HH:MM> · <复习|练习|套题>'"
+            "note block must start with '# <YYYY-MM-DD> <HH:MM> · <复习|练习|套题|讲解>'"
         )
     for line in lines[1:]:
         if line.startswith("# "):

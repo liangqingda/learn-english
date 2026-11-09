@@ -42,10 +42,25 @@ ROUND_ROWS = [
 # 只有套题笔记才写这一行：普通复习没有主观题，恒为 `—` 反而是噪音
 PAPER_ONLY_ROWS = ("主观题得分",)
 PAPER_KIND = "套题"
+EXPLAIN_KIND = "讲解"
+DEFAULT_EXPLAIN_ROWS = ["讲解时间", "分类 · 状态变化"]
+DEFAULT_EXPLAIN_SECTION = "讲解正文"
+DEFAULT_EXPLAIN_LABELS = [
+    "英文原文",
+    "核心含义",
+    "结构与语法",
+    "词汇与搭配",
+    "历史文化背景",
+    "发音",
+    "容易混淆",
+    "可迁移表达",
+]
 
 
 def expected_round_rows(kind: str) -> list[str]:
-    """套题在「题量与错题数」之后多一行主观题得分，其余 kind 与模板逐行一致。"""
+    """套题在「题量与错题数」之后多一行主观题得分；讲解区块只写讲解时间与分类，其余 kind 与模板逐行一致。"""
+    if kind == EXPLAIN_KIND:
+        return list(TEMPLATE["explain_rows"])
     rows = list(TEMPLATE["round_rows"])
     if kind == PAPER_KIND:
         for row in PAPER_ONLY_ROWS:
@@ -139,6 +154,9 @@ def load_template(path: Path | None = None) -> dict[str, object]:
         "knowledge_labels": tuple(meta.get("knowledge-labels", ())) or DEFAULT_KNOWLEDGE_LABELS,
         "error_labels": tuple(meta.get("error-labels", ())) or DEFAULT_DETAIL_LABELS,
         "unanswered_labels": tuple(meta.get("unanswered-labels", ())) or DEFAULT_UNANSWERED_LABELS,
+        "explain_rows": list(meta.get("explain-rows", ())) or DEFAULT_EXPLAIN_ROWS,
+        "explain_section": (meta.get("explain-section") or [DEFAULT_EXPLAIN_SECTION])[0],
+        "explain_labels": list(meta.get("explain-labels", ())) or DEFAULT_EXPLAIN_LABELS,
     }
 
 
@@ -181,7 +199,7 @@ RECORD_ID_RE = re.compile(
 NOTE_NAME_RE = re.compile(rf"^([a-z]+)-({NOTE_KEY_FRAGMENT})\.md$")
 TRANSITION_RE = re.compile(
     r"^(vocabulary|phrases|grammar|usage|errors|mixed|paper) · "
-    r"((learning|familiar|mastered) → (learning|familiar|mastered)|未评分)$"
+    r"((learning|familiar|mastered) → (learning|familiar|mastered)|未评分|新学)$"
 )
 UNANSWERED_WORDS = ("未作答", "未完成", "漏答")
 KNOWLEDGE_REF_RE = re.compile(r"^\*\*知识点\*\*：同\s*第\s*(\d+)\s*题")
@@ -262,12 +280,12 @@ def check(path: Path) -> list[dict]:
     # 1. 一级标题只允许日期区块：记录 ID 与知识点写在追踪表格里
     for i, line in enumerate(lines):
         if re.match(r"^# ", line) and not SECTION_RE.match(line):
-            add(i + 1, "一级标题只能写成 `# <YYYY-MM-DD HH:MM> · <复习|练习|套题>`：记录 ID 与知识点写进追踪表格的 `记录 ID / 试卷 ID` 与 `目标知识点` 行")
+            add(i + 1, "一级标题只能写成 `# <YYYY-MM-DD HH:MM> · <复习|练习|套题|讲解>`：记录 ID 与知识点写进追踪表格的 `记录 ID / 试卷 ID` 与 `目标知识点` 行")
 
     # 2. 区块标题
     sections = [(i + 1, m.group(1), m.group(2), m.group(3)) for i, line in enumerate(lines) if (m := SECTION_RE.match(line))]
     if not sections:
-        add(1, "缺少轮次区块标题，格式为 `# <YYYY-MM-DD HH:MM> · <复习|练习|套题>`")
+        add(1, "缺少轮次区块标题，格式为 `# <YYYY-MM-DD HH:MM> · <复习|练习|套题|讲解>`")
         return issues
 
     # 2b. 区块标题不得重复，且必须按时间升序排列（新轮次只能追加在末尾）
@@ -446,7 +464,10 @@ def check(path: Path) -> list[dict]:
 
         group_heads = [k for k, l in enumerate(body) if SECTION2_RE.match(l)]
         if not group_heads:
-            add(start, "区块内缺少 `## 本轮习题`")
+            first_section = (
+                str(TEMPLATE["explain_section"]) if kind == EXPLAIN_KIND else QUIZ_SECTION
+            )
+            add(start, f"区块内缺少 `## {first_section}`")
 
         if any(
             l.strip().startswith("<details")
@@ -503,17 +524,18 @@ def check(path: Path) -> list[dict]:
                 if not value:
                     add(line_no, f"轮次信息 `{row}` 的值不能为空；未知时写 `—`")
             stamp_text = f"{date} {time}"
-            review_time = tracking.get("复习时间", "")
-            if review_time != stamp_text:
+            time_row = "讲解时间" if kind == EXPLAIN_KIND else "复习时间"
+            round_time = tracking.get(time_row, "")
+            if round_time != stamp_text:
                 add(
-                    row_line.get("复习时间", table_line),
-                    f"`复习时间` 必须与轮次标题时间一致：应为 `{stamp_text}`，当前为 `{review_time}`",
+                    row_line.get(time_row, table_line),
+                    f"`{time_row}` 必须与轮次标题时间一致：应为 `{stamp_text}`，当前为 `{round_time}`",
                 )
             transition = tracking.get("分类 · 状态变化", "")
             if transition and not TRANSITION_RE.match(transition):
                 add(
                     row_line.get("分类 · 状态变化", table_line),
-                    f"`分类 · 状态变化` 必须写成 `<category> · <旧状态> → <新状态>` 或 `<category> · 未评分`：当前为 `{transition}`",
+                    f"`分类 · 状态变化` 必须写成 `<category> · <旧状态> → <新状态>`、`<category> · 未评分` 或 `<category> · 新学`：当前为 `{transition}`",
                 )
             score = tracking.get("本轮得分", "")
             if score and not SCORE_RE.match(score):
@@ -533,16 +555,17 @@ def check(path: Path) -> list[dict]:
                     row_line.get("主观题得分", table_line),
                     f"`主观题得分` 必须是 `写作 x/15 · 翻译 x/15` 或 `—`：当前为 `{subjective}`",
                 )
-            quiz_pos = next(
-                (
-                    k
-                    for k, l in enumerate(body)
-                    if SECTION2_RE.match(l) and SECTION2_RE.match(l).group(1).strip() == QUIZ_SECTION
-                ),
-                None,
-            )
-            if quiz_pos is not None and quiz_pos <= table_close:
-                add(start + quiz_pos + 1, f"`## {QUIZ_SECTION}` 必须在轮次信息表之后")
+            if kind != EXPLAIN_KIND:
+                quiz_pos = next(
+                    (
+                        k
+                        for k, l in enumerate(body)
+                        if SECTION2_RE.match(l) and SECTION2_RE.match(l).group(1).strip() == QUIZ_SECTION
+                    ),
+                    None,
+                )
+                if quiz_pos is not None and quiz_pos <= table_close:
+                    add(start + quiz_pos + 1, f"`## {QUIZ_SECTION}` 必须在轮次信息表之后")
         for line_off, line in enumerate(body):
             if line.strip().startswith("| 字段 |"):
                 add(start + line_off + 1, "追踪信息不再使用 Markdown 表头行，改用无表头 HTML 表格")
@@ -554,15 +577,83 @@ def check(path: Path) -> list[dict]:
             g_end = group_heads[gidx + 1] if gidx + 1 < len(group_heads) else len(body)
             groups.append((k, title, g_end))
 
-        quiz_index = next((i for i, (_, title, _) in enumerate(groups) if title == QUIZ_SECTION), None)
-        if quiz_index is None:
-            if group_heads:  # 一个二级标题都没有时只报一次，避免重复提示
-                add(start, "区块内缺少 `## 本轮习题`")
-        elif quiz_index != 0:
-            add(
-                start + groups[quiz_index][0] + 1,
-                f"`## {QUIZ_SECTION}` 必须是区块内第一个二级标题：轮次信息表不加小标题，直接跟在日期标题后",
-            )
+        explain_section = str(TEMPLATE["explain_section"])
+        if kind == EXPLAIN_KIND:
+            if not group_heads:
+                add(start, f"讲解区块缺少 `## {explain_section}`")
+            elif groups[0][1] != explain_section:
+                add(
+                    start + groups[0][0] + 1,
+                    f"`## {explain_section}` 必须是讲解区块的第一个二级标题：讲解正文直接跟在讲解信息表之后",
+                )
+            else:
+                g_start, _g_title, g_end = groups[0]
+                explain_body = body[g_start + 1 : g_end]
+                label_lines = []
+                empty_labels = []
+                for index, line in enumerate(explain_body):
+                    match = re.match(r"^\*\*([^*]+)\*\*：\s*(.*)$", line.strip())
+                    if not match:
+                        continue
+                    label_lines.append(match.group(1))
+                    if match.group(2).strip():
+                        continue
+                    following = next(
+                        (item.strip() for item in explain_body[index + 1 :] if item.strip()),
+                        "",
+                    )
+                    if not (
+                        STRUCTURED_LINE_RE.match(following)
+                        or following.startswith("<table")
+                        or following.startswith("|")
+                    ):
+                        empty_labels.append(match.group(1))
+                structured = [
+                    line
+                    for line in explain_body
+                    if STRUCTURED_LINE_RE.match(line.strip())
+                    or line.strip().startswith("<table")
+                    or line.strip().startswith("|")
+                ]
+                if empty_labels:
+                    add(
+                        start + g_start + 1,
+                        "讲解正文的小标题不能只写标签：`"
+                        + "`/`".join(empty_labels)
+                        + "` 后面必须写出内容",
+                    )
+                if len(label_lines) < 2:
+                    add(
+                        start + g_start + 1,
+                        f"`## {explain_section}` 必须用小标题 `**<栏目>**：` 分组（如 **英文原文**：、**核心含义**：），当前只有 {len(label_lines)} 个",
+                    )
+                if not structured:
+                    add(
+                        start + g_start + 1,
+                        "讲解正文必须拆成有序列表、无序列表或表格逐条记录：不要把多条结论揉成一整段文字",
+                    )
+                elif len(structured) < len(label_lines) + 1:
+                    add(
+                        start + g_start + 1,
+                        "每个讲解小标题下至少写一条列表项或表格行：讲解要点一条一行，不要只留小标题",
+                    )
+                opens = sum(1 for line in body[g_start:g_end] if line.strip() == "<details>")
+                closes = sum(1 for line in body[g_start:g_end] if line.strip() == "</details>")
+                if opens != closes:
+                    add(
+                        start + g_start + 1,
+                        f"折叠块必须成对闭合：本小节 `<details>` {opens} 个、`</details>` {closes} 个",
+                    )
+        else:
+            quiz_index = next((i for i, (_, title, _) in enumerate(groups) if title == QUIZ_SECTION), None)
+            if quiz_index is None:
+                if group_heads:  # 一个二级标题都没有时只报一次，避免重复提示
+                    add(start, "区块内缺少 `## 本轮习题`")
+            elif quiz_index != 0:
+                add(
+                    start + groups[quiz_index][0] + 1,
+                    f"`## {QUIZ_SECTION}` 必须是区块内第一个二级标题：轮次信息表不加小标题，直接跟在日期标题后",
+                )
 
         # 旧写法：菜单项仍写成三级标题
         for k, line in enumerate(body):
@@ -969,7 +1060,12 @@ def apply_safe_fixes(text: str) -> tuple[str, list[str]]:
                     continue
                 rebuilt.append(line)
                 if not inserted_time and "<colgroup>" in line:
-                    rebuilt.append(f"<tr><td>复习时间</td><td>{stamp}</td></tr>")
+                    time_row = (
+                        "讲解时间"
+                        if match.group(3) == EXPLAIN_KIND
+                        else "复习时间"
+                    )
+                    rebuilt.append(f"<tr><td>{time_row}</td><td>{stamp}</td></tr>")
                     inserted_time = True
         head_lines = [
             f"<details>",
