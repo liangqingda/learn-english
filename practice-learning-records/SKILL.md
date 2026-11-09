@@ -30,7 +30,7 @@ python3 learn-from-english/scripts/learning_records.py snapshot --record "<recor
 python3 learn-from-english/scripts/learning_records.py snapshot --notes
 ```
 
-结果来自 30 分钟有效的会话缓存；写入 note 时会自动刷新对应条目，只读路径不必加 `--refresh`。
+结果来自 30 分钟有效的会话缓存；笔记写入已独立到 `take-english-study-notes`，不再刷新该缓存，只读路径不必加 `--refresh`，写入前若怀疑被别的会话改过则加一次 `--refresh` 或直接用 `note.py sections` 复核。
 
 写笔记前先运行 `take-english-study-notes/scripts/note.py sections --file <笔记文件> --section "## <小节标题>"`（或 `snapshot --notes`）确认目标区块是否已有同名 `##` 小节，再决定用 `append-section`（新增）还是 `replace --rewrite-section`（改写），不要先拼好大段内容再被脚本拒绝。一轮的全部错题用一次 `batch-upsert` 写入（已评分复习用一次 `complete-review`），不逐题调用。只读展示不运行 `check_note.py`；校验只在写入路径上跑，结果如实报告。快照 `stale: true` 或怀疑被别的会话改动时，只读内容照常展示，只在真正写入前重新取一次快照或重读该文件。
 
