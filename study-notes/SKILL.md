@@ -34,7 +34,7 @@ python3 study-notes/scripts/note.py check --all [--fix]
 - 写入全程在 `learning-record-notes/.notes.lock` 排他锁内完成「读 → 拼装 → `os.replace` 原子替换」，调用方不自己改写文件。
 - 禁止用 `Write` 或任何编辑器直接改笔记；也禁止先落固定路径（如 `/tmp/note-block.md`）的临时内容文件，并行会话会互相覆盖。
 - 写之前先 `sections` 查目标文件已有哪些轮次与 `##` 小节，再决定 `append-section` 还是 `replace --rewrite-section`，不要拼好大段内容再被拒。
-- `--check` 会在写入后自动跑本 skill 的校验器，并自动修复无争议问题（行尾空格、答案题号前缀、缺失的 `---` 等），结果放在 `auto_fixed`。
+- `append` / `append-section` / `replace` 加 `--check` 会在写入后自动跑本 skill 的校验器，并自动修复无争议问题（行尾空格、答案题号前缀、缺失的 `---` 等），结果放在 `auto_fixed`；`explain --check` 只校验不回改。
 
 ## 规则来源与优先级
 

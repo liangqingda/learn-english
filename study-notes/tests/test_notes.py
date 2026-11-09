@@ -6,7 +6,6 @@ import re
 import subprocess
 import sys
 import tempfile
-import time
 import unittest
 from pathlib import Path
 
@@ -673,6 +672,43 @@ class NoteCliTest(unittest.TestCase):
         self.assertIn("- 新乙", text)
 
 
+    def test_tracking_rows_are_checked_against_the_record(self) -> None:
+        """追踪行与规范记录比对：记录事实由 learn-from-english 的 record-tracking 提供。"""
+        import note  # noqa: PLC0415
+
+        expected = {
+            "记录 ID / 试卷 ID": "errors:out-west",
+            "分类 · 状态变化": "errors · learning → familiar",
+            "本轮得分": "10 / 10",
+            "目标知识点": "out west 不是 outwest",
+            "累计复习次数": "2",
+            "下次复习": "2026-11-23 09:00",
+            "笔记生成时间": "2026-11-09 09:05",
+            "笔记更新时间": "2026-11-09 09:05",
+        }
+        self.run_cli(
+            [
+                "append",
+                "--file",
+                "learning-record-notes/errors-out-west.md",
+                "--content-file",
+                "-",
+            ],
+            block_text(heading="2026-11-09 09:00 · 复习", answer="west"),
+        )
+        original = note.record_tracking
+        note.record_tracking = lambda identifier: expected
+        try:
+            result = note.verify_tracking(
+                NoteStore(self.repo),
+                "learning-record-notes/errors-out-west.md",
+                "# 2026-11-09 09:00 · 复习",
+            )
+        finally:
+            note.record_tracking = original
+        self.assertEqual(result, {})
+
+
 def result_order(text: str) -> list[str]:
     return [
         line[2:].split(" · ")[0]
@@ -688,43 +724,6 @@ def updated_at_value(path: Path) -> str:
     return match.group(1)
 
 
-    def test_tracking_rows_are_checked_against_the_record(self) -> None:
-        import learning_records_tool.cli as cli_module
-
-        class StubService:
-            def note_context(self, identifier: str) -> dict:
-                return {
-                    "tracking": {
-                        "记录 ID / 试卷 ID": "errors:out-west",
-                        "分类 · 状态变化": "errors · learning → familiar",
-                        "本轮得分": "10 / 10",
-                        "目标知识点": "out west 不是 outwest",
-                        "累计复习次数": "2",
-                        "下次复习": "2026-11-23 09:00",
-                        "笔记生成时间": "2026-11-09 09:05",
-                        "笔记更新时间": "2026-11-09 09:05",
-                    }
-                }
-
-        self.run_cli(
-            [
-                "append",
-                "--file",
-                "learning-record-notes/errors-out-west.md",
-                "--content-file",
-                "-",
-            ],
-            block_text(heading="2026-11-09 09:00 · 复习", answer="west"),
-        )
-        original = cli_module.service
-        cli_module.service = lambda: StubService()
-        try:
-            result = cli_module.verify_tracking(
-                NoteStore(self.repo), "learning-record-notes/errors-out-west.md", "# 2026-11-09 09:00 · 复习"
-            )
-        finally:
-            cli_module.service = original
-        self.assertEqual(result, {})
 
 
 if __name__ == "__main__":

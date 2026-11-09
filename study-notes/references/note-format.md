@@ -35,9 +35,10 @@
 ## 追加与修正
 
 笔记的**唯一**写入方式是脚本命令，禁止用 `Write` 改写笔记文件。统一入口是本 skill 自带的
-`study-notes/scripts/note.py`：它把 `append` / `append-section` / `replace` 转发给 `learn-from-english` 的
-`learning_records.py`（先看 `$LEARN_ENGLISH_CLI`，再看仓库内同级目录与安装位），`check` 则直接用本 skill 的
-`check_note.py`，因此只装任一 skill 时都能定位到自己需要的那一半。
+`study-notes/scripts/note.py`：写入由本 skill 的 `note_store.py` 完成（排他锁 + 原子替换），校验由同目录的
+`check_note.py` 完成，不需要装其他 skill 就能写。唯一跨 skill 依赖是只读的记录事实：追踪表比对通过
+`learning_records.py record-tracking --id <id>` 取回期望值（先看 `$LEARN_ENGLISH_CLI`，再看仓库内同级目录与安装位），
+取不到时返回 `tracking_skipped`，不阻断写入。
 
 1. 用 heredoc 把本轮区块通过标准输入传给命令，**不要**先写固定路径的临时文件（如 `/tmp/note-block.md`）；
    确需文件时用 `mktemp`。区块第一行必须是 `# <YYYY-MM-DD HH:MM> · <复习|练习|套题>`，一个区块只能有一个标题行。
