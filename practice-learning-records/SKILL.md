@@ -1,6 +1,6 @@
 ---
 name: practice-learning-records
-description: 从规范学习记录中选择到期或低分知识点开展复习，按回答记录 0 至 10 分，并在一次协调写操作中保存评分、状态变化和实际错题；也支持复习已标熟或已掌握知识点、查看历史统计，以及基于已掌握知识点生成、持久化、续答、重做和评分四六级、IELTS 风格或其他可配置英语考试套题。当用户消息去除首尾空白后仅为中文“你好”或“复习”，或仅为单独的英文单词 review 或 hi（忽略大小写）时必须使用；在本 Skill 打开的复习或套题流程中，用户回复最近菜单中的数字或答案时也使用。除 review、hi 之外的英文输入（含 hello 等单词）一律由 learn-from-english 讲解，本 Skill 不拦截其它英文触发词。
+description: 从规范学习记录中选择到期或低分知识点开展复习，按回答记录 0 至 10 分，并在一次协调写操作中保存评分、状态变化和实际错题；也支持复习已标熟或已掌握知识点、查看历史统计、基于已掌握知识点生成/持久化/续答/重做/评分四六级与 IELTS 风格等考试套题，以及按用户给出的复习笔记相对路径直接学习该笔记对应的知识点。当用户消息去除首尾空白后仅为中文“你好”或“复习”，仅为单独的英文单词 review 或 hi（忽略大小写），或仅为一条复习笔记的相对路径（形如 `learning-record-notes/<category>-<slug>.md`）时必须使用；在本 Skill 打开的复习或套题流程中，用户回复最近菜单中的数字或答案时也使用。除 review、hi 之外的英文输入（含 hello 等单词）一律由 learn-from-english 讲解，本 Skill 不拦截其它英文触发词。
 ---
 
 # 复习英语学习记录
@@ -9,7 +9,7 @@ description: 从规范学习记录中选择到期或低分知识点开展复习�
 
 ## 打开复习菜单
 
-收到触发词“你好”或“复习”（中文，去除首尾空白后仅为此二者），或单独的英文单词 review、hi（去除首尾空白后仅为此内容，忽略大小写）时运行：
+收到触发词“你好”或“复习”（中文，去除首尾空白后仅为此二者），或单独的英文单词 review、hi（去除首尾空白后仅为此内容，忽略大小写）时运行下面的初始菜单；消息仅为一条复习笔记相对路径时按「从笔记相对路径学习知识点」直接开始那一轮，不弹初始菜单：
 
 ```bash
 python3 learn-from-english/scripts/learning_records.py menu --context initial
@@ -18,6 +18,30 @@ python3 learn-from-english/scripts/learning_records.py menu --context initial
 严格按返回的 `options` 顺序、`label` 原文和 `group` 展示菜单，不自行增加、删除、重新分组或估算数量。数量只保留在脚本生成的标签末尾。顶层选项跨分组连续编号为 `1`、`2`；option 含 `children` 时，在父项下把子项编号为 `1-1`、`1-2`，更深层继续追加段。把编号路径与 option 对象只保留在当前对话。脚本保证 `Other Menus` 至少动态生成 3 项；把 `mastered-exam-paper` 和返回的历史试卷选项原样放在 `Popular Menus`。把 `disabled: true` 的项显示为暂不可用但不执行；用户选择时说明记录正被其他会话领取并保持当前菜单。
 
 若 `state` 为 `empty`，说明目前没有学习记录，并直接展示脚本返回的状态、基础练习和咖啡店场景入口，不编造历史知识点。
+
+## 从笔记相对路径学习知识点
+
+用户消息（去掉首尾空白、可带反引号或引号）整条只是一条复习笔记的相对路径，形如
+`learning-record-notes/errors-before-begin-gerund-or-clause.md`（也接受带仓库根前缀的写法）时，直接以这条笔记
+对应的知识点为目标开始一轮学习，不再弹初始菜单、也不要用户重发“复习”：
+
+1. 先跑 `python3 take-english-study-notes/scripts/note.py sections --file <path>` 取 `record_id`。
+   文件不存在、不在 `learning-record-notes/` 下、不是 `README.md`、或返回不出 `record_id` 时，如实说明定位不到知识点，
+   并给出可用路径提示（`python3 take-english-study-notes/scripts/note.py list` 的输出），不要猜记录、不要凭空造知识点。
+2. 用返回的 `record_id` 取记录事实：`learning_records.py list --category <category> --brief` 按 id 精确筛出
+   `title`、`explanation`、`source`、`example`、`status`；要确认记录→笔记的对应关系再跑
+   `learning_records.py snapshot --record <record_id>`（命中缓存时可能滞后于刚建的笔记，`record_file: null` 不代表文件不存在，
+   以用户给的路径和第 1 步的 `record_id` 为准）。这些查询都不增加学习或复习次数。
+3. 这一轮**不领取 claim**：它不经 `next-review` 抽取，所以不要调 `next-review` 和 `release-claim`，也不要带
+   `claim_owner` / `claim_token`。评分直接走 `complete-review --input`，payload 里只写 `id`、`score` 和 `errors`。
+4. 出题范围只限这一条记录：按「开展普通复习」的题型组合、由易到难和答案隔离规则设计一组建模在 5 至 10 题（默认 6 题），
+   不要在题干暴露知识点名称或答案。首次出题时把题组作为本轮唯一操作入口，不显示菜单。
+5. 用户作答后按「评分与协调记录」的评分自检与 0 至 10 分口径评分，`errors` 只收本次实际展示并已解释的错误；
+   保存成功后按「生成本轮学习笔记」写到**用户给出的那个文件**（不是另建新文件），并先确认或补齐 `## 讲解`。
+6. 该记录的笔记若还挂着占位讲解（“历史知识点补建笔记”那段提示），先按记录事实补写一份真实讲解再写本轮区块：
+   用 `note.py explain --update` 替换占位内容，本分类必写栏按 `note-format.md` 填。
+7. 后续若用户回复数字选择本轮生成的菜单，按「处理数字选择」正常分派。
+
 
 ## 会话效率
 
@@ -276,10 +300,13 @@ python3 learn-from-english/scripts/learning_records.py menu \
 追加与修正命令、菜单项记法、校验与迁移全部在那里，**不要凭记忆或旧轮次猜格式**），并按
 `take-english-study-notes/templates/review-note.md` 逐字替换占位符。
 
-笔记的规则文档、模板、校验器与写入实现全部归 `take-english-study-notes` skill；本 Skill 只保留六条硬约束（全部通过
+笔记的规则文档、模板、校验器与写入实现全部归 `take-english-study-notes` skill；本 Skill 只保留七条硬约束（全部通过
 `take-english-study-notes/scripts/note.py` 执行，它自带 `explain` / `append` / `append-section` / `replace` / `sections` / `list` / `check`）：
 
 - 只在这一条命令上写笔记，禁止用 `Write` 改写笔记文件，也禁止先落固定路径的临时区块文件。
+- 每份笔记都必须有 `## 讲解`。`append` / `append-section` / `replace` 之前先确认目标文件已有这一节；缺了就先用
+  `note.py explain --update` 补一份（插到 `## 基础信息` 表之后、日期区块之前，返回 `inserted: true`），
+  确实没有正文可写时按 `note-format.md` 的占位提示写法填写，再写本轮区块。校验器允许缺讲解，不会替你拦。
 - 给已有区块补菜单小节用 `append-section`（锁内只追加一个 `## ` 小节，区块其余内容一字不动），
   **不要**为了加一节去整块 `replace`：同一个日期区块会被不同对话持续追加小节，整块重写就是覆盖事故的来源。
   `replace` 只用于修正本轮自己刚写错的内容，且它在锁内会自动保留新内容没有带上的既有小节（返回 `preserved_sections`）；

@@ -69,6 +69,47 @@ class NoteAppendTest(unittest.TestCase):
             result_order(text), ["2026-11-07 21:00", "2026-11-08 09:30"]
         )
 
+    def test_update_inserts_explanation_into_a_note_that_has_none(self) -> None:
+        """历史笔记只有复习区块时，explain --update 要把 `## 讲解` 插到基础信息表之后。"""
+        self.store.append(self.note, round_block("2026-11-07 21:00"))
+        self.store.append(self.note, round_block("2026-11-08 09:30"))
+        self.assertNotIn("## 讲解", self.note.read_text(encoding="utf-8"))
+
+        result = self.store.write_explanation(
+            self.note,
+            "## 讲解\n\n**错误机制**：\n\n- 占位：本条为历史知识点补建笔记。\n",
+            update=True,
+        )
+
+        self.assertTrue(result["inserted"])
+        self.assertFalse(result["updated"])
+        text = self.note.read_text(encoding="utf-8")
+        self.assertEqual(text.count("## 讲解"), 1)
+        # 讲解必须紧跟基础信息表、在所有日期区块之前
+        self.assertLess(text.index("</table>"), text.index("## 讲解"))
+        self.assertLess(text.index("## 讲解"), text.index("# 2026-11-07 21:00 · 复习"))
+        # 两个已有区块一字不动
+        self.assertEqual(
+            result_order(text), ["2026-11-07 21:00", "2026-11-08 09:30"]
+        )
+        self.assertEqual(text.count("\n---\n"), 1)
+
+    def test_update_still_replaces_an_existing_explanation(self) -> None:
+        self.store.write_explanation(
+            self.note,
+            "## 基础信息\n\n<table>\n</table>\n\n## 讲解\n\n- 旧讲解\n",
+        )
+        result = self.store.write_explanation(
+            self.note,
+            "## 讲解\n\n**错误机制**：\n\n- 新讲解\n",
+            update=True,
+        )
+        self.assertFalse(result.get("inserted", False))
+        self.assertTrue(result["updated"])
+        text = self.note.read_text(encoding="utf-8")
+        self.assertIn("新讲解", text)
+        self.assertNotIn("旧讲解", text)
+
     def test_duplicate_heading_is_idempotent(self) -> None:
         self.store.append(self.note, round_block())
         before = self.note.read_bytes()

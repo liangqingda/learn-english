@@ -152,7 +152,9 @@ def read_content(path: str) -> str:
 def handle_explain(args: argparse.Namespace) -> dict[str, Any]:
     note = store()
     result = note.write_explanation(args.file, read_content(args.content_file), update=args.update)
-    if args.check and (result.get("appended") or result.get("updated")):
+    if args.check and (
+        result.get("appended") or result.get("updated") or result.get("inserted")
+    ):
         result["check"] = note.check(result["file"])
         result["check_ok"] = result["check"].get("ok")
         result["note_status"] = (
@@ -227,7 +229,11 @@ def build_parser() -> argparse.ArgumentParser:
     )
     explain.add_argument("--file", required=True, help="learning-record-notes/<category>-<slug>.md")
     explain.add_argument("--content-file", required=True, help="raw Markdown (基础信息 + 讲解) path or - for stdin")
-    explain.add_argument("--update", action="store_true", help="rewrite the existing '## 讲解' section only")
+    explain.add_argument(
+        "--update",
+        action="store_true",
+        help="rewrite the existing '## 讲解' section; if the note has none yet, insert it after the 基础信息 table",
+    )
     explain.add_argument("--check", action="store_true", help="run the validator afterwards")
     explain.set_defaults(handler=handle_explain)
 

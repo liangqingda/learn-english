@@ -529,9 +529,9 @@ class NoteStore:
             None,
         )
         if start is None:
-            raise NoteError(
-                f"note has no `## {EXPLAIN_SECTION}` section to update: {self.relative(target)}"
-            )
+            # 旧笔记（尤其历史补建、只追加过复习区块的）可能没有讲解小节：
+            # 补一份插在基础信息表之后、所有日期区块之前，不覆盖任何已有内容。
+            return self._insert_explanation(target, lines, content)
         end = next(
             (
                 index
@@ -567,6 +567,55 @@ class NoteStore:
             "ok": True,
             "appended": False,
             "updated": True,
+            "explanation": True,
+            "file": self.relative(target),
+            "bytes": len(composed.encode("utf-8")),
+        }
+
+    def _insert_explanation(
+        self, target: Path, lines: list[str], content: str
+    ) -> dict[str, Any]:
+        """Insert the missing `## 讲解` section without touching any other line.
+
+        Historical notes were often created by review rounds only, so they carry
+        `## 基础信息` plus dated blocks and no explanation. The section belongs
+        right after the basic-info table and before every dated block.
+        """
+        new_lines = _normalize_text(content).strip("\n").split("\n")
+        head_index = next(
+            (index for index, line in enumerate(new_lines) if EXPLAIN_HEAD_RE.match(line)),
+            None,
+        )
+        if head_index is None:
+            raise NoteError(f"replacement content must contain `## {EXPLAIN_SECTION}`")
+        body = new_lines[head_index:]
+        while body and not body[-1].strip():
+            body.pop()
+        insert_at = next(
+            (
+                index + 1
+                for index, line in enumerate(lines)
+                if line.strip() == "</table>"
+            ),
+            None,
+        )
+        if insert_at is None:
+            insert_at = next(
+                (index for index, line in enumerate(lines) if line.startswith("# ")),
+                len(lines),
+            )
+        prefix = lines[:insert_at]
+        suffix = lines[insert_at:]
+        while suffix and not suffix[0].strip():
+            suffix.pop(0)
+        composed = "\n".join(prefix + ["", *body, ""] + suffix)
+        composed = _bump_updated_at(composed.rstrip("\n") + "\n", datetime.now())
+        self._write(target, composed)
+        return {
+            "ok": True,
+            "appended": False,
+            "updated": False,
+            "inserted": True,
             "explanation": True,
             "file": self.relative(target),
             "bytes": len(composed.encode("utf-8")),

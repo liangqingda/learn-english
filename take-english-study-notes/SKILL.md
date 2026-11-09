@@ -16,8 +16,12 @@ description: 复习笔记（`learning-record-notes/*.md`）的唯一 owner：何
 | 讲解轮（用户发来一句英语、正文里实质讲解过） | `learn-from-english` | 每条实际讲解的记录一个文件，写 `## 基础信息` + 文件级 `## 讲解` |
 | 有实际作答的复习 / 聚焦练习 / 套题 | `practice-learning-records` | 往该记录已有文件追加一个日期区块 `# <date> <time> · 复习\|练习\|套题` |
 | 菜单型后续学习（场景对话、扩展讲解、追加练习） | 两者皆可 | 往同一日期区块追加 `## <选项原文>` 小节，不另建文件 |
+| 笔记存在但缺少 `## 讲解`（历史补建、只写过复习区块） | 任一写该笔记的 skill | **先补齐讲解**：用 `explain --update` 插一份（没有正文时写占位提示），再写本轮区块 |
+| 某个知识点还没有任何笔记 | 任一提到该记录的 skill | 用 `explain` 创建文件，讲解正文缺失时写占位提示，不留空文件 |
 
 一个知识点只有一次首次讲解，复习才会多轮：讲解写成文件级固定小节，复习写成日期区块，两者不混用。
+每份笔记都必须有 `## 讲解`；正文暂时没有内容时写提示文案，不要空着、也不要省略这一节
+（校验器允许缺讲解，所以这一条只能靠写入路径执行，不能指望 `check` 拦住）。
 
 ## 唯一入口
 
@@ -34,6 +38,7 @@ python3 take-english-study-notes/scripts/note.py check --all [--fix]
 - 写入全程在 `learning-record-notes/.notes.lock` 排他锁内完成「读 → 拼装 → `os.replace` 原子替换」，调用方不自己改写文件。
 - 禁止用 `Write` 或任何编辑器直接改笔记；也禁止先落固定路径（如 `/tmp/note-block.md`）的临时内容文件，并行会话会互相覆盖。
 - 写之前先 `sections` 查目标文件已有哪些轮次与 `##` 小节，再决定 `append-section` 还是 `replace --rewrite-section`，不要拼好大段内容再被拒。
+- `explain --update` 有两种语义：文件已有 `## 讲解` 时只替换该小节；文件没有 `## 讲解` 时把这一节插入到 `## 基础信息` 表之后、所有日期区块之前（返回 `inserted: true`），不覆盖任何已有内容。补讲解一律用它，不要用 `Write` 或 `replace` 手动插小块。
 - `append` / `append-section` / `replace` 加 `--check` 会在写入后自动跑本 skill 的校验器，并自动修复无争议问题（行尾空格、答案题号前缀、缺失的 `---` 等），结果放在 `auto_fixed`；`explain --check` 只校验不回改。
 
 ## 规则来源与优先级
@@ -74,6 +79,7 @@ python3 take-english-study-notes/scripts/note.py check --all [--fix]
 |---|---|
 | 写入失败（路径不合规、缺标题、同标题小节已存在等） | 正文照常发送，原样说明命令报错原因；不得改用 `Write` 绕过 |
 | `duplicate: true`（同标题同内容） | 按已写入处理，不重试、不补写 |
+| `inserted: true`（`explain --update` 在缺讲解的旧笔记里插入了这一节） | 按已补齐处理，接着写本轮区块；不要再用 `append` 或 `Write` 另加一份讲解 |
 | `heading_adjusted: true` | 按返回的 `heading` 继续，两轮内容都已保留，不要用原时间再追加一遍 |
 | `note_status: unverified` | 回复里明确写「本轮笔记未校验」 |
 
