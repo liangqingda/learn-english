@@ -44,16 +44,14 @@ PAPER_ONLY_ROWS = ("主观题得分",)
 PAPER_KIND = "套题"
 # 讲解是文件级固定小节（一个知识点只有一份），不是轮次区块
 DEFAULT_EXPLAIN_SECTION = "讲解"
-DEFAULT_EXPLAIN_LABELS = [
-    "英文原文",
-    "核心含义",
-    "结构与语法",
-    "词汇与搭配",
-    "历史文化背景",
-    "发音",
-    "容易混淆",
-    "可迁移表达",
-]
+# 讲解按记录分类聚焦：只要求本分类最核心的那一栏，其余栏目自由取舍
+DEFAULT_EXPLAIN_REQUIRED = {
+    "vocabulary": "核心含义",
+    "phrases": "核心含义",
+    "grammar": "语法机制",
+    "usage": "语气与语域",
+    "errors": "错误机制",
+}
 
 
 def expected_round_rows(kind: str) -> list[str]:
@@ -152,7 +150,15 @@ def load_template(path: Path | None = None) -> dict[str, object]:
         "error_labels": tuple(meta.get("error-labels", ())) or DEFAULT_DETAIL_LABELS,
         "unanswered_labels": tuple(meta.get("unanswered-labels", ())) or DEFAULT_UNANSWERED_LABELS,
         "explain_section": (meta.get("explain-section") or [DEFAULT_EXPLAIN_SECTION])[0],
-        "explain_labels": list(meta.get("explain-labels", ())) or DEFAULT_EXPLAIN_LABELS,
+        "explain_required": {
+            **DEFAULT_EXPLAIN_REQUIRED,
+            **{
+                key.strip(): value.strip()
+                for item in meta.get("explain-required-labels", ())
+                if "=" in item
+                for key, value in [item.split("=", 1)]
+            },
+        },
     }
 
 
@@ -457,6 +463,9 @@ def check(path: Path) -> list[dict]:
         explain_body = head[h_explain + 1 : explain_end]
         if any(TABLE_ROW_RE.match(line.strip()) and "讲解时间" in line for line in explain_body):
             add(h_explain + 1, f"`## {explain_section}` 不是轮次区块：不写 `讲解时间`、`分类 · 状态变化` 这类本轮追踪行")
+        explain_required = str(
+            TEMPLATE["explain_required"].get(note_category or "", "")
+        )
         label_lines = []
         empty_labels = []
         for index, line in enumerate(explain_body):
@@ -488,7 +497,12 @@ def check(path: Path) -> list[dict]:
         if len(label_lines) < 2:
             add(
                 h_explain + 1,
-                f"`## {explain_section}` 必须用小标题 `**<栏目>**：` 分组（如 **英文原文**：、**核心含义**：），当前只有 {len(label_lines)} 个",
+                f"`## {explain_section}` 至少要有两栏 `**<栏目>**：` 分组（栏目按本记录的分类自选），当前只有 {len(label_lines)} 个",
+            )
+        if explain_required and explain_required not in label_lines:
+            add(
+                h_explain + 1,
+                f"讲解必须聚焦本记录的分类 `{note_category}`：至少写一栏 `**{explain_required}**：`；其余栏目按分类自选，不必凑齐固定八项",
             )
         if not structured:
             add(h_explain + 1, "讲解必须拆成有序列表、无序列表或表格逐条记录：不要把多条结论揉成一整段文字")

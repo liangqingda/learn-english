@@ -429,7 +429,9 @@ class NoteStore:
             "bytes": len(composed.encode("utf-8")),
         }
 
-    def write_explanation(self, path: str, content: str) -> dict[str, Any]:
+    def write_explanation(
+        self, path: str, content: str, *, update: bool = False
+    ) -> dict[str, Any]:
         """Create a note whose only content is 基础信息 + 文件级 `## 讲解`.
 
         A knowledge point has exactly one explanation, so it cannot be appended
@@ -447,7 +449,7 @@ class NoteStore:
             raise RecordError(
                 f"an explanation note must contain a file-level `## {EXPLAIN_SECTION}` section"
             )
-        if "## 基础信息" not in normalized:
+        if not update and "## 基础信息" not in normalized:
             raise RecordError(
                 "an explanation note must start with the file-level `## 基础信息` section"
             )
@@ -461,6 +463,8 @@ class NoteStore:
                 )
         with self._exclusive_lock():
             existing = self._read(target)
+            if existing.strip() and update:
+                return self._rewrite_explanation(target, normalized)
             if existing.strip():
                 if EXPLAIN_HEAD_RE.search(_normalize_text(existing)):
                     return {
@@ -483,6 +487,58 @@ class NoteStore:
             "ok": True,
             "appended": True,
             "duplicate": False,
+            "explanation": True,
+            "file": self.relative(target),
+            "bytes": len(composed.encode("utf-8")),
+        }
+
+    def _rewrite_explanation(self, target: Path, content: str) -> dict[str, Any]:
+        """Rewrite the existing `## 讲解` section only, leaving every other line intact."""
+        existing = _normalize_text(self._read(target))
+        lines = existing.split("\n")
+        start = next(
+            (index for index, line in enumerate(lines) if EXPLAIN_HEAD_RE.match(line)),
+            None,
+        )
+        if start is None:
+            raise RecordError(
+                f"note has no `## {EXPLAIN_SECTION}` section to update: {self.relative(target)}"
+            )
+        end = next(
+            (
+                index
+                for index in range(start + 1, len(lines))
+                if lines[index].startswith("# ") or lines[index].startswith("## ")
+            ),
+            len(lines),
+        )
+        declared = RECORD_ID_ROW_RE.search(content)
+        if declared:
+            kept = self._file_record_id(existing)
+            if kept and kept != declared.group(1).strip():
+                raise RecordError(
+                    f"this note tracks {kept}; refusing to overwrite it with {declared.group(1).strip()}"
+                )
+        new_lines = _normalize_text(content).strip("\n").split("\n")
+        head_index = next(
+            (index for index, line in enumerate(new_lines) if EXPLAIN_HEAD_RE.match(line)),
+            None,
+        )
+        if head_index is None:
+            raise RecordError(f"replacement content must contain `## {EXPLAIN_SECTION}`")
+        body = new_lines[head_index:]
+        tail = lines[end:]
+        while body and not body[-1].strip():
+            body.pop()
+        while tail and not tail[0].strip():
+            tail.pop(0)
+        composed = "\n".join(lines[:start] + body + ([""] + tail if tail else []))
+        composed = _bump_updated_at(composed.rstrip("\n") + "\n", datetime.now())
+        self._write(target, composed)
+        return {
+            "ok": True,
+            "appended": False,
+            "updated": True,
             "explanation": True,
             "file": self.relative(target),
             "bytes": len(composed.encode("utf-8")),

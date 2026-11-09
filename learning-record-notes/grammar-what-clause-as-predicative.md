@@ -7,41 +7,38 @@
 <tr><td>累计复习次数</td><td>0</td></tr>
 <tr><td>下次复习</td><td>—</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-09 07:58</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-09 07:58</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-09 19:35</td></tr>
 </table>
 
 ## 讲解
 
-**英文原文**：You are what you eat.
+**语法机制**：
+- what 在这里是「融合型关系词」：它同时充当先行词和关系代词，等于 the thing(s) that。
+- 所以 what you eat = the thing that you eat，整个成分是一个名词性从句，可以直接站在系动词 are 后面作表语。
+- 从句内部 what 已经占住 eat 的宾语位置，从句结构是完整的（eat + what），不需要也不能再补一个 it。
 
-**核心含义**：
-- 你不是词条式的「食物」，而是「你所吃的东西」塑造出来的那个你。
-- 这里 what you eat 不是疑问句，而是一个名词化从句，回答「你是什么」。
+**结构拆解**：
+- You（主语）+ are（系动词）+ what you eat（表语从句）。
+- 表语从句内部：you（主语）+ eat（及物动词）+ what（宾语，前置到句首）。
+- 有 what 就不要再加先行词：不说 the food what you eat，也不说 what you eat it。
 
-**结构与语法**：
-- 主干：主语 You + 系动词 are + 表语 what you eat。
-- 表语位置放从句，就是表语从句；系动词后可以接名词、形容词、从句三类表语。
-- what 在从句内部充当 eat 的宾语（原序 eat what → 前置 what you eat），同时把整个从句名词化。
-- 从句必须是陈述语序：what you eat，不能写成 what do you eat。
+**与 that / whether 的对照**：
 
-**词汇与搭配**：
-- what 引导的名词性从句可作主语、宾语、表语：What he said is true. / I know what you mean. / You are what you eat.
-- 与 that 的区别：that 只连接不作成分（The truth is that he lied.）；whether 表「是否」（The question is whether he will come.）。
+| 引导词 | 从句里缺什么 | 能否作表语 | 例子 |
+|---|---|---|---|
+| what | 缺主语或宾语（what 自己补上） | 可以，等于「…的东西」 | You are what you eat. |
+| that | 成分齐全，只起连接作用 | 不能直接作表语（除非前面有 fact / idea 这类名词） | The fact is that you eat too much. |
+| whether | 不缺成分，表「是否」 | 可以，等于「是否…」 | The question is whether you eat enough. |
 
-**历史文化背景**：
-- 这个结构本身没有特殊的时代或地域背景；它属于英语名词性从句的常规语法，古今用法一致。
-- 需要特别说明的是句子来源（谚语化自 20 世纪美国营养学），而不是语法结构有历史演变。
+**常见误用**：
+- ❌ You are what do you eat. —— 从句要用陈述语序，不能倒装。
+- ❌ You are what you eat it. —— what 已经是宾语，再加 it 就重复。
+- ❌ You are that you eat. —— that 从句不能这样直接作表语。
+- ❌ You are the thing what you eat. —— 有先行词就不能再用 what。
 
-**发音**：
-- 从句前不重读 what，重音落在从句谓语的实词上：you are what you EAT。
-- 连读：what you 合流成 /wʌtʃu/，听起来像一个词。
-
-**容易混淆**：
-- what 与 that 混淆：把 You are what you eat 写成 You are that you eat 就丢掉了「吃的东西」这一语义。
-- which 不能单独引导表语从句表「…的东西」，除非有明确范围（which one）。
-- 表语从句里不能用疑问语序，中文的「你吃什么」不能直译成 what do you eat 放到表语位置。
-
-**可迁移表达**：
-- You are what you repeatedly do.
-- The problem is what he said yesterday.
-- What matters is what you do next.
+**可迁移句型**：
+- This is what I mean.（这就是我的意思）
+- That's what matters.（这才是重要的）
+- What he said is true.（他说的属实；what 从句作主语）
+- He is not what he used to be.（他不再是过去的他）
+- The problem is what we do next.（问题在于下一步做什么）

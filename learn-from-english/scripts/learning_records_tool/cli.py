@@ -364,8 +364,8 @@ def validate_after_write(store: NoteStore, result: dict[str, Any]) -> dict[str, 
 def handle_note_explain(args: argparse.Namespace) -> dict[str, Any]:
     store = note_store()
     content = read_text_input(args.content_file)
-    result = store.write_explanation(args.file, content)
-    if args.check and result.get("appended"):
+    result = store.write_explanation(args.file, content, update=args.update)
+    if args.check and (result.get("appended") or result.get("updated")):
         result["check"] = store.check(result["file"])
     return result
 
@@ -656,6 +656,11 @@ def build_parser() -> argparse.ArgumentParser:
     )
     note_explain.add_argument(
         "--content-file", required=True, help="raw Markdown (基础信息 + 讲解) path or - for stdin"
+    )
+    note_explain.add_argument(
+        "--update",
+        action="store_true",
+        help="rewrite the existing '## 讲解' section only (for reformatting an explanation)",
     )
     note_explain.add_argument(
         "--check",
