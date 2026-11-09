@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>0</td></tr>
 <tr><td>下次复习</td><td>—</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-10 07:01</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-10 07:02</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-10 07:16</td></tr>
 </table>
 
 ## 讲解
@@ -19,7 +19,7 @@
 **搭配**：
 - 器皿：`a casserole dish`（明确指锅）、`an ovenproof casserole`、`a lidded casserole`。
 - 菜品：`a chicken-and-rice casserole`、`bake a casserole`、`bring a casserole to the potluck`。
-- 动词习惯：`make / bake / assemble a casserole`；`casserole` 本身不作动词。
+- 动词习惯：`make / bake / assemble a casserole`；作动词极罕见——词典收录 `to casserole`（放进砂锅里烹制），日常几乎不用，别把它当常用动词。
 
 **英美用法差异**：
 - 英式：更偏「炉上或烤箱里慢炖的混合菜」，也有 `casserole steak` 这类炖肉说法。
@@ -27,7 +27,7 @@
 - 中文「砂锅」偏明火陶锅炖煮；若强调容器本身，`clay pot / sand pot` 更准，`casserole` 容易被读成美式焗菜。
 
 **历史文化背景**：
-- 词源：法语 `casserole`（平底锅）→ 普罗旺斯语 `cassa` → 中世纪拉丁语 `cattia`（锅、勺），更早可追到希腊语 `kyathion`（小勺、小杯）。
+- 词源链条：法语 `casserole`（平底锅）← `casse` ← 普罗旺斯语 `cassa` ← 中世纪拉丁语 `cattia`（锅、勺），更早与希腊语 `kyathion`（小勺、小杯）相关。
 - 20 世纪 50 年代美国，`casserole` 成为「便利烹饪」的标志：一罐浓缩蘑菇汤＋罐头食材＋烤箱，被视为战后主妇的高效解决方案，也因此长期带有「家常但不太精致」的印象。
 
 **发音**：

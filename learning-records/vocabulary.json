@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 221,
+  "revision": 222,
   "category": "vocabulary",
   "records": {
     "vocabulary:across-preposition-adverb-vs-cross-verb": {
@@ -90,7 +90,7 @@
       "key": "casserole",
       "status": "learning",
       "title": "casserole（砂锅；用砂锅做的整锅炖菜／焗菜）",
-      "explanation": "一层指带盖的耐热深锅（陶、玻璃或珐琅铸铁），另一层指用这种锅做出来的一整锅菜。英美用法有分工：英式更常指在炉上或烤箱里慢炖的混合菜；美式更常指把食材、酱汁拌好后送进烤箱焗烤、表面撒面包屑或奶酪的做法，即所谓“焗菜”。中文“砂锅”偏明火陶锅炖煮，若强调容器本身可以说 clay pot / sand pot 或 casserole dish（dish 明确指器皿）；直译成 casserole 时，读者容易理解成美式烤箱焗菜。词源来自法语 casserole（平底锅），再往上可追到拉丁语 cattia（锅、勺）。",
+      "explanation": "两层含义：①带盖的耐热深锅（陶、玻璃、珐琅铸铁）；②用这种锅做出来的一整锅菜。英美分工：英式更常指炉上或烤箱慢炖的混合菜；美式更常指食材加酱汁拌匀后送烤箱焗烤、表面撒面包屑或奶酪的「焗菜」。指器皿时更常说 casserole dish；中文「砂锅」偏明火陶锅炖煮，强调容器可用 clay pot / sand pot。作动词极罕见（词典收录 to casserole「放进砂锅烹制」，日常几乎不用）。词源：法语 casserole（平底锅）← casse ← 普罗旺斯语 cassa ← 中世纪拉丁语 cattia（锅、勺），更早与希腊语 kyathion（小勺）相关。",
       "source": "home-cooked casserole",
       "example": "She brought a chicken-and-rice casserole to the potluck.",
       "tags": [
@@ -100,8 +100,8 @@
         "饮食名词"
       ],
       "first_learned_at": "2026-11-10T07:01:40+08:00",
-      "last_learned_at": "2026-11-10T07:01:40+08:00",
-      "learned_count": 1,
+      "last_learned_at": "2026-11-10T07:15:45+08:00",
+      "learned_count": 2,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,
