@@ -13,7 +13,6 @@ from typing import Any
 from .cache import DEFAULT_MAX_AGE_SECONDS, get_snapshot, git_head
 from .menu import annotate_writes
 from .models import CATEGORIES, STATUSES, RecordError, record_id
-from .notes import NoteStore, _split_blocks
 from .papers import PAPER_STATUSES, PaperService
 from .service import RecordService
 from .store import RecordStore
@@ -31,18 +30,6 @@ def service() -> RecordService:
 def paper_service() -> PaperService:
     return PaperService(RecordStore(REPO_ROOT))
 
-
-def note_store() -> NoteStore:
-    return NoteStore(REPO_ROOT)
-
-
-def read_text_input(path: str) -> str:
-    try:
-        if path == "-":
-            return sys.stdin.read()
-        return Path(path).read_text(encoding="utf-8")
-    except OSError as exc:
-        raise RecordError(f"cannot read note content: {exc}") from exc
 
 
 def read_input(path: str) -> Any:
@@ -258,24 +245,6 @@ def handle_paper_menu(args: argparse.Namespace) -> list[dict[str, Any]]:
     return annotate_writes(paper_service().menu_options())
 
 
-def handle_note_sections(args: argparse.Namespace) -> dict[str, Any]:
-    """Index one note's round blocks and `##` sections without a grep."""
-    whole = note_store().sections(args.file)
-    blocks = [
-        block
-        for block in whole["blocks"]
-        if args.heading is None or block["heading"] == args.heading
-    ]
-    result: dict[str, Any] = {**whole, "blocks": blocks}
-    if args.section:
-        queried = args.section.strip()
-        result["queried_section"] = queried
-        result["has_section"] = any(
-            queried in block["sections"] for block in whole["blocks"]
-        )
-    return result
-
-
 def handle_snapshot(args: argparse.Namespace) -> dict[str, Any]:
     """One cheap answer to "where does the repository stand right now?".
 
@@ -311,96 +280,19 @@ def handle_snapshot(args: argparse.Namespace) -> dict[str, Any]:
     return payload
 
 
-TRACKING_ROW_RE = re.compile(
-    r"<tr><td>(记录 ID / 试卷 ID|目标知识点|累计复习次数|下次复习|分类 · 状态变化|本轮得分|复习时间|主观题得分|笔记生成时间|笔记更新时间)</td><td>(.*?)</td></tr>"
-)
-TRACKING_SKIP = ("题量与错题数", "主观题得分", "笔记生成时间", "笔记更新时间")
+def handle_record_tracking(args: argparse.Namespace) -> dict[str, Any]:
+    """Read-only tracking values for one record or paper, used by the notes skill.
 
-
-def verify_tracking(store: NoteStore, file: str, heading: str) -> dict[str, Any]:
-    """Compare the written tracking rows with the canonical record, so nobody copies them by hand."""
-    target = store.resolve(file)
-    block = next(
-        (body for title, body in _split_blocks(target.read_text(encoding="utf-8")) if title == heading),
-        None,
-    )
-    if block is None:
-        return {}
-    # 记录级字段在文件顶部的「基础信息」里，本轮字段在目标区块里：先读全文件，再用目标区块覆盖
-    full_rows = {
-        field: value.strip()
-        for field, value in TRACKING_ROW_RE.findall(target.read_text(encoding="utf-8"))
+    The note writer lives in the ``study-notes`` skill; it must not re-derive
+    these fields itself, so this command is the single contract for record facts.
+    """
+    context = service().note_context(args.id)
+    return {
+        "id": args.id,
+        "tracking": context.get("tracking", {}),
+        "title": context.get("title"),
     }
-    rows = {**full_rows, **{field: value.strip() for field, value in TRACKING_ROW_RE.findall(block)}}
-    identifier = rows.get("记录 ID / 试卷 ID", "")
-    try:
-        expected = service().note_context(identifier)["tracking"]
-    except (RecordError, ValueError):
-        return {}
-    mismatches = [
-        {"field": field, "expected": value, "actual": rows.get(field)}
-        for field, value in expected.items()
-        if field not in TRACKING_SKIP and rows.get(field) != value
-    ]
-    if not mismatches:
-        return {}
-    return {"tracking_mismatch": mismatches, "tracking_expected": expected}
 
-
-def validate_after_write(store: NoteStore, result: dict[str, Any]) -> dict[str, Any]:
-    """Check, auto-repair the safe issues, re-check, then verify tracking rows."""
-    heading = result.get("heading", "")
-    check = store.check(result["file"])
-    if check.get("ok") is False:
-        repaired = store.check(result["file"], fix=True)
-        if repaired.get("fixed"):
-            result["auto_fixed"] = repaired["fixed"]
-            check = store.check(result["file"])
-    result["check"] = check
-    result.update(verify_tracking(store, result["file"], heading))
-    return result
-
-
-def handle_note_explain(args: argparse.Namespace) -> dict[str, Any]:
-    store = note_store()
-    content = read_text_input(args.content_file)
-    result = store.write_explanation(args.file, content, update=args.update)
-    if args.check and (result.get("appended") or result.get("updated")):
-        result["check"] = store.check(result["file"])
-    return result
-
-
-def handle_note_append(args: argparse.Namespace) -> dict[str, Any]:
-    store = note_store()
-    content = read_text_input(args.content_file)
-    result = store.append(args.file, content)
-    if args.check:
-        validate_after_write(store, result)
-    return result
-
-
-def handle_note_append_section(args: argparse.Namespace) -> dict[str, Any]:
-    store = note_store()
-    content = read_text_input(args.content_file)
-    result = store.append_section(args.file, args.heading, content)
-    if args.check and result.get("appended_section"):
-        validate_after_write(store, result)
-    return result
-
-
-def handle_note_replace_block(args: argparse.Namespace) -> dict[str, Any]:
-    store = note_store()
-    content = read_text_input(args.content_file)
-    result = store.replace_block(
-        args.file,
-        args.heading,
-        content,
-        tuple(args.drop_section or ()),
-        tuple(args.rewrite_section or ()),
-    )
-    if args.check:
-        validate_after_write(store, result)
-    return result
 
 
 def parse_period(value: str) -> int:
@@ -633,116 +525,13 @@ def build_parser() -> argparse.ArgumentParser:
     )
     snapshot.set_defaults(handler=handle_snapshot)
 
-    note_sections = subparsers.add_parser(
-        "note-sections",
-        help="index one note's round blocks and '##' sections (read-only)",
+    tracking = subparsers.add_parser(
+        "record-tracking",
+        help="read-only tracking values (记录 ID / 目标知识点 / 累计复习次数 / 下次复习 / 状态 · 得分) for one record",
     )
-    note_sections.add_argument(
-        "--file", required=True, help="learning-record-notes/<category>-<slug>.md"
-    )
-    note_sections.add_argument("--heading", help="only this exact level-1 heading line")
-    note_sections.add_argument(
-        "--section",
-        help="report has_section for this '## ...' title before composing content",
-    )
-    note_sections.set_defaults(handler=handle_note_sections)
+    tracking.add_argument("--id", required=True, help="<category>:<key> or paper_id")
+    tracking.set_defaults(handler=handle_record_tracking)
 
-    note_explain = subparsers.add_parser(
-        "note-explain",
-        help="create a note with the file-level '## 讲解' section (one per knowledge point)",
-    )
-    note_explain.add_argument(
-        "--file", required=True, help="learning-record-notes/<category>-<slug>.md"
-    )
-    note_explain.add_argument(
-        "--content-file", required=True, help="raw Markdown (基础信息 + 讲解) path or - for stdin"
-    )
-    note_explain.add_argument(
-        "--update",
-        action="store_true",
-        help="rewrite the existing '## 讲解' section only (for reformatting an explanation)",
-    )
-    note_explain.add_argument(
-        "--check",
-        action="store_true",
-        help="run practice-learning-records check_note.py afterwards",
-    )
-    note_explain.set_defaults(handler=handle_note_explain)
-
-    note_append = subparsers.add_parser(
-        "note-append",
-        help="append one round block to a review note under an exclusive lock",
-    )
-    note_append.add_argument(
-        "--file", required=True, help="learning-record-notes/<category>-<slug>.md"
-    )
-    note_append.add_argument(
-        "--content-file", required=True, help="raw Markdown block path or - for stdin"
-    )
-    note_append.add_argument(
-        "--check",
-        action="store_true",
-        help="run practice-learning-records check_note.py afterwards",
-    )
-    note_append.set_defaults(handler=handle_note_append)
-
-    note_append_section = subparsers.add_parser(
-        "note-append-section",
-        help="append one '## section' inside an existing round block under the lock",
-    )
-    note_append_section.add_argument(
-        "--file", required=True, help="learning-record-notes/<category>-<slug>.md"
-    )
-    note_append_section.add_argument(
-        "--heading", required=True, help="exact level-1 heading line of the target round"
-    )
-    note_append_section.add_argument(
-        "--content-file", required=True, help="raw '## ...' Markdown section path or - for stdin"
-    )
-    note_append_section.add_argument(
-        "--check",
-        action="store_true",
-        help="run practice-learning-records check_note.py afterwards",
-    )
-    note_append_section.set_defaults(handler=handle_note_append_section)
-
-    note_replace = subparsers.add_parser(
-        "note-replace-block",
-        help="replace one existing round block in place under the same exclusive lock",
-    )
-    note_replace.add_argument(
-        "--file", required=True, help="learning-record-notes/<category>-<slug>.md"
-    )
-    note_replace.add_argument(
-        "--heading", required=True, help="exact level-1 heading line of the round to replace"
-    )
-    note_replace.add_argument(
-        "--content-file", required=True, help="raw Markdown block path or - for stdin"
-    )
-    note_replace.add_argument(
-        "--drop-section",
-        action="append",
-        metavar="HEADING",
-        help=(
-            "allow dropping an existing '## section'; every other section that the new "
-            "content omits is preserved automatically"
-        ),
-    )
-    note_replace.add_argument(
-        "--rewrite-section",
-        action="append",
-        metavar="HEADING",
-        help=(
-            "declare a '## section' this replacement is allowed to rewrite; "
-            "without it a single replace may only modify one section"
-        ),
-    )
-    note_replace.add_argument(
-        "--check",
-        action="store_true",
-        help="run practice-learning-records check_note.py afterwards",
-    )
-    note_replace.set_defaults(handler=handle_note_replace_block)
 
     history = subparsers.add_parser("history", help="show one record's review history")
     history.add_argument("--id", required=True)

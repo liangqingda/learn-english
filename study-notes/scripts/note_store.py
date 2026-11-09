@@ -25,8 +25,10 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
-from . import cache
-from .models import RecordError
+
+
+class NoteError(Exception):
+    """Any refusal or failure raised by the note writer."""
 
 
 NOTES_DIR_NAME = "learning-record-notes"
@@ -68,14 +70,14 @@ def _normalize_block(text: str) -> str:
     while lines and not lines[0].strip():
         lines.pop(0)
     if not lines:
-        raise RecordError("note block is empty")
+        raise NoteError("note block is empty")
     if not HEADING_RE.match(lines[0].strip()):
-        raise RecordError(
+        raise NoteError(
             "note block must start with '# <YYYY-MM-DD> <HH:MM> · <复习|练习|套题>'"
         )
     for line in lines[1:]:
         if line.startswith("# "):
-            raise RecordError(
+            raise NoteError(
                 "one append must contain exactly one round block; "
                 "a second level-1 heading was found"
             )
@@ -143,7 +145,7 @@ def _next_free_heading(heading: str, existing: list[str]) -> str:
     """
     match = HEADING_RE.match(heading)
     if not match:
-        raise RecordError(f"note heading is invalid: {heading}")
+        raise NoteError(f"note heading is invalid: {heading}")
     requested = datetime.strptime(
         f"{match.group('date')} {match.group('time')}", "%Y-%m-%d %H:%M"
     )
@@ -206,6 +208,44 @@ def _bump_updated_at(text: str, when: datetime) -> str:
     )
 
 
+HEADING_KIND_RE = re.compile(
+    r"^# \d{4}-\d{2}-\d{2} \d{2}:\d{2} · (?P<kind>复习|练习|套题)$"
+)
+
+
+def _note_index(text: str) -> dict[str, Any]:
+    """Index one note without the records snapshot cache: file-level id + blocks' sections."""
+    normalized = _normalize_text(text)
+    record = RECORD_ID_ROW_RE.search(normalized)
+    blocks: list[dict[str, Any]] = []
+    current: dict[str, Any] | None = None
+    chunk: list[str] = []
+    for line in normalized.split("\n"):
+        if line.startswith("# "):
+            if current is not None:
+                block_match = RECORD_ID_ROW_RE.search("\n".join(chunk))
+                current["record_id"] = (
+                    block_match.group(1).strip() if block_match else None
+                )
+            match = HEADING_KIND_RE.match(line.strip())
+            current = {
+                "heading": line.strip(),
+                "kind": match.group("kind") if match else None,
+                "sections": [],
+                "record_id": None,
+            }
+            blocks.append(current)
+            chunk = [line]
+        elif current is not None:
+            chunk.append(line)
+            if line.startswith("## "):
+                current["sections"].append(line.strip())
+    if current is not None:
+        block_match = RECORD_ID_ROW_RE.search("\n".join(chunk))
+        current["record_id"] = block_match.group(1).strip() if block_match else None
+    return {"record_id": record.group(1).strip() if record else None, "blocks": blocks}
+
+
 class NoteStore:
     """Exclusive, atomic access to the notes directory."""
 
@@ -219,19 +259,12 @@ class NoteStore:
             self.checker_path = self._default_checker()
 
     def _default_checker(self) -> Path:
-        """Prefer the validator next to the given repo, then the installed one."""
-        repo_candidate = (
-            self.repo_root / "practice-learning-records" / "scripts" / "check_note.py"
-        )
+        """Prefer the validator in the repo's own study-notes skill, then the installed one."""
+        repo_candidate = self.repo_root / "study-notes" / "scripts" / "check_note.py"
         if repo_candidate.is_file():
             return repo_candidate
-        installed = (
-            Path(__file__).resolve().parents[3]
-            / "practice-learning-records"
-            / "scripts"
-            / "check_note.py"
-        )
-        return repo_candidate if not installed.is_file() else installed
+        installed = Path(__file__).resolve().parent / "check_note.py"
+        return installed if installed.is_file() else repo_candidate
 
     # -- path handling ---------------------------------------------------
     def resolve(self, path: str) -> Path:
@@ -243,20 +276,20 @@ class NoteStore:
         else:
             candidate = self.repo_root / raw
         if candidate.is_symlink():
-            raise RecordError("refusing to write through a symbolic link")
+            raise NoteError("refusing to write through a symbolic link")
         target = candidate.resolve()
         notes_dir = self.notes_dir.resolve()
         if target.parent != notes_dir:
-            raise RecordError(
+            raise NoteError(
                 f"note path must live directly under {NOTES_DIR_NAME}/: {path}"
             )
         if not SLUG_FILE_RE.match(target.name):
-            raise RecordError(
+            raise NoteError(
                 "note file name must look like <category>-<slug>.md "
                 "(lowercase letters, digits, and hyphens only)"
             )
         if target.exists() and not target.is_file():
-            raise RecordError(f"note path is not a regular file: {path}")
+            raise NoteError(f"note path is not a regular file: {path}")
         return target
 
     def relative(self, target: Path) -> str:
@@ -289,7 +322,7 @@ class NoteStore:
             try:
                 import msvcrt
             except ImportError as exc:
-                raise RecordError(
+                raise NoteError(
                     "this platform provides no file locking; refusing to write notes"
                 ) from exc
             handle.seek(0)
@@ -314,7 +347,7 @@ class NoteStore:
         except FileNotFoundError:
             return ""
         except OSError as exc:
-            raise RecordError(f"cannot read note {path}: {exc}") from exc
+            raise NoteError(f"cannot read note {path}: {exc}") from exc
 
     def _write(self, path: Path, text: str) -> None:
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -340,11 +373,6 @@ class NoteStore:
             except FileNotFoundError:
                 pass
             raise
-        # the snapshot must never describe a file this write just changed
-        try:
-            cache.refresh_note(self.repo_root, path, text)
-        except OSError:
-            cache.invalidate(self.repo_root)
 
     # -- public operations ----------------------------------------------
     def find_note_for_record(self, record_id: str) -> str | None:
@@ -361,7 +389,7 @@ class NoteStore:
         if declared and not target.exists():
             tracked = self.find_note_for_record(declared.group(1).strip())
             if tracked and tracked != self.relative(target):
-                raise RecordError(
+                raise NoteError(
                     f"record {declared.group(1).strip()} already has a note at {tracked}; "
                     f"append to that file instead of creating {self.relative(target)}"
                 )
@@ -398,7 +426,7 @@ class NoteStore:
             # 以免“整理旧格式”改写别的会话已经写下的内容。
             if not body.strip():
                 if not head:
-                    raise RecordError(
+                    raise NoteError(
                         "a new note must start with the file-level `## 基础信息` section "
                         "(记录 ID / 试卷 ID、目标知识点、累计复习次数、下次复习、笔记生成时间、笔记更新时间)"
                     )
@@ -441,23 +469,23 @@ class NoteStore:
         target = self.resolve(path)
         normalized = _normalize_text(content).strip("\n")
         if normalized.startswith("# ") or "\n# " in normalized:
-            raise RecordError(
+            raise NoteError(
                 "an explanation note cannot contain a date heading; reviews are "
                 "added later as `# <date> <time> · 复习` blocks"
             )
         if f"## {EXPLAIN_SECTION}" not in normalized:
-            raise RecordError(
+            raise NoteError(
                 f"an explanation note must contain a file-level `## {EXPLAIN_SECTION}` section"
             )
-        if not update and "## 基础信息" not in normalized:
-            raise RecordError(
+        if not update and "## 基础信息" not in normalized and not target.exists():
+            raise NoteError(
                 "an explanation note must start with the file-level `## 基础信息` section"
             )
         declared = RECORD_ID_ROW_RE.search(content)
         if declared:
             tracked = self.find_note_for_record(declared.group(1).strip())
             if tracked and tracked != self.relative(target):
-                raise RecordError(
+                raise NoteError(
                     f"record {declared.group(1).strip()} already has a note at {tracked}; "
                     f"write the explanation into that file instead of creating {self.relative(target)}"
                 )
@@ -477,7 +505,7 @@ class NoteStore:
                         ),
                         "file": self.relative(target),
                     }
-                raise RecordError(
+                raise NoteError(
                     f"note already exists without an `## {EXPLAIN_SECTION}` section: "
                     f"{self.relative(target)}; append a round block instead of overwriting it"
                 )
@@ -501,7 +529,7 @@ class NoteStore:
             None,
         )
         if start is None:
-            raise RecordError(
+            raise NoteError(
                 f"note has no `## {EXPLAIN_SECTION}` section to update: {self.relative(target)}"
             )
         end = next(
@@ -516,7 +544,7 @@ class NoteStore:
         if declared:
             kept = self._file_record_id(existing)
             if kept and kept != declared.group(1).strip():
-                raise RecordError(
+                raise NoteError(
                     f"this note tracks {kept}; refusing to overwrite it with {declared.group(1).strip()}"
                 )
         new_lines = _normalize_text(content).strip("\n").split("\n")
@@ -525,7 +553,7 @@ class NoteStore:
             None,
         )
         if head_index is None:
-            raise RecordError(f"replacement content must contain `## {EXPLAIN_SECTION}`")
+            raise NoteError(f"replacement content must contain `## {EXPLAIN_SECTION}`")
         body = new_lines[head_index:]
         tail = lines[end:]
         while body and not body[-1].strip():
@@ -558,19 +586,19 @@ class NoteStore:
         block = _normalize_block(raw_block)
         wanted = _normalize_text(heading).strip()
         if _block_heading(block) != wanted:
-            raise RecordError(
+            raise NoteError(
                 "replacement block must keep the original heading line unchanged"
             )
         with self._exclusive_lock():
             existing = _normalize_text(self._read(target))
             if not existing:
-                raise RecordError(f"note does not exist: {self.relative(target)}")
+                raise NoteError(f"note does not exist: {self.relative(target)}")
             lines = existing.split("\n")
             matches = [index for index, line in enumerate(lines) if line.strip() == wanted]
             if not matches:
-                raise RecordError(f"heading not found in note: {wanted}")
+                raise NoteError(f"heading not found in note: {wanted}")
             if len(matches) > 1:
-                raise RecordError(
+                raise NoteError(
                     f"heading appears {len(matches)} times; refusing an ambiguous replace: {wanted}"
                 )
             start = matches[0]
@@ -619,7 +647,7 @@ class NoteStore:
                 if heading_text not in allow_sections
             ]
             if len(undeclared) > 1:
-                raise RecordError(
+                raise NoteError(
                     "replacement would rewrite "
                     f"{len(undeclared)} sections at once: "
                     + ", ".join(undeclared)
@@ -654,13 +682,13 @@ class NoteStore:
         target = self.resolve(path)
         section = _normalize_text(content).strip("\n")
         if not section:
-            raise RecordError("note section is empty")
+            raise NoteError("note section is empty")
         first = section.split("\n")[0].strip()
         if not first.startswith("## "):
-            raise RecordError("a note section must start with a '## ' heading")
+            raise NoteError("a note section must start with a '## ' heading")
         for line in section.split("\n")[1:]:
             if line.startswith("# "):
-                raise RecordError(
+                raise NoteError(
                     "a note section cannot contain a level-1 heading; "
                     "sections are added inside an existing round block"
                 )
@@ -669,13 +697,13 @@ class NoteStore:
         with self._exclusive_lock():
             existing = _normalize_text(self._read(target))
             if not existing:
-                raise RecordError(f"note does not exist: {self.relative(target)}")
+                raise NoteError(f"note does not exist: {self.relative(target)}")
             lines = existing.split("\n")
             matches = [index for index, line in enumerate(lines) if line.strip() == wanted]
             if not matches:
-                raise RecordError(f"heading not found in note: {wanted}")
+                raise NoteError(f"heading not found in note: {wanted}")
             if len(matches) > 1:
-                raise RecordError(
+                raise NoteError(
                     f"heading appears {len(matches)} times; refusing an ambiguous append: {wanted}"
                 )
             start = matches[0]
@@ -701,7 +729,7 @@ class NoteStore:
                         "section": section_heading,
                         "hint": "this section is already in the block; do not append it again",
                     }
-                raise RecordError(
+                raise NoteError(
                     f"section {section_heading} already exists in this block; "
                     "replace the block (sections that are missing from the new content "
                     "are preserved) instead of adding a second one"
@@ -738,31 +766,28 @@ class NoteStore:
         """
         if not self.notes_dir.is_dir():
             return []
-        snapshot = cache.get_snapshot(self.repo_root)
         entries: list[dict[str, Any]] = []
         for path in sorted(self.notes_dir.glob("*.md")):
             if path.name.lower() == "readme.md":
                 continue
             relative = self.relative(path)
-            cached = cache.note_entry_current(self.repo_root, snapshot, relative)
-            if cached is not None:
-                blocks = [
-                    (block["heading"], block.get("record_id"))
-                    for block in cached["blocks"]
-                ]
-                file_record = cached["record_id"]
-            else:
-                text = path.read_text(encoding="utf-8")
-                blocks = [
-                    (
-                        heading,
-                        (lambda m: m.group(1).strip() if m else None)(
-                            RECORD_ID_ROW_RE.search(block)
-                        ),
+            text = path.read_text(encoding="utf-8")
+            blocks = [
+                (
+                    heading,
+                    (lambda m: m.group(1).strip() if m else None)(
+                        RECORD_ID_ROW_RE.search(block)
+                    ),
+                )
+                for heading, block in _split_blocks(text)
+            ]
+            file_record = self._file_record_id(text)
+            if not blocks and file_record is not None:
+                # 只有「基础信息 + 讲解」、还没有任何复习轮次的笔记：按文件级记录 ID 计入索引
+                if record_id is None or file_record == record_id:
+                    entries.append(
+                        {"file": relative, "heading": None, "record_id": file_record}
                     )
-                    for heading, block in _split_blocks(text)
-                ]
-                file_record = self._file_record_id(text)
             for heading, block_record in blocks:
                 # 区块内的记录 ID 行优先于文件级，与真实解析同口径
                 tracked = block_record if block_record is not None else file_record
@@ -788,19 +813,9 @@ class NoteStore:
         """
         target = self.resolve(path)
         if not target.is_file():
-            raise RecordError(f"note does not exist: {self.relative(target)}")
+            raise NoteError(f"note does not exist: {self.relative(target)}")
         relative = self.relative(target)
-        snapshot = cache.get_snapshot(self.repo_root)
-        entry = cache.note_entry_current(self.repo_root, snapshot, relative)
-        if entry is None:
-            entry = cache.note_entry(target, repo_root=self.repo_root)
-            # 让下一次读取命中缓存；写缓存失败不影响本次结果
-            try:
-                cache.refresh_note(
-                    self.repo_root, target, target.read_text(encoding="utf-8")
-                )
-            except OSError:
-                pass
+        entry = _note_index(target.read_text(encoding="utf-8"))
         blocks = [
             {
                 "heading": block["heading"],
@@ -829,11 +844,11 @@ class NoteStore:
                 check=False,
             )
         except OSError as exc:
-            raise RecordError(f"cannot run note validator: {exc}") from exc
+            raise NoteError(f"cannot run note validator: {exc}") from exc
         try:
             report = json.loads(completed.stdout or "{}")
         except json.JSONDecodeError:
-            raise RecordError(
+            raise NoteError(
                 f"note validator returned unreadable output: {completed.stdout.strip()}"
             ) from None
         return report

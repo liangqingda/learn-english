@@ -8,7 +8,7 @@ import unittest
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(REPO_ROOT / "practice-learning-records" / "scripts"))
+sys.path.insert(0, str(REPO_ROOT / "study-notes" / "scripts"))
 
 import check_note  # noqa: E402
 
@@ -317,11 +317,13 @@ class NoteContentValidationTest(unittest.TestCase):
 
 
 class NoteEntryPointTest(unittest.TestCase):
-    """`note.py` 是复习 skill 自己的入口：校验不依赖另一个 skill，写入才转发。"""
+    """`note.py` 是本 skill 的唯一入口：校验与写入都在本 skill 内完成。"""
 
-    WRAPPER = REPO_ROOT / "practice-learning-records" / "scripts" / "note.py"
+    WRAPPER = REPO_ROOT / "study-notes" / "scripts" / "note.py"
 
-    def run_wrapper(self, args: list[str], root: Path, cli: str | None = None):
+    def run_wrapper(
+        self, args: list[str], root: Path, cli: str | None = None, stdin_text: str = ""
+    ):
         import os
         import subprocess
 
@@ -333,10 +335,11 @@ class NoteEntryPointTest(unittest.TestCase):
             capture_output=True,
             text=True,
             env=environment,
+            input=stdin_text,
             check=False,
         )
 
-    def test_check_runs_its_own_validator_without_the_other_skill(self) -> None:
+    def test_check_runs_its_own_validator_without_any_other_skill(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             notes = root / NOTES_DIR
@@ -346,18 +349,36 @@ class NoteEntryPointTest(unittest.TestCase):
             self.assertEqual(completed.returncode, 0, completed.stderr)
             self.assertTrue(__import__("json").loads(completed.stdout)["ok"])
 
-    def test_write_reports_a_missing_business_cli_instead_of_silently_failing(self) -> None:
+    def test_tracking_compare_is_skipped_when_the_record_store_is_absent(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
+            notes = root / NOTES_DIR
+            notes.mkdir()
+            block = (
+                "## 基础信息\n\n"
+                + basic_block({})
+                + "\n\n# 2026-11-09 20:10 · 练习\n\n"
+                "## 本轮习题\n\n1. 造句\n\n"
+                "**题目**：造句\n\n"
+                "**我的答案**：test\n\n"
+                "**判定**：正确\n"
+            )
             completed = self.run_wrapper(
-                ["append", "--file", "learning-record-notes/errors-out-west.md", "--content-file", "-"],
+                [
+                    "append",
+                    "--file",
+                    "learning-record-notes/errors-out-west.md",
+                    "--content-file",
+                    "-",
+                    "--check",
+                ],
                 root,
                 cli=str(root / "missing.py"),
+                stdin_text=block,
             )
-            self.assertEqual(completed.returncode, 2)
             payload = __import__("json").loads(completed.stdout)
-            self.assertFalse(payload["ok"])
-            self.assertIn("learning_records.py not found", payload["error"])
+            self.assertTrue(payload["ok"])
+            self.assertIn("tracking_skipped", payload)
 
 
 class RealNotesTest(unittest.TestCase):

@@ -14,12 +14,12 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).resolve().parents[1] / "scripts"
 sys.path.insert(0, str(SCRIPT_DIR))
 
-from learning_records_tool.models import RecordError  # noqa: E402
-from learning_records_tool.notes import NoteStore, _normalize_block  # noqa: E402
-from learning_records_tool.service import RecordService  # noqa: E402
+from note_store import NoteError  # noqa: E402
+from note_store import NoteStore, _normalize_block  # noqa: E402
 
 
-SCRIPT = SCRIPT_DIR / "learning_records.py"
+
+SCRIPT = SCRIPT_DIR / "note.py"
 
 
 def round_block(stamp: str = "2026-11-07 21:00", kind: str = "复习", body: str = "第 1 轮") -> str:
@@ -134,23 +134,23 @@ class NoteAppendTest(unittest.TestCase):
 
     def test_block_must_start_with_a_round_heading(self) -> None:
         for content in ("", "no heading here\n", "## 本轮习题\n", "\n\n"):
-            with self.assertRaises(RecordError):
+            with self.assertRaises(NoteError):
                 _normalize_block(content)
 
     def test_append_rejects_two_rounds_in_one_block(self) -> None:
-        with self.assertRaises(RecordError):
+        with self.assertRaises(NoteError):
             _normalize_block(round_block() + "\n" + round_block("2026-11-08 10:00"))
 
     def test_path_must_stay_inside_notes_dir(self) -> None:
         outside = self.repo / "learning-record-notes" / "nested" / "x.md"
-        with self.assertRaises(RecordError):
+        with self.assertRaises(NoteError):
             self.store.append(str(outside), round_block())
-        with self.assertRaises(RecordError):
+        with self.assertRaises(NoteError):
             self.store.append("../escape.md", round_block())
 
     def test_file_name_must_match_slug_convention(self) -> None:
         for name in ("Errors-Out.md", "errors out.md", "errors.md.bak", "notes.txt"):
-            with self.assertRaises(RecordError):
+            with self.assertRaises(NoteError):
                 self.store.append(name, round_block())
 
     def test_symlink_target_is_rejected(self) -> None:
@@ -159,7 +159,7 @@ class NoteAppendTest(unittest.TestCase):
         target.write_text("# 2026-11-07 21:00 · 复习\n", encoding="utf-8")
         link = self.repo / "learning-record-notes" / "errors-victim.md"
         os.symlink(target, link)
-        with self.assertRaises(RecordError):
+        with self.assertRaises(NoteError):
             self.store.append(str(link), round_block())
 
     def test_lock_file_exists_after_first_write(self) -> None:
@@ -203,9 +203,9 @@ class NoteAppendTest(unittest.TestCase):
 
     def test_replace_block_rejects_unknown_or_changed_heading(self) -> None:
         self.store.append(self.note, round_block())
-        with self.assertRaises(RecordError):
+        with self.assertRaises(NoteError):
             self.store.replace_block(self.note, "# 2026-11-10 10:00 · 复习", round_block())
-        with self.assertRaises(RecordError):
+        with self.assertRaises(NoteError):
             self.store.replace_block(
                 self.note, "# 2026-11-07 21:00 · 复习", round_block("2026-11-07 22:00")
             )
@@ -215,7 +215,7 @@ class NoteAppendTest(unittest.TestCase):
         self.note.write_text(
             self.note.read_text(encoding="utf-8") + "\n" + round_block(), encoding="utf-8"
         )
-        with self.assertRaises(RecordError):
+        with self.assertRaises(NoteError):
             self.store.replace_block(
                 self.note, "# 2026-11-07 21:00 · 复习", round_block()
             )
@@ -244,7 +244,7 @@ class NoteAppendTest(unittest.TestCase):
                 [
                     sys.executable,
                     str(SCRIPT),
-                    "note-append",
+                    "append",
                     "--file",
                     "learning-record-notes/errors-out-west.md",
                     "--content-file",
@@ -348,7 +348,7 @@ class NoteCliTest(unittest.TestCase):
     def test_cli_accepts_stdin_and_passes_check(self) -> None:
         completed = self.run_cli(
             [
-                "note-append",
+                "append",
                 "--file",
                 "learning-record-notes/errors-out-west.md",
                 "--content-file",
@@ -366,7 +366,7 @@ class NoteCliTest(unittest.TestCase):
     def test_cli_auto_fixes_safe_issues_before_reporting(self) -> None:
         completed = self.run_cli(
             [
-                "note-append",
+                "append",
                 "--file",
                 "learning-record-notes/errors-out-west.md",
                 "--content-file",
@@ -384,7 +384,7 @@ class NoteCliTest(unittest.TestCase):
     def test_cli_check_failure_sets_nonzero_exit_code(self) -> None:
         completed = self.run_cli(
             [
-                "note-append",
+                "append",
                 "--file",
                 "learning-record-notes/errors-out-west.md",
                 "--content-file",
@@ -405,7 +405,7 @@ class NoteCliTest(unittest.TestCase):
     def test_cli_reports_valid_note_status(self) -> None:
         completed = self.run_cli(
             [
-                "note-append",
+                "append",
                 "--file",
                 "learning-record-notes/errors-out-west.md",
                 "--content-file",
@@ -421,7 +421,7 @@ class NoteCliTest(unittest.TestCase):
     def test_new_file_for_a_record_that_already_has_one_is_refused(self) -> None:
         self.run_cli(
             [
-                "note-append",
+                "append",
                 "--file",
                 "learning-record-notes/errors-out-west.md",
                 "--content-file",
@@ -431,7 +431,7 @@ class NoteCliTest(unittest.TestCase):
         )
         refused = self.run_cli(
             [
-                "note-append",
+                "append",
                 "--file",
                 "learning-record-notes/errors-out-west-again.md",
                 "--content-file",
@@ -447,7 +447,7 @@ class NoteCliTest(unittest.TestCase):
         for heading in ("2026-11-09 09:00 · 复习", "2026-11-10 09:00 · 复习"):
             completed = self.run_cli(
                 [
-                    "note-append",
+                    "append",
                     "--file",
                     "learning-record-notes/errors-out-west.md",
                     "--content-file",
@@ -458,7 +458,7 @@ class NoteCliTest(unittest.TestCase):
             self.assertEqual(completed.returncode, 0, completed.stderr)
         completed = self.run_cli(
             [
-                "note-replace-block",
+                "replace",
                 "--file",
                 "learning-record-notes/errors-out-west.md",
                 "--heading",
@@ -477,7 +477,7 @@ class NoteCliTest(unittest.TestCase):
     def test_cli_replace_keeps_sections_the_new_content_omits(self) -> None:
         completed = self.run_cli(
             [
-                "note-append",
+                "append",
                 "--file",
                 "learning-record-notes/errors-out-west.md",
                 "--content-file",
@@ -489,7 +489,7 @@ class NoteCliTest(unittest.TestCase):
         self.assertEqual(completed.returncode, 0, completed.stderr)
         replaced = self.run_cli(
             [
-                "note-replace-block",
+                "replace",
                 "--file",
                 "learning-record-notes/errors-out-west.md",
                 "--heading",
@@ -510,7 +510,7 @@ class NoteCliTest(unittest.TestCase):
     def test_cli_replace_drops_a_section_only_when_explicitly_allowed(self) -> None:
         completed = self.run_cli(
             [
-                "note-append",
+                "append",
                 "--file",
                 "learning-record-notes/errors-out-west.md",
                 "--content-file",
@@ -522,7 +522,7 @@ class NoteCliTest(unittest.TestCase):
         self.assertEqual(completed.returncode, 0, completed.stderr)
         replaced = self.run_cli(
             [
-                "note-replace-block",
+                "replace",
                 "--file",
                 "learning-record-notes/errors-out-west.md",
                 "--heading",
@@ -542,7 +542,7 @@ class NoteCliTest(unittest.TestCase):
     def test_cli_append_section_keeps_the_rest_of_the_block(self) -> None:
         completed = self.run_cli(
             [
-                "note-append",
+                "append",
                 "--file",
                 "learning-record-notes/errors-out-west.md",
                 "--content-file",
@@ -554,7 +554,7 @@ class NoteCliTest(unittest.TestCase):
         before = self.note.read_text(encoding="utf-8")
         appended = self.run_cli(
             [
-                "note-append-section",
+                "append-section",
                 "--file",
                 "learning-record-notes/errors-out-west.md",
                 "--heading",
@@ -572,7 +572,7 @@ class NoteCliTest(unittest.TestCase):
         self.assertIn(before.strip(), text.strip())
         again = self.run_cli(
             [
-                "note-append-section",
+                "append-section",
                 "--file",
                 "learning-record-notes/errors-out-west.md",
                 "--heading",
@@ -588,7 +588,7 @@ class NoteCliTest(unittest.TestCase):
     def test_cli_append_section_refuses_a_taken_heading(self) -> None:
         completed = self.run_cli(
             [
-                "note-append",
+                "append",
                 "--file",
                 "learning-record-notes/errors-out-west.md",
                 "--content-file",
@@ -600,7 +600,7 @@ class NoteCliTest(unittest.TestCase):
         self.assertEqual(completed.returncode, 0, completed.stderr)
         refused = self.run_cli(
             [
-                "note-append-section",
+                "append-section",
                 "--file",
                 "learning-record-notes/errors-out-west.md",
                 "--heading",
@@ -617,7 +617,7 @@ class NoteCliTest(unittest.TestCase):
     def test_cli_replace_rewriting_two_sections_needs_declaration(self) -> None:
         completed = self.run_cli(
             [
-                "note-append",
+                "append",
                 "--file",
                 "learning-record-notes/errors-out-west.md",
                 "--content-file",
@@ -633,7 +633,7 @@ class NoteCliTest(unittest.TestCase):
         )
         refused = self.run_cli(
             [
-                "note-replace-block",
+                "replace",
                 "--file",
                 "learning-record-notes/errors-out-west.md",
                 "--heading",
@@ -649,7 +649,7 @@ class NoteCliTest(unittest.TestCase):
 
         allowed = self.run_cli(
             [
-                "note-replace-block",
+                "replace",
                 "--file",
                 "learning-record-notes/errors-out-west.md",
                 "--heading",
@@ -708,7 +708,7 @@ def updated_at_value(path: Path) -> str:
 
         self.run_cli(
             [
-                "note-append",
+                "append",
                 "--file",
                 "learning-record-notes/errors-out-west.md",
                 "--content-file",
@@ -726,74 +726,6 @@ def updated_at_value(path: Path) -> str:
             cli_module.service = original
         self.assertEqual(result, {})
 
-
-class NoteContextTest(unittest.TestCase):
-    """追踪字段由记录推导，模型不再手抄。"""
-
-    class StubStore:
-        def __init__(self, records: dict) -> None:
-            self.records_payload = records
-
-        def read(self) -> dict:
-            return {"records": self.records_payload}
-
-    def test_tracking_rows_come_from_the_record(self) -> None:
-        record = {
-            "id": "errors:out-west",
-            "category": "errors",
-            "title": "out west 不是 outwest",
-            "status": "familiar",
-            "review_count": 2,
-            "next_review_at": "2026-11-20T20:54:00+08:00",
-            "review_history": [
-                {"score": 9.0, "previous_status": "learning", "new_status": "familiar"}
-            ],
-        }
-        service = RecordService(self.StubStore({"errors:out-west": record}))
-        result = service.note_context("errors:out-west")
-        self.assertEqual(result["note_file"], "learning-record-notes/errors-out-west.md")
-        tracking = result["tracking"]
-        self.assertEqual(tracking["分类 · 状态变化"], "errors · learning → familiar")
-        self.assertEqual(tracking["本轮得分"], "9 / 10")
-        self.assertEqual(tracking["累计复习次数"], "2")
-        self.assertEqual(tracking["下次复习"], "2026-11-20 20:54")
-        self.assertEqual(tracking["目标知识点"], "out west 不是 outwest")
-
-    def test_next_review_display_ignores_the_machine_timezone(self) -> None:
-        """追踪表里的「下次复习」按记录自带偏移排版，换台机器也不能变成别的时间。"""
-        record = {
-            "id": "errors:out-west",
-            "category": "errors",
-            "title": "out west 不是 outwest",
-            "status": "familiar",
-            "review_count": 2,
-            "next_review_at": "2026-11-20T20:54:00+08:00",
-        }
-        if not hasattr(time, "tzset"):
-            self.skipTest("tzset() is POSIX-only")
-        saved = os.environ.get("TZ")
-        try:
-            for zone in ("UTC", "America/New_York", "Asia/Shanghai"):
-                os.environ["TZ"] = zone
-                time.tzset()
-                tracking = RecordService(self.StubStore({"errors:out-west": record})).note_context(
-                    "errors:out-west"
-                )["tracking"]
-                self.assertEqual(tracking["下次复习"], "2026-11-20 20:54", f"TZ={zone}")
-        finally:
-            if saved is None:
-                os.environ.pop("TZ", None)
-            else:
-                os.environ["TZ"] = saved
-            time.tzset()
-
-    def test_unreviewed_record_uses_placeholder_values(self) -> None:
-        record = {"id": "errors:new", "category": "errors", "title": "t", "status": "learning", "review_history": []}
-        service = RecordService(self.StubStore({"errors:new": record}))
-        tracking = service.note_context("errors:new")["tracking"]
-        self.assertEqual(tracking["分类 · 状态变化"], "errors · 未评分")
-        self.assertEqual(tracking["本轮得分"], "—")
-        self.assertEqual(tracking["下次复习"], "—")
 
 if __name__ == "__main__":
     unittest.main()

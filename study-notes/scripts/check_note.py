@@ -2,9 +2,9 @@
 """校验 learning-record-notes 下的复习笔记是否符合固定模板。
 
 用法：
-    python3 practice-learning-records/scripts/check_note.py <note.md> [<note.md> ...]
-    python3 practice-learning-records/scripts/check_note.py --all
-    python3 practice-learning-records/scripts/check_note.py --all --fix
+    python3 study-notes/scripts/check_note.py <note.md> [<note.md> ...]
+    python3 study-notes/scripts/check_note.py --all
+    python3 study-notes/scripts/check_note.py --all --fix
 
 `--all` 校验默认 notes 目录（`$LEARN_ENGLISH_REPO_ROOT/learning-record-notes`）下的全部笔记；
 `--fix` 只修可以无争议判定的问题（行尾空格、`我的答案` 的题号前缀、区块之间缺失的 `---`、
@@ -966,7 +966,7 @@ def repo_root() -> Path:
     override = os.environ.get("LEARN_ENGLISH_REPO_ROOT")
     if override:
         return Path(override).expanduser().resolve()
-    # practice-learning-records/scripts/check_note.py → 仓库根
+    # study-notes/scripts/check_note.py → 仓库根
     return Path(__file__).resolve().parents[2]
 
 
