@@ -110,6 +110,30 @@ class NoteAppendTest(unittest.TestCase):
         self.assertIn("新讲解", text)
         self.assertNotIn("旧讲解", text)
 
+    def test_insert_explanation_stops_at_the_first_date_block(self) -> None:
+        """基础信息没有表格时，讲解也不能落到某一轮区块的表格之后。"""
+        self.note.parent.mkdir(parents=True, exist_ok=True)
+        self.note.write_text(
+            "## 基础信息\n\n# 2026-11-07 21:00 · 复习\n\n<table>\n</table>\n",
+            encoding="utf-8",
+        )
+        result = self.store.write_explanation(
+            self.note, "## 讲解\n\n**错误机制**：\n\n- 讲解\n", update=True
+        )
+        self.assertTrue(result["inserted"])
+        text = self.note.read_text(encoding="utf-8")
+        self.assertLess(text.index("## 讲解"), text.index("# 2026-11-07 21:00 · 复习"))
+
+    def test_insert_explanation_refuses_a_foreign_record(self) -> None:
+        self.store.append(self.note, round_block())
+        with self.assertRaises(NoteError):
+            self.store.write_explanation(
+                self.note,
+                "## 基础信息\n\n<table>\n<tr><td>记录 ID / 试卷 ID</td><td>errors:other</td></tr>\n"
+                "</table>\n\n## 讲解\n\n**错误机制**：\n\n- 讲解\n",
+                update=True,
+            )
+
     def test_duplicate_heading_is_idempotent(self) -> None:
         self.store.append(self.note, round_block())
         before = self.note.read_bytes()

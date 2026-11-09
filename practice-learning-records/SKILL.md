@@ -23,7 +23,8 @@ python3 learn-from-english/scripts/learning_records.py menu --context initial
 
 用户消息（去掉首尾空白、可带反引号或引号）整条只是一条复习笔记的相对路径，形如
 `learning-record-notes/errors-before-begin-gerund-or-clause.md`（也接受带仓库根前缀的写法）时，直接以这条笔记
-对应的知识点为目标开始一轮学习，不再弹初始菜单、也不要用户重发“复习”：
+对应的知识点为目标开始一轮学习，不再弹初始菜单、也不要用户重发“复习”。这条路径本身就是复习触发，不走
+`AGENTS.md` 的工程语境豁免，不要当成文件操作去回答。
 
 1. 先跑 `python3 take-english-study-notes/scripts/note.py sections --file <path>` 取 `record_id`。
    文件不存在、不在 `learning-record-notes/` 下、不是 `README.md`、或返回不出 `record_id` 时，如实说明定位不到知识点，

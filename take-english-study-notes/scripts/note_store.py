@@ -591,19 +591,29 @@ class NoteStore:
         body = new_lines[head_index:]
         while body and not body[-1].strip():
             body.pop()
+        declared = RECORD_ID_ROW_RE.search(content)
+        if declared:
+            kept = self._file_record_id("\n".join(lines))
+            if kept and kept != declared.group(1).strip():
+                raise NoteError(
+                    f"this note tracks {kept}; refusing to insert an explanation for "
+                    f"{declared.group(1).strip()} into it"
+                )
+        # 只在第一个日期区块之前找基础信息表的结尾，避免把讲解插进某一轮区块
+        block_start = next(
+            (index for index, line in enumerate(lines) if line.startswith("# ")),
+            len(lines),
+        )
         insert_at = next(
             (
                 index + 1
-                for index, line in enumerate(lines)
+                for index, line in enumerate(lines[:block_start])
                 if line.strip() == "</table>"
             ),
             None,
         )
         if insert_at is None:
-            insert_at = next(
-                (index for index, line in enumerate(lines) if line.startswith("# ")),
-                len(lines),
-            )
+            insert_at = block_start
         prefix = lines[:insert_at]
         suffix = lines[insert_at:]
         while suffix and not suffix[0].strip():

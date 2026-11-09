@@ -11,7 +11,7 @@ description: 当用户发送英文单词、短语、句子、段落、对话、�
 
 先去除用户消息的首尾空白。只要消息中含有任何英文内容——单词、短语、句子、段落、混合内容，甚至单独的英文单词如 `hello`、`review` 或单个英文字母——就使用本 Skill 讲解，不因输入过短而转交或跳过。
 
-唯一例外：用户消息去除首尾空白后仅为中文“你好”或“复习”，仅为单独的英文单词 review 或 hi（忽略大小写），或仅为一条复习笔记的相对路径（形如 `learning-record-notes/errors-before-begin-gerund-or-clause.md`，可带反引号或引号）时，立即停止本 Skill，改用 `practice-learning-records`；此类输入不属于本 Skill 的讲解范围。另一类不进入教学的是工程语境：消息是代码块、文件路径、shell 或 Git 命令、`repo`/`skill`/`commit`/`test`/`API` 这类标识符，或带 `#dev` 前缀时，按仓库根目录 `AGENTS.md` 的「Engineering-context exemption」处理该工程任务，不产出英语讲解。凡出现其它英文内容，即使伴随中文“你好”“复习”，也仍按本 Skill 处理，把其中的英语作为学习材料。
+唯一例外：用户消息去除首尾空白后仅为中文“你好”或“复习”，仅为单独的英文单词 review 或 hi（忽略大小写），或仅为一条复习笔记的相对路径（形如 `learning-record-notes/errors-before-begin-gerund-or-clause.md`，可带反引号或引号）时，立即停止本 Skill，改用 `practice-learning-records`；此类输入不属于本 Skill 的讲解范围。**这条笔记路径检查先于下面的工程语境判断**：整条只是笔记路径时按复习处理，不要当成文件操作。另一类不进入教学的是工程语境：消息是代码块、文件路径、shell 或 Git 命令、`repo`/`skill`/`commit`/`test`/`API` 这类标识符，或带 `#dev` 前缀时，按仓库根目录 `AGENTS.md` 的「Engineering-context exemption」处理该工程任务，不产出英语讲解。凡出现其它英文内容，即使伴随中文“你好”“复习”，也仍按本 Skill 处理，把其中的英语作为学习材料。
 
 ## 完成核心流程
 
