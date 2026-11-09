@@ -63,6 +63,13 @@ These rules apply to every skill that presents an English exercise and evaluates
 - Fix every instance found in one turn, not only the one the user named, and report the checked scope plus the result (what was found and what was fixed) in the final response.
 - Verify the fix with the project's own checker or a scan script rather than by reading the diff, and state explicitly when the checker itself cannot catch the problem, so the same issue does not silently recur.
 
+# Self-check after every change
+
+- Any change to repository content (records, notes, skill docs, templates, this file) gets a self-check pass before the commit, without waiting for the user to ask for a review. A change is done when the self-check has run and its findings are fixed, not when the file is written.
+- Run the checker and tests that cover what you touched, not just the edited file: `python3 take-english-study-notes/scripts/note.py check --all` for notes, and `python3 -m unittest discover -s <skill>/tests` for the skill whose rule or script you changed.
+- Re-read your own diff against four angles: (1) factual claims about the language (etymology, usage, spelling, register) — verify against a dictionary or corpus, and soften to an honest non-committal wording rather than assert from memory; (2) rule consistency — one rule stated once, no duplicated or drifting copy across skills, docs and templates; (3) coverage — every consumer of the changed rule or template, including other sections, other skills and notes already on disk; (4) side effects — data fields, counters, scheduling or state that the write changed silently. Angle 3 is the same sweep as「Fixing reported problems」, applied to your own changes instead of user-reported ones.
+- Fix everything found in the same turn, re-run the checks, and in the final response state the checked scope (checker, tests, content angles), what was fixed, and which part the checker cannot catch. Never call a change "self-checked" when only the checker ran.
+
 # Note content completeness
 
 - Every record in `learning-records/` and `mastered-learning-records/` has exactly one note file `learning-record-notes/<category>-<slug>.md`, and every note file contains the file-level `## 讲解` section. When the explanation text does not exist yet (historical backfill), keep the section with the placeholder wording from `take-english-study-notes/references/note-format.md` instead of leaving it empty or omitting it.
