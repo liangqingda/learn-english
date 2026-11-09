@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 207,
+  "revision": 221,
   "category": "vocabulary",
   "records": {
     "vocabulary:across-preposition-adverb-vs-cross-verb": {
@@ -83,6 +83,33 @@
           "new_status": "familiar"
         }
       ]
+    },
+    "vocabulary:casserole": {
+      "id": "vocabulary:casserole",
+      "category": "vocabulary",
+      "key": "casserole",
+      "status": "learning",
+      "title": "casserole（砂锅；用砂锅做的整锅炖菜／焗菜）",
+      "explanation": "一层指带盖的耐热深锅（陶、玻璃或珐琅铸铁），另一层指用这种锅做出来的一整锅菜。英美用法有分工：英式更常指在炉上或烤箱里慢炖的混合菜；美式更常指把食材、酱汁拌好后送进烤箱焗烤、表面撒面包屑或奶酪的做法，即所谓“焗菜”。中文“砂锅”偏明火陶锅炖煮，若强调容器本身可以说 clay pot / sand pot 或 casserole dish（dish 明确指器皿）；直译成 casserole 时，读者容易理解成美式烤箱焗菜。词源来自法语 casserole（平底锅），再往上可追到拉丁语 cattia（锅、勺）。",
+      "source": "home-cooked casserole",
+      "example": "She brought a chicken-and-rice casserole to the potluck.",
+      "tags": [
+        "器皿与菜品",
+        "英美差异",
+        "词源",
+        "饮食名词"
+      ],
+      "first_learned_at": "2026-11-10T07:01:40+08:00",
+      "last_learned_at": "2026-11-10T07:01:40+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "vocabulary:cover-deal-with": {
       "id": "vocabulary:cover-deal-with",

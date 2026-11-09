@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 219,
+  "revision": 221,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -714,6 +714,33 @@
       ],
       "first_learned_at": "2026-11-01T16:56:21+08:00",
       "last_learned_at": "2026-11-01T16:56:21+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:home-cooked": {
+      "id": "phrases:home-cooked",
+      "category": "phrases",
+      "key": "home-cooked",
+      "status": "learning",
+      "title": "home-cooked（家常的、家里自己做的）",
+      "explanation": "复合形容词，指食物是家里亲手做的，而不是餐馆、外卖或工厂预制的。常与 meal / food / dinner / cooking 搭配。与 homemade 的分工：homemade 强调“非工业批量生产、自己制作”（可用于果酱、家具、礼物），home-cooked 只用于饭菜，强调“像家里做的、带着家常味道”。构词是名词 home + 过去分词 cooked，中间必须加连字符；作表语时可分开写（The food is home-cooked 仍写连字符，写成 home cooked 只是把 cooked 当谓语动词时才成立）。",
+      "source": "home-cooked casserole",
+      "example": "Nothing beats a home-cooked meal after a week of takeout.",
+      "tags": [
+        "home-cooked-vs-homemade",
+        "复合形容词",
+        "搭配",
+        "饮食"
+      ],
+      "first_learned_at": "2026-11-10T07:01:40+08:00",
+      "last_learned_at": "2026-11-10T07:01:40+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
