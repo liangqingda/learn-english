@@ -288,7 +288,8 @@ class MenuItemNoteTest(unittest.TestCase):
 
             path = notes / "mixed-a-price-to-pay.md"
             path.write_text(self.base_note(), encoding="utf-8")
-            self.assertEqual(check_note.check(path), [])
+            issues = check_note.check(path)
+            self.assertTrue(any("自造前缀" in issue["message"] for issue in issues))
 
             path = notes / "phrases-a-price-to-pay.md"
             path.write_text(

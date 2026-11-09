@@ -200,7 +200,7 @@ RECORD_ID_RE = re.compile(
 )
 NOTE_NAME_RE = re.compile(rf"^([a-z]+)-({NOTE_KEY_FRAGMENT})\.md$")
 TRANSITION_RE = re.compile(
-    r"^(vocabulary|phrases|grammar|usage|errors|mixed|paper) · "
+    r"^(vocabulary|phrases|grammar|usage|errors|paper) · "
     r"((learning|familiar|mastered) → (learning|familiar|mastered)|未评分)$"
 )
 UNANSWERED_WORDS = ("未作答", "未完成", "漏答")
@@ -220,7 +220,7 @@ MENU_EMOJI_RE = re.compile(
 MENU_FIELD_RE = re.compile(r"^\*\*(讲解要点|可迁移表达)\*\*：")
 MENU_CHILD_RE = re.compile(r"^(?:\s{2,}|\t)(?:[-*] |\d+\. )")
 NOTE_DIR_NAME = "learning-record-notes"
-NOTE_CATEGORIES = ("vocabulary", "phrases", "grammar", "usage", "errors", "paper", "mixed")
+NOTE_CATEGORIES = ("vocabulary", "phrases", "grammar", "usage", "errors", "paper")
 STRUCTURED_LINE_RE = re.compile(r"^(?:[-*] |\d+\. )")
 
 
@@ -231,7 +231,7 @@ def filename_category(path: Path) -> str | None:
 
 
 def check_filename(path: Path) -> list[dict]:
-    """分类前缀只允许五类学习记录分类，禁止 `mixed` 等自造前缀；文件名不带日期。"""
+    """分类前缀只允许五类学习记录分类或套题 `paper`，禁止 `mixed` 等自造前缀；文件名不带日期。"""
 
     if path.parent.name != NOTE_DIR_NAME:
         return []
@@ -401,7 +401,7 @@ def check(path: Path) -> list[dict]:
                                 basic_line.get("记录 ID / 试卷 ID", h_table + 1),
                                 f"记录 ID 与文件名不一致：`{record_id}` 应对应 `{note_category}-{match.group(2)}.md`，当前为 `{path.name}`",
                             )
-                elif note_category not in ("mixed", "paper") and not RECORD_ID_RE.match(record_id):
+                elif note_category != "paper" and not RECORD_ID_RE.match(record_id):
                     add(h_table + 1, f"`记录 ID / 试卷 ID` 格式无效：`{record_id}`")
             title_value = basic.get("目标知识点", "")
             if title_value in ("", "—"):

@@ -20,8 +20,8 @@
 - 未评分的作答同样写笔记（`error-clusters` 专题练习、`follow-up-learning` 练习、用户明确参与并出现作答的场景对话），
   追踪字段的「本轮得分」与「分类 · 状态变化」写 `—` 与 `<category> · 未评分`，不调用 `complete-review`。
 - 文件名不带日期：`learning-record-notes/<category>-<slug>.md`。`category` 取 `vocabulary`、`phrases`、`grammar`、
-  `usage`、`errors`；套题用 `paper`；`mixed` **仅**用于一次练习同时实质考查 ≥2 个分类的情况，其余一律用锚点记录所在分类，
-  禁止 `misc`、`practice` 等自造前缀。
+  `usage`、`errors`；套题用 `paper`；一轮练习即使实质考查 ≥2 个分类，也只写「锚点记录」所在的分类——锚点取本轮错得最多、
+  或主要考查的那一条记录，它的记录 ID 就决定文件名；禁止 `mixed`、`misc`、`practice` 等自造前缀。
 - `slug` 取记录 `id` 或 `paper_id` 的语义部分，只保留小写字母、数字、连字符；记录 `id` 本身含中文时（如
   `usage:after-不宜直接当-later-连接后续动作`）slug 必须原样带上中文，不得自行翻译成英文别名。
   校验器要求 `<category>-<slug>.md` 与「记录 ID / 试卷 ID」逐字一致：`errors:back-west-spacing` 必须写在

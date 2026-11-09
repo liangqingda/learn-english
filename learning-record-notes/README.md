@@ -7,7 +7,8 @@
 `take-english-study-notes/scripts/check_note.py` 强制校验。本文件只列四条速查：
 
 - 文件名 `<category>-<slug>.md`，不带日期；类别取 `vocabulary` / `phrases` / `grammar` / `usage` / `errors`，
-  套题用 `paper`，`mixed` 仅用于一次练习实质考查 ≥2 个分类。主题相同一律复用同一文件。
+  套题用 `paper`；跨分类的一轮练习归到「锚点记录」所在类别（锚点＝本轮错得最多或主要考查的那条记录），
+  不存在 `mixed` 这类前缀。主题相同一律复用同一文件。
   记录 ID 必须与文件名一致（`errors:back-west-spacing` → `errors-back-west-spacing.md`）。
 - 文件顶部先放 `## 基础信息` 表格；文件级 `## 讲解` 小节每份笔记都必须有（一个知识点只有一份，固定在基础信息之后、所有日期区块之前，不带 `讲解时间` 等本轮字段）。历史记录补建笔记时正文可先写占位提示，但这一节不能省。
   `## 讲解` 只讲本文件那一层（`phrases` 讲短语、`grammar` 讲语法机制、`usage` 讲语气语域），栏目按分类自选，不必凑齐固定的几项。
