@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 228,
+  "revision": 229,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -1093,11 +1093,11 @@
       "first_learned_at": "2026-07-31T09:16:35+08:00",
       "last_learned_at": "2026-11-09T20:59:39+08:00",
       "learned_count": 5,
-      "mastery_score": 0.0,
-      "review_count": 3,
+      "mastery_score": 6.0,
+      "review_count": 4,
       "high_score_streak": 0,
-      "last_reviewed_at": "2026-08-03T21:53:24+08:00",
-      "next_review_at": "2026-08-17T21:53:24+08:00",
+      "last_reviewed_at": "2026-11-10T21:01:44+08:00",
+      "next_review_at": "2026-11-13T21:01:44+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
@@ -1118,6 +1118,12 @@
           "reviewed_at": "2026-08-03T21:53:24+08:00",
           "previous_status": "learning",
           "new_status": "familiar"
+        },
+        {
+          "score": 6.0,
+          "reviewed_at": "2026-11-10T21:01:44+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
         }
       ],
       "key": "serve"

@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 228,
+  "revision": 229,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -238,6 +238,30 @@
         }
       ],
       "key": "accuse-vs-correct-word-choice"
+    },
+    "errors:administrative-chef-translated-as-government": {
+      "id": "errors:administrative-chef-translated-as-government",
+      "category": "errors",
+      "key": "administrative-chef-translated-as-government",
+      "status": "learning",
+      "title": "行政主厨误译为 government main chef",
+      "explanation": "「行政主厨」是职位名称 executive chef（也可说 head chef），这里的「行政」指管理职务而非政府；government 只表示「政府的」，不能拿来对应职位里的「行政」。",
+      "source": "The government main chef is responsible for the design of the menu.",
+      "example": "The executive chef is responsible for the menu design every morning.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-10T21:01:44+08:00",
+      "last_learned_at": "2026-11-10T21:01:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:advice-uncountable-many-error": {
       "id": "errors:advice-uncountable-many-error",
@@ -1417,6 +1441,30 @@
         }
       ],
       "key": "direction-vs-home-area-contrast"
+    },
+    "errors:dish-up-register-informal-for-formal-context": {
+      "id": "errors:dish-up-register-informal-for-formal-context",
+      "category": "errors",
+      "key": "dish-up-register-informal-for-formal-context",
+      "status": "learning",
+      "title": "把 dish up 用在正式酒店宣传册里",
+      "explanation": "dish up 表示「把饭菜端上/摆上桌」，属于偏口语、家常的说法，用于宣传册、酒店介绍这类正式书面语域不合适；同样表达「供应/端上」，serve 更中性，正式场合更合适。",
+      "source": "合适（判断 The hotel dished up breakfast for its guests 适合正式宣传册）",
+      "example": "The hotel serves breakfast to its guests from seven to ten.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-10T21:01:44+08:00",
+      "last_learned_at": "2026-11-10T21:01:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:double-consonant-in-stopped": {
       "id": "errors:double-consonant-in-stopped",
@@ -4770,6 +4818,30 @@
       ],
       "key": "semantic-conflict-old-timers-newcomers"
     },
+    "errors:serving-hours-rendered-with-open": {
+      "id": "errors:serving-hours-rendered-with-open",
+      "category": "errors",
+      "key": "serving-hours-rendered-with-open",
+      "status": "learning",
+      "title": "用 open 表达「供应/营业时间」",
+      "explanation": "open 说明的是「店铺开门、营业」，不能带出「供应早餐」这件事；要表达「早餐从七点供应到十点」，动作主体应落在 serve 上，用 breakfast is served from ... to ... 或 the café serves breakfast from ... to ...。",
+      "source": "the breakfast open from seven am to ten pm.",
+      "example": "Breakfast is served from seven to ten.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-10T21:01:44+08:00",
+      "last_learned_at": "2026-11-10T21:01:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:set-the-table-not-put-the-table": {
       "id": "errors:set-the-table-not-put-the-table",
       "category": "errors",
@@ -5627,6 +5699,30 @@
       "mastered_at": null,
       "review_history": [],
       "key": "using-shall-you-for-friendly-suggestion"
+    },
+    "errors:vegetarian-food-rendered-as-vegetables": {
+      "id": "errors:vegetarian-food-rendered-as-vegetables",
+      "category": "errors",
+      "key": "vegetarian-food-rendered-as-vegetables",
+      "status": "learning",
+      "title": "「素食」误写成 vegetables",
+      "explanation": "vegetables 指具体的蔬菜这种食材；「素食（不含荤食的餐食）」是 vegetarian food，指一类饮食，不是某几种蔬菜。只供应素食应说 serve only vegetarian food。",
+      "source": "The coffee shop only serves vegetables.",
+      "example": "The café serves only vegetarian food.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-10T21:01:44+08:00",
+      "last_learned_at": "2026-11-10T21:01:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:visit-someone-in-place-not-to-place": {
       "id": "errors:visit-someone-in-place-not-to-place",
