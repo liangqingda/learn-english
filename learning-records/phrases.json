@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 229,
+  "revision": 232,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -115,14 +115,21 @@
       "first_learned_at": "2026-11-08T16:09:04+08:00",
       "last_learned_at": "2026-11-08T16:09:04+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
+      "mastery_score": 5.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-11-10T21:37:41+08:00",
+      "next_review_at": "2026-11-13T21:37:41+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 5.0,
+          "reviewed_at": "2026-11-10T21:37:41+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ]
     },
     "phrases:after-fixed-phrases-look-after-name-after-be-after": {
       "id": "phrases:after-fixed-phrases-look-after-name-after-be-after",

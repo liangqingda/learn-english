@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 231,
+  "revision": 232,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -295,6 +295,30 @@
         }
       ],
       "key": "advice-uncountable-many-error"
+    },
+    "errors:after-all-front-position-for-given-reason": {
+      "id": "errors:after-all-front-position-for-given-reason",
+      "category": "errors",
+      "key": "after-all-front-position-for-given-reason",
+      "status": "learning",
+      "title": "after all 给出理由时放句首并加逗号更自然",
+      "explanation": "after all 用来给理由或修正预期时，最常见是置于句首后接逗号（After all, this is his first time.），放在句末且不加逗号会显得生硬。",
+      "source": "This is his first time after all.",
+      "example": "After all, this is his first time.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-10T21:37:41+08:00",
+      "last_learned_at": "2026-11-10T21:37:41+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:after-clause-missing-subject-before-past-participle": {
       "id": "errors:after-clause-missing-subject-before-past-participle",
@@ -1026,6 +1050,30 @@
       "mastered_at": null,
       "review_history": [],
       "key": "but-clause-needs-finite-verb"
+    },
+    "errors:calm-not-quiet-for-composure": {
+      "id": "errors:calm-not-quiet-for-composure",
+      "category": "errors",
+      "key": "calm-not-quiet-for-composure",
+      "status": "learning",
+      "title": "淡定用 calm，不用 quiet",
+      "explanation": "quiet 指声音小或人不爱说话，描述遇事不慌的心理状态要用 calm（也可以说 stay calm / keep one's cool）。",
+      "source": "He is so quiet",
+      "example": "He stays so calm — he has done it many times, after all.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-10T21:37:41+08:00",
+      "last_learned_at": "2026-11-10T21:37:41+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:cannot-written-as-one-word": {
       "id": "errors:cannot-written-as-one-word",
@@ -4267,6 +4315,30 @@
       "mastered_at": null,
       "review_history": [],
       "key": "present-habit-when-clause-past-tense-mismatch"
+    },
+    "errors:present-perfect-missing-has-and-object": {
+      "id": "errors:present-perfect-missing-has-and-object",
+      "category": "errors",
+      "key": "present-perfect-missing-has-and-object",
+      "status": "learning",
+      "title": "现在完成时漏掉 has 和宾语：he done many times",
+      "explanation": "说“做过很多次”是持续到现在之前的经历，要用 have/has + done 的现在完成时，并且 do 是及物动词，必须带宾语 it/this。",
+      "source": "He done many times.",
+      "example": "He has done it many times.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-10T21:37:41+08:00",
+      "last_learned_at": "2026-11-10T21:37:41+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:present-simple-for-future-arrangement": {
       "id": "errors:present-simple-for-future-arrangement",
