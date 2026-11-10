@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 232,
+  "revision": 233,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -2764,6 +2764,31 @@
       "review_history": [],
       "key": "life-as-general-condition-without-the"
     },
+    "errors:life-beside-the-sea-wording": {
+      "id": "errors:life-beside-the-sea-wording",
+      "category": "errors",
+      "key": "life-beside-the-sea-wording",
+      "status": "learning",
+      "title": "the life beside the sea 表达生硬",
+      "explanation": "英语描述“海边的生活”习惯说 life by the sea 或 living by the sea，加 the 并搭配 beside 会让短语显得像具体地点而非生活方式。",
+      "source": "the life beside the sea",
+      "example": "They enjoy living by the sea.",
+      "tags": [
+        "collocation",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-11T07:37:56+08:00",
+      "last_learned_at": "2026-11-11T07:37:56+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:life-no-article-generic": {
       "id": "errors:life-no-article-generic",
       "category": "errors",
@@ -4095,7 +4120,7 @@
     "errors:plural-grandparents-translation": {
       "id": "errors:plural-grandparents-translation",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "grandparents 的复数对应",
       "explanation": "中文“祖父母”通常对应复数 grandparents；描述两位祖辈时不能使用单数 grandparent。",
       "source": "My grandparent comes from back east, but living in ...",
@@ -4106,11 +4131,11 @@
       "first_learned_at": "2026-07-28T23:17:51+08:00",
       "last_learned_at": "2026-07-28T23:17:51+08:00",
       "learned_count": 1,
-      "mastery_score": 7.0,
-      "review_count": 2,
-      "high_score_streak": 0,
-      "last_reviewed_at": "2026-08-01T08:41:13+08:00",
-      "next_review_at": "2026-08-04T08:41:13+08:00",
+      "mastery_score": 10.0,
+      "review_count": 3,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-11-11T07:37:56+08:00",
+      "next_review_at": "2026-12-11T07:37:56+08:00",
       "lapse_count": 1,
       "mastered_at": null,
       "review_history": [
@@ -4119,6 +4144,12 @@
           "reviewed_at": "2026-08-01T08:41:13+08:00",
           "previous_status": "familiar",
           "new_status": "learning"
+        },
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-11-11T07:37:56+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
         }
       ],
       "key": "plural-grandparents-translation"
@@ -4154,6 +4185,31 @@
         }
       ],
       "key": "plural-phones-after-phone-shared-device"
+    },
+    "errors:plural-subject-plural-predicate-noun": {
+      "id": "errors:plural-subject-plural-predicate-noun",
+      "category": "errors",
+      "key": "plural-subject-plural-predicate-noun",
+      "status": "learning",
+      "title": "复数主语后表语名词仍用单数",
+      "explanation": "主语是复数时，后面的表语名词同样要变复数；My grandparents are retired teachers 中 teacher 不能保留单数。",
+      "source": "My grandparents are retired teacher.",
+      "example": "My grandparents are retired teachers.",
+      "tags": [
+        "number-agreement",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-11T07:37:56+08:00",
+      "last_learned_at": "2026-11-11T07:37:56+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:point-out-used-with-advice-collocation": {
       "id": "errors:point-out-used-with-advice-collocation",
@@ -6017,6 +6073,31 @@
       ],
       "first_learned_at": "2026-11-10T21:01:44+08:00",
       "last_learned_at": "2026-11-10T21:01:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:very-directly-before-verb": {
+      "id": "errors:very-directly-before-verb",
+      "category": "errors",
+      "key": "very-directly-before-verb",
+      "status": "learning",
+      "title": "very 直接修饰实义动词",
+      "explanation": "very 是程度副词，只能修饰形容词或副词，不能直接放在实义动词前；表示“非常喜欢”要说 like ... very much 或 really like。",
+      "source": "Now they very like the life beside the sea.",
+      "example": "They really like living by the sea.",
+      "tags": [
+        "adverb",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-11T07:37:56+08:00",
+      "last_learned_at": "2026-11-11T07:37:56+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
