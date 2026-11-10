@@ -19,9 +19,15 @@
   因此区块内同时保留两个时间：`笔记生成时间` 只记首次写入，`笔记更新时间` 记该区块最后一次修改，两者相同时说明写过之后没再改。
 - 未评分的作答同样写笔记（`error-clusters` 专题练习、`follow-up-learning` 练习、用户明确参与并出现作答的场景对话），
   追踪字段的「本轮得分」与「分类 · 状态变化」写 `—` 与 `<category> · 未评分`，不调用 `complete-review`。
-- 文件名不带日期：`learning-record-notes/<category>-<slug>.md`。`category` 取 `vocabulary`、`phrases`、`grammar`、
-  `usage`、`errors`；套题用 `paper`；一轮练习即使实质考查 ≥2 个分类，也只写「锚点记录」所在的分类——锚点取本轮错得最多、
+- 文件名不带日期：`learning-record-notes/<category>-<slug>.md`。`category` 只能取 `learning-record-notes/categories.json`
+  里声明的键（现有 `vocabulary`、`phrases`、`grammar`、`usage`、`errors`；套题用 `paper`）；一轮练习即使实质考查 ≥2 个分类，
+  也只写「锚点记录」所在的分类——锚点取本轮错得最多、
   或主要考查的那一条记录，它的记录 ID 就决定文件名；禁止 `mixed`、`misc`、`practice` 等自造前缀。
+- **分类清单只有一份**：键、中文标题、展示顺序与 `hidden` 都由 `learning-record-notes/categories.json` 定义。
+  改标题、调列顺序、把某类从看板藏起来只改这个文件，不要再抄一份到笔记正文、复习菜单或其他项目
+  （`my-dashboard` 的英语页直接读它来排看板列）。**新增一个全新分类**除了改该文件，还要同步本节的
+  分类列表、`check_note.py` 的分类集合和下面的「各分类必写栏」——校验器靠那里拦自造前缀。
+  别处读到的不在清单里的前缀，说明这里是唯一漏改的地方。
 - `slug` 取记录 `id` 或 `paper_id` 的语义部分，只保留小写字母、数字、连字符；记录 `id` 本身含中文时（如
   `usage:after-不宜直接当-later-连接后续动作`）slug 必须原样带上中文，不得自行翻译成英文别名。
   校验器要求 `<category>-<slug>.md` 与「记录 ID / 试卷 ID」逐字一致：`errors:back-west-spacing` 必须写在

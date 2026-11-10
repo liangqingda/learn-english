@@ -4,12 +4,18 @@
 
 规则只有一处权威来源：**[`take-english-study-notes/references/note-format.md`](../take-english-study-notes/references/note-format.md)**。
 版式以 [`templates/review-note.md`](../take-english-study-notes/templates/review-note.md) 为准，合规性由
-`take-english-study-notes/scripts/check_note.py` 强制校验。本文件只列四条速查：
+`take-english-study-notes/scripts/check_note.py` 强制校验。本文件只列速查：
 
-- 文件名 `<category>-<slug>.md`，不带日期；类别取 `vocabulary` / `phrases` / `grammar` / `usage` / `errors`，
-  套题用 `paper`；跨分类的一轮练习归到「锚点记录」所在类别（锚点＝本轮错得最多或主要考查的那条记录），
+- 文件名 `<category>-<slug>.md`，不带日期；`category` 只能取 [`categories.json`](categories.json) 里声明的键
+  （现有 `vocabulary` / `phrases` / `grammar` / `usage` / `errors`，套题用 `paper`）；
+  跨分类的一轮练习归到「锚点记录」所在类别（锚点＝本轮错得最多或主要考查的那条记录），
   不存在 `mixed` 这类前缀。主题相同一律复用同一文件。
   记录 ID 必须与文件名一致（`errors:back-west-spacing` → `errors-back-west-spacing.md`）。
+- **分类清单只有一份**：[`categories.json`](categories.json)。它定义分类的键、中文标题、展示顺序和
+  `hidden`（`paper` 这类不在看板展示的分类）。改标题、调列顺序、把某类从看板藏起来只改这个文件；
+  `my-dashboard` 的英语页直接读它来排看板列。
+  **新增一个全新分类**还要同步 `take-english-study-notes/scripts/check_note.py` 里的分类集合与
+  `note-format.md` 的「各分类必写栏」——校验器用它拦自造前缀，每个分类的讲解栏也不同。
 - 文件顶部先放 `## 基础信息` 表格；文件级 `## 讲解` 小节每份笔记都必须有（一个知识点只有一份，固定在基础信息之后、所有日期区块之前，不带 `讲解时间` 等本轮字段）。历史记录补建笔记时正文可先写占位提示，但这一节不能省。
   `## 讲解` 只讲本文件那一层（`phrases` 讲短语、`grammar` 讲语法机制、`usage` 讲语气语域），栏目按分类自选，不必凑齐固定的几项。
 - 记录库里的每个知识点在 `learning-records/`、`mastered-learning-records/` 中都对应本目录的一份笔记；缺笔记或笔记缺 `## 讲解` 时，用 `explain`（缺小节时加 `--update` 插入）补齐后再写本轮区块。每个文件都有一份 `## 讲解`，是写入路径的责任，校验器不拦这一点。

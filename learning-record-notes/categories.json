@@ -1,0 +1,10 @@
+{
+  "categories": [
+    { "key": "errors", "label": "错题" },
+    { "key": "phrases", "label": "短语" },
+    { "key": "usage", "label": "用法" },
+    { "key": "grammar", "label": "语法" },
+    { "key": "vocabulary", "label": "词汇" },
+    { "key": "paper", "label": "套题", "hidden": true }
+  ]
+}
