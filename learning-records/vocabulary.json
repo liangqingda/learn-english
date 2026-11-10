@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 227,
+  "revision": 228,
   "category": "vocabulary",
   "records": {
     "vocabulary:a-little-bit": {
@@ -45,8 +45,7 @@
       "source": "The old bridge across the river. / The old bridge crosses the river.",
       "example": "We walked across the bridge, and then we crossed the street.",
       "tags": [
-        "follow-up-learning",
-        "user-requested"
+        "follow-up-learning"
       ],
       "first_learned_at": "2026-08-05T08:53:05+08:00",
       "last_learned_at": "2026-08-05T08:53:05+08:00",
@@ -95,7 +94,7 @@
       "source": "2",
       "example": "After living in California for years, she traveled eastward to visit her family back east.",
       "tags": [
-        "usage-comparison"
+        "comparison"
       ],
       "first_learned_at": "2026-07-29T07:25:47+08:00",
       "last_learned_at": "2026-07-29T07:25:47+08:00",
@@ -179,10 +178,10 @@
       "source": "home-cooked casserole",
       "example": "She brought a chicken-and-rice casserole to the potluck.",
       "tags": [
-        "器皿与菜品",
-        "英美差异",
-        "词源",
-        "饮食名词"
+        "british-vs-american",
+        "etymology",
+        "food-noun",
+        "tableware-and-dishes"
       ],
       "first_learned_at": "2026-11-10T07:01:40+08:00",
       "last_learned_at": "2026-11-10T07:15:45+08:00",
@@ -230,9 +229,9 @@
       "source": "more than 50 distinct ethnic groups",
       "example": "The two languages are distinct in sound and structure. 这两种语言在语音和结构上都截然不同。",
       "tags": [
-        "different",
-        "形容词",
-        "近义辨析"
+        "adjective",
+        "comparison",
+        "different"
       ],
       "first_learned_at": "2026-11-01T19:12:18+08:00",
       "last_learned_at": "2026-11-01T19:12:18+08:00",
@@ -327,8 +326,8 @@
       "source": "Are you a night owl or an early bird?",
       "example": "He's an early bird, so he finishes his workout before breakfast.",
       "tags": [
-        "作息",
-        "口语"
+        "daily-routine",
+        "spoken-english"
       ],
       "first_learned_at": "2026-10-29T07:54:05+08:00",
       "last_learned_at": "2026-10-29T07:54:05+08:00",
@@ -352,9 +351,9 @@
       "source": "more than 50 distinct ethnic groups",
       "example": "China is home to 56 ethnic groups, including the Han majority. 中国有 56 个民族，其中汉族占多数。",
       "tags": [
-        "名词",
-        "文化",
-        "民族"
+        "culture",
+        "ethnicity",
+        "noun"
       ],
       "first_learned_at": "2026-11-01T19:12:18+08:00",
       "last_learned_at": "2026-11-01T19:12:18+08:00",
@@ -430,9 +429,9 @@
       "source": "The last hidden world",
       "example": "A hidden valley untouched by tourists. → 一处未被游客踏足的隐秘山谷。",
       "tags": [
+        "adjective",
         "hidden",
-        "形容词",
-        "秘境"
+        "hidden-place"
       ],
       "first_learned_at": "2026-11-01T16:56:21+08:00",
       "last_learned_at": "2026-11-01T16:56:21+08:00",
@@ -482,8 +481,8 @@
       "source": "Are you a night owl or an early bird?",
       "example": "My roommate is a real night owl; she often studies until 2 a.m.",
       "tags": [
-        "作息",
-        "口语"
+        "daily-routine",
+        "spoken-english"
       ],
       "first_learned_at": "2026-10-29T07:54:05+08:00",
       "last_learned_at": "2026-10-29T07:54:05+08:00",
@@ -659,8 +658,8 @@
       "source": "I cannot stand the smell of smoke.",
       "example": "How can you put up with that noise every day?",
       "tags": [
-        "语域",
-        "近义词"
+        "register",
+        "synonym"
       ],
       "first_learned_at": "2026-10-29T07:50:36+08:00",
       "last_learned_at": "2026-10-29T07:50:36+08:00",
@@ -735,7 +734,7 @@
       "source": "...travellers to China have told tales...",
       "example": "US: I'm a frequent traveler. / UK: I'm a frequent traveller. (我是一个经常旅行的人。)",
       "tags": [
-        "british-american",
+        "british-vs-american",
         "spelling"
       ],
       "first_learned_at": "2026-11-01T17:04:34+08:00",

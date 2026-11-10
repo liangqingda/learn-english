@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 from contextlib import contextmanager
 from datetime import datetime
 from pathlib import Path
@@ -12,6 +13,7 @@ from typing import Any, Callable, TypeVar
 from .models import (
     CATEGORIES,
     SCHEMA_VERSION,
+    TAG_FORMAT_RE,
     RecordError,
     empty_database,
     normalize_key,
@@ -354,6 +356,21 @@ class RecordStore:
                             "message": "tags must not contain duplicates",
                         }
                     )
+                else:
+                    malformed = [
+                        tag for tag in tags if not TAG_FORMAT_RE.fullmatch(tag)
+                    ]
+                    if malformed:
+                        issues.append(
+                            {
+                                "id": identifier,
+                                "field": "tags",
+                                "message": (
+                                    "tags must be lowercase ASCII hyphenated words "
+                                    f"(e.g. `word-choice`): {', '.join(malformed)}"
+                                ),
+                            }
+                        )
             try:
                 mastered_at = parse_timestamp(record.get("mastered_at"))
                 if mastered_at is None:

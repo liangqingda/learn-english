@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 226,
+  "revision": 228,
   "category": "usage",
   "records": {
     "usage:after-vs-later-sequence": {
@@ -53,8 +53,8 @@
       "source": "I cannot stand the smell of smoke.",
       "example": "I cannot (can't) stand waiting in line.",
       "tags": [
-        "正式度",
-        "缩略形式"
+        "contraction",
+        "register"
       ],
       "first_learned_at": "2026-10-29T07:50:36+08:00",
       "last_learned_at": "2026-10-29T07:50:36+08:00",
@@ -78,9 +78,9 @@
       "source": "go for it",
       "example": "A: I'm nervous about the audition. B: Don't be — go for it!",
       "tags": [
-        "易混",
-        "语域",
-        "语气"
+        "confusable",
+        "register",
+        "tone"
       ],
       "first_learned_at": "2026-10-29T07:52:52+08:00",
       "last_learned_at": "2026-10-29T07:52:52+08:00",

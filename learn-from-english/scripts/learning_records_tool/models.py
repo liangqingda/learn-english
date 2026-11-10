@@ -12,6 +12,9 @@ SCHEMA_VERSION = 2
 CATEGORIES = ("vocabulary", "phrases", "grammar", "usage", "errors")
 STATUSES = ("learning", "familiar", "mastered")
 REQUIRED_TEXT_FIELDS = ("title", "explanation", "source", "example")
+# 标签是小写 ASCII 连字符词（`word-choice`）：中英混杂或带空格的标签会让错题聚类菜单
+# 直接显示两套不同写法的同一个概念。
+TAG_FORMAT_RE = re.compile(r"[a-z0-9]+(-[a-z0-9]+)*")
 
 
 class RecordError(Exception):
@@ -49,11 +52,15 @@ def record_id(category: str, canonical_key: str) -> str:
 
 
 def normalize_tags(tags: list[str]) -> list[str]:
+    """统一标签写法：小写、空白转连字符、大小写去重。
+
+    ASCII 之外的字符保留原样交给校验器报错，避免把中文标签静默改写成语义不明的英文。
+    """
     unique: dict[str, str] = {}
     for tag in tags:
-        stripped = tag.strip()
-        if stripped:
-            unique.setdefault(stripped.casefold(), stripped)
+        normalized = re.sub(r"\s+", "-", tag.strip().casefold())
+        if normalized:
+            unique.setdefault(normalized, normalized)
     return sorted(unique.values(), key=lambda value: (value.casefold(), value))
 
 
@@ -163,6 +170,17 @@ def validate_record(identifier: str, record: Any) -> list[dict[str, Any]]:
         issues.append(_issue(identifier, "tags", "tags must be an array of strings"))
     elif len(tags) != len({tag.casefold() for tag in tags}):
         issues.append(_issue(identifier, "tags", "tags must not contain duplicates"))
+    else:
+        malformed = [tag for tag in tags if not TAG_FORMAT_RE.fullmatch(tag)]
+        if malformed:
+            issues.append(
+                _issue(
+                    identifier,
+                    "tags",
+                    "tags must be lowercase ASCII hyphenated words "
+                    f"(e.g. `word-choice`): {', '.join(malformed)}",
+                )
+            )
 
     for field in ("learned_count", "review_count", "high_score_streak", "lapse_count"):
         value = record.get(field)

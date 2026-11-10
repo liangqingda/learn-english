@@ -336,13 +336,13 @@ class LearningRecordsTest(unittest.TestCase):
             self.service.batch_upsert([invalid_tags])
         self.assertEqual(self.service.records(), {})
 
-    def test_tags_are_deduplicated_case_insensitively(self) -> None:
+    def test_tags_are_lowercased_hyphenated_and_deduplicated(self) -> None:
         record_payload = payload("usage", "tag-normalization")
-        record_payload["tags"] = ["Core", "core", " review "]
+        record_payload["tags"] = ["Core", "core", " review ", "word choice"]
 
         result = self.service.upsert(record_payload)
 
-        self.assertEqual(result["tags"], ["Core", "review"])
+        self.assertEqual(result["tags"], ["core", "review", "word-choice"])
 
     def test_complete_review_scores_and_records_errors_in_one_transaction(self) -> None:
         self.service.upsert(payload("grammar", "target-rule"))

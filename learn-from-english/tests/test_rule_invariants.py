@@ -402,6 +402,16 @@ class ServiceInvariantTest(unittest.TestCase):
         self.store.initialize(empty_database())
         self.service = RecordService(self.store)
 
+    def test_non_ascii_tags_are_rejected(self) -> None:
+        """标签只允许小写 ASCII 连字符词；大小写与空格会被自动归一，中文标签必须在写入前报错。"""
+        from learning_records_tool.models import RecordError
+
+        for tag in ("口语", "近义辨析"):
+            payload_with_bad_tag = {**payload("grammar", "tag-case"), "tags": [tag]}
+            with self.assertRaises(RecordError) as caught:
+                self.service.upsert(payload_with_bad_tag)
+            self.assertIn("lowercase ASCII hyphenated words", str(caught.exception))
+
     def test_chinese_key_is_rejected_instead_of_persisted(self) -> None:
         """中文主题必须意译成英文 key；直接传中文要在写入前报错，不能落成中文 ID。"""
         self.assertEqual(normalize_key("情态动词后使用动词原形"), "")

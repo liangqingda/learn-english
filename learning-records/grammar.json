@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 227,
+  "revision": 228,
   "category": "grammar",
   "records": {
     "grammar:alternative-question-a-or-b": {
@@ -12,8 +12,8 @@
       "source": "Are you a night owl or an early bird?",
       "example": "Do you prefer tea or coffee?",
       "tags": [
-        "口语",
-        "句型"
+        "sentence-pattern",
+        "spoken-english"
       ],
       "first_learned_at": "2026-10-29T07:54:05+08:00",
       "last_learned_at": "2026-10-29T07:54:05+08:00",
@@ -64,8 +64,7 @@
       "example": "My dream city, Paris, never fails to amaze me. → 我梦想的城市巴黎，总让我惊叹。",
       "tags": [
         "appositive",
-        "同位语",
-        "标题表达"
+        "headline-expression"
       ],
       "first_learned_at": "2026-11-01T16:56:21+08:00",
       "last_learned_at": "2026-11-01T16:56:21+08:00",
@@ -310,9 +309,9 @@
       "source": "I've got my whole life ahead of me.",
       "example": "I've got plenty of time to decide.",
       "tags": [
-        "have got",
+        "have-got",
         "present",
-        "spoken English"
+        "spoken-english"
       ],
       "first_learned_at": "2026-09-28T07:58:12+08:00",
       "last_learned_at": "2026-09-28T07:58:12+08:00",
@@ -586,8 +585,8 @@
       "tags": [
         "grammar",
         "preposition",
-        "prepositional phrase",
-        "sentence element"
+        "prepositional-phrase",
+        "sentence-element"
       ],
       "first_learned_at": "2026-08-06T07:37:43+08:00",
       "last_learned_at": "2026-08-06T07:37:43+08:00",
@@ -762,8 +761,8 @@
       "source": "I cannot stand the smell of smoke.",
       "example": "The smell of fresh bread filled the room.",
       "tags": [
-        "of 结构",
-        "名词短语"
+        "noun-phrase",
+        "of-structure"
       ],
       "first_learned_at": "2026-10-29T07:50:36+08:00",
       "last_learned_at": "2026-10-29T07:50:36+08:00",
@@ -814,10 +813,10 @@
       "source": "You are what you eat.",
       "example": "You are what you repeatedly do. / The problem is what he said yesterday.",
       "tags": [
+        "linking-verb",
+        "predicative-clause",
         "sentence-structure",
-        "what",
-        "系动词",
-        "表语从句"
+        "what"
       ],
       "first_learned_at": "2026-11-09T07:50:18+08:00",
       "last_learned_at": "2026-11-09T07:50:18+08:00",

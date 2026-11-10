@@ -81,7 +81,7 @@ description: 当用户发送英文单词、短语、句子、段落、对话、�
 python3 learn-from-english/scripts/learning_records.py batch-upsert --input <JSON 文件或 ->
 ```
 
-输入格式为 `{"records": [{"category": "grammar", "key": "present-perfect-experience", "title": "...", "explanation": "...", "source": "...", "example": "...", "tags": ["..."]}]}`。同类同义知识点必须复用同一个 `key`；键只表达知识点本身，不包含日期、会话或例句。`key` 只能用小写 ASCII 字母、数字与连字符，中文主题要意译成英文短语（直接传中文会在写入前报 key 无效，不会落成中文 ID）。脚本会生成稳定 ID；相同 ID 或同类高度相似知识点会复用已有记录并保持当前状态，不用较弱内容覆盖较完整内容，但会用更丰富的新 `explanation`、`source`、`example` 和标签补全已有记录。根据返回的 `reason`、`similarity` 与 `enriched_fields` 判断匹配和补全结果。整批输入先校验后写入，任一知识点无效时整批不保存。多个分类文件由本机写锁协调并逐个原子替换；写入前脚本会把目标文件的原始内容备份到 `learning-records/.txn/` 并记录 `.txn-journal.json`；中途失败立即回滚，进程被杀时下一次写操作会先自动恢复再继续。
+输入格式为 `{"records": [{"category": "grammar", "key": "present-perfect-experience", "title": "...", "explanation": "...", "source": "...", "example": "...", "tags": ["..."]}]}`。`tags` 只用小写 ASCII 连字符词（`word-choice`、`register`）；大小写与空格会被自动归一，中文标签在写入前报错，需先译成英文再写。同类同义知识点必须复用同一个 `key`；键只表达知识点本身，不包含日期、会话或例句。`key` 只能用小写 ASCII 字母、数字与连字符，中文主题要意译成英文短语（直接传中文会在写入前报 key 无效，不会落成中文 ID）。脚本会生成稳定 ID；相同 ID 或同类高度相似知识点会复用已有记录并保持当前状态，不用较弱内容覆盖较完整内容，但会用更丰富的新 `explanation`、`source`、`example` 和标签补全已有记录。根据返回的 `reason`、`similarity` 与 `enriched_fields` 判断匹配和补全结果。整批输入先校验后写入，任一知识点无效时整批不保存。多个分类文件由本机写锁协调并逐个原子替换；写入前脚本会把目标文件的原始内容备份到 `learning-records/.txn/` 并记录 `.txn-journal.json`；中途失败立即回滚，进程被杀时下一次写操作会先自动恢复再继续。
 
 不要在每轮预读全部记录。只有在用户要求复习、查询学习历史，或确实需要判断既往知识点时，才调用：
 

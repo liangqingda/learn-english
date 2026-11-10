@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 227,
+  "revision": 228,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -1811,7 +1811,7 @@
       "tags": [
         "collocation",
         "translation",
-        "verb-choice"
+        "word-choice"
       ],
       "first_learned_at": "2026-07-31T11:00:08+08:00",
       "last_learned_at": "2026-07-31T11:00:08+08:00",
@@ -3135,7 +3135,7 @@
       "source": "from the climate to the education",
       "example": "The report covers a wide range of topics, from climate to education.",
       "tags": [
-        "articles",
+        "article",
         "review-error",
         "usage"
       ],
@@ -5056,7 +5056,7 @@
       "source": "for children / take chopsticks",
       "example": "She dished up hot soup for the children.",
       "tags": [
-        "articles",
+        "article",
         "noun-phrase",
         "specific-reference"
       ],
@@ -5202,7 +5202,7 @@
       "example": "The bookstore has a wide range of books, from novels to academic journals.",
       "tags": [
         "errors",
-        "uncountable",
+        "uncountable-noun",
         "word-choice"
       ],
       "first_learned_at": "2026-11-01T20:12:26+08:00",
