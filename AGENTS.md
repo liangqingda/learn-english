@@ -38,6 +38,17 @@ These rules apply to every user-facing response in this repository whenever the 
 - The pre-menu divider is required even for pure explanations, answer evaluations, role-play turns, and menu-only responses; it visually separates the follow-up action area from the current teaching content.
 - After the menu, place one divider and then the final attribution block. Put any `Picked from` provenance first, the commit notice second when present, and the skill attribution last, without blank lines between them. Do not place standalone italic metadata anywhere before the menu.
 
+**Exercise group display format.** Every exercise group shown in the chat (review question set, follow-up practice, exam paper items) uses one fixed layout, so question blocks read alike from turn to turn:
+
+- One `####` title covers the whole group; a single question never gets its own Markdown heading (`#`–`######`). Sizes stay flat: the group title is the only enlarged line, and every question body line keeps normal body weight.
+- Each question starts with one bold head line `**<n>. <题型>**`, where `<n>` is the Arabic number and `<题型>` is one of the fixed note type names (`单项选择` / `填空` / `改错` / `改写` / `翻译` / `语境判断` / `造句` / `短写作` / `综合运用`), so the same label can be written into the note unchanged. The task wording (`选择最佳选项填空`, `改错（只改错处，句意不变）`, `中译英`, …) goes at the end of that same head line, not as a separate bold line.
+- After the head line, put the stem, the options and any sub-task on their own lines as plain text — no bold, no heading, no blockquote. The stem is never bold; only the head line is.
+- Choices go one per line as `A.` … `D.`; a slot the user must fill is `____`; a multipart question numbers its parts `①`, `②` at the start of the line.
+- Put exactly one `---` between a question block and the next one, and no divider between the group title and the first question.
+- The divider the attribution block needs is that same `---` after the last question, so the group ends: last question → `---` → attribution block. No second divider is added there.
+- A complete exam paper may put bold `Part ...` / `Section ...` labels between sections; those are section breaks only — never Markdown headings — and they follow the same divider flow (`---`, then the label, then its questions).
+- Never put an answer, hint, knowledge-point name, source line, or menu inside the group.
+
 Prefer these stable emoji meanings when they fit, while keeping every item in one menu visually distinct:
 
 - `🧩`：语法讲解或语法训练。
