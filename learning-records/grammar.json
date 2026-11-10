@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 228,
+  "revision": 230,
   "category": "grammar",
   "records": {
     "grammar:alternative-question-a-or-b": {
@@ -124,11 +124,11 @@
       "first_learned_at": "2026-07-29T20:19:15+08:00",
       "last_learned_at": "2026-11-03T20:23:23+08:00",
       "learned_count": 14,
-      "mastery_score": 0.0,
-      "review_count": 9,
+      "mastery_score": 5.0,
+      "review_count": 10,
       "high_score_streak": 0,
-      "last_reviewed_at": "2026-10-15T20:26:23+08:00",
-      "next_review_at": "2026-10-22T20:26:23+08:00",
+      "last_reviewed_at": "2026-11-10T21:09:28+08:00",
+      "next_review_at": "2026-11-13T21:09:28+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
@@ -161,6 +161,12 @@
           "reviewed_at": "2026-10-15T20:26:23+08:00",
           "previous_status": "learning",
           "new_status": "familiar"
+        },
+        {
+          "score": 5.0,
+          "reviewed_at": "2026-11-10T21:09:28+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
         }
       ],
       "key": "continue-complements-and-register"

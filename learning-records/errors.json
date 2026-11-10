@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 229,
+  "revision": 230,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -1219,6 +1219,57 @@
         }
       ],
       "key": "completed-action-uses-past-tense-found"
+    },
+    "errors:continue-on-keeps-on-not-with-distance": {
+      "id": "errors:continue-on-keeps-on-not-with-distance",
+      "category": "errors",
+      "key": "continue-on-keeps-on-not-with-distance",
+      "status": "learning",
+      "title": "continue on 表沿路线继续，距离不跟 with",
+      "explanation": "continue on 本身已含「继续向前」，距离直接作状语跟在后面（continue on for another two miles），再加 ahead 属冗余；continue with 只接活动、流程或内容，不能接距离或里程。",
+      "source": "The bridge is under repair, so we need to continue with another two miles.",
+      "example": "The bridge is under repair, so we need to continue on for another two miles.（桥在维修，所以我们要继续往前开两英里）",
+      "tags": [
+        "redundancy",
+        "review-error",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-11-10T21:09:28+08:00",
+      "last_learned_at": "2026-11-10T21:09:28+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:continue-with-means-content-not-movement": {
+      "id": "errors:continue-with-means-content-not-movement",
+      "category": "errors",
+      "key": "continue-with-means-content-not-movement",
+      "status": "learning",
+      "title": "continue with 表示接续内容，不表示沿路线前行",
+      "explanation": "continue with + 名词 指接着做某项活动、流程或内容（会议议程里的下一项），与表示沿当前路线继续前进的 continue on 分工不同；把 continue with 理解成空间位移就会混淆这两个结构。",
+      "source": "A. 我们沿当前这条路线继续往前走",
+      "example": "Let's continue with the next item.（我们接着进入议程里的下一项内容）",
+      "tags": [
+        "review-error",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-11-10T21:09:28+08:00",
+      "last_learned_at": "2026-11-10T21:09:28+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:contraction-isnt-apostrophe-misplaced": {
       "id": "errors:contraction-isnt-apostrophe-misplaced",
@@ -4113,6 +4164,31 @@
       "review_history": [],
       "key": "present-habit-when-clause-past-tense-mismatch"
     },
+    "errors:present-simple-for-future-arrangement": {
+      "id": "errors:present-simple-for-future-arrangement",
+      "category": "errors",
+      "key": "present-simple-for-future-arrangement",
+      "status": "learning",
+      "title": "将来仍会做某事要用 will，不用一般现在时",
+      "explanation": "句子谈的是下周的将来安排，「仍然会……」必须用 will + 动词原形；直接写 still continue 会读成恒常习惯，与上文「推迟到下周」的时间框架对不上。",
+      "source": "we still continue with the plan",
+      "example": "We will still proceed with the renovation next week.（下周我们仍会推进这次改造）",
+      "tags": [
+        "review-error",
+        "tense"
+      ],
+      "first_learned_at": "2026-11-10T21:09:28+08:00",
+      "last_learned_at": "2026-11-10T21:09:28+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:presentation-not-representation-for-report": {
       "id": "errors:presentation-not-representation-for-report",
       "category": "errors",
@@ -4325,6 +4401,32 @@
         }
       ],
       "key": "proceed-to-infinitive"
+    },
+    "errors:proceed-with-formal-plan-advance": {
+      "id": "errors:proceed-with-formal-plan-advance",
+      "category": "errors",
+      "key": "proceed-with-formal-plan-advance",
+      "status": "learning",
+      "title": "推进计划用 proceed with，语域比 continue with 正式",
+      "explanation": "proceed with + 事情或计划 用于正式公告与流程说明，表示按既定方案继续推进，语域明显比 continue with 正式；中文里的「这次改造」也要译出具体对象，不能泛化成 the plan。",
+      "source": "The meeting is deferred to next week, but we still continue with the plan.",
+      "example": "The meeting has been put off until next week, but we will still proceed with the renovation as planned.（会议推迟到下周，但我们仍会按原计划推进这次改造）",
+      "tags": [
+        "register",
+        "review-error",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-11-10T21:09:28+08:00",
+      "last_learned_at": "2026-11-10T21:09:28+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:proceed-with-gerund-vs-proceed-to-infinitive": {
       "id": "errors:proceed-with-gerund-vs-proceed-to-infinitive",
