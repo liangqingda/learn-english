@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 228,
+  "revision": 231,
   "category": "usage",
   "records": {
     "usage:after-vs-later-sequence": {
@@ -59,14 +59,21 @@
       "first_learned_at": "2026-10-29T07:50:36+08:00",
       "last_learned_at": "2026-10-29T07:50:36+08:00",
       "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
+      "mastery_score": 4.0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-11-10T21:25:23+08:00",
+      "next_review_at": "2026-11-11T21:25:23+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": [],
+      "review_history": [
+        {
+          "score": 4.0,
+          "reviewed_at": "2026-11-10T21:25:23+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ],
       "key": "cannot-vs-cant"
     },
     "usage:go-for-it-vs-go-ahead": {

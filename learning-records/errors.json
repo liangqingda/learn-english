@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 230,
+  "revision": 231,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -1027,6 +1027,32 @@
       "review_history": [],
       "key": "but-clause-needs-finite-verb"
     },
+    "errors:cannot-written-as-one-word": {
+      "id": "errors:cannot-written-as-one-word",
+      "category": "errors",
+      "key": "cannot-written-as-one-word",
+      "status": "learning",
+      "title": "正式书面语里 cannot 是一个词，不拆成 can not",
+      "explanation": "正式文本表示「不能」时标准拼写是 cannot（一个词）；can not 只在刻意强调否定（can not ... but ...）等少数字面结构中出现，普通通知、公告、论文里写成 can not 属于拼写不规范。",
+      "source": "Please notice that late submissions can not be accepted after 5 pm.",
+      "example": "Please note that late submissions cannot be accepted after 5 p.m.",
+      "tags": [
+        "register",
+        "review-error",
+        "spelling"
+      ],
+      "first_learned_at": "2026-11-10T21:25:23+08:00",
+      "last_learned_at": "2026-11-10T21:25:23+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:capitalize-english-language-name": {
       "id": "errors:capitalize-english-language-name",
       "category": "errors",
@@ -2034,6 +2060,58 @@
       "mastered_at": null,
       "review_history": [],
       "key": "for-the-first-time-expression"
+    },
+    "errors:formal-notice-avoid-contraction": {
+      "id": "errors:formal-notice-avoid-contraction",
+      "category": "errors",
+      "key": "formal-notice-avoid-contraction",
+      "status": "learning",
+      "title": "正式客户通知里说明「无法」要用 cannot，不用 can't",
+      "explanation": "面向客户的正式通知属于书面正式语域，否定形式用 cannot；can't 会显得随意，且与同一段里的正式句式和被动语态不协调。",
+      "source": "The system can't restore the service and we will give the update tomorrow.",
+      "example": "The system cannot be restored this evening. We will provide an update before nine o'clock tomorrow morning.",
+      "tags": [
+        "formal-writing",
+        "register",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-10T21:25:23+08:00",
+      "last_learned_at": "2026-11-10T21:25:23+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:formal-text-avoid-contraction": {
+      "id": "errors:formal-text-avoid-contraction",
+      "category": "errors",
+      "key": "formal-text-avoid-contraction",
+      "status": "learning",
+      "title": "正式邮件和公告里不用 can't 这类缩略形式",
+      "explanation": "can't 是口语缩略，正式邮件、公告、合同里语域不匹配，应写成 cannot 或 be unable to do；同时正式邮件句子里主宾位置要前置，不能把宾语提到句首再补 can't go。",
+      "source": "I'm very sorry, the review meeting on Friday I can't go.",
+      "example": "I regret that I am unable to attend the review meeting on Friday.",
+      "tags": [
+        "formal-writing",
+        "register",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-10T21:25:23+08:00",
+      "last_learned_at": "2026-11-10T21:25:23+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:friendly-service-not-very-good-service": {
       "id": "errors:friendly-service-not-very-good-service",
@@ -3310,6 +3388,32 @@
         }
       ],
       "key": "not-sure-how-to-pronounce-for-uncertain-pronunciation"
+    },
+    "errors:note-that-vs-notice": {
+      "id": "errors:note-that-vs-notice",
+      "category": "errors",
+      "key": "note-that-vs-notice",
+      "status": "learning",
+      "title": "正式通知用 please note that，不用 please notice that",
+      "explanation": "note 作动词表示「留意、注意」，固定说法是 please note that…；notice 作动词强调「注意到（看到、察觉）」，不用于正式通知开头的提醒句式。",
+      "source": "Please notice that late submissions can not be accepted after 5 pm.",
+      "example": "Please note that the office closes at five.",
+      "tags": [
+        "phrases",
+        "register",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-10T21:25:23+08:00",
+      "last_learned_at": "2026-11-10T21:25:23+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:nurse-agreement-and-checkup-collocation": {
       "id": "errors:nurse-agreement-and-checkup-collocation",
@@ -5220,6 +5324,31 @@
         }
       ],
       "key": "slice-into-thin-slices-not-to-slice"
+    },
+    "errors:smell-of-smoke-not-smoke-smell": {
+      "id": "errors:smell-of-smoke-not-smoke-smell",
+      "category": "errors",
+      "key": "smell-of-smoke-not-smoke-smell",
+      "status": "learning",
+      "title": "「烟味」说 the smell of smoke",
+      "explanation": "英语习惯用 the smell of + 名词说明气味来源，比把两个名词直接并置（smoke smell）自然；the smoke smell 语法上可成立，但母语者日常更常用 the smell of smoke。",
+      "source": "I can't stand the smoke smell.",
+      "example": "I can't stand the smell of smoke.",
+      "tags": [
+        "collocation",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-10T21:25:23+08:00",
+      "last_learned_at": "2026-11-10T21:25:23+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:specific-known-plural-noun-use-the": {
       "id": "errors:specific-known-plural-noun-use-the",
