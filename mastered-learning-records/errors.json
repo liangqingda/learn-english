@@ -1,7 +1,7 @@
 [
   {
-    "id": "errors:wait-后遗漏介词-for",
-    "key": "wait-后遗漏介词-for",
+    "id": "errors:wait-missing-preposition-for",
+    "key": "wait-missing-preposition-for",
     "title": "wait 后遗漏介词 for",
     "explanation": "表示等待某人或某物时应使用 wait for somebody/something，不能直接使用 wait somebody。",
     "example": "",

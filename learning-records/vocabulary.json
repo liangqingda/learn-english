@@ -1,8 +1,41 @@
 {
   "schema_version": 2,
-  "revision": 223,
+  "revision": 227,
   "category": "vocabulary",
   "records": {
+    "vocabulary:a-little-bit": {
+      "id": "vocabulary:a-little-bit",
+      "category": "vocabulary",
+      "status": "familiar",
+      "title": "a little bit：有一点、稍微",
+      "explanation": "程度副词，表示“略微、一点点”，用于弱化语气、让表达更柔和口语化，常修饰形容词、动词或不可数名词。口语高频；书面正式表达更常用 a little / slightly。",
+      "source": "We'll talk about that a little bit later on.",
+      "example": "I'm a little bit tired today. / 我今天有点累。",
+      "tags": [
+        "colloquial",
+        "degree",
+        "usage"
+      ],
+      "first_learned_at": "2026-10-28T07:29:40+08:00",
+      "last_learned_at": "2026-10-28T07:29:40+08:00",
+      "learned_count": 1,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-11-01T18:21:17+08:00",
+      "next_review_at": "2026-11-08T18:21:17+08:00",
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-11-01T18:21:17+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ],
+      "key": "a-little-bit"
+    },
     "vocabulary:across-preposition-adverb-vs-cross-verb": {
       "id": "vocabulary:across-preposition-adverb-vs-cross-verb",
       "category": "vocabulary",
@@ -25,7 +58,57 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
+      "review_history": [],
+      "key": "across-preposition-adverb-vs-cross-verb"
+    },
+    "vocabulary:afterwards-afterward-spelling": {
+      "id": "vocabulary:afterwards-afterward-spelling",
+      "category": "vocabulary",
+      "key": "afterwards-afterward-spelling",
+      "status": "learning",
+      "title": "afterwards（英式）与 afterward（美式）",
+      "explanation": "同一副词在英式英语常写 afterwards，美式英语常写 afterward；两者都可以独立作状语、置于句首或句末，不需要补足语。",
+      "source": "We went out for dinner afterwards.",
+      "example": "We went out for dinner afterwards.",
+      "tags": [
+        "comparison",
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-11-08T16:21:04+08:00",
+      "last_learned_at": "2026-11-08T16:21:04+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
       "review_history": []
+    },
+    "vocabulary:back-east-in-the-east-eastward": {
+      "id": "vocabulary:back-east-in-the-east-eastward",
+      "category": "vocabulary",
+      "status": "familiar",
+      "title": "back east、in the East 与 eastward 的区别",
+      "explanation": "back east 带有从当前所在地回望美国东部原居地或熟悉地区的意味；in the East 只客观说明位于某个东部地区；eastward 强调朝东的移动或方向，通常不表达故乡联系。",
+      "source": "2",
+      "example": "After living in California for years, she traveled eastward to visit her family back east.",
+      "tags": [
+        "usage-comparison"
+      ],
+      "first_learned_at": "2026-07-29T07:25:47+08:00",
+      "last_learned_at": "2026-07-29T07:25:47+08:00",
+      "learned_count": 1,
+      "mastery_score": 8.0,
+      "review_count": 3,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-07-30T17:18:46+08:00",
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": [],
+      "key": "back-east-in-the-east-eastward"
     },
     "vocabulary:boat-small-watercraft": {
       "id": "vocabulary:boat-small-watercraft",
@@ -50,7 +133,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "boat-small-watercraft"
     },
     "vocabulary:breeze-light-wind": {
       "id": "vocabulary:breeze-light-wind",
@@ -82,7 +166,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "breeze-light-wind"
     },
     "vocabulary:casserole": {
       "id": "vocabulary:casserole",
@@ -133,7 +218,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "cover-deal-with"
     },
     "vocabulary:distinct-adj": {
       "id": "vocabulary:distinct-adj",
@@ -158,7 +244,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "distinct-adj"
     },
     "vocabulary:drizzle-light-rain": {
       "id": "vocabulary:drizzle-light-rain",
@@ -183,7 +270,53 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "drizzle-light-rain"
+    },
+    "vocabulary:drizzle-rain-shower": {
+      "id": "vocabulary:drizzle-rain-shower",
+      "category": "vocabulary",
+      "status": "familiar",
+      "title": "drizzle、rain 和 shower 的语感区别",
+      "explanation": "drizzle 强调雨很细很轻；rain 是最普通的下雨说法；shower 常指短时间的一阵雨。描述天气时，drizzle 往往带有潮湿、灰蒙蒙、轻微但持续的感觉。",
+      "source": "drizzle",
+      "example": "There was a light drizzle all morning. 整个早上都下着小毛毛雨。",
+      "tags": [
+        "usage",
+        "weather",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-08-02T20:55:31+08:00",
+      "last_learned_at": "2026-08-02T20:55:31+08:00",
+      "learned_count": 1,
+      "mastery_score": 10.0,
+      "review_count": 3,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-10-22T08:01:46+08:00",
+      "next_review_at": "2026-11-21T08:01:46+08:00",
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": [
+        {
+          "score": 5.0,
+          "reviewed_at": "2026-09-02T20:20:49+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        },
+        {
+          "score": 6.0,
+          "reviewed_at": "2026-10-07T19:40:46+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        },
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-10-22T08:01:46+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ],
+      "key": "drizzle-rain-shower"
     },
     "vocabulary:early-bird": {
       "id": "vocabulary:early-bird",
@@ -207,7 +340,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "early-bird"
     },
     "vocabulary:ethnic-group": {
       "id": "vocabulary:ethnic-group",
@@ -232,7 +366,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "ethnic-group"
     },
     "vocabulary:gonna": {
       "id": "vocabulary:gonna",
@@ -283,7 +418,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "harbor-place-for-boats"
     },
     "vocabulary:hidden-adjective": {
       "id": "vocabulary:hidden-adjective",
@@ -308,7 +444,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "hidden-adjective"
     },
     "vocabulary:mind-numbing": {
       "id": "vocabulary:mind-numbing",
@@ -333,7 +470,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "mind-numbing"
     },
     "vocabulary:night-owl": {
       "id": "vocabulary:night-owl",
@@ -357,7 +495,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "night-owl"
     },
     "vocabulary:plate-as-verb-arrange-food": {
       "id": "vocabulary:plate-as-verb-arrange-food",
@@ -401,7 +540,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "plate-as-verb-arrange-food"
     },
     "vocabulary:range": {
       "id": "vocabulary:range",
@@ -424,7 +564,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "range"
     },
     "vocabulary:review-core-meaning": {
       "id": "vocabulary:review-core-meaning",
@@ -447,7 +588,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "review-core-meaning"
     },
     "vocabulary:searing": {
       "id": "vocabulary:searing",
@@ -472,7 +614,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "searing"
     },
     "vocabulary:slice-cut-into-thin-pieces": {
       "id": "vocabulary:slice-cut-into-thin-pieces",
@@ -504,7 +647,33 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "slice-cut-into-thin-pieces"
+    },
+    "vocabulary:stand-bear-put-up-with": {
+      "id": "vocabulary:stand-bear-put-up-with",
+      "category": "vocabulary",
+      "status": "learning",
+      "title": "stand / bear / put up with / tolerate 近义辨析",
+      "explanation": "stand 表“忍受”几乎只用于否定或疑问句；bear 语气更强、更书面；put up with 口语化、表“容忍”；tolerate 最正式。肯定句中要表达“忍受”时优先用 bear 或 put up with。",
+      "source": "I cannot stand the smell of smoke.",
+      "example": "How can you put up with that noise every day?",
+      "tags": [
+        "语域",
+        "近义词"
+      ],
+      "first_learned_at": "2026-10-29T07:50:36+08:00",
+      "last_learned_at": "2026-10-29T07:50:36+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": [],
+      "key": "stand-bear-put-up-with"
     },
     "vocabulary:steaming-steam-adj": {
       "id": "vocabulary:steaming-steam-adj",
@@ -528,7 +697,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "steaming-steam-adj"
     },
     "vocabulary:stir-mix-by-moving-spoon": {
       "id": "vocabulary:stir-mix-by-moving-spoon",
@@ -553,7 +723,33 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "stir-mix-by-moving-spoon"
+    },
+    "vocabulary:traveller-traveler-spelling": {
+      "id": "vocabulary:traveller-traveler-spelling",
+      "category": "vocabulary",
+      "status": "learning",
+      "title": "traveller（英式）vs traveler（美式）双写 l 规则",
+      "explanation": "traveller 是英式拼写，traveler 是美式拼写。规则：英式英语在 travel 加 -er/-ing 时常双写 l（traveller, travelling），美式英语不双写（traveler, traveling）。句中 travellers 属英式写法。",
+      "source": "...travellers to China have told tales...",
+      "example": "US: I'm a frequent traveler. / UK: I'm a frequent traveller. (我是一个经常旅行的人。)",
+      "tags": [
+        "british-american",
+        "spelling"
+      ],
+      "first_learned_at": "2026-11-01T17:04:34+08:00",
+      "last_learned_at": "2026-11-01T17:04:34+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": [],
+      "key": "traveller-traveler-spelling"
     },
     "vocabulary:vast": {
       "id": "vocabulary:vast",
@@ -577,7 +773,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "vast"
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 223,
+  "revision": 227,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -31,7 +31,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "a-bit-informal-degree"
     },
     "phrases:a-price-to-pay": {
       "id": "phrases:a-price-to-pay",
@@ -63,7 +64,8 @@
           "previous_status": "learning",
           "new_status": "learning"
         }
-      ]
+      ],
+      "key": "a-price-to-pay"
     },
     "phrases:a-wide-range-of": {
       "id": "phrases:a-wide-range-of",
@@ -94,7 +96,8 @@
           "previous_status": "learning",
           "new_status": "learning"
         }
-      ]
+      ],
+      "key": "a-wide-range-of"
     },
     "phrases:after-all-means-in-spite-of-everything": {
       "id": "phrases:after-all-means-in-spite-of-everything",
@@ -146,30 +149,44 @@
       "mastered_at": null,
       "review_history": []
     },
-    "phrases:all-set-ready": {
-      "id": "phrases:all-set-ready",
+    "phrases:all-set": {
+      "id": "phrases:all-set",
       "category": "phrases",
       "status": "learning",
-      "title": "It's all set（一切就绪/搞定）",
-      "explanation": "非正式口语惯用语，意思是『一切都准备好了/安排妥当了/没问题了』。set 在此是形容词，意为 ready / arranged（准备好、安置妥当），all 加强语气。常用在告知别人事情已搞定、可以放心时。",
+      "title": "all set：一切就绪 / 搞定",
+      "explanation": "all set 是非正式口语惯用语：set 在此是形容词，意为 ready / arranged，all 加强语气；意思是「一切都准备好了、安排妥当了、没问题了」，常用于告知别人事情已经搞定、可以放心，语气亲切、带安抚意味，美式英语高频。常见场景：点餐后服务员问 Are you all set?（点好了吗）、出发前确认 All set?、向对方保证 All set — we've taken care of everything。它只描述「人或整体安排」已经就绪的状态，不能像 deliver / send 那样接 to + 地点表示「送到某地」：the luggage was all set to the hotel lobby 缺真正的动作动词，应说 was delivered to the hotel lobby。",
       "source": "用户输入 \"It's all set.\"",
-      "example": "The table is all set for dinner — everyone can sit down now. / Are you all set? We're leaving in five minutes.",
+      "example": "Are you all set? — All set: the tickets are booked and the luggage was delivered to the hotel.",
       "tags": [
+        "all-set",
+        "american-english",
         "colloquial",
         "idiom",
-        "reassurance"
+        "reassurance",
+        "register",
+        "review-error",
+        "semantic-boundary",
+        "spoken"
       ],
       "first_learned_at": "2026-10-28T08:01:39+08:00",
-      "last_learned_at": "2026-10-28T08:01:39+08:00",
-      "learned_count": 1,
+      "last_learned_at": "2026-11-06T20:56:44+08:00",
+      "learned_count": 3,
       "mastery_score": 0.0,
-      "review_count": 0,
+      "review_count": 1,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-11-06T20:56:44+08:00",
+      "next_review_at": "2026-11-09T20:56:44+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-11-06T20:56:44+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        }
+      ],
+      "key": "all-set"
     },
     "phrases:back-east-us": {
       "id": "phrases:back-east-us",
@@ -205,7 +222,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "back-east-us"
     },
     "phrases:be-home-to": {
       "id": "phrases:be-home-to",
@@ -230,7 +248,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "be-home-to"
     },
     "phrases:can-t-stand-tolerate": {
       "id": "phrases:can-t-stand-tolerate",
@@ -255,7 +274,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "can-t-stand-tolerate"
     },
     "phrases:clear-the-table-after-meal": {
       "id": "phrases:clear-the-table-after-meal",
@@ -287,7 +307,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "clear-the-table-after-meal"
     },
     "phrases:come-on-in-invite-guest-inside": {
       "id": "phrases:come-on-in-invite-guest-inside",
@@ -319,133 +340,127 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "come-on-in-invite-guest-inside"
     },
-    "phrases:continue-doing-activity": {
-      "id": "phrases:continue-doing-activity",
+    "phrases:dish-out": {
+      "id": "phrases:dish-out",
       "category": "phrases",
       "status": "learning",
-      "title": "continue doing：继续做某事",
-      "explanation": "continue doing something 直接接动名词，强调动作或活动继续进行，如 continue explaining the second point。continue to do 也可以，但 continue doing 更直接地突出动作的延续。",
-      "source": "The speaker continued explaining the second point.",
-      "example": "She continued answering questions after the presentation.",
+      "title": "dish out：分发、给出（食物、批评、惩罚）",
+      "explanation": "dish out 的核心意思是把某物分发出去或给出去：可以是食物（dish out napkins），也常用于抽象事物，如建议、批评、惩罚或钱（The teacher dished out advice before the exam）。它的宾语是被分发或施加的内容（criticism、punishment、insults），不是承受批评的人；要说明对象用 dish out criticism to / at someone，或改写为 criticize others。用在批评、惩罚语境时，常带「不断给出、强硬施加」的语气。固定习语 can dish it out but can't take it 表示「会批评别人却受不了别人批评自己」，前后用 it 回指批评或玩笑，不能说 dish out others' voice 之类的宾语。",
+      "source": "Compare dish up and dish out",
+      "example": "She always dishes out criticism to her teammates, but she can't take it when they answer back.",
       "tags": [
-        "follow-up-learning"
+        "abstract-use",
+        "criticism",
+        "distribution",
+        "fixed-expression",
+        "idiom",
+        "phrasal-verb",
+        "review-error",
+        "tone",
+        "verb-pattern"
       ],
-      "first_learned_at": "2026-08-09T20:53:45+08:00",
-      "last_learned_at": "2026-08-09T20:53:45+08:00",
-      "learned_count": 1,
+      "first_learned_at": "2026-07-31T09:17:11+08:00",
+      "last_learned_at": "2026-09-02T20:39:17+08:00",
+      "learned_count": 8,
       "mastery_score": 0.0,
-      "review_count": 0,
+      "review_count": 6,
       "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "last_reviewed_at": "2026-09-02T20:39:17+08:00",
+      "next_review_at": "2026-09-09T20:39:17+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
-    },
-    "phrases:continue-on": {
-      "id": "phrases:continue-on",
-      "category": "phrases",
-      "status": "familiar",
-      "title": "continue on：继续前行",
-      "explanation": "continue on 表示沿当前路线继续前行；on 强调向前延续，但在部分语境中只用 continue 也足够。",
-      "source": "A green light on a traffic signal means your car can continue on",
-      "example": "Continue on for another two miles.",
-      "tags": [
-        "movement"
+      "review_history": [
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-08-01T20:57:54+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        },
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-08-02T16:12:48+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        },
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-08-02T17:46:42+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        },
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-08-02T21:43:15+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        },
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-08-26T07:08:38+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        },
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-09-02T20:39:17+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
       ],
-      "first_learned_at": "2026-07-29T20:19:15+08:00",
-      "last_learned_at": "2026-07-29T20:19:15+08:00",
-      "learned_count": 1,
-      "mastery_score": 8.0,
-      "review_count": 2,
-      "high_score_streak": 1,
-      "last_reviewed_at": "2026-08-02T17:34:58+08:00",
-      "next_review_at": "2026-08-09T17:34:58+08:00",
+      "key": "dish-out"
+    },
+    "phrases:dish-up": {
+      "id": "phrases:dish-up",
+      "category": "phrases",
+      "status": "learning",
+      "title": "dish up：把饭菜盛好端上桌",
+      "explanation": "dish up 指把食物从锅或大盘里盛到盘子、碗里再端上桌，语气日常。它是可分短语动词：名词宾语可放在 up 前或后（dish up the rice / dish the rice up），代词宾语必须放中间（dish it up）。与 serve 的区别：serve 范围更宽，可指端菜、供应食物、招待客人或餐厅酒店供应某类食物（The hotel serves breakfast from seven to ten），语域更中性、更适合正式场景。与 plate 的区别：plate 强调把食物摆放在盘中并呈现外观，汤类通常用 serve 或 ladle，不用 plate。dish out 则是把东西分发出去，宾语多为内容而非「盛到盘里」，语义范围更宽。",
+      "source": "Now, to dish up something means to put food on a dish for someone to eat",
+      "example": "She dished up the soup, while her sister served the drinks.",
+      "tags": [
+        "comparison",
+        "food",
+        "object-position",
+        "phrasal-verb",
+        "review-error",
+        "serving",
+        "word-choice",
+        "word-order"
+      ],
+      "first_learned_at": "2026-07-31T09:13:38+08:00",
+      "last_learned_at": "2026-08-01T21:26:24+08:00",
+      "learned_count": 5,
+      "mastery_score": 0.0,
+      "review_count": 3,
+      "high_score_streak": 0,
+      "last_reviewed_at": "2026-08-03T22:09:54+08:00",
+      "next_review_at": "2026-09-02T22:09:54+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
         {
           "score": 8.0,
-          "reviewed_at": "2026-08-02T17:34:58+08:00",
+          "reviewed_at": "2026-08-02T10:09:58+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        },
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-08-02T19:58:28+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        },
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-08-03T22:09:54+08:00",
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
-    },
-    "phrases:continue-on-movement-next-stage": {
-      "id": "phrases:continue-on-movement-next-stage",
-      "category": "phrases",
-      "status": "learning",
-      "title": "continue on：继续前进或转入下一阶段",
-      "explanation": "continue on 常表示继续前进、继续下去，或 continue on to + 名词/动词表示转入下一个阶段或话题，如 continue on down the road、continue on to the next section。它不适合替代 continue with the presentation 来表示继续进行汇报。",
-      "source": "We continued on to the next section after answering questions.",
-      "example": "After discussing the budget, the manager continued on to the project timeline.",
-      "tags": [
-        "follow-up-learning"
       ],
-      "first_learned_at": "2026-08-09T20:59:29+08:00",
-      "last_learned_at": "2026-08-09T20:59:29+08:00",
-      "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
-    },
-    "phrases:dish-out-distribute-or-give": {
-      "id": "phrases:dish-out-distribute-or-give",
-      "category": "phrases",
-      "status": "learning",
-      "title": "dish out something / dish something out",
-      "explanation": "dish out 的核心意思是把某物分发出去或给出去，既可以指食物，也常用于抽象事物，如建议、批评、惩罚或钱。",
-      "source": "Compare dish up and dish out",
-      "example": "The teacher dished out advice before the exam.",
-      "tags": [
-        "abstract-use",
-        "distribution",
-        "phrasal-verb"
-      ],
-      "first_learned_at": "2026-07-31T09:17:11+08:00",
-      "last_learned_at": "2026-07-31T09:17:11+08:00",
-      "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
-    },
-    "phrases:dish-up-serve-food-onto-plate": {
-      "id": "phrases:dish-up-serve-food-onto-plate",
-      "category": "phrases",
-      "status": "learning",
-      "title": "dish up something / dish something up",
-      "explanation": "短语动词 dish up 的字面来源是把食物盛到盘子或碟子里，常表示把饭菜分好、盛好给别人吃；宾语是代词时通常放在 dish 和 up 中间，如 dish it up。",
-      "source": "Now, to dish up something means to put food on a dish for someone to eat",
-      "example": "She dished up the soup and handed everyone a bowl.",
-      "tags": [
-        "food",
-        "phrasal-verb",
-        "serving"
-      ],
-      "first_learned_at": "2026-07-31T09:13:38+08:00",
-      "last_learned_at": "2026-07-31T09:13:38+08:00",
-      "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
+      "key": "dish-up"
     },
     "phrases:get-down-to-brass-tacks": {
       "id": "phrases:get-down-to-brass-tacks",
@@ -469,7 +484,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "get-down-to-brass-tacks"
     },
     "phrases:get-down-to-business": {
       "id": "phrases:get-down-to-business",
@@ -493,7 +509,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "get-down-to-business"
     },
     "phrases:get-the-plates-fetch-or-prepare": {
       "id": "phrases:get-the-plates-fetch-or-prepare",
@@ -518,7 +535,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "get-the-plates-fetch-or-prepare"
     },
     "phrases:go-for-it-encouragement": {
       "id": "phrases:go-for-it-encouragement",
@@ -544,7 +562,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "go-for-it-encouragement"
     },
     "phrases:go-on-with-activity": {
       "id": "phrases:go-on-with-activity",
@@ -567,7 +586,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "go-on-with-activity"
     },
     "phrases:go-out-with-romantic-dating": {
       "id": "phrases:go-out-with-romantic-dating",
@@ -590,7 +610,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "go-out-with-romantic-dating"
     },
     "phrases:go-sailing-activity-collocation": {
       "id": "phrases:go-sailing-activity-collocation",
@@ -615,7 +636,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "go-sailing-activity-collocation"
     },
     "phrases:have-sth-covered": {
       "id": "phrases:have-sth-covered",
@@ -640,7 +662,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "have-sth-covered"
     },
     "phrases:have-whole-life-ahead-of-someone": {
       "id": "phrases:have-whole-life-ahead-of-someone",
@@ -665,7 +688,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "have-whole-life-ahead-of-someone"
     },
     "phrases:help-yourself-food-offer": {
       "id": "phrases:help-yourself-food-offer",
@@ -697,7 +721,8 @@
           "previous_status": "learning",
           "new_status": "learning"
         }
-      ]
+      ],
+      "key": "help-yourself-food-offer"
     },
     "phrases:hidden-world": {
       "id": "phrases:hidden-world",
@@ -722,7 +747,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "hidden-world"
     },
     "phrases:home-cooked": {
       "id": "phrases:home-cooked",
@@ -776,7 +802,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "laid-back-relaxed"
     },
     "phrases:later-on": {
       "id": "phrases:later-on",
@@ -800,7 +827,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "later-on"
     },
     "phrases:later-on-unspecified-future-time": {
       "id": "phrases:later-on-unspecified-future-time",
@@ -827,6 +855,70 @@
       "mastered_at": null,
       "review_history": []
     },
+    "phrases:lovely-day-to": {
+      "id": "phrases:lovely-day-to",
+      "category": "phrases",
+      "status": "learning",
+      "title": "Lovely day to... / What a lovely day for...",
+      "explanation": "Lovely day to go sailing. 是 It's a lovely day to go sailing. 的省略说法：口语、标题和随口感叹里常省去可从语境推断的主语和 be 动词，使表达更轻快。Lovely day to... 字面在评价天气，实际常带轻松的建议、邀请或感叹意味，相当于「天气这么好，很适合……」，语气友好、偏日常口语。to 后面必须接动词原形，to 不能省略，也不能把 outside 这类副词直接放在 to 后。感叹形式 What a lovely day for + 名词或 -ing 更有感情色彩，比 It's a good day for... 更强烈。",
+      "source": "lovely day to go sailing.",
+      "example": "What a lovely day for a picnic — lovely day to grab a sandwich and eat in the park, isn't it?",
+      "tags": [
+        "ellipsis",
+        "exclamation",
+        "grammar",
+        "phrase",
+        "review-error",
+        "spoken-english",
+        "suggestion",
+        "tone",
+        "usage",
+        "weather"
+      ],
+      "first_learned_at": "2026-08-03T07:11:13+08:00",
+      "last_learned_at": "2026-10-31T10:26:13+08:00",
+      "learned_count": 5,
+      "mastery_score": 0.0,
+      "review_count": 5,
+      "high_score_streak": 0,
+      "last_reviewed_at": "2026-11-03T20:44:43+08:00",
+      "next_review_at": "2026-12-03T20:44:43+08:00",
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": [
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-08-05T12:55:23+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        },
+        {
+          "score": 6.0,
+          "reviewed_at": "2026-10-22T20:36:13+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        },
+        {
+          "score": 5.0,
+          "reviewed_at": "2026-10-31T10:26:13+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        },
+        {
+          "score": 9.0,
+          "reviewed_at": "2026-11-03T20:40:45+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        },
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-11-03T20:44:43+08:00",
+          "previous_status": "familiar",
+          "new_status": "familiar"
+        }
+      ],
+      "key": "lovely-day-to"
+    },
     "phrases:make-a-pit-stop": {
       "id": "phrases:make-a-pit-stop",
       "category": "phrases",
@@ -850,7 +942,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "make-a-pit-stop"
     },
     "phrases:make-yourself-at-home": {
       "id": "phrases:make-yourself-at-home",
@@ -882,7 +975,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "make-yourself-at-home"
     },
     "phrases:old-timers": {
       "id": "phrases:old-timers",
@@ -905,7 +999,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "old-timers"
     },
     "phrases:regret-to-say": {
       "id": "phrases:regret-to-say",
@@ -930,7 +1025,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "regret-to-say"
     },
     "phrases:resume-activity-after-break": {
       "id": "phrases:resume-activity-after-break",
@@ -953,7 +1049,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "resume-activity-after-break"
     },
     "phrases:review-common-collocations": {
       "id": "phrases:review-common-collocations",
@@ -976,7 +1073,56 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "review-common-collocations"
+    },
+    "phrases:serve": {
+      "id": "phrases:serve",
+      "category": "phrases",
+      "status": "learning",
+      "title": "serve：端上、供应（食物与饮料）",
+      "explanation": "serve 表示把饭菜或饮料端给、供应给别人：可以是端上桌、分给客人，也可以指餐厅或酒店供应某类食物（The hotel serves breakfast from seven to ten）；语域比 dish up 更中性，也更适合正式场景。接受者可用双宾结构 serve someone something，或用 to 引出（serve hot tea to the guests）；for + 人更像「为了客人、替客人」，并不表示端给他们。serve 也可以表示「为某人服务」，但不说 serve service：提供服务用 provide / offer / give service。表示「负责某事」用 be responsible for + 名词，不能用被动 be served for。",
+      "source": "2",
+      "example": "The waiter served the soup to the guests, and the hotel provided excellent service all evening.",
+      "tags": [
+        "collocation",
+        "food",
+        "formal-neutral",
+        "kitchen",
+        "review-error",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-07-31T09:16:35+08:00",
+      "last_learned_at": "2026-11-09T20:59:39+08:00",
+      "learned_count": 5,
+      "mastery_score": 0.0,
+      "review_count": 3,
+      "high_score_streak": 0,
+      "last_reviewed_at": "2026-08-03T21:53:24+08:00",
+      "next_review_at": "2026-08-17T21:53:24+08:00",
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-02T13:31:03+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        },
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-02T16:45:39+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        },
+        {
+          "score": 9.0,
+          "reviewed_at": "2026-08-03T21:53:24+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ],
+      "key": "serve"
     },
     "phrases:set-the-table-arrange-place-settings": {
       "id": "phrases:set-the-table-arrange-place-settings",
@@ -1001,7 +1147,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "set-the-table-arrange-place-settings"
     },
     "phrases:steaming-forests-nature-writing": {
       "id": "phrases:steaming-forests-nature-writing",
@@ -1025,7 +1172,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "steaming-forests-nature-writing"
     },
     "phrases:talk-about": {
       "id": "phrases:talk-about",
@@ -1049,7 +1197,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "talk-about"
     },
     "phrases:tell-tales-of": {
       "id": "phrases:tell-tales-of",
@@ -1073,7 +1222,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "tell-tales-of"
     },
     "phrases:ten-minutes-of-rest": {
       "id": "phrases:ten-minutes-of-rest",
@@ -1096,7 +1246,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "ten-minutes-of-rest"
     },
     "phrases:there-is-no-way": {
       "id": "phrases:there-is-no-way",
@@ -1147,7 +1298,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "walk-the-dog"
     },
     "phrases:weather-report-forecast-information": {
       "id": "phrases:weather-report-forecast-information",
@@ -1172,32 +1324,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
-    },
-    "phrases:what-a-lovely-day-for-activity": {
-      "id": "phrases:what-a-lovely-day-for-activity",
-      "category": "phrases",
-      "status": "learning",
-      "title": "What a lovely day for...：多么适合……的好天气",
-      "explanation": "What a lovely day for + 名词 / -ing 用来感叹天气、时机或氛围很适合某个活动，比 It's a good day for... 更有感情色彩。",
-      "source": "What a lovely day for sailing.",
-      "example": "What a lovely day for a picnic.",
-      "tags": [
-        "exclamation",
-        "phrase",
-        "weather"
-      ],
-      "first_learned_at": "2026-08-03T07:15:39+08:00",
-      "last_learned_at": "2026-08-03T07:15:39+08:00",
-      "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "weather-report-forecast-information"
     },
     "phrases:you-are-what-you-eat": {
       "id": "phrases:you-are-what-you-eat",
@@ -1213,6 +1341,32 @@
         "health",
         "proverb",
         "固定表达"
+      ],
+      "first_learned_at": "2026-11-09T07:50:18+08:00",
+      "last_learned_at": "2026-11-09T07:50:18+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:you-are-what-you-x": {
+      "id": "phrases:you-are-what-you-x",
+      "category": "phrases",
+      "key": "you-are-what-you-x",
+      "status": "learning",
+      "title": "You are what you + 动词 的可复用公式",
+      "explanation": "这个谚语可以被模板化，替换最后一个动词来表达「你的行为/选择塑造了你」：You are what you read / what you practice / what you spend time on。语气偏说理、格言式，适合总结、演讲、社交媒体感慨，不适合正式商务报告。",
+      "source": "You are what you eat.",
+      "example": "You are what you practice, not what you plan.",
+      "tags": [
+        "formula",
+        "proverb-pattern",
+        "register"
       ],
       "first_learned_at": "2026-11-09T07:50:18+08:00",
       "last_learned_at": "2026-11-09T07:50:18+08:00",

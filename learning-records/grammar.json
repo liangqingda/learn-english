@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 223,
+  "revision": 227,
   "category": "grammar",
   "records": {
     "grammar:alternative-question-a-or-b": {
@@ -25,7 +25,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "alternative-question-a-or-b"
     },
     "grammar:can-i-get-you-offer-food-drink": {
       "id": "grammar:can-i-get-you-offer-food-drink",
@@ -50,7 +51,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "can-i-get-you-offer-food-drink"
     },
     "grammar:comma-appositive-renaming": {
       "id": "grammar:comma-appositive-renaming",
@@ -75,7 +77,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "comma-appositive-renaming"
     },
     "grammar:compound-adjective-time-duration-before-noun": {
       "id": "grammar:compound-adjective-time-duration-before-noun",
@@ -98,30 +101,70 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "compound-adjective-time-duration-before-noun"
     },
-    "grammar:continue-proceed-complement-patterns": {
-      "id": "grammar:continue-proceed-complement-patterns",
+    "grammar:continue-complements-and-register": {
+      "id": "grammar:continue-complements-and-register",
       "category": "grammar",
       "status": "learning",
-      "title": "continue 与 proceed 的后接结构",
-      "explanation": "continue doing 与 continue to do 通常都表示继续做某事；continue with 后接名词。proceed to 后接地点或动词原形，proceed with 后接事情或计划。",
+      "title": "continue：后接结构、continue on 与 proceed 的分工",
+      "explanation": "continue doing 与 continue to do 都表示「继续做某事」，强调动作或活动的延续；continue with + 名词 用于继续某项活动、流程或内容（continue with the presentation）。continue on 强调沿当前路线、方向继续前进（Continue on for another two miles），也可表示接着进入下一阶段（continue on to the next section），但不带「办理某项事务」的含义，办某件事要用 proceed with + 名词。proceed 更正式，常见于交通指示、公告与流程说明：proceed to + 地点或动词原形，proceed with + 事情或计划。交通语境说 When the light turns green, we can continue on；continue on 已含继续向前，不必再加 ahead，after green light 也不自然，应用 when / after the light turns green。叙述已发生的动作时，continue 要用过去式 continued，并与整体过去时态保持一致。",
       "source": "continue doing, continue to do, continue with, proceed to, proceed with",
-      "example": "After a short break, we continued discussing the plan.",
+      "example": "After a short break, we continued discussing the plan, then continued on to the budget.",
       "tags": [
-        "verb-pattern"
+        "comparison",
+        "follow-up-learning",
+        "movement",
+        "redundancy",
+        "review-error",
+        "time-clause",
+        "verb-pattern",
+        "word-choice"
       ],
-      "first_learned_at": "2026-07-29T20:31:09+08:00",
-      "last_learned_at": "2026-07-29T20:31:09+08:00",
-      "learned_count": 1,
-      "mastery_score": 5.0,
-      "review_count": 2,
+      "first_learned_at": "2026-07-29T20:19:15+08:00",
+      "last_learned_at": "2026-11-03T20:23:23+08:00",
+      "learned_count": 14,
+      "mastery_score": 0.0,
+      "review_count": 9,
       "high_score_streak": 0,
-      "last_reviewed_at": "2026-07-29T21:18:45+08:00",
-      "next_review_at": null,
+      "last_reviewed_at": "2026-10-15T20:26:23+08:00",
+      "next_review_at": "2026-10-22T20:26:23+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [
+        {
+          "score": 6.0,
+          "reviewed_at": "2026-08-01T21:42:55+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        },
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-02T17:34:58+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        },
+        {
+          "score": 7.0,
+          "reviewed_at": "2026-08-03T12:37:25+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        },
+        {
+          "score": 5.0,
+          "reviewed_at": "2026-08-09T20:46:53+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        },
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-10-15T20:26:23+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ],
+      "key": "continue-complements-and-register"
     },
     "grammar:could-you-polite-request": {
       "id": "grammar:could-you-polite-request",
@@ -146,7 +189,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "could-you-polite-request"
     },
     "grammar:do-you-think-we-can": {
       "id": "grammar:do-you-think-we-can",
@@ -170,39 +214,41 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "do-you-think-we-can"
     },
-    "grammar:ellipsis-lovely-day-to-do-something": {
-      "id": "grammar:ellipsis-lovely-day-to-do-something",
+    "grammar:first-then-action-sequence": {
+      "id": "grammar:first-then-action-sequence",
       "category": "grammar",
       "status": "familiar",
-      "title": "Lovely day to...：省略 It's a 的口语表达",
-      "explanation": "Lovely day to go sailing. 是 It's a lovely day to go sailing. 的省略说法。英语口语、标题或随口感叹中常省略可从语境推断的主语和 be 动词，使表达更轻快自然。",
-      "source": "lovely day to go sailing.",
-      "example": "Beautiful morning to take a walk.",
+      "title": "first, then 表示动作顺序",
+      "explanation": "first, then 用来清楚安排两个先后动作，适合做饭、计划、说明步骤等场景；first 放在第一个动作后或句首都可以，then 引出下一步。",
+      "source": "Sure. I’ll slice the bread first, then pour the juice.",
+      "example": "I’ll wash the vegetables first, then chop them.",
       "tags": [
-        "ellipsis",
-        "grammar",
-        "spoken-english"
+        "dialogue",
+        "instructions",
+        "sequence"
       ],
-      "first_learned_at": "2026-08-03T07:11:13+08:00",
-      "last_learned_at": "2026-08-03T07:11:13+08:00",
+      "first_learned_at": "2026-07-31T13:47:43+08:00",
+      "last_learned_at": "2026-07-31T13:47:43+08:00",
       "learned_count": 1,
-      "mastery_score": 10.0,
+      "mastery_score": 8.0,
       "review_count": 1,
       "high_score_streak": 1,
-      "last_reviewed_at": "2026-08-05T12:55:23+08:00",
-      "next_review_at": "2026-09-04T12:55:23+08:00",
+      "last_reviewed_at": "2026-10-15T20:09:17+08:00",
+      "next_review_at": "2026-10-22T20:09:17+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
         {
-          "score": 10.0,
-          "reviewed_at": "2026-08-05T12:55:23+08:00",
+          "score": 8.0,
+          "reviewed_at": "2026-10-15T20:09:17+08:00",
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "first-then-action-sequence"
     },
     "grammar:gerund-as-subject": {
       "id": "grammar:gerund-as-subject",
@@ -227,7 +273,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "gerund-as-subject"
     },
     "grammar:get-down-to-preposition": {
       "id": "grammar:get-down-to-preposition",
@@ -251,7 +298,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "get-down-to-preposition"
     },
     "grammar:have-got-possession-present": {
       "id": "grammar:have-got-possession-present",
@@ -276,7 +324,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "have-got-possession-present"
     },
     "grammar:ill-volunteer-to-do-something": {
       "id": "grammar:ill-volunteer-to-do-something",
@@ -308,7 +357,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "ill-volunteer-to-do-something"
     },
     "grammar:infinitive-postmodifier-active-form-passive-meaning": {
       "id": "grammar:infinitive-postmodifier-active-form-passive-meaning",
@@ -357,7 +407,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "may-condition-if"
     },
     "grammar:mean-that-object-clause": {
       "id": "grammar:mean-that-object-clause",
@@ -380,7 +431,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "mean-that-object-clause"
     },
     "grammar:no-way-that-clause": {
       "id": "grammar:no-way-that-clause",
@@ -408,6 +460,39 @@
       "mastered_at": null,
       "review_history": []
     },
+    "grammar:now-discourse-marker": {
+      "id": "grammar:now-discourse-marker",
+      "category": "grammar",
+      "status": "familiar",
+      "title": "Now 用作讲解开场",
+      "explanation": "句首 Now 可以不是时间副词“现在”，而是话语标记，用来把听者注意力拉到接下来要解释的内容上，语气像“那么/注意”。",
+      "source": "Now, to dish up something means...",
+      "example": "Now, this expression is usually used in casual conversation.",
+      "tags": [
+        "discourse-marker",
+        "explanation",
+        "speaking"
+      ],
+      "first_learned_at": "2026-07-31T09:13:38+08:00",
+      "last_learned_at": "2026-07-31T09:13:38+08:00",
+      "learned_count": 1,
+      "mastery_score": 8.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-08-02T10:24:33+08:00",
+      "next_review_at": "2026-08-09T10:24:33+08:00",
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": [
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-02T10:24:33+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ],
+      "key": "now-discourse-marker"
+    },
     "grammar:participial-phrase-logical-subject": {
       "id": "grammar:participial-phrase-logical-subject",
       "category": "grammar",
@@ -429,7 +514,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "participial-phrase-logical-subject"
     },
     "grammar:past-perfect-before-past-reference": {
       "id": "grammar:past-perfect-before-past-reference",
@@ -459,7 +545,8 @@
           "previous_status": "learning",
           "new_status": "learning"
         }
-      ]
+      ],
+      "key": "past-perfect-before-past-reference"
     },
     "grammar:prefer-x-rather-than-y": {
       "id": "grammar:prefer-x-rather-than-y",
@@ -485,7 +572,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "prefer-x-rather-than-y"
     },
     "grammar:prepositional-phrase-sentence-functions": {
       "id": "grammar:prepositional-phrase-sentence-functions",
@@ -511,7 +599,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "prepositional-phrase-sentence-functions"
     },
     "grammar:present-participle-as-adj": {
       "id": "grammar:present-participle-as-adj",
@@ -535,7 +624,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "present-participle-as-adj"
     },
     "grammar:present-perfect-for-duration": {
       "id": "grammar:present-perfect-for-duration",
@@ -559,7 +649,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "present-perfect-for-duration"
     },
     "grammar:range-from-to": {
       "id": "grammar:range-from-to",
@@ -576,6 +667,58 @@
       ],
       "first_learned_at": "2026-11-01T19:16:52+08:00",
       "last_learned_at": "2026-11-01T19:16:52+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": [],
+      "key": "range-from-to"
+    },
+    "grammar:shouldnt-negative-expectation": {
+      "id": "grammar:shouldnt-negative-expectation",
+      "category": "grammar",
+      "status": "learning",
+      "title": "shouldn't：表示预计某事不会发生",
+      "explanation": "shouldn't + 动词除了可以表示不应该做某事，还可以根据上下文表达说话人的判断：按目前情况看，某事预计不会发生。This drizzle shouldn't cause much trouble 表示说话人预计这点毛毛雨不会造成太大麻烦，并非在谈义务或禁止。",
+      "source": "This drizzle shouldn't cause much trouble.",
+      "example": "The delay shouldn't affect our plans.",
+      "tags": [
+        "expectation",
+        "modal-verbs",
+        "translation"
+      ],
+      "first_learned_at": "2026-09-02T20:31:26+08:00",
+      "last_learned_at": "2026-09-02T20:31:26+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": [],
+      "key": "shouldnt-negative-expectation"
+    },
+    "grammar:since-then-perfect-tense": {
+      "id": "grammar:since-then-perfect-tense",
+      "category": "grammar",
+      "key": "since-then-perfect-tense",
+      "status": "learning",
+      "title": "since then 表“从那时起”须搭配完成时",
+      "explanation": "since then 划定一个从过去某点延续到现在的时间段，谓语通常用现在完成时或现在完成进行时；只叙述两次先后动作时不能用它替代 later。",
+      "source": "Since then, I have worked in three different studios.",
+      "example": "Since then, I have worked in three different studios.",
+      "tags": [
+        "comparison",
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-11-08T16:21:04+08:00",
+      "last_learned_at": "2026-11-08T16:21:04+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -607,7 +750,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "surprising-surprised"
     },
     "grammar:the-smell-of-noun": {
       "id": "grammar:the-smell-of-noun",
@@ -631,7 +775,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "the-smell-of-noun"
     },
     "grammar:we-will-contraction": {
       "id": "grammar:we-will-contraction",
@@ -656,7 +801,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "we-will-contraction"
     },
     "grammar:what-clause-as-predicative": {
       "id": "grammar:what-clause-as-predicative",
@@ -708,7 +854,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "while-clause-simultaneous-actions"
     }
   }
 }

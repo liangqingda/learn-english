@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 220,
+  "revision": 227,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -31,7 +31,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "a-little-bit-earlier-comparative"
     },
     "errors:a-little-bit-of-noun-missing-of": {
       "id": "errors:a-little-bit-of-noun-missing-of",
@@ -54,7 +55,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "a-little-bit-of-noun-missing-of"
     },
     "errors:abstract-price-needs-indefinite-article": {
       "id": "errors:abstract-price-needs-indefinite-article",
@@ -110,7 +112,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "accompany-mistaken-as-company-verb"
     },
     "errors:accompany-someone-to-place-no-go": {
       "id": "errors:accompany-someone-to-place-no-go",
@@ -133,7 +136,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "accompany-someone-to-place-no-go"
     },
     "errors:accuse-for-correction-feedback": {
       "id": "errors:accuse-for-correction-feedback",
@@ -170,7 +174,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "accuse-for-correction-feedback"
     },
     "errors:accuse-someone-of-gerund-not-that-clause": {
       "id": "errors:accuse-someone-of-gerund-not-that-clause",
@@ -193,7 +198,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "accuse-someone-of-gerund-not-that-clause"
     },
     "errors:accuse-vs-correct-word-choice": {
       "id": "errors:accuse-vs-correct-word-choice",
@@ -230,7 +236,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "accuse-vs-correct-word-choice"
     },
     "errors:advice-uncountable-many-error": {
       "id": "errors:advice-uncountable-many-error",
@@ -262,7 +269,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "advice-uncountable-many-error"
     },
     "errors:after-clause-missing-subject-before-past-participle": {
       "id": "errors:after-clause-missing-subject-before-past-participle",
@@ -292,7 +300,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "after-clause-missing-subject-before-past-participle"
     },
     "errors:after-clause-without-main-clause": {
       "id": "errors:after-clause-without-main-clause",
@@ -315,7 +324,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "after-clause-without-main-clause"
     },
     "errors:after-event-noun-phrase": {
       "id": "errors:after-event-noun-phrase",
@@ -338,7 +348,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "after-event-noun-phrase"
     },
     "errors:after-subordinator-used-for-later-action": {
       "id": "errors:after-subordinator-used-for-later-action",
@@ -368,7 +379,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "after-subordinator-used-for-later-action"
     },
     "errors:after-time-clause-future-tense": {
       "id": "errors:after-time-clause-future-tense",
@@ -391,7 +403,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "after-time-clause-future-tense"
     },
     "errors:age-expression-twenty-years": {
       "id": "errors:age-expression-twenty-years",
@@ -414,7 +427,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "age-expression-twenty-years"
     },
     "errors:all-plus-plural-noun": {
       "id": "errors:all-plus-plural-noun",
@@ -431,31 +445,6 @@
       ],
       "first_learned_at": "2026-11-08T15:54:05+08:00",
       "last_learned_at": "2026-11-08T15:54:05+08:00",
-      "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
-    },
-    "errors:all-set-vs-deliver-to-place": {
-      "id": "errors:all-set-vs-deliver-to-place",
-      "category": "errors",
-      "status": "learning",
-      "title": "all set 不能表示「送到/递交到某处」",
-      "explanation": "all set 表示「（人或整体安排）已完全就绪」，是状态描述，不能像 deliver/send 那样接 to + 地点表示「把东西送到某地」。the luggage was all set to the hotel lobby 缺少真正的动作动词，应说 was delivered to the hotel lobby。",
-      "source": "第3题误选 A（All set? Then let's head downstairs.），认为该句不成立",
-      "example": "The luggage was delivered to the hotel lobby by noon.",
-      "tags": [
-        "all-set",
-        "review-error",
-        "semantic-boundary"
-      ],
-      "first_learned_at": "2026-11-06T20:56:44+08:00",
-      "last_learned_at": "2026-11-06T20:56:44+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -489,7 +478,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "all-the-time-vs-anytime"
     },
     "errors:and-then-clause-needs-finite-verb": {
       "id": "errors:and-then-clause-needs-finite-verb",
@@ -546,7 +536,32 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "application-vs-applicant-for-request-or-submission"
+    },
+    "errors:approved-not-past-perfect": {
+      "id": "errors:approved-not-past-perfect",
+      "category": "errors",
+      "key": "approved-not-past-perfect",
+      "status": "learning",
+      "title": "「已经批准」用现在完成，不必用过去完成时",
+      "explanation": "现在完成 has approved 表示过去的批准动作对现在有影响；过去完成 had approved 需要另一个过去时间点作为参照，单独说“已经批准”用现在完成或一般过去。",
+      "source": "The headquarters had approved our budget proposal.",
+      "example": "Our headquarters has approved our budget proposal.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-09T20:59:39+08:00",
+      "last_learned_at": "2026-11-09T20:59:39+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:as-a-kid-missing-article": {
       "id": "errors:as-a-kid-missing-article",
@@ -569,7 +584,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "as-a-kid-missing-article"
     },
     "errors:as-soon-as-not-as-long-as-for-immediate-event": {
       "id": "errors:as-soon-as-not-as-long-as-for-immediate-event",
@@ -599,7 +615,8 @@
           "previous_status": "learning",
           "new_status": "learning"
         }
-      ]
+      ],
+      "key": "as-soon-as-not-as-long-as-for-immediate-event"
     },
     "errors:at-the-second-intersection-for-directions": {
       "id": "errors:at-the-second-intersection-for-directions",
@@ -629,7 +646,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "at-the-second-intersection-for-directions"
     },
     "errors:auxiliary-do-not-followed-by-past-tense": {
       "id": "errors:auxiliary-do-not-followed-by-past-tense",
@@ -660,7 +678,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "auxiliary-do-not-followed-by-past-tense"
     },
     "errors:back-east-direction-misuse": {
       "id": "errors:back-east-direction-misuse",
@@ -696,7 +715,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "back-east-direction-misuse"
     },
     "errors:back-east-for-westbound-us-destination": {
       "id": "errors:back-east-for-westbound-us-destination",
@@ -726,7 +746,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "back-east-for-westbound-us-destination"
     },
     "errors:back-east-needs-explicit-region": {
       "id": "errors:back-east-needs-explicit-region",
@@ -756,7 +777,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "back-east-needs-explicit-region"
     },
     "errors:back-west-spacing": {
       "id": "errors:back-west-spacing",
@@ -798,7 +820,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "back-west-spacing"
     },
     "errors:base-verb-after-does-in-direct-question": {
       "id": "errors:base-verb-after-does-in-direct-question",
@@ -828,7 +851,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "base-verb-after-does-in-direct-question"
     },
     "errors:be-preparing-present-progressive": {
       "id": "errors:be-preparing-present-progressive",
@@ -851,31 +875,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
-    },
-    "errors:be-served-for-误用-应为-be-responsible-for": {
-      "id": "errors:be-served-for-误用-应为-be-responsible-for",
-      "category": "errors",
-      "key": "be-served-for-误用-应为-be-responsible-for",
-      "status": "learning",
-      "title": "be served for 误用：负责用 be responsible for",
-      "explanation": "serve 表示“为某人/某事服务”时直接接宾语，如 serve customers，不能用被动 be served for；表示“负责某事”应为 be responsible for + 名词。",
-      "source": "It is served for recruit.",
-      "example": "It is responsible for recruitment.",
-      "tags": [
-        "review-error"
-      ],
-      "first_learned_at": "2026-11-09T20:59:39+08:00",
-      "last_learned_at": "2026-11-09T20:59:39+08:00",
-      "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "be-preparing-present-progressive"
     },
     "errors:be-used-to-describe-not-used-to-people": {
       "id": "errors:be-used-to-describe-not-used-to-people",
@@ -912,7 +913,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "be-used-to-describe-not-used-to-people"
     },
     "errors:before-begin-gerund-or-clause": {
       "id": "errors:before-begin-gerund-or-clause",
@@ -948,7 +950,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "before-begin-gerund-or-clause"
     },
     "errors:before-clause-present-tense-for-future": {
       "id": "errors:before-clause-present-tense-for-future",
@@ -997,39 +1000,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
-    },
-    "errors:can-dish-it-out-but-cannot-take-it-idiom": {
-      "id": "errors:can-dish-it-out-but-cannot-take-it-idiom",
-      "category": "errors",
-      "status": "learning",
-      "title": "can dish it out but can’t take it 中用 take it",
-      "explanation": "习语 can dish it out but can’t take it 表示“会批评别人却受不了别人批评自己”；这里固定用 take it，不能改成 take it up。",
-      "source": "He always dishes it out but he can't take it up.",
-      "example": "He always dishes it out, but he can’t take it.",
-      "tags": [
-        "fixed-expression",
-        "idiom",
-        "phrasal-verb"
-      ],
-      "first_learned_at": "2026-07-31T11:00:08+08:00",
-      "last_learned_at": "2026-07-31T11:00:08+08:00",
-      "learned_count": 1,
-      "mastery_score": 7.0,
-      "review_count": 1,
-      "high_score_streak": 0,
-      "last_reviewed_at": "2026-08-01T20:57:54+08:00",
-      "next_review_at": "2026-08-04T20:57:54+08:00",
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": [
-        {
-          "score": 7.0,
-          "reviewed_at": "2026-08-01T20:57:54+08:00",
-          "previous_status": "learning",
-          "new_status": "learning"
-        }
-      ]
+      "review_history": [],
+      "key": "but-clause-needs-finite-verb"
     },
     "errors:capitalize-english-language-name": {
       "id": "errors:capitalize-english-language-name",
@@ -1060,7 +1032,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "capitalize-english-language-name"
     },
     "errors:clouds-are-not-piece-of-clouds": {
       "id": "errors:clouds-are-not-piece-of-clouds",
@@ -1083,7 +1056,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "clouds-are-not-piece-of-clouds"
     },
     "errors:comma-splice-two-independent-clauses": {
       "id": "errors:comma-splice-two-independent-clauses",
@@ -1137,7 +1111,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "common-place-name-english-not-pinyin"
     },
     "errors:company-was-founded-in-year": {
       "id": "errors:company-was-founded-in-year",
@@ -1218,128 +1193,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
-    },
-    "errors:continue-on-ahead-redundancy": {
-      "id": "errors:continue-on-ahead-redundancy",
-      "category": "errors",
-      "status": "learning",
-      "title": "交通灯语境里 continue on 与时间从句",
-      "explanation": "表达绿灯亮后继续前行时，通常说 When the light turns green, we can continue on；continue on 已含继续向前的意味，不必再加 ahead；after green light 也不自然，应使用 when/after the light turns green。",
-      "source": "We could continue on ahead after green light.",
-      "example": "When the light turns green, we can continue on.",
-      "tags": [
-        "redundancy",
-        "time-clause"
       ],
-      "first_learned_at": "2026-07-29T20:27:33+08:00",
-      "last_learned_at": "2026-07-29T20:27:33+08:00",
-      "learned_count": 2,
-      "mastery_score": 7.0,
-      "review_count": 1,
-      "high_score_streak": 0,
-      "last_reviewed_at": "2026-08-03T12:37:25+08:00",
-      "next_review_at": "2026-08-06T12:37:25+08:00",
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": [
-        {
-          "score": 7.0,
-          "reviewed_at": "2026-08-03T12:37:25+08:00",
-          "previous_status": "learning",
-          "new_status": "learning"
-        }
-      ]
-    },
-    "errors:continue-on-instead-of-proceed-with": {
-      "id": "errors:continue-on-instead-of-proceed-with",
-      "category": "errors",
-      "status": "learning",
-      "title": "continue on 误用为 proceed with",
-      "explanation": "表示继续办理某件事时，英语的固定搭配是 proceed with + 名词，而不是 continue on + 名词。continue on 更多用在旅程或路径上继续前进，不带“办理某项事务”的含义。",
-      "source": "The manager will continue on the hiring process after the background check is confirmed.",
-      "example": "The manager will proceed with the hiring process after the background check is confirmed.",
-      "tags": [
-        "review-error"
-      ],
-      "first_learned_at": "2026-11-03T20:23:23+08:00",
-      "last_learned_at": "2026-11-03T20:23:23+08:00",
-      "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
-    },
-    "errors:continue-with-explain-point": {
-      "id": "errors:continue-with-explain-point",
-      "category": "errors",
-      "status": "learning",
-      "title": "继续讲解要点的动词结构",
-      "explanation": "表示继续讲解某个要点，可以说 continue with the explanation of the second point 或 continue explaining the second point；不能写 continue on talk second information。",
-      "source": "The speech continued on talk second information.",
-      "example": "The speaker continued explaining the second point.",
-      "tags": [
-        "review-error"
-      ],
-      "first_learned_at": "2026-08-09T20:46:53+08:00",
-      "last_learned_at": "2026-08-09T20:46:53+08:00",
-      "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
-    },
-    "errors:continue-with-noun": {
-      "id": "errors:continue-with-noun",
-      "category": "errors",
-      "status": "familiar",
-      "title": "continue with 后接名词，presentation 表示汇报",
-      "explanation": "表示继续某项活动、流程或内容时，可使用 continue with + 名词，如 continue with the presentation；presentation 是演示或汇报，performing 更偏表演或执行动作，不能直接替代 presentation。",
-      "source": "After short resting, she continue on performing.",
-      "example": "After a short rest, she continued with her presentation.",
-      "tags": [
-        "review-error",
-        "verb-pattern",
-        "word-choice"
-      ],
-      "first_learned_at": "2026-07-29T21:19:14+08:00",
-      "last_learned_at": "2026-10-15T20:26:23+08:00",
-      "learned_count": 3,
-      "mastery_score": 8.0,
-      "review_count": 3,
-      "high_score_streak": 1,
-      "last_reviewed_at": "2026-10-15T20:26:23+08:00",
-      "next_review_at": "2026-10-22T20:26:23+08:00",
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": [
-        {
-          "score": 6.0,
-          "reviewed_at": "2026-08-01T21:42:55+08:00",
-          "previous_status": "learning",
-          "new_status": "learning"
-        },
-        {
-          "score": 5.0,
-          "reviewed_at": "2026-08-09T20:46:53+08:00",
-          "previous_status": "learning",
-          "new_status": "learning"
-        },
-        {
-          "score": 8.0,
-          "reviewed_at": "2026-10-15T20:26:23+08:00",
-          "previous_status": "learning",
-          "new_status": "familiar"
-        }
-      ]
+      "key": "completed-action-uses-past-tense-found"
     },
     "errors:contraction-isnt-apostrophe-misplaced": {
       "id": "errors:contraction-isnt-apostrophe-misplaced",
@@ -1362,7 +1217,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "contraction-isnt-apostrophe-misplaced"
     },
     "errors:cool-breeze-adjective-omitted": {
       "id": "errors:cool-breeze-adjective-omitted",
@@ -1394,7 +1250,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "cool-breeze-adjective-omitted"
     },
     "errors:countable-noun-missing-article": {
       "id": "errors:countable-noun-missing-article",
@@ -1417,7 +1274,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "countable-noun-missing-article"
     },
     "errors:decide-requires-to-infinitive-for-action": {
       "id": "errors:decide-requires-to-infinitive-for-action",
@@ -1440,7 +1298,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "decide-requires-to-infinitive-for-action"
     },
     "errors:demonstration-vs-show-formal-event": {
       "id": "errors:demonstration-vs-show-formal-event",
@@ -1489,7 +1348,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "did-use-to-base-form"
     },
     "errors:direct-question-word-order-and-look-at": {
       "id": "errors:direct-question-word-order-and-look-at",
@@ -1520,7 +1380,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "direct-question-word-order-and-look-at"
     },
     "errors:direction-vs-home-area-contrast": {
       "id": "errors:direction-vs-home-area-contrast",
@@ -1554,94 +1415,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
-    },
-    "errors:dish-it-out-but-cant-take-it-fixed-object": {
-      "id": "errors:dish-it-out-but-cant-take-it-fixed-object",
-      "category": "errors",
-      "status": "learning",
-      "title": "dish it out but can’t take it 的固定 it 结构",
-      "explanation": "表达“批评别人却受不了别人批评自己”时，英语把前后承受的批评或玩笑用 it 回指，常说 dish it out / take it；不能把 dish out 后面直接接 others voice 这类宾语来替代固定结构。",
-      "source": "Mia always dishes out others voice, but he can't take it when people accuse him.",
-      "example": "Mia always dishes it out about other people’s pronunciation, but she can’t take it when people correct hers.",
-      "tags": [
-        "fixed-expression",
-        "idiom",
-        "review-error"
       ],
-      "first_learned_at": "2026-08-01T20:57:54+08:00",
-      "last_learned_at": "2026-08-02T21:43:15+08:00",
-      "learned_count": 2,
-      "mastery_score": 7.0,
-      "review_count": 1,
-      "high_score_streak": 0,
-      "last_reviewed_at": "2026-08-02T21:43:15+08:00",
-      "next_review_at": "2026-08-05T21:43:15+08:00",
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": [
-        {
-          "score": 7.0,
-          "reviewed_at": "2026-08-02T21:43:15+08:00",
-          "previous_status": "learning",
-          "new_status": "learning"
-        }
-      ]
-    },
-    "errors:dish-out-person-instead-of-criticism": {
-      "id": "errors:dish-out-person-instead-of-criticism",
-      "category": "errors",
-      "status": "familiar",
-      "title": "dish out 后误接人作宾语",
-      "explanation": "dish out 表示“发出/施加”时，宾语通常是 criticism、punishment、insults 等内容；被批评的人要放在 to 后面，或另写 criticize others。",
-      "source": "She always dishes out others, but she cannot take it.",
-      "example": "She always dishes out criticism to others, but she cannot take it when they point out her problems.",
-      "tags": [
-        "idiom",
-        "review-error",
-        "verb-pattern"
-      ],
-      "first_learned_at": "2026-08-02T16:12:48+08:00",
-      "last_learned_at": "2026-08-02T16:12:48+08:00",
-      "learned_count": 1,
-      "mastery_score": 10.0,
-      "review_count": 1,
-      "high_score_streak": 1,
-      "last_reviewed_at": "2026-08-02T17:46:42+08:00",
-      "next_review_at": "2026-09-01T17:46:42+08:00",
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": [
-        {
-          "score": 10.0,
-          "reviewed_at": "2026-08-02T17:46:42+08:00",
-          "previous_status": "learning",
-          "new_status": "familiar"
-        }
-      ]
-    },
-    "errors:dish-out-takes-content-not-person-recipient": {
-      "id": "errors:dish-out-takes-content-not-person-recipient",
-      "category": "errors",
-      "status": "learning",
-      "title": "dish out 的宾语应是被施加或分发的内容",
-      "explanation": "dish out 表示分发或强硬施加某种内容，宾语通常是 criticism、blame、punishment、insults 等，而不是承受批评的人。要表达批评某人，可说 dish out criticism to/at someone，或在惯用语中说 dish it out。",
-      "source": "The editor dishes out the reporters. / She always dishes out others, but she can't take it.",
-      "example": "He is always dishing out insults at others, but he can't take criticism himself.",
-      "tags": [
-        "review-error"
-      ],
-      "first_learned_at": "2026-08-26T07:08:38+08:00",
-      "last_learned_at": "2026-09-02T20:39:17+08:00",
-      "learned_count": 2,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
+      "key": "direction-vs-home-area-contrast"
     },
     "errors:double-consonant-in-stopped": {
       "id": "errors:double-consonant-in-stopped",
@@ -1664,7 +1439,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "double-consonant-in-stopped"
     },
     "errors:down-south-up-north-not-out-south": {
       "id": "errors:down-south-up-north-not-out-south",
@@ -1687,7 +1463,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "down-south-up-north-not-out-south"
     },
     "errors:drive-westward-past-tense": {
       "id": "errors:drive-westward-past-tense",
@@ -1710,7 +1487,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "drive-westward-past-tense"
     },
     "errors:drizzle-vs-shower-for-duration-pattern": {
       "id": "errors:drizzle-vs-shower-for-duration-pattern",
@@ -1733,7 +1511,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "drizzle-vs-shower-for-duration-pattern"
     },
     "errors:duration-compound-adjective-needs-hyphen": {
       "id": "errors:duration-compound-adjective-needs-hyphen",
@@ -1756,7 +1535,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "duration-compound-adjective-needs-hyphen"
     },
     "errors:duration-rest-possessive-or-hyphenated-form": {
       "id": "errors:duration-rest-possessive-or-hyphenated-form",
@@ -1799,7 +1579,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "duration-rest-possessive-or-hyphenated-form"
     },
     "errors:eastward-for-westbound-us-travel": {
       "id": "errors:eastward-for-westbound-us-travel",
@@ -1835,7 +1616,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "eastward-for-westbound-us-travel"
     },
     "errors:eastward-used-for-westbound-trip": {
       "id": "errors:eastward-used-for-westbound-trip",
@@ -1869,7 +1651,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "eastward-used-for-westbound-trip"
     },
     "errors:egg-plural-spelling-eggs-not-egges": {
       "id": "errors:egg-plural-spelling-eggs-not-egges",
@@ -1901,7 +1684,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "egg-plural-spelling-eggs-not-egges"
     },
     "errors:embedded-what-clause-statement-word-order": {
       "id": "errors:embedded-what-clause-statement-word-order",
@@ -1931,7 +1715,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "embedded-what-clause-statement-word-order"
     },
     "errors:everyone-passport-plural-possessive": {
       "id": "errors:everyone-passport-plural-possessive",
@@ -1987,7 +1772,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "existential-there-was-no"
     },
     "errors:expensive-vs-expansive": {
       "id": "errors:expensive-vs-expansive",
@@ -2037,7 +1823,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "fetch-use-get-not-take"
     },
     "errors:fill-out-form-not-fill-sheet": {
       "id": "errors:fill-out-form-not-fill-sheet",
@@ -2061,7 +1848,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "fill-out-form-not-fill-sheet"
     },
     "errors:finite-verb-tense-agreement-in-embedded-clause": {
       "id": "errors:finite-verb-tense-agreement-in-embedded-clause",
@@ -2097,7 +1885,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "finite-verb-tense-agreement-in-embedded-clause"
     },
     "errors:for-plus-base-verb-instead-of-to-infinitive": {
       "id": "errors:for-plus-base-verb-instead-of-to-infinitive",
@@ -2120,7 +1909,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "for-plus-base-verb-instead-of-to-infinitive"
     },
     "errors:for-the-first-time-expression": {
       "id": "errors:for-the-first-time-expression",
@@ -2143,7 +1933,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "for-the-first-time-expression"
     },
     "errors:friendly-service-not-very-good-service": {
       "id": "errors:friendly-service-not-very-good-service",
@@ -2168,7 +1959,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "friendly-service-not-very-good-service"
     },
     "errors:fruit-generic-uncountable-not-fruits": {
       "id": "errors:fruit-generic-uncountable-not-fruits",
@@ -2200,7 +1992,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "fruit-generic-uncountable-not-fruits"
     },
     "errors:general-condition-if-present-simple": {
       "id": "errors:general-condition-if-present-simple",
@@ -2224,7 +2017,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "general-condition-if-present-simple"
     },
     "errors:get-promoted-past-participle": {
       "id": "errors:get-promoted-past-participle",
@@ -2272,7 +2066,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "go-ahead-northward-wrong-verb"
     },
     "errors:go-the-seaside-missing-to": {
       "id": "errors:go-the-seaside-missing-to",
@@ -2295,7 +2090,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "go-the-seaside-missing-to"
     },
     "errors:go-to-bed-early-vs-sleep-early": {
       "id": "errors:go-to-bed-early-vs-sleep-early",
@@ -2318,7 +2114,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "go-to-bed-early-vs-sleep-early"
     },
     "errors:go-travel-to-redundant-verb-phrase": {
       "id": "errors:go-travel-to-redundant-verb-phrase",
@@ -2341,7 +2138,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "go-travel-to-redundant-verb-phrase"
     },
     "errors:graduate-from-institution-not-city": {
       "id": "errors:graduate-from-institution-not-city",
@@ -2364,7 +2162,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "graduate-from-institution-not-city"
     },
     "errors:grammar-spelling-grammer": {
       "id": "errors:grammar-spelling-grammer",
@@ -2388,7 +2187,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "grammar-spelling-grammer"
     },
     "errors:grow-up-irregular-past-grew": {
       "id": "errors:grow-up-irregular-past-grew",
@@ -2411,7 +2211,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "grow-up-irregular-past-grew"
     },
     "errors:half-an-hour-article": {
       "id": "errors:half-an-hour-article",
@@ -2434,7 +2235,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "half-an-hour-article"
     },
     "errors:hear-object-base-verb": {
       "id": "errors:hear-object-base-verb",
@@ -2458,7 +2260,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "hear-object-base-verb"
     },
     "errors:help-yourself-reflexive-dropped-in-idiom": {
       "id": "errors:help-yourself-reflexive-dropped-in-idiom",
@@ -2481,7 +2284,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "help-yourself-reflexive-dropped-in-idiom"
     },
     "errors:help-yourself-to-not-with-for-offer": {
       "id": "errors:help-yourself-to-not-with-for-offer",
@@ -2504,7 +2308,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "help-yourself-to-not-with-for-offer"
     },
     "errors:inform-is-verb-use-notification": {
       "id": "errors:inform-is-verb-use-notification",
@@ -2552,7 +2357,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "information-uncountable-no-plural-s"
     },
     "errors:it-was-always-full-word-order": {
       "id": "errors:it-was-always-full-word-order",
@@ -2575,7 +2381,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "it-was-always-full-word-order"
     },
     "errors:job-interview-not-interview-a-job": {
       "id": "errors:job-interview-not-interview-a-job",
@@ -2623,7 +2430,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "known-presentation-needs-definite-article"
     },
     "errors:later-adverb-takes-no-at": {
       "id": "errors:later-adverb-takes-no-at",
@@ -2704,7 +2512,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "leave-vs-go-departure"
     },
     "errors:life-as-general-condition-without-the": {
       "id": "errors:life-as-general-condition-without-the",
@@ -2727,7 +2536,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "life-as-general-condition-without-the"
     },
     "errors:life-no-article-generic": {
       "id": "errors:life-no-article-generic",
@@ -2750,7 +2560,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "life-no-article-generic"
     },
     "errors:los-angeles-english-place-name": {
       "id": "errors:los-angeles-english-place-name",
@@ -2773,53 +2584,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
-    },
-    "errors:lovely-day-to-missing-to-before-base-verb": {
-      "id": "errors:lovely-day-to-missing-to-before-base-verb",
-      "category": "errors",
-      "status": "learning",
-      "title": "Lovely day to + 原形：漏掉 to",
-      "explanation": "Lovely day 后面接一个动作时，要用后置不定式 to + 动词原形，to 不能省略。省略后 lovely day grab 变成两个成分直接并置，既没有句法连接，也失去了“适合做某事”的不定式含义。",
-      "source": "Lovely day grab a sandwich and eat in the park?",
-      "example": "Lovely day to grab a sandwich and eat in the park, isn't it?",
-      "tags": [
-        "review-error"
-      ],
-      "first_learned_at": "2026-10-31T10:26:13+08:00",
-      "last_learned_at": "2026-10-31T10:26:13+08:00",
-      "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
-    },
-    "errors:lovely-day-to-must-follow-base-verb": {
-      "id": "errors:lovely-day-to-must-follow-base-verb",
-      "category": "errors",
-      "status": "learning",
-      "title": "Lovely day to 后必须接动词原形",
-      "explanation": "to 后需接动词原形（go/head 等），outside 是副词/介词不能直接跟在 to 后，也不要出现重复的 to。",
-      "source": "Lovely day to to outside.",
-      "example": "Lovely day to go outside.",
-      "tags": [
-        "review-error"
-      ],
-      "first_learned_at": "2026-10-22T20:36:13+08:00",
-      "last_learned_at": "2026-10-22T20:36:13+08:00",
-      "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "los-angeles-english-place-name"
     },
     "errors:make-something-free-for-users": {
       "id": "errors:make-something-free-for-users",
@@ -2867,7 +2633,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "minute-spelling-in-duration-expression"
     },
     "errors:missing-article-before-countable-presentation": {
       "id": "errors:missing-article-before-countable-presentation",
@@ -2891,7 +2658,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "missing-article-before-countable-presentation"
     },
     "errors:missing-article-in-after-a-short-rest": {
       "id": "errors:missing-article-in-after-a-short-rest",
@@ -2915,7 +2683,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "missing-article-in-after-a-short-rest"
     },
     "errors:missing-article-or-possessive-before-singular-exam": {
       "id": "errors:missing-article-or-possessive-before-singular-exam",
@@ -2938,7 +2707,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "missing-article-or-possessive-before-singular-exam"
     },
     "errors:missing-be-before-located": {
       "id": "errors:missing-be-before-located",
@@ -2966,7 +2736,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "missing-be-before-located"
     },
     "errors:missing-definite-article-before-singular-countable-noun": {
       "id": "errors:missing-definite-article-before-singular-countable-noun",
@@ -2990,7 +2761,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "missing-definite-article-before-singular-countable-noun"
     },
     "errors:missing-finite-verb-after-subject-phrase": {
       "id": "errors:missing-finite-verb-after-subject-phrase",
@@ -3026,7 +2798,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "missing-finite-verb-after-subject-phrase"
     },
     "errors:missing-past-perfect-for-earlier-arrival": {
       "id": "errors:missing-past-perfect-for-earlier-arrival",
@@ -3050,7 +2823,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "missing-past-perfect-for-earlier-arrival"
     },
     "errors:missing-third-person-s-after-she-points-out": {
       "id": "errors:missing-third-person-s-after-she-points-out",
@@ -3081,7 +2855,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "missing-third-person-s-after-she-points-out"
     },
     "errors:misspelling-energy": {
       "id": "errors:misspelling-energy",
@@ -3104,7 +2879,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "misspelling-energy"
     },
     "errors:misunderstand-go-out-with-as-literal-exit": {
       "id": "errors:misunderstand-go-out-with-as-literal-exit",
@@ -3128,7 +2904,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "misunderstand-go-out-with-as-literal-exit"
     },
     "errors:modal-verb-takes-base-form": {
       "id": "errors:modal-verb-takes-base-form",
@@ -3183,7 +2960,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "modal-will-base-verb-not-s-form"
     },
     "errors:month-takes-in-not-on": {
       "id": "errors:month-takes-in-not-on",
@@ -3238,7 +3016,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "move-to-place-preposition"
     },
     "errors:much-before-simple-adjective-cold-error": {
       "id": "errors:much-before-simple-adjective-cold-error",
@@ -3270,7 +3049,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "much-before-simple-adjective-cold-error"
     },
     "errors:narrative-past-tense-consistency": {
       "id": "errors:narrative-past-tense-consistency",
@@ -3293,7 +3073,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "narrative-past-tense-consistency"
     },
     "errors:need-practice-not-need-to-be-practicing": {
       "id": "errors:need-practice-not-need-to-be-practicing",
@@ -3316,7 +3097,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "need-practice-not-need-to-be-practicing"
     },
     "errors:next-day-no-preposition-on": {
       "id": "errors:next-day-no-preposition-on",
@@ -3390,7 +3172,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "no-preposition-before-out-west"
     },
     "errors:not-sure-how-to-pronounce-for-uncertain-pronunciation": {
       "id": "errors:not-sure-how-to-pronounce-for-uncertain-pronunciation",
@@ -3426,7 +3209,8 @@
           "previous_status": "familiar",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "not-sure-how-to-pronounce-for-uncertain-pronunciation"
     },
     "errors:nurse-agreement-and-checkup-collocation": {
       "id": "errors:nurse-agreement-and-checkup-collocation",
@@ -3449,7 +3233,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "nurse-agreement-and-checkup-collocation"
     },
     "errors:omit-be-in-passive-after-confirmed": {
       "id": "errors:omit-be-in-passive-after-confirmed",
@@ -3473,7 +3258,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "omit-be-in-passive-after-confirmed"
     },
     "errors:omitting-location-in-existential-there-sentence": {
       "id": "errors:omitting-location-in-existential-there-sentence",
@@ -3496,7 +3282,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "omitting-location-in-existential-there-sentence"
     },
     "errors:on-the-way-used-for-along-this-road": {
       "id": "errors:on-the-way-used-for-along-this-road",
@@ -3526,7 +3313,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "on-the-way-used-for-along-this-road"
     },
     "errors:opened-not-closed-for-opening-event": {
       "id": "errors:opened-not-closed-for-opening-event",
@@ -3549,7 +3337,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "opened-not-closed-for-opening-event"
     },
     "errors:opened-spelling-past-participle": {
       "id": "errors:opened-spelling-past-participle",
@@ -3572,7 +3361,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "opened-spelling-past-participle"
     },
     "errors:opening-event-uses-opened-not-close": {
       "id": "errors:opening-event-uses-opened-not-close",
@@ -3595,7 +3385,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "opening-event-uses-opened-not-close"
     },
     "errors:passive-clause-needs-be": {
       "id": "errors:passive-clause-needs-be",
@@ -3638,7 +3429,8 @@
           "previous_status": "learning",
           "new_status": "learning"
         }
-      ]
+      ],
+      "key": "passive-clause-needs-be"
     },
     "errors:past-narrative-main-verb-tense": {
       "id": "errors:past-narrative-main-verb-tense",
@@ -3681,7 +3473,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "past-narrative-main-verb-tense"
     },
     "errors:past-narrative-main-verb-tense-shift-to-present": {
       "id": "errors:past-narrative-main-verb-tense-shift-to-present",
@@ -3704,7 +3497,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "past-narrative-main-verb-tense-shift-to-present"
     },
     "errors:past-narrative-tense-consistency": {
       "id": "errors:past-narrative-tense-consistency",
@@ -3752,7 +3546,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "past-perfect-requires-past-participle"
     },
     "errors:past-tense-after-after-clause": {
       "id": "errors:past-tense-after-after-clause",
@@ -3775,30 +3570,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
-    },
-    "errors:past-tense-continue-continued": {
-      "id": "errors:past-tense-continue-continued",
-      "category": "errors",
-      "status": "learning",
-      "title": "过去时主谓：she continued",
-      "explanation": "描述已经发生的动作要用过去式，continue 应为 continued。",
-      "source": "After short resting, she continue with presentation.",
-      "example": "After a short rest, she continued with her presentation.",
-      "tags": [
-        "review-error"
-      ],
-      "first_learned_at": "2026-10-15T20:26:23+08:00",
-      "last_learned_at": "2026-10-15T20:26:23+08:00",
-      "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "past-tense-after-after-clause"
     },
     "errors:past-tense-in-completed-event-sequence": {
       "id": "errors:past-tense-in-completed-event-sequence",
@@ -3821,7 +3594,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "past-tense-in-completed-event-sequence"
     },
     "errors:past-tense-needed-in-reported-clause": {
       "id": "errors:past-tense-needed-in-reported-clause",
@@ -3844,7 +3618,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "past-tense-needed-in-reported-clause"
     },
     "errors:past-tense-parallel-after-and-then": {
       "id": "errors:past-tense-parallel-after-and-then",
@@ -3869,7 +3644,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "past-tense-parallel-after-and-then"
     },
     "errors:past-tense-verb-form-for-past-time": {
       "id": "errors:past-tense-verb-form-for-past-time",
@@ -3918,7 +3694,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "past-tense-with-finished-past-time-marker"
     },
     "errors:past-time-marker-last-night-omitted": {
       "id": "errors:past-time-marker-last-night-omitted",
@@ -3950,7 +3727,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "past-time-marker-last-night-omitted"
     },
     "errors:past-time-used-to-live-present-error": {
       "id": "errors:past-time-used-to-live-present-error",
@@ -3987,7 +3765,8 @@
           "previous_status": "learning",
           "new_status": "learning"
         }
-      ]
+      ],
+      "key": "past-time-used-to-live-present-error"
     },
     "errors:phone-on-silent-not-turn-down": {
       "id": "errors:phone-on-silent-not-turn-down",
@@ -4010,7 +3789,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "phone-on-silent-not-turn-down"
     },
     "errors:phrase-mistranslated-as-word": {
       "id": "errors:phrase-mistranslated-as-word",
@@ -4034,32 +3814,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
-    },
-    "errors:plate-vs-serve-ladle-liquid-food": {
-      "id": "errors:plate-vs-serve-ladle-liquid-food",
-      "category": "errors",
-      "status": "learning",
-      "title": "plate 不适合普通汤类上菜",
-      "explanation": "plate 作动词强调把食物摆放在盘中并呈现外观；汤通常是盛入碗中或端上来，更自然用 serve 或 ladle，而不是 plate。",
-      "source": "The waiter plated the soup carefully before serving it. / 自然",
-      "example": "The waiter served the soup carefully before bringing it to the table.",
-      "tags": [
-        "food",
-        "review-error",
-        "word-choice"
-      ],
-      "first_learned_at": "2026-08-01T21:26:24+08:00",
-      "last_learned_at": "2026-08-01T21:26:24+08:00",
-      "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "phrase-mistranslated-as-word"
     },
     "errors:plate-x-with-y-garnish": {
       "id": "errors:plate-x-with-y-garnish",
@@ -4082,7 +3838,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "plate-x-with-y-garnish"
     },
     "errors:plural-grandparents-translation": {
       "id": "errors:plural-grandparents-translation",
@@ -4112,7 +3869,8 @@
           "previous_status": "familiar",
           "new_status": "learning"
         }
-      ]
+      ],
+      "key": "plural-grandparents-translation"
     },
     "errors:plural-phones-after-phone-shared-device": {
       "id": "errors:plural-phones-after-phone-shared-device",
@@ -4143,7 +3901,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "plural-phones-after-phone-shared-device"
     },
     "errors:point-out-used-with-advice-collocation": {
       "id": "errors:point-out-used-with-advice-collocation",
@@ -4173,7 +3932,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "point-out-used-with-advice-collocation"
     },
     "errors:pointed-out-past-tense": {
       "id": "errors:pointed-out-past-tense",
@@ -4196,7 +3956,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "pointed-out-past-tense"
     },
     "errors:possessive-daughter-childhood": {
       "id": "errors:possessive-daughter-childhood",
@@ -4277,7 +4038,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "preposition-before-directional-adverbial-back-east-out-west"
     },
     "errors:present-habit-when-clause-past-tense-mismatch": {
       "id": "errors:present-habit-when-clause-past-tense-mismatch",
@@ -4300,7 +4062,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "present-habit-when-clause-past-tense-mismatch"
     },
     "errors:presentation-not-representation-for-report": {
       "id": "errors:presentation-not-representation-for-report",
@@ -4323,7 +4086,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "presentation-not-representation-for-report"
     },
     "errors:preserve-name-vs-word-in-translation": {
       "id": "errors:preserve-name-vs-word-in-translation",
@@ -4346,7 +4110,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "preserve-name-vs-word-in-translation"
     },
     "errors:preserve-number-in-translation": {
       "id": "errors:preserve-number-in-translation",
@@ -4369,7 +4134,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "preserve-number-in-translation"
     },
     "errors:preserve-pronoun-gender-in-translation": {
       "id": "errors:preserve-pronoun-gender-in-translation",
@@ -4392,7 +4158,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "preserve-pronoun-gender-in-translation"
     },
     "errors:problem-with-pronunciation-collocation": {
       "id": "errors:problem-with-pronunciation-collocation",
@@ -4423,7 +4190,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "problem-with-pronunciation-collocation"
     },
     "errors:proceed-needs-preposition-before-noun-object": {
       "id": "errors:proceed-needs-preposition-before-noun-object",
@@ -4447,7 +4215,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "proceed-needs-preposition-before-noun-object"
     },
     "errors:proceed-not-followed-by-gerund": {
       "id": "errors:proceed-not-followed-by-gerund",
@@ -4475,7 +4244,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "proceed-not-followed-by-gerund"
     },
     "errors:proceed-to-infinitive": {
       "id": "errors:proceed-to-infinitive",
@@ -4505,7 +4275,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "proceed-to-infinitive"
     },
     "errors:proceed-with-gerund-vs-proceed-to-infinitive": {
       "id": "errors:proceed-with-gerund-vs-proceed-to-infinitive",
@@ -4555,7 +4326,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "proceed-with-gerund-vs-proceed-to-infinitive"
     },
     "errors:pronoun-agreement-he-she": {
       "id": "errors:pronoun-agreement-he-she",
@@ -4578,7 +4350,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "pronoun-agreement-he-she"
     },
     "errors:pronoun-agreement-with-female-name": {
       "id": "errors:pronoun-agreement-with-female-name",
@@ -4602,7 +4375,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "pronoun-agreement-with-female-name"
     },
     "errors:pronunciation-vs-voice-for-accent-corrections": {
       "id": "errors:pronunciation-vs-voice-for-accent-corrections",
@@ -4633,39 +4407,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
-    },
-    "errors:provide-service-not-serve-service": {
-      "id": "errors:provide-service-not-serve-service",
-      "category": "errors",
-      "status": "familiar",
-      "title": "提供服务用 provide service，不说 serve service",
-      "explanation": "serve 可以表示上菜、招待或为某人服务，但 excellent service 作为名词短语时通常搭配 provide、offer 或 give；serve excellent service 听起来重复且不自然。",
-      "source": "The restaurant served excellent service all evening.",
-      "example": "The restaurant provided excellent service all evening.",
-      "tags": [
-        "collocation",
-        "review-error",
-        "word-choice"
       ],
-      "first_learned_at": "2026-08-02T10:09:58+08:00",
-      "last_learned_at": "2026-08-02T10:09:58+08:00",
-      "learned_count": 1,
-      "mastery_score": 8.0,
-      "review_count": 1,
-      "high_score_streak": 1,
-      "last_reviewed_at": "2026-08-02T13:31:03+08:00",
-      "next_review_at": "2026-08-09T13:31:03+08:00",
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": [
-        {
-          "score": 8.0,
-          "reviewed_at": "2026-08-02T13:31:03+08:00",
-          "previous_status": "learning",
-          "new_status": "familiar"
-        }
-      ]
+      "key": "pronunciation-vs-voice-for-accent-corrections"
     },
     "errors:purpose-infinitive-not-for-verb": {
       "id": "errors:purpose-infinitive-not-for-verb",
@@ -4692,12 +4435,12 @@
       "mastered_at": null,
       "review_history": []
     },
-    "errors:recruit-动词误作名词-应写-recruitment": {
-      "id": "errors:recruit-动词误作名词-应写-recruitment",
+    "errors:recruit-noun-vs-recruitment": {
+      "id": "errors:recruit-noun-vs-recruitment",
       "category": "errors",
-      "key": "recruit-动词误作名词-应写-recruitment",
+      "key": "recruit-noun-vs-recruitment",
       "status": "learning",
-      "title": "recruit 误作名词，招聘活动用 recruitment",
+      "title": "recruit 作名词指新人，招聘用 recruitment",
       "explanation": "recruit 作名词指“被招募的新人”，表示招聘这项工作或流程要用不可数名词 recruitment（美式也常用 hiring）。",
       "source": "It is served for recruit.",
       "example": "It is responsible for recruitment decisions.",
@@ -4762,7 +4505,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "refrigerator-spelling-not-refrigerater"
     },
     "errors:regain-again-redundancy": {
       "id": "errors:regain-again-redundancy",
@@ -4785,7 +4529,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "regain-again-redundancy"
     },
     "errors:regain-concentration-collocation": {
       "id": "errors:regain-concentration-collocation",
@@ -4808,7 +4553,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "regain-concentration-collocation"
     },
     "errors:registration-vs-register-noun-event": {
       "id": "errors:registration-vs-register-noun-event",
@@ -4832,7 +4578,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "registration-vs-register-noun-event"
     },
     "errors:relative-clause-after-friend-lived-near": {
       "id": "errors:relative-clause-after-friend-lived-near",
@@ -4864,7 +4611,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "relative-clause-after-friend-lived-near"
     },
     "errors:remaining-vs-rest-noun-phrase": {
       "id": "errors:remaining-vs-rest-noun-phrase",
@@ -4914,7 +4662,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "remember-when-past-state-was-not-is"
     },
     "errors:restaurant-branches-not-offices": {
       "id": "errors:restaurant-branches-not-offices",
@@ -4938,7 +4687,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "restaurant-branches-not-offices"
     },
     "errors:review-status-under-review-vs-progressive": {
       "id": "errors:review-status-under-review-vs-progressive",
@@ -4959,7 +4709,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "review-status-under-review-vs-progressive"
     },
     "errors:safety-training-not-safety-train": {
       "id": "errors:safety-training-not-safety-train",
@@ -5016,37 +4767,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
-    },
-    "errors:serve-recipient-preposition-to-not-for": {
-      "id": "errors:serve-recipient-preposition-to-not-for",
-      "category": "errors",
-      "status": "familiar",
-      "title": "serve 表示端给某人时受事对象介词误用 for",
-      "explanation": "serve 表示把食物或饮料端给某人时，接受者通常用 to 引出，或直接使用双宾结构 serve someone something；for guests 更像“为了客人/替客人”，不如 to the guests 明确表示端给他们。",
-      "source": "She served the hot tea and the cake for guests.",
-      "example": "She served hot tea and cake to the guests.",
-      "tags": [
-        "review-error"
       ],
-      "first_learned_at": "2026-08-02T16:45:39+08:00",
-      "last_learned_at": "2026-08-02T16:45:39+08:00",
-      "learned_count": 1,
-      "mastery_score": 9.0,
-      "review_count": 1,
-      "high_score_streak": 1,
-      "last_reviewed_at": "2026-08-03T21:53:24+08:00",
-      "next_review_at": "2026-08-17T21:53:24+08:00",
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": [
-        {
-          "score": 9.0,
-          "reviewed_at": "2026-08-03T21:53:24+08:00",
-          "previous_status": "learning",
-          "new_status": "familiar"
-        }
-      ]
+      "key": "semantic-conflict-old-timers-newcomers"
     },
     "errors:set-the-table-not-put-the-table": {
       "id": "errors:set-the-table-not-put-the-table",
@@ -5078,7 +4800,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "set-the-table-not-put-the-table"
     },
     "errors:several-plus-plural-count-noun": {
       "id": "errors:several-plus-plural-count-noun",
@@ -5106,7 +4829,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "several-plus-plural-count-noun"
     },
     "errors:short-rest-not-short-resting": {
       "id": "errors:short-rest-not-short-resting",
@@ -5129,7 +4853,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "short-rest-not-short-resting"
     },
     "errors:sign-mistaken-for-brand": {
       "id": "errors:sign-mistaken-for-brand",
@@ -5152,7 +4877,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "sign-mistaken-for-brand"
     },
     "errors:simple-past-fall-without-be-auxiliary": {
       "id": "errors:simple-past-fall-without-be-auxiliary",
@@ -5175,7 +4901,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "simple-past-fall-without-be-auxiliary"
     },
     "errors:singular-application-mistaken-as-plural-applications": {
       "id": "errors:singular-application-mistaken-as-plural-applications",
@@ -5205,7 +4932,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "singular-application-mistaken-as-plural-applications"
     },
     "errors:singular-count-noun-missing-article": {
       "id": "errors:singular-count-noun-missing-article",
@@ -5235,7 +4963,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "singular-count-noun-missing-article"
     },
     "errors:singular-countable-rest-needs-article": {
       "id": "errors:singular-countable-rest-needs-article",
@@ -5258,7 +4987,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "singular-countable-rest-needs-article"
     },
     "errors:sit-in-the-coffee-drink-as-place": {
       "id": "errors:sit-in-the-coffee-drink-as-place",
@@ -5281,7 +5011,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "sit-in-the-coffee-drink-as-place"
     },
     "errors:slice-into-thin-slices-not-to-slice": {
       "id": "errors:slice-into-thin-slices-not-to-slice",
@@ -5313,7 +5044,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "slice-into-thin-slices-not-to-slice"
     },
     "errors:specific-known-plural-noun-use-the": {
       "id": "errors:specific-known-plural-noun-use-the",
@@ -5345,7 +5077,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "specific-known-plural-noun-use-the"
     },
     "errors:sudden-adjective-not-suddenly-before-noun": {
       "id": "errors:sudden-adjective-not-suddenly-before-noun",
@@ -5368,7 +5101,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "sudden-adjective-not-suddenly-before-noun"
     },
     "errors:suggest-object-plus-bare-verb-missing-that-or-gerund": {
       "id": "errors:suggest-object-plus-bare-verb-missing-that-or-gerund",
@@ -5391,7 +5125,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "suggest-object-plus-bare-verb-missing-that-or-gerund"
     },
     "errors:suggest-someone-to-do-instead-of-suggest-that-clause": {
       "id": "errors:suggest-someone-to-do-instead-of-suggest-that-clause",
@@ -5428,28 +5163,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
-    },
-    "errors:tense-agreement-narrative-continue": {
-      "id": "errors:tense-agreement-narrative-continue",
-      "category": "errors",
-      "status": "learning",
-      "title": "叙述已发生动作时 continue 未用过去式",
-      "explanation": "描述已经发生的连续动作时，谓语动词要与整体过去时态保持一致；continue 应写作 continued，且正式语境用 discuss the budget 替代 talk about budget。",
-      "source": "After drinking coffee, we continue to have a meeting and talk about budget.",
-      "example": "After coffee, we continued the meeting to discuss the budget.",
-      "tags": [],
-      "first_learned_at": "2026-07-30T13:04:53+08:00",
-      "last_learned_at": "2026-07-30T13:04:53+08:00",
-      "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
+      ],
+      "key": "suggest-someone-to-do-instead-of-suggest-that-clause"
     },
     "errors:tense-and-exam-countability-in-translation": {
       "id": "errors:tense-and-exam-countability-in-translation",
@@ -5474,7 +5189,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "tense-and-exam-countability-in-translation"
     },
     "errors:terminology-not-journal": {
       "id": "errors:terminology-not-journal",
@@ -5499,7 +5215,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "terminology-not-journal"
     },
     "errors:thats-ok-for-accepting-request-unnatural": {
       "id": "errors:thats-ok-for-accepting-request-unnatural",
@@ -5524,7 +5241,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "thats-ok-for-accepting-request-unnatural"
     },
     "errors:the-typo-should-be-they": {
       "id": "errors:the-typo-should-be-they",
@@ -5547,7 +5265,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "the-typo-should-be-they"
     },
     "errors:there-be-cannot-take-second-finite-verb": {
       "id": "errors:there-be-cannot-take-second-finite-verb",
@@ -5570,7 +5289,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "there-be-cannot-take-second-finite-verb"
     },
     "errors:third-person-singular-present-s-ending": {
       "id": "errors:third-person-singular-present-s-ending",
@@ -5593,7 +5313,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "third-person-singular-present-s-ending"
     },
     "errors:third-person-singular-s-in-dependent-clause": {
       "id": "errors:third-person-singular-s-in-dependent-clause",
@@ -5616,7 +5337,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "third-person-singular-s-in-dependent-clause"
     },
     "errors:third-person-singular-s-missing-after-he": {
       "id": "errors:third-person-singular-s-missing-after-he",
@@ -5647,7 +5369,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "third-person-singular-s-missing-after-he"
     },
     "errors:third-person-singular-subject-needs": {
       "id": "errors:third-person-singular-subject-needs",
@@ -5670,7 +5393,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "third-person-singular-subject-needs"
     },
     "errors:time-duration-before-noun-needs-singular-hyphenated-unit": {
       "id": "errors:time-duration-before-noun-needs-singular-hyphenated-unit",
@@ -5693,7 +5417,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "time-duration-before-noun-needs-singular-hyphenated-unit"
     },
     "errors:traffic-versus-traffic-light-turns-green": {
       "id": "errors:traffic-versus-traffic-light-turns-green",
@@ -5716,7 +5441,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "traffic-versus-traffic-light-turns-green"
     },
     "errors:turn-off-electronic-device-collocation": {
       "id": "errors:turn-off-electronic-device-collocation",
@@ -5746,7 +5472,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "turn-off-electronic-device-collocation"
     },
     "errors:unlike-used-instead-of-do-not-like": {
       "id": "errors:unlike-used-instead-of-do-not-like",
@@ -5770,7 +5497,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "unlike-used-instead-of-do-not-like"
     },
     "errors:use-eastward-for-neutral-direction-not-back-east": {
       "id": "errors:use-eastward-for-neutral-direction-not-back-east",
@@ -5793,7 +5521,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "use-eastward-for-neutral-direction-not-back-east"
     },
     "errors:use-in-or-at-not-on-before-meeting": {
       "id": "errors:use-in-or-at-not-on-before-meeting",
@@ -5817,7 +5546,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "use-in-or-at-not-on-before-meeting"
     },
     "errors:use-stay-instead-of-stop-for-remain-in-place": {
       "id": "errors:use-stay-instead-of-stop-for-remain-in-place",
@@ -5840,7 +5570,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "use-stay-instead-of-stop-for-remain-in-place"
     },
     "errors:used-to-missing-base-verb": {
       "id": "errors:used-to-missing-base-verb",
@@ -5870,7 +5601,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "used-to-missing-base-verb"
     },
     "errors:using-shall-you-for-friendly-suggestion": {
       "id": "errors:using-shall-you-for-friendly-suggestion",
@@ -5893,7 +5625,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "using-shall-you-for-friendly-suggestion"
     },
     "errors:visit-someone-in-place-not-to-place": {
       "id": "errors:visit-someone-in-place-not-to-place",
@@ -5923,7 +5656,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "visit-someone-in-place-not-to-place"
     },
     "errors:wait-for-someone-not-wait-someone": {
       "id": "errors:wait-for-someone-not-wait-someone",
@@ -5947,7 +5681,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "wait-for-someone-not-wait-someone"
     },
     "errors:walk-along-coast-not-along-sea": {
       "id": "errors:walk-along-coast-not-along-sea",
@@ -5994,7 +5729,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "walk-past-not-walk-pass-landmark"
     },
     "errors:want-to-base-verb-not-gerund": {
       "id": "errors:want-to-base-verb-not-gerund",
@@ -6024,7 +5760,8 @@
           "previous_status": "learning",
           "new_status": "familiar"
         }
-      ]
+      ],
+      "key": "want-to-base-verb-not-gerund"
     },
     "errors:weather-shower-there-was-not-it-had": {
       "id": "errors:weather-shower-there-was-not-it-had",
@@ -6049,7 +5786,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "weather-shower-there-was-not-it-had"
     },
     "errors:when-clause-open-event-tense": {
       "id": "errors:when-clause-open-event-tense",
@@ -6086,7 +5824,8 @@
           "previous_status": "learning",
           "new_status": "learning"
         }
-      ]
+      ],
+      "key": "when-clause-open-event-tense"
     },
     "errors:while-clause-missing-linking-verb": {
       "id": "errors:while-clause-missing-linking-verb",
@@ -6109,7 +5848,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "while-clause-missing-linking-verb"
     },
     "errors:wide-range-of-singular-head-verb-agreement": {
       "id": "errors:wide-range-of-singular-head-verb-agreement",
@@ -6210,31 +5950,8 @@
       "next_review_at": null,
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": []
-    },
-    "errors:已批准不必用过去完成时-had-approved": {
-      "id": "errors:已批准不必用过去完成时-had-approved",
-      "category": "errors",
-      "key": "已批准不必用过去完成时-had-approved",
-      "status": "learning",
-      "title": "“已经批准”不必用过去完成时",
-      "explanation": "现在完成 has approved 表示过去的批准动作对现在有影响；过去完成 had approved 需要另一个过去时间点作为参照，单独说“已经批准”用现在完成或一般过去。",
-      "source": "The headquarters had approved our budget proposal.",
-      "example": "Our headquarters has approved our budget proposal.",
-      "tags": [
-        "review-error"
-      ],
-      "first_learned_at": "2026-11-09T20:59:39+08:00",
-      "last_learned_at": "2026-11-09T20:59:39+08:00",
-      "learned_count": 1,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
-      "lapse_count": 0,
-      "mastered_at": null,
-      "review_history": []
+      "review_history": [],
+      "key": "you-used-instead-of-your-before-noun"
     }
   }
 }
