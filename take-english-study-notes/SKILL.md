@@ -31,6 +31,7 @@ python3 take-english-study-notes/scripts/note.py append         --file learning-
 python3 take-english-study-notes/scripts/note.py append-section --file learning-record-notes/<category>-<slug>.md --heading "<# ...>" --content-file - [--check]
 python3 take-english-study-notes/scripts/note.py replace        --file learning-record-notes/<category>-<slug>.md --heading "<# ...>" --content-file - [--rewrite-section "## ..."] [--check]
 python3 take-english-study-notes/scripts/note.py sections       --file learning-record-notes/<category>-<slug>.md [--heading "<# ...>"] [--section "## <小节标题>"]
+python3 take-english-study-notes/scripts/note.py sync           --file learning-record-notes/<category>-<slug>.md [--check]
 python3 take-english-study-notes/scripts/note.py list           [--record <id>]
 python3 take-english-study-notes/scripts/note.py check --all [--fix]
 ```
@@ -53,8 +54,11 @@ python3 take-english-study-notes/scripts/note.py check --all [--fix]
 ## 骨架要点
 
 - 文件顶部唯一一份 `## 基础信息`：记录 ID / 试卷 ID、目标知识点、累计复习次数、下次复习、笔记生成时间、笔记更新时间。
-  记录级字段来自规范记录，写入后用 `learning_records.py record-tracking --id <id>`（`learn-from-english` 提供）逐字段比对，
-  不一致返回 `tracking_mismatch` / `tracking_expected`；找不到记录库时返回 `tracking_skipped`，不阻断写入。
+  记录级字段来自规范记录，写入后用 `learning_records.py record-tracking --id <id>`（`learn-from-english` 提供）逐字段比对。
+  `累计复习次数` 与 `下次复习` 由记录直接决定，`append` / `replace` / `sync --check` 会自动回填成记录的值
+  （返回 `basic_info_synced`），不需要调用方手抄；身份行（记录 ID / 目标知识点）与其余本轮字段不一致仍返回
+  `tracking_mismatch` / `tracking_expected`。已有笔记顶部是旧值时用 `note.py sync --file <note>` 就地修复，
+  `append` / `replace` 只写日期区块、不会更新这张表。找不到记录库时返回 `tracking_skipped`，不阻断写入。
 - 文件级唯一一份 `## 讲解`，紧跟基础信息表之后、所有日期区块之前，固定展示不折叠，不带 `讲解时间` 等本轮字段。
   栏目按本记录分类聚焦、自由选取（至少两栏，每栏列表或表格），模板 meta `explain-required-labels` 声明各分类必写栏：
   `vocabulary` / `phrases` → `核心含义`；`grammar` → `语法机制`；`usage` → `语气与语域`；`errors` → `错误机制`。

@@ -6,6 +6,7 @@
     python3 take-english-study-notes/scripts/note.py append --file <note.md> --content-file - [--check]
     python3 take-english-study-notes/scripts/note.py append-section --file <note.md> --heading "<# ...>" --content-file - [--check]
     python3 take-english-study-notes/scripts/note.py replace --file <note.md> --heading "<# ...>" --content-file - [--rewrite-section "## ..."] [--check]
+    python3 take-english-study-notes/scripts/note.py sync --file <note.md> [--check]
     python3 take-english-study-notes/scripts/note.py sections --file <note.md> [--heading "<# ...>"] [--section "## <小节标题>"]
     python3 take-english-study-notes/scripts/note.py list [--record <id>]
     python3 take-english-study-notes/scripts/note.py check --all [--fix]
@@ -14,7 +15,9 @@
 写入全程在 `learning-record-notes/.notes.lock` 排他锁内完成，调用方不自己改写文件。
 追踪字段（记录 ID、目标知识点、累计复习次数、下次复习、分类 · 状态变化、本轮得分）在写入后自动与
 规范记录比对；记录事实由 learn-from-english 的 `learning_records.py record-tracking` 提供，
-找不到该脚本时跳过比对并在结果里说明，不阻断写入。
+找不到该脚本时跳过比对并在结果里说明，不阻断写入。文件顶部「基础信息」里的 `累计复习次数` 与
+`下次复习` 属于记录级字段，写入后自动回填成规范记录的值（返回 `basic_info_synced`），
+旧笔记可用 `sync` 子命令就地修复；其余字段不一致仍然报 `tracking_mismatch`。
 """
 
 from __future__ import annotations
@@ -31,6 +34,7 @@ from typing import Any
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from note_store import NoteStore, NoteError, _split_blocks  # noqa: E402
+from note_store import RECORD_ID_ROW_RE, SYNCABLE_ROWS  # noqa: E402
 
 
 REPO_ROOT = Path(
@@ -41,6 +45,8 @@ TRACKING_ROW_RE = re.compile(
     r"<tr><td>(记录 ID / 试卷 ID|目标知识点|累计复习次数|下次复习|分类 · 状态变化|本轮得分|复习时间|主观题得分|笔记生成时间|笔记更新时间)</td><td>(.*?)</td></tr>"
 )
 TRACKING_SKIP = ("题量与错题数", "主观题得分", "笔记生成时间", "笔记更新时间")
+# 这两行的值由规范记录决定，写入后自动回填；其余追踪行不一致仍然报 tracking_mismatch
+SYNCABLE_FIELDS = tuple(SYNCABLE_ROWS)
 
 
 def repo_root() -> Path:
@@ -139,8 +145,44 @@ def validate_after_write(note: NoteStore, result: dict[str, Any]) -> dict[str, A
     result["check_ok"] = check.get("ok")
     result["note_status"] = "valid" if check.get("ok") else ("unverified" if check.get("ok") is None else "invalid")
     if heading:
-        result.update(verify_tracking(note, result["file"], heading))
+        tracking = verify_tracking(note, result["file"], heading)
+        synced = sync_record_rows(note, result, tracking)
+        if synced:
+            tracking = verify_tracking(note, result["file"], heading)
+        result.update(tracking)
     return result
+
+
+def sync_record_rows(
+    note: NoteStore, result: dict[str, Any], tracking: dict[str, Any]
+) -> list[str]:
+    """Bring the file-level record rows in line with the record store.
+
+    ``append``/``replace`` only publish the dated block, so 累计复习次数 and
+    下次复习 would stay at the values copied when the note was created. Those
+    two rows are owned by the record, so they are rewritten from
+    ``tracking_expected`` instead of being reported as a mismatch; identity
+    rows (记录 ID / 目标知识点) and per-round rows are still reported.
+    """
+    rows = [
+        item
+        for item in tracking.get("tracking_mismatch") or []
+        if item.get("field") in SYNCABLE_FIELDS
+    ]
+    if not rows:
+        return []
+    expected = tracking.get("tracking_expected") or {}
+    values = {
+        item["field"]: item["expected"]
+        for item in rows
+        if item.get("expected") is not None
+    }
+    if not values:
+        return []
+    synced = note.sync_basic_info(result["file"], values).get("synced", [])
+    if synced:
+        result["basic_info_synced"] = synced
+    return list(synced)
 
 
 def read_content(path: str) -> str:
@@ -190,6 +232,37 @@ def handle_replace(args: argparse.Namespace) -> dict[str, Any]:
     )
     if args.check:
         validate_after_write(note, result)
+    return result
+
+
+def handle_sync(args: argparse.Namespace) -> dict[str, Any]:
+    """Repair a note whose record-level rows no longer match the record store."""
+    note = store()
+    target = note.resolve(args.file)
+    text = target.read_text(encoding="utf-8") if target.is_file() else ""
+    declared = RECORD_ID_ROW_RE.search(text) if text else None
+    identifier = declared.group(1).strip() if declared else ""
+    expected = record_tracking(identifier)
+    if expected is None:
+        return {
+            "ok": True,
+            "tracking_skipped": "record store unavailable; 基础信息 rows not synced",
+            "file": note.relative(target),
+        }
+    values = {
+        field: expected[field]
+        for field in SYNCABLE_FIELDS
+        if expected.get(field) is not None
+    }
+    result = note.sync_basic_info(args.file, values)
+    if args.check:
+        check = note.check(result["file"])
+        result["check"] = check
+        result["check_ok"] = check.get("ok")
+        result["note_status"] = (
+            "valid" if check.get("ok") else ("unverified" if check.get("ok") is None else "invalid")
+        )
+        result.update(verify_tracking(note, result["file"], ""))
     return result
 
 
@@ -270,6 +343,13 @@ def build_parser() -> argparse.ArgumentParser:
     )
     replace.add_argument("--check", action="store_true", help="run the validator and tracking compare afterwards")
     replace.set_defaults(handler=handle_replace)
+
+    sync = subparsers.add_parser(
+        "sync", help="rewrite the file-level 累计复习次数 / 下次复习 rows from the record store"
+    )
+    sync.add_argument("--file", required=True, help="learning-record-notes/<category>-<slug>.md")
+    sync.add_argument("--check", action="store_true", help="run the validator and tracking compare afterwards")
+    sync.set_defaults(handler=handle_sync)
 
     sections = subparsers.add_parser(
         "sections", help="index one note's round blocks and '##' sections (read-only)"

@@ -44,6 +44,14 @@ UPDATED_ROW_RE = re.compile(r"<tr><td>笔记更新时间</td><td>[^<]*</td></tr>
 GENERATED_ROW_RE = re.compile(
     r"<tr><td>笔记生成时间</td><td>(\d{4}-\d{2}-\d{2} \d{2}:\d{2})</td></tr>"
 )
+# 记录级追踪行：累计复习次数与下次复习由规范记录决定，写入后自动回填，
+# 不能让笔记顶部长期停在首轮手抄的旧值（append/replace 只写日期区块）。
+ROUND_COUNT_ROW_RE = re.compile(r"<tr><td>累计复习次数</td><td>[^<]*</td></tr>")
+NEXT_REVIEW_ROW_RE = re.compile(r"<tr><td>下次复习</td><td>[^<]*</td></tr>")
+SYNCABLE_ROWS = {
+    "累计复习次数": ROUND_COUNT_ROW_RE,
+    "下次复习": NEXT_REVIEW_ROW_RE,
+}
 # 文件级「基础信息」折叠块：整份笔记唯一一份，只随第一个区块一起写入
 BASIC_HEAD_RE = re.compile(r"^## 基础信息\s*\n.*?(?=^# )", re.S | re.M)
 # 讲解是一个知识点唯一的一份说明，写成文件级小节，不参与轮次编号
@@ -212,6 +220,33 @@ def _bump_updated_at(text: str, when: datetime) -> str:
 HEADING_KIND_RE = re.compile(
     r"^# \d{4}-\d{2}-\d{2} \d{2}:\d{2} · (?P<kind>复习|练习|套题)$"
 )
+
+
+def _sync_basic_rows(text: str, values: dict[str, str]) -> tuple[str, list[str]]:
+    """Rewrite record-level rows of the file-level ``## 基础信息`` table.
+
+    Only the two rows the canonical record owns (累计复习次数 / 下次复习) are
+    touched, and only inside the head region before the first dated block: the
+    per-round tables look similar and must never be rewritten.
+    """
+    lines = _normalize_text(text).split("\n")
+    first_block = next(
+        (index for index, line in enumerate(lines) if line.startswith("# ")), len(lines)
+    )
+    changed: list[str] = []
+    for field, pattern in SYNCABLE_ROWS.items():
+        wanted = values.get(field)
+        if wanted is None:
+            continue
+        for index in range(first_block):
+            if not pattern.search(lines[index]):
+                continue
+            row = f"<tr><td>{field}</td><td>{wanted}</td></tr>"
+            if lines[index].strip() != row:
+                lines[index] = row
+                changed.append(field)
+            break
+    return "\n".join(lines), changed
 
 
 def _note_index(text: str) -> dict[str, Any]:
@@ -815,6 +850,30 @@ class NoteStore:
             "section": section_heading,
             "blocks": blocks,
             "bytes": len(composed.encode("utf-8")),
+        }
+
+    def sync_basic_info(self, path: str, values: dict[str, str]) -> dict[str, Any]:
+        """Refresh the record-level rows of the file-level ``基础信息`` table.
+
+        ``append``/``replace`` keep only the dated round block, so the head
+        table would otherwise stay at the values copied when the note was
+        created. The canonical values come from the record store; this method
+        is the only supported way to bring them up to date.
+        """
+        target = self.resolve(path)
+        with self._exclusive_lock():
+            existing = self._read(target)
+            if not existing.strip():
+                raise NoteError(f"note does not exist: {self.relative(target)}")
+            composed, changed = _sync_basic_rows(existing, values)
+            if changed:
+                composed = _bump_updated_at(composed.rstrip("\n") + "\n", datetime.now())
+                self._write(target, composed)
+        return {
+            "ok": True,
+            "file": self.relative(target),
+            "synced": changed,
+            "bytes": len(composed.encode("utf-8")) if changed else None,
         }
 
     def list_notes(self, record_id: str | None = None) -> list[dict[str, Any]]:

@@ -4,10 +4,10 @@
 <colgroup><col width="150"><col></colgroup>
 <tr><td>记录 ID / 试卷 ID</td><td>phrases:after-all-means-in-spite-of-everything</td></tr>
 <tr><td>目标知识点</td><td>after all：表示毕竟、终究，不是“后来”</td></tr>
-<tr><td>累计复习次数</td><td>0</td></tr>
-<tr><td>下次复习</td><td>—</td></tr>
+<tr><td>累计复习次数</td><td>1</td></tr>
+<tr><td>下次复习</td><td>2026-11-13 21:37</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-09 20:35</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-10 21:38</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-10 22:05</td></tr>
 </table>
 
 ## 讲解

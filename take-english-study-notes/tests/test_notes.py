@@ -253,6 +253,47 @@ class NoteAppendTest(unittest.TestCase):
         self.store.append(self.note, round_block("2030-01-01 08:00"))
         self.assertEqual(updated_at_value(self.note), "2030-01-01 08:00")
 
+    def test_sync_basic_info_updates_only_the_record_rows(self) -> None:
+        """记录级两行（累计复习次数 / 下次复习）由记录同步，其余内容原样保留。"""
+        self.store.append(self.note, round_block("2026-11-07 21:00", body="第 1 轮"))
+        before = self.note.read_text(encoding="utf-8")
+        result = self.store.sync_basic_info(
+            self.note, {"累计复习次数": "5", "下次复习": "2026-12-01 09:00"}
+        )
+        self.assertEqual(result["synced"], ["累计复习次数", "下次复习"])
+        after = self.note.read_text(encoding="utf-8")
+        self.assertIn("<tr><td>累计复习次数</td><td>5</td></tr>", after)
+        self.assertIn("<tr><td>下次复习</td><td>2026-12-01 09:00</td></tr>", after)
+        self.assertIn("<tr><td>笔记生成时间</td><td>2026-11-07 21:05</td></tr>", after)
+        self.assertIn("第 1 轮", after)
+        self.assertEqual(after.count("\n---\n"), before.count("\n---\n"))
+        self.assertNotEqual(updated_at_value(self.note), "2026-11-07 21:05")
+
+    def test_sync_basic_info_is_a_noop_when_rows_already_match(self) -> None:
+        self.store.append(self.note, round_block("2026-11-07 21:00"))
+        stamp_after_append = updated_at_value(self.note)
+        result = self.store.sync_basic_info(
+            self.note, {"累计复习次数": "2", "下次复习": "2026-11-23 09:00"}
+        )
+        self.assertEqual(result["synced"], [])
+        self.assertEqual(updated_at_value(self.note), stamp_after_append)
+
+    def test_sync_basic_info_ignores_rows_inside_a_round_block(self) -> None:
+        """轮次区块里的同名行不属于记录级字段，同步时一个字都不能动。"""
+        self.store.append(self.note, round_block("2026-11-07 21:00", body="累计复习次数</td><td>9"))
+        result = self.store.sync_basic_info(self.note, {"累计复习次数": "4"})
+        self.assertEqual(result["synced"], ["累计复习次数"])
+        text = self.note.read_text(encoding="utf-8")
+        self.assertEqual(text.count("<tr><td>累计复习次数</td>"), 1)
+        self.assertIn("<tr><td>累计复习次数</td><td>4</td></tr>", text)
+
+    def test_sync_basic_info_requires_an_existing_note(self) -> None:
+        with self.assertRaises(NoteError):
+            self.store.sync_basic_info(
+                self.repo / "learning-record-notes" / "errors-out-west.md",
+                {"累计复习次数": "1"},
+            )
+
     def test_replace_block_keeps_other_rounds_intact(self) -> None:
         self.store.append(self.note, round_block("2026-11-07 21:00", body="第 1 轮"))
         self.store.append(self.note, round_block("2026-11-08 09:30", body="第 2 轮"))
@@ -743,6 +784,115 @@ class NoteCliTest(unittest.TestCase):
         self.assertIn("- 新乙", text)
 
 
+    def test_cli_append_syncs_stale_record_rows(self) -> None:
+        """写入后顶部两行自动回填成规范记录的值，不再只报 tracking_mismatch。"""
+        self.run_cli(
+            ["append", "--file", "learning-record-notes/errors-out-west.md", "--content-file", "-"],
+            block_text(heading="2026-11-09 09:00 · 复习", answer="west"),
+        )
+        install_stub_record_store(
+            self.repo,
+            {
+                "记录 ID / 试卷 ID": "errors:out-west",
+                "目标知识点": "out west 不是 outwest",
+                "累计复习次数": "3",
+                "下次复习": "2026-12-01 09:00",
+            },
+        )
+        completed = self.run_cli(
+            [
+                "append",
+                "--file",
+                "learning-record-notes/errors-out-west.md",
+                "--content-file",
+                "-",
+                "--check",
+            ],
+            block_text(heading="2026-11-10 09:00 · 复习", answer="out"),
+        )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        payload = json.loads(completed.stdout)
+        self.assertEqual(payload["basic_info_synced"], ["累计复习次数", "下次复习"])
+        self.assertNotIn("tracking_mismatch", payload)
+        text = self.note.read_text(encoding="utf-8")
+        self.assertIn("<tr><td>累计复习次数</td><td>3</td></tr>", text)
+        self.assertIn("<tr><td>下次复习</td><td>2026-12-01 09:00</td></tr>", text)
+
+    def test_cli_still_reports_a_row_the_record_does_not_own(self) -> None:
+        """身份行（记录 ID / 目标知识点）不由同步覆盖，不一致照样报出来。"""
+        self.run_cli(
+            ["append", "--file", "learning-record-notes/errors-out-west.md", "--content-file", "-"],
+            block_text(heading="2026-11-09 09:00 · 复习", answer="west"),
+        )
+        install_stub_record_store(
+            self.repo,
+            {
+                "记录 ID / 试卷 ID": "errors:out-west",
+                "目标知识点": "out west 应写成两个词",
+                "累计复习次数": "1",
+                "下次复习": "2026-11-23 09:00",
+            },
+        )
+        completed = self.run_cli(
+            [
+                "append",
+                "--file",
+                "learning-record-notes/errors-out-west.md",
+                "--content-file",
+                "-",
+                "--check",
+            ],
+            block_text(heading="2026-11-10 09:00 · 复习", answer="out"),
+        )
+        payload = json.loads(completed.stdout)
+        self.assertEqual(payload["basic_info_synced"], ["累计复习次数"])
+        fields = [item["field"] for item in payload["tracking_mismatch"]]
+        self.assertEqual(fields, ["目标知识点"])
+
+    def test_cli_sync_repairs_a_stale_header(self) -> None:
+        """已有笔记可用 sync 子命令就地修复顶部的记录级两行。"""
+        self.run_cli(
+            ["append", "--file", "learning-record-notes/errors-out-west.md", "--content-file", "-"],
+            block_text(heading="2026-11-09 09:00 · 复习", answer="west"),
+        )
+        install_stub_record_store(
+            self.repo,
+            {
+                "记录 ID / 试卷 ID": "errors:out-west",
+                "目标知识点": "out west 不是 outwest",
+                "累计复习次数": "4",
+                "下次复习": "2026-12-02 10:00",
+            },
+        )
+        completed = self.run_cli(
+            [
+                "sync",
+                "--file",
+                "learning-record-notes/errors-out-west.md",
+                "--check",
+            ]
+        )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        payload = json.loads(completed.stdout)
+        self.assertEqual(payload["synced"], ["累计复习次数", "下次复习"])
+        self.assertEqual(payload["note_status"], "valid")
+        self.assertNotIn("tracking_mismatch", payload)
+        text = self.note.read_text(encoding="utf-8")
+        self.assertIn("<tr><td>累计复习次数</td><td>4</td></tr>", text)
+        self.assertIn("<tr><td>下次复习</td><td>2026-12-02 10:00</td></tr>", text)
+
+    def test_cli_sync_skips_when_the_record_store_is_missing(self) -> None:
+        self.run_cli(
+            ["append", "--file", "learning-record-notes/errors-out-west.md", "--content-file", "-"],
+            block_text(heading="2026-11-09 09:00 · 复习", answer="west"),
+        )
+        completed = self.run_cli(
+            ["sync", "--file", "learning-record-notes/errors-out-west.md"]
+        )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        payload = json.loads(completed.stdout)
+        self.assertIn("tracking_skipped", payload)
+
     def test_tracking_rows_are_checked_against_the_record(self) -> None:
         """追踪行与规范记录比对：记录事实由 learn-from-english 的 record-tracking 提供。"""
         import note  # noqa: PLC0415
@@ -778,6 +928,19 @@ class NoteCliTest(unittest.TestCase):
         finally:
             note.record_tracking = original
         self.assertEqual(result, {})
+
+
+def install_stub_record_store(repo: Path, tracking: dict) -> None:
+    """Write a minimal learn-from-english CLI so the tracking compare runs offline."""
+    script = repo / "learn-from-english" / "scripts" / "learning_records.py"
+    script.parent.mkdir(parents=True, exist_ok=True)
+    payload = json.dumps(tracking, ensure_ascii=False)
+    script.write_text(
+        "import json\n"
+        f"TRACKING = json.loads({repr(payload)})\n"
+        "print(json.dumps({'tracking': TRACKING}, ensure_ascii=False))\n",
+        encoding="utf-8",
+    )
 
 
 def result_order(text: str) -> list[str]:

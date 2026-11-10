@@ -130,7 +130,15 @@
 8. 新建文件同样走追加命令：第一个区块**必须**在标题行之前带上 `## 基础信息` 与追踪表，命令会把它写到文件最顶部；
    写入已有文件时同一次调用里多带的 `## 基础信息` 会被自动忽略，不会重复落地。缺这一段时创建新文件会被直接拒绝。
    文件里已有 `## 讲解` 时，本轮区块直接追加在讲解之后，不再插入 `---`。
-9. `--check` 的结果在返回 JSON 的 `check` 字段，同时给出 `check_ok` 与 `note_status`：
+9. 只修顶部 `累计复习次数` / `下次复习` 两行（记录级字段）用同步命令，不要用 `replace` 去改整个区块：
+   ```bash
+   python3 take-english-study-notes/scripts/note.py sync --file learning-record-notes/<category>-<slug>.md [--check]
+   ```
+   - 值来自 `record-tracking`，只改「基础信息」表里的这两行，日期区块里的同名行一个字都不动，返回 `synced`。
+   - `append` / `replace` 写完后也会自动回填这两行（`basic_info_synced`），所以日常复习不需要额外跑这一条；
+     它用于修复历史笔记，或另一条记录改了复习计划后笔记顶部停在旧值的情况。
+   - 记录库不可用时返回 `tracking_skipped`，不阻断操作。
+10. `--check` 的结果在返回 JSON 的 `check` 字段，同时给出 `check_ok` 与 `note_status`：
    - `note_status: "valid"`：笔记合规。
    - `note_status: "invalid"`：写入已成功但笔记不合规（进程退出码 1）。按 issue 的 `line` / `message` 用替换命令就地修正，
      再重跑一次；**不要**把退出码 1 当成写入失败去重试追加。
@@ -181,6 +189,12 @@
 | 下次复习 | `YYYY-MM-DD HH:MM`，未知 `—` |
 | 笔记生成时间 | `YYYY-MM-DD HH:MM`；文件第一次写入的时间，之后不再变 |
 | 笔记更新时间 | `YYYY-MM-DD HH:MM`；每次追加或替换后改成本次操作分钟，必须不早于 `笔记生成时间` |
+
+`累计复习次数` 与 `下次复习` 属于记录级字段，值由规范记录决定：写入命令在 `append` / `replace` / `sync --check`
+之后用 `learning_records.py record-tracking --id <id>` 取回期望值，把它们自动回填成记录的值（返回 `basic_info_synced`），
+不需要也不允许调用方手抄。`append` / `replace` 只落日期区块，不会顺带改这张表，所以已有笔记的旧值要么等下一次写入自动纠正，
+要么直接用 `note.py sync --file <笔记文件>` 就地修复。身份行（记录 ID / 目标知识点）与其余本轮字段不由同步覆盖，
+不一致仍然返回 `tracking_mismatch` / `tracking_expected`。
 
 ### 每轮「本轮信息」
 

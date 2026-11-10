@@ -330,7 +330,9 @@ python3 learn-from-english/scripts/learning_records.py complete-review --input <
   文件级的 `## 讲解` 小节按分类聚焦（`grammar` 写语法机制、`phrases` 写短语本体、`usage` 写语气语域，栏目自由选取），不带任何追踪字段：讲解属于记录级内容（一个知识点只有一次首次讲解），由 `learn-from-english` 写在基础信息表之后、所有日期区块之前；
   复习时继续用 `append` 往同一个文件追加日期区块，讲解小节原样保留，不要另建文件、不要写第二份讲解。
   两处都固定展示，不写 `<details>`。
-  写入命令会把记录级与本轮字段与规范记录逐字段比对，不一致时返回 `tracking_mismatch` 与 `tracking_expected`，按它改完再用 `replace`；
+  写入命令会把记录级与本轮字段与规范记录逐字段比对：顶部的 `累计复习次数` 与 `下次复习` 由记录决定，
+  会在 `append` / `replace` 后自动回填（`basic_info_synced`），不需要手抄或再用 `replace` 去凑；身份行与其余本期字段
+  不一致时仍返回 `tracking_mismatch` 与 `tracking_expected`，按它改完再用 `replace`；
   `题量与错题数` 仍须自己按本轮实际题数与 `错题讲解` 块数填写。给已存在于其他文件的记录另建文件会被直接拒绝，并给出应复用的路径。
   新建文件时首个区块必须在标题行之前带上 `## 基础信息`，否则命令直接拒绝。
 - `append` 返回 `heading_adjusted: true` 时，说明这一分钟已被占用或写入会打乱时间升序，本轮已按顺延后的 `heading` 保存；
@@ -437,7 +439,7 @@ python3 learn-from-english/scripts/learning_records.py stats --period 30d
 | `append` 返回 `heading_adjusted: true` | 按返回的 `heading` 继续，两轮内容都已保留 | 只输出得分行、判定表格与后续菜单 | 不涉及 | 不要用原请求时间再追加一遍 |
 | `note_status: invalid`（校验失败，退出码 1） | 写入已成功，用替换命令修正本轮区块后重跑 | 只输出得分行、判定表格与后续菜单 | 不涉及 | 不得把退出码 1 当成写入失败去重试；第二次仍失败时正文如实说明并留待下一轮修正 |
 | `note_status: unverified`（校验器不可用） | 正常发送正文 | 只输出得分行、判定表格与后续菜单 | 不涉及 | 正文如实说明「本轮笔记未校验」，不得当作已通过 |
-| 返回 `tracking_mismatch`（追踪表与记录不符） | 按 `tracking_expected` 改完本轮区块，用 `replace` 重写并复检 | 只输出得分行、判定表格与后续菜单 | 不涉及 | 不要改记录数据去迁就手抄值；`题量与错题数` 不在比对范围内 |
+| 返回 `tracking_mismatch`（追踪表与记录不符） | 先看 `basic_info_synced`：顶部 `累计复习次数` / `下次复习` 已自动回填；剩下的身份行或本轮字段按 `tracking_expected` 改完本轮区块，用 `replace` 重写并复检。历史笔记顶部是旧值时用 `note.py sync --file <笔记文件>` 修复 | 只输出得分行、判定表格与后续菜单 | 不涉及 | 不要改记录数据去迁就手抄值；`题量与错题数` 不在比对范围内 |
 | `note.py` 找不到 `learning_records.py`（只装了复习 skill） | 说明缺少写入命令的位置，先跑 `note.py check --all` 确认校验可用 | 只输出得分行、判定表格与后续菜单 | 不涉及 | 不得改用 `Write` 直接落盘；按报错里的 `probed` 路径提示安装 learn-from-english 或设置 `LEARN_ENGLISH_CLI` |
 | `menu` / `next-review` / 查询类命令失败 | 说明命令失败原因，按上下文退回初始菜单或直接回答 | 初始菜单 | 不涉及 | 不适用 |
 
