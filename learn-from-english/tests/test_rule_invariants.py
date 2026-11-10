@@ -402,6 +402,17 @@ class ServiceInvariantTest(unittest.TestCase):
         self.store.initialize(empty_database())
         self.service = RecordService(self.store)
 
+    def test_chinese_key_is_rejected_instead_of_persisted(self) -> None:
+        """中文主题必须意译成英文 key；直接传中文要在写入前报错，不能落成中文 ID。"""
+        self.assertEqual(normalize_key("情态动词后使用动词原形"), "")
+        self.assertEqual(normalize_key("After 不宜 vs later"), "after-vs-later")
+
+        from learning_records_tool.models import RecordError
+
+        with self.assertRaises(RecordError) as caught:
+            self.service.upsert(payload("grammar", "情态动词后使用动词原形"))
+        self.assertIn("ASCII only", str(caught.exception))
+
     def test_key_is_persisted_and_repair_backfills_legacy_records(self) -> None:
         self.service.upsert(payload("grammar", "present-perfect"))
         database = json.loads(

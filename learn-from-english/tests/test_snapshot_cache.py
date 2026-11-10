@@ -17,7 +17,7 @@ NOTE_TEXT = (
     "## 基础信息\n\n"
     '<table style="border-collapse:collapse;width:auto">\n'
     '<colgroup><col width="150"><col></colgroup>\n'
-    "<tr><td>记录 ID / 试卷 ID</td><td>usage:after-不宜直接当-later-连接后续动作</td></tr>\n"
+    "<tr><td>记录 ID / 试卷 ID</td><td>usage:after-vs-later-sequence</td></tr>\n"
     "</table>\n\n"
     "# 2026-11-08 15:54 · 复习\n\n"
     "## 本轮习题\n\n1. 例句\n\n"
@@ -28,7 +28,7 @@ NOTE_TEXT = (
 def make_repo(root: Path) -> Path:
     notes = root / cache.NOTES_DIR_NAME
     notes.mkdir(parents=True, exist_ok=True)
-    (notes / "usage-after.md").write_text(NOTE_TEXT, encoding="utf-8")
+    (notes / "usage-after-vs-later-sequence.md").write_text(NOTE_TEXT, encoding="utf-8")
     (notes / "README.md").write_text("index\n", encoding="utf-8")
     return root
 
@@ -41,15 +41,15 @@ class SnapshotTests(unittest.TestCase):
     def tearDown(self) -> None:
         self._tmp.cleanup()
 
-    def test_index_maps_chinese_record_id_and_sections(self) -> None:
+    def test_index_maps_record_id_and_sections(self) -> None:
         snapshot = cache.build_snapshot(self.root)
-        entry = snapshot["notes"][f"{cache.NOTES_DIR_NAME}/usage-after.md"]
+        entry = snapshot["notes"][f"{cache.NOTES_DIR_NAME}/usage-after-vs-later-sequence.md"]
         self.assertEqual(
-            entry["record_id"], "usage:after-不宜直接当-later-连接后续动作"
+            entry["record_id"], "usage:after-vs-later-sequence"
         )
         self.assertEqual(
-            snapshot["record_files"]["usage:after-不宜直接当-later-连接后续动作"],
-            f"{cache.NOTES_DIR_NAME}/usage-after.md",
+            snapshot["record_files"]["usage:after-vs-later-sequence"],
+            f"{cache.NOTES_DIR_NAME}/usage-after-vs-later-sequence.md",
         )
         self.assertEqual([block["heading"] for block in entry["blocks"]], ["# 2026-11-08 15:54 · 复习"])
         self.assertEqual(
@@ -70,10 +70,10 @@ class SnapshotTests(unittest.TestCase):
 
     def test_entry_is_distrusted_once_the_file_changes(self) -> None:
         snapshot = cache.get_snapshot(self.root)
-        note = self.root / cache.NOTES_DIR_NAME / "usage-after.md"
+        note = self.root / cache.NOTES_DIR_NAME / "usage-after-vs-later-sequence.md"
         note.write_text(NOTE_TEXT + "\n# 2026-11-08 20:20 · 复习\n", encoding="utf-8")
         self.assertIsNone(
-            cache.note_entry_current(self.root, snapshot, f"{cache.NOTES_DIR_NAME}/usage-after.md")
+            cache.note_entry_current(self.root, snapshot, f"{cache.NOTES_DIR_NAME}/usage-after-vs-later-sequence.md")
         )
 
     def test_invalidate_drops_the_file(self) -> None:

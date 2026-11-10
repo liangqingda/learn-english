@@ -192,9 +192,9 @@ TIMESTAMP_RE = re.compile(r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$")
 UPDATED_ROW_RE = re.compile(
     r"(<tr><td>笔记更新时间</td><td>)(\d{4}-\d{2}-\d{2} \d{2}:\d{2})(</td></tr>)"
 )
-# 记录 key 允许与真实学习记录一致的中文片段（例如 after-不宜直接当-later-连接后续动作），
-# 仍保持小写 ASCII + 中文 + 连字符，禁止空白、斜杠与点号，避免路径歧义。
-NOTE_KEY_FRAGMENT = r"[a-z0-9\u4e00-\u9fff][a-z0-9\u4e00-\u9fff\-]*"
+# 记录 key / slug 只允许小写 ASCII 字母、数字与连字符：中文 key 会落成中文文件名，
+# 让笔记、快照索引和看板排序都出现非 ASCII 字符。中文主题一律意译成英文短语。
+NOTE_KEY_FRAGMENT = r"[a-z0-9][a-z0-9\-]*"
 RECORD_ID_RE = re.compile(
     rf"^(vocabulary|phrases|grammar|usage|errors):({NOTE_KEY_FRAGMENT})$"
 )

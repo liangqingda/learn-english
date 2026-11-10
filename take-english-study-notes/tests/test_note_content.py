@@ -180,6 +180,21 @@ class NoteContentValidationTest(unittest.TestCase):
             "记录 ID 的分类",
         )
 
+    def test_chinese_slug_in_filename_is_rejected(self) -> None:
+        """中文 slug 会让文件名出现非 ASCII 字符，应当按文件名格式错误拦下。"""
+        self.assert_caught(
+            note_text(record_id="errors:wait-missing-preposition-for"),
+            "笔记文件名必须是 `<category>-<slug>.md`",
+            name="errors-wait-后遗漏介词-for.md",
+        )
+
+    def test_chinese_record_id_is_rejected(self) -> None:
+        self.assert_caught(
+            note_text(record_id="errors:wait-后遗漏介词-for"),
+            "`记录 ID / 试卷 ID` 必须写成 `<category>:<key>`",
+            name="errors-wait-missing-preposition-for.md",
+        )
+
     def test_counts_must_match_real_questions_and_error_blocks(self) -> None:
         self.assert_caught(note_text(counts="6 题 / 3 处错误"), "本轮实际 1 题")
         text = note_text(counts="1 题 / 1 处错误").replace(

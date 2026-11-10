@@ -213,7 +213,13 @@ class NoteAppendTest(unittest.TestCase):
             self.store.append("../escape.md", round_block())
 
     def test_file_name_must_match_slug_convention(self) -> None:
-        for name in ("Errors-Out.md", "errors out.md", "errors.md.bak", "notes.txt"):
+        for name in (
+            "Errors-Out.md",
+            "errors out.md",
+            "errors.md.bak",
+            "notes.txt",
+            "errors-后遗漏介词-for.md",
+        ):
             with self.assertRaises(NoteError):
                 self.store.append(name, round_block())
 

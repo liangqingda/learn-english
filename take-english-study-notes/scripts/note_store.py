@@ -33,7 +33,8 @@ class NoteError(Exception):
 
 NOTES_DIR_NAME = "learning-record-notes"
 LOCK_FILE_NAME = ".notes.lock"
-SLUG_FILE_RE = re.compile(r"^[a-z0-9\u4e00-\u9fff][a-z0-9\u4e00-\u9fff\-]*\.md$")
+# slug 只允许小写 ASCII 字母、数字与连字符；中文主题要意译成英文短语（与 check_note 一致）。
+SLUG_FILE_RE = re.compile(r"^[a-z0-9][a-z0-9\-]*\.md$")
 HEADING_RE = re.compile(
     r"^# (?P<date>\d{4}-\d{2}-\d{2}) (?P<time>\d{2}:\d{2}) · (?P<kind>复习|练习|套题)$"
 )

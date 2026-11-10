@@ -28,8 +28,10 @@
   （`my-dashboard` 的英语页直接读它来排看板列）。**新增一个全新分类**除了改该文件，还要同步本节的
   分类列表、`check_note.py` 的分类集合和下面的「各分类必写栏」——校验器靠那里拦自造前缀。
   别处读到的不在清单里的前缀，说明这里是唯一漏改的地方。
-- `slug` 取记录 `id` 或 `paper_id` 的语义部分，只保留小写字母、数字、连字符；记录 `id` 本身含中文时（如
-  `usage:after-不宜直接当-later-连接后续动作`）slug 必须原样带上中文，不得自行翻译成英文别名。
+- `slug` 取记录 `id` 或 `paper_id` 的语义部分，只保留小写字母、数字、连字符。记录 `key` 与 `slug`
+  一律用 ASCII，中文主题必须意译成英文短语（`usage:after-不宜直接当-later-连接后续动作`
+  应写成 `usage:after-vs-later-sequence`），不得把中文直接拼进 `key`；`learning_records.py` 会把
+  非 ASCII 字符压掉而报 key 无效，`check_note.py` 也会拒收中文文件名。
   校验器要求 `<category>-<slug>.md` 与「记录 ID / 试卷 ID」逐字一致：`errors:back-west-spacing` 必须写在
   `errors-back-west-spacing.md`。
 - 主题相同就复用同一文件：只要本轮焦点与既有文件的记录 ID 或 slug 主题相同、互为包含关系，就必须追加到该文件，

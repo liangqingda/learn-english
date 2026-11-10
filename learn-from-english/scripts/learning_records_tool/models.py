@@ -23,9 +23,14 @@ def now_iso() -> str:
 
 
 def normalize_key(value: str) -> str:
+    """把主题文本收敛成记录 key：只保留小写 ASCII 字母、数字与连字符。
+
+    中文标题必须意译成英文短语再作 key（例如 `after-vs-later-sequence`），
+    直接传中文会被压成空串并在 `record_id` 处报错，而不是静默生成中文 ID：
+    中文 key 会让笔记文件名、快照索引与看板排序都出现非 ASCII 字符。
+    """
     normalized = unicodedata.normalize("NFKC", value).casefold().strip()
-    normalized = re.sub(r"[^\w]+", "-", normalized, flags=re.UNICODE)
-    normalized = normalized.replace("_", "-")
+    normalized = re.sub(r"[^a-z0-9]+", "-", normalized)
     return normalized.strip("-")
 
 
@@ -36,7 +41,10 @@ def record_id(category: str, canonical_key: str) -> str:
         )
     key = normalize_key(canonical_key)
     if not key:
-        raise RecordError("canonical key must contain at least one letter or number")
+        raise RecordError(
+            "canonical key must contain at least one letter or number; "
+            "keys are ASCII only, so translate a Chinese topic into an English phrase"
+        )
     return f"{category}:{key}"
 
 
