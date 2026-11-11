@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>0</td></tr>
 <tr><td>下次复习</td><td>—</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-12 07:26</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-12 07:27</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-12 07:28</td></tr>
 </table>
 
 ## 讲解
@@ -27,8 +27,8 @@
 - the industry 还能整体作主语：The industry is changing fast.（这个行业变化很快。）
 
 **历史文化背景**：
-- industry 源自拉丁语 industria（“勤勉、活动”），15 世纪进入英语时先指“勤奋、努力”。
-- 18 世纪工业革命后，表示“制造业、行业”的用法才成为主流，词义从“努力”转向“产业”。
+- industry 15 世纪晚期进入英语，最初指“技巧、勤勉”，经古法语 industrie 或直接来自拉丁语 industria（“勤勉、活动、热忱”）。
+- 18 世纪起，“系统化的行业、制造业”成为主要含义（“systematic work or habitual employment” 约 1717 年已见），词义从“努力”转向“产业”。
 - 同源的 industrious 至今保留“勤奋的”这一旧义，正好印证这次词义转移。
 
 **发音**：
