@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 235,
+  "revision": 236,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -1035,6 +1035,32 @@
         }
       ],
       "key": "make-yourself-at-home"
+    },
+    "phrases:match-the-competitors": {
+      "id": "phrases:match-the-competitors",
+      "category": "phrases",
+      "key": "match-the-competitors",
+      "status": "learning",
+      "title": "match the competitors：与竞争对手做到同一水平",
+      "explanation": "match 在这里是及物动词，意思是「与…达到同一水平、比得上、看齐」，既不是「比赛」，也不是「配对」。match the competitors 指把价格、性能、服务拉平到竞争对手的水准。the competitors 用定冠词加复数，指市场上那一群对手整体；要指某一家得说 match a rival / match its closest competitor。常见搭配：match a competitor's price、match rivals' pricing、match the market price、match the competition。语义上 match 只求「拉平」，超过要用 beat / outperform / outpace。语域偏商务与营销，定价策略、产品路线图、董事会讨论里常见；口语里更常说 keep up with the competition 或 catch up with rivals。",
+      "source": "to match the competitors",
+      "example": "We cut the subscription fee to match the competitors.",
+      "tags": [
+        "business",
+        "collocation",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-11-12T07:27:41+08:00",
+      "last_learned_at": "2026-11-12T07:27:41+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "phrases:old-timers": {
       "id": "phrases:old-timers",

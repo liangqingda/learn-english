@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 234,
+  "revision": 236,
   "category": "grammar",
   "records": {
     "grammar:alternative-question-a-or-b": {
@@ -681,6 +681,32 @@
       "mastered_at": null,
       "review_history": [],
       "key": "present-perfect-for-duration"
+    },
+    "grammar:purpose-infinitive-to": {
+      "id": "grammar:purpose-infinitive-to",
+      "category": "grammar",
+      "key": "purpose-infinitive-to",
+      "status": "learning",
+      "title": "to + 动词原形：表目的的目的状语",
+      "explanation": "to match… 是目的不定式，回答「做这件事是为了什么」，相当于 in order to / so as to + 动词原形，但更轻便，书面和口语都常用。它不占句子主干：句子已经有谓语（如 cut the fee），to do 只附加说明目的一侧，位置可在句末也可提到句首（句首时更常用 in order to）。否定写 in order not to / so as not to，不写 to not do。目的不定式默认与句子主语同指，主语不一致时要改成 so that + 主语 + 情态动词；接名词或从句时同样用 so that。",
+      "source": "to match the competitors",
+      "example": "He checked the receipt in order not to get overcharged.",
+      "tags": [
+        "clause-structure",
+        "purpose",
+        "to-infinitive"
+      ],
+      "first_learned_at": "2026-11-12T07:27:41+08:00",
+      "last_learned_at": "2026-11-12T07:27:41+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "grammar:range-from-to": {
       "id": "grammar:range-from-to",
