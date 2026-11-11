@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 232,
+  "revision": 235,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -467,6 +467,32 @@
       ],
       "key": "dish-up"
     },
+    "phrases:drive-sales": {
+      "id": "phrases:drive-sales",
+      "category": "phrases",
+      "key": "drive-sales",
+      "status": "learning",
+      "title": "drive sales：拉动销量",
+      "explanation": "drive sales 意为“拉动/推动销量增长”，是营销与商务语境里的固定搭配：drive 强调某个动作或手段在背后发力，把销量推上去。sales 在这里指“销量”这一整体，不指某一次成交，所以不加冠词、不用单数 sale。常见搭配：drive sales growth、drive sales up by X%、drive sales of a product。语域偏商务/营销，内部汇报、新闻稿、广告文案常用，比 increase 更有力量感。",
+      "source": "drive sales",
+      "example": "The holiday promotion drove sales up by 18% in two weeks.",
+      "tags": [
+        "business",
+        "collocation",
+        "register"
+      ],
+      "first_learned_at": "2026-11-12T07:26:10+08:00",
+      "last_learned_at": "2026-11-12T07:26:10+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "phrases:get-down-to-brass-tacks": {
       "id": "phrases:get-down-to-brass-tacks",
       "category": "phrases",
@@ -773,6 +799,33 @@
       "first_learned_at": "2026-11-10T07:01:40+08:00",
       "last_learned_at": "2026-11-10T07:15:45+08:00",
       "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:in-the-industry": {
+      "id": "phrases:in-the-industry",
+      "category": "phrases",
+      "key": "in-the-industry",
+      "status": "learning",
+      "title": "in the industry：在（某个）行业里／业内",
+      "explanation": "in the industry 是“介词 + 定冠词 + 名词”构成的短语，表示“在这个行业里、业内”，在句中作状语（She works in the industry.）或后置定语（people in the industry 业内人士）。关键在 the：它表示特指，指说话双方或上下文已经明确的那个行业（the tech / film / music industry），行业名常可省略不重复。不能换成不带冠词的 in industry——那泛指“工业、制造业”这一大类，多见于经济与学术文本（jobs in industry and agriculture）。the industry 还能整体指“这个行业”并直接作主语（The industry is booming.）。常见搭配：work / get into / leave / stay in the industry、a job in the industry、people in the industry。语域中性偏商务，招聘广告、行业新闻与职场对话都常用。",
+      "source": "in the industry",
+      "example": "She's worked in the industry for over ten years.",
+      "tags": [
+        "article",
+        "business",
+        "collocation",
+        "register"
+      ],
+      "first_learned_at": "2026-11-12T07:26:49+08:00",
+      "last_learned_at": "2026-11-12T07:26:49+08:00",
+      "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,

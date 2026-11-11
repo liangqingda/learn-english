@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 228,
+  "revision": 234,
   "category": "vocabulary",
   "records": {
     "vocabulary:a-little-bit": {
@@ -245,6 +245,32 @@
       "mastered_at": null,
       "review_history": [],
       "key": "distinct-adj"
+    },
+    "vocabulary:drive-push-forward": {
+      "id": "vocabulary:drive-push-forward",
+      "category": "vocabulary",
+      "key": "drive-push-forward",
+      "status": "learning",
+      "title": "drive 作及物动词：推动、驱动（业务指标）",
+      "explanation": "drive 的本义是“驱赶、驱使”，引申为“给某事物提供动力、把它推向前”，宾语常是抽象的业务指标：drive sales、drive growth、drive revenue、drive traffic（流量）、drive demand、drive conversion。它暗示因果：前一件事是后一件事的动力来源，因此常出现在“某活动带来某结果”的句子里。近义辨析：boost 侧重“给一把助力”、increase 只陈述数字上升、drive 强调推动力本身。",
+      "source": "drive sales",
+      "example": "Better onboarding drives retention more than discounts do.",
+      "tags": [
+        "business",
+        "nuance",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-11-12T07:26:10+08:00",
+      "last_learned_at": "2026-11-12T07:26:10+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "vocabulary:drizzle-light-rain": {
       "id": "vocabulary:drizzle-light-rain",

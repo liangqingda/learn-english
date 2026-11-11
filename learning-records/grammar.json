@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 230,
+  "revision": 234,
   "category": "grammar",
   "records": {
     "grammar:alternative-question-a-or-b": {
@@ -221,6 +221,31 @@
       "mastered_at": null,
       "review_history": [],
       "key": "do-you-think-we-can"
+    },
+    "grammar:drive-object-up-by-amount": {
+      "id": "grammar:drive-object-up-by-amount",
+      "category": "grammar",
+      "key": "drive-object-up-by-amount",
+      "status": "learning",
+      "title": "drive / boost + 宾语 + up by + 幅度：表提升量的结构",
+      "explanation": "表“把某指标推高多少”用 drive/boost/push + 宾语 + up + by + 幅度：by 引出变化量，不能省略；up 可放在宾语前（drive up sales）或宾语后（drive sales up），但宾语是代词时必须后置（drive them up）。若要说明变化的起点或终点，可换 from ... to ...。注意不能写成 drive sales up 20%，幅度前必须有 by。",
+      "source": "drive sales up by 20%",
+      "example": "A single viral video drove up sign-ups by 30% overnight.",
+      "tags": [
+        "business",
+        "verb-pattern"
+      ],
+      "first_learned_at": "2026-11-12T07:26:10+08:00",
+      "last_learned_at": "2026-11-12T07:26:10+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "grammar:first-then-action-sequence": {
       "id": "grammar:first-then-action-sequence",
