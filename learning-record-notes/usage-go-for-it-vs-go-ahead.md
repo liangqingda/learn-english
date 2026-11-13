@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-16 21:01</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-09 20:35</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-13 21:03</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-13 21:08</td></tr>
 </table>
 
 ## 讲解
@@ -200,5 +200,65 @@ B: That's great. Then ____ — you've earned it.
 2. **为什么错**：①的语境是对方问 Can I leave half an hour early today?，这是请求许可；回答 go for it 等于在说“去争取吧”，既不构成批准，还会让对方以为自己还得再去争一次。go for it 的全部功能是鼓励对方行动，并不包含“允许”这一层。
 3. **英语的表达逻辑**：英语把许可处理成对请求的直接答复（go ahead / sure / no problem），把鼓励处理成对犹豫者的推动；同一个 go 短语不能同时承担这两种功能。
 4. **正确表达**：Sure, go ahead — take the rest of the afternoon off if you need to.（当然，去吧，需要的话下午都可以休息。）；可迁移："May I hand this in tomorrow?" "Go ahead."（“我可以明天交吗？”“可以。”）
+
+</details>
+
+## 看一套围绕「go for it 与 go ahead 的语气差异」的完整场景对话
+
+**讲解要点**：
+
+- 许可（permission）用 go ahead，直接答复对方的请示，语气中性，不含鼓励。
+  - "Can I borrow your charger?" "Go ahead."（“我可以借你的充电器吗？”“拿去用吧。”）
+- 鼓励（encouragement）用 go for it，推动一个还在犹豫、害怕的人迈出一步。
+  - You've been rehearsing for weeks — go for it.（你已经练了好几周了，去争取吧。）
+- 正式书面语域表示“推进某事”用 go ahead with + 名词，不用 go for it。
+  - The team will go ahead with the pilot in November.（团队将在十一月推进这项试点。）
+- 把两者互换会改变对方听到的意思：拿 go for it 当批准，请示的人会以为还得再去争一次。
+  - "Can I pay the rent on Friday?" "Go for it."（“我可以周五交房租吗？”“去争取吧。”——听上去像在鼓励他去讨价还价。）
+
+**完整场景对话**：
+
+<details>
+<summary>场景对话原文</summary>
+
+**角色**：Priya（团队主管）、Leo（实习生）、Nina（Leo 的同事兼朋友）
+
+**场景**：周五下午的开放式办公室，Leo 想提前走，同时在犹豫要不要报名下个月的演讲比赛。
+
+- **Priya**：Leo, are you heading out?
+
+- **Leo**：Not yet. Priya, is it all right if I leave early today? I have a dentist appointment at four.（还没。Priya，我今天能早点走吗？四点有个牙医预约。）
+
+- **Priya**：Sure, go ahead. Just make sure the slides are uploaded before you go.（当然，去吧。走之前把幻灯片上传好就行。）
+
+- **Leo**：Thanks. Actually, there's something else. There's a pitch competition next month, and I've been thinking about entering, but I'm not sure I'm ready.（谢谢。其实还有件事。下个月有个提案比赛，我一直在想报名，但不确定自己准备好了没有。）
+
+- **Priya**：You've been rehearsing for weeks. If you ask me, you should go for it.（你已经练了好几周了。要我说，你该去争取。）
+
+- **Leo**：What if I freeze on stage?（万一我在台上卡住怎么办？）
+
+- **Nina**：Then at least you learn something. Come on — go for it. I'll be in the front row.（那就为下次学到点东西。来吧，去争取，我会坐第一排。）
+
+- **Leo**：You two are very good at pushing people.（你们俩真会推人。）
+
+- **Priya**：Careful with that word, though. In this week's update I'm writing "The team will go ahead with the pilot in November" — that's the version the department heads read, so no "go for it" in the report.（不过这个词要小心用。我这周的周报写的是“The team will go ahead with the pilot in November.”——那是给部门领导看的版本，所以报告里不要用“go for it”。）
+
+- **Leo**：So in the report it's "go ahead with", and between us it's "go for it"?（所以在报告里是“go ahead with”，我们自己说话是“go for it”？）
+
+- **Priya**：Exactly. One is permission, the other is a push.（正是。一个是许可，一个是推动。）
+
+- **Nina**：Speaking of which — last week I asked my landlord whether I could pay the rent on Friday, and he said "Go for it." For a second I thought he wanted me to fight for it.（说到这个——上周我问房东能不能周五交房租，他说“Go for it.”，那一瞬间我还以为他想让我去争一争。）
+
+- **Leo**：He probably meant "Go ahead."（他大概是想说“可以”。）
+
+- **Priya**：Quick check, Leo. I ask you "Can I use your charger?" What do you say?（快速检验一下，Leo。我问你“Can I use your charger?”，你怎么答？）
+
+- **Leo**：Go ahead.（可以，用吧。）
+
+- **Priya**：And if I say "I'm thinking of applying for the lead role, but I'm scared"?（那如果我说“我在考虑申请负责人岗位，但我有点怕”呢？）
+
+- **Leo**：Then I say go for it.（那我就说“去争取吧”。）
+
+- **Nina**：See? Permission versus push — one syllable apart, completely different jobs.（看到了吧？许可和推动——只差一个音节，功能完全不同。）
 
 </details>
