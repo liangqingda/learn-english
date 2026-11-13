@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 238,
+  "revision": 240,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -1219,6 +1219,30 @@
         }
       ],
       "key": "serve"
+    },
+    "phrases:serve-up": {
+      "id": "phrases:serve-up",
+      "category": "phrases",
+      "key": "serve-up",
+      "status": "learning",
+      "title": "serve up：端上（饭菜）；端出（借口、信息）",
+      "explanation": "serve up 指把做好的饭菜端上桌，也可引申为把信息、借口、节目内容「端出来」给别人，语气比 serve 随意，常用于描述重复的老一套或刻意的呈现。",
+      "source": "He served up the same excuse again.",
+      "example": "She served up a plate of hot pancakes.",
+      "tags": [
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-11-13T21:02:13+08:00",
+      "last_learned_at": "2026-11-13T21:02:13+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "phrases:set-the-table-arrange-place-settings": {
       "id": "phrases:set-the-table-arrange-place-settings",

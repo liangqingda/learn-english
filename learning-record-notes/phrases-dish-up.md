@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>4</td></tr>
 <tr><td>下次复习</td><td>2026-11-20 20:49</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-10 19:17</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-13 20:51</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-13 21:02</td></tr>
 </table>
 
 ## 讲解
@@ -194,3 +194,21 @@
 整句参考版本：The guests are already seated at the table. Please dish up the braised beef on a few plates.（客人们已经在餐桌旁坐下了。请把炖好的牛肉盛到几个盘子里端上桌。）
 
 </details>
+
+## 对比「dish up：把饭菜盛好端上桌」和相近表达
+
+**讲解要点**：
+- 先看动作终点：dish up、serve、plate 的终点是餐桌，dish out、hand out 的终点是接东西的人
+  - She dished up the soup and set it in front of the guest.（她把汤盛好，放到客人面前。）
+  - Volunteers handed out leaflets at the entrance.（志愿者在入口处分发传单。）
+- 再看语域：serve 中性偏正式，适合机构与书面场景；dish up 是厨房里的家常口吻；serve up 介于两者之间，还可引申为「端出」借口或信息
+  - The hotel serves breakfast from seven to ten.（酒店七点到十点供应早餐。）
+  - He served up the same excuse again.（他又搬出同一套借口。）
+- 看食物形态：固体食物可以 plate（摆盘讲外观），汤只能 ladle 或 serve，不能用 plate
+  - The chef plated the duck with a swirl of sauce.（主厨把鸭肉摆盘，配了一卷酱汁。）
+  - She ladled the broth into two bowls.（她把汤舀进两个碗里。）
+- dish out 的宾语可以是抽象内容，hand out 只能分实体物品
+  - The manager dished out criticism after the meeting.（会后经理大发脾气地批评了一通。）
+  - They handed out the new schedules to everyone.（他们给每个人发了新的日程表。）
+- 词形选择还受宾语可数性约束：beef、rice、soup 这类不可数名词回指用 it，代词仍要放在动词与 up 之间
+  - The beef is ready, so dish it up now.（牛肉好了，现在盛出来端上桌。）
