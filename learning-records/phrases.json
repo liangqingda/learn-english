@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 236,
+  "revision": 238,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -420,7 +420,7 @@
     "phrases:dish-up": {
       "id": "phrases:dish-up",
       "category": "phrases",
-      "status": "learning",
+      "status": "familiar",
       "title": "dish up：把饭菜盛好端上桌",
       "explanation": "dish up 指把食物从锅或大盘里盛到盘子、碗里再端上桌，语气日常。它是可分短语动词：名词宾语可放在 up 前或后（dish up the rice / dish the rice up），代词宾语必须放中间（dish it up）。与 serve 的区别：serve 范围更宽，可指端菜、供应食物、招待客人或餐厅酒店供应某类食物（The hotel serves breakfast from seven to ten），语域更中性、更适合正式场景。与 plate 的区别：plate 强调把食物摆放在盘中并呈现外观，汤类通常用 serve 或 ladle，不用 plate。dish out 则是把东西分发出去，宾语多为内容而非「盛到盘里」，语义范围更宽。",
       "source": "Now, to dish up something means to put food on a dish for someone to eat",
@@ -438,11 +438,11 @@
       "first_learned_at": "2026-07-31T09:13:38+08:00",
       "last_learned_at": "2026-08-01T21:26:24+08:00",
       "learned_count": 5,
-      "mastery_score": 0.0,
-      "review_count": 3,
-      "high_score_streak": 0,
-      "last_reviewed_at": "2026-08-03T22:09:54+08:00",
-      "next_review_at": "2026-09-02T22:09:54+08:00",
+      "mastery_score": 8.0,
+      "review_count": 4,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-11-13T20:49:44+08:00",
+      "next_review_at": "2026-11-20T20:49:44+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
@@ -461,6 +461,12 @@
         {
           "score": 10.0,
           "reviewed_at": "2026-08-03T22:09:54+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        },
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-11-13T20:49:44+08:00",
           "previous_status": "learning",
           "new_status": "familiar"
         }

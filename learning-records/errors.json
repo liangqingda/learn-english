@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 233,
+  "revision": 238,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -2462,6 +2462,30 @@
       "mastered_at": null,
       "review_history": [],
       "key": "half-an-hour-article"
+    },
+    "errors:have-plus-past-participle": {
+      "id": "errors:have-plus-past-participle",
+      "category": "errors",
+      "key": "have-plus-past-participle",
+      "status": "learning",
+      "title": "have + 过去分词：完成时里的动词形式",
+      "explanation": "have 后面要接过去分词构成完成时或状态描述，sit 的过去分词是 sat，不能用动词原形。",
+      "source": "Customers have sit by the table",
+      "example": "The guests have sat down at the table.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-13T20:49:44+08:00",
+      "last_learned_at": "2026-11-13T20:49:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:hear-object-base-verb": {
       "id": "errors:hear-object-base-verb",
@@ -5905,6 +5929,30 @@
         }
       ],
       "key": "turn-off-electronic-device-collocation"
+    },
+    "errors:uncountable-beef-pronoun-it": {
+      "id": "errors:uncountable-beef-pronoun-it",
+      "category": "errors",
+      "key": "uncountable-beef-pronoun-it",
+      "status": "learning",
+      "title": "不可数名词 beef 回指用 it",
+      "explanation": "beef 是不可数名词，回指时用 it 而不是复数代词 them；dish it up 同时满足代词放中间的语序要求和不可数宾语的单数形式。",
+      "source": "dish them up please",
+      "example": "Please dish it up while it is still hot.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-13T20:49:44+08:00",
+      "last_learned_at": "2026-11-13T20:49:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:unlike-used-instead-of-do-not-like": {
       "id": "errors:unlike-used-instead-of-do-not-like",
