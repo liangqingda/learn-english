@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 238,
+  "revision": 239,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -2293,6 +2293,30 @@
       "mastered_at": null,
       "review_history": [],
       "key": "go-ahead-northward-wrong-verb"
+    },
+    "errors:go-for-it-as-permission": {
+      "id": "errors:go-for-it-as-permission",
+      "category": "errors",
+      "key": "go-for-it-as-permission",
+      "status": "learning",
+      "title": "用 go for it 表示批准或允许",
+      "explanation": "go for it 是口语打气语，表示“去争取、加油”，不承担“批准/允许”的功能；别人请示能否做某事时，批准语用 go ahead（可以，去吧）。两者都含 go，但一个表达鼓励，一个表达许可。",
+      "source": "OK, go for it.",
+      "example": "Sure, go ahead — take the rest of the afternoon off.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-13T21:01:37+08:00",
+      "last_learned_at": "2026-11-13T21:01:37+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:go-the-seaside-missing-to": {
       "id": "errors:go-the-seaside-missing-to",
