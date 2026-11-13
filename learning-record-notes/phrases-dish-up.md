@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>4</td></tr>
 <tr><td>下次复习</td><td>2026-11-20 20:49</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-10 19:17</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-13 21:02</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-13 21:14</td></tr>
 </table>
 
 ## 讲解
@@ -212,3 +212,129 @@
   - They handed out the new schedules to everyone.（他们给每个人发了新的日程表。）
 - 词形选择还受宾语可数性约束：beef、rice、soup 这类不可数名词回指用 it，代词仍要放在动词与 up 之间
   - The beef is ready, so dish it up now.（牛肉好了，现在盛出来端上桌。）
+
+### 1. 单项选择
+
+**题目**：The teacher ____ the test papers to the first row.
+- A. dished up
+- B. dished out
+- C. plated
+- D. ladled
+
+**我的答案**：B
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：dish out 表示把实体物品分发给多人。
+2. **规则与机制**：dish out 的终点是接东西的人，宾语是被分发物（test papers、leaflets）；dished up 会把「试卷」误当成饭菜。
+3. **英语的表达逻辑**：dish + out 里的 out 表示「离开原处、向外分发」，与 dish up 指向餐桌的方向正好相反，方向意象决定词义。
+4. **可迁移表达**：She dished out the test papers at nine.（她九点把试卷发了下去。）Volunteers dished out water at the gate.（志愿者在门口分发水。）
+
+</details>
+
+### 2. 填空
+
+**题目**：The hotel ____ breakfast from seven to ten every morning.
+
+**我的答案**：serves
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：机构供应餐食用 serve。
+2. **规则与机制**：serve 可以带一餐作宾语（serve breakfast、serve dinner），主语是机构时用一般现在时表示固定安排，第三人称单数加 -s。
+3. **英语的表达逻辑**：英语把「机构对顾客提供某类餐食」当作常规服务处理，用中性动词 serve，而不是厨房动作 dish up。
+4. **可迁移表达**：The café serves brunch on weekends.（这家咖啡馆周末供应早午餐。）They serve free tea in the lobby.（他们在大厅免费供应茶水。）
+
+</details>
+
+### 3. 改错
+
+**题目**：My aunt plated the beef soup and carried it to the table.
+
+**我的答案**：My aunt ladles the beef soup and carried it to the table.
+
+**判定**：⚠️ 部分正确（换对了动词，但并列谓语时态不一致）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：plate 不适用于汤类；并列谓语的时态一致。
+2. **规则与机制**：汤是液体，要用 ladle 或 serve，plate 只用于固体食物摆盘；and 连接的两个谓语必须共享同一时态。
+3. **英语的表达逻辑**：英语的时态标记落在每个谓语上，并列结构不会自动继承前一个动词的时态，所以改动一处必须同步另一处。
+4. **可迁移表达**：She ladled the soup into four bowls and carried them out.（她把汤舀进四个碗里，端了出去。）He plated the fish and set it on the table.（他把鱼摆好盘，放到了桌上。）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：并列谓语的时态一致。
+2. **为什么错**：只替换了被考查的动词 plate → ladles，后面并列的 carried 仍停在过去时，句子时间线断裂。
+3. **英语的表达逻辑**：英语靠动词形态表达时间，而不是靠「了」「过」这类词；and 连接的两个动作仍在同一个过去场景里，必须都用过去式。
+4. **正确表达**：My aunt ladled the beef soup and carried it to the table.（我姑姑把牛肉汤舀出来，端到了桌上。）；可迁移：She plated the dessert and carried it to the guests.（她把甜点摆好盘，端给了客人。）
+
+</details>
+
+### 4. 语境判断
+
+**题目**：选出在家庭晚餐场景更自然的一句
+- A. Mum dished up the noodles and called us to the table.
+- B. Mum plated the noodles and called us to the table.
+
+**我的答案**：A
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：dish up 的家庭场景语域与 plate 的摆盘含义。
+2. **规则与机制**：家庭日常出菜用 dish up，突出「盛出来端上桌」；plate 是餐饮业的摆盘动作，用于家常面条显得刻意。
+3. **英语的表达逻辑**：英语用动词选择标记场景：dish up 把动作放在厨房与餐桌之间，plate 把动作放在摆盘与出品的专业流程里。
+4. **可迁移表达**：Dad dished up the dumplings while we set the table.（爸爸盛饺子，我们摆桌子。）The restaurant plates every dish before it leaves the kitchen.（这家餐厅每道菜出厨房前都要摆盘。）
+
+</details>
+
+### 5. 翻译
+
+**题目**：会上，经理又搬出了那套老借口。
+
+**我的答案**：In the meeting, the manager dished out the excuse again.
+
+**判定**：⚠️ 部分正确（语义可理解，但动词与介词搭配都不地道）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：serve up 的引申义——端出说法、借口；at the meeting 的介词搭配。
+2. **规则与机制**：重复搬出老一套说法用 serve up；dish out 侧重分发给多人。表示会议这类活动场次用 at the meeting。
+3. **英语的表达逻辑**：英语把「把一套话呈现给人」也当作端上桌面，用 serve up 这个餐饮隐喻；同时把可参加的场次当作一个点，用 at。
+4. **可迁移表达**：She served up a familiar excuse.（她搬出了一套熟悉的借口。）At the meeting, nobody mentioned the delay.（会上没人提到延期。）
+
+</details>
+
+<details>
+<summary>错题讲解 1</summary>
+
+1. **考点**：serve up 与 dish out 在「端出说法」语境下的分工。
+2. **为什么错**：只记住 dish out 能接抽象宾语（criticism、advice），忽略了它强调「分发给多人」，而「又搬出同一套借口」是向在场者呈现一套现成说法，用 serve up。
+3. **英语的表达逻辑**：dish out 的 out 指向「分发出去、给到多人」，serve up 的 up 指向「端上桌面、呈现出来」，两者的小品词决定了抽象宾语的适用场景。
+4. **正确表达**：At the meeting, the manager served up the same old excuse again.（会上，经理又搬出了那套老借口。）；可迁移：He served up the same story to every reporter.（他跟每个记者都搬出同一套说法。）
+
+</details>
+
+<details>
+<summary>错题讲解 2</summary>
+
+1. **考点**：会议场次的介词搭配。
+2. **为什么错**：按汉语「在会上」直接译成 in；英语把会议、会议、聚会这类活动当作一个时间点，用 at。
+3. **英语的表达逻辑**：at 标记「点」，in 标记「容器或范围」；会议是可参加的场次而不是容器，所以 at the meeting，只有会议进行中的内部范围才说 in the meeting。
+4. **正确表达**：At the meeting, the manager served up the same old excuse again.（会上，经理又搬出了那套老借口。）；可迁移：She raised the issue at the meeting.（她在会上提出了这个问题。）
+
+</details>

@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 239,
+  "revision": 242,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -665,6 +665,30 @@
         }
       ],
       "key": "as-soon-as-not-as-long-as-for-immediate-event"
+    },
+    "errors:at-the-meeting-preposition": {
+      "id": "errors:at-the-meeting-preposition",
+      "category": "errors",
+      "key": "at-the-meeting-preposition",
+      "status": "learning",
+      "title": "会议场合用 at the meeting",
+      "explanation": "meeting 被视为时间点或活动场次时用 at（at the meeting、at the conference）；in the meeting 只在强调会议进行过程中或会议内部时才用，叙述会议发言用 at 更自然。",
+      "source": "In the meeting, the manager dished out the excuse again.",
+      "example": "At the meeting, the manager served up the same old excuse again.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-13T21:08:22+08:00",
+      "last_learned_at": "2026-11-13T21:08:22+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:at-the-second-intersection-for-directions": {
       "id": "errors:at-the-second-intersection-for-directions",
@@ -3712,6 +3736,30 @@
       "review_history": [],
       "key": "opening-event-uses-opened-not-close"
     },
+    "errors:parallel-verbs-tense-agreement": {
+      "id": "errors:parallel-verbs-tense-agreement",
+      "category": "errors",
+      "key": "parallel-verbs-tense-agreement",
+      "status": "learning",
+      "title": "并列谓语的时态必须一致",
+      "explanation": "and 连接的两个谓语处在同一个时间框架内，时态必须统一；改写其中一个动词时，另一个也要跟着改，否则句子时间线断裂。",
+      "source": "My aunt ladles the beef soup and carried it to the table.",
+      "example": "My aunt ladled the beef soup and carried it to the table.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-13T21:08:22+08:00",
+      "last_learned_at": "2026-11-13T21:08:22+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:passive-clause-needs-be": {
       "id": "errors:passive-clause-needs-be",
       "category": "errors",
@@ -5199,6 +5247,30 @@
         }
       ],
       "key": "semantic-conflict-old-timers-newcomers"
+    },
+    "errors:serve-up-for-excuse": {
+      "id": "errors:serve-up-for-excuse",
+      "category": "errors",
+      "key": "serve-up-for-excuse",
+      "status": "learning",
+      "title": "「端出借口或说法」用 serve up，不用 dish out",
+      "explanation": "dish out 强调把东西分发给多人，宾语虽可抽象（criticism、advice），但不含「端出来给人看」这一层；重复搬出同一套借口或说法是 serve up 的典型引申用法。",
+      "source": "the manager dished out the excuse again",
+      "example": "At the meeting, the manager served up the same old excuse again.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-13T21:08:22+08:00",
+      "last_learned_at": "2026-11-13T21:08:22+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:serving-hours-rendered-with-open": {
       "id": "errors:serving-hours-rendered-with-open",
