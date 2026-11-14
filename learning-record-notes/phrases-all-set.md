@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>2</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 21:59</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-10 19:17</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-14 22:00</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-14 22:05</td></tr>
 </table>
 
 ## 讲解
@@ -190,3 +190,41 @@ Everything's all set — no need to worry.
 4. **正确表达**：We're all set for tomorrow — the tickets are booked and the luggage is packed.（明天我们都准备好了，票已订好，行李也收拾好了）；可迁移：All set — the car will pick us up at seven.（都搞定了，车七点来接我们）
 
 </details>
+
+## 读一个围绕「all set：一切就绪 / 搞定」的小故事
+
+**讲解要点**：
+- all set 确认的是「整体就绪」，主语常是 we、everything 或整套安排，而不是某一件单独的物品。
+  - We're all set for tomorrow.（明天我们都准备好了）
+- 它可以单独成句当简短答语，不必把整句复述一遍，语气亲切、带安抚意味。
+  - All set — the cakes are packed.（都搞定了，蛋糕已经装好）
+- 它是状态表达，不是动作动词：不能接 to + 地点表示「送到某地」，那种意思要用 deliver、send 这类动词。
+  - The boxes were delivered to the school.（那些盒子被送到了学校）
+
+<details>
+<summary>故事原文</summary>
+
+On the morning of the town's spring fair, Mei opened the back door of her small bakery two hours before sunrise. Her father was already there, tightening a loose screw on the old display shelf. They had planned this day for three months: new breads, a new sign, and a small table outside for children to decorate cookies. At six, her father stepped back, looked around the warm little shop, and said, "Everything's in place." Mei checked the trays one last time and smiled. "All set."
+
+春天集市那天清晨，梅在日出前两小时就打开了小店的后门。她父亲已经在那儿了，正拧紧旧展示架上的一颗松螺丝。这一天他们筹备了三个月：新面包、新招牌，还有门外一张让孩子装饰饼干的小桌子。六点时，父亲退后一步，环视温暖的小店，说“一切都摆好了。”梅最后核对了一遍托盘，笑了：“都搞定了。”
+
+The first customer arrived before the official opening, a nervous young teacher named Mr. Lin. He needed forty small cakes for a class party at ten o'clock and had forgotten to order them. "Can you do it?" he asked, almost out of breath. Mei looked at the trays, at the clock, and at her father. "All set," she said. "Forty cakes by nine thirty."
+
+正式开门前就来了第一位客人，是位紧张的年轻老师，林先生。他十点班上要办聚会，需要四十个小蛋糕，却忘了预订。“你们能做出来吗？”他几乎喘着气问。梅看了看托盘，看了看钟，又看了看父亲。“没问题，”她说，“九点半给你四十个蛋糕。”
+
+The next three hours were flour, sugar, and the bell above the door. Her father iced cakes while she packed boxes, and at nine twenty-eight the last ribbon was tied. When Mr. Lin came back, she handed him two boxes and a short list of what was inside. "All set, Mr. Lin," she said. "The cream is still cold, so keep them in the shade."
+
+接下来的三个小时全是面粉、糖和门上那只铃。父亲给蛋糕抹糖霜，她负责装盒，九点二十八分时最后一个蝴蝶结系好了。林先生回来时，她递上两个盒子和一张写着里面内容的清单。“都办妥了，林先生，”她说，“奶油还是凉的，请放在阴凉处。”
+
+By noon the shop was quiet again, and Mei sat on the step outside with a cup of tea. The fair was still loud at the end of the street, but she did not want to move. Her father joined her and asked whether she felt ready for next month's much bigger order. "Not yet," she said. "Give me one more week, and I'll be all set."
+
+到中午，店里又安静下来，梅端着一杯茶坐在门外的台阶上。街那头的集市还热闹着，她却不想动。父亲坐到她身边，问她下个月那笔大得多的订单准备好了没有。“还没有，”她说，“再给我一周，我就全准备好了。”
+
+</details>
+
+| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |
+|---|---|---|
+| 第 1 段结尾，父亲说 Everything's in place 后，梅答 All set | 向父亲确认整套准备已经完成，可以开门了 | 这里要的是简短、带安抚的确认；说 We have finished preparing 像在汇报流程，少了那份轻松 |
+| 第 2 段，答应林先生四十个蛋糕 | 表示这个临时请求也能办到 | 需要一句利落的应承；说 It is possible 太生硬，说 No problem 又偏套话，all set 更贴口语 |
+| 第 3 段，交蛋糕时说 All set, Mr. Lin | 把「订单已经完成」这件事交代给客人 | 交代完成状态而不是强调动作过程；说 I have finished them 把注意力拉到她自己，语气不如 all set 客观 |
+| 第 4 段，面对下月大订单说 I'll be all set | 表示还需要一周才能达到就绪状态 | 表达的是将来的状态而非动作；说 I will finish it 只说了动作，没说出「准备好了」这层意思 |
