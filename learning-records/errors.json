@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 244,
+  "revision": 249,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -1616,6 +1616,34 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:dish-out-for-batch-distribution-of-money": {
+      "id": "errors:dish-out-for-batch-distribution-of-money",
+      "category": "errors",
+      "key": "dish-out-for-batch-distribution-of-money",
+      "status": "learning",
+      "title": "用 dish out 表达成批派发钱款",
+      "explanation": "dish out 的宾语是被派发的内容（bonus），承受者用 to 引出；同时整句必须有带时态的限定动词——只写 handing out 这样的分词会让句子缺谓语。正确形式：The company dished out the bonus to every employee before the festival.",
+      "source": "The company handing out the bonus to each employee before the festival.",
+      "example": "The company dished out the bonus to every employee before the festival.",
+      "tags": [
+        "grammar",
+        "phrasal-verb",
+        "review-error",
+        "sentence-structure",
+        "verb-pattern"
+      ],
+      "first_learned_at": "2026-11-14T21:52:59+08:00",
+      "last_learned_at": "2026-11-14T21:55:20+08:00",
+      "learned_count": 5,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:dish-out-person-as-object": {
       "id": "errors:dish-out-person-as-object",
       "category": "errors",
@@ -1682,6 +1710,32 @@
       ],
       "first_learned_at": "2026-11-10T21:01:44+08:00",
       "last_learned_at": "2026-11-10T21:01:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:dish-up-serving-food-vs-dish-out": {
+      "id": "errors:dish-up-serving-food-vs-dish-out",
+      "category": "errors",
+      "key": "dish-up-serving-food-vs-dish-out",
+      "status": "learning",
+      "title": "dish up 与 dish out 混淆：盛饭上桌不用 dish out",
+      "explanation": "dish up 指把做好的饭菜盛进盘碗、端上桌（dish up the soup into bowls）；dish out 指把东西分发出去或不断施加批评、惩罚。描述「盛好端上桌」时用 dish up，用 dish out 就变成「把汤分发出去」。",
+      "source": "My mother ladles the soup into bowls.",
+      "example": "My mother dished up the soup into bowls and set them on the table one by one.",
+      "tags": [
+        "phrasal-verb",
+        "review-error",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-11-14T21:52:59+08:00",
+      "last_learned_at": "2026-11-14T21:52:59+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
