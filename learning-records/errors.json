@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 242,
+  "revision": 244,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -1591,6 +1591,83 @@
       ],
       "key": "direction-vs-home-area-contrast"
     },
+    "errors:dish-out-adverbial-order-to-us": {
+      "id": "errors:dish-out-adverbial-order-to-us",
+      "category": "errors",
+      "key": "dish-out-adverbial-order-to-us",
+      "status": "learning",
+      "title": "介词短语 to us 要放在时间状语之前",
+      "explanation": "dish out 的 to 短语说明接受者，属于动词后的补充成分，应紧跟宾语；last week 这类时间状语只修饰整句，放在句末，语序为「动词 + 内容 + to + 接受者 + 时间」。",
+      "source": "Our supervisor dished out a lot of extra tasks last week to us.",
+      "example": "Our supervisor dished out a lot of extra tasks to us last week.",
+      "tags": [
+        "review-error",
+        "word-order"
+      ],
+      "first_learned_at": "2026-11-14T09:26:03+08:00",
+      "last_learned_at": "2026-11-14T09:27:49+08:00",
+      "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:dish-out-person-as-object": {
+      "id": "errors:dish-out-person-as-object",
+      "category": "errors",
+      "key": "dish-out-person-as-object",
+      "status": "learning",
+      "title": "dish out 不能把人当宾语",
+      "explanation": "dish out 的宾语必须是被给出的内容，不能是承受批评或惩罚的人；说「给别人挑毛病」要用 dish out criticism/insults to someone，或用 criticize someone。",
+      "source": "My colleague always dishes out others, but he can't take it.",
+      "example": "My colleague always dishes out criticism to others, but he can't take it when they criticize him.",
+      "tags": [
+        "object-type",
+        "review-error",
+        "verb-pattern"
+      ],
+      "first_learned_at": "2026-11-14T09:26:03+08:00",
+      "last_learned_at": "2026-11-14T09:26:03+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:dish-out-preposition-to": {
+      "id": "errors:dish-out-preposition-to",
+      "category": "errors",
+      "key": "dish-out-preposition-to",
+      "status": "learning",
+      "title": "dish out 的对象要用介词 to/at 引出",
+      "explanation": "dish out 后面接的是被分发或施加的内容（orders、criticism、punishment），接受者不是直接宾语，必须用 to/at 引出；把接受者放在 into 后面无法表示「给谁施加」。",
+      "source": "The new manager dished out a steady stream of orders into the whole department.",
+      "example": "The new manager dished out a steady stream of orders to the whole department.",
+      "tags": [
+        "preposition",
+        "review-error",
+        "verb-pattern"
+      ],
+      "first_learned_at": "2026-11-14T09:26:03+08:00",
+      "last_learned_at": "2026-11-14T09:26:03+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:dish-up-register-informal-for-formal-context": {
       "id": "errors:dish-up-register-informal-for-formal-context",
       "category": "errors",
@@ -2982,6 +3059,31 @@
       "mastered_at": null,
       "review_history": [],
       "key": "missing-article-before-countable-presentation"
+    },
+    "errors:missing-article-before-team": {
+      "id": "errors:missing-article-before-team",
+      "category": "errors",
+      "key": "missing-article-before-team",
+      "status": "learning",
+      "title": "特指的群体名词前要加定冠词",
+      "explanation": "team 是可数集合名词，指对话双方都明确的那个团队时要加 the；直接用 to team 在英语里不成词，只能说 to the team。",
+      "source": "The manager dished out criticism to team at the review meeting.",
+      "example": "The manager dished out criticism to the team at the review meeting.",
+      "tags": [
+        "article",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-14T09:26:03+08:00",
+      "last_learned_at": "2026-11-14T09:26:03+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:missing-article-in-after-a-short-rest": {
       "id": "errors:missing-article-in-after-a-short-rest",
