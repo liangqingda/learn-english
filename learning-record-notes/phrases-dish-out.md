@@ -33,6 +33,157 @@
 
 - 宾语误接人（× dish out him criticism）→ dish out criticism to him / criticize him。
 
+# 2026-11-14 21:53 · 复习
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>复习时间</td><td>2026-11-14 21:53</td></tr>
+<tr><td>分类 · 状态变化</td><td>phrases · learning → learning</td></tr>
+<tr><td>本轮得分</td><td>7 / 10</td></tr>
+<tr><td>题量与错题数</td><td>6 题 / 2 处错误</td></tr>
+</table>
+
+## 本轮习题
+
+### 1. 语境判断
+
+**题目**：语境：Tom 常在会上拿同事的话开玩笑，可别人回他一句类似的玩笑，他立刻沉下脸，一整天不说话。
+- 句子：He can dish it out, but he can't take it.
+- 这句话用在这个语境里是否成立？
+
+**我的答案**：成立
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：`can dish it out but can't take it` 这一固定习语的含义与语境匹配。
+2. **规则与机制**：习语前后两个分句共用情态动词 can，`it` 回指前面提到的批评或玩笑；整体意思是「有本事挖苦别人，却受不了别人用同样方式对自己」。
+3. **英语的表达逻辑**：英语用 `take it` 表示「承受、接受批评或玩笑」，把「施加」和「承受」放在同一个动词短语的两端形成对照。
+4. **可迁移表达**：He teases everyone at the table, but he can't take a joke himself.（他拿桌上每个人开玩笑，可别人开玩笑他就受不了）；She dishes it out to the new interns and then complains when someone does the same to her.（她总把话甩给新来的实习生，别人同样对她时又开始抱怨）
+
+</details>
+
+### 2. 填空
+
+**题目**：妈妈把刚煮好的汤盛进碗里，一碗一碗端上桌。
+- My mother ____ the soup into bowls and set them on the table one by one.
+
+**我的答案**：ladles
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：用 dish 构成的短语表达「把汤盛进碗里端上桌」。
+2. **规则与机制**：`dish up` 指把做好的饭菜盛进盘碗、端上桌，宾语是饭菜本身；`dish out` 强调把东西分发出去，用在这里会变成「把汤分发出去」。
+3. **英语的表达逻辑**：英语把「把饭菜装进餐具再端上桌」看成一个整体动作，用 up 标记「盛出、端上来」这一完成结果。
+4. **可迁移表达**：She dished up the noodles and put a bowl in front of each guest.（她把面条盛好，给每位客人面前放了一碗）；He dished up the leftovers and called it dinner.（他把剩菜盛上桌，说这就是晚饭）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：`dish up` 与 `dish out` 的分工。
+2. **为什么错**：所填动词只表示「用勺子舀」，没有答出「盛好端上桌」这个由 dish 构成的短语；而 dish out 表示向外分发，与「盛到碗里端上桌」不是同一个动作。
+3. **英语的表达逻辑**：英语把「装进餐具再端上桌」当成一个整体动作，用 up 标记完成、呈现的结果；把「一份份发出去」当成分配行为，用 out 标记向外送出。
+4. **正确表达**：My mother dished up the soup into bowls and set them on the table one by one.（妈妈把汤盛进碗里，一碗一碗端上桌）；可迁移：Grandma dished up the dumplings and handed each kid a plate.（奶奶把饺子盛好，给每个孩子递上一盘）
+
+</details>
+
+### 3. 单项选择
+
+**题目**：老板整个下午不停地把批评甩给团队，语气上要突出「连续、强硬地施加」。
+- A. The boss kept handing out criticism all afternoon.
+- B. The boss kept dishing out criticism all afternoon.
+- C. The boss kept giving away criticism all afternoon.
+- D. The boss kept putting out criticism all afternoon.
+
+**我的答案**：B
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：dish out 用在批评语境时带有「连续、强硬地施加」的语气。
+2. **规则与机制**：dish out 的宾语是被施加的内容（criticism、punishment、insults）；与中性的 hand out 相比，它更强调一波接一波地甩出去。
+3. **英语的表达逻辑**：英语把批评当成可以成批「派发」的东西，用 out 表示向外不断送出，因此这个词天然带「一串接一串」的画面。
+4. **可迁移表达**：The referee dished out yellow cards in the second half.（下半场裁判接连掏出好几张黄牌）；Management dished out a series of warnings before the audit.（审计前管理层接连发出了一串警告）
+
+</details>
+
+### 4. 改错
+
+**题目**：The manager dished out his staff with a long list of complaints after the meeting.
+
+**我的答案**：The manager dished out a long list of complaints to his staff after the meeting.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：dish out 的宾语是被施加的内容，承受者用 to 引出。
+2. **规则与机制**：结构是 dish out + 内容（complaints、criticism、punishment）+ to / at + 承受者，不能把承受者直接放在 out 后面。
+3. **英语的表达逻辑**：英语先说要给出什么，再说给谁，`to` 明确标出接收方，避免把人本身当成被分发的东西。
+4. **可迁移表达**：The coach dished out harsh criticism to every player after the match.（赛后教练把严厉的批评甩给每个球员）；They dished out the same advice to every new hire.（他们把同样的建议讲给每个新员工）
+
+</details>
+
+### 5. 翻译
+
+**题目**：节日前，公司把奖金一笔一笔地发给每位员工，语气上要带出「成批派发」的意味。
+
+**我的答案**：The company handing out the bonus to each employee before the festival.
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：用 dish out 表达成批派发钱款，并保证整句有带时态的限定动词。
+2. **规则与机制**：dish out 的宾语是 bonus 这类被派发的内容，承受者用 to 引出；`handing out` 是现在分词，不能单独充当谓语，独立句必须由限定动词承载时态。
+3. **英语的表达逻辑**：英语用限定动词标记「事情何时发生、是否完成」，分词只表示伴随或进行中的状态，所以时态必须先落在主动词上。
+4. **可迁移表达**：The company dished out the bonus to every employee before the festival.（节日前公司给每位员工都发了奖金）；They dished out cash to the workers at the end of the month.（月底他们给工人们发了现金）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：dish out 表示成批派发钱款；独立句必须有带时态的限定动词。
+2. **为什么错**：整句只有现在分词 handing out，没有限定动词，读起来是悬空的分句；同时也没有用本轮目标短语来落实「成批派发」的语气。
+3. **英语的表达逻辑**：英语把发放当成一个有施动者、有时间的具体动作，必须由限定动词承载时态；分词只能做修饰或伴随成分，不能承担整句谓语。
+4. **正确表达**：The company dished out the bonus to every employee before the festival.（节日前公司把奖金发给了每位员工）；可迁移：The school dished out new tablets to all the freshmen last week.（上周学校给所有新生发了新平板）
+
+</details>
+
+### 6. 综合运用
+
+**题目**：围绕「分发」写两句英语，两句必须使用同一个动词短语：
+- ① 描述一个把具体东西分给大家的场景；
+- ② 描述一个把批评或惩罚施加到某人身上的场景，并明确说明承受者是谁。
+
+**我的答案**：I dish out candies to everyone. \ I dish out criticism to you.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：dish out 的双重用法——分发具体物品与施加批评、惩罚。
+2. **规则与机制**：dish out + 内容 + to + 承受者；宾语既可以是具体物品（candies、flyers、money），也可以是抽象事物（criticism、punishment、advice）。
+3. **英语的表达逻辑**：英语不区分「发东西」和「发难」，只要是把内容成批送到别人手里就用同一个动词加 out 的结构，由宾语决定是实物还是抽象物。
+4. **可迁移表达**：The volunteers dished out flyers to everyone at the gate.（志愿者在门口给每个人发传单）；The teacher dished out praise to the whole group after the presentation.（展示结束后老师给整组人一顿表扬）
+
+</details>
+
+---
+
 # 2026-11-14 09:26 · 复习
 
 <table style="border-collapse:collapse;width:auto">
@@ -247,154 +398,3 @@ The next week he came back, not in uniform, and asked to wash the pots. When a t
 | 第 2 段「dished out a long list of criticism」 | 一口气抛出一长串批评 | 内容宾语加 dish out 自带强硬、连续施加的语气，换成 hand out criticism 就没有施压感 |
 | 第 3 段「dishing out one more remark about salt」 | 又补了一句关于盐的指摘 | 进行时表现他还在继续往外倒话，停不下来 |
 | 第 3 段「You can dish it out, but you can't take it」 | 你批别人行，别人说你一句就受不了 | 这是固定习语，it 回指批评，不能改写成 dish out criticism to others |
-
----
-
-# 2026-11-14 21:53 · 复习
-
-<table style="border-collapse:collapse;width:auto">
-<colgroup><col width="150"><col></colgroup>
-<tr><td>复习时间</td><td>2026-11-14 21:53</td></tr>
-<tr><td>分类 · 状态变化</td><td>phrases · learning → learning</td></tr>
-<tr><td>本轮得分</td><td>7 / 10</td></tr>
-<tr><td>题量与错题数</td><td>6 题 / 2 处错误</td></tr>
-</table>
-
-## 本轮习题
-
-### 1. 语境判断
-
-**题目**：语境：Tom 常在会上拿同事的话开玩笑，可别人回他一句类似的玩笑，他立刻沉下脸，一整天不说话。
-- 句子：He can dish it out, but he can't take it.
-- 这句话用在这个语境里是否成立？
-
-**我的答案**：成立
-
-**判定**：✅ 正确
-
-<details>
-<summary>知识点讲解</summary>
-
-1. **本题知识点**：`can dish it out but can't take it` 这一固定习语的含义与语境匹配。
-2. **规则与机制**：习语前后两个分句共用情态动词 can，`it` 回指前面提到的批评或玩笑；整体意思是「有本事挖苦别人，却受不了别人用同样方式对自己」。
-3. **英语的表达逻辑**：英语用 `take it` 表示「承受、接受批评或玩笑」，把「施加」和「承受」放在同一个动词短语的两端形成对照。
-4. **可迁移表达**：He teases everyone at the table, but he can't take a joke himself.（他拿桌上每个人开玩笑，可别人开玩笑他就受不了）；She dishes it out to the new interns and then complains when someone does the same to her.（她总把话甩给新来的实习生，别人同样对她时又开始抱怨）
-
-</details>
-
-### 2. 填空
-
-**题目**：妈妈把刚煮好的汤盛进碗里，一碗一碗端上桌。
-- My mother ____ the soup into bowls and set them on the table one by one.
-
-**我的答案**：ladles
-
-**判定**：❌ 错误
-
-<details>
-<summary>知识点讲解</summary>
-
-1. **本题知识点**：用 dish 构成的短语表达「把汤盛进碗里端上桌」。
-2. **规则与机制**：`dish up` 指把做好的饭菜盛进盘碗、端上桌，宾语是饭菜本身；`dish out` 强调把东西分发出去，用在这里会变成「把汤分发出去」。
-3. **英语的表达逻辑**：英语把「把饭菜装进餐具再端上桌」看成一个整体动作，用 up 标记「盛出、端上来」这一完成结果。
-4. **可迁移表达**：She dished up the noodles and put a bowl in front of each guest.（她把面条盛好，给每位客人面前放了一碗）；He dished up the leftovers and called it dinner.（他把剩菜盛上桌，说这就是晚饭）
-
-</details>
-
-<details>
-<summary>错题讲解</summary>
-
-1. **考点**：`dish up` 与 `dish out` 的分工。
-2. **为什么错**：所填动词只表示「用勺子舀」，没有答出「盛好端上桌」这个由 dish 构成的短语；而 dish out 表示向外分发，与「盛到碗里端上桌」不是同一个动作。
-3. **英语的表达逻辑**：英语把「装进餐具再端上桌」当成一个整体动作，用 up 标记完成、呈现的结果；把「一份份发出去」当成分配行为，用 out 标记向外送出。
-4. **正确表达**：My mother dished up the soup into bowls and set them on the table one by one.（妈妈把汤盛进碗里，一碗一碗端上桌）；可迁移：Grandma dished up the dumplings and handed each kid a plate.（奶奶把饺子盛好，给每个孩子递上一盘）
-
-</details>
-
-### 3. 单项选择
-
-**题目**：老板整个下午不停地把批评甩给团队，语气上要突出「连续、强硬地施加」。
-- A. The boss kept handing out criticism all afternoon.
-- B. The boss kept dishing out criticism all afternoon.
-- C. The boss kept giving away criticism all afternoon.
-- D. The boss kept putting out criticism all afternoon.
-
-**我的答案**：B
-
-**判定**：✅ 正确
-
-<details>
-<summary>知识点讲解</summary>
-
-1. **本题知识点**：dish out 用在批评语境时带有「连续、强硬地施加」的语气。
-2. **规则与机制**：dish out 的宾语是被施加的内容（criticism、punishment、insults）；与中性的 hand out 相比，它更强调一波接一波地甩出去。
-3. **英语的表达逻辑**：英语把批评当成可以成批「派发」的东西，用 out 表示向外不断送出，因此这个词天然带「一串接一串」的画面。
-4. **可迁移表达**：The referee dished out yellow cards in the second half.（下半场裁判接连掏出好几张黄牌）；Management dished out a series of warnings before the audit.（审计前管理层接连发出了一串警告）
-
-</details>
-
-### 4. 改错
-
-**题目**：The manager dished out his staff with a long list of complaints after the meeting.
-
-**我的答案**：The manager dished out a long list of complaints to his staff after the meeting.
-
-**判定**：✅ 正确
-
-<details>
-<summary>知识点讲解</summary>
-
-1. **本题知识点**：dish out 的宾语是被施加的内容，承受者用 to 引出。
-2. **规则与机制**：结构是 dish out + 内容（complaints、criticism、punishment）+ to / at + 承受者，不能把承受者直接放在 out 后面。
-3. **英语的表达逻辑**：英语先说要给出什么，再说给谁，`to` 明确标出接收方，避免把人本身当成被分发的东西。
-4. **可迁移表达**：The coach dished out harsh criticism to every player after the match.（赛后教练把严厉的批评甩给每个球员）；They dished out the same advice to every new hire.（他们把同样的建议讲给每个新员工）
-
-</details>
-
-### 5. 翻译
-
-**题目**：节日前，公司把奖金一笔一笔地发给每位员工，语气上要带出「成批派发」的意味。
-
-**我的答案**：The company handing out the bonus to each employee before the festival.
-
-**判定**：❌ 错误
-
-<details>
-<summary>知识点讲解</summary>
-
-1. **本题知识点**：用 dish out 表达成批派发钱款，并保证整句有带时态的限定动词。
-2. **规则与机制**：dish out 的宾语是 bonus 这类被派发的内容，承受者用 to 引出；`handing out` 是现在分词，不能单独充当谓语，独立句必须由限定动词承载时态。
-3. **英语的表达逻辑**：英语用限定动词标记「事情何时发生、是否完成」，分词只表示伴随或进行中的状态，所以时态必须先落在主动词上。
-4. **可迁移表达**：The company dished out the bonus to every employee before the festival.（节日前公司给每位员工都发了奖金）；They dished out cash to the workers at the end of the month.（月底他们给工人们发了现金）
-
-</details>
-
-<details>
-<summary>错题讲解</summary>
-
-1. **考点**：dish out 表示成批派发钱款；独立句必须有带时态的限定动词。
-2. **为什么错**：整句只有现在分词 handing out，没有限定动词，读起来是悬空的分句；同时也没有用本轮目标短语来落实「成批派发」的语气。
-3. **英语的表达逻辑**：英语把发放当成一个有施动者、有时间的具体动作，必须由限定动词承载时态；分词只能做修饰或伴随成分，不能承担整句谓语。
-4. **正确表达**：The company dished out the bonus to every employee before the festival.（节日前公司把奖金发给了每位员工）；可迁移：The school dished out new tablets to all the freshmen last week.（上周学校给所有新生发了新平板）
-
-</details>
-
-### 6. 综合运用
-
-**题目**：围绕「分发」写两句英语，两句必须使用同一个动词短语：
-- ① 描述一个把具体东西分给大家的场景；
-- ② 描述一个把批评或惩罚施加到某人身上的场景，并明确说明承受者是谁。
-
-**我的答案**：I dish out candies to everyone. \ I dish out criticism to you.
-
-**判定**：✅ 正确
-
-<details>
-<summary>知识点讲解</summary>
-
-1. **本题知识点**：dish out 的双重用法——分发具体物品与施加批评、惩罚。
-2. **规则与机制**：dish out + 内容 + to + 承受者；宾语既可以是具体物品（candies、flyers、money），也可以是抽象事物（criticism、punishment、advice）。
-3. **英语的表达逻辑**：英语不区分「发东西」和「发难」，只要是把内容成批送到别人手里就用同一个动词加 out 的结构，由宾语决定是实物还是抽象物。
-4. **可迁移表达**：The volunteers dished out flyers to everyone at the gate.（志愿者在门口给每个人发传单）；The teacher dished out praise to the whole group after the presentation.（展示结束后老师给整组人一顿表扬）
-
-</details>

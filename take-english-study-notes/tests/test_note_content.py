@@ -222,16 +222,16 @@ class NoteContentValidationTest(unittest.TestCase):
         text = note_text() + "\n---\n\n" + note_text()
         self.assert_caught(text, "标题重复出现")
 
-    def test_descending_sections_are_rejected(self) -> None:
-        older = note_text(stamp="2026-11-01 09:00").replace("12:05", "09:20")
-        text = note_text() + "\n---\n\n" + older
-        self.assert_caught(text, "按时间从早到晚排列")
+    def test_ascending_sections_are_rejected(self) -> None:
+        older = note_text(stamp="2026-11-01 09:00")
+        text = older + "\n---\n\n" + note_text()
+        self.assert_caught(text, "按时间倒序排列")
 
-    def test_same_minute_with_another_kind_is_not_misread_as_descending(self) -> None:
+    def test_same_minute_with_another_kind_is_not_misread_as_ascending(self) -> None:
         practice = note_text(stamp="2026-11-07 12:00").replace("· 复习", "· 练习")
         text = note_text() + "\n---\n\n" + practice
         issues = self.check(text)
-        self.assertFalse(any("从早到晚排列" in item["message"] for item in issues))
+        self.assertFalse(any("倒序排列" in item["message"] for item in issues))
 
     def test_paper_score_and_abandoned_score_forms_are_accepted(self) -> None:
         for score in ("550.5 / 710（无听力模拟折算分）", "710 / 710（无听力模拟折算分）", "—", "评分未保存（已放弃）"):
@@ -281,10 +281,10 @@ class NoteContentValidationTest(unittest.TestCase):
 
     def test_fix_inserts_the_missing_divider_between_blocks(self) -> None:
         first = note_text()
-        second = note_text(stamp="2026-11-08 12:00")
+        second = note_text(stamp="2026-11-06 12:00")
         # 第二个区块不再带文件级基础信息头
-        second = second[second.index("# 2026-11-08 12:00") :].replace(
-            "# 2026-11-08 12:00 · 复习", "# 2026-11-08 12:00 · 练习"
+        second = second[second.index("# 2026-11-06 12:00") :].replace(
+            "# 2026-11-06 12:00 · 复习", "# 2026-11-06 12:00 · 练习"
         )
         joined = first.rstrip("\n") + "\n" + second
         fixed, fixes = check_note.apply_safe_fixes(joined)

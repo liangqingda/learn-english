@@ -305,7 +305,7 @@ python3 learn-from-english/scripts/learning_records.py complete-review --input <
 ## 生成本轮学习笔记
 
 每一轮有实际作答的复习、聚焦练习或套题结束后，除写入规范记录外，还要在仓库根目录 `learning-record-notes/` 下写一份 Markdown 笔记。
-首次讲解的笔记由 `learn-from-english` 用 `note.py explain` 写入（文件级 `## 讲解` 小节，位于 `## 基础信息` 之后）；这里只负责在同一个文件里按时间追加复习区块，不另建文件、不改讲解小节。
+首次讲解的笔记由 `learn-from-english` 用 `note.py explain` 写入（文件级 `## 讲解` 小节，位于 `## 基础信息` 之后）；这里只负责在同一个文件里按时间倒序插入复习区块（最新一轮紧跟讲解、排在最前），不另建文件、不改讲解小节。
 笔记是**可读副本，不是规范数据源**：它不参与 `validate`、统计、抽题或调度，缺失或被删除都不影响评分与复习计划。
 
 写笔记前必须先读 `take-english-study-notes/references/note-format.md`（何时写、文件名、模板骨架、字段取值、
@@ -338,7 +338,7 @@ python3 learn-from-english/scripts/learning_records.py complete-review --input <
   不一致时仍返回 `tracking_mismatch` 与 `tracking_expected`，按它改完再用 `replace`；
   `题量与错题数` 仍须自己按本轮实际题数与 `错题讲解` 块数填写。给已存在于其他文件的记录另建文件会被直接拒绝，并给出应复用的路径。
   新建文件时首个区块必须在标题行之前带上 `## 基础信息`，否则命令直接拒绝。
-- `append` 返回 `heading_adjusted: true` 时，说明这一分钟已被占用或写入会打乱时间升序，本轮已按顺延后的 `heading` 保存；
+- `append` 返回 `heading_adjusted: true` 时，说明这一分钟已被占用或写入会打乱最新在前的顺序，本轮已按顺延后的 `heading` 保存；
   两轮内容都保留，后续修正用返回的 `heading`。只有 `duplicate: true`（同标题同内容）才表示已经写过，不要重试。
 - `note_status` 为 `valid` 才算通过；`invalid` 表示写入成功但校验未过（退出码 1），用替换命令就地修正；
   `unverified` 表示校验器不可用，必须在回复里说明「本轮笔记未校验」。行尾空格、答案题号前缀、缺失的 `---`

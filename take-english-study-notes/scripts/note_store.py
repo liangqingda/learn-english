@@ -97,11 +97,6 @@ def _block_heading(block: str) -> str:
     return block.split("\n", 1)[0].strip()
 
 
-def _ends_with_divider(text: str) -> bool:
-    stripped = text.rstrip("\n")
-    return stripped.split("\n")[-1].strip() == DIVIDER
-
-
 def _count_blocks(text: str) -> int:
     return sum(1 for line in _normalize_text(text).split("\n") if line.startswith("# "))
 
@@ -143,14 +138,39 @@ def _sections(text: str) -> list[tuple[str, str]]:
     return chunks
 
 
-def _next_free_heading(heading: str, existing: list[str]) -> str:
-    """Give the incoming block a heading that keeps the file in ascending order.
+def _split_head_and_rounds(text: str) -> tuple[str, str]:
+    """Split a note into its file-level head and the region holding date blocks.
 
-    Two rounds can legitimately finish within the same minute (concurrent
-    conversations, or a review followed by a practice). Reusing the heading
-    would either drop the new block or overwrite the previous one, so the
-    timestamp is moved to ``max(existing)+1min`` until it is both unique and
-    monotonic.
+    The head is everything above the first level-1 heading (``## 基础信息`` and
+    ``## 讲解``). The rounds region keeps every date block in file order, so a
+    caller can insert or reorder blocks without touching the head.
+    """
+    lines = _normalize_text(text).split("\n")
+    for index, line in enumerate(lines):
+        if line.startswith("# "):
+            head = "\n".join(lines[:index]).rstrip("\n")
+            rounds = "\n".join(lines[index:]).rstrip("\n")
+            return head, rounds
+    return "\n".join(lines).rstrip("\n"), ""
+
+
+def _strip_trailing_dividers(rounds: str) -> str:
+    """Drop separators left at the very end of the rounds region."""
+    lines = rounds.rstrip("\n").split("\n")
+    while lines and (not lines[-1].strip() or lines[-1].strip() == DIVIDER):
+        lines.pop()
+    return "\n".join(lines).rstrip("\n")
+
+
+def _next_free_heading(heading: str, existing: list[str]) -> str:
+    """Give the incoming block a heading that keeps the file's headings unique.
+
+    Blocks are ordered newest-first, so the incoming round belongs at the top;
+    its timestamp must still be newer than every existing round, otherwise the
+    newest-first order and the ``笔记更新时间`` stamp would both drift. Two rounds
+    can legitimately finish within the same minute (concurrent conversations,
+    or a review followed by a practice), so the timestamp is moved to
+    ``max(existing)+1min`` until it is both unique and monotonic.
     """
     match = HEADING_RE.match(heading)
     if not match:
@@ -458,8 +478,8 @@ class NoteStore:
             if adjusted:
                 block = _swap_heading(block, heading)
             body = _normalize_text(existing).rstrip("\n")
-            # 历史区块之间缺少分隔符时只追加本轮，不回填历史，
-            # 以免“整理旧格式”改写别的会话已经写下的内容。
+            # 新一轮按时间倒序插在最前：最新一轮紧跟 `## 基础信息` / `## 讲解`，
+            # 旧区块整体原样保留在下方，不重排、不改写别的会话已经写下的内容。
             if not body.strip():
                 if not head:
                     raise NoteError(
@@ -467,11 +487,14 @@ class NoteStore:
                         "(记录 ID / 试卷 ID、目标知识点、累计复习次数、下次复习、笔记生成时间、笔记更新时间)"
                     )
                 composed = f"{head}\n\n{block}"
-            elif _ends_with_divider(body) or not existing_blocks:
-                # 还没有任何日期区块时（只有基础信息与 `## 讲解`），讲解之后直接接本轮区块
+            elif not existing_blocks:
+                # 只有文件级 `## 基础信息` 与 `## 讲解` 时，本轮区块直接接在讲解之后
                 composed = f"{body}\n\n{block}"
             else:
-                composed = f"{body}\n\n{DIVIDER}\n\n{block}"
+                head_text, rounds_text = _split_head_and_rounds(body)
+                rounds_text = _strip_trailing_dividers(rounds_text)
+                prefix = f"{head_text}\n\n" if head_text.strip() else ""
+                composed = f"{prefix}{block}\n\n{DIVIDER}\n\n{rounds_text}"
             composed = _bump_updated_at(composed, datetime.now())
             self._write(target, composed)
             blocks = _count_blocks(composed)
@@ -482,7 +505,7 @@ class NoteStore:
             "heading_adjusted": adjusted,
             "requested_heading": requested_heading,
             "hint": (
-                f"{requested_heading} is already taken or would break the ascending order; "
+                f"{requested_heading} is already taken or would break the newest-first order; "
                 f"this block was saved as {heading} instead, with both rounds kept"
                 if adjusted
                 else None

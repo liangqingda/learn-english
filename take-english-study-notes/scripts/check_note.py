@@ -317,19 +317,19 @@ def check(path: Path) -> list[dict]:
     if not sections and not explain_heads:
         add(1, "缺少轮次区块标题，格式为 `# <YYYY-MM-DD HH:MM> · <复习|练习|套题>`；首次讲解写 `## 讲解` 小节")
 
-    # 2b. 区块标题不得重复，且必须按时间升序排列（新轮次只能追加在末尾）
+    # 2b. 区块标题不得重复，且必须按时间倒序排列（最新一轮在最前，旧区块依次排后）
     headings = [f"{date} {time} · {kind}" for _, date, time, kind in sections]
     # 排序只比较时间戳：同一分钟的两轮（复习后再练习）用不同 kind 是合法的，
-    # 不能因为 `· 复习` / `· 练习` 的字符顺序被判成倒序。
+    # 不能因为 `· 复习` / `· 练习` 的字符顺序被判成乱序。
     stamps = [f"{date} {time}" for _, date, time, _kind in sections]
     for index, heading in enumerate(headings):
         if headings.count(heading) > 1 and headings.index(heading) == index:
             add(sections[index][0], f"同一日期区块标题重复出现：`# {heading}`；一轮只能有一个区块")
     for index in range(len(stamps) - 1):
-        if stamps[index] > stamps[index + 1]:
+        if stamps[index] < stamps[index + 1]:
             add(
                 sections[index + 1][0],
-                "日期区块必须按时间从早到晚排列：旧区块保留在文件前部，新一轮只追加到末尾",
+                "日期区块必须按时间倒序排列：最新一轮排在最前，旧区块依次排在后面",
             )
 
     # 3. 旧的错误标题格式（把日期区块写成 `## 追踪` 或降成二级标题）

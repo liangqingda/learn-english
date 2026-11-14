@@ -66,7 +66,7 @@ class NoteAppendTest(unittest.TestCase):
         text = self.note.read_text(encoding="utf-8")
         self.assertEqual(text.count("\n---\n"), 1)
         self.assertEqual(
-            result_order(text), ["2026-11-07 21:00", "2026-11-08 09:30"]
+            result_order(text), ["2026-11-08 09:30", "2026-11-07 21:00"]
         )
 
     def test_update_inserts_explanation_into_a_note_that_has_none(self) -> None:
@@ -90,7 +90,7 @@ class NoteAppendTest(unittest.TestCase):
         self.assertLess(text.index("## 讲解"), text.index("# 2026-11-07 21:00 · 复习"))
         # 两个已有区块一字不动
         self.assertEqual(
-            result_order(text), ["2026-11-07 21:00", "2026-11-08 09:30"]
+            result_order(text), ["2026-11-08 09:30", "2026-11-07 21:00"]
         )
         self.assertEqual(text.count("\n---\n"), 1)
 
@@ -153,9 +153,10 @@ class NoteAppendTest(unittest.TestCase):
         self.assertIn("改过的内容", text)
         self.assertIn("第 1 轮", text)
         self.assertEqual(result["blocks"], 2)
+        # 最新一轮排在最前：顺延到更晚分钟的那块在旧区块之上
         self.assertLess(
-            text.index("# 2026-11-07 21:00 · 复习"),
             text.index(result["heading"]),
+            text.index("# 2026-11-07 21:00 · 复习"),
         )
 
     def test_identical_content_with_same_heading_is_a_duplicate(self) -> None:
@@ -180,20 +181,18 @@ class NoteAppendTest(unittest.TestCase):
         self.assertEqual(result["file"], "learning-record-notes/errors-out-west.md")
         self.assertTrue(self.note.exists())
 
-    def test_legacy_file_without_dividers_is_appended_not_reformatted(self) -> None:
+    def test_legacy_file_without_dividers_keeps_history_as_suffix(self) -> None:
         legacy = round_block("2026-11-04 10:00") + round_block("2026-11-05 10:00")
         self.note.parent.mkdir(parents=True, exist_ok=True)
         self.note.write_text(legacy, encoding="utf-8")
         self.store.append(self.note, round_block("2026-11-06 10:00"))
         text = self.note.read_text(encoding="utf-8")
-        # 只有文件级 `笔记更新时间` 随这次写入刷新，历史区块一个字都不改
-        expected_prefix = re.sub(
-            r"<tr><td>笔记更新时间</td><td>.*?</td></tr>",
-            f"<tr><td>笔记更新时间</td><td>{updated_at_value(self.note)}</td></tr>",
-            legacy,
-            count=1,
-        )
-        self.assertTrue(text.startswith(expected_prefix))
+        # 历史区块一个字都不改，整段原样留在最新一轮之后
+        self.assertTrue(text.startswith("## 基础信息\n"))
+        self.assertTrue(text.rstrip("\n").endswith(legacy.rstrip("\n").split("\n")[-1]))
+        self.assertLess(text.index("# 2026-11-06 10:00 · 复习"), text.index("# 2026-11-04 10:00 · 复习"))
+        # 写入器只把新轮次插到最前，历史区块的相对顺序原样保留（历史乱序由一次性迁移处理）
+        self.assertEqual(result_order(text), ["2026-11-06 10:00", "2026-11-04 10:00", "2026-11-05 10:00"])
         self.assertEqual(text.count("\n---\n"), 1)
 
     def test_block_must_start_with_a_round_heading(self) -> None:
@@ -309,7 +308,7 @@ class NoteAppendTest(unittest.TestCase):
         self.assertIn("第 3 轮", text)
         self.assertEqual(
             result_order(text),
-            ["2026-11-07 21:00", "2026-11-08 09:30", "2026-11-09 09:30"],
+            ["2026-11-09 09:30", "2026-11-08 09:30", "2026-11-07 21:00"],
         )
 
     def test_replace_block_rejects_unknown_or_changed_heading(self) -> None:
@@ -583,7 +582,7 @@ class NoteCliTest(unittest.TestCase):
         text = self.note.read_text(encoding="utf-8")
         self.assertIn("westward", text)
         self.assertIn("2026-11-10 09:00", text)
-        self.assertEqual(result_order(text), ["2026-11-09 09:00", "2026-11-10 09:00"])
+        self.assertEqual(result_order(text), ["2026-11-10 09:00", "2026-11-09 09:00"])
 
     def test_cli_replace_keeps_sections_the_new_content_omits(self) -> None:
         completed = self.run_cli(
