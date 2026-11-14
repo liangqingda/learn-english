@@ -217,6 +217,25 @@ LEGACY_MENU_ITEM_RE = re.compile(r"^\d+\.\s|^菜单：")
 MENU_EMOJI_RE = re.compile(
     "^[\U0001F000-\U0001FAFF\u2600-\u27BF\u2B00-\u2BFF\u2190-\u21FF\uFE0F\u200D]"
 )
+STORY_SUMMARY = "故事原文"
+STORY_SENTENCE_RE = re.compile(r"[A-Za-z][^.!?]*[.!?]")
+
+
+def story_sentences(section_text: str) -> int:
+    """数出 `故事原文` 折叠块里的英文叙事句数。
+
+    译文行以中文句号收尾，不会被计成英文句子；缩写成「只写了两句就收工」的故事会被这条拦住。
+    """
+    start = section_text.find(f"<summary>{STORY_SUMMARY}</summary>")
+    if start < 0:
+        return 0
+    end = section_text.find("</details>", start)
+    block = section_text[start : end if end >= 0 else len(section_text)]
+    return sum(
+        1
+        for match in STORY_SENTENCE_RE.findall(block)
+        if len(re.findall(r"[A-Za-z]+", match)) >= 3
+    )
 MENU_FIELD_RE = re.compile(r"^\*\*(讲解要点|可迁移表达)\*\*：")
 MENU_CHILD_RE = re.compile(r"^(?:\s{2,}|\t)(?:[-*] |\d+\. )")
 NOTE_DIR_NAME = "learning-record-notes"
@@ -742,6 +761,20 @@ def check(path: Path) -> list[dict]:
                     "场景对话小节必须保留完整对话原文：`<details><summary>场景对话原文</summary>` 不能省，"
                     "只写讲解要点不算完成",
                 )
+            if "小故事" in g_title and STORY_SUMMARY not in section_text:
+                add(
+                    line_no,
+                    "小故事小节必须保留完整故事原文：`<details><summary>故事原文</summary>` 不能省，"
+                    "只写讲解要点不算完成",
+                )
+            if "小故事" in g_title:
+                sentence_count = story_sentences(section_text)
+                if sentence_count < 8:
+                    add(
+                        line_no,
+                        f"故事原文至少要有 8 句英文叙事（当前 {sentence_count} 句）：故事被截断或只写了几句，"
+                        "等于这一段没有交付",
+                    )
             if "场景对话" in g_title:
                 turns = [
                     line

@@ -15,6 +15,7 @@ READ_ONLY_KINDS = frozenset(
         "status",
         "error-clusters",
         "scenario-dialogue",
+        "focus-story",
         "explain-current-exercise",
         "paper-history",
         "historical-unanswered-paper",
@@ -241,6 +242,23 @@ def _scenario_option(focus: str | None, *, initial: bool = False) -> dict[str, A
     )
 
 
+def _story_option(focus: str | None, *, initial: bool = False) -> dict[str, Any]:
+    target = _follow_up_target(focus, initial=initial)
+    label = (
+        "读一个在日常生活里展开的小故事"
+        if initial and not (focus or "").strip()
+        else f"读一个围绕「{target}」的小故事"
+    )
+    return _option(
+        "focus-story",
+        "📖",
+        label,
+        "other",
+        kind="focus-story",
+        focus=target,
+    )
+
+
 def _with_dynamic_other_options(
     popular_options: list[dict[str, Any]],
     context: str,
@@ -265,6 +283,7 @@ def _with_dynamic_other_options(
         )
     )
     options.append(_scenario_option(focus, initial=initial))
+    options.append(_story_option(focus, initial=initial))
     return options
 
 
@@ -523,6 +542,7 @@ def _learn_options(
         for option_id, icon, label, kind in suggestions
     )
     options.append(_scenario_option(focus))
+    options.append(_story_option(focus))
     options.append(
         _option(
             "learning-progress",

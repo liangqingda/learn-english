@@ -58,6 +58,7 @@ class MenuInvariantTest(unittest.TestCase):
             options = menu["options"]
             self.assertEqual(menu["state"], "ready")
             self.assertIn("scenario-dialogue", {option["kind"] for option in options})
+            self.assertIn("focus-story", {option["kind"] for option in options})
             self.assertGreaterEqual(
                 sum(1 for option in options if option["group"] == "other"),
                 3,
@@ -83,6 +84,22 @@ class MenuInvariantTest(unittest.TestCase):
                     len(set(icons)),
                     f"{context}/{group} has duplicate sibling icons: {icons}",
                 )
+
+    def test_story_option_is_read_only_and_follows_the_scenario(self) -> None:
+        for context in ("initial", "review-complete", "learn"):
+            options = self.context_menu(context)["options"]
+            scenario_index = next(
+                index
+                for index, option in enumerate(options)
+                if option["kind"] == "scenario-dialogue"
+            )
+            story = options[scenario_index + 1]
+            self.assertEqual(story["kind"], "focus-story")
+            self.assertEqual(story["icon"], "📖")
+            self.assertEqual(story["group"], "other")
+            self.assertFalse(story["writes"])
+            self.assertIn("help yourself", story["label"])
+            self.assertNotIn("咖啡店", story["label"])
 
     def test_learn_menu_puts_grammar_first_and_drops_it_when_explained(self) -> None:
         menu = build_menu(self.service.records(), "learn", focus="help yourself")
@@ -368,6 +385,42 @@ class MenuItemNoteTest(unittest.TestCase):
         )
         issues = self.check_text(text)
         self.assertTrue(any("场景对话原文" in issue["message"] for issue in issues))
+
+
+    def story(self, sentence_count: int = 12, *, block: bool = True) -> str:
+        body = "\n".join(
+            f"Sentence {index} moves the story forward for the reader."
+            for index in range(1, sentence_count + 1)
+        )
+        story_block = (
+            "<details>\n<summary>故事原文</summary>\n\n"
+            f"{body}\n\n（第 1 段译文）\n\n"
+            "</details>\n\n"
+            if block
+            else ""
+        )
+        return (
+            "## 读一个围绕「a price to pay」的小故事\n\n"
+            "**讲解要点**：\n\n"
+            "- 目标表达的落点\n  - There is always a price to pay.（总要付出代价。）\n\n"
+            + story_block
+            + "| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |\n"
+            "|---|---|---|\n"
+            "| 第 1 段 | 提醒代价 | 固定搭配 |\n"
+        )
+
+    def test_story_section_without_story_text_is_rejected(self) -> None:
+        text = self.base_note() + "\n" + self.story(block=False)
+        issues = self.check_text(text)
+        self.assertTrue(any("故事原文" in issue["message"] for issue in issues))
+
+    def test_short_story_is_rejected(self) -> None:
+        text = self.base_note() + "\n" + self.story(sentence_count=3)
+        issues = self.check_text(text)
+        self.assertTrue(any("8 句英文叙事" in issue["message"] for issue in issues))
+
+    def test_full_story_passes(self) -> None:
+        self.assertEqual(self.check_text(self.base_note() + "\n" + self.story()), [])
 
 
 class DocumentationDriftTest(unittest.TestCase):

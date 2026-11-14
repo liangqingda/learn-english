@@ -177,7 +177,7 @@ python3 learn-from-english/scripts/learning_records.py release-claim \
 python3 learn-from-english/scripts/learning_records.py mastered-list
 ```
 
-菜单 option 以 `kind` 决定分派，并为 CLI 操作提供结构化 `action`；调用方不得从 label 或 ID 猜行为。`action.status` 固定映射为 `next-review --status <value>`，`action.random: true` 映射为 `--random`。综合复习项可以带 `children`，顶层编号为 `1`，子项编号为 `1-1`。菜单还会报告 `available_count`、`claimed_count`、`busy` 和 `disabled`，避免把暂时都被领取的记录显示成可立即抽取。
+菜单 option 以 `kind` 决定分派，并为 CLI 操作提供结构化 `action`；调用方不得从 label 或 ID 猜行为。`scenario-dialogue` 与 `focus-story` 都是只读展示项（`writes: false`）：前者输出多轮场景对话，后者输出围绕 `focus` 的单线叙事小故事，两者都不计分、不写 `errors`。`action.status` 固定映射为 `next-review --status <value>`，`action.random: true` 映射为 `--random`。综合复习项可以带 `children`，顶层编号为 `1`，子项编号为 `1-1`。菜单还会报告 `available_count`、`claimed_count`、`busy` 和 `disabled`，避免把暂时都被领取的记录显示成可立即抽取。
 
 选题先考虑是否到期，再考虑到期时间、掌握分、遗忘次数和稳定 ID。普通继续复习按低分与遗忘次数加权；已掌握复习使用随机抽查。完整套题入口使用 `mastered-list` 返回已掌握素材。
 
@@ -256,7 +256,7 @@ python3 learn-from-english/scripts/take-english-study-notes/scripts/note.py sect
 
 `error-clusters` 默认返回**精简**结果：`clusters`（id / label / count / record_ids）与 `options`（脚本生成的错题专题菜单项，含未归类入口）、`unclustered_count`、`tag_families`（最多 12 条）+ `tag_family_total`，不再内联全部记录（`errors` 记录上百条时输出从 230 KB 降到 17 KB 量级）。需要某一类的完整材料时用 `error-cluster-get` 取回精简字段（id / title / explanation / source / example / tags），它的 `--minimum-size` 必须与 `error-clusters` 一致，否则拿到的 cluster id 可能对不上；它不自动合并记录，也不改变多个规范记录的分数。`list` / `familiar-list` / `mastered-list` 加 `--brief` 可省略 `review_history` 与调度时间戳。
 
-`snapshot` 是一次拿齐“仓库现在到哪了”的只读入口：`git_head`、笔记文件清单、每个文件的**轮次区块与 `##` 小节标题索引**、`record_files`（记录 ID → 笔记文件，记录已改名也能定位）。结果缓存在 `.cache/snapshot.json`，默认 30 分钟有效（`--max-age` 可改，`--refresh` 强制重建），命中时带 `source: cache` 与 `age_seconds`；`live_git_head` 与 `head_drift` 给出一次实时 HEAD 比对，`head_drift: true` 表示工作树已被别的会话推进，只读展示可继续，写入前再 `--refresh`。笔记写入已独立到 `take-english-study-notes`，不再刷新这份快照；写前确认目标区块用 `take-english-study-notes/scripts/note.py sections`，需要新的仓库索引时再跑 `snapshot --refresh`。缓存只是加速层：读索引前会比对文件的 `size` 与 `mtime`，不一致就回退到真实解析，删掉缓存文件也永远安全。菜单 option 现在带 `writes`：`false` 的项（场景对话、学习进度、错题聚类、剖析当前题、历史试卷导航）只展示内容，不做仓库核对；校验器只在写入路径运行。
+`snapshot` 是一次拿齐“仓库现在到哪了”的只读入口：`git_head`、笔记文件清单、每个文件的**轮次区块与 `##` 小节标题索引**、`record_files`（记录 ID → 笔记文件，记录已改名也能定位）。结果缓存在 `.cache/snapshot.json`，默认 30 分钟有效（`--max-age` 可改，`--refresh` 强制重建），命中时带 `source: cache` 与 `age_seconds`；`live_git_head` 与 `head_drift` 给出一次实时 HEAD 比对，`head_drift: true` 表示工作树已被别的会话推进，只读展示可继续，写入前再 `--refresh`。笔记写入已独立到 `take-english-study-notes`，不再刷新这份快照；写前确认目标区块用 `take-english-study-notes/scripts/note.py sections`，需要新的仓库索引时再跑 `snapshot --refresh`。缓存只是加速层：读索引前会比对文件的 `size` 与 `mtime`，不一致就回退到真实解析，删掉缓存文件也永远安全。菜单 option 现在带 `writes`：`false` 的项（场景对话、小故事、学习进度、错题聚类、剖析当前题、历史试卷导航）只展示内容，不做仓库核对；校验器只在写入路径运行。
 
 `sections` 是写笔记前的只读体检：返回该文件的全部轮次标题与每个轮次下的 `##` 小节标题，`--heading` 只看一个轮次；带 `--section "## ..."` 时额外返回 `has_section`，据此决定 `append-section` 还是 `replace --rewrite-section`，不必拼好整段内容再被拒。它同样走缓存索引，文件被外部改动时自动回真实解析。
 

@@ -46,7 +46,7 @@ python3 learn-from-english/scripts/learning_records.py menu --context initial
 
 ## 会话效率
 
-只读选择（option 带 `writes: false`，即 `scenario-dialogue`、`status`、`error-clusters`、`explain-current-exercise`、`paper-history`、`historical-unanswered-paper`）只展示内容或查询结果，不核对仓库状态：不运行 `git status`、`git log`、`git diff`，不扫描 `learning-record-notes/` 目录，不用 grep 判断小节是否存在。直接根据当前对话和快照作答。
+只读选择（option 带 `writes: false`，即 `scenario-dialogue`、`focus-story`、`status`、`error-clusters`、`explain-current-exercise`、`paper-history`、`historical-unanswered-paper`）只展示内容或查询结果，不核对仓库状态：不运行 `git status`、`git log`、`git diff`，不扫描 `learning-record-notes/` 目录，不用 grep 判断小节是否存在。直接根据当前对话和快照作答。
 
 需要知道“仓库现在到哪了”（HEAD、笔记文件清单、记录→笔记文件映射、某个文件已有哪些区块和小节）时，只运行一次 `snapshot`，不要用多条 `ls` / `git` / `grep` 拼出同一个答案：
 
@@ -74,6 +74,7 @@ python3 learn-from-english/scripts/learning_records.py snapshot --notes
 - `retry-random-paper`：运行 `paper-list --status completed --random`，再对返回的 `paper_id` 运行 `paper-get`；展示原卷但不展示旧答案，首次提交时省略 `attempt_id` 以创建新的 attempt。
 - `starter-practice`：在没有学习记录时，围绕一个日常表达生成 2 至 3 道基础英语练习；不写入评分。题目未作答时不显示菜单；用户提交后批改，并仅在实际出错时用一次 `batch-upsert` 保存可复用错误。
 - `scenario-dialogue`：有当前记录或 focus 时围绕它输出完整多轮场景对话；仅在两者都不存在时使用脚本给出的日常场景。不要把已有记录替换成咖啡店主题，也不要默认开启互动角色扮演，除非用户明确要求 role-play。
+- `focus-story`：围绕 option 的 `focus` 输出单线叙事小故事，不写成对话；篇幅、结构、目标表达落点、中文对照与收尾三列表按仓库根目录 `AGENTS.md` 的小故事规则执行。它不生成练习、不计分、不调用 `complete-review`、不写 `errors`，完整故事只是示例材料；展示完照常给下一轮菜单。
 - `follow-up-learning`：围绕 option label 和 `focus` 生成语法、词汇、对比、发音或产出内容。若生成未作答练习，不显示菜单；用户提交后批改，但不调用 `complete-review`。只把实际展示的可复用错误用一次 `batch-upsert` 保存。若讲解引入新的稳定知识点，按“后续学习知识点记录”保存。
 - `explain-current-exercise`：`review-complete` 菜单已不再返回该项，保留分派只为兼容历史菜单；它只在用户刚完成的复习答案存在错误或存在未作答题时解释该题组，不生成新题；错题说明考点、错误机制与正确表达，未作答题说明卡点与参考表达背后的英语计量、语义或结构逻辑。
 - `error-clusters`：运行 `error-clusters`，按返回的 `options` 顺序与 `label` 原文展示（脚本已生成全部可选项，**禁止**再手工拼 `1-1` 子项、自行追加「未归类」入口或调整分组）。`tag_families` 只用来说明错题集中在哪类问题。
@@ -344,7 +345,7 @@ python3 learn-from-english/scripts/learning_records.py complete-review --input <
 
 ## 场景对话错题
 
-未作为评分复习任务的互动角色扮演不调用 `complete-review`。默认的完整场景对话脚本只是示例材料，不记录错题。只有用户明确参与互动角色扮演并确实出现、得到纠正的英语错误时，才把本轮所有错误组成一批 `errors` 记录，运行一次 `batch-upsert`。完全正确时不写错误记录。
+未作为评分复习任务的互动角色扮演不调用 `complete-review`。默认的完整场景对话脚本、以及 `focus-story` 输出的完整故事都只是示例材料，不记录错题。只有用户明确参与互动角色扮演并确实出现、得到纠正的英语错误时，才把本轮所有错误组成一批 `errors` 记录，运行一次 `batch-upsert`。完全正确时不写错误记录。
 
 ## 完整英语考试套题
 

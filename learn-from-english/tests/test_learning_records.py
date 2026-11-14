@@ -601,6 +601,7 @@ class LearningRecordsTest(unittest.TestCase):
             self.assertGreaterEqual(len(other_options), 3)
             self.assertIn("popular", {option["group"] for option in menu["options"]})
             self.assertIn("scenario-dialogue", {option["id"] for option in menu["options"]})
+            self.assertIn("focus-story", {option["id"] for option in menu["options"]})
             self.assertEqual(
                 len({option["icon"] for option in rendered_options}),
                 len(rendered_options),
@@ -657,6 +658,14 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertNotIn("咖啡店", initial_labels["scenario-dialogue"])
         self.assertIn("errors errors-item", initial_labels["scenario-dialogue"])
         self.assertIn("完整场景对话", initial_labels["scenario-dialogue"])
+        story = next(
+            item for item in complete["options"] if item["id"] == "focus-story"
+        )
+        self.assertIn("present perfect", story["label"])
+        self.assertIn("小故事", story["label"])
+        self.assertFalse(story["writes"])
+        self.assertIn("errors errors-item", initial_labels["focus-story"])
+        self.assertNotIn("咖啡店", initial_labels["focus-story"])
         mastered_paper = next(
             item for item in initial["options"] if item["id"] == "mastered-exam-paper"
         )
@@ -691,6 +700,7 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertGreaterEqual(len(other_options), 3)
         self.assertIn("starter-practice", {option["id"] for option in other_options})
         self.assertIn("scenario-dialogue", {option["id"] for option in other_options})
+        self.assertIn("focus-story", {option["id"] for option in other_options})
 
     def test_follow_up_menu_only_includes_available_review_statuses(self) -> None:
         self.service.upsert(payload("grammar", "status-matrix"))
