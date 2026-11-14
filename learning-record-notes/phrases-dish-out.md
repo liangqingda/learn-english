@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>7</td></tr>
 <tr><td>下次复习</td><td>2026-11-17 09:26</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-10 19:17</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-14 09:27</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-14 09:31</td></tr>
 </table>
 
 ## 讲解
@@ -208,3 +208,42 @@ Our supervisor dished out us a lot of extra tasks last week.
 4. **正确表达**：My colleague always dishes out criticism to others, but he can't take it when they criticize him.（我同事总爱挑别人毛病，可别人挑他毛病他就受不了）；可迁移：She dishes out orders to her interns but hates being told what to do.（她总给实习生下命令，却讨厌别人指挥她）
 
 </details>
+
+## 读一个围绕「dish out：分发、给出（食物、批评、惩罚）」的小故事
+
+**讲解要点**：
+- dish out 的宾语是被分发或被施加的内容（食物、批评、意见），人只能由 to 引出。
+  - Volunteers dished out hot soup to the crowd.（志愿者把热汤分给人群）
+  - He dished out criticism to the whole crew.（他把整队人挨个批评了一通）
+- 接抽象内容时自带「大量、强硬、不加挑选地往外倒」的语气。
+  - She dished out advice to anyone who walked past.（她见谁就给谁提建议）
+- 固定习语 can dish it out but can't take it 中 it 回指批评或玩笑，不能换成具体名词。
+  - He teases everyone but sulks when teased — he can dish it out but he can't take it.（他老打趣别人，自己被打趣就闹别扭）
+
+<details><summary>故事原文</summary>
+
+On the first cold night of November, the community kitchen on Mill Street opened its doors. Volunteers dished out hot soup and bread to everyone who came in from the rain. Nobody asked for names; bowls simply appeared in front of them. Among the servers stood Officer Dan, who had spent the whole summer handing out parking tickets.
+
+十一月的第一个寒夜，磨坊街的社区厨房开了门。志愿者把热汤和面包分给每一个从雨里走进来的人。没人问姓名，碗就那么出现在他们面前。分餐的人里站着丹警官，他整个夏天都在开违停罚单。
+
+Dan was a man with opinions, and he dished them out as freely as the soup. He told the students to cut their hair and the drivers to slow down. That night he dished out a long list of criticism to the kitchen crew: the soup was too salty, the bread too dry, the queue too messy. The young volunteers said nothing and kept working.
+
+丹是个满肚子意见的人，撒意见跟分汤一样勤快。他叫学生把头发剪短，叫司机开慢点。那晚他给厨房的人抛出一长串批评：汤太咸、面包太干、排队太乱。年轻的志愿者一句没说，继续干活。
+
+At eleven, the head cook, Mrs. Alvarez, set a bowl of soup in front of Dan. "Taste it," she said. He tasted it, frowned, and then made the mistake of dishing out one more remark about salt. Mrs. Alvarez looked at him and said quietly, "You can dish it out, but you can't take it." Dan put down the spoon and said nothing for a long moment.
+
+十一点，主厨阿尔瓦雷斯太太把一碗汤放到丹面前。「尝尝。」她说。他尝了，皱着眉，接着又犯了个错——对盐多说了那么一句。阿尔瓦雷斯太太看着他，轻轻说：「你批别人行，被说一句就受不了。」丹放下勺子，好一会儿没说话。
+
+The next week he came back, not in uniform, and asked to wash the pots. When a teenager mocked his slow scrubbing, he laughed instead of answering back. By closing time he had learned the difference between serving and judging.
+
+下一周他又来了，没穿制服，要求洗锅。一个少年嘲笑他刷得太慢，他笑了，没有回嘴。到打烊时，他分清了「上菜」和「评判」的区别。
+
+</details>
+
+| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |
+|---|---|---|
+| 第 1 段「Volunteers dished out hot soup and bread」 | 把热汤和面包大份大份地分给排队的人 | dish out 有「一份份往外倒」的画面感，hand out、give out 偏中性，撑不起那个热闹的分餐场面 |
+| 第 2 段「he dished them out as freely as the soup」 | 他撒意见跟分汤一样随意、不加挑选 | 用同一个动词把「分食物」和「抛意见」并置，才显出他对谁都能评两句 |
+| 第 2 段「dished out a long list of criticism」 | 一口气抛出一长串批评 | 内容宾语加 dish out 自带强硬、连续施加的语气，换成 hand out criticism 就没有施压感 |
+| 第 3 段「dishing out one more remark about salt」 | 又补了一句关于盐的指摘 | 进行时表现他还在继续往外倒话，停不下来 |
+| 第 3 段「You can dish it out, but you can't take it」 | 你批别人行，别人说你一句就受不了 | 这是固定习语，it 回指批评，不能改写成 dish out criticism to others |
