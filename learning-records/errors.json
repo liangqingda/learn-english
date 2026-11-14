@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 249,
+  "revision": 250,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -2754,6 +2754,31 @@
       ],
       "first_learned_at": "2026-11-08T15:54:05+08:00",
       "last_learned_at": "2026-11-08T15:54:05+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:informal-diction-in-formal-notice": {
+      "id": "errors:informal-diction-in-formal-notice",
+      "category": "errors",
+      "key": "informal-diction-in-formal-notice",
+      "status": "learning",
+      "title": "正式通知仍沿用口语化措辞",
+      "explanation": "把口语改成正式书面通知时，只替换掉 all set 不够，缩写 Everything's、评价式叮嘱 no need to worry 仍属口语。正式通知要用完整形式和客观陈述，例如 All the arrangements have been completed; no further action is required.。",
+      "source": "Everything's ready - no need to worry.",
+      "example": "All the arrangements have been completed; no further action is required.",
+      "tags": [
+        "register",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-14T21:59:35+08:00",
+      "last_learned_at": "2026-11-14T21:59:35+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

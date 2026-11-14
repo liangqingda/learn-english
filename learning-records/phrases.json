@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 245,
+  "revision": 250,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -159,7 +159,7 @@
     "phrases:all-set": {
       "id": "phrases:all-set",
       "category": "phrases",
-      "status": "learning",
+      "status": "familiar",
       "title": "all set：一切就绪 / 搞定",
       "explanation": "all set 是非正式口语惯用语：set 在此是形容词，意为 ready / arranged，all 加强语气；意思是「一切都准备好了、安排妥当了、没问题了」，常用于告知别人事情已经搞定、可以放心，语气亲切、带安抚意味，美式英语高频。常见场景：点餐后服务员问 Are you all set?（点好了吗）、出发前确认 All set?、向对方保证 All set — we've taken care of everything。它只描述「人或整体安排」已经就绪的状态，不能像 deliver / send 那样接 to + 地点表示「送到某地」：the luggage was all set to the hotel lobby 缺真正的动作动词，应说 was delivered to the hotel lobby。",
       "source": "用户输入 \"It's all set.\"",
@@ -178,11 +178,11 @@
       "first_learned_at": "2026-10-28T08:01:39+08:00",
       "last_learned_at": "2026-11-06T20:56:44+08:00",
       "learned_count": 3,
-      "mastery_score": 0.0,
-      "review_count": 1,
-      "high_score_streak": 0,
-      "last_reviewed_at": "2026-11-06T20:56:44+08:00",
-      "next_review_at": "2026-11-09T20:56:44+08:00",
+      "mastery_score": 8.0,
+      "review_count": 2,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-11-14T21:59:35+08:00",
+      "next_review_at": "2026-11-21T21:59:35+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
@@ -191,6 +191,12 @@
           "reviewed_at": "2026-11-06T20:56:44+08:00",
           "previous_status": "learning",
           "new_status": "learning"
+        },
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-11-14T21:59:35+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
         }
       ],
       "key": "all-set"
