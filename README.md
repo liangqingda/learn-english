@@ -177,7 +177,7 @@ python3 learn-from-english/scripts/learning_records.py release-claim \
 python3 learn-from-english/scripts/learning_records.py mastered-list
 ```
 
-菜单 option 以 `kind` 决定分派，并为 CLI 操作提供结构化 `action`；调用方不得从 label 或 ID 猜行为。`scenario-dialogue` 与 `focus-story` 都是只读展示项（`writes: false`）：前者输出多轮场景对话，后者输出围绕 `focus` 的单线叙事小故事，两者都不计分、不写 `errors`。`action.status` 固定映射为 `next-review --status <value>`，`action.random: true` 映射为 `--random`。综合复习项可以带 `children`，顶层编号为 `1`，子项编号为 `1-1`。菜单还会报告 `available_count`、`claimed_count`、`busy` 和 `disabled`，避免把暂时都被领取的记录显示成可立即抽取。
+菜单 option 以 `kind` 决定分派，并为 CLI 操作提供结构化 `action`；调用方不得从 label 或 ID 猜行为。`scenario-dialogue` 与 `focus-story` 都是只读展示项（`writes: false`）：前者输出多轮场景对话，后者输出围绕 `focus` 的单线叙事小故事，两者都不计分、不写 `errors`。`follow-up-directions` 是只读的导航父项，把 5 个练习方向作为 `children` 一次列全（不再按 focus 哈希抽 2 个），选中子项仍按 `follow-up-learning` 分派。`action.status` 固定映射为 `next-review --status <value>`，`action.random: true` 映射为 `--random`。综合复习项与练习方向项都可以带 `children`，顶层编号为 `1`，子项编号为 `1-1`。菜单还会报告 `available_count`、`claimed_count`、`busy` 和 `disabled`，避免把暂时都被领取的记录显示成可立即抽取。
 
 选题先考虑是否到期，再考虑到期时间、掌握分、遗忘次数和稳定 ID。普通继续复习按低分与遗忘次数加权；已掌握复习使用随机抽查。完整套题入口使用 `mastered-list` 返回已掌握素材。
 

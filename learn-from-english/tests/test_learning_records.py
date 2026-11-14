@@ -592,22 +592,26 @@ class LearningRecordsTest(unittest.TestCase):
 
         for menu in (initial, complete, complete_with_errors, explained):
             other_options = [option for option in menu["options"] if option["group"] == "other"]
-            rendered_options = [
-                rendered
-                for option in menu["options"]
-                for rendered in (option, *option.get("children", []))
-            ]
             self.assertGreaterEqual(len(menu["options"]), 3)
             self.assertGreaterEqual(len(other_options), 3)
             self.assertIn("popular", {option["group"] for option in menu["options"]})
             self.assertIn("scenario-dialogue", {option["id"] for option in menu["options"]})
             self.assertIn("focus-story", {option["id"] for option in menu["options"]})
-            self.assertEqual(
-                len({option["icon"] for option in rendered_options}),
-                len(rendered_options),
+            self.assertIn(
+                "follow-up-directions", {option["id"] for option in menu["options"]}
             )
+            # 图标只在同级内要求唯一：嵌套子项允许复用上一层或另一个父项下的 emoji。
+            top_icons = [option["icon"] for option in menu["options"]]
+            self.assertEqual(len(top_icons), len(set(top_icons)))
+            for option in menu["options"]:
+                child_icons = [child["icon"] for child in option.get("children", [])]
+                self.assertEqual(len(child_icons), len(set(child_icons)))
             self.assertGreaterEqual(
-                sum(option["kind"] == "follow-up-learning" for option in other_options),
+                sum(
+                    child["kind"] == "follow-up-learning"
+                    for option in other_options
+                    for child in option.get("children", [])
+                ),
                 2,
             )
             for option in menu["options"]:
@@ -642,13 +646,19 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertIn("mastered-exam-paper", complete_labels)
         self.assertIn(
             "follow-up-learning",
-            {item["kind"] for item in complete["options"] if item["group"] == "other"},
+            {
+                child["kind"]
+                for item in complete["options"]
+                if item["group"] == "other"
+                for child in item.get("children", [])
+            },
         )
         self.assertTrue(
             any(
-                "present perfect" in item["label"]
+                "present perfect" in child["label"]
                 for item in complete["options"]
-                if item["kind"] == "follow-up-learning"
+                for child in item.get("children", [])
+                if child["kind"] == "follow-up-learning"
             )
         )
         self.assertIn("present perfect", complete_labels["scenario-dialogue"])

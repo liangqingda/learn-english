@@ -101,6 +101,31 @@ class MenuInvariantTest(unittest.TestCase):
             self.assertIn("help yourself", story["label"])
             self.assertNotIn("咖啡店", story["label"])
 
+    def test_follow_up_directions_group_exposes_every_direction(self) -> None:
+        for context in ("initial", "review-complete"):
+            options = self.context_menu(context)["options"]
+            parents = [
+                option for option in options if option["kind"] == "follow-up-directions"
+            ]
+            self.assertEqual(len(parents), 1, f"{context} must expose one direction group")
+            parent = parents[0]
+            self.assertEqual(parent["icon"], "🧭")
+            self.assertFalse(parent["writes"])
+            children = parent["children"]
+            self.assertEqual(len(children), 5)
+            self.assertEqual(
+                {child["icon"] for child in children}, {"🧩", "📚", "🔄", "✍️", "🎧"}
+            )
+            for child in children:
+                self.assertEqual(child["kind"], "follow-up-learning")
+                self.assertIn("help yourself", child["label"])
+                self.assertNotIn("咖啡店", child["label"])
+            self.assertEqual(
+                sum(option["kind"] == "follow-up-learning" for option in options),
+                0,
+                f"{context} must not keep loose follow-up options beside the group",
+            )
+
     def test_learn_menu_puts_grammar_first_and_drops_it_when_explained(self) -> None:
         menu = build_menu(self.service.records(), "learn", focus="help yourself")
         first_other = next(

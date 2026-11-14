@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import hashlib
 from typing import Any
 
 from .models import CATEGORIES, RecordError
@@ -16,6 +15,7 @@ READ_ONLY_KINDS = frozenset(
         "error-clusters",
         "scenario-dialogue",
         "focus-story",
+        "follow-up-directions",
         "explain-current-exercise",
         "paper-history",
         "historical-unanswered-paper",
@@ -192,37 +192,34 @@ def _initial_focus(
     return "、".join(statuses) + "的知识点"
 
 
-def _contextual_follow_ups(
-    context: str,
-    focus: str | None,
-    *,
-    count: int,
-    initial: bool = False,
-    excluded_icons: set[str] | None = None,
-) -> list[dict[str, Any]]:
+def _follow_up_group(focus: str | None, *, initial: bool = False) -> dict[str, Any]:
+    """五个练习方向挂在同一个导航父项下。
+
+    不再按 focus 哈希抽 2 个：候选项只有 5 个，连续取 2 只可能凑出 5 种组合，
+    同一条记录反复复习时看起来就是「永远这两项」，其余方向永远见不到。
+    """
     target = _follow_up_target(focus, initial=initial)
-    digest = hashlib.sha256(f"{context}:{target}".encode("utf-8")).digest()
-    start = digest[0] % len(FOLLOW_UP_SUGGESTIONS)
-    candidates = [
-        FOLLOW_UP_SUGGESTIONS[(start + index) % len(FOLLOW_UP_SUGGESTIONS)]
-        for index in range(len(FOLLOW_UP_SUGGESTIONS))
-    ]
-    selected = [
-        suggestion
-        for suggestion in candidates
-        if suggestion[1] not in (excluded_icons or set())
-    ][:count]
-    return [
+    children = [
         _option(
-            id,
+            option_id,
             icon,
             label.format(focus=target),
             "other",
             kind=kind,
             focus=target,
+            parent_id="follow-up-directions",
         )
-        for id, icon, label, kind in selected
+        for option_id, icon, label, kind in FOLLOW_UP_SUGGESTIONS
     ]
+    return _option(
+        "follow-up-directions",
+        "🧭",
+        f"展开 {len(children)} 个练习方向",
+        "other",
+        kind="follow-up-directions",
+        focus=target,
+        children=children,
+    )
 
 
 def _scenario_option(focus: str | None, *, initial: bool = False) -> dict[str, Any]:
@@ -261,27 +258,12 @@ def _story_option(focus: str | None, *, initial: bool = False) -> dict[str, Any]
 
 def _with_dynamic_other_options(
     popular_options: list[dict[str, Any]],
-    context: str,
     focus: str | None,
     *,
     initial: bool = False,
 ) -> list[dict[str, Any]]:
     options = list(popular_options)
-    used_icons = {option["icon"] for option in options}
-    used_icons.update(
-        child["icon"]
-        for option in options
-        for child in option.get("children", [])
-    )
-    options.extend(
-        _contextual_follow_ups(
-            context,
-            focus,
-            count=2,
-            initial=initial,
-            excluded_icons=used_icons,
-        )
-    )
+    options.append(_follow_up_group(focus, initial=initial))
     options.append(_scenario_option(focus, initial=initial))
     options.append(_story_option(focus, initial=initial))
     return options
@@ -419,12 +401,11 @@ def _initial_options(
             )
         )
     target = _initial_focus(focus, active, counts)
-    return _with_dynamic_other_options(options, "initial", target, initial=True)
+    return _with_dynamic_other_options(options, target, initial=True)
 
 
 def _follow_up_options(
     counts: dict[str, Any],
-    context: str,
     *,
     show_error_explanation: bool,
     focus: str | None,
@@ -498,7 +479,7 @@ def _follow_up_options(
                 action={"command": "mastered-list"},
             )
         )
-    return _with_dynamic_other_options(options, context, focus)
+    return _with_dynamic_other_options(options, focus)
 
 
 def _learn_options(
@@ -587,7 +568,6 @@ def build_menu(
                     },
                 )
             ],
-            context,
             "咖啡店点单和日常寒暄",
         )
         options.insert(
@@ -613,7 +593,6 @@ def build_menu(
     else:
         options = _follow_up_options(
             counts,
-            context,
             show_error_explanation=(
                 context == "review-complete"
                 and has_answer_errors
