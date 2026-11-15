@@ -209,6 +209,92 @@ class NoteAppendTest(unittest.TestCase):
             [line for line in after.split("\n") if line.startswith("# ")],
         )
 
+    def test_rewrite_refuses_to_drop_the_story_block(self) -> None:
+        """`--rewrite` 是整节替换：新内容漏掉已有原文时必须拒绝，避免静默丢内容。"""
+        self._note_with_explanation()
+        story_heading = "## 读一个围绕 a price to pay 的小故事"
+        self.store.append_explain_section(
+            self.note,
+            story_heading
+            + "\n\n**讲解要点**：\n- 旧的一条\n"
+            "  - `There is a price to pay.`（总要付出代价。）\n\n"
+            "<details>\n<summary>故事原文</summary>\n\nLine one. Line two.\n\n</details>\n\n"
+            "| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |\n"
+            "|---|---|---|\n| 第 1 段 | 代价 | 固定搭配 |\n",
+        )
+        with self.assertRaises(NoteError) as caught:
+            self.store.append_explain_section(
+                self.note,
+                story_heading + "\n\n**讲解要点**：\n- 新的一条\n",
+                rewrite=True,
+            )
+        self.assertIn("折叠块", str(caught.exception))
+        self.assertIn("Line one. Line two.", self.note.read_text(encoding="utf-8"))
+
+    def test_rewrite_refuses_to_reduce_the_story_blocks(self) -> None:
+        """整节重写不能把已有的两段原文缩成一段。"""
+        self._note_with_explanation()
+        heading = "## 读一个围绕 a price to pay 的小故事"
+        table = (
+            "\n| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |\n"
+            "|---|---|---|\n| 第 1 段 | 代价 | 固定搭配 |\n"
+        )
+        self.store.append_explain_section(
+            self.note,
+            heading
+            + "\n\n**讲解要点**：\n- 一条要点\n  - `There is a price to pay.`（总要付出代价。）\n\n"
+            "<details>\n<summary>故事原文</summary>\n\nFirst story.\n\n</details>\n"
+            + table,
+        )
+        self.store.append_explain_part(
+            self.note,
+            heading,
+            "<details>\n<summary>故事原文 2</summary>\n\nSecond story.\n\n</details>\n"
+            + table,
+        )
+        with self.assertRaises(NoteError) as caught:
+            self.store.append_explain_section(
+                self.note,
+                heading
+                + "\n\n**讲解要点**：\n- 一条要点\n  - `There is a price to pay.`（总要付出代价。）\n\n"
+                "<details>\n<summary>故事原文</summary>\n\nFirst story.\n\n</details>\n"
+                + table,
+                rewrite=True,
+            )
+        self.assertIn("2 段 → 1 段", str(caught.exception))
+        self.assertIn("Second story.", self.note.read_text(encoding="utf-8"))
+
+    def test_rewrite_may_extend_explanation_when_the_block_is_kept(self) -> None:
+        """讲解要点可以在后续按需补充：带上原文整节重写，原文与编号保持不变。"""
+        self._note_with_explanation()
+        story_heading = "## 读一个围绕 a price to pay 的小故事"
+        story_source = (
+            "<details>\n<summary>故事原文</summary>\n\nLine one. Line two.\n\n</details>\n\n"
+            "| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |\n"
+            "|---|---|---|\n| 第 1 段 | 代价 | 固定搭配 |\n"
+        )
+        self.store.append_explain_section(
+            self.note,
+            story_heading
+            + "\n\n**讲解要点**：\n- 旧的一条\n"
+            "  - `There is a price to pay.`（总要付出代价。）\n\n"
+            + story_source,
+        )
+        result = self.store.append_explain_section(
+            self.note,
+            story_heading
+            + "\n\n**讲解要点**：\n- 旧的一条\n"
+            "  - `There is a price to pay.`（总要付出代价。）\n"
+            "- 补充的一条\n  - `You pay the price for it.`（你为此付出代价。）\n\n"
+            + story_source,
+            rewrite=True,
+        )
+        self.assertTrue(result["rewritten"])
+        text = self.note.read_text(encoding="utf-8")
+        self.assertIn("补充的一条", text)
+        self.assertEqual(text.count(story_heading), 1)
+        self.assertIn("<summary>故事原文</summary>", text)
+
     def test_sections_lists_file_level_explanation_sections(self) -> None:
         """`sections` 要能看到文件级讲解区，调用方才能在写入前判断是否已记录过。"""
         self._note_with_explanation()

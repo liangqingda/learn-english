@@ -16,7 +16,7 @@ description: 复习笔记（`learning-record-notes/*.md`）的唯一 owner：何
 | 讲解轮（用户发来一句英语、正文里实质讲解过） | `learn-from-english` | 每条实际讲解的记录一个文件，写 `## 基础信息` + 文件级 `## 讲解` |
 | 有实际作答的复习 / 聚焦练习 / 套题 | `practice-learning-records` | 往该记录已有文件追加一个日期区块 `# <date> <time> · 复习\|练习\|套题` |
 | 菜单型后续学习（场景对话、小故事、扩展讲解、对比相近表达） | 两者皆可 | 只讲解、不带习题的写成 `## 讲解` 之后的文件级 `## <选项原文>` 小节（`append-explain-section`），不进日期区块 |
-| 带习题的菜单项（如「练习…的关键语法结构」） | `practice-learning-records` | 讲解要点写文件级小节（第一轮一次），本轮习题写日期区块里同名小节（`append-section`） |
+| 带习题的菜单项（如「练习…的关键语法结构」） | `practice-learning-records` | 讲解要点写文件级小节（第一轮写一次；之后要改或要补用 `append-explain-section --rewrite` 整节替换），本轮习题写日期区块里同名小节（`append-section`） |
 | 笔记存在但缺少 `## 讲解`（历史补建、只写过复习区块） | 任一写该笔记的 skill | **先补齐讲解**：用 `explain --update` 插一份（没有正文时写占位提示），再写本轮区块 |
 | 某个知识点还没有任何笔记 | 任一提到该记录的 skill | 用 `explain` 创建文件，讲解正文缺失时写占位提示，不留空文件 |
 
@@ -46,7 +46,9 @@ python3 take-english-study-notes/scripts/note.py check --all [--fix]
   `append-explain-part`（往文件级小节末尾补第二段故事 / 对话原文）、`append-section`（往日期区块加带习题的菜单项）、
   `append-part`（往日期区块既有小节末尾补一段）还是 `replace --rewrite-section`，不要拼好大段内容再被拒。
 - 讲解型内容（讲解要点、对比、场景对话、小故事）一律写 `## 讲解` 之后；日期区块只放 `## 本轮习题` 与带习题的菜单项。
-  同一个菜单项重复选中时，除场景对话与小故事外不再记录：`append-explain-section` 返回 `duplicate: true` 就停手；首轮讲解写错则加 `--rewrite` 就地替换该小节。
+  同一个菜单项重复选中时，除场景对话与小故事外不再按新内容重复记录：`append-explain-section` 返回 `duplicate: true` 就停手。
+  讲解要点要改、要补，三类文件级小节（带习题的讲解要点、场景对话、小故事）走同一条规则：同一命令加 `--rewrite` 整节替换，
+  并带上已有的 `场景对话原文` / `故事原文`（漏掉原文的重写会被拒绝）；只多一段原文时用 `append-explain-part`。
 - 场景对话 / 小故事只有一段原文时 summary 写 `场景对话原文` / `故事原文`（不编号、块前不写标签行）；
   出现第二段起第一段改成 `场景对话原文 1` / `故事原文 1`，其余按 `2`、`3`… 编号，写入命令会自动完成改名。
 - `explain --update` 有两种语义：文件已有 `## 讲解` 时只替换该小节；文件没有 `## 讲解` 时把这一节插入到 `## 基础信息` 表之后、所有日期区块之前（返回 `inserted: true`），不覆盖任何已有内容。补讲解一律用它，不要用 `Write` 或 `replace` 手动插小块。

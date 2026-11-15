@@ -1157,7 +1157,21 @@ class NoteStore:
         )
         while section_end > section_start + 1 and not lines[section_end - 1].strip():
             section_end -= 1
-        merged = _normalize_detail_summaries(_normalize_text(section))
+        original = "\n".join(lines[section_start:section_end])
+        replacement = _normalize_text(section)
+        dropped = []
+        for base in DETAIL_BASES:
+            kept = original.count(f"<summary>{base}")
+            now = replacement.count(f"<summary>{base}")
+            if now < kept:
+                dropped.append(f"{base}（{kept} 段 → {now} 段）")
+        if dropped:
+            raise NoteError(
+                f"重写 `{first}` 会丢掉已有的原文折叠块：{'、'.join(dropped)}。"
+                "`--rewrite` 是整节替换，新小节必须把原有原文全部带上；"
+                "只想再补一段原文时用 append-explain-part"
+            )
+        merged = _normalize_detail_summaries(replacement)
         after = lines[section_end:]
         spacer = [""] if after and after[0].strip() else []
         composed = "\n".join(
