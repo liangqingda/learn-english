@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>4</td></tr>
 <tr><td>下次复习</td><td>2026-11-22 12:47</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-08 12:48</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-09 20:38</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-15 13:55</td></tr>
 </table>
 
 ## 讲解
@@ -19,6 +19,39 @@
 **待补充**：
 
 - 下次讲解或复习这条知识点时，按本记录的分类补写本节；补全后用 `note.py explain --update` 替换这段占位内容。
+
+## 看一套围绕「proceed with doing 与 proceed to do 的语义差别」的完整场景对话
+
+**讲解要点**：
+- `proceed with + 名词或动名词`，用于同一事项尚未结束、要继续推进的场合；`with` 是介词，后面必须是名词性成分。
+  - Let's proceed with the cost review before we move on.
+- `proceed to + 名词或动词原形`，用于当前事项收尾、转入下一项新事项的场合；`to` 标记目标，动词只能用原形，绝不能说 `proceed to doing`。
+  - We'll now proceed to the next item on the agenda.
+  - After the demo, the team proceeded to finalize the schedule.
+- 判断口诀：同一件事没做完用 `with`，换到新议题用 `to`；介词一换，时间视角就从「延续」变成「开启」。
+  - We proceed with the current plan and flag it to the client.
+- 会议主持常用句型：`Let's proceed with ...` / `We'll now proceed to ...`。
+  - We'll now proceed to the launch timeline.
+
+
+
+<details>
+<summary>场景对话原文</summary>
+
+- **Mia**：Morning, everyone. We didn't finish the cost issue last Friday, so let's **proceed with** the cost review before anything else.
+- **Leo**：Fine by me. I'll pick up where we stopped and **proceed with** the breakdown of the unit costs.
+- **Ana**：I have the numbers from the factory. Should we **proceed to** the launch timeline after this?
+- **Mia**：Not yet. We still have two items on cost, so we'll **proceed with** the cost review first, then **proceed to** the launch timeline.
+- **Leo**：The unit cost is down to 4.2 dollars. Do we **proceed with** the packaging quotation at the old rate?
+- **Mia**：Hold on, that's a different question. Let's **proceed with** the cost review until Ana confirms the exchange rate.
+- **Ana**：Rate confirmed. I'd say we've closed the cost issue.
+- **Mia**：Great. Now we can **proceed to** the launch timeline. Leo, could you walk us through the dates?
+- **Leo**：Sure. After that, shall we **proceed to** the packaging design?
+- **Mia**：Yes, and once design is signed off, we'll **proceed to** confirm the suppliers.
+- **Ana**：One last thing — if the timeline slips, do we **proceed with** the current packaging plan or wait?
+- **Mia**：We **proceed with** the current plan and flag it to the client. Nobody stops working while we wait.
+
+</details>
 
 # 2026-11-08 12:48 · 复习
 
@@ -185,39 +218,5 @@
 2. **为什么错**：safety train 里的 train 是交通工具或动词“训练”，表示培训活动要用 training；equipment show 的 show 指展览演出，会议中的功能展示要用 demonstration。
 3. **英语的表达逻辑**：英语用名词化后缀区分事件类型，ing 表示活动过程，tion 表示演示说明这一正式行为，它们承载的是“这是什么类型的活动”。
 4. **正确表达**：The safety training this morning is over, so let's proceed to the equipment demonstration.；可迁移：After the briefing, we proceeded to the product demonstration.
-
-</details>
-
-## 看一套围绕「proceed with doing 与 proceed to do 的语义差别」的完整场景对话
-
-**讲解要点**：
-- `proceed with + 名词或动名词`，用于同一事项尚未结束、要继续推进的场合；`with` 是介词，后面必须是名词性成分。
-  - Let's proceed with the cost review before we move on.
-- `proceed to + 名词或动词原形`，用于当前事项收尾、转入下一项新事项的场合；`to` 标记目标，动词只能用原形，绝不能说 `proceed to doing`。
-  - We'll now proceed to the next item on the agenda.
-  - After the demo, the team proceeded to finalize the schedule.
-- 判断口诀：同一件事没做完用 `with`，换到新议题用 `to`；介词一换，时间视角就从「延续」变成「开启」。
-  - We proceed with the current plan and flag it to the client.
-- 会议主持常用句型：`Let's proceed with ...` / `We'll now proceed to ...`。
-  - We'll now proceed to the launch timeline.
-
-
-**完整场景对话**：
-
-<details>
-<summary>场景对话原文</summary>
-
-- **Mia**：Morning, everyone. We didn't finish the cost issue last Friday, so let's **proceed with** the cost review before anything else.
-- **Leo**：Fine by me. I'll pick up where we stopped and **proceed with** the breakdown of the unit costs.
-- **Ana**：I have the numbers from the factory. Should we **proceed to** the launch timeline after this?
-- **Mia**：Not yet. We still have two items on cost, so we'll **proceed with** the cost review first, then **proceed to** the launch timeline.
-- **Leo**：The unit cost is down to 4.2 dollars. Do we **proceed with** the packaging quotation at the old rate?
-- **Mia**：Hold on, that's a different question. Let's **proceed with** the cost review until Ana confirms the exchange rate.
-- **Ana**：Rate confirmed. I'd say we've closed the cost issue.
-- **Mia**：Great. Now we can **proceed to** the launch timeline. Leo, could you walk us through the dates?
-- **Leo**：Sure. After that, shall we **proceed to** the packaging design?
-- **Mia**：Yes, and once design is signed off, we'll **proceed to** confirm the suppliers.
-- **Ana**：One last thing — if the timeline slips, do we **proceed with** the current packaging plan or wait?
-- **Mia**：We **proceed with** the current plan and flag it to the client. Nobody stops working while we wait.
 
 </details>

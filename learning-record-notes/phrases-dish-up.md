@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>4</td></tr>
 <tr><td>下次复习</td><td>2026-11-20 20:49</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-10 19:17</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-13 21:17</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-15 13:55</td></tr>
 </table>
 
 ## 讲解
@@ -33,6 +33,53 @@
 **可迁移表达**：
 
 - Could you dish up the rice while I set the table?
+
+## 对比「dish up：把饭菜盛好端上桌」和相近表达
+
+**讲解要点**：
+- 先看动作终点：dish up、serve、plate 的终点是餐桌，dish out、hand out 的终点是接东西的人
+  - She dished up the soup and set it in front of the guest.（她把汤盛好，放到客人面前。）
+  - Volunteers handed out leaflets at the entrance.（志愿者在入口处分发传单。）
+- 再看语域：serve 中性偏正式，适合机构与书面场景；dish up 是厨房里的家常口吻；serve up 介于两者之间，还可引申为「端出」借口或信息
+  - The hotel serves breakfast from seven to ten.（酒店七点到十点供应早餐。）
+  - He served up the same excuse again.（他又搬出同一套借口。）
+- 看食物形态：固体食物可以 plate（摆盘讲外观），汤只能 ladle 或 serve，不能用 plate
+  - The chef plated the duck with a swirl of sauce.（主厨把鸭肉摆盘，配了一卷酱汁。）
+  - She ladled the broth into two bowls.（她把汤舀进两个碗里。）
+- dish out 的宾语可以是抽象内容，hand out 只能分实体物品
+  - The manager dished out criticism after the meeting.（会后经理大发脾气地批评了一通。）
+  - They handed out the new schedules to everyone.（他们给每个人发了新的日程表。）
+- 词形选择还受宾语可数性约束：beef、rice、soup 这类不可数名词回指用 it，代词仍要放在动词与 up 之间
+  - The beef is ready, so dish it up now.（牛肉好了，现在盛出来端上桌。）
+
+## 看一套围绕「dish up：把饭菜盛好端上桌」的完整场景对话
+
+**讲解要点**：
+- dish up 的主语通常是厨房里出菜的人，宾语是具体饭菜，可接名词也可接代词
+  - Could you dish it up while I set the table?（你把它盛出来端上桌，我来摆桌子好吗？）
+- 汤类用 ladle 或 serve，不用 plate；plate 只用于固体食物摆盘
+  - Ladle it into four bowls, please.（请用勺把它舀进四个碗里。）
+- dish out 表示把东西分发给多人，宾语可以是面包、甜点，也可以是批评、建议
+  - Don't dish out the bread yet.（先别把面包发下去。）
+- serve up 强调正式地端上或端出，比 dish up 更有「呈现」的意味
+  - Should I serve up the salad as well?（沙拉也要一起端上桌吗？）
+
+
+<details>
+<summary>场景对话原文</summary>
+
+- **Mum**：The stew's been simmering for two hours. Could you dish it up while I set the table?（炖菜都炖了两个小时了，你把它盛出来端上桌，我来摆桌子，好吗？）
+- **Son**：Sure. Which bowls should I use?（好，用哪几个碗？）
+- **Mum**：The deep ones, please. Ladle it into four bowls and don't plate it — it's soup.（用深碗，用勺舀进四个碗里，别摆盘，这是汤。）
+- **Son**：Got it. I'll dish the rice up too.（明白，米饭我也盛出来。）
+- **Mum**：Thanks. And don't dish out the bread yet; your dad wants to serve it warm.（谢谢。对了，面包先别分下去，你爸想等热了再端上。）
+- **Son**：Fine. Should I serve up the salad as well?（行。沙拉也要一起端上桌吗？）
+- **Mum**：Yes, but serve it in the big bowl instead of plates.（要，但用大碗盛，不要用盘子摆。）
+- **Son**：Two minutes. The bread's still in the oven.（两分钟就好，面包还在烤箱里。）
+- **Mum**：Take your time. Just remember everything should be dished up before the guests sit down.（慢慢来。只要记得客人坐下前全部盛好端上桌就行。）
+- **Son**：Everything's dished up and on the table now. Let's eat.（全部盛好摆上桌了，开动吧。）
+
+</details>
 
 # 2026-11-13 20:49 · 复习
 
@@ -197,22 +244,6 @@
 
 ## 对比「dish up：把饭菜盛好端上桌」和相近表达
 
-**讲解要点**：
-- 先看动作终点：dish up、serve、plate 的终点是餐桌，dish out、hand out 的终点是接东西的人
-  - She dished up the soup and set it in front of the guest.（她把汤盛好，放到客人面前。）
-  - Volunteers handed out leaflets at the entrance.（志愿者在入口处分发传单。）
-- 再看语域：serve 中性偏正式，适合机构与书面场景；dish up 是厨房里的家常口吻；serve up 介于两者之间，还可引申为「端出」借口或信息
-  - The hotel serves breakfast from seven to ten.（酒店七点到十点供应早餐。）
-  - He served up the same excuse again.（他又搬出同一套借口。）
-- 看食物形态：固体食物可以 plate（摆盘讲外观），汤只能 ladle 或 serve，不能用 plate
-  - The chef plated the duck with a swirl of sauce.（主厨把鸭肉摆盘，配了一卷酱汁。）
-  - She ladled the broth into two bowls.（她把汤舀进两个碗里。）
-- dish out 的宾语可以是抽象内容，hand out 只能分实体物品
-  - The manager dished out criticism after the meeting.（会后经理大发脾气地批评了一通。）
-  - They handed out the new schedules to everyone.（他们给每个人发了新的日程表。）
-- 词形选择还受宾语可数性约束：beef、rice、soup 这类不可数名词回指用 it，代词仍要放在动词与 up 之间
-  - The beef is ready, so dish it up now.（牛肉好了，现在盛出来端上桌。）
-
 ### 1. 单项选择
 
 **题目**：The teacher ____ the test papers to the first row.
@@ -336,35 +367,5 @@
 2. **为什么错**：按汉语「在会上」直接译成 in；英语把会议、会议、聚会这类活动当作一个时间点，用 at。
 3. **英语的表达逻辑**：at 标记「点」，in 标记「容器或范围」；会议是可参加的场次而不是容器，所以 at the meeting，只有会议进行中的内部范围才说 in the meeting。
 4. **正确表达**：At the meeting, the manager served up the same old excuse again.（会上，经理又搬出了那套老借口。）；可迁移：She raised the issue at the meeting.（她在会上提出了这个问题。）
-
-</details>
-
-## 看一套围绕「dish up：把饭菜盛好端上桌」的完整场景对话
-
-**讲解要点**：
-- dish up 的主语通常是厨房里出菜的人，宾语是具体饭菜，可接名词也可接代词
-  - Could you dish it up while I set the table?（你把它盛出来端上桌，我来摆桌子好吗？）
-- 汤类用 ladle 或 serve，不用 plate；plate 只用于固体食物摆盘
-  - Ladle it into four bowls, please.（请用勺把它舀进四个碗里。）
-- dish out 表示把东西分发给多人，宾语可以是面包、甜点，也可以是批评、建议
-  - Don't dish out the bread yet.（先别把面包发下去。）
-- serve up 强调正式地端上或端出，比 dish up 更有「呈现」的意味
-  - Should I serve up the salad as well?（沙拉也要一起端上桌吗？）
-
-**完整场景对话**：
-
-<details>
-<summary>场景对话原文</summary>
-
-- **Mum**：The stew's been simmering for two hours. Could you dish it up while I set the table?（炖菜都炖了两个小时了，你把它盛出来端上桌，我来摆桌子，好吗？）
-- **Son**：Sure. Which bowls should I use?（好，用哪几个碗？）
-- **Mum**：The deep ones, please. Ladle it into four bowls and don't plate it — it's soup.（用深碗，用勺舀进四个碗里，别摆盘，这是汤。）
-- **Son**：Got it. I'll dish the rice up too.（明白，米饭我也盛出来。）
-- **Mum**：Thanks. And don't dish out the bread yet; your dad wants to serve it warm.（谢谢。对了，面包先别分下去，你爸想等热了再端上。）
-- **Son**：Fine. Should I serve up the salad as well?（行。沙拉也要一起端上桌吗？）
-- **Mum**：Yes, but serve it in the big bowl instead of plates.（要，但用大碗盛，不要用盘子摆。）
-- **Son**：Two minutes. The bread's still in the oven.（两分钟就好，面包还在烤箱里。）
-- **Mum**：Take your time. Just remember everything should be dished up before the guests sit down.（慢慢来。只要记得客人坐下前全部盛好端上桌就行。）
-- **Son**：Everything's dished up and on the table now. Let's eat.（全部盛好摆上桌了，开动吧。）
 
 </details>

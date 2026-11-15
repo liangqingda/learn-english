@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>2</td></tr>
 <tr><td>下次复习</td><td>2026-11-18 12:05</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-07 20:22</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-15 12:45</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-15 13:55</td></tr>
 </table>
 
 ## 讲解
@@ -52,6 +52,14 @@
   - `Everything comes with a price to pay.`（每件事都有代价）
 - pay 的主语是付代价的人或机构，for 引出换来的东西
   - `She paid a price for speaking first.`（她因为先开口付出了代价）
+- 不定式作名词后置定语：`There is a lot of work to do.` —— 与目的状语同形不同功能，判断依据是它是否在说明「这个名词要怎么被处理」。
+  - `There is still a lot of work to do before Friday.`（周五之前还有一大堆活要干）
+- 主动形式承担被动含义：`a price to pay` = `a price that must be paid`；只有需要点明承付者时才写 `a price to be paid by …`。
+  - `a price to be paid by taxpayers`（由纳税人偿付的代价）
+- 完整名词短语的固定层级：限定词 → 形容词 → 名词 → 不定式 → `for` + 交换对象，例如 `a heavy price to pay for fame`。
+  - `a heavy price to pay for fame`（为名气付出的沉重代价）
+- 定语从句可整体压缩为不定式：`the price that people have to pay for shortcuts` → `the price to pay for shortcuts`。
+  - `I still have two reports to write.`（我还有两份报告要写）
 
 ## 看一套围绕「a price to pay」的完整场景对话
 
@@ -65,7 +73,17 @@
 - pay a price for it：主语是付出代价的人，for 引出换来的东西。
   - `I'll pay a price for it too — the quiet hours.`（我也会为此付代价：那些安静的时间）
 - a price worth paying：worth 后面直接接动名词，用来判断值不值。
+  - `I still think it's a price worth paying for the title and the team.`（我还是认为为了这个职位和团队，这份代价值得付）
   - `Is that a price worth paying?`（这份代价值得付吗）
+- `there is a price to pay for sth`：代价属于事情本身，主语是事情，不点明谁付。
+  - `Nobody told me there'd be a price to pay for saying yes.`（没人告诉我答应得这么快是有代价的）
+- `pay a heavy price for sth`：当事人主动付出，主语是人。
+  - `You'd pay a heavy price for sleeping five hours a night.`（你每晚只睡五小时是要付沉重代价的）
+- `come at a price`：代价是得到某个机会的入场券，句子的焦点在「机会」。
+  - `Every promotion comes at a price.`（每一次升职都是有代价的）
+- `pay the price for`：口语化用法，用定冠词 `the` 指双方都清楚的那份代价。
+  - `If I keep this up, I'll pay the price for it in a year or two.`（再这样下去，一两年内我就要为此付代价）
+  - `It's not a price I can afford for three more years.`（这个代价我再付三年可付不起）
 
 <details>
 <summary>场景对话原文 1</summary>
@@ -107,6 +125,24 @@
 - **Hector**：Mine was a notebook. Eight hundred pages, forty years.
 - **Sam**：Was it worth it?
 - **Hector**：Some of it. The yellow pages, the ones with the races, those were **prices worth paying**. The rest I just paid because I didn't know how to stop.
+
+</details>
+
+<details>
+<summary>场景对话原文 3</summary>
+
+- **Ryan**：You took the promotion, then? I saw the email this morning.
+- **Kate**：I did. And nobody told me there'd be **a price to pay** for saying yes that fast.
+- **Ryan**：What kind of price are we talking about?
+- **Kate**：Hours. Every promotion **comes at a price**, and mine is about ten extra hours a week.
+- **Ryan**：Did you tell your manager?
+- **Kate**：I did. He said the first year always **comes at a price**, as if that settles it.
+- **Ryan**：That sounds like a line from a training video.
+- **Kate**：It is. But I still think it's **a price worth paying** for the title and the team.
+- **Ryan**：And your health? You'd **pay a heavy price** for sleeping five hours a night.
+- **Kate**：I know. If I keep this up, I'll **pay the price** for it in a year or two.
+- **Ryan**：So what's the plan?
+- **Kate**：Six months. If the hours don't drop, I'll tell them the title isn't **a price I can afford** for three more years.
 
 </details>
 
@@ -714,54 +750,7 @@ Working night shifts cost her her health, and she knew it.
 
 </details>
 
-## 看一套围绕「a price to pay」的完整场景对话
-
-**讲解要点**：
-- `there is a price to pay for sth`：代价属于事情本身，主语是事情，不点明谁付。
-  - `Nobody told me there'd be a price to pay for saying yes.`
-- `pay a heavy price for sth`：当事人主动付出，主语是人。
-  - `You'd pay a heavy price for sleeping five hours a night.`
-- `come at a price`：代价是得到某个机会的入场券，句子的焦点在「机会」。
-  - `Every promotion comes at a price.`
-- `a price worth paying`：用于判断「值不值得」，`worth` 后直接接动名词。
-  - `I still think it's a price worth paying for the title and the team.`
-- `pay the price for`：口语化用法，用定冠词 `the` 指双方都清楚的那份代价。
-  - `If I keep this up, I'll pay the price for it in a year or two.`
-  - `It's not a price I can afford for three more years.`
-
-
-**完整场景对话**：
-
-<details>
-<summary>场景对话原文</summary>
-
-- **Ryan**：You took the promotion, then? I saw the email this morning.
-- **Kate**：I did. And nobody told me there'd be **a price to pay** for saying yes that fast.
-- **Ryan**：What kind of price are we talking about?
-- **Kate**：Hours. Every promotion **comes at a price**, and mine is about ten extra hours a week.
-- **Ryan**：Did you tell your manager?
-- **Kate**：I did. He said the first year always **comes at a price**, as if that settles it.
-- **Ryan**：That sounds like a line from a training video.
-- **Kate**：It is. But I still think it's **a price worth paying** for the title and the team.
-- **Ryan**：And your health? You'd **pay a heavy price** for sleeping five hours a night.
-- **Kate**：I know. If I keep this up, I'll **pay the price** for it in a year or two.
-- **Ryan**：So what's the plan?
-- **Kate**：Six months. If the hours don't drop, I'll tell them the title isn't **a price I can afford** for three more years.
-
-</details>
-
 ## 练习「a price to pay」的关键语法结构
-
-**讲解要点**：
-- 不定式作名词后置定语：`There is a lot of work to do.` —— 与目的状语同形不同功能，判断依据是它是否在说明「这个名词要怎么被处理」。
-  - `There is still a lot of work to do before Friday.`
-- 主动形式承担被动含义：`a price to pay` = `a price that must be paid`；只有需要点明承付者时才写 `a price to be paid by …`。
-  - `a price to be paid by taxpayers`
-- 完整名词短语的固定层级：限定词 → 形容词 → 名词 → 不定式 → `for` + 交换对象，例如 `a heavy price to pay for fame`。
-  - `a heavy price to pay for fame`
-- 定语从句可整体压缩为不定式：`the price that people have to pay for shortcuts` → `the price to pay for shortcuts`。
-  - `I still have two reports to write.`
-
 
 ### 1. 单项选择
 

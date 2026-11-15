@@ -165,6 +165,35 @@ def _strip_trailing_dividers(rounds: str) -> str:
 DETAIL_BASES = ("场景对话原文", "故事原文")
 DETAIL_SUMMARY_RE = re.compile(r"<summary>\s*([^<]+?)\s*</summary>")
 
+ROUND_BLOCK_EXPLAINED = (
+    "日期区块只放习题：`{title}` 写的是讲解内容（讲解要点 / 场景对话原文 / 故事原文），"
+    "必须放在文件级讲解区（`## 讲解` 之后、所有日期区块之前）；日期区块里的同名小节只写 "
+    "`### <n>. <题型>` 习题，不重复讲解"
+)
+ROUND_BLOCK_EMPTY = (
+    "日期区块里的菜单项小节只放习题：`{title}` 里没有 `### <n>. <题型>` 题目，"
+    "等于这一节没有交付内容；讲解要点写进文件级讲解区，习题写进本轮区块"
+)
+
+
+def _check_round_sections(block: str) -> None:
+    """Refuse explanation content inside a round block.
+
+    The split between the file-level explanation area and the dated round
+    blocks was a rule that only the docs enforced once, so menu follow-ups kept
+    landing in ``# <date> · 复习`` blocks; validating it at the write path (and
+    in ``check_note.py``) is the only guard that actually holds.
+    """
+    for title, body in _sections(block):
+        if title == "## 本轮习题":
+            continue
+        if "**讲解要点**" in body or any(
+            f"<summary>{base}" in body for base in DETAIL_BASES
+        ):
+            raise NoteError(ROUND_BLOCK_EXPLAINED.format(title=title))
+        if not re.search(r"^### \d+\.", body, re.M):
+            raise NoteError(ROUND_BLOCK_EMPTY.format(title=title))
+
 
 def _normalize_detail_summaries(text: str) -> str:
     """同一小节里只剩一段原文时不编号，出现第二段起按 1、2、3… 编号。
@@ -502,6 +531,7 @@ class NoteStore:
         target = self.resolve(path)
         head, raw_block = _split_head(content)
         block = _normalize_block(raw_block)
+        _check_round_sections(block)
         declared = RECORD_ID_ROW_RE.search(content)
         if declared and not target.exists():
             tracked = self.find_note_for_record(declared.group(1).strip())
@@ -763,6 +793,7 @@ class NoteStore:
         # 替换只针对轮次区块；模型若顺手带了文件级基础信息头，直接忽略避免重复
         _head, raw_block = _split_head(content)
         block = _normalize_block(raw_block)
+        _check_round_sections(block)
         wanted = _normalize_text(heading).strip()
         if _block_heading(block) != wanted:
             raise NoteError(
@@ -871,6 +902,7 @@ class NoteStore:
                     "a note section cannot contain a level-1 heading; "
                     "sections are added inside an existing round block"
                 )
+        _check_round_sections(section)
         section_heading = first
         wanted = _normalize_text(heading).strip()
         with self._exclusive_lock():
@@ -941,9 +973,9 @@ class NoteStore:
     ) -> dict[str, Any]:
         """在已有 ``## section`` 的末尾追加一段正文（不新建小节）。
 
-        同一个菜单项在一个日期区块里被选中第二次时，讲解要点沿用同一份，
-        故事 / 对话原文按 ``故事原文 2`` / ``场景对话原文 2`` 追加在后面，
-        并且自动把第一段从 ``故事原文`` 改成 ``故事原文 1``。
+        日期区块里的小节只放习题，所以这里追加的是同一菜单项的又几道题；
+        讲解要点、故事 / 对话原文再选一次时走 ``append_explain_part``，追加到文件级
+        讲解区里的同名小节（那里才会把 ``故事原文`` 自动改成 ``故事原文 1`` 再编号）。
         新增小节用 ``append_section``，这里只往既有小节末尾补一段，别的小节一字不动。
         """
         part = _normalize_text(content).strip("\n")
@@ -960,6 +992,12 @@ class NoteStore:
                     "a section part cannot start a new '## section'; "
                     "use append-section for a new section"
                 )
+        if "**讲解要点**" in part or any(
+            f"<summary>{base}" in part for base in DETAIL_BASES
+        ):
+            raise NoteError(
+                ROUND_BLOCK_EXPLAINED.format(title=_normalize_text(section_heading).strip())
+            )
         wanted_block = _normalize_text(heading).strip()
         wanted_section = _normalize_text(section_heading).strip()
         if not wanted_section.startswith("## "):

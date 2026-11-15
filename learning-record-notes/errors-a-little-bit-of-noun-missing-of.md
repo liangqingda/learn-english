@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-18 10:52</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-09 20:35</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-15 11:19</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-15 13:54</td></tr>
 </table>
 
 ## 讲解
@@ -35,6 +35,57 @@
 - a little + 不可数名词：There's little water left.（剩下的水不多。）这里 little 自带否定意味，不能换成 a little bit of。
 - a few + 复数可数名词：There are a few tomatoes in the fridge.（冰箱里有几个西红柿。）
 - a little bit 修饰形容词时不再带 of：The soup is a little bit too salty.（汤有点太咸了。）
+
+## 对比「a little bit 后接名词时缺少 of」和相近表达
+
+**讲解要点**：
+- a little bit of 与 a bit of 表意相同，都可接不可数名词；a bit of 更短更随口，a little bit of 更强调“就一丁点”
+  - `We only need a bit of salt.`（我们只要一点盐。）
+  - `We only need a little bit of salt.`（我们只要一丁点盐。）
+- a little 直接接不可数名词，不带 of，语气中性、书面同样可用
+  - `There is a little water left.`（还剩一点水。）
+  - `She has a little time this afternoon.`（她今天下午有一点时间。）
+- a little of 只有在后面还带限定词或代词时才成立
+  - `Would you like a little of this soup?`（你想喝一点这个汤吗？）
+  - `a little of water` 不成立，光杆名词写作 `a little water`
+- a little bit 修饰形容词时不再带 of，of 只属于名词搭配
+  - `The tea is a little bit hot.`（茶有点烫。）
+  - `I'm a little bit tired today.`（我今天有点累。）
+- a few 与 a little bit of 的区别不在“多少”，而在名词类别：前者数个体，后者量内容
+  - `Only a few students came.`（只来了几个学生。）
+  - `There is a little bit of milk left.`（还剩一点牛奶。）
+- some 对可数与不可数通用，语气最中性；a small amount of 是 a little bit of 的正式版本
+  - `Some chairs are broken.`（有些椅子坏了。）
+  - `The report shows a small amount of progress.`（报告显示有少量进展。）
+
+## 扩展「a little bit 后接名词时缺少 of」相关词汇和搭配
+
+**讲解要点**：
+- 英语的“少量”按名词类别分装备：不可数名词走 a little bit of / a bit of / a touch of / a dash of，复数可数名词走 a few / some / a handful of。
+  - `There is a little bit of butter left.`（还剩一点黄油。）
+  - `There are a few tomatoes in the fridge.`（冰箱里有几个西红柿。）
+- a touch of 强调“轻轻加一笔”，多用于味道、颜色、情绪，语感比 a little bit of 精致。
+  - `Add a touch of salt to the sauce.`（往酱汁里加一点盐。）
+  - `There's a touch of irony in his voice.`（他的语气里带着一点讽刺。）
+- a dash of 专指快速倒入的少量液体调料。
+  - `Add a dash of milk to the coffee.`（往咖啡里加一点牛奶。）
+- a handful of 多接复数可数名词，表示“少数几个”，比 a few 更有画面感；接沙子、米这类物质名词时表示“一把”的实量。
+  - `Only a handful of people came.`（只来了寥寥几个人。）
+  - `He threw a handful of sand into the water.`（他往水里扔了一把沙子。）
+- a bit of a + 单数可数名词是另一条固定结构，of 后面是完整的名词短语，a bit 在这里当程度副词，意思是“有点”。
+  - `The meeting was a bit of a mess.`（这个会议有点乱。）
+  - `He's a bit of a perfectionist.`（他有点完美主义。）
+
+## 练习「a little bit of 与相关量词搭配」的关键语法结构
+
+**讲解要点**：
+- 量词结构的选择先看名词类别，再看计量形象：微量调料走 a touch of / a dash of，可抓握实物走 a handful of。
+  - `Add a touch of cinnamon to the cake.`（往蛋糕里加一点肉桂。）
+  - `He added a handful of nuts to the salad.`（他往沙拉里加了一把坚果。）
+- a bit of a + 单数可数名词是三层结构，of 和 a 都不能省。
+  - `The meeting turned out to be a bit of a mess.`（这个会议结果有点乱。）
+- a handful of 做主语时，谓语随 of 后面的名词变化：复数名词用 are，物质名词用 is。
+  - `There is a handful of sand on the floor.`（地上有一把沙子。）
 
 # 2026-11-15 10:53 · 复习
 
@@ -181,56 +232,7 @@ Don't worry, there is still ____ water in the bottle.
 
 </details>
 
-## 对比「a little bit 后接名词时缺少 of」和相近表达
-
-**讲解要点**：
-- a little bit of 与 a bit of 表意相同，都可接不可数名词；a bit of 更短更随口，a little bit of 更强调“就一丁点”
-  - `We only need a bit of salt.`（我们只要一点盐。）
-  - `We only need a little bit of salt.`（我们只要一丁点盐。）
-- a little 直接接不可数名词，不带 of，语气中性、书面同样可用
-  - `There is a little water left.`（还剩一点水。）
-  - `She has a little time this afternoon.`（她今天下午有一点时间。）
-- a little of 只有在后面还带限定词或代词时才成立
-  - `Would you like a little of this soup?`（你想喝一点这个汤吗？）
-  - `a little of water` 不成立，光杆名词写作 `a little water`
-- a little bit 修饰形容词时不再带 of，of 只属于名词搭配
-  - `The tea is a little bit hot.`（茶有点烫。）
-  - `I'm a little bit tired today.`（我今天有点累。）
-- a few 与 a little bit of 的区别不在“多少”，而在名词类别：前者数个体，后者量内容
-  - `Only a few students came.`（只来了几个学生。）
-  - `There is a little bit of milk left.`（还剩一点牛奶。）
-- some 对可数与不可数通用，语气最中性；a small amount of 是 a little bit of 的正式版本
-  - `Some chairs are broken.`（有些椅子坏了。）
-  - `The report shows a small amount of progress.`（报告显示有少量进展。）
-
-## 扩展「a little bit 后接名词时缺少 of」相关词汇和搭配
-
-**讲解要点**：
-- 英语的“少量”按名词类别分装备：不可数名词走 a little bit of / a bit of / a touch of / a dash of，复数可数名词走 a few / some / a handful of。
-  - `There is a little bit of butter left.`（还剩一点黄油。）
-  - `There are a few tomatoes in the fridge.`（冰箱里有几个西红柿。）
-- a touch of 强调“轻轻加一笔”，多用于味道、颜色、情绪，语感比 a little bit of 精致。
-  - `Add a touch of salt to the sauce.`（往酱汁里加一点盐。）
-  - `There's a touch of irony in his voice.`（他的语气里带着一点讽刺。）
-- a dash of 专指快速倒入的少量液体调料。
-  - `Add a dash of milk to the coffee.`（往咖啡里加一点牛奶。）
-- a handful of 多接复数可数名词，表示“少数几个”，比 a few 更有画面感；接沙子、米这类物质名词时表示“一把”的实量。
-  - `Only a handful of people came.`（只来了寥寥几个人。）
-  - `He threw a handful of sand into the water.`（他往水里扔了一把沙子。）
-- a bit of a + 单数可数名词是另一条固定结构，of 后面是完整的名词短语，a bit 在这里当程度副词，意思是“有点”。
-  - `The meeting was a bit of a mess.`（这个会议有点乱。）
-  - `He's a bit of a perfectionist.`（他有点完美主义。）
-
 ## 练习「a little bit of 与相关量词搭配」的关键语法结构
-
-**讲解要点**：
-- 量词结构的选择先看名词类别，再看计量形象：微量调料走 a touch of / a dash of，可抓握实物走 a handful of。
-  - `Add a touch of cinnamon to the cake.`（往蛋糕里加一点肉桂。）
-  - `He added a handful of nuts to the salad.`（他往沙拉里加了一把坚果。）
-- a bit of a + 单数可数名词是三层结构，of 和 a 都不能省。
-  - `The meeting turned out to be a bit of a mess.`（这个会议结果有点乱。）
-- a handful of 做主语时，谓语随 of 后面的名词变化：复数名词用 are，物质名词用 is。
-  - `There is a handful of sand on the floor.`（地上有一把沙子。）
 
 ### 1. 单项选择
 

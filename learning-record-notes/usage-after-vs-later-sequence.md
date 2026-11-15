@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>3</td></tr>
 <tr><td>下次复习</td><td>2027-01-07 15:54</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-10 19:17</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-10 19:17</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-15 13:55</td></tr>
 </table>
 
 ## 讲解
@@ -28,6 +28,132 @@
 **可迁移表达**：
 
 - She tried teaching first, but later settled into translation.
+
+## 看一套围绕「after 不宜直接当 later 连接后续动作」的完整场景对话
+
+**讲解要点**：
+- `after` 只有接上名词短语或从句才成立：`after graduation`、`after the studio closed`。
+  - I joined a studio after graduation and then moved back to Dalian.
+- 单独推进时间由 `later`、`then`、`afterwards`、`after that` 承担，裸 `after` 不能承接后续动作。
+  - She left the agency and afterwards started freelancing.
+- `the next day`、`soon after` 自带时间定位，不再额外加 `on` 或 `after`。
+  - Soon after the launch, they made the app free for students.
+- 同一段叙述里可以交替使用顺序副词，避免重复同一个词。
+  - He finished the report and then sent it to the client.
+
+
+<details>
+<summary>场景对话原文</summary>
+
+- **Nina**：How did you end up in Dalian? I thought you were in Shenzhen.
+- **Ben**：I joined a studio there after graduation, and then I moved back to Dalian two years later.
+- **Nina**：So the studio came first, the move came after. Was that on purpose?
+- **Ben**：Sort of. After the studio closed its Shenzhen office, I had no reason to stay.
+- **Nina**：Did you find work straight away?
+- **Ben**：Not straight away. I freelanced for a while and afterwards joined a small team here.
+- **Nina**：And the team you're on now?
+- **Ben**：That came soon after. The next day, actually, they offered me a contract.
+- **Nina**：The next day? That sounds too neat.
+- **Ben**：It was. I signed on a Friday, and then started the following Monday.
+- **Nina**：And the pay? Did it come at a cost?
+- **Ben**：Lower, at first. Later on it evened out, and after that I stopped worrying about it.
+- **Nina**：Good. So the sequence was studio, freelance, team, contract.
+- **Ben**：Exactly, and I only had to say each step once — no stray `after` standing in for `later`.
+</details>
+
+## 练习「after 不宜直接当 later 连接后续动作」的关键语法结构
+
+**讲解要点**：
+- `after` + 名词短语作状语：`after supper`、`after the meeting`，介词不能悬空。
+  - After the meeting, he drove straight to the airport.
+- `after` + 从句时，主句表将来、从句用一般现在时（主将从现）：`After she arrives, she will call you.`
+  - She will call you after she arrives in Beijing.
+- `after` 作副词只限 `soon after`、`shortly after`、`two hours after` 这类窄语境，不能单独承接后续动作。
+  - Soon after, the studio closed for the summer.
+- 顺序推进由 `later`、`then`、`afterwards`、`after that` 承担，同一串动作里只需标一次先后。
+  - He finished the report and then sent it to the client.
+- `afterwards` 可置句首或句末，置句首时要紧跟一个完整主句，不能与另一主句共用逗号。
+  - We arrived late and afterwards ate dinner at the hotel.
+
+## 扩展「after 不宜直接当 later 连接后续动作」相关词汇和搭配
+
+**讲解要点**：
+- 表示「后来、随后」的副词与短语各司其职：`later` 中性泛指，`later on` 更口语且多指将来，`afterwards`／`afterward` 指序列之后，`then` 承接动作顺序，`after that` 便于衔接段落，`subsequently` 正式书面，`not long after` 强调间隔短。
+  - He called me later that day.
+  - We can sort out the details later on.
+- `after` 是介词或连词，必须带补足语；作副词只出现在 `soon after`、`shortly after`、`two days after` 这类带修饰语的固定语境里。
+  - Soon after the launch, the app went free.
+- `after` 的高频固定搭配与时间无关：`after all`（毕竟）、`look after`（照顾）、`name A after B`（以……命名）、`be after sth`（谋求、追赶）。
+  - She's new here, after all.
+  - The street is named after a poet.
+- `later` 还可作形容词比较级（`the later version`），与副词 `later` 同形不同用。
+  - We compared the earlier draft with the later version.
+
+## 对比「after 的三种用法」和相近表达
+
+**讲解要点**：
+- `after` 是介词或连词，必须带补足语：`after dinner`、`after she left`；不能独立作状语。
+  - After she left the studio, she started freelancing.
+- `afterwards` 与 `afterward` 是同一副词，前者英式、后者美式，可独立置句首或句末，不需要宾语。
+  - She left the studio. Afterwards, she started freelancing.
+- `then` 是口语最常用的顺序副词，同时可表「那么」；不能用 `after then` 这种拼合形式。
+  - She left the studio and then started freelancing.
+- `later` 指「稍后的时间点」，也可表「后来」，`later on` 更口语；`later` 能后置（`two days later`）。
+  - She left the studio and later started freelancing.
+- `after that` 是介词短语，最稳的句首过渡，可与从句互换而不改变句法。
+  - She left the studio. After that, she started freelancing.
+- `since then` 划定「从那时到现在」的时间段，必须搭配完成时，不能当纯粹的先后副使用。
+  - She left the studio in May; since then she has worked for herself.
+- `subsequently` 语域正式，多用于报告、法律与学术写作，口语里显得生硬。
+  - Subsequently, the firm moved its office to a new building.
+- `in the aftermath of` 指灾难或重大事件之后的余波，只用于书面且语义受限。
+  - In the aftermath of the storm, the studio stayed closed for a week.
+
+## 看一套围绕「after 与 later/then/afterwards 的对比」的完整场景对话
+
+**讲解要点**：
+- `after + 名词短语` 必须带宾语，用来建立时间框架
+  - After the last big campaign, I handed in my notice.
+- `after + 从句` 把先发生的动作降级成从属句
+  - After the studio merged with a bigger firm, I took over the whole department.
+- `after that` 是最稳的句首过渡，后面接完整主句
+  - And what did you do after that?
+- `then` 是口语最常用的顺序副词，可跟在 `and` 后面，后面不再补 `after`
+  - Then I took two months off.
+- `afterwards` 独立作状语，可置句首或句末，美式写作 `afterward`
+  - Afterwards, I started freelancing for a small studio.
+- `soon after` 是少数可以单独用 `after` 的固定搭配，表“不久之后”
+  - Soon after I joined, they offered me a full-time role.
+- `later` 可后置，与时间段连用表示“多久之后”，不能换成裸 `after`
+  - Six months later, I became the lead designer.
+- `since then` 划定“从那时到现在”的时间段，谓语必须用现在完成时
+  - Since then, I have hired three people and rebuilt the entire workflow.
+- `subsequently` 属正式书面语域，适合邮件与报告，与口语的 `then` 形成语域对照
+  - Subsequently, the firm moved us to a bigger office.
+
+
+<details>
+<summary>场景对话原文</summary>
+
+- **Maya**：I finally left my old agency last March.
+- **Ken**：I remember. You had been thinking about it for months.
+- **Maya**：Right. After the last big campaign, I handed in my notice.
+- **Ken**：And what did you do after that?
+- **Maya**：Then I took two months off. Afterwards, I started freelancing for a small studio.
+- **Ken**：That was quick. How did the studio find you?
+- **Maya**：A former client introduced me. Soon after I joined, they offered me a full-time role.
+- **Ken**：Did you take it?
+- **Maya**：I did. And then, six months later, I became the lead designer.
+- **Ken**：So you are running the team now?
+- **Maya**：After the studio merged with a bigger firm, I took over the whole department.
+- **Ken**：And since then?
+- **Maya**：Since then, I have hired three people and rebuilt the entire workflow.
+- **Ken**：Impressive. Keep me in mind when you are hiring again.
+- **Maya**：Subsequently, the firm moved us to a bigger office — that is the wording from the HR email, not mine.
+- **Ken**：Now you sound like a press release.
+- **Maya**：Sorry. The email literally said the design team would report to the new director subsequently.
+
+</details>
 
 # 2026-11-08 15:54 · 复习
 
@@ -188,54 +314,7 @@ The band released their first album in 2018 and after they toured Europe.
 
 </details>
 
-## 看一套围绕「after 不宜直接当 later 连接后续动作」的完整场景对话
-
-**讲解要点**：
-- `after` 只有接上名词短语或从句才成立：`after graduation`、`after the studio closed`。
-  - I joined a studio after graduation and then moved back to Dalian.
-- 单独推进时间由 `later`、`then`、`afterwards`、`after that` 承担，裸 `after` 不能承接后续动作。
-  - She left the agency and afterwards started freelancing.
-- `the next day`、`soon after` 自带时间定位，不再额外加 `on` 或 `after`。
-  - Soon after the launch, they made the app free for students.
-- 同一段叙述里可以交替使用顺序副词，避免重复同一个词。
-  - He finished the report and then sent it to the client.
-
-**完整场景对话**：
-
-<details>
-<summary>场景对话原文</summary>
-
-- **Nina**：How did you end up in Dalian? I thought you were in Shenzhen.
-- **Ben**：I joined a studio there after graduation, and then I moved back to Dalian two years later.
-- **Nina**：So the studio came first, the move came after. Was that on purpose?
-- **Ben**：Sort of. After the studio closed its Shenzhen office, I had no reason to stay.
-- **Nina**：Did you find work straight away?
-- **Ben**：Not straight away. I freelanced for a while and afterwards joined a small team here.
-- **Nina**：And the team you're on now?
-- **Ben**：That came soon after. The next day, actually, they offered me a contract.
-- **Nina**：The next day? That sounds too neat.
-- **Ben**：It was. I signed on a Friday, and then started the following Monday.
-- **Nina**：And the pay? Did it come at a cost?
-- **Ben**：Lower, at first. Later on it evened out, and after that I stopped worrying about it.
-- **Nina**：Good. So the sequence was studio, freelance, team, contract.
-- **Ben**：Exactly, and I only had to say each step once — no stray `after` standing in for `later`.
-</details>
-
-
 ## 练习「after 不宜直接当 later 连接后续动作」的关键语法结构
-
-**讲解要点**：
-- `after` + 名词短语作状语：`after supper`、`after the meeting`，介词不能悬空。
-  - After the meeting, he drove straight to the airport.
-- `after` + 从句时，主句表将来、从句用一般现在时（主将从现）：`After she arrives, she will call you.`
-  - She will call you after she arrives in Beijing.
-- `after` 作副词只限 `soon after`、`shortly after`、`two hours after` 这类窄语境，不能单独承接后续动作。
-  - Soon after, the studio closed for the summer.
-- 顺序推进由 `later`、`then`、`afterwards`、`after that` 承担，同一串动作里只需标一次先后。
-  - He finished the report and then sent it to the client.
-- `afterwards` 可置句首或句末，置句首时要紧跟一个完整主句，不能与另一主句共用逗号。
-  - We arrived late and afterwards ate dinner at the hotel.
-
 
 ### 1. 填空
 
@@ -398,19 +477,6 @@ After two hours, we finally arrived at the hotel, and after we checked in and we
 
 ## 扩展「after 不宜直接当 later 连接后续动作」相关词汇和搭配
 
-**讲解要点**：
-- 表示「后来、随后」的副词与短语各司其职：`later` 中性泛指，`later on` 更口语且多指将来，`afterwards`／`afterward` 指序列之后，`then` 承接动作顺序，`after that` 便于衔接段落，`subsequently` 正式书面，`not long after` 强调间隔短。
-  - He called me later that day.
-  - We can sort out the details later on.
-- `after` 是介词或连词，必须带补足语；作副词只出现在 `soon after`、`shortly after`、`two days after` 这类带修饰语的固定语境里。
-  - Soon after the launch, the app went free.
-- `after` 的高频固定搭配与时间无关：`after all`（毕竟）、`look after`（照顾）、`name A after B`（以……命名）、`be after sth`（谋求、追赶）。
-  - She's new here, after all.
-  - The street is named after a poet.
-- `later` 还可作形容词比较级（`the later version`），与副词 `later` 同形不同用。
-  - We compared the earlier draft with the later version.
-
-
 ### 1. 单项选择
 
 **题目**：选择填空，只有一个选项正确：
@@ -545,71 +611,5 @@ Don't be too hard on her — she's only been here a week, ______ ______.
 2. **规则与机制**：`look after` 表示照顾；`name A after B` 表示以 B 命名 A；`be after sth` 表示谋求、追赶或寻找。
 3. **英语的表达逻辑**：英语把“照顾”和介词 `after` 绑定成固定短语，词义整体化，不能按字面拆成“在……之后”。
 4. **可迁移表达**：She looks after her grandmother.；The street is named after a poet.；He's after a promotion.
-
-</details>
-
-## 对比「after 的三种用法」和相近表达
-
-**讲解要点**：
-- `after` 是介词或连词，必须带补足语：`after dinner`、`after she left`；不能独立作状语。
-  - After she left the studio, she started freelancing.
-- `afterwards` 与 `afterward` 是同一副词，前者英式、后者美式，可独立置句首或句末，不需要宾语。
-  - She left the studio. Afterwards, she started freelancing.
-- `then` 是口语最常用的顺序副词，同时可表「那么」；不能用 `after then` 这种拼合形式。
-  - She left the studio and then started freelancing.
-- `later` 指「稍后的时间点」，也可表「后来」，`later on` 更口语；`later` 能后置（`two days later`）。
-  - She left the studio and later started freelancing.
-- `after that` 是介词短语，最稳的句首过渡，可与从句互换而不改变句法。
-  - She left the studio. After that, she started freelancing.
-- `since then` 划定「从那时到现在」的时间段，必须搭配完成时，不能当纯粹的先后副使用。
-  - She left the studio in May; since then she has worked for herself.
-- `subsequently` 语域正式，多用于报告、法律与学术写作，口语里显得生硬。
-  - Subsequently, the firm moved its office to a new building.
-- `in the aftermath of` 指灾难或重大事件之后的余波，只用于书面且语义受限。
-  - In the aftermath of the storm, the studio stayed closed for a week.
-## 看一套围绕「after 与 later/then/afterwards 的对比」的完整场景对话
-
-**讲解要点**：
-- `after + 名词短语` 必须带宾语，用来建立时间框架
-  - After the last big campaign, I handed in my notice.
-- `after + 从句` 把先发生的动作降级成从属句
-  - After the studio merged with a bigger firm, I took over the whole department.
-- `after that` 是最稳的句首过渡，后面接完整主句
-  - And what did you do after that?
-- `then` 是口语最常用的顺序副词，可跟在 `and` 后面，后面不再补 `after`
-  - Then I took two months off.
-- `afterwards` 独立作状语，可置句首或句末，美式写作 `afterward`
-  - Afterwards, I started freelancing for a small studio.
-- `soon after` 是少数可以单独用 `after` 的固定搭配，表“不久之后”
-  - Soon after I joined, they offered me a full-time role.
-- `later` 可后置，与时间段连用表示“多久之后”，不能换成裸 `after`
-  - Six months later, I became the lead designer.
-- `since then` 划定“从那时到现在”的时间段，谓语必须用现在完成时
-  - Since then, I have hired three people and rebuilt the entire workflow.
-- `subsequently` 属正式书面语域，适合邮件与报告，与口语的 `then` 形成语域对照
-  - Subsequently, the firm moved us to a bigger office.
-
-**完整场景对话**：
-
-<details>
-<summary>场景对话原文</summary>
-
-- **Maya**：I finally left my old agency last March.
-- **Ken**：I remember. You had been thinking about it for months.
-- **Maya**：Right. After the last big campaign, I handed in my notice.
-- **Ken**：And what did you do after that?
-- **Maya**：Then I took two months off. Afterwards, I started freelancing for a small studio.
-- **Ken**：That was quick. How did the studio find you?
-- **Maya**：A former client introduced me. Soon after I joined, they offered me a full-time role.
-- **Ken**：Did you take it?
-- **Maya**：I did. And then, six months later, I became the lead designer.
-- **Ken**：So you are running the team now?
-- **Maya**：After the studio merged with a bigger firm, I took over the whole department.
-- **Ken**：And since then?
-- **Maya**：Since then, I have hired three people and rebuilt the entire workflow.
-- **Ken**：Impressive. Keep me in mind when you are hiring again.
-- **Maya**：Subsequently, the firm moved us to a bigger office — that is the wording from the HR email, not mine.
-- **Ken**：Now you sound like a press release.
-- **Maya**：Sorry. The email literally said the design team would report to the new director subsequently.
 
 </details>

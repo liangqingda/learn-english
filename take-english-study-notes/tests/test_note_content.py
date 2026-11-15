@@ -196,6 +196,18 @@ def with_menu_section(base: str, section: str) -> str:
     return base + "\n" + section
 
 
+def with_file_level_section(base: str, section: str) -> str:
+    """把讲解型小节放在 `## 讲解` 之后、所有日期区块之前（文件级讲解区）。"""
+    index = base.index("\n# ")
+    head, rest = base[:index], base[index:]
+    if "## 讲解" not in head:
+        head += (
+            "\n## 讲解\n\n**错误机制**：\n\n- 一条机制\n\n"
+            "**可迁移表达**：\n\n- `She headed out west.`（她往西边出发。）\n"
+        )
+    return head + "\n" + section + rest
+
+
 class NoteContentValidationTest(unittest.TestCase):
     def check(self, text: str, name: str = "errors-out-west.md") -> list[dict]:
         with tempfile.TemporaryDirectory() as directory:
@@ -236,7 +248,7 @@ class NoteContentValidationTest(unittest.TestCase):
         self.assert_caught(text, "故事原文 2 后面必须紧跟收尾三列表")
 
     def test_two_complete_story_blocks_pass(self) -> None:
-        text = with_menu_section(
+        text = with_file_level_section(
             note_text(),
             story_section(
                 story_block("故事原文 1") + STORY_TABLE,
@@ -246,16 +258,47 @@ class NoteContentValidationTest(unittest.TestCase):
         self.assertEqual(self.check(text), [])
 
     def test_single_story_block_must_not_be_numbered(self) -> None:
-        text = with_menu_section(
+        text = with_file_level_section(
             note_text(), story_section(story_block("故事原文 1") + STORY_TABLE)
         )
         self.assert_caught(text, "不要编号")
 
     def test_single_story_block_without_number_passes(self) -> None:
-        text = with_menu_section(
+        text = with_file_level_section(
             note_text(), story_section(story_block("故事原文") + STORY_TABLE)
         )
         self.assertEqual(self.check(text), [])
+
+    def test_story_section_in_a_round_block_is_rejected(self) -> None:
+        """小故事属于文件级讲解区：留在日期区块里必须被拦下。"""
+        text = with_menu_section(
+            note_text(), story_section(story_block("故事原文") + STORY_TABLE)
+        )
+        self.assert_caught(text, "日期区块只放习题")
+
+    def test_dialogue_section_in_a_round_block_is_rejected(self) -> None:
+        text = with_menu_section(
+            note_text(),
+            "## 看一套围绕 out west 的完整场景对话\n\n"
+            "**讲解要点**：\n- out west 表示往西边\n"
+            "  - `She headed out west.`（她往西边出发。）\n\n"
+            "<details><summary>场景对话原文</summary>\n\n"
+            "- **Ann**：Where are you going?（你去哪儿？）\n"
+            "- **Ben**：Out west, past the river.（往西，过了河。）\n"
+            "- **Ann**：How far?（多远？）\n"
+            "- **Ben**：Two days on foot.（走路两天。）\n\n"
+            "</details>\n",
+        )
+        self.assert_caught(text, "日期区块只放习题")
+
+    def test_round_section_with_explanation_points_is_rejected(self) -> None:
+        """日期区块里的同名小节只写习题：重复写讲解要点必须被拦下。"""
+        text = note_text() + (
+            "\n## 用 out west 做翻译练习\n\n"
+            "**讲解要点**：\n- 方位短语保持分写\n"
+            "  - `She headed out west.`（她往西边出发。）\n"
+        )
+        self.assert_caught(text, "日期区块只放习题")
 
     def assert_caught(self, text: str, keyword: str, name: str = "errors-out-west.md") -> None:
         issues = self.check(text, name)

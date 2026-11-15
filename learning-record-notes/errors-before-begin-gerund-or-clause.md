@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>2</td></tr>
 <tr><td>下次复习</td><td>2026-11-22 14:39</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-08 14:39</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-09 20:38</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-15 13:55</td></tr>
 </table>
 
 ## 讲解
@@ -19,6 +19,42 @@
 **待补充**：
 
 - 下次讲解或复习这条知识点时，按本记录的分类补写本节；补全后用 `note.py explain --update` 替换这段占位内容。
+
+## 看一套围绕「before 后不能直接接 begin 原形动词」的完整场景对话
+
+**讲解要点**：
+- `before` 后接同一主语的动作用 `before + 动名词`，不能用原形，也不能用 `before to do`。
+  - Have your forms ready before signing in.
+- 两个动作主语不同时，`before` 后面必须接完整从句，动名词无法带出自己的主语。
+  - Load the bags before the bus leaves at nine.
+- 将来语境里 `before` 从句用一般现在时表将来，将来信息由主句的情态动词承担。
+  - Be in the lobby before the driver arrives.
+  - Turn off the flash before taking any picture.
+- 名词短语自带数量信息：`everyone` 之后用 `their + 复数名词`，避免 `the + 单数` 造成共用误读。
+  - Everyone signs the list before boarding.
+
+
+
+<details>
+<summary>场景对话原文</summary>
+
+- **Dana**：Morning, everyone. Please have your forms ready before signing in at the desk.
+- **Kevin**：Do we need to pay before checking in?
+- **Dana**：Yes. Pay the fee before collecting your badge.
+- **Lucy**：What about the luggage? Should we load it before the bus leaves?
+- **Dana**：Right. Load the bags before the bus leaves at nine.
+- **Kevin**：The bus leaves at nine? I thought we had to be here before eight forty-five.
+- **Dana**：Correct. Be in the lobby before the driver arrives.
+- **Lucy**：And the museum? Do we need tickets before entering?
+- **Dana**：You do. Show your ticket before entering the exhibit hall.
+- **Kevin**：Can we take photos before the guide starts?
+- **Dana**：Yes, but turn off the flash before taking any picture.
+- **Lucy**：What if someone arrives late?
+- **Dana**：Then we leave on time, but everyone signs the list before boarding.
+- **Kevin**：Got it. Sign first, board second.
+- **Dana**：Exactly. Everything here happens before the next step, not after.
+
+</details>
 
 # 2026-11-08 14:39 · 复习
 
@@ -165,42 +201,5 @@
 2. **为什么错**：the passport 用定冠词加单数，读者会理解成团队共用的那一本护照；everyone 表示多人各自持有，应写 their passports。
 3. **英语的表达逻辑**：英语的名词短语自带数量信息，单数加 the 指向唯一对象，复数加 their 指向分配式的一人一份。
 4. **正确表达**：Please make sure everyone has their passports before leaving.；可迁移：Confirm that every member carries their own badge.
-
-</details>
-
-## 看一套围绕「before 后不能直接接 begin 原形动词」的完整场景对话
-
-**讲解要点**：
-- `before` 后接同一主语的动作用 `before + 动名词`，不能用原形，也不能用 `before to do`。
-  - Have your forms ready before signing in.
-- 两个动作主语不同时，`before` 后面必须接完整从句，动名词无法带出自己的主语。
-  - Load the bags before the bus leaves at nine.
-- 将来语境里 `before` 从句用一般现在时表将来，将来信息由主句的情态动词承担。
-  - Be in the lobby before the driver arrives.
-  - Turn off the flash before taking any picture.
-- 名词短语自带数量信息：`everyone` 之后用 `their + 复数名词`，避免 `the + 单数` 造成共用误读。
-  - Everyone signs the list before boarding.
-
-
-**完整场景对话**：
-
-<details>
-<summary>场景对话原文</summary>
-
-- **Dana**：Morning, everyone. Please have your forms ready before signing in at the desk.
-- **Kevin**：Do we need to pay before checking in?
-- **Dana**：Yes. Pay the fee before collecting your badge.
-- **Lucy**：What about the luggage? Should we load it before the bus leaves?
-- **Dana**：Right. Load the bags before the bus leaves at nine.
-- **Kevin**：The bus leaves at nine? I thought we had to be here before eight forty-five.
-- **Dana**：Correct. Be in the lobby before the driver arrives.
-- **Lucy**：And the museum? Do we need tickets before entering?
-- **Dana**：You do. Show your ticket before entering the exhibit hall.
-- **Kevin**：Can we take photos before the guide starts?
-- **Dana**：Yes, but turn off the flash before taking any picture.
-- **Lucy**：What if someone arrives late?
-- **Dana**：Then we leave on time, but everyone signs the list before boarding.
-- **Kevin**：Got it. Sign first, board second.
-- **Dana**：Exactly. Everything here happens before the next step, not after.
 
 </details>

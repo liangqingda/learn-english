@@ -255,6 +255,17 @@ class MenuItemNoteTest(unittest.TestCase):
     def base_note(self) -> str:
         return NoteTemplateTest().note_text()
 
+    def with_explanation(self, section: str = "") -> str:
+        """把 `## 讲解`（以及讲解型小节）放在所有日期区块之前。"""
+        text = self.base_note()
+        marker = "\n# "
+        index = text.index(marker)
+        explain = (
+            "\n## 讲解\n\n**错误机制**：\n\n- 一条机制\n\n"
+            "**可迁移表达**：\n\n- `There is a price to pay.`（总要付出代价。）\n"
+        )
+        return text[:index] + explain + ("\n" + section if section else "") + text[index:]
+
     def item(self, label: str = "看一套围绕「a price to pay」的完整场景对话") -> str:
         return (
             f"## {label}\n\n"
@@ -272,13 +283,14 @@ class MenuItemNoteTest(unittest.TestCase):
             "</details>\n"
         )
 
-    def practice(self, label: str = "练习「a price to pay」的关键语法结构") -> str:
+    def practice_points(self, label: str = "练习「a price to pay」的关键语法结构") -> str:
+        """讲解要点只写一次，留在文件级讲解区。"""
+        return f"## {label}\n\n**讲解要点**：\n\n- 要点 x\n  - 示例 y\n"
+
+    def practice_questions(self, label: str = "练习「a price to pay」的关键语法结构") -> str:
         """菜单项下的练习与主习题共用同一套题目模板，题号在小节内从 1 重新开始。"""
         return (
             f"## {label}\n\n"
-            "**讲解要点**：\n\n"
-            "- 要点 x\n"
-            "  - 示例 y\n\n"
             "### 1. 填空\n\n"
             "**题目**：Fill in the blank.\n\n"
             "**我的答案**：a price\n\n"
@@ -341,7 +353,7 @@ class MenuItemNoteTest(unittest.TestCase):
             self.assertEqual(check_note.check(path), [])
 
     def test_menu_item_after_questions_passes(self) -> None:
-        self.assertEqual(self.check_text(self.base_note() + "\n" + self.item()), [])
+        self.assertEqual(self.check_text(self.with_explanation(self.item())), [])
 
     def test_wrapper_heading_is_rejected(self) -> None:
         text = self.base_note() + "\n## 菜单与讲解\n\n" + self.item()
@@ -359,7 +371,8 @@ class MenuItemNoteTest(unittest.TestCase):
         self.assertTrue(any("没有任何 `### <n>. <题型>` 题目" in issue["message"] for issue in issues))
 
     def test_practice_questions_under_menu_pass(self) -> None:
-        text = self.base_note() + "\n" + self.practice()
+        """讲解要点留在文件级，本轮习题写进日期区块的同名小节。"""
+        text = self.with_explanation(self.practice_points()) + "\n" + self.practice_questions()
         self.assertEqual(self.check_text(text), [])
 
     def test_third_level_menu_heading_is_rejected(self) -> None:
@@ -445,7 +458,7 @@ class MenuItemNoteTest(unittest.TestCase):
         self.assertTrue(any("8 句英文叙事" in issue["message"] for issue in issues))
 
     def test_full_story_passes(self) -> None:
-        self.assertEqual(self.check_text(self.base_note() + "\n" + self.story()), [])
+        self.assertEqual(self.check_text(self.with_explanation(self.story())), [])
 
 
 class DocumentationDriftTest(unittest.TestCase):

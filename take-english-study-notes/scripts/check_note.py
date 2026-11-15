@@ -333,6 +333,22 @@ def validate_menu_section(
             "文件级讲解区只放讲解与原文，不要写习题：带习题的菜单项在日期区块里另建同名小节，"
             "本小节只保留 `**讲解要点**：`",
         )
+    if in_round_block:
+        # 日期区块只放习题：讲解要点、场景对话原文、故事原文都属于文件级讲解区
+        if "讲解要点" in mfields:
+            add(
+                line_no,
+                "日期区块只放习题：`**讲解要点**：` 属于文件级讲解区（`## 讲解` 之后、"
+                "所有日期区块之前），不要把讲解重复写进本轮区块",
+            )
+        if details_blocks(section_text, DIALOGUE_SUMMARY) or details_blocks(
+            section_text, STORY_SUMMARY
+        ):
+            add(
+                line_no,
+                "日期区块只放习题：场景对话 / 小故事原文要写在文件级讲解区，"
+                "不要放在日期区块里",
+            )
     points = [
         line
         for line in intro

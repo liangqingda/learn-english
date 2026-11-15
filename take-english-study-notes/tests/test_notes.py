@@ -41,6 +41,26 @@ def round_block(stamp: str = "2026-11-07 21:00", kind: str = "复习", body: str
     )
 
 
+def extra_section(
+    title: str = "## 扩展练习",
+    marker: str = "别的会话追加的小节",
+) -> str:
+    """日期区块里合法的菜单项小节：只放习题，不写讲解要点。"""
+    return (
+        f"\n\n{title}\n\n"
+        "### 1. 翻译\n\n"
+        f"**题目**：{marker}\n\n"
+        "**我的答案**：She headed out west.\n\n"
+        "**判定**：✅ 正确\n\n"
+        "<details>\n<summary>知识点讲解</summary>\n\n"
+        "1. **本题知识点**：out west 是方位短语\n"
+        "2. **规则与机制**：out 与 west 分写\n"
+        "3. **英语的表达逻辑**：副词短语表方向\n"
+        "4. **可迁移表达**：head out west\n\n"
+        "</details>\n"
+    )
+
+
 class NoteAppendTest(unittest.TestCase):
     def setUp(self) -> None:
         self.directory = tempfile.TemporaryDirectory()
@@ -56,19 +76,64 @@ class NoteAppendTest(unittest.TestCase):
         self.store.append_section(
             self.note,
             "# 2026-11-07 21:00 · 复习",
-            "## 读一个围绕 out west 的小故事\n\n**讲解要点**：\n- out west 表示往西\n  - `She headed out west.`（她往西边出发。）\n",
+            extra_section().strip("\n"),
         )
         result = self.store.append_part(
             self.note,
             "# 2026-11-07 21:00 · 复习",
-            "## 读一个围绕 out west 的小故事",
-            "<details><summary>故事原文 2</summary>\n\nSecond version.\n\n</details>\n",
+            "## 扩展练习",
+            "### 2. 翻译\n\n**题目**：中译英：她往西边出发了。\n\n"
+            "**我的答案**：She headed out west.\n\n"
+            "**判定**：✅ 正确\n\n"
+            "<details>\n<summary>知识点讲解</summary>\n\n"
+            "1. **本题知识点**：out west 作方向状语\n"
+            "2. **规则与机制**：out 与 west 分写\n"
+            "3. **英语的表达逻辑**：方向副词短语\n"
+            "4. **可迁移表达**：head out west\n\n"
+            "</details>\n",
         )
         self.assertTrue(result["appended_part"])
         text = self.note.read_text(encoding="utf-8")
-        self.assertEqual(text.count("## 读一个围绕 out west 的小故事"), 1)
-        self.assertIn("故事原文 2", text)
-        self.assertLess(text.index("**讲解要点**"), text.index("故事原文 2"))
+        self.assertEqual(text.count("## 扩展练习"), 1)
+        self.assertIn("### 2. 翻译", text)
+        self.assertLess(text.index("### 1. 翻译"), text.index("### 2. 翻译"))
+
+    def test_append_part_refuses_a_story_block_in_a_round_section(self) -> None:
+        """故事原文再选一次要走 append-explain-part，不能追加进日期区块的小节。"""
+        self.store.append(self.note, round_block())
+        self.store.append_section(
+            self.note, "# 2026-11-07 21:00 · 复习", extra_section().strip("\n")
+        )
+        with self.assertRaises(NoteError) as caught:
+            self.store.append_part(
+                self.note,
+                "# 2026-11-07 21:00 · 复习",
+                "## 扩展练习",
+                "<details><summary>故事原文 2</summary>\n\nOne line.\n\n</details>\n",
+            )
+        self.assertIn("日期区块只放习题", str(caught.exception))
+
+    def test_append_section_refuses_explanation_content_in_a_round_block(self) -> None:
+        """讲解要点属于文件级讲解区：写进日期区块必须被写入命令拒绝。"""
+        self.store.append(self.note, round_block())
+        with self.assertRaises(NoteError) as caught:
+            self.store.append_section(
+                self.note,
+                "# 2026-11-07 21:00 · 复习",
+                "## 对比 out west 和 in the west\n\n**讲解要点**：\n- 一条要点\n"
+                "  - `She headed out west.`（她往西边出发。）\n",
+            )
+        self.assertIn("日期区块只放习题", str(caught.exception))
+
+    def test_append_refuses_a_story_block_inside_the_round(self) -> None:
+        block = round_block() + (
+            "\n## 读一个围绕 out west 的小故事\n\n"
+            "**讲解要点**：\n- out west 表示往西\n\n"
+            "<details><summary>故事原文</summary>\n\nOne line.\n\n</details>\n"
+        )
+        with self.assertRaises(NoteError) as caught:
+            self.store.append(self.note, block)
+        self.assertIn("日期区块只放习题", str(caught.exception))
 
     def _note_with_explanation(self) -> None:
         self.store.write_explanation(
@@ -586,27 +651,14 @@ class NoteCliTest(unittest.TestCase):
         self.assertTrue(payload["appended"])
         self.assertTrue(payload["check"]["ok"])
 
-    def test_cli_append_part_adds_a_second_story_and_still_validates(self) -> None:
+    def test_cli_append_part_adds_a_second_exercise_and_still_validates(self) -> None:
+        """同一菜单项再选一次只追加新习题：小节数不变，笔记仍然通过校验。"""
         self.run_cli(
             ["append", "--file", "learning-record-notes/errors-out-west.md", "--content-file", "-"],
             block_text(heading="2026-11-09 09:00 · 复习", answer="west"),
         )
-        section = (
-            "## 读一个围绕 out west 的小故事\n\n"
-            "**讲解要点**：\n"
-            "- out west 表示“往西边”\n"
-            "  - `She headed out west.`（她往西边出发。）\n\n"
-            "<details><summary>故事原文</summary>\n\n"
-            "Lin walked out west at dawn. She carried a map. The trail bent west. "
-            "Rain fell before noon. She found the mill. Nobody waited. "
-            "She lit a torch. The rain stopped. She headed out west again.\n\n"
-            "林在黎明时往西走。她带着一张地图。\n\n"
-            "</details>\n\n"
-            "| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |\n"
-            "|---|---|---|\n"
-            "| 第 1 段 | 往西走 | out west 是固定短语 |\n"
-        )
-        self.run_cli(
+        section = extra_section("## 扩展练习", "第一题的题干").strip("\n") + "\n"
+        added = self.run_cli(
             [
                 "append-section",
                 "--file",
@@ -618,16 +670,18 @@ class NoteCliTest(unittest.TestCase):
             ],
             section,
         )
+        self.assertEqual(added.returncode, 0, added.stderr)
         part = (
-            "<details><summary>故事原文 2</summary>\n\n"
-            "Sam drove out west for work. He left before sunrise. The road turned west. "
-            "A truck blocked the lane. He waited an hour. The driver apologized. "
-            "Sam reached the site late. Nobody minded. He drove out west again.\n\n"
-            "萨姆为了工作往西开。他日出前出发。\n\n"
-            "</details>\n\n"
-            "| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |\n"
-            "|---|---|---|\n"
-            "| 第 1 段 | 往西开 | out west 保持分写 |\n"
+            "### 2. 翻译\n\n"
+            "**题目**：中译英：他往西开了。\n\n"
+            "**我的答案**：He drove out west.\n\n"
+            "**判定**：✅ 正确\n\n"
+            "<details>\n<summary>知识点讲解</summary>\n\n"
+            "1. **本题知识点**：out west 是方位短语\n"
+            "2. **规则与机制**：out 与 west 分写\n"
+            "3. **英语的表达逻辑**：副词短语表方向\n"
+            "4. **可迁移表达**：drive out west\n\n"
+            "</details>\n"
         )
         completed = self.run_cli(
             [
@@ -637,7 +691,7 @@ class NoteCliTest(unittest.TestCase):
                 "--heading",
                 "# 2026-11-09 09:00 · 复习",
                 "--section",
-                "## 读一个围绕 out west 的小故事",
+                "## 扩展练习",
                 "--content-file",
                 "-",
                 "--check",
@@ -649,8 +703,8 @@ class NoteCliTest(unittest.TestCase):
         self.assertTrue(payload["appended_part"])
         self.assertTrue(payload["check"]["ok"])
         text = self.note.read_text(encoding="utf-8")
-        self.assertEqual(text.count("## 读一个围绕 out west 的小故事"), 1)
-        self.assertIn("故事原文 2", text)
+        self.assertEqual(text.count("## 扩展练习"), 1)
+        self.assertIn("### 2. 翻译", text)
 
     def test_cli_append_part_rejects_a_new_section_heading(self) -> None:
         self.run_cli(
@@ -795,7 +849,7 @@ class NoteCliTest(unittest.TestCase):
                 "-",
             ],
             block_text(heading="2026-11-09 09:00 · 复习", answer="west")
-            + "\n\n## 扩展练习\n\n- 别的会话追加的小节\n",
+            + extra_section(),
         )
         self.assertEqual(completed.returncode, 0, completed.stderr)
         replaced = self.run_cli(
@@ -828,7 +882,7 @@ class NoteCliTest(unittest.TestCase):
                 "-",
             ],
             block_text(heading="2026-11-09 09:00 · 复习", answer="west")
-            + "\n\n## 扩展练习\n\n- 写错的小节\n",
+            + extra_section(marker="写错的小节"),
         )
         self.assertEqual(completed.returncode, 0, completed.stderr)
         replaced = self.run_cli(
@@ -873,7 +927,7 @@ class NoteCliTest(unittest.TestCase):
                 "--content-file",
                 "-",
             ],
-            "## 对比「out west」和相近表达\n\n**讲解要点**：\n\n- 别的会话刚写的小节\n",
+            extra_section("## 对比「out west」和相近表达", "别的会话刚写的小节").strip("\n") + "\n",
         )
         self.assertEqual(appended.returncode, 0, appended.stderr)
         payload = json.loads(appended.stdout)
@@ -891,7 +945,7 @@ class NoteCliTest(unittest.TestCase):
                 "--content-file",
                 "-",
             ],
-            "## 对比「out west」和相近表达\n\n**讲解要点**：\n\n- 别的会话刚写的小节\n",
+            extra_section("## 对比「out west」和相近表达", "别的会话刚写的小节").strip("\n") + "\n",
         )
         self.assertEqual(again.returncode, 0, again.stderr)
         self.assertTrue(json.loads(again.stdout)["duplicate"])
@@ -906,7 +960,7 @@ class NoteCliTest(unittest.TestCase):
                 "-",
             ],
             block_text(heading="2026-11-09 09:00 · 复习", answer="west")
-            + "\n\n## 对比「out west」和相近表达\n\n- 旧内容\n",
+            + extra_section("## 对比「out west」和相近表达", "旧内容"),
         )
         self.assertEqual(completed.returncode, 0, completed.stderr)
         refused = self.run_cli(
@@ -919,11 +973,11 @@ class NoteCliTest(unittest.TestCase):
                 "--content-file",
                 "-",
             ],
-            "## 对比「out west」和相近表达\n\n- 新内容\n",
+            extra_section("## 对比「out west」和相近表达", "新内容").strip("\n") + "\n",
         )
         self.assertEqual(refused.returncode, 2)
         self.assertIn("already exists in this block", refused.stderr)
-        self.assertIn("- 旧内容", self.note.read_text(encoding="utf-8"))
+        self.assertIn("旧内容", self.note.read_text(encoding="utf-8"))
 
     def test_cli_replace_rewriting_two_sections_needs_declaration(self) -> None:
         completed = self.run_cli(
@@ -935,12 +989,14 @@ class NoteCliTest(unittest.TestCase):
                 "-",
             ],
             block_text(heading="2026-11-09 09:00 · 复习", answer="west")
-            + "\n\n## 小节甲\n\n- 旧甲\n\n## 小节乙\n\n- 旧乙\n",
+            + extra_section("## 小节甲", "旧甲")
+            + extra_section("## 小节乙", "旧乙"),
         )
         self.assertEqual(completed.returncode, 0, completed.stderr)
         replacement = (
             block_text(heading="2026-11-09 09:00 · 复习", answer="west")
-            + "\n\n## 小节甲\n\n- 新甲\n\n## 小节乙\n\n- 新乙\n"
+            + extra_section("## 小节甲", "新甲")
+            + extra_section("## 小节乙", "新乙")
         )
         refused = self.run_cli(
             [
@@ -956,7 +1012,7 @@ class NoteCliTest(unittest.TestCase):
         )
         self.assertEqual(refused.returncode, 2)
         self.assertIn("一次只改一个小节", refused.stderr)
-        self.assertIn("- 旧甲", self.note.read_text(encoding="utf-8"))
+        self.assertIn("旧甲", self.note.read_text(encoding="utf-8"))
 
         allowed = self.run_cli(
             [
@@ -980,8 +1036,8 @@ class NoteCliTest(unittest.TestCase):
             payload["modified_sections"], ["## 小节甲", "## 小节乙"]
         )
         text = self.note.read_text(encoding="utf-8")
-        self.assertIn("- 新甲", text)
-        self.assertIn("- 新乙", text)
+        self.assertIn("新甲", text)
+        self.assertIn("新乙", text)
 
 
     def test_cli_append_syncs_stale_record_rows(self) -> None:
