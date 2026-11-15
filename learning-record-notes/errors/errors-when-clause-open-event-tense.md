@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>3</td></tr>
 <tr><td>下次复习</td><td>2026-11-18 21:09</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-15 21:09</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-15 21:17</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-15 21:18</td></tr>
 </table>
 
 ## 讲解
@@ -72,6 +72,20 @@
 - **Priya**：Not really. **When the pool had just opened**, there was only one lane and no lifeguard at all. We needed the finished event, not the process.
 - **Leo**：Got it. And the main part stays in the past too?
 - **Priya**：Exactly: **when the pool had just opened**, **there was** only one lane, and **we swam** in it every single afternoon.
+
+</details>
+
+<details>
+<summary>场景对话原文 3</summary>
+
+- **Elena**：Before I write this post, I need one honest sentence about how the courtyard started.
+- **Kai**：Then keep this one: I still remember **when the courtyard had just opened**, and there were only four tables.
+- **Elena**：Would "when the courtyard was opening in 2015" work too? It sounds more vivid.
+- **Kai**：No. Just say it **opened** in 2015. A year marks one finished event, and the process reading needs another action to lean on.
+- **Elena**：And the winter everyone said you would shut down?
+- **Kai**：That came much later. **When the courtyard had just opened**, we had no customers at all, and my mother cooked for empty chairs.
+- **Elena**：What finally changed it?
+- **Kai**：One sign at the gate — "one dish, one story". By spring, **when the courtyard had just opened** for the evening, people were already waiting outside.
 
 </details>
 
