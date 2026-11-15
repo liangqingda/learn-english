@@ -600,7 +600,9 @@ class NoteContentValidationTest(unittest.TestCase):
             with_second_round(note_with_explanation(), "2026-11-07 21:00")
         )
         text = text.replace(
-            "- [2026-11-07 - 01](#round-", "- [2026-11-07 - 09](#round-", 1
+            "- [2026-11-07 12:00 · 复习 - 01](#round-",
+            "- [2026-11-07 12:00 · 复习 - 09](#round-",
+            1,
         )
         issues = self.check_raw(text)
         self.assertTrue(
@@ -647,8 +649,8 @@ class NoteContentValidationTest(unittest.TestCase):
             )
         )
         text = text.replace(
-            "- [2026-11-07](#practice-2026-11-07-1200-",
-            "- [2026-11-07 - 09](#practice-2026-11-07-1200-",
+            "- [2026-11-07 12:00 · 复习](#practice-2026-11-07-1200-",
+            "- [2026-11-07 12:00 · 练习](#practice-2026-11-07-1200-",
             1,
         )
         issues = self.check_raw(text)

@@ -347,7 +347,8 @@ INDEX_ITEM_RE = re.compile(r"^- \[(?P<label>[^\]]+)\]\(#(?P<id>[^)]+)\)$")
 def practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str, str, str]]]:
     """菜单项 → [(展示文本, 实际锚点, 应有锚点, 行号)]，按时间倒序；行号取小节标题行。
 
-    展示文本只写日期，同一天同一菜单项多份按时间先后补 ` - 01`、` - 02`，与写入命令同口径。
+    展示文本与日期区块标题同口径（`日期 时间 · 类型`），同一天同一菜单项多份按时间先后补
+    ` - 01`、` - 02`，与写入命令一致。
     """
     raw: dict[tuple[str, str], tuple[str, str, str, str]] = {}
     date = time = kind = None
@@ -366,7 +367,7 @@ def practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str, str, st
         anchor_match = INLINE_ANCHOR_RE.search(line.rstrip())
         anchor = anchor_match.group("id") if anchor_match else ""
         expected = practice_anchor_id(date, time, f"## {base}")
-        raw[(base, f"{date} {time}")] = (date, anchor, expected, str(index + 1))
+        raw[(base, f"{date} {time}")] = (kind, anchor, expected, str(index + 1))
     labels: dict[tuple[str, str], str] = {}
     for base in {item_base for item_base, _stamp in raw}:
         day = day_labels(
@@ -374,7 +375,7 @@ def practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str, str, st
         )
         labels.update({(base, stamp): label for stamp, label in day.items()})
     grouped: dict[str, list[tuple[str, str, str, str]]] = {}
-    for (base, stamp), (_date, anchor, expected, line_no) in sorted(
+    for (base, stamp), (_kind, anchor, expected, line_no) in sorted(
         raw.items(), key=lambda item: item[0][1], reverse=True
     ):
         grouped.setdefault(base, []).append((labels[(base, stamp)], anchor, expected, line_no))
@@ -383,7 +384,7 @@ def practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str, str, st
 
 def round_entries(lines: list[str]) -> list[tuple[str, str, str, int]]:
     """每个日期区块的 `## 本轮习题` → [(展示文本, 实际锚点, 应有锚点, 行号)]，按时间倒序。"""
-    raw: dict[str, tuple[str, str, int]] = {}
+    raw: dict[str, tuple[str, str, str, int]] = {}
     date = time = kind = None
     for index, line in enumerate(lines):
         heading = SECTION_RE.match(line)
@@ -398,14 +399,15 @@ def round_entries(lines: list[str]) -> list[tuple[str, str, str, int]]:
         anchor_match = INLINE_ANCHOR_RE.search(line.rstrip())
         anchor = anchor_match.group("id") if anchor_match else ""
         raw[f"{date} {time}"] = (
+            kind,
             anchor,
             round_anchor_id(date, time),
             index + 1,
         )
-    labels = day_labels(sorted((stamp, stamp[:10]) for stamp in raw))
+    labels = day_labels(sorted((stamp, info[0]) for stamp, info in raw.items()))
     return [
         (labels[stamp], anchor, expected, line_no)
-        for stamp, (anchor, expected, line_no) in sorted(raw.items(), reverse=True)
+        for stamp, (_kind, anchor, expected, line_no) in sorted(raw.items(), reverse=True)
     ]
 
 

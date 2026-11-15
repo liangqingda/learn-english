@@ -302,8 +302,8 @@ def round_anchor_id(date: str, time: str) -> str:
 def practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str]]]:
     """菜单项 → [(索引展示文本, 锚点 id)]，按时间倒序排列（新的在前）。
 
-    展示文本只写日期；同一天同一菜单项有多份时按时间先后补 ` - 01`、` - 02`，
-    与几份小节标题的序号口径一致，不由标题里的后缀决定，避免手改标题影响目录。
+    展示文本与日期区块标题同口径（`<date> <HH:MM> · <kind>`）；同一天同一菜单项有多份时
+    按时间先后补 ` - 01`、` - 02`，不由标题里的后缀决定，避免手改标题影响目录。
     """
     seen: dict[tuple[str, str], str] = {}
     date = time = kind = None
@@ -318,11 +318,11 @@ def practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str]]]:
         base, _seq = _section_base(stripped)
         if base == f"## {QUIZ_SECTION}":
             continue
-        seen[(base, f"{date} {time}")] = date
+        seen[(base, f"{date} {time}")] = kind
     labels: dict[tuple[str, str], str] = {}
     for base in {base for base, _stamp in seen}:
         day = day_labels(
-            sorted((stamp, date) for (item_base, stamp), date in seen.items() if item_base == base)
+            sorted((stamp, kind) for (item_base, stamp), kind in seen.items() if item_base == base)
         )
         labels.update({(base, stamp): label for stamp, label in day.items()})
     grouped: dict[str, list[tuple[str, str]]] = {}
@@ -334,22 +334,20 @@ def practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str]]]:
 
 
 def day_labels(stamps: list[tuple[str, str]]) -> dict[str, str]:
-    """索引条目的展示文本：只写日期；同一天有多条时按时间先后补 ` - 01`、` - 02`。
+    """索引条目的展示文本，与日期区块标题一致：`<date> <HH:MM> · <kind>`。
 
-    `stamps` 是 ``[(<date> <HH:MM>, <date>)]``。同一天两条复习区块若都显示成同一个日期，
-    目录里就分不清哪条是哪次，因此沿用日期区块小节的同日序号规则。
+    `stamps` 是 ``[(<date> <HH:MM>, <kind>)]``。同一天有多条时按时间先后补 ` - 01`、` - 02`，
+    否则两条同日区块在目录里分不清先后。
     """
-    by_date: dict[str, list[str]] = {}
-    for stamp, date in stamps:
-        by_date.setdefault(date, []).append(stamp)
+    by_date: dict[str, list[tuple[str, str]]] = {}
+    for stamp, kind in stamps:
+        by_date.setdefault(stamp[:10], []).append((stamp, kind))
     labels: dict[str, str] = {}
     for date, day_stamps in by_date.items():
         ordered = sorted(day_stamps)
-        if len(ordered) == 1:
-            labels[ordered[0]] = date
-            continue
-        for position, stamp in enumerate(ordered, 1):
-            labels[stamp] = f"{date} - {position:02d}"
+        for position, (stamp, kind) in enumerate(ordered, 1):
+            label = f"{date} {stamp[11:]} · {kind}"
+            labels[stamp] = f"{label} - {position:02d}" if len(ordered) > 1 else label
     return labels
 
 
@@ -368,7 +366,7 @@ def _round_entries(lines: list[str]) -> list[tuple[str, str]]:
         base, _seq = _section_base(stripped)
         if base != f"## {QUIZ_SECTION}":
             continue
-        entries[f"{date} {time}"] = date
+        entries[f"{date} {time}"] = kind
     labels = day_labels(sorted(entries.items()))
     return [
         (labels[stamp], round_anchor_id(stamp[:10], stamp[11:]))
