@@ -15,6 +15,7 @@ sys.path.insert(0, str(SCRIPTS_DIR))
 sys.path.insert(0, str(REPO_ROOT / "take-english-study-notes" / "scripts"))
 
 import check_note  # noqa: E402
+from note_store import apply_practice_index  # noqa: E402
 
 from learning_records_tool.cli import build_parser  # noqa: E402
 from learning_records_tool.menu import build_menu  # noqa: E402
@@ -247,6 +248,8 @@ class MenuItemNoteTest(unittest.TestCase):
     """菜单项直接以三级标题追加在习题之后；错位与旧写法都必须被拦住。"""
 
     def check_text(self, text: str) -> list[dict]:
+        # 写入命令会自动补隐藏锚点与文件级索引块，样例先跑同一套重建再校验
+        text = apply_practice_index(text)
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "note.md"
             path.write_text(text, encoding="utf-8")

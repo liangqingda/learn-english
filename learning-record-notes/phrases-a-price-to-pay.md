@@ -38,6 +38,11 @@
 
 ## 练习「a price to pay」的关键语法结构
 
+<!-- practice-index -->
+- [2026-11-07 20:22 · 复习](#practice-2026-11-07-2022-8cd81652)
+- [2026-11-15 12:05 · 复习](#practice-2026-11-15-1205-8cd81652)
+<!-- /practice-index -->
+
 **讲解要点**：
 - 名词 + 后置不定式用主动形式，表示“待做、该做、可做”
   - `a price to pay`（要付的代价）
@@ -379,6 +384,7 @@ My cousin finally bought the old farm she always wanted. She gave up every weeke
 ---
 
 ## 练习「a price to pay」的关键语法结构
+<a id="practice-2026-11-15-1205-8cd81652"></a>
 
 ### 1. 填空
 
@@ -751,6 +757,7 @@ Working night shifts cost her her health, and she knew it.
 </details>
 
 ## 练习「a price to pay」的关键语法结构
+<a id="practice-2026-11-07-2022-8cd81652"></a>
 
 ### 1. 单项选择
 

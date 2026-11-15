@@ -10,7 +10,8 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "take-english-study-notes" / "scripts"))
 
-import check_note  # noqa: E402
+import check_note
+from note_store import apply_practice_index  # noqa: E402
 
 NOTES_DIR = "learning-record-notes"
 
@@ -269,6 +270,8 @@ def with_file_level_section(base: str, section: str) -> str:
 
 class NoteContentValidationTest(unittest.TestCase):
     def check(self, text: str, name: str = "errors-out-west.md") -> list[dict]:
+        # 写入命令会给每份习题小节补隐藏锚点与文件级索引，测试样例先跑同一套重建再校验
+        text = apply_practice_index(text)
         with tempfile.TemporaryDirectory() as directory:
             notes = Path(directory) / NOTES_DIR
             notes.mkdir()
@@ -424,6 +427,98 @@ class NoteContentValidationTest(unittest.TestCase):
             menu_practice("## 练习「out west」的关键语法结构 - 02"),
         )
         self.assertEqual(self.check(text), [])
+
+    def check_raw(self, text: str, name: str = "errors-out-west.md") -> list[dict]:
+        """不经重建直接校验，用于验证手写笔记会踩到的锚点与索引规则。"""
+        with tempfile.TemporaryDirectory() as directory:
+            notes = Path(directory) / NOTES_DIR
+            notes.mkdir()
+            path = notes / name
+            path.write_text(text, encoding="utf-8")
+            return check_note.check(path)
+
+    def test_practice_anchor_and_file_level_index_are_generated(self) -> None:
+        """同日两份习题：各自一行隐藏锚点，文件级小节列出两条可跳转索引。"""
+        text = with_file_level_section(
+            note_text() + menu_practice("## 练习「out west」的关键语法结构 - 01"),
+            "## 练习「out west」的关键语法结构\n\n"
+            "**讲解要点**：\n\n- 方向副词短语\n"
+            "  - `She headed out west.`（她往西边出发。）\n",
+        )
+        text = apply_practice_index(
+            with_second_round(
+                text, "2026-11-07 21:00", menu_practice("## 练习「out west」的关键语法结构 - 02")
+            )
+        )
+        self.assertEqual(self.check_raw(text), [])
+        self.assertIn("<!-- practice-index -->", text)
+        self.assertEqual(text.count("<a id=\"practice-2026-11-07-1200-"), 1)
+        self.assertEqual(text.count("<a id=\"practice-2026-11-07-2100-"), 1)
+        index_ids = [
+            line for line in text.split("\n") if line.startswith("- [2026-11-07")
+        ]
+        self.assertEqual(len(index_ids), 2)
+        # 索引按时间升序：12:00 在前，21:00 在后
+        self.assertIn("(#practice-2026-11-07-1200-", index_ids[0])
+        self.assertIn("(#practice-2026-11-07-2100-", index_ids[-1])
+
+    def test_missing_practice_anchor_is_rejected(self) -> None:
+        text = apply_practice_index(
+            with_file_level_section(
+                note_text() + menu_practice(),
+                "## 练习「out west」的关键语法结构\n\n"
+                "**讲解要点**：\n\n- 方向副词短语\n"
+                "  - `She headed out west.`（她往西边出发。）\n",
+            )
+        )
+        text = "\n".join(
+            line for line in text.split("\n") if not line.startswith("<a id=")
+        )
+        issues = self.check_raw(text)
+        self.assertTrue(any("隐藏锚点" in issue["message"] for issue in issues))
+
+    def test_anchor_from_another_round_is_rejected(self) -> None:
+        text = apply_practice_index(
+            with_file_level_section(
+                note_text() + menu_practice(),
+                "## 练习「out west」的关键语法结构\n\n"
+                "**讲解要点**：\n\n- 方向副词短语\n"
+                "  - `She headed out west.`（她往西边出发。）\n",
+            )
+        )
+        text = text.replace(
+            '<a id="practice-2026-11-07-1200-', '<a id="practice-2026-11-07-2100-', 1
+        )
+        issues = self.check_raw(text)
+        self.assertTrue(
+            any("锚点与所在区块 / 小节标题不匹配" in issue["message"] for issue in issues)
+        )
+
+    def test_index_entry_mismatch_is_rejected(self) -> None:
+        text = apply_practice_index(
+            with_file_level_section(
+                note_text() + menu_practice(),
+                "## 练习「out west」的关键语法结构\n\n"
+                "**讲解要点**：\n\n- 方向副词短语\n"
+                "  - `She headed out west.`（她往西边出发。）\n",
+            )
+        )
+        text = text.replace("- [2026-11-07 12:00 · 复习]", "- [2026-11-07 12:00 · 练习]", 1)
+        issues = self.check_raw(text)
+        self.assertTrue(any("索引与真实习题小节不一致" in issue["message"] for issue in issues))
+
+    def test_stale_index_block_without_exercises_is_rejected(self) -> None:
+        text = with_file_level_section(
+            note_text(),
+            "## 练习「out west」的关键语法结构\n\n"
+            "**讲解要点**：\n\n- 方向副词短语\n"
+            "  - `She headed out west.`（她往西边出发。）\n"
+            "\n<!-- practice-index -->\n"
+            "- [2026-11-07 12:00 · 复习](#practice-2026-11-07-1200-00000000)\n"
+            "<!-- /practice-index -->\n",
+        )
+        issues = self.check_raw(text)
+        self.assertTrue(any("不要保留索引块" in issue["message"] for issue in issues))
 
     def test_sequence_suffix_on_a_single_section_is_rejected(self) -> None:
         """当天只有一份时不要加序号后缀。"""

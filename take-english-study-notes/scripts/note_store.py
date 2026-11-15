@@ -14,6 +14,7 @@ Callers never rewrite the file themselves.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import re
@@ -101,6 +102,30 @@ def _count_blocks(text: str) -> int:
     return sum(1 for line in _normalize_text(text).split("\n") if line.startswith("# "))
 
 
+INDEX_START = "<!-- practice-index -->"
+INDEX_END = "<!-- /practice-index -->"
+PRACTICE_ANCHOR_RE = re.compile(r'<a id="practice-\d{4}-\d{2}-\d{2}-\d{4}-[0-9a-f]{8}"></a>$')
+INDEX_LINE_RE = re.compile(r"^- \[[^\]]+\]\(#practice-[\w-]+\)$")
+
+
+def _strip_practice_index(text: str) -> str:
+    """去掉派生内容（锚点行与索引块），只留调用方真正提交的正文。"""
+    lines: list[str] = []
+    inside = False
+    for line in _normalize_text(text).split("\n"):
+        stripped = line.strip()
+        if stripped == INDEX_START:
+            inside = True
+            continue
+        if stripped == INDEX_END:
+            inside = False
+            continue
+        if inside or PRACTICE_ANCHOR_RE.match(stripped):
+            continue
+        lines.append(line)
+    return "\n".join(lines)
+
+
 def _comparable(text: str) -> str:
     """Normalize a block so trivial whitespace and separators do not register.
 
@@ -108,7 +133,10 @@ def _comparable(text: str) -> str:
     retried append inside a multi-round file must ignore it; otherwise the
     same round looks new and gets appended a second time under a bumped minute.
     """
-    lines = [line.rstrip() for line in _normalize_text(text).strip("\n").split("\n")]
+    lines = [
+        line.rstrip()
+        for line in _strip_practice_index(text).strip("\n").split("\n")
+    ]
     while lines and (not lines[-1] or lines[-1] == "---"):
         lines.pop()
     return "\n".join(lines)
@@ -201,6 +229,115 @@ def _number_day_sections(
         renamed.append({"from": base, "to": title, "line": f"block:{index + 1}"})
         day[base] = taken + [(index, number)]
     return new_block, day_lines, renamed
+
+
+def practice_anchor_id(date: str, time: str, base: str) -> str:
+    """每一份习题小节的稳定锚点：日期 + 时间 + 菜单项标题的短哈希。
+
+    不展示在正文里，只给文件级小节的索引条目做跳转目标；时间落在 id 里，
+    同一天多份（` - 01`、` - 02`）各自落在不同区块，因此互不冲突。
+    """
+    digest = hashlib.sha1(base.encode("utf-8")).hexdigest()[:8]
+    return f"practice-{date}-{time.replace(':', '')}-{digest}"
+
+
+def _practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str]]]:
+    """菜单项 → [(索引展示文本, 锚点 id)]，按时间升序排列。"""
+    entries: dict[tuple[str, str], tuple[str, str]] = {}
+    date = time = kind = None
+    for line in lines:
+        stripped = line.strip()
+        heading = HEADING_RE.match(stripped)
+        if heading:
+            date, time, kind = heading.group("date"), heading.group("time"), heading.group("kind")
+            continue
+        if date is None or not stripped.startswith("## "):
+            continue
+        base, seq = _section_base(stripped)
+        if base == "## 本轮习题":
+            continue
+        label = f"{date} {time} · {kind}" + (f" - {seq:02d}" if seq is not None else "")
+        # 同一天区块内不会出现两份同名小节，key 用（base, 时间）避免覆盖
+        entries[(base, f"{date} {time}")] = (label, practice_anchor_id(date, time, base))
+    grouped: dict[str, list[tuple[str, str]]] = {}
+    for (base, _stamp), (label, anchor_id) in sorted(
+        entries.items(), key=lambda item: item[0][1]
+    ):
+        grouped.setdefault(base, []).append((label, anchor_id))
+    return grouped
+
+
+def apply_practice_index(text: str) -> str:
+    """重建习题锚点与文件级小节的索引块（幂等）。
+
+    - 每个日期区块里的菜单项小节标题下方一行 `<a id="practice-…"></a>`（不展示）。
+    - 文件级同名小节里插一块 `<!-- practice-index -->` … `<!-- /practice-index -->`，
+      按时间升序列出当天各份习题的链接，点击跳到对应小节。
+    """
+    lines = _normalize_text(text).split("\n")
+    entries = _practice_entries(lines)
+    out: list[str] = []
+    index = 0
+    in_block = False
+    while index < len(lines):
+        line = lines[index]
+        stripped = line.strip()
+        if stripped.startswith("# "):
+            in_block = True
+            out.append(line)
+            index += 1
+            continue
+        if in_block and stripped.startswith("## "):
+            base, _ = _section_base(stripped)
+            out.append(line)
+            index += 1
+            if base != "## 本轮习题":
+                if index < len(lines) and PRACTICE_ANCHOR_RE.match(lines[index].strip()):
+                    index += 1
+                date = time = None
+                for back in range(len(out) - 1, -1, -1):
+                    heading = HEADING_RE.match(out[back].strip())
+                    if heading:
+                        date, time = heading.group("date"), heading.group("time")
+                        break
+                if date and time:
+                    out.append(f'<a id="{practice_anchor_id(date, time, base)}"></a>')
+            continue
+        if not in_block and stripped.startswith("## "):
+            base, _ = _section_base(stripped)
+            if base not in (EXPLAIN_SECTION, "基础信息"):
+                out.append(line)
+                index += 1
+                # 先吞掉上一次生成的索引块与两侧空行，避免重写后叠加
+                skip_start = index
+                while index < len(lines) and not lines[index].strip():
+                    index += 1
+                if index < len(lines) and lines[index].strip() == INDEX_START:
+                    while index < len(lines) and (
+                        lines[index].strip() in (INDEX_START, INDEX_END)
+                        or INDEX_LINE_RE.match(lines[index].strip())
+                        or not lines[index].strip()
+                    ):
+                        index += 1
+                    skip_start = index
+                if base in entries:
+                    block: list[str] = [INDEX_START]
+                    for label, anchor_id in entries[base]:
+                        block.append(f"- [{label}](#{anchor_id})")
+                    block.append(INDEX_END)
+                    out.append("")
+                    out.extend(block)
+                    out.append("")
+                    continue
+                # 没有习题小节：把吞掉的空行补回一行
+                if skip_start < index:
+                    out.append("")
+                continue
+        out.append(line)
+        index += 1
+    while out and not out[-1].strip():
+        out.pop()
+    return "\n".join(out) + "\n"
 
 
 def _split_head_and_rounds(text: str) -> tuple[str, str]:
@@ -561,6 +698,7 @@ class NoteStore:
             raise NoteError(f"cannot read note {path}: {exc}") from exc
 
     def _write(self, path: Path, text: str) -> None:
+        text = apply_practice_index(text)
         path.parent.mkdir(parents=True, exist_ok=True)
         mode = path.stat().st_mode & 0o777 if path.exists() else 0o644
         descriptor, temporary_name = tempfile.mkstemp(

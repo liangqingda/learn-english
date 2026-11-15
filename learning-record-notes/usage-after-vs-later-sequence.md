@@ -63,6 +63,10 @@
 
 ## 练习「after 不宜直接当 later 连接后续动作」的关键语法结构
 
+<!-- practice-index -->
+- [2026-11-08 15:54 · 复习](#practice-2026-11-08-1554-725d8b2b)
+<!-- /practice-index -->
+
 **讲解要点**：
 - `after` + 名词短语作状语：`after supper`、`after the meeting`，介词不能悬空。
   - After the meeting, he drove straight to the airport.
@@ -76,6 +80,10 @@
   - We arrived late and afterwards ate dinner at the hotel.
 
 ## 扩展「after 不宜直接当 later 连接后续动作」相关词汇和搭配
+
+<!-- practice-index -->
+- [2026-11-08 15:54 · 复习](#practice-2026-11-08-1554-43386955)
+<!-- /practice-index -->
 
 **讲解要点**：
 - 表示「后来、随后」的副词与短语各司其职：`later` 中性泛指，`later on` 更口语且多指将来，`afterwards`／`afterward` 指序列之后，`then` 承接动作顺序，`after that` 便于衔接段落，`subsequently` 正式书面，`not long after` 强调间隔短。
@@ -315,6 +323,7 @@ The band released their first album in 2018 and after they toured Europe.
 </details>
 
 ## 练习「after 不宜直接当 later 连接后续动作」的关键语法结构
+<a id="practice-2026-11-08-1554-725d8b2b"></a>
 
 ### 1. 填空
 
@@ -476,6 +485,7 @@ After two hours, we finally arrived at the hotel, and after we checked in and we
 </details>
 
 ## 扩展「after 不宜直接当 later 连接后续动作」相关词汇和搭配
+<a id="practice-2026-11-08-1554-43386955"></a>
 
 ### 1. 单项选择
 

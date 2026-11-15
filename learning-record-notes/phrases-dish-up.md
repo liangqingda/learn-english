@@ -36,6 +36,10 @@
 
 ## 对比「dish up：把饭菜盛好端上桌」和相近表达
 
+<!-- practice-index -->
+- [2026-11-13 20:49 · 复习](#practice-2026-11-13-2049-bb0836e6)
+<!-- /practice-index -->
+
 **讲解要点**：
 - 先看动作终点：dish up、serve、plate 的终点是餐桌，dish out、hand out 的终点是接东西的人
   - She dished up the soup and set it in front of the guest.（她把汤盛好，放到客人面前。）
@@ -243,6 +247,7 @@
 </details>
 
 ## 对比「dish up：把饭菜盛好端上桌」和相近表达
+<a id="practice-2026-11-13-2049-bb0836e6"></a>
 
 ### 1. 单项选择
 

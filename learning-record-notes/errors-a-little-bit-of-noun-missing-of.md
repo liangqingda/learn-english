@@ -78,6 +78,10 @@
 
 ## 练习「a little bit of 与相关量词搭配」的关键语法结构
 
+<!-- practice-index -->
+- [2026-11-15 10:53 · 复习](#practice-2026-11-15-1053-d2cb9a16)
+<!-- /practice-index -->
+
 **讲解要点**：
 - 量词结构的选择先看名词类别，再看计量形象：微量调料走 a touch of / a dash of，可抓握实物走 a handful of。
   - `Add a touch of cinnamon to the cake.`（往蛋糕里加一点肉桂。）
@@ -233,6 +237,7 @@ Don't worry, there is still ____ water in the bottle.
 </details>
 
 ## 练习「a little bit of 与相关量词搭配」的关键语法结构
+<a id="practice-2026-11-15-1053-d2cb9a16"></a>
 
 ### 1. 单项选择
 

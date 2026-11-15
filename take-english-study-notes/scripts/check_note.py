@@ -21,6 +21,9 @@ import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from note_store import apply_practice_index, practice_anchor_id  # noqa: E402
+
 # 文件顶部「基础信息」：记录级字段，整个文件唯一一份，与单次复习无关
 BASIC_ROWS = [
     "记录 ID / 试卷 ID",
@@ -221,6 +224,68 @@ def split_section_seq(title: str) -> tuple[str, int | None]:
     if not match:
         return title.strip(), None
     return match.group("base").strip(), int(match.group("seq"))
+
+
+INDEX_START = "<!-- practice-index -->"
+INDEX_END = "<!-- /practice-index -->"
+ANCHOR_LINE_RE = re.compile(
+    r'^<a id="(?P<id>practice-(?P<date>\d{4}-\d{2}-\d{2})-(?P<time>\d{4})-[0-9a-f]{8})"></a>$'
+)
+INDEX_ITEM_RE = re.compile(r"^- \[(?P<label>[^\]]+)\]\(#(?P<id>[^)]+)\)$")
+
+
+def practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str, str, str]]]:
+    """菜单项 → [(展示文本, 实际锚点, 应有锚点, 行号)]，按时间升序；行号取小节标题行。"""
+    raw: dict[tuple[str, str], tuple[str, str, str, str, int]] = {}
+    date = time = kind = None
+    for index, line in enumerate(lines):
+        heading = SECTION_RE.match(line)
+        if heading:
+            date, time, kind = heading.group(1), heading.group(2), heading.group(3)
+            continue
+        section = SECTION2_RE.match(line)
+        if not section or date is None:
+            continue
+        title = section.group(1).strip()
+        if title == QUIZ_SECTION:
+            continue
+        base, seq = split_section_seq(title)
+        label = f"{date} {time} · {kind}" + (f" - {seq:02d}" if seq is not None else "")
+        anchor = ""
+        if index + 1 < len(lines):
+            match = ANCHOR_LINE_RE.match(lines[index + 1].strip())
+            anchor = match.group("id") if match else ""
+        expected = practice_anchor_id(date, time, f"## {base}")
+        raw[(base, f"{date} {time}")] = (label, anchor, expected, str(index + 1))
+    grouped: dict[str, list[tuple[str, str, str, str]]] = {}
+    for (base, _stamp), (label, anchor, expected, line_no) in sorted(
+        raw.items(), key=lambda item: item[0][1]
+    ):
+        grouped.setdefault(base, []).append((label, anchor, expected, line_no))
+    return grouped
+
+
+def index_block(lines: list[str], start: int) -> tuple[list[tuple[str, str]], int] | None:
+    """从 `## 小节` 后读一块 `<!-- practice-index -->`，返回 (条目, 结束行号)。"""
+    end = next(
+        (
+            index
+            for index in range(start, len(lines))
+            if lines[index].startswith("# ") or lines[index].startswith("## ")
+        ),
+        len(lines),
+    )
+    for index in range(start, end):
+        if lines[index].strip() == INDEX_START:
+            items: list[tuple[str, str]] = []
+            cursor = index + 1
+            while cursor < len(lines) and lines[cursor].strip() != INDEX_END:
+                match = INDEX_ITEM_RE.match(lines[cursor].strip())
+                if match:
+                    items.append((match.group("label"), match.group("id")))
+                cursor += 1
+            return items, cursor
+    return None
 
 
 def day_menu_sections(lines: list[str]) -> dict[tuple[str, str], list[tuple[str, int | None, int]]]:
@@ -573,6 +638,78 @@ def check(path: Path) -> list[dict]:
                     line_no,
                     f"同一天同名习题小节的序号按时间从 01 连续递增：这一份应为 `## {expected}`",
                 )
+
+    # 2d. 习题锚点与文件级小节的索引（由写入命令自动维护，手写会与真实小节漂移）
+    entries = practice_entries(lines)
+    seen_ids: dict[str, int] = {}
+    for base, items in entries.items():
+        for label, anchor_id, expected_id, line_no in items:
+            line_index = int(line_no) - 1
+            if line_index + 1 >= len(lines) or not ANCHOR_LINE_RE.match(
+                lines[line_index + 1].strip()
+            ):
+                add(
+                    int(line_no) + 1,
+                    "习题小节必须有隐藏锚点行 `<a id=\"practice-…\"></a>`（紧跟小节标题，"
+                    "由写入命令自动生成，不要手写）",
+                )
+            elif anchor_id != expected_id:
+                add(
+                    int(line_no) + 1,
+                    f"锚点与所在区块 / 小节标题不匹配：应为 `{expected_id}`；"
+                    "改标题或挪区块后由写入命令重建，不要手改",
+                )
+            else:
+                seen_ids.setdefault(anchor_id, int(line_no))
+    for anchor_id, line_no in seen_ids.items():
+        if sum(1 for line in lines if f'id="{anchor_id}"' in line) > 1:
+            add(line_no, f"隐藏锚点重复：`{anchor_id}`；每份习题小节只能有一个锚点")
+
+    in_round = False
+    for index, line in enumerate(lines):
+        if SECTION_RE.match(line):
+            in_round = True
+            continue
+        stripped = line.strip()
+        if stripped == INDEX_START and in_round:
+            add(index + 1, "索引块只写在文件级小节里，日期区块内不要写 `<!-- practice-index -->`")
+        if in_round or not stripped.startswith("## "):
+            continue
+        title = SECTION2_RE.match(line)
+        if not title:
+            continue
+        base = title.group(1).strip()
+        if base in (QUIZ_SECTION, DEFAULT_EXPLAIN_SECTION, BASIC_SECTION):
+            continue
+        block = index_block(lines, index + 1)
+        expected = [
+            (label, expected_id) for label, _anchor, expected_id, _line in entries.get(base, [])
+        ]
+        if not expected:
+            if block is not None:
+                add(index + 1, f"`{base}` 还没有任何习题小节，不要保留索引块")
+            continue
+        if block is None:
+            add(
+                index + 1,
+                f"`{base}` 已经有 {len(expected)} 份习题小节，必须在标题下写一块 "
+                "`<!-- practice-index -->` … `<!-- /practice-index -->` 索引（写入命令会自动生成）",
+            )
+            continue
+        actual, end_line = block
+        if end_line >= len(lines) or lines[end_line].strip() != INDEX_END:
+            add(index + 1, "索引块缺少结束标记 `<!-- /practice-index -->`")
+            continue
+        if actual != expected:
+            add(
+                index + 1,
+                "索引与真实习题小节不一致：应按时间升序列出 "
+                + "、".join(label for label, _ in expected)
+                + "；改内容后由写入命令重建索引",
+            )
+        for label, anchor_id in actual:
+            if anchor_id not in seen_ids:
+                add(index + 1, f"索引条目 `{label}` 指向不存在的锚点 `#{anchor_id}`")
 
     # 3. 旧的错误标题格式（把日期区块写成 `## 追踪` 或降成二级标题）
     for i, line in enumerate(lines):
@@ -1485,6 +1622,8 @@ def apply_safe_fixes(text: str) -> tuple[str, list[str]]:
             elif last != "---":
                 output.extend(["", "---", ""])
                 inserted = True
+            else:
+                output.append("")
             seen_heading = True
         output.append(line)
     if inserted:
@@ -1499,13 +1638,18 @@ def apply_safe_fixes(text: str) -> tuple[str, list[str]]:
         ordered = sorted(entries, key=lambda item: item[0])
         for position, (_stamp, seq, line_no) in enumerate(ordered, start=1):
             wanted_title = (
-                base if len(ordered) == 1 else f"{base} - {position:02d}"
+                f"## {base}" if len(ordered) == 1 else f"## {base} - {position:02d}"
             )
             if output[line_no - 1].strip() != wanted_title:
                 output[line_no - 1] = wanted_title
                 seq_changed = True
     if seq_changed:
         fixes.append("同一天同一菜单项的习题小节按轮次补 ` - 01`、` - 02` 序号（单份不带后缀）")
+
+    indexed = apply_practice_index("\n".join(output).rstrip("\n") + "\n")
+    if indexed != "\n".join(output).rstrip("\n") + "\n":
+        fixes.append("按真实习题小节重建隐藏锚点与文件级索引块")
+        output = indexed.rstrip("\n").split("\n")
 
     result = "\n".join(output)
     if text.endswith("\n") or not text:
