@@ -138,6 +138,71 @@ def _sections(text: str) -> list[tuple[str, str]]:
     return chunks
 
 
+SECTION_SEQ_RE = re.compile(r"^(?P<base>## .+?) - (?P<seq>\d{2})$")
+
+
+def _section_base(title: str) -> tuple[str, int | None]:
+    """拆分小节标题的序号后缀：`## 练习… - 02` → (`## 练习…`, 2)。"""
+    match = SECTION_SEQ_RE.match(title.strip())
+    if not match:
+        return title.strip(), None
+    return match.group("base").strip(), int(match.group("seq"))
+
+
+def _day_menu_sections(lines: list[str], date: str) -> dict[str, list[tuple[int, int | None]]]:
+    """同一天所有区块里的菜单项小节：base 标题 → [(行号, 序号)]。
+
+    同日多次练同一个菜单时，标题靠 ` - 01`、` - 02` 区分；单份不带后缀。
+    """
+    result: dict[str, list[tuple[int, int | None]]] = {}
+    current: str | None = None
+    for index, line in enumerate(lines):
+        stripped = line.strip()
+        if stripped.startswith("# "):
+            match = HEADING_RE.match(stripped)
+            current = match.group("date") if match else None
+            continue
+        if current != date or not stripped.startswith("## "):
+            continue
+        base, seq = _section_base(stripped)
+        result.setdefault(base, []).append((index, seq))
+    return result
+
+
+def _number_day_sections(
+    block_lines: list[str], day_lines: list[str], date: str
+) -> tuple[list[str], list[str], list[dict[str, str]]]:
+    """同一天同一菜单项的第二份起统一编号，并给已有那份补 ` - 01`。
+
+    返回新的区块行、改写后的既有文件行，以及每一处标题变更的记录。
+    """
+    day = _day_menu_sections(day_lines, date)
+    renamed: list[dict[str, str]] = []
+    new_block = list(block_lines)
+    for index, line in enumerate(block_lines):
+        stripped = line.strip()
+        if not stripped.startswith("## "):
+            continue
+        base, seq = _section_base(stripped)
+        if base == "## 本轮习题" or seq is not None:
+            continue
+        taken = day.get(base, [])
+        if not taken:
+            day[base] = [(index, None)]
+            continue
+        if len(taken) == 1 and taken[0][1] is None:
+            position = taken[0][0]
+            day_lines[position] = f"{base} - 01"
+            renamed.append({"from": base, "to": f"{base} - 01", "line": str(position + 1)})
+            taken = [(position, 1)]
+        number = max(item[1] or 1 for item in taken) + 1
+        title = f"{base} - {number:02d}"
+        new_block[index] = title
+        renamed.append({"from": base, "to": title, "line": f"block:{index + 1}"})
+        day[base] = taken + [(index, number)]
+    return new_block, day_lines, renamed
+
+
 def _split_head_and_rounds(text: str) -> tuple[str, str]:
     """Split a note into its file-level head and the region holding date blocks.
 
@@ -569,6 +634,12 @@ class NoteStore:
             if adjusted:
                 block = _swap_heading(block, heading)
             body = _normalize_text(existing).rstrip("\n")
+            block_date = HEADING_RE.match(_block_heading(block)).group("date")
+            numbered_block, day_lines, renamed = _number_day_sections(
+                block.split("\n"), body.split("\n"), block_date
+            )
+            block = "\n".join(numbered_block).rstrip("\n") + "\n"
+            body = "\n".join(day_lines)
             # 新一轮按时间倒序插在最前：最新一轮紧跟文件级讲解区（`## 讲解` 与只讲解的菜单小节），
             # 旧区块整体原样保留在下方，不重排、不改写别的会话已经写下的内容。
             if not body.strip():
@@ -604,6 +675,7 @@ class NoteStore:
             "file": self.relative(target),
             "heading": heading,
             "blocks": blocks,
+            "section_renamed": renamed,
             "bytes": len(composed.encode("utf-8")),
         }
 
@@ -927,8 +999,9 @@ class NoteStore:
                 len(lines),
             )
             block_lines = lines[start:end]
+            incoming_base, incoming_seq = _section_base(section_heading)
             for existing_heading, body in _sections("\n".join(block_lines)):
-                if existing_heading != section_heading:
+                if _section_base(existing_heading)[0] != incoming_base:
                     continue
                 if _comparable(body) == _comparable(section):
                     return {
@@ -941,10 +1014,18 @@ class NoteStore:
                         "hint": "this section is already in the block; do not append it again",
                     }
                 raise NoteError(
-                    f"section {section_heading} already exists in this block; "
-                    "replace the block (sections that are missing from the new content "
-                    "are preserved) instead of adding a second one"
+                    f"section {incoming_base} already exists in this block; "
+                    "add more questions with append-part, or replace the block "
+                    "(sections that are missing from the new content are preserved)"
                 )
+            renamed: list[dict[str, str]] = []
+            date_match = HEADING_RE.match(lines[start].strip())
+            if date_match and incoming_seq is None:
+                numbered_section, lines, renamed = _number_day_sections(
+                    section.split("\n"), lines, date_match.group("date")
+                )
+                section = "\n".join(numbered_section).rstrip("\n") + "\n"
+                section_heading = numbered_section[0].strip()
             block_end = end
             while end > start + 1 and not lines[end - 1].strip():
                 end -= 1
@@ -964,6 +1045,7 @@ class NoteStore:
             "file": self.relative(target),
             "heading": wanted,
             "section": section_heading,
+            "section_renamed": renamed,
             "blocks": blocks,
             "bytes": len(composed.encode("utf-8")),
         }

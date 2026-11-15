@@ -212,6 +212,37 @@ BASIC_SECTION = "基础信息"
 ROUND_SECTION = "本轮信息"
 TRACKING_SUMMARY = "追踪信息"  # 旧版轮次折叠块的 summary，迁移时改成 ROUND_SECTION
 SECTION2_RE = re.compile(r"^## (?!#|追踪)(\S.*?)\s*$")
+SECTION_SEQ_RE = re.compile(r"^(?P<base>.+?) - (?P<seq>\d{2})$")
+
+
+def split_section_seq(title: str) -> tuple[str, int | None]:
+    """拆小节标题的序号后缀：同一天同一菜单项的习题从第二份起带 ` - 01`。"""
+    match = SECTION_SEQ_RE.match(title.strip())
+    if not match:
+        return title.strip(), None
+    return match.group("base").strip(), int(match.group("seq"))
+
+
+def day_menu_sections(lines: list[str]) -> dict[tuple[str, str], list[tuple[str, int | None, int]]]:
+    """同一天里每个菜单项小节的 (时间, 序号, 行号)：`(日期, base)` → 列表。"""
+    result: dict[tuple[str, str], list[tuple[str, int | None, int]]] = {}
+    current_date: str | None = None
+    current_stamp = ""
+    for index, line in enumerate(lines):
+        round_match = SECTION_RE.match(line)
+        if round_match:
+            current_date = round_match.group(1)
+            current_stamp = f"{round_match.group(1)} {round_match.group(2)}"
+            continue
+        section = SECTION2_RE.match(line)
+        if not section or current_date is None:
+            continue
+        title = section.group(1).strip()
+        if title == QUIZ_SECTION:
+            continue
+        base, seq = split_section_seq(title)
+        result.setdefault((current_date, base), []).append((current_stamp, seq, index + 1))
+    return result
 LEGACY_MENU_HEADING_RE = re.compile(r"^### \d+\.\s+菜单：")
 LEGACY_MENU_ITEM_RE = re.compile(r"^\d+\.\s|^菜单：")
 MENU_EMOJI_RE = re.compile(
@@ -519,6 +550,29 @@ def check(path: Path) -> list[dict]:
                 sections[index + 1][0],
                 "日期区块必须按时间倒序排列：最新一轮排在最前，旧区块依次排在后面",
             )
+
+    # 2c. 同一天同一菜单项的习题小节：只有一份时不带序号，第二份起按时间升序 ` - 01`、` - 02`
+    for (_date, base), entries in day_menu_sections(lines).items():
+        ordered = sorted(entries, key=lambda item: item[0])
+        if len(ordered) == 1:
+            if ordered[0][1] is not None:
+                add(
+                    ordered[0][2],
+                    f"同一菜单项当天只有一份习题时不要加序号后缀：`## {base}`",
+                )
+            continue
+        for position, (_stamp, seq, line_no) in enumerate(ordered, start=1):
+            expected = f"{base} - {position:02d}"
+            if seq is None:
+                add(
+                    line_no,
+                    f"同一天有 {len(ordered)} 份同名习题小节，标题必须带序号：`## {expected}`",
+                )
+            elif seq != position:
+                add(
+                    line_no,
+                    f"同一天同名习题小节的序号按时间从 01 连续递增：这一份应为 `## {expected}`",
+                )
 
     # 3. 旧的错误标题格式（把日期区块写成 `## 追踪` 或降成二级标题）
     for i, line in enumerate(lines):
@@ -1437,6 +1491,21 @@ def apply_safe_fixes(text: str) -> tuple[str, list[str]]:
         fixes.append("补上区块之间缺失的 `---` 分隔")
     if removed_leading:
         fixes.append("删掉基础信息与第一个日期区块之间多余的 `---` 分隔")
+
+    # 同一天同一菜单项的习题小节：单份去后缀，多份按时间升序补 01、02…
+    seq_entries = day_menu_sections(output)
+    seq_changed = False
+    for (_date, base), entries in seq_entries.items():
+        ordered = sorted(entries, key=lambda item: item[0])
+        for position, (_stamp, seq, line_no) in enumerate(ordered, start=1):
+            wanted_title = (
+                base if len(ordered) == 1 else f"{base} - {position:02d}"
+            )
+            if output[line_no - 1].strip() != wanted_title:
+                output[line_no - 1] = wanted_title
+                seq_changed = True
+    if seq_changed:
+        fixes.append("同一天同一菜单项的习题小节按轮次补 ` - 01`、` - 02` 序号（单份不带后缀）")
 
     result = "\n".join(output)
     if text.endswith("\n") or not text:

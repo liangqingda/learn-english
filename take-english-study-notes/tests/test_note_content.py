@@ -196,6 +196,65 @@ def with_menu_section(base: str, section: str) -> str:
     return base + "\n" + section
 
 
+def second_round(stamp: str, section: str = "") -> str:
+    """一个最小的后续轮次区块（最新在前），用于同一天多次练习的校验。"""
+    return (
+        f"# {stamp} · 复习\n\n"
+        '<table style="border-collapse:collapse;width:auto">\n'
+        '<colgroup><col width="150"><col></colgroup>\n'
+        f"<tr><td>复习时间</td><td>{stamp}</td></tr>\n"
+        "<tr><td>分类 · 状态变化</td><td>errors · learning → familiar</td></tr>\n"
+        "<tr><td>本轮得分</td><td>9 / 10</td></tr>\n"
+        "<tr><td>题量与错题数</td><td>1 题 / 0 处错误</td></tr>\n"
+        "</table>\n\n"
+        "## 本轮习题\n\n"
+        "### 1. 单项选择\n\n"
+        "**题目**：Pick one.\n\n"
+        "**我的答案**：B\n\n"
+        "**判定**：✅ 正确\n\n"
+        "<details>\n<summary>知识点讲解</summary>\n\n"
+        "1. **本题知识点**：x\n"
+        "2. **规则与机制**：x\n"
+        "3. **英语的表达逻辑**：x\n"
+        "4. **可迁移表达**：x\n\n"
+        "</details>\n"
+        + section
+    )
+
+
+def with_second_round(base: str, stamp: str, section: str = "") -> str:
+    """把同一天更晚的一轮插到最前，并把 `笔记更新时间` 抬到该轮时间。"""
+    index = base.index("\n# ")
+    head = base[:index].replace(
+        "<tr><td>笔记更新时间</td><td>2026-11-07 12:05</td></tr>",
+        f"<tr><td>笔记更新时间</td><td>{stamp}</td></tr>",
+        1,
+    )
+    return (
+        head
+        + second_round(stamp, section)
+        + "\n---\n\n"
+        + base[index:].lstrip("\n")
+        + "\n"
+    )
+
+
+def menu_practice(title: str = "## 练习「out west」的关键语法结构") -> str:
+    return (
+        "\n" + title + "\n\n"
+        "### 1. 翻译\n\n"
+        "**题目**：中译英：她往西边出发了。\n\n"
+        "**我的答案**：She headed out west.\n\n"
+        "**判定**：✅ 正确\n\n"
+        "<details>\n<summary>知识点讲解</summary>\n\n"
+        "1. **本题知识点**：out west 作方向状语\n"
+        "2. **规则与机制**：out 与 west 分写\n"
+        "3. **英语的表达逻辑**：方向副词短语\n"
+        "4. **可迁移表达**：head out west\n\n"
+        "</details>\n"
+    )
+
+
 def with_file_level_section(base: str, section: str) -> str:
     """把讲解型小节放在 `## 讲解` 之后、所有日期区块之前（文件级讲解区）。"""
     index = base.index("\n# ")
@@ -350,6 +409,26 @@ class NoteContentValidationTest(unittest.TestCase):
             "</details>\n"
         )
         self.assertEqual(self.check(text), [])
+
+    def test_same_day_repeated_menu_section_needs_sequence(self) -> None:
+        """同一天两份同名习题小节必须按时间升序带 ` - 01`、` - 02`。"""
+        text = with_second_round(
+            note_text() + menu_practice(), "2026-11-07 21:00", menu_practice()
+        )
+        self.assert_caught(text, "标题必须带序号")
+
+    def test_same_day_repeated_menu_section_with_sequence_passes(self) -> None:
+        text = with_second_round(
+            note_text() + menu_practice("## 练习「out west」的关键语法结构 - 01"),
+            "2026-11-07 21:00",
+            menu_practice("## 练习「out west」的关键语法结构 - 02"),
+        )
+        self.assertEqual(self.check(text), [])
+
+    def test_sequence_suffix_on_a_single_section_is_rejected(self) -> None:
+        """当天只有一份时不要加序号后缀。"""
+        text = note_text() + menu_practice("## 练习「out west」的关键语法结构 - 01")
+        self.assert_caught(text, "不要加序号后缀")
 
     def test_baseline_note_is_valid(self) -> None:
         self.assertEqual(self.check(note_text()), [])

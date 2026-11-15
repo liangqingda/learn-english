@@ -98,6 +98,54 @@ class NoteAppendTest(unittest.TestCase):
         self.assertIn("### 2. 翻译", text)
         self.assertLess(text.index("### 1. 翻译"), text.index("### 2. 翻译"))
 
+    def test_same_day_second_section_gets_a_sequence_suffix(self) -> None:
+        """同一天再练同一菜单项：旧份补 ` - 01`，新份是 ` - 02`。"""
+        self.store.append(self.note, round_block("2026-11-07 09:00", body="第 1 轮"))
+        self.store.append(self.note, round_block("2026-11-07 21:00", body="第 2 轮"))
+        self.store.append_section(
+            self.note, "# 2026-11-07 09:00 · 复习", extra_section().strip("\n")
+        )
+        result = self.store.append_section(
+            self.note, "# 2026-11-07 21:00 · 复习", extra_section().strip("\n")
+        )
+        self.assertEqual(result["section"], "## 扩展练习 - 02")
+        self.assertEqual(len(result["section_renamed"]), 2)
+        text = self.note.read_text(encoding="utf-8")
+        self.assertIn("## 扩展练习 - 01", text)
+        self.assertIn("## 扩展练习 - 02", text)
+        self.assertNotIn("\n## 扩展练习\n", text)
+
+    def test_append_numbers_sections_of_a_repeated_menu_item(self) -> None:
+        """整块 append 里同名菜单小节也按当天顺序编号。"""
+        self.store.append(
+            self.note,
+            (round_block("2026-11-07 09:00", body="第 1 轮") + extra_section()).rstrip("\n"),
+        )
+        result = self.store.append(
+            self.note,
+            (round_block("2026-11-07 21:00", body="第 2 轮") + extra_section()).rstrip("\n"),
+        )
+        self.assertEqual(
+            sorted(item["to"] for item in result["section_renamed"]),
+            ["## 扩展练习 - 01", "## 扩展练习 - 02"],
+        )
+        text = self.note.read_text(encoding="utf-8")
+        self.assertIn("## 扩展练习 - 01", text)
+        self.assertIn("## 扩展练习 - 02", text)
+
+    def test_same_menu_item_on_another_day_stays_unnumbered(self) -> None:
+        """跨天各自从「不带后缀」起算。"""
+        self.store.append(self.note, round_block("2026-11-07 09:00", body="第 1 轮"))
+        self.store.append(self.note, round_block("2026-11-08 09:00", body="第 2 轮"))
+        for heading in ("# 2026-11-07 09:00 · 复习", "# 2026-11-08 09:00 · 复习"):
+            result = self.store.append_section(
+                self.note, heading, extra_section().strip("\n")
+            )
+            self.assertEqual(result["section"], "## 扩展练习")
+            self.assertEqual(result["section_renamed"], [])
+        text = self.note.read_text(encoding="utf-8")
+        self.assertEqual(text.count("## 扩展练习\n"), 2)
+
     def test_append_part_refuses_a_story_block_in_a_round_section(self) -> None:
         """故事原文再选一次要走 append-explain-part，不能追加进日期区块的小节。"""
         self.store.append(self.note, round_block())

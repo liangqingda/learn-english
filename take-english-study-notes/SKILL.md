@@ -45,6 +45,9 @@ python3 take-english-study-notes/scripts/note.py check --all [--fix]
 - 写之前先 `sections` 查目标文件已有哪些轮次与 `##` 小节，再决定 `append-explain-section`（文件级讲解小节首次写入）、
   `append-explain-part`（往文件级小节末尾补第二段故事 / 对话原文）、`append-section`（往日期区块加带习题的菜单项）、
   `append-part`（往日期区块既有小节末尾补一段）还是 `replace --rewrite-section`，不要拼好大段内容再被拒。
+- 同一天多次练同一菜单项：**日期标题不变**，同一天的多个区块算一个「天组」，同一菜单项的习题小节从第 2 份起按时间升序编号
+  （`## <选项原文> - 01`、` - 02`…），当天只有一份时不带后缀，跨天重新起算；`append` / `append-section` 在锁内自动补号
+  （把已有那份改成 ` - 01`）并把实际标题放进返回的 `section`、被改名的旧标题放进 `section_renamed`，校验器核对单份不带后缀、多份连续。
 - 讲解型内容（讲解要点、对比、场景对话、小故事）一律写 `## 讲解` 之后；日期区块只放 `## 本轮习题` 与带习题的菜单项。
   同一个菜单项重复选中时，除场景对话与小故事外不再按新内容重复记录：`append-explain-section` 返回 `duplicate: true` 就停手。
   讲解要点要改、要补，三类文件级小节（带习题的讲解要点、场景对话、小故事）走同一条规则：同一命令加 `--rewrite` 整节替换，
