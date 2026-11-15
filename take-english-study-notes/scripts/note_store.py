@@ -278,7 +278,7 @@ def round_anchor_id(date: str, time: str) -> str:
 
 
 def _practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str]]]:
-    """菜单项 → [(索引展示文本, 锚点 id)]，按时间升序排列。"""
+    """菜单项 → [(索引展示文本, 锚点 id)]，按时间倒序排列（新的在前）。"""
     entries: dict[tuple[str, str], tuple[str, str]] = {}
     date = time = kind = None
     for line in lines:
@@ -296,14 +296,14 @@ def _practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str]]]:
         entries[(base, f"{date} {time}")] = (label, practice_anchor_id(date, time, base))
     grouped: dict[str, list[tuple[str, str]]] = {}
     for (base, _stamp), (label, anchor_id) in sorted(
-        entries.items(), key=lambda item: item[0][1]
+        entries.items(), key=lambda item: item[0][1], reverse=True
     ):
         grouped.setdefault(base, []).append((label, anchor_id))
     return grouped
 
 
 def _round_entries(lines: list[str]) -> list[tuple[str, str]]:
-    """每个日期区块的 `## 本轮习题` → [(展示文本, 锚点 id)]，按时间升序。"""
+    """每个日期区块的 `## 本轮习题` → [(展示文本, 锚点 id)]，按时间倒序（新的在前）。"""
     entries: dict[str, tuple[str, str]] = {}
     date = time = kind = None
     for line in lines:
@@ -321,7 +321,7 @@ def _round_entries(lines: list[str]) -> list[tuple[str, str]]:
             f"{date} {time} · {kind}",
             round_anchor_id(date, time),
         )
-    return [entries[stamp] for stamp in sorted(entries)]
+    return [entries[stamp] for stamp in sorted(entries, reverse=True)]
 
 
 def apply_practice_index(text: str) -> str:
@@ -330,9 +330,9 @@ def apply_practice_index(text: str) -> str:
     - 每个日期区块里的菜单项小节、以及 `## 本轮习题`，都在标题行右侧挂一行
       `<a id="practice-…"></a>` / `<a id="round-…"></a>`：标题本身不显示它，跳转直接落在标题上。
     - 文件级同名小节标题下写 `<!-- practice-index -->` … `<!-- /practice-index -->`，
-      按时间升序列出该菜单项的全部习题小节。
+      按时间倒序列出该菜单项的全部习题小节（新的在前）。
     - `## 讲解` 标题下写 `<!-- round-index -->` … `<!-- /round-index -->`，
-      列出整份笔记每个日期区块的 `## 本轮习题`，作为复习历史目录。
+      列出整份笔记每个日期区块的 `## 本轮习题`（新的在前），作为复习历史目录。
     """
     lines = _normalize_text(text).split("\n")
     entries = _practice_entries(lines)

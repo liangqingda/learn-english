@@ -439,7 +439,7 @@ class NoteContentValidationTest(unittest.TestCase):
             return check_note.check(path)
 
     def test_practice_anchor_and_file_level_index_are_generated(self) -> None:
-        """同日两份习题：各自一行隐藏锚点，文件级小节列出两条可跳转索引。"""
+        """同日两份习题：各自标题行右侧隐藏锚点，文件级小节按时间倒序列出两条索引。"""
         text = with_file_level_section(
             note_text() + menu_practice("## 练习「out west」的关键语法结构 - 01"),
             "## 练习「out west」的关键语法结构\n\n"
@@ -461,12 +461,12 @@ class NoteContentValidationTest(unittest.TestCase):
             if line.startswith("- [2026-11-07") and "#practice-" in line
         ]
         self.assertEqual(len(index_ids), 2)
-        # 索引按时间升序：12:00 在前，21:00 在后
-        self.assertIn("(#practice-2026-11-07-1200-", index_ids[0])
-        self.assertIn("(#practice-2026-11-07-2100-", index_ids[-1])
+        # 索引按时间倒序：21:00 在前，12:00 在后
+        self.assertIn("(#practice-2026-11-07-2100-", index_ids[0])
+        self.assertIn("(#practice-2026-11-07-1200-", index_ids[-1])
 
     def test_round_index_lists_every_round_quiz(self) -> None:
-        """`## 讲解` 下按时间列出每个日期区块的 `## 本轮习题`，锚点挂在标题行右侧。"""
+        """`## 讲解` 下按时间倒序列出每个日期区块的 `## 本轮习题`，锚点挂在标题行右侧。"""
         text = apply_practice_index(
             with_second_round(note_with_explanation(), "2026-11-07 21:00")
         )
@@ -478,8 +478,8 @@ class NoteContentValidationTest(unittest.TestCase):
             if line.startswith("- [2026-11-07") and "#round-" in line
         ]
         self.assertEqual(len(entries), 2)
-        self.assertIn("#round-2026-11-07-1200", entries[0])
-        self.assertIn("#round-2026-11-07-2100", entries[1])
+        self.assertIn("#round-2026-11-07-2100", entries[0])
+        self.assertIn("#round-2026-11-07-1200", entries[1])
         self.assertIn('## 本轮习题 <a id="round-2026-11-07-2100"></a>', text)
         self.assertIn('## 本轮习题 <a id="round-2026-11-07-1200"></a>', text)
 

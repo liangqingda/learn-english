@@ -51,7 +51,7 @@ python3 take-english-study-notes/scripts/note.py check --all [--fix]
 - 自带派生内容，都由写入命令生成、不要手写：每份带习题的菜单项小节与每个区块的 `## 本轮习题`，都在**标题行右侧**
   挂一个空元素锚点 `<a id="practice-<date>-<HHMM>-<8 hex>"></a>` / `<a id="round-<date>-<HHMM>"></a>`
   （渲染不可见，点击直接落在标题上）；另有文件级同名小节标题下的 `<!-- practice-index -->` … `<!-- /practice-index -->`
-  索引块（该菜单项全部习题小节，按时间升序）和 `## 讲解` 标题下的 `<!-- round-index -->` … `<!-- /round-index -->`
+  索引块（该菜单项全部习题小节，按时间倒序、新的在前）和 `## 讲解` 标题下的 `<!-- round-index -->` … `<!-- /round-index -->`
   复习目录（每个日期区块的 `## 本轮习题`）。
   每次写入与 `check --all --fix` 都会按真实小节重建，所以改标题、加删小节或区块后不必手工同步；校验器逐条比对，
   缺锚点、锚点与区块/标题对不上、缺索引、条目对不上或残留索引块都报错。格式见 `references/note-format.md`

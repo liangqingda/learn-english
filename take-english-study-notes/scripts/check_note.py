@@ -241,7 +241,7 @@ INDEX_ITEM_RE = re.compile(r"^- \[(?P<label>[^\]]+)\]\(#(?P<id>[^)]+)\)$")
 
 
 def practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str, str, str]]]:
-    """菜单项 → [(展示文本, 实际锚点, 应有锚点, 行号)]，按时间升序；行号取小节标题行。"""
+    """菜单项 → [(展示文本, 实际锚点, 应有锚点, 行号)]，按时间倒序；行号取小节标题行。"""
     raw: dict[tuple[str, str], tuple[str, str, str, str, int]] = {}
     date = time = kind = None
     for index, line in enumerate(lines):
@@ -263,14 +263,14 @@ def practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str, str, st
         raw[(base, f"{date} {time}")] = (label, anchor, expected, str(index + 1))
     grouped: dict[str, list[tuple[str, str, str, str]]] = {}
     for (base, _stamp), (label, anchor, expected, line_no) in sorted(
-        raw.items(), key=lambda item: item[0][1]
+        raw.items(), key=lambda item: item[0][1], reverse=True
     ):
         grouped.setdefault(base, []).append((label, anchor, expected, line_no))
     return grouped
 
 
 def round_entries(lines: list[str]) -> list[tuple[str, str, str, int]]:
-    """每个日期区块的 `## 本轮习题` → [(展示文本, 实际锚点, 应有锚点, 行号)]。"""
+    """每个日期区块的 `## 本轮习题` → [(展示文本, 实际锚点, 应有锚点, 行号)]，按时间倒序。"""
     raw: dict[str, tuple[str, str, str, int]] = {}
     date = time = kind = None
     for index, line in enumerate(lines):
@@ -291,7 +291,7 @@ def round_entries(lines: list[str]) -> list[tuple[str, str, str, int]]:
             round_anchor_id(date, time),
             index + 1,
         )
-    return [raw[stamp] for stamp in sorted(raw)]
+    return [raw[stamp] for stamp in sorted(raw, reverse=True)]
 
 
 def index_block(
@@ -721,7 +721,7 @@ def check(path: Path) -> list[dict]:
             add(
                 explain_head + 1,
                 f"`## {DEFAULT_EXPLAIN_SECTION}` 标题下必须写一块 `<!-- round-index -->` … "
-                "`<!-- /round-index -->`，按时间升序列出每个日期区块的 `## 本轮习题`"
+                "`<!-- /round-index -->`，按时间倒序列出每个日期区块的 `## 本轮习题`（新的在前）"
                 "（写入命令会自动生成）",
             )
         else:
@@ -731,7 +731,7 @@ def check(path: Path) -> list[dict]:
             elif actual_rounds != expected_rounds:
                 add(
                     explain_head + 1,
-                    "复习目录与真实日期区块不一致：应按时间升序列出 "
+                    "复习目录与真实日期区块不一致：应按时间倒序列出（新的在前）"
                     + "、".join(label for label, _ in expected_rounds)
                     + "；改动区块后由写入命令重建",
                 )
@@ -774,7 +774,7 @@ def check(path: Path) -> list[dict]:
         if actual != expected:
             add(
                 index + 1,
-                "索引与真实习题小节不一致：应按时间升序列出 "
+                "索引与真实习题小节不一致：应按时间倒序列出（新的在前）"
                 + "、".join(label for label, _ in expected)
                 + "；改内容后由写入命令重建索引",
             )
