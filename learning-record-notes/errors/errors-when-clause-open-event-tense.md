@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>3</td></tr>
 <tr><td>下次复习</td><td>2026-11-18 21:09</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-15 21:09</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-15 21:18</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-15 21:19</td></tr>
 </table>
 
 ## 讲解
@@ -147,6 +147,30 @@ Last week the village finally paved the road and tore down the shed's wooden roo
 | 第 2 段：When the workshop had just opened, every fisherman still trusted the old yard | 交代刚开业时的冷清处境 | 换成 was opening 会读成“正在开门那一刻”，撑不起一个夏天的时间段 |
 | 第 3 段：My father opened his doors at four in the morning | 描述台风季里那一次开门营业的动作 | 换成 had opened 会把动作推到更早的过去，与前一句的时间线错位 |
 | 第 4 段：when the workshop had just opened, there was nothing in it but a man who was willing to wait | 站在今天回到起点做收尾 | 换成现在时 there is 会让“当年空无一物”变成今天的描写，回忆感消失 |
+
+<details>
+<summary>故事原文 3</summary>
+
+The rooftop was still there when I climbed the stairs last August, though the projector had been packed into a plastic crate. My brother and his friend started this open-air cinema the summer **when it had just opened**, with one white wall and forty borrowed chairs. I was twelve, and I sold tickets at the door for two yuan each. Nobody came for the first three weeks except a cat.
+去年八月我爬上楼梯时，天台还在，只是放映机已经被装进一个塑料箱。我哥哥和他朋友开这家露天影院的那个夏天，它刚开业，只有一面白墙和四十把借来的椅子。我十二岁，在门口卖票，一张两块钱。头三个星期除了那只猫，没人来过。
+
+**When the cinema had just opened**, the two of them argued every night about which film to run. My brother wanted old comedies; his friend wanted anything with a car chase. They finally wrote the titles on slips of paper and let the cat walk across them. The film that survived the cat's paw drew nine people, and eight of them stayed until the end.
+影院刚开业的时候，他们俩每晚都为放哪部片子吵。哥哥想放老喜剧，他朋友想放任何有追车的片子。最后他们把片名写在纸条上，让猫从上面走过。被猫爪选中的那部片子来了九个人，其中八个看到最后。
+
+By the second summer they **opened** a second wall and a small counter that sold cold noodles. The town began to treat the rooftop as a meeting place, and people arrived an hour early to save the front row. My brother stopped arguing about films; he just stood by the stairs and counted the chairs.
+到第二个夏天，他们又开了第二面墙和一个小柜台卖凉面。镇上的人开始把天台当碰头的地方，大家提前一小时来占前排。哥哥不再为片子吵了，他只站在楼梯边数椅子。
+
+Last August the landlord raised the rent, and the two of them agreed to close at the end of the season. On the final night the wall was full, and someone asked my brother to say a few words. He only said this: **when the cinema had just opened**, there was one wall, forty chairs and a cat, and that was already enough for him.
+去年八月房东涨了房租，他们俩同意在这个季节结束后关掉。最后一晚白墙前坐满了人，有人让哥哥说几句。他只说了这么一句：影院刚开业的时候，有一面墙、四十把椅子和一只猫，那对他来说已经够了。
+
+</details>
+
+| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |
+|---|---|---|
+| 第 1 段：the summer when it had just opened | 给整段回忆标出“刚开业”那个起点 | 换成 opened 只留下一个年份事件，回忆的起点感被磨平 |
+| 第 2 段：When the cinema had just opened, the two of them argued every night | 交代刚开业时的混乱日常 | 换成 was opening 读成“正在开门那一瞬”，容不下每晚吵架的持续状态 |
+| 第 3 段：they opened a second wall | 交代第二次扩建这一件已完成的事 | 换成 had opened 会把它推到更早的过去，与第二年的顺序冲突 |
+| 第 4 段：when the cinema had just opened, there was one wall, forty chairs and a cat | 收尾回到最初的规模 | 换成现在时 there is 会让“当年”变成“现在”，最后一晚的告别意味就没了 |
 
 # 2026-11-15 21:09 · 复习
 
