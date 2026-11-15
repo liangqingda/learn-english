@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import sys
 import tempfile
+import re
 import unittest
 from pathlib import Path
 
@@ -455,12 +456,53 @@ class NoteContentValidationTest(unittest.TestCase):
         self.assertEqual(text.count("<a id=\"practice-2026-11-07-1200-"), 1)
         self.assertEqual(text.count("<a id=\"practice-2026-11-07-2100-"), 1)
         index_ids = [
-            line for line in text.split("\n") if line.startswith("- [2026-11-07")
+            line
+            for line in text.split("\n")
+            if line.startswith("- [2026-11-07") and "#practice-" in line
         ]
         self.assertEqual(len(index_ids), 2)
         # 索引按时间升序：12:00 在前，21:00 在后
         self.assertIn("(#practice-2026-11-07-1200-", index_ids[0])
         self.assertIn("(#practice-2026-11-07-2100-", index_ids[-1])
+
+    def test_round_index_lists_every_round_quiz(self) -> None:
+        """`## 讲解` 下按时间列出每个日期区块的 `## 本轮习题`，锚点挂在标题行右侧。"""
+        text = apply_practice_index(
+            with_second_round(note_with_explanation(), "2026-11-07 21:00")
+        )
+        self.assertEqual(self.check_raw(text), [])
+        self.assertIn("<!-- round-index -->", text)
+        entries = [
+            line
+            for line in text.split("\n")
+            if line.startswith("- [2026-11-07") and "#round-" in line
+        ]
+        self.assertEqual(len(entries), 2)
+        self.assertIn("#round-2026-11-07-1200", entries[0])
+        self.assertIn("#round-2026-11-07-2100", entries[1])
+        self.assertIn('## 本轮习题 <a id="round-2026-11-07-2100"></a>', text)
+        self.assertIn('## 本轮习题 <a id="round-2026-11-07-1200"></a>', text)
+
+    def test_missing_round_anchor_is_rejected(self) -> None:
+        text = apply_practice_index(note_with_explanation())
+        text = text.replace(' <a id="round-2026-11-07-1200"></a>', "", 1)
+        issues = self.check_raw(text)
+        self.assertTrue(
+            any(
+                "本轮习题" in issue["message"] and "隐藏锚点" in issue["message"]
+                for issue in issues
+            )
+        )
+
+    def test_round_index_mismatch_is_rejected(self) -> None:
+        text = apply_practice_index(note_with_explanation())
+        text = text.replace(
+            "- [2026-11-07 12:00 · 复习](#round-", "- [2026-11-07 12:00 · 练习](#round-", 1
+        )
+        issues = self.check_raw(text)
+        self.assertTrue(
+            any("复习目录与真实日期区块不一致" in issue["message"] for issue in issues)
+        )
 
     def test_missing_practice_anchor_is_rejected(self) -> None:
         text = apply_practice_index(
@@ -471,9 +513,7 @@ class NoteContentValidationTest(unittest.TestCase):
                 "  - `She headed out west.`（她往西边出发。）\n",
             )
         )
-        text = "\n".join(
-            line for line in text.split("\n") if not line.startswith("<a id=")
-        )
+        text = re.sub(r'\s*<a id="[^"]+"></a>', "", text, count=1)
         issues = self.check_raw(text)
         self.assertTrue(any("隐藏锚点" in issue["message"] for issue in issues))
 
@@ -503,7 +543,11 @@ class NoteContentValidationTest(unittest.TestCase):
                 "  - `She headed out west.`（她往西边出发。）\n",
             )
         )
-        text = text.replace("- [2026-11-07 12:00 · 复习]", "- [2026-11-07 12:00 · 练习]", 1)
+        text = text.replace(
+            "- [2026-11-07 12:00 · 复习](#practice-2026-11-07-1200-",
+            "- [2026-11-07 12:00 · 练习](#practice-2026-11-07-1200-",
+            1,
+        )
         issues = self.check_raw(text)
         self.assertTrue(any("索引与真实习题小节不一致" in issue["message"] for issue in issues))
 
@@ -667,7 +711,9 @@ class NoteContentValidationTest(unittest.TestCase):
             root = Path(directory)
             notes = root / NOTES_DIR
             notes.mkdir()
-            (notes / "errors-out-west.md").write_text(note_text(), encoding="utf-8")
+            (notes / "errors-out-west.md").write_text(
+                apply_practice_index(note_text()), encoding="utf-8"
+            )
             (notes / "README.md").write_text("not a note\n", encoding="utf-8")
             (notes / "errors-broken.md").write_text(note_text(answer=""), encoding="utf-8")
             buffer = io.StringIO()
@@ -725,7 +771,9 @@ class NoteEntryPointTest(unittest.TestCase):
             root = Path(directory)
             notes = root / NOTES_DIR
             notes.mkdir()
-            (notes / "errors-out-west.md").write_text(note_text(), encoding="utf-8")
+            (notes / "errors-out-west.md").write_text(
+                apply_practice_index(note_text()), encoding="utf-8"
+            )
             completed = self.run_wrapper(["check", "--all"], root, cli=str(root / "missing.py"))
             self.assertEqual(completed.returncode, 0, completed.stderr)
             self.assertTrue(__import__("json").loads(completed.stdout)["ok"])

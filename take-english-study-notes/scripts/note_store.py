@@ -57,6 +57,7 @@ SYNCABLE_ROWS = {
 BASIC_HEAD_RE = re.compile(r"^## 基础信息\s*\n.*?(?=^# )", re.S | re.M)
 # 讲解是一个知识点唯一的一份说明，写成文件级小节，不参与轮次编号
 EXPLAIN_SECTION = "讲解"
+QUIZ_SECTION = "本轮习题"
 EXPLAIN_HEAD_RE = re.compile(r"^## 讲解\s*$", re.M)
 
 
@@ -104,37 +105,61 @@ def _count_blocks(text: str) -> int:
 
 INDEX_START = "<!-- practice-index -->"
 INDEX_END = "<!-- /practice-index -->"
-PRACTICE_ANCHOR_RE = re.compile(r'<a id="practice-\d{4}-\d{2}-\d{2}-\d{4}-[0-9a-f]{8}"></a>$')
-INDEX_LINE_RE = re.compile(r"^- \[[^\]]+\]\(#practice-[\w-]+\)$")
+ROUND_INDEX_START = "<!-- round-index -->"
+ROUND_INDEX_END = "<!-- /round-index -->"
+INLINE_ANCHOR_RE = re.compile(
+    r'\s*<a id="(?P<id>'
+    r"practice-\d{4}-\d{2}-\d{2}-\d{4}-[0-9a-f]{8}"
+    r"|round-\d{4}-\d{2}-\d{2}-\d{4}"
+    r')"></a>$'
+)
+INDEX_LINE_RE = re.compile(r"^- \[[^\]]+\]\(#(?:practice|round)-[\w-]+\)$")
+
+
+def _split_inline_anchor(title: str) -> tuple[str, str]:
+    """标题行右侧的隐藏锚点：`## 小节 <a id="practice-…"></a>` → (`## 小节`, id)。"""
+    match = INLINE_ANCHOR_RE.search(title.rstrip())
+    if not match:
+        return title.rstrip(), ""
+    return title[: match.start()].rstrip(), match.group("id")
 
 
 def _strip_practice_index(text: str) -> str:
-    """去掉派生内容（锚点行与索引块），只留调用方真正提交的正文。"""
+    """去掉派生内容（标题行内的锚点与两类索引块），只留调用方真正提交的正文。
+
+    索引块连同它插入时带的空行一起吞掉，重试同一轮才不会被派生内容算成新内容。
+    """
     lines: list[str] = []
     inside = False
-    for line in _normalize_text(text).split("\n"):
-        stripped = line.strip()
-        if stripped == INDEX_START:
+    for raw in _normalize_text(text).split("\n"):
+        stripped = _split_inline_anchor(raw.rstrip())[0]
+        marker = stripped.strip()
+        if marker in (INDEX_START, ROUND_INDEX_START):
+            while lines and not lines[-1].strip():
+                lines.pop()
             inside = True
             continue
-        if stripped == INDEX_END:
-            inside = False
+        if inside:
+            if marker in (INDEX_END, ROUND_INDEX_END):
+                inside = False
             continue
-        if inside or PRACTICE_ANCHOR_RE.match(stripped):
-            continue
-        lines.append(line)
+        lines.append(stripped)
+    while lines and not lines[-1].strip():
+        lines.pop()
     return "\n".join(lines)
 
 
 def _comparable(text: str) -> str:
-    """Normalize a block so trivial whitespace and separators do not register.
+    """Normalize a block so trivial whitespace, separators and section numbering do not register.
 
     ``_split_blocks`` keeps the ``---`` separator that follows a block, so a
     retried append inside a multi-round file must ignore it; otherwise the
     same round looks new and gets appended a second time under a bumped minute.
+    The day's `` - 01`` / `` - 02`` suffixes and the inline anchors are derived
+    too: stripping them keeps a retried round identical to the stored one.
     """
     lines = [
-        line.rstrip()
+        _section_base(line.rstrip())[0] if line.lstrip().startswith("## ") else line.rstrip()
         for line in _strip_practice_index(text).strip("\n").split("\n")
     ]
     while lines and (not lines[-1] or lines[-1] == "---"):
@@ -162,18 +187,24 @@ def _sections(text: str) -> list[tuple[str, str]]:
     for position, start in enumerate(starts):
         end = starts[position + 1] if position + 1 < len(starts) else len(lines)
         body = "\n".join(lines[start:end]).rstrip("\n")
-        chunks.append((lines[start].strip(), body))
+        chunks.append((_section_text(lines[start]), body))
     return chunks
 
 
 SECTION_SEQ_RE = re.compile(r"^(?P<base>## .+?) - (?P<seq>\d{2})$")
 
 
+def _section_text(line: str) -> str:
+    """行尾隐藏锚点剥掉后的标题文本，用于按标题查找小节。"""
+    return _split_inline_anchor(line.rstrip())[0].strip()
+
+
 def _section_base(title: str) -> tuple[str, int | None]:
     """拆分小节标题的序号后缀：`## 练习… - 02` → (`## 练习…`, 2)。"""
-    match = SECTION_SEQ_RE.match(title.strip())
+    text = _split_inline_anchor(title.strip())[0]
+    match = SECTION_SEQ_RE.match(text)
     if not match:
-        return title.strip(), None
+        return text, None
     return match.group("base").strip(), int(match.group("seq"))
 
 
@@ -212,7 +243,7 @@ def _number_day_sections(
         if not stripped.startswith("## "):
             continue
         base, seq = _section_base(stripped)
-        if base == "## 本轮习题" or seq is not None:
+        if base == f"## {QUIZ_SECTION}" or seq is not None:
             continue
         taken = day.get(base, [])
         if not taken:
@@ -241,12 +272,17 @@ def practice_anchor_id(date: str, time: str, base: str) -> str:
     return f"practice-{date}-{time.replace(':', '')}-{digest}"
 
 
+def round_anchor_id(date: str, time: str) -> str:
+    """日期区块里 `## 本轮习题` 的锚点；一个区块固定一份，用日期 + 时间即可唯一。"""
+    return f"round-{date}-{time.replace(':', '')}"
+
+
 def _practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str]]]:
     """菜单项 → [(索引展示文本, 锚点 id)]，按时间升序排列。"""
     entries: dict[tuple[str, str], tuple[str, str]] = {}
     date = time = kind = None
     for line in lines:
-        stripped = line.strip()
+        stripped = _split_inline_anchor(line.strip())[0]
         heading = HEADING_RE.match(stripped)
         if heading:
             date, time, kind = heading.group("date"), heading.group("time"), heading.group("kind")
@@ -254,10 +290,9 @@ def _practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str]]]:
         if date is None or not stripped.startswith("## "):
             continue
         base, seq = _section_base(stripped)
-        if base == "## 本轮习题":
+        if base == f"## {QUIZ_SECTION}":
             continue
         label = f"{date} {time} · {kind}" + (f" - {seq:02d}" if seq is not None else "")
-        # 同一天区块内不会出现两份同名小节，key 用（base, 时间）避免覆盖
         entries[(base, f"{date} {time}")] = (label, practice_anchor_id(date, time, base))
     grouped: dict[str, list[tuple[str, str]]] = {}
     for (base, _stamp), (label, anchor_id) in sorted(
@@ -267,72 +302,113 @@ def _practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str]]]:
     return grouped
 
 
-def apply_practice_index(text: str) -> str:
-    """重建习题锚点与文件级小节的索引块（幂等）。
+def _round_entries(lines: list[str]) -> list[tuple[str, str]]:
+    """每个日期区块的 `## 本轮习题` → [(展示文本, 锚点 id)]，按时间升序。"""
+    entries: dict[str, tuple[str, str]] = {}
+    date = time = kind = None
+    for line in lines:
+        stripped = _split_inline_anchor(line.strip())[0]
+        heading = HEADING_RE.match(stripped)
+        if heading:
+            date, time, kind = heading.group("date"), heading.group("time"), heading.group("kind")
+            continue
+        if date is None or not stripped.startswith("## "):
+            continue
+        base, _seq = _section_base(stripped)
+        if base != f"## {QUIZ_SECTION}":
+            continue
+        entries[f"{date} {time}"] = (
+            f"{date} {time} · {kind}",
+            round_anchor_id(date, time),
+        )
+    return [entries[stamp] for stamp in sorted(entries)]
 
-    - 每个日期区块里的菜单项小节标题下方一行 `<a id="practice-…"></a>`（不展示）。
-    - 文件级同名小节里插一块 `<!-- practice-index -->` … `<!-- /practice-index -->`，
-      按时间升序列出当天各份习题的链接，点击跳到对应小节。
+
+def apply_practice_index(text: str) -> str:
+    """重建隐藏锚点与两份索引块（幂等）。
+
+    - 每个日期区块里的菜单项小节、以及 `## 本轮习题`，都在标题行右侧挂一行
+      `<a id="practice-…"></a>` / `<a id="round-…"></a>`：标题本身不显示它，跳转直接落在标题上。
+    - 文件级同名小节标题下写 `<!-- practice-index -->` … `<!-- /practice-index -->`，
+      按时间升序列出该菜单项的全部习题小节。
+    - `## 讲解` 标题下写 `<!-- round-index -->` … `<!-- /round-index -->`，
+      列出整份笔记每个日期区块的 `## 本轮习题`，作为复习历史目录。
     """
     lines = _normalize_text(text).split("\n")
     entries = _practice_entries(lines)
+    rounds = _round_entries(lines)
     out: list[str] = []
     index = 0
     in_block = False
     while index < len(lines):
         line = lines[index]
-        stripped = line.strip()
-        if stripped.startswith("# "):
-            in_block = True
-            out.append(line)
+        title, old_anchor = _split_inline_anchor(line)
+        stripped = title.strip()
+        if old_anchor and not stripped:
+            # 旧版把锚点单独占一行，统一改成挂在标题右侧
             index += 1
             continue
-        if in_block and stripped.startswith("## "):
-            base, _ = _section_base(stripped)
-            out.append(line)
+        if stripped.startswith("# "):
+            in_block = True
+            out.append(title)
             index += 1
-            if base != "## 本轮习题":
-                if index < len(lines) and PRACTICE_ANCHOR_RE.match(lines[index].strip()):
-                    index += 1
+            continue
+        if stripped.startswith("## "):
+            base, _seq = _section_base(stripped)
+            if in_block:
                 date = time = None
                 for back in range(len(out) - 1, -1, -1):
                     heading = HEADING_RE.match(out[back].strip())
                     if heading:
                         date, time = heading.group("date"), heading.group("time")
                         break
-                if date and time:
-                    out.append(f'<a id="{practice_anchor_id(date, time, base)}"></a>')
-            continue
-        if not in_block and stripped.startswith("## "):
-            base, _ = _section_base(stripped)
-            if base not in (EXPLAIN_SECTION, "基础信息"):
-                out.append(line)
+                out.append(title)
                 index += 1
-                # 先吞掉上一次生成的索引块与两侧空行，避免重写后叠加
-                skip_start = index
-                while index < len(lines) and not lines[index].strip():
-                    index += 1
-                if index < len(lines) and lines[index].strip() == INDEX_START:
-                    while index < len(lines) and (
-                        lines[index].strip() in (INDEX_START, INDEX_END)
-                        or INDEX_LINE_RE.match(lines[index].strip())
-                        or not lines[index].strip()
-                    ):
-                        index += 1
-                    skip_start = index
-                if base in entries:
-                    block: list[str] = [INDEX_START]
-                    for label, anchor_id in entries[base]:
-                        block.append(f"- [{label}](#{anchor_id})")
-                    block.append(INDEX_END)
-                    out.append("")
-                    out.extend(block)
-                    out.append("")
-                    continue
-                # 没有习题小节：把吞掉的空行补回一行
-                if skip_start < index:
-                    out.append("")
+                if date and time:
+                    anchor = (
+                        round_anchor_id(date, time)
+                        if base == f"## {QUIZ_SECTION}"
+                        else practice_anchor_id(date, time, base)
+                    )
+                    out[-1] = f'{title} <a id="{anchor}"></a>'
                 continue
+            out.append(title)
+            index += 1
+            # 先吞掉上一次生成的两类索引块与两侧空行，避免重写后叠加
+            skip_start = index
+            while index < len(lines) and not lines[index].strip():
+                index += 1
+            if index < len(lines) and lines[index].strip() in (INDEX_START, ROUND_INDEX_START):
+                while index < len(lines) and (
+                    lines[index].strip()
+                    in (INDEX_START, INDEX_END, ROUND_INDEX_START, ROUND_INDEX_END)
+                    or INDEX_LINE_RE.match(lines[index].strip())
+                    or not lines[index].strip()
+                ):
+                    index += 1
+                skip_start = index
+            block: list[str] | None = None
+            if base == f"## {EXPLAIN_SECTION}" and rounds:
+                block = [
+                    ROUND_INDEX_START,
+                    *[f"- [{label}](#{anchor})" for label, anchor in rounds],
+                    ROUND_INDEX_END,
+                ]
+            elif base not in (f"## {EXPLAIN_SECTION}", "## 基础信息") and base in entries:
+                block = [
+                    INDEX_START,
+                    *[f"- [{label}](#{anchor})" for label, anchor in entries[base]],
+                    INDEX_END,
+                ]
+            if block:
+                out.append("")
+                out.extend(block)
+                out.append("")
+                continue
+            # 没有对应索引时，把吞掉的空行补回一行
+            if skip_start < index:
+                out.append("")
+            continue
         out.append(line)
         index += 1
     while out and not out[-1].strip():
@@ -387,7 +463,7 @@ def _check_round_sections(block: str) -> None:
     in ``check_note.py``) is the only guard that actually holds.
     """
     for title, body in _sections(block):
-        if title == "## 本轮习题":
+        if title == f"## {QUIZ_SECTION}":
             continue
         if "**讲解要点**" in body or any(
             f"<summary>{base}" in body for base in DETAIL_BASES
@@ -580,10 +656,10 @@ def _note_index(text: str) -> dict[str, Any]:
         elif current is not None:
             chunk.append(line)
             if line.startswith("## "):
-                current["sections"].append(line.strip())
-        elif line.startswith("## ") and line.strip() != "## 基础信息":
+                current["sections"].append(_section_text(line))
+        elif line.startswith("## ") and _section_text(line) != "## 基础信息":
             # 文件级讲解区：`## 讲解` 与只讲解、不带习题的菜单小节
-            explain_sections.append(line.strip())
+            explain_sections.append(_section_text(line))
     if current is not None:
         block_match = RECORD_ID_ROW_RE.search("\n".join(chunk))
         current["record_id"] = block_match.group(1).strip() if block_match else None
@@ -1248,7 +1324,7 @@ class NoteStore:
                 (
                     index
                     for index in range(start + 1, end)
-                    if lines[index].strip() == wanted_section
+                    if _section_text(lines[index]) == wanted_section
                 ),
                 None,
             )
@@ -1446,7 +1522,7 @@ class NoteStore:
                 (
                     index
                     for index in range(explain_start + 1, area_end)
-                    if lines[index].strip() == wanted
+                    if _section_text(lines[index]) == wanted
                 ),
                 None,
             )

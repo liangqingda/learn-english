@@ -220,7 +220,7 @@ class NoteTemplateTest(unittest.TestCase):
     def test_valid_note_passes_and_drift_is_reported(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "note.md"
-            path.write_text(self.note_text(), encoding="utf-8")
+            path.write_text(apply_practice_index(self.note_text()), encoding="utf-8")
             self.assertEqual(check_note.check(path), [])
 
             path.write_text(
@@ -350,7 +350,9 @@ class MenuItemNoteTest(unittest.TestCase):
 
             path = notes / "phrases-a-price-to-pay.md"
             path.write_text(
-                self.base_note().replace("errors:out-west", "phrases:a-price-to-pay"),
+                apply_practice_index(
+                    self.base_note().replace("errors:out-west", "phrases:a-price-to-pay")
+                ),
                 encoding="utf-8",
             )
             self.assertEqual(check_note.check(path), [])

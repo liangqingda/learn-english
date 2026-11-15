@@ -22,7 +22,14 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from note_store import apply_practice_index, practice_anchor_id  # noqa: E402
+from note_store import (  # noqa: E402
+    INLINE_ANCHOR_RE,
+    ROUND_INDEX_END,
+    ROUND_INDEX_START,
+    apply_practice_index,
+    practice_anchor_id,
+    round_anchor_id,
+)
 
 # 文件顶部「基础信息」：记录级字段，整个文件唯一一份，与单次复习无关
 BASIC_ROWS = [
@@ -214,7 +221,9 @@ BASE_SECTION = "基础信息"  # 旧版追踪信息的二级标题，迁移时�
 BASIC_SECTION = "基础信息"
 ROUND_SECTION = "本轮信息"
 TRACKING_SUMMARY = "追踪信息"  # 旧版轮次折叠块的 summary，迁移时改成 ROUND_SECTION
-SECTION2_RE = re.compile(r"^## (?!#|追踪)(\S.*?)\s*$")
+SECTION2_RE = re.compile(
+    r'^## (?!#|追踪)(\S.*?)(?:\s+<a id="(?:practice|round)-[^"]+"></a>)?\s*$'
+)
 SECTION_SEQ_RE = re.compile(r"^(?P<base>.+?) - (?P<seq>\d{2})$")
 
 
@@ -228,9 +237,6 @@ def split_section_seq(title: str) -> tuple[str, int | None]:
 
 INDEX_START = "<!-- practice-index -->"
 INDEX_END = "<!-- /practice-index -->"
-ANCHOR_LINE_RE = re.compile(
-    r'^<a id="(?P<id>practice-(?P<date>\d{4}-\d{2}-\d{2})-(?P<time>\d{4})-[0-9a-f]{8})"></a>$'
-)
 INDEX_ITEM_RE = re.compile(r"^- \[(?P<label>[^\]]+)\]\(#(?P<id>[^)]+)\)$")
 
 
@@ -251,10 +257,8 @@ def practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str, str, st
             continue
         base, seq = split_section_seq(title)
         label = f"{date} {time} · {kind}" + (f" - {seq:02d}" if seq is not None else "")
-        anchor = ""
-        if index + 1 < len(lines):
-            match = ANCHOR_LINE_RE.match(lines[index + 1].strip())
-            anchor = match.group("id") if match else ""
+        anchor_match = INLINE_ANCHOR_RE.search(line.rstrip())
+        anchor = anchor_match.group("id") if anchor_match else ""
         expected = practice_anchor_id(date, time, f"## {base}")
         raw[(base, f"{date} {time}")] = (label, anchor, expected, str(index + 1))
     grouped: dict[str, list[tuple[str, str, str, str]]] = {}
@@ -265,8 +269,35 @@ def practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str, str, st
     return grouped
 
 
-def index_block(lines: list[str], start: int) -> tuple[list[tuple[str, str]], int] | None:
-    """从 `## 小节` 后读一块 `<!-- practice-index -->`，返回 (条目, 结束行号)。"""
+def round_entries(lines: list[str]) -> list[tuple[str, str, str, int]]:
+    """每个日期区块的 `## 本轮习题` → [(展示文本, 实际锚点, 应有锚点, 行号)]。"""
+    raw: dict[str, tuple[str, str, str, int]] = {}
+    date = time = kind = None
+    for index, line in enumerate(lines):
+        heading = SECTION_RE.match(line)
+        if heading:
+            date, time, kind = heading.group(1), heading.group(2), heading.group(3)
+            continue
+        section = SECTION2_RE.match(line)
+        if not section or date is None:
+            continue
+        if section.group(1).strip() != QUIZ_SECTION:
+            continue
+        anchor_match = INLINE_ANCHOR_RE.search(line.rstrip())
+        anchor = anchor_match.group("id") if anchor_match else ""
+        raw[f"{date} {time}"] = (
+            f"{date} {time} · {kind}",
+            anchor,
+            round_anchor_id(date, time),
+            index + 1,
+        )
+    return [raw[stamp] for stamp in sorted(raw)]
+
+
+def index_block(
+    lines: list[str], start: int, start_marker: str = INDEX_START, end_marker: str = INDEX_END
+) -> tuple[list[tuple[str, str]], int] | None:
+    """从 `## 小节` 后读一块索引，返回 (条目, 结束行号)。"""
     end = next(
         (
             index
@@ -276,10 +307,10 @@ def index_block(lines: list[str], start: int) -> tuple[list[tuple[str, str]], in
         len(lines),
     )
     for index in range(start, end):
-        if lines[index].strip() == INDEX_START:
+        if lines[index].strip() == start_marker:
             items: list[tuple[str, str]] = []
             cursor = index + 1
-            while cursor < len(lines) and lines[cursor].strip() != INDEX_END:
+            while cursor < len(lines) and lines[cursor].strip() != end_marker:
                 match = INDEX_ITEM_RE.match(lines[cursor].strip())
                 if match:
                     items.append((match.group("label"), match.group("id")))
@@ -644,14 +675,11 @@ def check(path: Path) -> list[dict]:
     seen_ids: dict[str, int] = {}
     for base, items in entries.items():
         for label, anchor_id, expected_id, line_no in items:
-            line_index = int(line_no) - 1
-            if line_index + 1 >= len(lines) or not ANCHOR_LINE_RE.match(
-                lines[line_index + 1].strip()
-            ):
+            if not anchor_id:
                 add(
-                    int(line_no) + 1,
-                    "习题小节必须有隐藏锚点行 `<a id=\"practice-…\"></a>`（紧跟小节标题，"
-                    "由写入命令自动生成，不要手写）",
+                    int(line_no),
+                    "习题小节标题行右侧必须挂隐藏锚点 `<a id=\"practice-…\"></a>`"
+                    "（由写入命令自动生成，不要手写）",
                 )
             elif anchor_id != expected_id:
                 add(
@@ -664,6 +692,49 @@ def check(path: Path) -> list[dict]:
     for anchor_id, line_no in seen_ids.items():
         if sum(1 for line in lines if f'id="{anchor_id}"' in line) > 1:
             add(line_no, f"隐藏锚点重复：`{anchor_id}`；每份习题小节只能有一个锚点")
+
+    # 2e. `## 讲解` 下的复习历史目录：每个日期区块的 `## 本轮习题`
+    rounds = round_entries(lines)
+    for label, anchor_id, expected_id, line_no in rounds:
+        if not anchor_id:
+            add(line_no, f"`## {QUIZ_SECTION}` 标题行右侧必须有隐藏锚点 `<a id=\"{expected_id}\"></a>`")
+        elif anchor_id != expected_id:
+            add(line_no, f"`## {QUIZ_SECTION}` 的锚点应为 `{expected_id}`；改动区块时间后由写入命令重建")
+    explain_head = next(
+        (
+            index
+            for index, line in enumerate(head)
+            if SECTION2_RE.match(line)
+            and SECTION2_RE.match(line).group(1).strip() == DEFAULT_EXPLAIN_SECTION
+        ),
+        None,
+    )
+    if explain_head is not None:
+        block = index_block(
+            head, explain_head + 1, start_marker=ROUND_INDEX_START, end_marker=ROUND_INDEX_END
+        )
+        expected_rounds = [(label, expected_id) for label, _a, expected_id, _l in rounds]
+        if not expected_rounds:
+            if block is not None:
+                add(explain_head + 1, f"`## {DEFAULT_EXPLAIN_SECTION}` 还没有任何日期区块，不要保留复习目录")
+        elif block is None:
+            add(
+                explain_head + 1,
+                f"`## {DEFAULT_EXPLAIN_SECTION}` 标题下必须写一块 `<!-- round-index -->` … "
+                "`<!-- /round-index -->`，按时间升序列出每个日期区块的 `## 本轮习题`"
+                "（写入命令会自动生成）",
+            )
+        else:
+            actual_rounds, end_line = block
+            if end_line >= len(head) or head[end_line].strip() != ROUND_INDEX_END:
+                add(explain_head + 1, "复习目录缺少结束标记 `<!-- /round-index -->`")
+            elif actual_rounds != expected_rounds:
+                add(
+                    explain_head + 1,
+                    "复习目录与真实日期区块不一致：应按时间升序列出 "
+                    + "、".join(label for label, _ in expected_rounds)
+                    + "；改动区块后由写入命令重建",
+                )
 
     in_round = False
     for index, line in enumerate(lines):

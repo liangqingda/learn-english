@@ -12,6 +12,11 @@
 
 ## 讲解
 
+<!-- round-index -->
+- [2026-11-07 20:22 · 复习](#round-2026-11-07-2022)
+- [2026-11-15 12:05 · 复习](#round-2026-11-15-1205)
+<!-- /round-index -->
+
 **核心含义**：
 - a price to pay：为了得到某样东西而必须承受的代价、损失或后果，落点在“要付出什么”，而不是“能拿到什么”。
 - 这里的 price 是抽象代价（时间、健康、隐私、自由、关系），与金额、标价无关。
@@ -197,7 +202,7 @@ She stayed on the day shift and paid a neighbour to sit with her mother after lu
 <tr><td>题量与错题数</td><td>7 题 / 4 处错误</td></tr>
 </table>
 
-## 本轮习题
+## 本轮习题 <a id="round-2026-11-15-1205"></a>
 
 ### 1. 单项选择
 
@@ -383,8 +388,7 @@ My cousin finally bought the old farm she always wanted. She gave up every weeke
 
 ---
 
-## 练习「a price to pay」的关键语法结构
-<a id="practice-2026-11-15-1205-8cd81652"></a>
+## 练习「a price to pay」的关键语法结构 <a id="practice-2026-11-15-1205-8cd81652"></a>
 
 ### 1. 填空
 
@@ -555,7 +559,7 @@ Owning a shop on this street is profitable. You have to answer phone calls at mi
 <tr><td>题量与错题数</td><td>6 题 / 7 处错误（另有 1 题未作答）</td></tr>
 </table>
 
-## 本轮习题
+## 本轮习题 <a id="round-2026-11-07-2022"></a>
 
 ### 1. 语境判断
 
@@ -756,8 +760,7 @@ Working night shifts cost her her health, and she knew it.
 
 </details>
 
-## 练习「a price to pay」的关键语法结构
-<a id="practice-2026-11-07-2022-8cd81652"></a>
+## 练习「a price to pay」的关键语法结构 <a id="practice-2026-11-07-2022-8cd81652"></a>
 
 ### 1. 单项选择
 

@@ -144,7 +144,9 @@ class NoteAppendTest(unittest.TestCase):
             self.assertEqual(result["section"], "## 扩展练习")
             self.assertEqual(result["section_renamed"], [])
         text = self.note.read_text(encoding="utf-8")
-        self.assertEqual(text.count("## 扩展练习\n"), 2)
+        self.assertEqual(
+            len([line for line in text.split("\n") if line.startswith("## 扩展练习")]), 2
+        )
 
     def test_append_part_refuses_a_story_block_in_a_round_section(self) -> None:
         """故事原文再选一次要走 append-explain-part，不能追加进日期区块的小节。"""

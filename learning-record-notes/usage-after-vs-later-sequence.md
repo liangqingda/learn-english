@@ -12,6 +12,10 @@
 
 ## 讲解
 
+<!-- round-index -->
+- [2026-11-08 15:54 · 复习](#round-2026-11-08-1554)
+<!-- /round-index -->
+
 **语气与语域**：
 
 - later、then、afterward 是叙事和口语里承接「后来」的自然说法，语气轻，只交代时间先后。
@@ -173,7 +177,7 @@
 <tr><td>题量与错题数</td><td>6 题 / 2 处错误</td></tr>
 </table>
 
-## 本轮习题
+## 本轮习题 <a id="round-2026-11-08-1554"></a>
 
 ### 1. 语境判断
 
@@ -322,8 +326,7 @@ The band released their first album in 2018 and after they toured Europe.
 
 </details>
 
-## 练习「after 不宜直接当 later 连接后续动作」的关键语法结构
-<a id="practice-2026-11-08-1554-725d8b2b"></a>
+## 练习「after 不宜直接当 later 连接后续动作」的关键语法结构 <a id="practice-2026-11-08-1554-725d8b2b"></a>
 
 ### 1. 填空
 
@@ -484,8 +487,7 @@ After two hours, we finally arrived at the hotel, and after we checked in and we
 
 </details>
 
-## 扩展「after 不宜直接当 later 连接后续动作」相关词汇和搭配
-<a id="practice-2026-11-08-1554-43386955"></a>
+## 扩展「after 不宜直接当 later 连接后续动作」相关词汇和搭配 <a id="practice-2026-11-08-1554-43386955"></a>
 
 ### 1. 单项选择
 

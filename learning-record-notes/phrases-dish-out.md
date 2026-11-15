@@ -12,6 +12,11 @@
 
 ## 讲解
 
+<!-- round-index -->
+- [2026-11-14 09:26 · 复习](#round-2026-11-14-0926)
+- [2026-11-14 21:53 · 复习](#round-2026-11-14-2153)
+<!-- /round-index -->
+
 **核心含义**：
 
 - dish out 把某物分发出去、给出去：食物（dish out napkins）、建议、批评、惩罚、钱都能用。
@@ -82,7 +87,7 @@ The next week he came back, not in uniform, and asked to wash the pots. When a t
 <tr><td>题量与错题数</td><td>6 题 / 2 处错误</td></tr>
 </table>
 
-## 本轮习题
+## 本轮习题 <a id="round-2026-11-14-2153"></a>
 
 ### 1. 语境判断
 
@@ -233,7 +238,7 @@ The next week he came back, not in uniform, and asked to wash the pots. When a t
 <tr><td>题量与错题数</td><td>6 题 / 4 处错误</td></tr>
 </table>
 
-## 本轮习题
+## 本轮习题 <a id="round-2026-11-14-0926"></a>
 
 ### 1. 单项选择
 

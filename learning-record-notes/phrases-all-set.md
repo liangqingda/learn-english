@@ -12,6 +12,10 @@
 
 ## 讲解
 
+<!-- round-index -->
+- [2026-11-14 21:59 · 复习](#round-2026-11-14-2159)
+<!-- /round-index -->
+
 **核心含义**：
 
 - all set 表示「一切就绪、安排妥当、搞定」；set 在此是形容词，意为 ready / arranged，all 加强语气。
@@ -108,7 +112,7 @@ By noon the shop was quiet again, and Mei sat on the step outside with a cup of 
 <tr><td>题量与错题数</td><td>6 题 / 2 处错误</td></tr>
 </table>
 
-## 本轮习题
+## 本轮习题 <a id="round-2026-11-14-2159"></a>
 
 ### 1. 语境判断
 
