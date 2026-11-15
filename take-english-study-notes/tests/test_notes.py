@@ -715,6 +715,8 @@ NOTE_HEAD = """## 基础信息
 
 VALID_BLOCK = """# {heading}
 
+## 本轮习题
+
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
 <tr><td>复习时间</td><td>{stamp}</td></tr>
@@ -722,8 +724,6 @@ VALID_BLOCK = """# {heading}
 <tr><td>本轮得分</td><td>10 / 10</td></tr>
 <tr><td>题量与错题数</td><td>1 题 / 0 处错误</td></tr>
 </table>
-
-## 本轮习题
 
 ### 1. 填空
 

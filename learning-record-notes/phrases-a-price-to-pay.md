@@ -194,6 +194,8 @@ She stayed on the day shift and paid a neighbour to sit with her mother after lu
 
 # 2026-11-15 12:05 · 复习
 
+## 本轮习题 <a id="round-2026-11-15-1205"></a>
+
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
 <tr><td>复习时间</td><td>2026-11-15 12:05</td></tr>
@@ -201,8 +203,6 @@ She stayed on the day shift and paid a neighbour to sit with her mother after lu
 <tr><td>本轮得分</td><td>6 / 10</td></tr>
 <tr><td>题量与错题数</td><td>7 题 / 4 处错误</td></tr>
 </table>
-
-## 本轮习题 <a id="round-2026-11-15-1205"></a>
 
 ### 1. 单项选择
 
@@ -551,6 +551,8 @@ Owning a shop on this street is profitable. You have to answer phone calls at mi
 
 # 2026-11-07 20:22 · 复习
 
+## 本轮习题 <a id="round-2026-11-07-2022"></a>
+
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
 <tr><td>复习时间</td><td>2026-11-07 20:22</td></tr>
@@ -558,8 +560,6 @@ Owning a shop on this street is profitable. You have to answer phone calls at mi
 <tr><td>本轮得分</td><td>5 / 10</td></tr>
 <tr><td>题量与错题数</td><td>6 题 / 7 处错误（另有 1 题未作答）</td></tr>
 </table>
-
-## 本轮习题 <a id="round-2026-11-07-2022"></a>
 
 ### 1. 语境判断
 

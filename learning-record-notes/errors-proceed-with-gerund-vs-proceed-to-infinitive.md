@@ -59,6 +59,8 @@
 
 # 2026-11-08 12:48 · 复习
 
+## 本轮习题 <a id="round-2026-11-08-1248"></a>
+
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
 <tr><td>复习时间</td><td>2026-11-08 12:48</td></tr>
@@ -66,8 +68,6 @@
 <tr><td>本轮得分</td><td>9 / 10</td></tr>
 <tr><td>题量与错题数</td><td>6 题 / 4 处错误</td></tr>
 </table>
-
-## 本轮习题 <a id="round-2026-11-08-1248"></a>
 
 ### 1. 语境判断
 

@@ -49,6 +49,12 @@ ROUND_ROWS = [
     "题量与错题数",
 ]
 
+# 带习题的菜单项小节：只记这一节题组的得分与题量，得分不写入规范记录
+MENU_ROWS = [
+    "本轮得分",
+    "题量与错题数",
+]
+
 # 只有套题笔记才写这一行：普通复习没有主观题，恒为 `—` 反而是噪音
 PAPER_ONLY_ROWS = ("主观题得分",)
 PAPER_KIND = "套题"
@@ -62,6 +68,97 @@ DEFAULT_EXPLAIN_REQUIRED = {
     "usage": "语气与语域",
     "errors": "错误机制",
 }
+
+
+def section_table_span(body: list[str], g_start: int, g_end: int) -> tuple[int, int, int] | None:
+    """`##` 小节标题下那张无表头信息表的位置：(起, 止, 第一题)。没有表时返回 None。"""
+    first_question = next(
+        (k for k in range(g_start + 1, g_end) if QUESTION_RE.match(body[k])), g_end
+    )
+    open_at = next(
+        (k for k in range(g_start + 1, g_end) if body[k].strip().startswith("<table")), None
+    )
+    if open_at is None:
+        return None
+    close_at = next((k for k in range(open_at + 1, g_end) if body[k].strip() == "</table>"), None)
+    if close_at is None:
+        return None
+    return open_at, close_at, first_question
+
+
+def validate_section_table(
+    add,
+    body: list[str],
+    start: int,
+    g_start: int,
+    g_end: int,
+    title: str,
+    expected_rows: list[str],
+    *,
+    required: bool,
+) -> tuple[dict[str, str], dict[str, int]]:
+    """校验小节标题下、第一题之前那张表；返回字段 → 值。
+
+    轮次信息表（`## 本轮习题` 之下）必填，带习题的菜单项小节为可选：
+    历史小节当时没有计分口径，不强求补，新写入由模板保证带上。
+    """
+    span = section_table_span(body, g_start, g_end)
+    if span is None:
+        if required:
+            add(
+                start + g_start + 1,
+                f"`## {title}` 之下缺少无表头信息表：先写 `<table>` … `</table>`，再写第一题",
+            )
+        return {}, {}
+    open_at, close_at, first_question = span
+    if open_at > first_question:
+        add(
+            start + open_at + 1,
+            f"信息表必须写在 `## {title}` 之下、第一题之前，不要放到题目后面",
+        )
+        return {}, {}
+    inner = body[open_at + 1 : close_at]
+    if any(line.strip() in ("<thead>", "</thead>") or "<th>" in line for line in inner):
+        add(
+            start + open_at + 1,
+            "信息表不允许表头：不要写 `<thead>` / `<th>`，也不要用 `| 字段 | 值 |`",
+        )
+    if not any(
+        "<colgroup>" in line and f'width="{TEMPLATE["col_width"]}"' in line for line in inner
+    ):
+        add(
+            start + open_at + 1,
+            f"表格必须固定紧凑列宽：紧跟 `<table …>` 写 `<colgroup><col width=\"{TEMPLATE['col_width']}\"><col></colgroup>",
+        )
+    if body[open_at].strip() != TEMPLATE["table_tag"]:
+        add(
+            start + open_at + 1,
+            f"表格标签必须与模板一致：`{TEMPLATE['table_tag']}`，避免渲染成整行宽而显得松散",
+        )
+    row_lines: list[tuple[int, str, str]] = []
+    for offset, line in enumerate(inner):
+        match = TABLE_ROW_RE.match(line.strip())
+        if match:
+            row_lines.append(
+                (
+                    start + open_at + offset + 2,
+                    match.group(1).strip(),
+                    match.group(2).strip(),
+                )
+            )
+    rows = [row for _, row, _value in row_lines]
+    if rows != expected_rows:
+        add(
+            start + open_at + 1,
+            "信息表行数与顺序必须与模板一致：" + " / ".join(str(row) for row in expected_rows),
+        )
+    for line_no, row, value in row_lines:
+        if not value:
+            add(line_no, f"信息表 `{row}` 的值不能为空；未知时写 `—`")
+    return (
+        {row: value for _, row, value in row_lines},
+        {row: line_no for line_no, row, _value in row_lines},
+    )
 
 
 def expected_round_rows(kind: str) -> list[str]:
@@ -211,7 +308,7 @@ RECORD_ID_RE = re.compile(
 NOTE_NAME_RE = re.compile(rf"^([a-z]+)-({NOTE_KEY_FRAGMENT})\.md$")
 TRANSITION_RE = re.compile(
     r"^(vocabulary|phrases|grammar|usage|errors|paper) · "
-    r"((learning|familiar|mastered) → (learning|familiar|mastered)|未评分)$"
+    r"((learning|familiar|mastered) → (learning|familiar|mastered)|未入库|未评分)$"
 )
 UNANSWERED_WORDS = ("未作答", "未完成", "漏答")
 KNOWLEDGE_REF_RE = re.compile(r"^\*\*知识点\*\*：同\s*第\s*(\d+)\s*题")
@@ -1034,7 +1131,6 @@ def check(path: Path) -> list[dict]:
     for idx, (start, date, time, kind) in enumerate(sections):
         end = sections[idx + 1][0] - 1 if idx + 1 < len(sections) else len(lines)
         body = lines[start:end]
-        section_tracking: dict[str, str] = {}
 
         legacy_heading = next(
             (
@@ -1048,128 +1144,129 @@ def check(path: Path) -> list[dict]:
         if legacy_heading is not None:
             add(
                 start + legacy_heading + 1,
-                "本轮信息不加小标题：表格直接写在日期标题之后；基础信息只在文件顶部写一次",
+                "本轮信息不加小标题：表格直接写在 `## 本轮习题` 之下；基础信息只在文件顶部写一次",
             )
 
         group_heads = [k for k, l in enumerate(body) if SECTION2_RE.match(l)]
         if not group_heads:
             add(start, "区块内缺少 `## 本轮习题`")
 
-        if any(
-            l.strip().startswith("<details")
-            for l in body[: group_heads[0] if group_heads else len(body)]
-        ):
-            add(start, "本轮信息表固定展示，不要包进 `<details>` 折叠块")
+        for k in range(0, group_heads[0] if group_heads else len(body)):
+            stripped = body[k].strip()
+            if not stripped:
+                continue
+            if stripped.startswith("<details"):
+                add(
+                    start + k + 1,
+                    "本轮信息表固定展示，不要包进 `<details>` 折叠块；表格写进 `## 本轮习题` 之下",
+                )
+            elif (
+                stripped.startswith("<table")
+                or TABLE_ROW_RE.match(stripped)
+                or stripped == "</table>"
+            ):
+                add(
+                    start + k + 1,
+                    "轮次信息表必须写在 `## 本轮习题` 之下、第一题之前：日期标题后不要再直接放表格",
+                )
+            else:
+                add(
+                    start + k + 1,
+                    f"日期标题下必须先写 `## {QUIZ_SECTION}`：不要把内容挂在日期标题与这一节之间",
+                )
+            break
 
-        table_open = next((k for k, l in enumerate(body) if l.strip().startswith("<table")), None)
-        table_line = start + table_open + 1 if table_open is not None else start
-        table_close = next((k for k, l in enumerate(body) if l.strip() == "</table>"), None)
-        if table_open is None or table_close is None or table_close < table_open:
-            add(start, "缺少无表头轮次信息表：日期标题下必须直接写 `<table>` … `</table>`，每行 `<tr><td>字段</td><td>值</td></tr>`")
-        elif group_heads and table_open > group_heads[0]:
-            add(table_line, "轮次信息表必须写在 `## 本轮习题` 之前，紧跟日期标题")
-        else:
-            inner = body[table_open + 1 : table_close]
-            if any(l.strip() in ("<thead>", "</thead>") or "<th>" in l for l in inner):
-                add(table_line, "轮次信息表不允许表头：不要写 `<thead>` / `<th>`，也不要用 `| 字段 | 值 |`")
-            if not any("<colgroup>" in l and f'width="{TEMPLATE["col_width"]}"' in l for l in inner):
-                add(
-                    table_line,
-                    f"表格必须固定紧凑列宽：紧跟 `<table …>` 写 `<colgroup><col width=\"{TEMPLATE['col_width']}\"><col></colgroup>",
-                )
-            table_tag = next((l for l in inner if l.strip().startswith("<table")), "").strip()
-            table_tag = next((l for l in body[max(0, table_open) : table_open + 1] if l.strip().startswith("<table")), "").strip()
-            if table_tag != TEMPLATE["table_tag"]:
-                add(
-                    table_line,
-                    f"表格标签必须与模板一致：`{TEMPLATE['table_tag']}`，避免渲染成整行宽而显得松散",
-                )
-            row_lines: list[tuple[int, str, str]] = []
-            for offset, line in enumerate(inner):
-                match = TABLE_ROW_RE.match(line.strip())
-                if match:
-                    row_lines.append(
-                        (
-                            start + table_open + offset + 2,
-                            match.group(1).strip(),
-                            match.group(2).strip(),
-                        )
-                    )
-            rows = [row for _, row, _value in row_lines]
-            values = [value for _, _row, value in row_lines]
-            expected_rows = expected_round_rows(kind)
-            if rows != expected_rows:
-                add(
-                    table_line,
-                    "轮次信息表行数与顺序必须与模板一致：" + " / ".join(str(row) for row in expected_rows),
-                )
-            tracking = dict(zip(rows, values))
-            row_line = {row: line_no for line_no, row, _value in row_lines}
-            section_tracking = tracking
-            for line_no, row, value in row_lines:
-                if not value:
-                    add(line_no, f"轮次信息 `{row}` 的值不能为空；未知时写 `—`")
-            stamp_text = f"{date} {time}"
-            review_time = tracking.get("复习时间", "")
-            if review_time != stamp_text:
-                add(
-                    row_line.get("复习时间", table_line),
-                    f"`复习时间` 必须与轮次标题时间一致：应为 `{stamp_text}`，当前为 `{review_time}`",
-                )
-            transition = tracking.get("分类 · 状态变化", "")
-            if transition and not TRANSITION_RE.match(transition):
-                add(
-                    row_line.get("分类 · 状态变化", table_line),
-                    f"`分类 · 状态变化` 必须写成 `<category> · <旧状态> → <新状态>` 或 `<category> · 未评分`：当前为 `{transition}`",
-                )
-            score = tracking.get("本轮得分", "")
-            if score and not SCORE_RE.match(score):
-                add(
-                    row_line.get("本轮得分", table_line),
-                    f"`本轮得分` 只能是 `x / 10`、`xxx / 710（无听力模拟折算分）` 或 `—`：当前为 `{score}`",
-                )
-            counts_value = tracking.get("题量与错题数", "")
-            if counts_value and not COUNTS_RE.match(counts_value):
-                add(
-                    row_line.get("题量与错题数", table_line),
-                    f"`题量与错题数` 必须写成 `N 题 / M 处错误`（有未作答时补 `（另有 K 题未作答）`）：当前为 `{counts_value}`",
-                )
-            subjective = tracking.get("主观题得分", "")
-            if subjective and not SUBJECTIVE_RE.match(subjective):
-                add(
-                    row_line.get("主观题得分", table_line),
-                    f"`主观题得分` 必须是 `写作 x/15 · 翻译 x/15` 或 `—`：当前为 `{subjective}`",
-                )
-            quiz_pos = next(
-                (
-                    k
-                    for k, l in enumerate(body)
-                    if SECTION2_RE.match(l) and SECTION2_RE.match(l).group(1).strip() == QUIZ_SECTION
-                ),
-                None,
-            )
-            if quiz_pos is not None and quiz_pos <= table_close:
-                add(start + quiz_pos + 1, f"`## {QUIZ_SECTION}` 必须在轮次信息表之后")
-        for line_off, line in enumerate(body):
-            if line.strip().startswith("| 字段 |"):
-                add(start + line_off + 1, "追踪信息不再使用 Markdown 表头行，改用无表头 HTML 表格")
-
-        # 6. 二级标题分组：第一个必须是 `## 本轮习题`，其余每组对应一个菜单项
+        # 本轮信息表写在 `## 本轮习题` 之下；带习题的菜单项小节各带一张两行表
         groups: list[tuple[int, str, int]] = []
         for gidx, k in enumerate(group_heads):
             title = SECTION2_RE.match(body[k]).group(1).strip()
             g_end = group_heads[gidx + 1] if gidx + 1 < len(group_heads) else len(body)
             groups.append((k, title, g_end))
 
-        quiz_index = next((i for i, (_, title, _) in enumerate(groups) if title == QUIZ_SECTION), None)
+        quiz_index = next(
+            (i for i, (_, title, _) in enumerate(groups) if title == QUIZ_SECTION), None
+        )
         if quiz_index is None:
             if group_heads:  # 一个二级标题都没有时只报一次，避免重复提示
                 add(start, "区块内缺少 `## 本轮习题`")
         elif quiz_index != 0:
             add(
                 start + groups[quiz_index][0] + 1,
-                f"`## {QUIZ_SECTION}` 必须是区块内第一个二级标题：轮次信息表不加小标题，直接跟在日期标题后",
+                f"`## {QUIZ_SECTION}` 必须是区块内第一个二级标题：日期标题下先写这一节，本轮信息表放在它的标题之下",
             )
+
+        quiz_tracking: dict[str, str] = {}
+        menu_trackings: dict[str, dict[str, str]] = {}
+        for g_start, g_title, g_end in groups:
+            row_line = start + g_start + 1
+            if g_title == QUIZ_SECTION:
+                quiz_tracking, quiz_row_lines = validate_section_table(
+                    add,
+                    body,
+                    start,
+                    g_start,
+                    g_end,
+                    g_title,
+                    expected_round_rows(kind),
+                    required=True,
+                )
+                stamp_text = f"{date} {time}"
+                review_time = quiz_tracking.get("复习时间", "")
+                if review_time and review_time != stamp_text:
+                    add(
+                        quiz_row_lines.get("复习时间", row_line),
+                        f"`复习时间` 必须与轮次标题时间一致：应为 `{stamp_text}`，当前为 `{review_time}`",
+                    )
+                transition = quiz_tracking.get("分类 · 状态变化", "")
+                if transition and not TRANSITION_RE.match(transition):
+                    add(
+                        quiz_row_lines.get("分类 · 状态变化", row_line),
+                        "`分类 · 状态变化` 必须写成 `<category> · <旧状态> → <新状态>`、"
+                        f"`<category> · 未入库` 或 `<category> · 未评分`：当前为 `{transition}`",
+                    )
+                score = quiz_tracking.get("本轮得分", "")
+                if score and not SCORE_RE.match(score):
+                    add(
+                        quiz_row_lines.get("本轮得分", row_line),
+                        f"`本轮得分` 只能是 `x / 10`、`xxx / 710（无听力模拟折算分）` 或 `—`：当前为 `{score}`",
+                    )
+                counts_value = quiz_tracking.get("题量与错题数", "")
+                if counts_value and not COUNTS_RE.match(counts_value):
+                    add(
+                        quiz_row_lines.get("题量与错题数", row_line),
+                        "`题量与错题数` 必须写成 `N 题 / M 处错误`（有未作答时补 `（另有 K 题未作答）`）："
+                        f"当前为 `{counts_value}`",
+                    )
+                subjective = quiz_tracking.get("主观题得分", "")
+                if subjective and not SUBJECTIVE_RE.match(subjective):
+                    add(
+                        quiz_row_lines.get("主观题得分", row_line),
+                        f"`主观题得分` 必须是 `写作 x/15 · 翻译 x/15` 或 `—`：当前为 `{subjective}`",
+                    )
+            else:
+                tracking, tracking_rows = validate_section_table(
+                    add, body, start, g_start, g_end, g_title, list(MENU_ROWS), required=False
+                )
+                if not tracking:
+                    continue
+                menu_trackings[g_title] = tracking
+                score = tracking.get("本轮得分", "")
+                if score and not SCORE_RE.match(score):
+                    add(
+                        tracking_rows.get("本轮得分", row_line),
+                        f"`本轮得分` 只能是 `x / 10`、`xxx / 710（无听力模拟折算分）` 或 `—`：当前为 `{score}`",
+                    )
+                counts_value = tracking.get("题量与错题数", "")
+                if counts_value and not COUNTS_RE.match(counts_value):
+                    add(
+                        tracking_rows.get("题量与错题数", row_line),
+                        "`题量与错题数` 必须写成 `N 题 / M 处错误`（有未作答时补 `（另有 K 题未作答）`）："
+                        f"当前为 `{counts_value}`",
+                    )
+
+        for line_off, line in enumerate(body):
+            if line.strip().startswith("| 字段 |"):
+                add(start + line_off + 1, "追踪信息不再使用 Markdown 表头行，改用无表头 HTML 表格")
 
         # 旧写法：菜单项仍写成三级标题
         for k, line in enumerate(body):
@@ -1199,13 +1296,17 @@ def check(path: Path) -> list[dict]:
             section_text = "\n".join(body[g_start:g_end])
             validate_menu_section(add, line_no, g_title, section_text, in_round_block=True)
 
+        if kind == "练习" and not any(QUESTION_RE.match(line) for line in body):
+            add(start, "练习区块必须有题目：菜单项小节里至少写一道 `### <n>. <题型>`")
+
         # 7. 逐组、逐题校验（每组题号都从 1 开始，练习与主习题共用同一套模板）
         for g_start, g_title, g_end in groups:
             q_all = [g_start + k for k, line in enumerate(body[g_start:g_end]) if QUESTION_RE.match(line)]
             errors_count = 0
             unanswered_count = 0
             if not q_all:
-                if g_title == QUIZ_SECTION:
+                # 只有纯练习轮次允许 `## 本轮习题` 只带信息表：题目按菜单项分节写在各自小节里
+                if g_title == QUIZ_SECTION and kind != "练习":
                     add(start, "`## 本轮习题` 内没有任何 `### <n>. <题型>` 题目")
                 continue
             for order, q_pos in enumerate(q_all, start=1):
@@ -1358,8 +1459,13 @@ def check(path: Path) -> list[dict]:
                     if labels != expected_labels:
                         add(base_line, hint + " / ".join(str(label) for label in expected_labels))
 
-            if g_title == QUIZ_SECTION and section_tracking.get("题量与错题数"):
-                counts_match = COUNTS_RE.match(section_tracking["题量与错题数"])
+            group_tracking = (
+                quiz_tracking if g_title == QUIZ_SECTION else menu_trackings.get(g_title, {})
+            )
+            counts_value = group_tracking.get("题量与错题数", "")
+            if counts_value:
+                scope = "本轮" if g_title == QUIZ_SECTION else "本小节"
+                counts_match = COUNTS_RE.match(counts_value)
                 if counts_match:
                     declared_total = int(counts_match.group("total"))
                     declared_errors = int(counts_match.group("errors"))
@@ -1367,17 +1473,17 @@ def check(path: Path) -> list[dict]:
                     if declared_total != len(q_all):
                         add(
                             start,
-                            f"`题量与错题数` 的题量写成 {declared_total}，本轮实际 {len(q_all)} 题",
+                            f"`题量与错题数` 的题量写成 {declared_total}，{scope}实际 {len(q_all)} 题",
                         )
                     if declared_errors != errors_count:
                         add(
                             start,
-                            f"`题量与错题数` 的错误数写成 {declared_errors}，本轮实际写出 {errors_count} 个 `{TEMPLATE['error_summary']}` 块（不含未作答）",
+                            f"`题量与错题数` 的错误数写成 {declared_errors}，{scope}实际写出 {errors_count} 个 `{TEMPLATE['error_summary']}` 块（不含未作答）",
                         )
                     if declared_unanswered != unanswered_count:
                         add(
                             start,
-                            f"`题量与错题数` 的未作答数写成 {declared_unanswered}，本轮实际 {unanswered_count} 题未作答",
+                            f"`题量与错题数` 的未作答数写成 {declared_unanswered}，{scope}实际 {unanswered_count} 题未作答",
                         )
 
         # 8. 渲染合并检查
@@ -1401,6 +1507,51 @@ def repo_root() -> Path:
 def all_note_paths() -> list[Path]:
     notes_dir = repo_root() / "learning-record-notes"
     return sorted(path for path in notes_dir.glob("*.md") if path.name.lower() != "readme.md")
+
+
+def move_round_tables_under_quiz(lines: list[str]) -> tuple[list[str], bool]:
+    """把日期标题下、`## 本轮习题` 之前的轮次信息表移到该标题之下。
+
+    表格内容一字不动，只换位置：旧版把表挂在日期标题后，新版要求先写
+    `## 本轮习题`，表紧跟在这个标题之下、第一题之前。
+    """
+    output: list[str] = []
+    changed = False
+    index = 0
+    while index < len(lines):
+        line = lines[index]
+        output.append(line)
+        if not SECTION_RE.match(line):
+            index += 1
+            continue
+        probe = index + 1
+        while probe < len(lines) and not lines[probe].strip():
+            probe += 1
+        if probe >= len(lines) or not lines[probe].strip().startswith("<table"):
+            index += 1
+            continue
+        close = probe
+        while close < len(lines) and lines[close].strip() != "</table>":
+            close += 1
+        if close >= len(lines):
+            index += 1
+            continue
+        after = close + 1
+        while after < len(lines) and not lines[after].strip():
+            after += 1
+        section = SECTION2_RE.match(lines[after]) if after < len(lines) else None
+        if not section or section.group(1).strip() != QUIZ_SECTION:
+            index += 1
+            continue
+        table_block = lines[probe : close + 1]
+        output.extend(["", lines[after], ""])
+        output.extend(table_block)
+        output.append("")
+        changed = True
+        index = after + 1
+        while index < len(lines) and not lines[index].strip():
+            index += 1
+    return output, changed
 
 
 def apply_safe_fixes(text: str) -> tuple[str, list[str]]:
@@ -1653,6 +1804,12 @@ def apply_safe_fixes(text: str) -> tuple[str, list[str]]:
     if pruned_any:
         fixes.append("删掉非套题笔记里恒为 `—` 的 `主观题得分` 行")
         lines = pruned
+
+    # 轮次信息表写进 `## 本轮习题` 之下：旧的「日期标题 → 表格 → 本节标题」顺序就地换位
+    moved, moved_any = move_round_tables_under_quiz(lines)
+    if moved_any:
+        fixes.append(f"把日期标题下的轮次信息表移到 `## {QUIZ_SECTION}` 之下")
+        lines = moved
 
     # `笔记更新时间` 必须反映最后一次写入：早于最后一个日期区块时抬到该区块时间
     newest_round = None

@@ -1,6 +1,6 @@
 ---
 name: practice-learning-records
-description: 从规范学习记录中选择到期或低分知识点开展复习，按回答记录 0 至 10 分，并在一次协调写操作中保存评分、状态变化和实际错题；也支持复习已标熟或已掌握知识点、查看历史统计、基于已掌握知识点生成/持久化/续答/重做/评分四六级与 IELTS 风格等考试套题，以及按用户给出的复习笔记相对路径直接学习该笔记对应的知识点。当用户消息去除首尾空白后仅为中文“你好”或“复习”，仅为单独的英文单词 review、hi 或 practice（忽略大小写），或仅为一条复习笔记的相对路径（形如 `learning-record-notes/<category>-<slug>.md`）时必须使用；其中 practice 跳过菜单、直接从综合复习范围随机抽一条记录出题；在本 Skill 打开的复习或套题流程中，用户回复最近菜单中的数字或答案时也使用。除 review、hi、practice 之外的英文输入（含 hello 等单词）一律由 learn-from-english 讲解，本 Skill 不拦截其它英文触发词。
+description: 从规范学习记录中选择到期或低分知识点开展复习，按回答记录 0 至 10 分，并在一次协调写操作中保存评分、状态变化和实际错题；有习题的练习项（`starter-practice`、`follow-up-learning`、两个错题聚类练习）也按 0 至 10 计分，但得分只写进 `learning-record-notes/` 的笔记、不写规范记录；也支持复习已标熟或已掌握知识点、查看历史统计、基于已掌握知识点生成/持久化/续答/重做/评分四六级与 IELTS 风格等考试套题，以及按用户给出的复习笔记相对路径直接学习该笔记对应的知识点。当用户消息去除首尾空白后仅为中文“你好”或“复习”，仅为单独的英文单词 review、hi 或 practice（忽略大小写），或仅为一条复习笔记的相对路径（形如 `learning-record-notes/<category>-<slug>.md`）时必须使用；其中 practice 跳过菜单、直接从综合复习范围随机抽一条记录出题；在本 Skill 打开的复习或套题流程中，用户回复最近菜单中的数字或答案时也使用。除 review、hi、practice 之外的英文输入（含 hello 等单词）一律由 learn-from-english 讲解，本 Skill 不拦截其它英文触发词。
 ---
 
 # 复习英语学习记录
@@ -87,19 +87,34 @@ python3 learn-from-english/scripts/learning_records.py snapshot --notes
 - `historical-unanswered-paper`：按 action 运行 `paper-get --paper-id <paper_id>`，展示不含答案和解析的原卷；选择本身不创建作答。
 - `continue-paper-attempt`：按 action 运行带 `paper_id` 和 `attempt_id` 的 `paper-get`，恢复已保存答案，只列出仍缺少的可作答项并继续该 attempt。
 - `retry-random-paper`：运行 `paper-list --status completed --random`，再对返回的 `paper_id` 运行 `paper-get`；展示原卷但不展示旧答案，首次提交时省略 `attempt_id` 以创建新的 attempt。
-- `starter-practice`：在没有学习记录时，围绕一个日常表达生成 2 至 3 道基础英语练习；不写入评分。题目未作答时不显示菜单；用户提交后批改，并仅在实际出错时用一次 `batch-upsert` 保存可复用错误。
+- `starter-practice`：在没有学习记录时，围绕一个日常表达生成 2 至 3 道基础英语练习；题目未作答时不显示菜单；用户提交后按「练习计分」评分并只写笔记（没有可锚定的记录时只给聊天里的得分行与判定表格，不新建笔记），并仅在实际出错时用一次 `batch-upsert` 保存可复用错误。
 - `scenario-dialogue`：有当前记录或 focus 时围绕它输出完整多轮场景对话；仅在两者都不存在时使用脚本给出的日常场景。不要把已有记录替换成咖啡店主题，也不要默认开启互动角色扮演，除非用户明确要求 role-play。菜单不记录你选过什么，同一个知识点下这一项可以反复被选中：再次选中时必须换人物、换场合、换冲突，不得复用上一次的台词骨架；笔记里写 `## 讲解` 之后的文件级小节（首次 `append-explain-section`，第二次起 `append-explain-part`），只有一段时 summary 写 `场景对话原文`，第二段起第一段改成 `场景对话原文 1`、第二段写 `场景对话原文 2`（记法见 `take-english-study-notes/references/note-format.md`）。
 - `focus-story`：围绕 option 的 `focus` 输出单线叙事小故事，不写成对话；篇幅、结构、目标表达落点、中文对照与收尾三列表按仓库根目录 `AGENTS.md` 的小故事规则执行。它不生成练习、不计分、不调用 `complete-review`、不写 `errors`，完整故事只是示例材料；展示完照常给下一轮菜单。同一知识点下再次选中时，必须换场景、换人物、换情节走向，不得只改几个词重写上一版；笔记里写 `## 讲解` 之后的文件级小节（首次 `append-explain-section`，第二次起 `append-explain-part`），summary 按 `故事原文`（单段）/ `故事原文 1`、`故事原文 2`（多段）编号，每段各带自己的三列表，讲解要点仍只有首次那一份。
 - `follow-up-directions`：只作为 5 个练习方向的导航父项，本身不执行、不单独作答；用户选中其子项时按子项自己的 `follow-up-learning` 分派。
-- `follow-up-learning`：围绕 option label 和 `focus` 生成语法、词汇、对比、发音或产出内容。若生成未作答练习，不显示菜单；用户提交后批改，但不调用 `complete-review`。只把实际展示的可复用错误用一次 `batch-upsert` 保存。若讲解引入新的稳定知识点，按“后续学习知识点记录”保存。
+- `follow-up-learning`：围绕 option label 和 `focus` 生成语法、词汇、对比、发音或产出内容。若生成未作答练习，不显示菜单；用户提交后按「练习计分」评分并把得分只写进笔记，不调用 `complete-review`。只把实际展示的可复用错误用一次 `batch-upsert` 保存。若讲解引入新的稳定知识点，按“后续学习知识点记录”保存。
 - `explain-current-exercise`：`review-complete` 菜单已不再返回该项，保留分派只为兼容历史菜单；它只在用户刚完成的复习答案存在错误或存在未作答题时解释该题组，不生成新题；错题说明考点、错误机制与正确表达，未作答题说明卡点与参考表达背后的英语计量、语义或结构逻辑。
 - `error-clusters`：运行 `error-clusters`，按返回的 `options` 顺序与 `label` 原文展示（脚本已生成全部可选项，**禁止**再手工拼 `1-1` 子项、自行追加「未归类」入口或调整分组）。`tag_families` 只用来说明错题集中在哪类问题。
-- `error-cluster-review`：用返回的 `cluster_id` 运行 `error-cluster-get --id <cluster_id>`，按取回的材料围绕该错误模式生成一组聚焦练习；明确这是未评分练习，不显示菜单，不调用 `complete-review`，也不批量修改成员记录。
+- `error-cluster-review`：用返回的 `cluster_id` 运行 `error-cluster-get --id <cluster_id>`，按取回的材料围绕该错误模式生成一组聚焦练习；明确这是只写笔记的计分练习（见「练习计分」），不显示菜单，不调用 `complete-review`，也不批量修改成员记录。
 - `error-cluster-review-unclustered`：运行 `error-cluster-get --unclustered --limit 8`，用取回的记录组成聚焦练习，其余规则同上。
-- 上述两类练习在用户作答后，只把本次实际展示的新可复用错误用一次 `batch-upsert` 保存。
+- 上述两类练习在用户作答后，按「练习计分」评分并把得分写进取回记录中作为锚点的那条笔记，同时只把本次实际展示的新可复用错误用一次 `batch-upsert` 保存。
 - `status`：执行返回的 action；初始进度入口通常运行 `stats --period 30d`，只请求分类数量时运行 `summary --include-familiar --include-mastered`。
 
 上下文丢失或数字路径无效时重新运行初始菜单。不要要求用户重新发送“你好”，也不要尝试从规范学习记录恢复普通复习题组或待保存 payload；持久化套题必须通过 `paper-menu`、`paper-get` 和 attempt 数据恢复。
+
+## 练习计分
+
+`starter-practice`、`follow-up-learning`、`error-cluster-review`、`error-cluster-review-unclustered` 生成的练习，只要有题目就一律计分：用户提交后按「评分与协调记录」的 0 至 10 分口径逐题判定再综合评分。练习通常横跨多个子点，按本轮题组的整体掌握度评分，不做「评分自检」里那条以单一目标知识点为锚点的判定。它们与普通复习的唯一区别是**得分的落盘范围**——得分只写进 `learning-record-notes/` 的 Markdown 笔记；错题与新知识点仍按下文照常入库：
+
+- 不调用 `complete-review`，不改 `learning-records/`、`mastered-learning-records/`：分数、状态、复习次数、逐次历史、下次复习时间都不变，一次练习不会把记录升级成 `familiar` / `mastered`。
+- 仍按仓库根目录 `AGENTS.md` 的「Exercise and dialogue error recording」用一次 `batch-upsert` 保存本轮实际展示并已讲解的可复用错误；`follow-up-learning` 引入的新稳定知识点照旧单独保存。
+- 聊天里照常输出「评分后的回复」的第 1、2 部分：`**得分：<x> / 10**` 得分行 + 判定表格。第 3 部分照常给后续菜单（`menu --context review-complete --focus "<本轮知识点>"`；`starter-practice` 这种没有可锚定记录的情形用 `menu --context initial`）。不输出状态变化、下次复习时间与解析。
+- 笔记锚点：练习围绕哪条记录展开，就写那条记录的笔记文件（当前复习记录、`focus` 指向的记录、错题聚类取回材料里的第一条记录）。找不到可锚定的记录或那条记录还没有笔记文件时，只在聊天里给得分行与判定表格，不新建笔记、不猜路径。`starter-practice` 没有学习记录，通常落不到笔记。
+- 笔记写法（格式全部按 `take-english-study-notes`，这里只列要点）：
+  - 用一次 `note.py append` 写本轮日期区块，标题 kind 写 `练习`（`# <YYYY-MM-DD HH:MM> · 练习`）。
+  - `## 本轮习题` 下先写本轮信息表：`分类 · 状态变化` 写 `<category> · 未入库`（表示这轮得分没有进入规范记录），`本轮得分` 写实际得分，`题量与错题数` 写本轮实际题数与 `错题讲解` 块数。纯练习轮次的题目按菜单项分节写，本节可以只放这张表，但整个区块至少要有一道题。
+  - 每道有题目的菜单项在日期区块里建一个 `## <选项原文，去掉 emoji>` 小节：标题下先写这张两行表（`本轮得分` 写该小节题组的得分，`题量与错题数` 写该小节实际题数与错题数），再写 `### 1.` 起的题目、我的答案、判定与讲解折叠块。写入用 `append-section`，不要为加一节整块 `replace`。
+  - 讲解要点仍只写在 `## 讲解` 之后的文件级同名小节一次，日期区块里不重复 `**讲解要点**：`。
+- 纯展示项不受影响：`scenario-dialogue` 的完整示例脚本与 `focus-story` 不生成题组，既不计分、也没有得分行或得分表。
 
 ## 选择复习记录
 
@@ -227,7 +242,7 @@ python3 learn-from-english/scripts/learning_records.py batch-upsert --input <JSO
 
 ## 评分与协调记录
 
-用户完成一组可客观评价的复习后，逐题判断并给出自然答案，再综合评为 0 至 10 分：
+用户完成一组可客观评价的复习后，逐题判断并给出自然答案，再综合评为 0 至 10 分（练习轮次同样按这里评分，只是落盘按「练习计分」只写笔记）：
 
 - 9 至 10：完全正确且自然。
 - 8：核心正确，有轻微问题。
@@ -299,7 +314,7 @@ python3 learn-from-english/scripts/learning_records.py complete-review --input <
 
 ## 评分后的回复
 
-评分保存成功（或用户明确放弃保存）后，聊天回复按下面顺序输出，不追加其他内容：
+评分保存成功（或用户明确放弃保存）后，聊天回复按下面顺序输出，不追加其他内容。练习轮次（见「练习计分」）同样只输出第 1、2、3、4 部分，只是没有状态变化可写：
 
 1. 得分行：`**得分：<x> / 10**`（套题写 `**得分：<xxx> / 710（无听力模拟折算分）**`），只写分数与满分，不加状态词、不加建议、不加下次复习时间。
 2. 判定表格：固定列为「题 | 题型 | 判定 | 关键点」，**必须用表格呈现，一题一行**；判定只取 `✅ 正确` / `⚠️ 部分正确` / `❌ 错误` / `⚠️ 未作答`，「关键点」一句话点出错在哪里或答对在哪，不复述答案、不展开机制。
@@ -319,7 +334,7 @@ python3 learn-from-english/scripts/learning_records.py complete-review --input <
 
 ## 生成本轮学习笔记
 
-每一轮有实际作答的复习、聚焦练习或套题结束后，除写入规范记录外，还要在仓库根目录 `learning-record-notes/` 下写一份 Markdown 笔记。
+每一轮有实际作答的复习、聚焦练习或套题结束后，除写入规范记录外（练习轮次只写笔记，见「练习计分」），还要在仓库根目录 `learning-record-notes/` 下写一份 Markdown 笔记。
 首次讲解的笔记由 `learn-from-english` 用 `note.py explain` 写入（文件级 `## 讲解` 小节，位于 `## 基础信息` 之后）；这里只负责在同一个文件里按时间倒序插入复习区块（最新一轮排在所有日期区块之前），不另建文件、不改讲解小节与文件级菜单讲解小节。
 笔记是**可读副本，不是规范数据源**：它不参与 `validate`、统计、抽题或调度，缺失或被删除都不影响评分与复习计划。
 
@@ -353,7 +368,9 @@ python3 learn-from-english/scripts/learning_records.py complete-review --input <
   `</details>`），禁止按「读到区块结束」收边；临时脚本只负责拼装文本，落地必须经上面这条命令，
   写完必须核对折叠块 `<details>` / `</details>` 成对、现有小节一个没少。
 - 追踪字段分两处：文件顶部的 `## 基础信息`（全文件唯一一份）放记录 ID / 试卷 ID、目标知识点、累计复习次数、下次复习、
-  笔记生成时间、笔记更新时间；每个日期区块的裸表格（不加任何小标题）只放复习时间、分类 · 状态变化、本轮得分、题量与错题数（套题再加主观题得分）。
+  笔记生成时间、笔记更新时间；每个日期区块先在标题下写 `## 本轮习题`，本轮信息表紧跟在这个标题之下、第一题之前
+  （表格本身不加小标题），只放复习时间、分类 · 状态变化、本轮得分、题量与错题数（套题再加主观题得分）；
+  带习题的菜单项小节也在自己的 `## <选项原文>` 标题下先写两行表（`本轮得分` / `题量与错题数`），再写第一题。
   文件级的 `## 讲解` 小节按分类聚焦（`grammar` 写语法机制、`phrases` 写短语本体、`usage` 写语气语域，栏目自由选取），不带任何追踪字段：讲解属于记录级内容（一个知识点只有一次首次讲解），由 `learn-from-english` 写在基础信息表之后、所有日期区块之前；
   复习时继续用 `append` 往同一个文件追加日期区块，讲解小节原样保留，不要另建文件、不要写第二份讲解。
   两处都固定展示，不写 `<details>`。
@@ -478,5 +495,5 @@ python3 learn-from-english/scripts/learning_records.py stats --period 30d
 - `learning-record-notes/` 下的笔记是可读副本，不是规范数据源：不参与 `validate`、统计、抽题和调度，删除或缺失不影响任何评分、状态与下次复习时间；也不得从笔记反向修改 `learning-records/`、`mastered-learning-records/` 或 `exam-papers/`。
 - `follow-up-learning` 的菜单选择本身不增加复习次数；只有实际引入并写入的新知识点才增加对应学习记录的 `learned_count` 或创建新记录。
 - 重复学习同一知识点会增加 `learned_count`；只用更丰富的新内容补全较弱字段并合并标签，不用较弱内容覆盖完整讲解。
-- 每个题组只调用一次 `complete-review`，不能按小题重复计分。
+- 每个复习题组只调用一次 `complete-review`，不能按小题重复计分；练习轮次（`starter-practice`、`follow-up-learning`、错题聚类练习）不调用 `complete-review`，得分只写笔记，见「练习计分」。
 - 数据错误时运行 `validate`；只在用户明确要求修复时运行 `repair --dry-run` 并先展示结果。

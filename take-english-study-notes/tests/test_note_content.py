@@ -75,11 +75,11 @@ def note_text(
         basic_block(basic)
         + f"# {stamp} · 复习\n"
         "\n"
+        "## 本轮习题\n\n"
         '<table style="border-collapse:collapse;width:auto">\n'
         '<colgroup><col width="150"><col></colgroup>\n'
         f"{table}\n"
         "</table>\n\n"
-        "## 本轮习题\n\n"
         "### 1. 单项选择\n\n"
         f"**题目**：{question}\n\n"
         "- A. out west\n"
@@ -134,11 +134,11 @@ def paper_note_text(*, second_reference: str | None = "第 1 题", second_detail
         basic_block(basic)
         + "# 2026-11-07 12:00 · 套题\n"
         "\n"
+        "## 本轮习题\n\n"
         '<table style="border-collapse:collapse;width:auto">\n'
         '<colgroup><col width="150"><col></colgroup>\n'
         f"{table}\n"
         "</table>\n\n"
-        "## 本轮习题\n\n"
         "### 1. 单项选择\n\n"
         "**题目**：What is the main idea?\n\n"
         "- A. first\n"
@@ -202,6 +202,7 @@ def second_round(stamp: str, section: str = "") -> str:
     """一个最小的后续轮次区块（最新在前），用于同一天多次练习的校验。"""
     return (
         f"# {stamp} · 复习\n\n"
+        "## 本轮习题\n\n"
         '<table style="border-collapse:collapse;width:auto">\n'
         '<colgroup><col width="150"><col></colgroup>\n'
         f"<tr><td>复习时间</td><td>{stamp}</td></tr>\n"
@@ -209,7 +210,6 @@ def second_round(stamp: str, section: str = "") -> str:
         "<tr><td>本轮得分</td><td>9 / 10</td></tr>\n"
         "<tr><td>题量与错题数</td><td>1 题 / 0 处错误</td></tr>\n"
         "</table>\n\n"
-        "## 本轮习题\n\n"
         "### 1. 单项选择\n\n"
         "**题目**：Pick one.\n\n"
         "**我的答案**：B\n\n"
@@ -254,6 +254,42 @@ def menu_practice(title: str = "## 练习「out west」的关键语法结构") -
         "3. **英语的表达逻辑**：方向副词短语\n"
         "4. **可迁移表达**：head out west\n\n"
         "</details>\n"
+    )
+
+
+def menu_practice_scored(
+    score: str = "9 / 10", counts: str = "1 题 / 0 处错误"
+) -> str:
+    """带两行得分表的菜单项小节：有习题就计分，得分只落在笔记里。"""
+    title = "## 练习「out west」的关键语法结构"
+    table = (
+        '<table style="border-collapse:collapse;width:auto">\n'
+        '<colgroup><col width="150"><col></colgroup>\n'
+        f"<tr><td>本轮得分</td><td>{score}</td></tr>\n"
+        f"<tr><td>题量与错题数</td><td>{counts}</td></tr>\n"
+        "</table>\n\n"
+    )
+    return menu_practice(title).replace(title + "\n\n", title + "\n\n" + table, 1)
+
+
+def practice_note_text(*, menu_counts: str = "1 题 / 0 处错误") -> str:
+    """练习轮次：本轮得分只写笔记，`## 本轮习题` 只带信息表，题目按菜单项分节。"""
+    base = note_text().replace(
+        "# 2026-11-07 12:00 · 复习", "# 2026-11-07 12:00 · 练习"
+    ).replace("errors · learning → familiar", "errors · 未入库")
+    head, _sep, rest = base.partition("## 本轮习题\n\n")
+    table_end = rest.index("</table>") + len("</table>\n\n")
+    return (
+        head
+        + "## 本轮习题\n\n"
+        + rest[:table_end]
+        + "## 练习「out west」的关键语法结构\n\n"
+        '<table style="border-collapse:collapse;width:auto">\n'
+        '<colgroup><col width="150"><col></colgroup>\n'
+        "<tr><td>本轮得分</td><td>9 / 10</td></tr>\n"
+        f"<tr><td>题量与错题数</td><td>{menu_counts}</td></tr>\n"
+        "</table>\n\n"
+        + rest[table_end:]
     )
 
 
@@ -701,6 +737,38 @@ class NoteContentValidationTest(unittest.TestCase):
         self.assertIn("补上区块之间缺失的 `---` 分隔", fixes)
         self.assertEqual(self.check(fixed), [])
 
+    def test_practice_block_is_counted_in_the_note(self) -> None:
+        """练习轮次的得分写进笔记：本轮信息表带分，菜单项小节各带两行表。"""
+        self.assertEqual(self.check(practice_note_text()), [])
+
+    def test_practice_block_needs_questions(self) -> None:
+        text = practice_note_text().split("## 练习「out west」的关键语法结构")[0]
+        self.assert_caught(text, "练习区块必须有题目")
+
+    def test_fix_moves_the_round_table_under_the_quiz_heading(self) -> None:
+        """旧布局把表格放在日期标题后，`--fix` 只换位置，内容一字不动。"""
+        text = note_text()
+        head, _sep, rest = text.partition("## 本轮习题\n\n")
+        table_end = rest.index("</table>") + len("</table>\n\n")
+        table, remainder = rest[:table_end], rest[table_end:]
+        moved = head + table + "## 本轮习题\n\n" + remainder
+        self.assert_caught(moved, "日期标题后不要再直接放表格")
+        fixed, fixes = check_note.apply_safe_fixes(moved)
+        self.assertIn("把日期标题下的轮次信息表移到 `## 本轮习题` 之下", fixes)
+        self.assertEqual(self.check(fixed), [])
+        quiz_at = fixed.index("## 本轮习题")
+        table_at = fixed.index('<table style="border-collapse', quiz_at)
+        first_question = fixed.index("### 1.", quiz_at)
+        self.assertLess(quiz_at, table_at)
+        self.assertLess(table_at, first_question)
+        # 只剩位置变了：去掉隐藏锚点与空行后逐行相等
+        normalize = lambda source: [
+            line.replace(" ", "")
+            for line in __import__("re").sub(r' <a id="[^"]*"></a>', "", source).splitlines()
+            if line.strip()
+        ]
+        self.assertEqual(sorted(normalize(fixed)), sorted(normalize(moved)))
+
     def test_all_mode_walks_the_default_notes_directory(self) -> None:
         import io
         import os
@@ -740,6 +808,32 @@ class NoteContentValidationTest(unittest.TestCase):
         matched = [item for item in issues if "本轮得分" in item["message"]]
         self.assertTrue(matched)
         self.assertEqual(matched[0]["line"], line_no)
+
+    def test_scored_menu_section_passes(self) -> None:
+        text = with_menu_section(note_text(), menu_practice_scored())
+        self.assertEqual(self.check(text), [])
+
+    def test_menu_section_counts_must_match_its_questions(self) -> None:
+        text = with_menu_section(note_text(), menu_practice_scored(counts="2 题 / 0 处错误"))
+        self.assert_caught(text, "本小节实际 1 题")
+
+    def test_menu_section_score_must_be_zero_to_ten(self) -> None:
+        text = with_menu_section(note_text(), menu_practice_scored(score="abc"))
+        self.assert_caught(text, "`本轮得分` 只能是")
+
+    def test_round_table_must_sit_under_quiz_heading(self) -> None:
+        """表格挂在日期标题后、`## 本轮习题` 之前要报错：它必须写在标题之下。"""
+        text = note_text()
+        head, _sep, rest = text.partition("## 本轮习题\n\n")
+        table_end = rest.index("</table>") + len("</table>\n\n")
+        table, remainder = rest[:table_end], rest[table_end:]
+        moved = head + table + "## 本轮习题\n\n" + remainder
+        self.assert_caught(moved, "日期标题后不要再直接放表格")
+
+    def test_practice_score_not_persisted_uses_weiruku(self) -> None:
+        """只写笔记的练习用 `未入库` 标记，说明这份得分没有进入规范记录。"""
+        text = note_text().replace("errors · learning → familiar", "errors · 未入库")
+        self.assertEqual(self.check(text), [])
 
 
 
