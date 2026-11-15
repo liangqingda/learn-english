@@ -95,11 +95,11 @@ python3 learn-from-english/scripts/learning_records.py review-round --input -   
 payload 只有四段，缺省段跳过：
 
 - `review`：一次 `complete-review` 的入参（`id`、`score`、`errors`，带 claim 时再加 `claim_owner` / `claim_token`）。普通复习、套题评分必填；纯练习轮次不评分，整段省略。
-- `note`：本轮笔记。`file` 是笔记相对路径；`date`（`YYYY-MM-DD`）、`time`（`HH:MM`）、`kind`（`复习` / `练习` / `套题`）决定区块标题；`body` 是本轮区块正文，从 `## 本轮习题` 开始，不含 `# 标题` 行。目标文件还没有文件级 `## 讲解` 时必须给 `explain.content`（含 `## 基础信息` 与 `## 讲解`），命令会先补讲解再写区块。`explain_sections` / `explain_parts` 用来写 `## 讲解` 之后的文件级小节：前者同名小节已存在时会自动改成往同一小节追加，不需要先跑 `sections` 判断。
+- `note`：本轮笔记。`file` 是笔记相对路径；`date`（`YYYY-MM-DD`）、`time`（`HH:MM`）、`kind`（`复习` / `练习` / `套题`）决定区块标题；`body` 是本轮区块正文，从 `## 本轮习题` 开始，不含 `# 标题` 行。目标文件还没有文件级 `## 讲解` 时必须给 `explain.content`（含 `## 基础信息` 与 `## 讲解`），命令会先补讲解再写区块。`explain_sections` / `explain_parts` 用来写 `## 讲解` 之后的文件级小节：`explain_sections` 的 `content` 是**整段**文件级小节（含 `## 标题` 行），同名小节已存在时只回报 `duplicate` 并跳过这一项（除场景对话与小故事外不再重复记录），不需要先跑 `sections` 判断；`explain_parts` 的 `content` 只是**正文片段**（不带标题），用于同一菜单项再产出一段故事 / 对话原文，追加到 `title` 指定的小节末尾。
 - `menu`：后续菜单的入参（`context`、`focus`、`has_answer_errors`、`current_exercise_explained`、`grammar_explained`）。
 - `check`：默认 `true`，写完自动跑校验器，能安全修的先修再复验。
 
-命令返回一个 JSON：`review`、`note`、`check` / `note_status`、`menu`。`ok: false` 时看 `failed_step` 与 `steps`：`steps` 里已完成的步骤已经落盘，按 `references/failure-recovery.md` 处理，不要整轮重试。
+命令返回一个 JSON：`review`、`note`、`check` / `note_status`、`menu`。区块本来就在时返回 `already_saved: true` 并跳过全部讲解区写入，原样重试同一份 payload 不会多存一份故事 / 对话原文；要再加一段故事或对话，用下一轮的 `explain_parts`，不要靠重试。`ok: false` 时看 `failed_step` 与 `steps`：`steps` 里已完成的步骤已经落盘，按 `references/failure-recovery.md` 处理，不要整轮重试。
 
 `note.py` 的 `append-section` / `append-part` / `replace --rewrite-section` 只在组合命令不适用时单独使用（给已有区块补小节、改写刚写错的内容、批量迁移）。
 

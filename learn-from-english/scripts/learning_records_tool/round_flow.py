@@ -28,7 +28,15 @@ Payload (``review-round --input -``)::
       "check": true                                                 # default true
     }
 
-Returned payload always carries ``ok``. A failed step keeps the earlier results
+``explain_sections`` entries are whole file-level sections (heading plus body); a
+section whose title already exists is reported as ``duplicate`` and not rewritten,
+because only scenario dialogues and stories are recorded again.
+``explain_parts`` entries are body-only fragments appended to an existing section;
+use them when the same menu item produces another story or dialogue block.
+
+Returned payload always carries ``ok``. A round whose block already exists returns
+``already_saved: true`` and writes nothing further, so retrying the same payload
+never duplicates the explanation sections. A failed step keeps the earlier results
 and adds ``failed_step`` plus ``error``, so a caller can tell "the record was
 written but the note was rejected" from "nothing happened" and follow the
 failure-recovery matrix instead of retrying blind.
@@ -225,6 +233,13 @@ def write_note(note: dict[str, Any], repo_root: Path) -> dict[str, Any]:
         "heading_adjusted": appended.get("heading_adjusted", False),
     }
 
+    if appended.get("duplicate"):
+        # 这一轮已经落过盘：讲解区小节也必须保持原样，再追加一次会多存一份故事 / 对话原文
+        result["already_saved"] = True
+        if note.get("explain_sections") or note.get("explain_parts"):
+            result["skipped_explain"] = True
+        return result
+
     for item in note.get("explain_sections") or []:
         title = str(item.get("title") or "").strip()
         content = str(item.get("content") or "").strip()
@@ -234,24 +249,13 @@ def write_note(note: dict[str, Any], repo_root: Path) -> dict[str, Any]:
         if item.get("rewrite"):
             argv.append("--rewrite")
         written = run_note(cli, argv, content)
-        if written.get("duplicate"):
-            # 同一个菜单项再次生成时规则要求补到同一小节，而不是另建同名小节
-            run_note(
-                cli,
-                [
-                    "append-explain-part",
-                    "--file",
-                    note_file,
-                    "--section",
-                    title,
-                    "--content-file",
-                    "-",
-                ],
-                section_body(content, title),
-            )
-            written = {**written, "duplicate": True, "appended_part": True}
+        # 同名小节已存在就是这个菜单项已经记录过：除场景对话与小故事外不再重复记录，
+        # 另一段故事 / 对话要用 explain_parts 显式说明，不能靠这里自动补段。
         result.setdefault("explain_sections", []).append(
-            {"title": written.get("section") or title, "duplicate": written.get("duplicate", False)}
+            {
+                "title": written.get("section") or title,
+                "duplicate": bool(written.get("duplicate")),
+            }
         )
 
     for item in note.get("explain_parts") or []:
@@ -270,7 +274,7 @@ def write_note(note: dict[str, Any], repo_root: Path) -> dict[str, Any]:
                 "--content-file",
                 "-",
             ],
-            content,
+            section_body(content, title),
         )
         result.setdefault("explain_parts", []).append({"title": title})
 

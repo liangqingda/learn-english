@@ -22,6 +22,7 @@ SCRIPT_DIR = Path(__file__).resolve().parents[1] / "scripts"
 sys.path.insert(0, str(SCRIPT_DIR))
 
 from learning_records_tool.models import empty_database  # noqa: E402
+from learning_records_tool.round_flow import note_check  # noqa: E402
 from learning_records_tool.store import RecordStore  # noqa: E402
 
 REPO_ROOT = SCRIPT_DIR.parents[1]
@@ -76,6 +77,21 @@ BODY = """## 本轮习题
 4. **可迁移表达**：They headed out east.
 </details>
 """
+
+
+COMPARE_SECTION = {
+    "title": "## 对比 out west 与 west",
+    "content": (
+        "## 对比 out west 与 west\n\n"
+        "**讲解要点**：\n\n"
+        "- 目标表达\n  - They drove out west.（他们往西开去了）\n"
+    ),
+}
+
+
+def body_at(stamp: str) -> str:
+    """Same round body, with its `复习时间` stamp moved so it reads as another round."""
+    return BODY.replace("2026-11-16 21:30", stamp)
 
 
 def record_payload(key: str = "out-west") -> dict[str, object]:
@@ -172,25 +188,77 @@ class ReviewRoundTest(unittest.TestCase):
         note = (self.repo / NOTE_FILE).read_text(encoding="utf-8")
         self.assertEqual(note.count("# 2026-11-16 21:30 · 复习"), 1)
 
-    def test_repeated_explain_section_becomes_a_part_of_the_same_section(self) -> None:
+    def test_retrying_the_same_payload_skips_the_explanation_writes(self) -> None:
         self.seed_record()
-        section = {
-            "title": "## 对比 out west 与 west",
-            "content": (
-                "## 对比 out west 与 west\n\n"
-                "**讲解要点**：\n\n"
-                "- 目标表达\n  - They drove out west.（他们往西开去了）\n"
-            ),
-        }
-        for _ in range(2):
-            completed = self.review_round(self.round_payload(explain_sections=[section]))
-            self.assertEqual(completed.returncode, 0, completed.stderr)
+        payload = self.round_payload(explain_sections=[COMPARE_SECTION])
+        first = self.review_round(payload)
+        self.assertEqual(first.returncode, 0, first.stderr)
+        second = self.review_round(payload)
+        self.assertEqual(second.returncode, 0, second.stderr)
+        answer = json.loads(second.stdout)
+        self.assertTrue(answer["note"]["already_saved"])
+        self.assertTrue(answer["note"]["skipped_explain"])
+        note = (self.repo / NOTE_FILE).read_text(encoding="utf-8")
+        self.assertEqual(
+            note.count("They drove out west.（他们往西开去了）"), 1,
+            "原样重试不能把同一段讲解再加一遍",
+        )
+
+    def test_a_repeated_section_is_not_recorded_twice(self) -> None:
+        self.seed_record()
+        first = self.review_round(self.round_payload(explain_sections=[COMPARE_SECTION]))
+        self.assertEqual(first.returncode, 0, first.stderr)
+        second = self.review_round(
+            self.round_payload(
+                time="21:31", body=body_at("2026-11-16 21:31"),
+                explain_sections=[COMPARE_SECTION],
+            )
+        )
+        self.assertEqual(second.returncode, 0, second.stderr)
+        answer = json.loads(second.stdout)
+        self.assertTrue(answer["note"]["explain_sections"][0]["duplicate"])
         note = (self.repo / NOTE_FILE).read_text(encoding="utf-8")
         self.assertEqual(note.count("## 对比 out west 与 west"), 1)
         self.assertEqual(
-            note.count("They drove out west.（他们往西开去了）"), 2,
-            "第二次应补进同一小节，而不是另建同名小节",
+            note.count("They drove out west.（他们往西开去了）"), 1,
+            "讲解要点只能有一份，重复选中不追加",
         )
+
+    def test_another_story_block_goes_in_through_explain_parts(self) -> None:
+        self.seed_record()
+        first = self.review_round(self.round_payload(explain_sections=[COMPARE_SECTION]))
+        self.assertEqual(first.returncode, 0, first.stderr)
+        second = self.review_round(
+            self.round_payload(
+                time="21:31", body=body_at("2026-11-16 21:31"),
+                explain_parts=[{
+                    "title": "## 对比 out west 与 west",
+                    "content": "- 另一段\n  - We headed out west.（我们往西出发了）",
+                }],
+            )
+        )
+        self.assertEqual(second.returncode, 0, second.stderr)
+        answer = json.loads(second.stdout)
+        self.assertEqual(answer["note"]["explain_parts"][0]["title"], "## 对比 out west 与 west")
+        note = (self.repo / NOTE_FILE).read_text(encoding="utf-8")
+        self.assertEqual(note.count("## 对比 out west 与 west"), 1)
+        self.assertIn("We headed out west.（我们往西出发了）", note)
+
+    def test_explain_parts_refuses_a_fragment_that_carries_a_heading(self) -> None:
+        self.seed_record()
+        first = self.review_round(self.round_payload(explain_sections=[COMPARE_SECTION]))
+        self.assertEqual(first.returncode, 0, first.stderr)
+        second = self.review_round(
+            self.round_payload(
+                time="21:31", body=body_at("2026-11-16 21:31"),
+                explain_parts=[{
+                    "title": "## 对比 out west 与 west",
+                    "content": "## 又一节\n\n正文",
+                }],
+            )
+        )
+        self.assertEqual(second.returncode, 1, "补段只能给正文，带标题要拒")
+        self.assertEqual(json.loads(second.stdout)["failed_step"], "note")
 
     # ---- 失败路径 -------------------------------------------------
 
@@ -205,7 +273,20 @@ class ReviewRoundTest(unittest.TestCase):
         self.assertEqual(answer["failed_step"], "note")
         self.assertIn("## 讲解", answer["error"])
         self.assertIn("review", answer["steps"], "记录已经写进去了，必须如实报告")
+        self.assertTrue(answer["menu"]["options"], "笔记失败也要给出下一步菜单")
         self.assertFalse((self.repo / NOTE_FILE).exists())
+
+    def test_a_broken_index_is_auto_fixed_before_reporting(self) -> None:
+        self.seed_record()
+        first = self.review_round(self.round_payload())
+        self.assertEqual(first.returncode, 0, first.stderr)
+        target = self.repo / NOTE_FILE
+        broken = target.read_text(encoding="utf-8").replace("复习历史：", "复习历史（手改坏了）：", 1)
+        target.write_text(broken, encoding="utf-8")
+        report = note_check(NOTE_CLI, NOTE_FILE, self.repo)
+        self.assertTrue(report["ok"], report)
+        self.assertIn("auto_fixed", report, "派生索引坏了要先修再报")
+        self.assertIn("复习历史：", target.read_text(encoding="utf-8"))
 
     def test_missing_body_is_refused_before_any_write(self) -> None:
         self.seed_record()
