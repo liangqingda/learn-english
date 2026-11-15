@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>3</td></tr>
 <tr><td>下次复习</td><td>2026-11-18 21:09</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-15 21:09</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-15 21:19</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-15 21:21</td></tr>
 </table>
 
 ## 讲解
@@ -185,6 +185,30 @@ Last August the landlord raised the rent, and the two of them agreed to close at
 | 第 2 段：When the cinema had just opened, the two of them argued every night | 交代刚开业时的混乱日常 | 换成 was opening 读成“正在开门那一瞬”，容不下每晚吵架的持续状态 |
 | 第 3 段：they opened a second wall | 交代第二次扩建这一件已完成的事 | 换成 had opened 会把它推到更早的过去，与第二年的顺序冲突 |
 | 第 4 段：when the cinema had just opened, there was one wall, forty chairs and a cat | 收尾回到最初的规模 | 换成现在时 there is 会让“当年”变成“现在”，最后一晚的告别意味就没了 |
+
+<details>
+<summary>故事原文 4</summary>
+
+The town grew up around the railway, and so did Mei's noodle stall. She set it up in the winter **when the stall had just opened**, on a strip of pavement nobody else wanted. There were two stools, one pot, and a hand-painted board that spelled "noonles" wrong. Every morning she carried the pot from her flat three streets away.
+这座镇子是围着铁路长起来的，梅的面摊也是。她在一个摊子刚开业的冬天把它支起来，位置是谁都不要的一段人行道。两口凳子、一口锅，还有一块把“noodles”写错的手绘板子。每天早上她要从三条街外的家里把锅搬过来。
+
+**When the stall had just opened**, the only customers were train conductors with ten minutes to spare. They ate standing up, paid with coins, and never asked for change. Mei learned their shift patterns before she learned their names, and she kept the pot boiling from five in the morning until the last train left.
+摊子刚开业的时候，唯一的客人是只有十分钟空闲的列车员。他们站着吃，用硬币付钱，从不要求找零。梅先记住了他们的班次，才记住他们的名字，从早上五点一直让锅滚到最后一班车离站。
+
+Two years later she **opened** a real shop two steps from the platform, with a roof, six tables and a sign she paid someone to paint. The railway changed its timetable that same spring, and half her old customers disappeared. She simply started cooking for the passengers who now had an hour to wait.
+两年后，她在离站台两步远的地方开了一家真正的小店，有了屋顶、六张桌子和一块花钱请人画的招牌。就在那个春天，铁路改了时刻表，她一半的老客人不见了。她干脆开始为那些如今要等一小时的新乘客做饭。
+
+Last month the railway announced a new station, and the town is already arguing about where it should go. Mei does not join in. She stands by her board at five in the morning and remembers **when the stall had just opened**: two stools, one pot, a misspelled word, and a conductor who came back the next day.
+上个月铁路宣布要建新站，镇上人已经在争它该建在哪里。梅不参与。她早上五点站在自己的板子旁，想起摊子刚开业的时候：两口凳子、一口锅、一个拼错的词，还有第二天又回来的那位列车员。
+
+</details>
+
+| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |
+|---|---|---|
+| 第 1 段：she set it up in the winter when the stall had just opened | 把“开业那个冬天”当作整段叙事的起点 | 换成 opened 只剩一个时间点，后面“两口凳子、一口锅”的规模感失去依托 |
+| 第 2 段：When the stall had just opened, the only customers were train conductors | 交代刚开业时客源极少的处境 | 换成 was opening 会读成“正在支摊那一瞬”，装不下每天从五点熬到末班车的状态 |
+| 第 3 段：she opened a real shop two steps from the platform | 说明两年后那一次真正开店的动作 | 换成 had opened 会把开店推到更早的过去，与“两年后”的顺序打架 |
+| 第 4 段：remembers when the stall had just opened: two stools, one pot... | 用最初的模样给故事收口 | 换成现在时会把“现在只有两口凳子”读成当下事实，回忆就退成眼前的事实 |
 
 # 2026-11-15 21:09 · 复习
 
