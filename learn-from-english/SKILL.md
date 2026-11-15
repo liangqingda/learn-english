@@ -98,7 +98,7 @@ python3 learn-from-english/scripts/learning_records.py search --query <text> --s
 
 `focus-story` 按 option 的 `focus` 输出单线叙事小故事：篇幅、目标表达落点、中文对照与收尾三列表按仓库根目录 `AGENTS.md` 的小故事规则，不写成对话、不追加练习；它是只读展示，不计分也不写 `errors`。写进笔记时同样只经 `take-english-study-notes` 的命令追加 `## <选项原文>` 小节，保留完整 `故事原文` 折叠块。
 
-若写入失败，继续发送教学回复，并明确说明“本轮学习记录未能保存；本轮记录变更已回滚”。把原始 `batch-upsert` payload 只保留在当前对话，不写入仓库或其他持久文件；此时不要显示正常学习菜单，也不要展示原计划中的未作答练习，只显示“重试保存本轮记录”和“放弃保存并继续”两个恢复选项。重试时原样提交同一 payload；重试成功或用户明确放弃并清除 payload 后才恢复练习或正常菜单。完整的失败处理矩阵（含 `complete-review`、`paper-complete` 与笔记校验）只在 `practice-learning-records/SKILL.md` 的「失败恢复矩阵」一处维护，不要自行另写一套。若命令报告回滚未完整成功，不得使用“已回滚”，必须说明可能残留部分记录变更并停止后续写入；上下文丢失时说明无法恢复待保存 payload，并返回新的学习菜单。
+若写入失败，继续发送教学回复，并明确说明“本轮学习记录未能保存；本轮记录变更已回滚”。把原始 `batch-upsert` payload 只保留在当前对话，不写入仓库或其他持久文件；此时不要显示正常学习菜单，也不要展示原计划中的未作答练习，只显示“重试保存本轮记录”和“放弃保存并继续”两个恢复选项。重试时原样提交同一 payload；重试成功或用户明确放弃并清除 payload 后才恢复练习或正常菜单。完整的失败处理矩阵（含 `complete-review`、`paper-complete` 与笔记校验）只在 `practice-learning-records/references/failure-recovery.md` 一处维护，不要自行另写一套。若命令报告回滚未完整成功，不得使用“已回滚”，必须说明可能残留部分记录变更并停止后续写入；上下文丢失时说明无法恢复待保存 payload，并返回新的学习菜单。
 
 ## 根据输入选择讲解方式
 

@@ -305,8 +305,14 @@ def handle_sync(args: argparse.Namespace) -> dict[str, Any]:
 def handle_sections(args: argparse.Namespace) -> dict[str, Any]:
     note = store()
     whole = note.sections(args.file)
+    target = note.resolve(args.file)
+    text = target.read_text(encoding="utf-8") if target.is_file() else ""
     result: dict[str, Any] = {"file": whole["file"]}
     result["record_id"] = whole["record_id"]
+    # 写入方必须先确认文件级 `## 讲解` 存在；这里一次给出答案，省掉一次 grep
+    result["has_explanation"] = bool(
+        re.search(r"^## 讲解\s*(?:<a .*?</a>)?\s*$", text, re.M)
+    )
     result["explain_sections"] = whole.get("explain_sections", [])
     result["blocks"] = [
         {"heading": block["heading"], "sections": block["sections"]}

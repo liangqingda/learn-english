@@ -7,6 +7,19 @@ description: 从规范学习记录中选择到期或低分知识点开展复习�
 
 使用仓库根目录 `learning-records/` 与 `mastered-learning-records/` 中按 category 拆分的规范记录开展复习。`learning-records/<category>.json` 保存 `learning` 与 `familiar` 记录；同一知识点累计第 3 次达到 10 分后，写操作会把它移动到 `mastered-learning-records/<category>.json`。mastered 分类文件参考旧版 `mastered.json`，根节点直接是精简数组，每条保留稳定 `id`、`key`、`title`、`explanation`、`example`、`tags` 和 `mastered_at`。读取时工具会用 `explanation` 补 `source`，逐次评分历史和历史计数会重置；若记录此后失分回到 `learning`，`example` 与 `tags` 仍然可用，掌握前的逐次评分历史不会恢复。所有读取和写入必须通过 `learn-from-english/scripts/learning_records.py`；不得直接编辑 JSON。
 
+## 分支参考文件
+
+本文件只保留每轮都走的流程。下面这些分支按需读取 `practice-learning-records/references/` 里的文件，规则只在那里维护一份，本文件不重复：
+
+| 触发情况 | 读取 |
+|---|---|
+| 生成、持久化、续答、重做或评分四六级 / IELTS 风格套题 | `references/exam-papers.md` |
+| 用户要求讲某道题，或要按四步模板补讲错题 / 未作答题 | `references/error-explanation.md` |
+| 讲解或练习引入了新的稳定知识点，要按 `batch-upsert` 入库 | `references/knowledge-recording.md` |
+| 某个写操作失败，要决定重试还是放弃 | `references/failure-recovery.md` |
+
+只走普通复习、练习计分、写笔记和给菜单的轮次不读这些文件。
+
 ## 打开复习菜单
 
 收到触发词“你好”或“复习”（中文，去除首尾空白后仅为此二者），或单独的英文单词 review、hi（去除首尾空白后仅为此内容，忽略大小写）时运行下面的初始菜单；消息仅为一条复习笔记相对路径时按「从笔记相对路径学习知识点」直接开始那一轮，不弹初始菜单；消息为单独的英文单词 practice 时按「practice 直接随机出题」直接开始一轮，同样不弹初始菜单：
@@ -31,7 +44,7 @@ python3 learn-from-english/scripts/learning_records.py next-review --path mixed+
 
    不要把范围扩到 `familiar` 或 `mastered`：那两类仍然只在初始菜单里主动选择。
 2. 保留返回的 `id`、`category`、`status`、`owner` 与 `token`，按「开展普通复习」出 5 至 10 题（默认 6 题），并把题组作为本轮唯一操作入口：不显示菜单，也不在题目之前泄露知识点名称或答案方向。
-3. 用户作答后按「评分与协调记录」评分并用一次 `complete-review` 保存、按「生成本轮学习笔记」写笔记，再按「评分后的回复」输出得分行、判定表格与后续菜单；此后与普通复习完全一致。
+3. 用户作答后按「评分与协调记录」评分，把评分、本轮笔记与后续菜单用一次 `review-round` 提交（见「会话效率」），再按「评分后的回复」输出得分行、判定表格与后续菜单；此后与普通复习完全一致。
 4. 返回 `record: null` 时说明当前没有可抽的 `learning` 记录，不编造知识点，改为运行初始菜单。
 
 ## 从笔记相对路径学习知识点
@@ -50,7 +63,7 @@ python3 learn-from-english/scripts/learning_records.py next-review --path mixed+
    `learning_records.py snapshot --record <record_id>`（命中缓存时可能滞后于刚建的笔记，`record_file: null` 不代表文件不存在，
    以用户给的路径和第 1 步的 `record_id` 为准）。这些查询都不增加学习或复习次数。
 3. 这一轮**不领取 claim**：它不经 `next-review` 抽取，所以不要调 `next-review` 和 `release-claim`，也不要带
-   `claim_owner` / `claim_token`。评分直接走 `complete-review --input`，payload 里只写 `id`、`score` 和 `errors`。
+   `claim_owner` / `claim_token`。评分直接走 `review-round` 的 `review` 段，这一段只写 `id`、`score` 和 `errors`。
 4. 出题范围只限这一条记录：按「开展普通复习」的题型组合、由易到难和答案隔离规则设计一组建模在 5 至 10 题（默认 6 题），
    不要在题干暴露知识点名称或答案。首次出题时把题组作为本轮唯一操作入口，不显示菜单。
 5. 用户作答后按「评分与协调记录」的评分自检与 0 至 10 分口径评分，`errors` 只收本次实际展示并已解释的错误；
@@ -73,7 +86,26 @@ python3 learn-from-english/scripts/learning_records.py snapshot --notes
 
 结果来自 30 分钟有效的会话缓存；笔记写入已独立到 `take-english-study-notes`，不再刷新该缓存，只读路径不必加 `--refresh`，写入前若怀疑被别的会话改过则加一次 `--refresh` 或直接用 `note.py sections` 复核。
 
-写笔记前先运行 `take-english-study-notes/scripts/note.py sections --file <笔记文件> --section "## <小节标题>"`（或 `snapshot --notes`）确认文件级讲解区与目标区块是否已有同名 `##` 小节，再决定用 `append-explain-section`（讲解区新建）、`append-explain-part`（讲解区同一菜单项再生成一份原文）、`append-section`（日期区块新建带习题的菜单项）、`append-part`（日期区块既有小节末尾补一段）还是 `replace --rewrite-section`（改写），不要先拼好大段内容再被脚本拒绝。一轮的全部错题用一次 `batch-upsert` 写入（已评分复习用一次 `complete-review`），不逐题调用。只读展示不运行 `check_note.py`；校验只在写入路径上跑，结果如实报告。快照 `stale: true` 或怀疑被别的会话改动时，只读内容照常展示，只在真正写入前重新取一次快照或重读该文件。
+一轮有作答的复习、练习或套题，评分、写笔记、校验笔记和后续菜单用**一次** `review-round` 完成，不要拆成 `complete-review`、`note.py sections`、`note.py append`、`note.py check`、`menu` 五次调用：
+
+```bash
+python3 learn-from-english/scripts/learning_records.py review-round --input -    # payload 走 stdin 或 --input <file>
+```
+
+payload 只有四段，缺省段跳过：
+
+- `review`：一次 `complete-review` 的入参（`id`、`score`、`errors`，带 claim 时再加 `claim_owner` / `claim_token`）。普通复习、套题评分必填；纯练习轮次不评分，整段省略。
+- `note`：本轮笔记。`file` 是笔记相对路径；`date`（`YYYY-MM-DD`）、`time`（`HH:MM`）、`kind`（`复习` / `练习` / `套题`）决定区块标题；`body` 是本轮区块正文，从 `## 本轮习题` 开始，不含 `# 标题` 行。目标文件还没有文件级 `## 讲解` 时必须给 `explain.content`（含 `## 基础信息` 与 `## 讲解`），命令会先补讲解再写区块。`explain_sections` / `explain_parts` 用来写 `## 讲解` 之后的文件级小节：前者同名小节已存在时会自动改成往同一小节追加，不需要先跑 `sections` 判断。
+- `menu`：后续菜单的入参（`context`、`focus`、`has_answer_errors`、`current_exercise_explained`、`grammar_explained`）。
+- `check`：默认 `true`，写完自动跑校验器，能安全修的先修再复验。
+
+命令返回一个 JSON：`review`、`note`、`check` / `note_status`、`menu`。`ok: false` 时看 `failed_step` 与 `steps`：`steps` 里已完成的步骤已经落盘，按 `references/failure-recovery.md` 处理，不要整轮重试。
+
+`note.py` 的 `append-section` / `append-part` / `replace --rewrite-section` 只在组合命令不适用时单独使用（给已有区块补小节、改写刚写错的内容、批量迁移）。
+
+一轮的全部错题用一次 `batch-upsert` 写入（已评分复习由 `review-round` 的 `review` 段带 `errors` 一起写），不逐题调用。只读展示不运行 `check_note.py`；校验只在写入路径上跑，结果如实报告。快照 `stale: true` 或怀疑被别的会话改动时，只读内容照常展示，只在真正写入前重新取一次快照。
+
+彼此独立的只读查询（例如 `next-review` 与 `snapshot`）在同一轮并行发出，不要为它们各开一轮。
 
 ## 处理数字选择
 
@@ -92,7 +124,7 @@ python3 learn-from-english/scripts/learning_records.py snapshot --notes
 - `scenario-dialogue`：有当前记录或 focus 时围绕它输出完整多轮场景对话；仅在两者都不存在时使用脚本给出的日常场景。不要把已有记录替换成咖啡店主题，也不要默认开启互动角色扮演，除非用户明确要求 role-play。菜单不记录你选过什么，同一个知识点下这一项可以反复被选中：再次选中时必须换人物、换场合、换冲突，不得复用上一次的台词骨架；笔记里写 `## 讲解` 之后的文件级小节（首次 `append-explain-section`，第二次起 `append-explain-part`），只有一段时 summary 写 `场景对话原文`，第二段起第一段改成 `场景对话原文 1`、第二段写 `场景对话原文 2`（记法见 `take-english-study-notes/references/note-format.md`）。
 - `focus-story`：围绕 option 的 `focus` 输出单线叙事小故事，不写成对话；篇幅、结构、目标表达落点、中文对照与收尾三列表按仓库根目录 `AGENTS.md` 的小故事规则执行。它不生成练习、不计分、不调用 `complete-review`、不写 `errors`，完整故事只是示例材料；展示完照常给下一轮菜单。同一知识点下再次选中时，必须换场景、换人物、换情节走向，不得只改几个词重写上一版；笔记里写 `## 讲解` 之后的文件级小节（首次 `append-explain-section`，第二次起 `append-explain-part`），summary 按 `故事原文`（单段）/ `故事原文 1`、`故事原文 2`（多段）编号，每段各带自己的三列表，讲解要点仍只有首次那一份。
 - `follow-up-directions`：只作为 5 个练习方向的导航父项，本身不执行、不单独作答；用户选中其子项时按子项自己的 `follow-up-learning` 分派。
-- `follow-up-learning`：围绕 option label 和 `focus` 生成语法、词汇、对比、发音或产出内容。若生成未作答练习，不显示菜单；用户提交后按「练习计分」评分并把得分只写进笔记，不调用 `complete-review`。只把实际展示的可复用错误用一次 `batch-upsert` 保存。若讲解引入新的稳定知识点，按“后续学习知识点记录”保存。
+- `follow-up-learning`：围绕 option label 和 `focus` 生成语法、词汇、对比、发音或产出内容。若生成未作答练习，不显示菜单；用户提交后按「练习计分」评分并把得分只写进笔记，不调用 `complete-review`。只把实际展示的可复用错误用一次 `batch-upsert` 保存。若讲解引入新的稳定知识点，读 `references/knowledge-recording.md` 后保存。
 - `explain-current-exercise`：`review-complete` 菜单已不再返回该项，保留分派只为兼容历史菜单；它只在用户刚完成的复习答案存在错误或存在未作答题时解释该题组，不生成新题；错题说明考点、错误机制与正确表达，未作答题说明卡点与参考表达背后的英语计量、语义或结构逻辑。
 - `error-clusters`：运行 `error-clusters`，按返回的 `options` 顺序与 `label` 原文展示（脚本已生成全部可选项，**禁止**再手工拼 `1-1` 子项、自行追加「未归类」入口或调整分组）。`tag_families` 只用来说明错题集中在哪类问题。
 - `error-cluster-review`：用返回的 `cluster_id` 运行 `error-cluster-get --id <cluster_id>`，按取回的材料围绕该错误模式生成一组聚焦练习；明确这是只写笔记的计分练习（见「练习计分」），不显示菜单，不调用 `complete-review`，也不批量修改成员记录。
@@ -174,73 +206,6 @@ python3 learn-from-english/scripts/learning_records.py snapshot --notes
 
 不要根据文字回答评价实际发音。相邻两轮避免完全相同的题型组合。
 
-## 后续学习知识点记录
-
-`follow-up-learning` 不记录分数，但不是“只讲不存”。当后续学习内容引入当前记录之外的稳定、可复习知识点时，先讲解，再用 `upsert` 或一次 `batch-upsert` 写入学习记录：
-
-```bash
-python3 learn-from-english/scripts/learning_records.py batch-upsert --input <JSON 文件或 ->
-```
-
-输入格式：
-
-```json
-{
-  "records": [
-    {
-      "category": "phrases",
-      "key": "go-ahead-with-for-approved-plan",
-      "title": "go ahead with：按计划推进",
-      "explanation": "go ahead with + 名词表示获得允许或决定后继续推进某个计划、活动或安排，语气比 proceed with 更口语。",
-      "source": "We can go ahead with the launch.",
-      "example": "The team decided to go ahead with the launch.",
-      "tags": ["follow-up-learning"]
-    }
-  ]
-}
-```
-
-记录边界：
-
-- 记录 `go ahead with`、`move on to`、`continue along` 这类新搭配，或一个新语法/用法差异。
-- 不记录只是重复当前复习记录的规则、普通例句改写、临时练习题、完整示例对话台词、发音提示或用户尚未提交答案的题目。
-- 若一次扩展讲到多个紧密相关的新知识点，合并为一次 `batch-upsert` 批量写入；每条记录使用稳定语义 `key`，选择 `vocabulary`、`phrases`、`grammar` 或 `usage`，不要为了普通新知识点使用 `errors`。
-- 若脚本返回匹配到已有记录而不是新建，照常说明“已遇到/更新已有记录”；不要手工改 JSON。
-- 写入失败时仍完成讲解，说明“本轮新知识点未能保存；本轮记录变更已回滚”，并把原始 payload 只保留在当前对话。不要输出得分行与判定表格，只显示“重试保存”和“放弃保存并继续”；重试时原样提交，放弃时清除 payload。若回滚未完整成功，说明可能残留部分变更并停止后续写入。
-
-## 讲解错题与未作答题
-
-这一节首先定义笔记里 `错题讲解` 折叠块的固定写法；聊天默认不展开（「评分后的回复」只给得分行、判定表格与后续菜单，不展开讲解）。用户明确要求讲某道题、或从历史菜单选择 `explain-current-exercise` 时，才按同一模板在聊天里补讲。不要只说“不能说”“不自然”或重复规则标签。每道错题固定使用下面的模板输出，编号、加粗小标签、四步顺序都不得省略或合并。未作答题同样必须讲解：沿用同一四步结构，只把第 2 步标签换成 `为什么答不出`，写清卡在哪一步，并给出可直接背的参考表达。
-
-````markdown
-**错题 N：<用户答案或错误片段>（第 X 题）**
-
-1. **考点**：本题实际考查的知识点。
-2. **为什么错**：指出触发该判断的英语机制，例如可数/不可数的计量方式、冠词和量词的搭配条件、时态对应、词义边界、句子结构或语域限制。
-3. **英语的表达逻辑**：说明英语把这个概念当作可数单位、不可数内容、动作过程、状态结果还是具体事件处理。
-4. **正确表达**：给出正确答案，并附 1 至 3 个可迁移例句；中文直觉和英语分类不同时，明确对比。
-````
-
-未作答题的模板写法：
-
-````markdown
-**未作答题 N：<用户回复，例如“不会”>（第 X 题）**
-
-1. **考点**：本题实际考查的知识点。
-2. **为什么答不出**：这道题卡在哪一步，例如缺少可套用的框架、不会选动词、拿不准冠词，或根本没有产出思路。
-3. **英语的表达逻辑**：说明英语把这个概念当作可数单位、动作过程、状态结果还是具体事件处理。
-4. **正确表达**：给出参考表达，并附 1 至 3 个可迁移例句。
-````
-
-模板内各条仍须遵守：
-
-- 选择题在模板之后逐项解释关键干扰项，再回到第 2、4 步的机制与正确表达。
-- 改错或翻译题先说明用户原句想表达什么，再区分核心错误、自然度问题和可选风格改写。
-- 避免把“规则名称”当作原因；规则名称后面必须跟一句可理解的机制解释。
-- 翻译或整句产出类错题允许在四步之后追加一行“整句参考版本”，这是模板唯一允许的额外步骤；未作答题同样适用。
-- 多道错题按题号顺序排列，每题之间空一行；模板用编号列表，不要改写成表格。表格只用于多题并列的得分与判定汇总。
-- 错题、部分正确的题、未作答题以及用户明确跳过的题都要用模板讲解；未作答题给出参考表达，不把“没作答”当成无需讲解的理由。
-
 ## 评分与协调记录
 
 用户完成一组可客观评价的复习后，逐题判断并给出自然答案，再综合评为 0 至 10 分（练习轮次同样按这里评分，只是落盘按「练习计分」只写笔记）：
@@ -259,7 +224,7 @@ python3 learn-from-english/scripts/learning_records.py batch-upsert --input <JSO
 
 换句话说，主评分只看目标点是否掌握，附带错误只做独立记录，不互相覆盖。
 
-在调用 `complete-review` 前必须执行一次「评分自检」，逐项核对全部通过后才允许写入：
+在提交评分（`review-round` 的 `review` 段或单独跑的 `complete-review`）前必须执行一次「评分自检」，逐项核对全部通过后才允许写入：
 
 1. 用一句话写出现行目标知识点，**以记录的 title（主规则）为唯一锚点**：explanation 中与 title 同一规则、支撑 title 的细则属于目标点；而 explanation 里标注为“更自然/更贴切/更口语”等次要自然度或语用偏好（例如某语境用某词更自然）**不构成目标点**，除非 title 本身就以该偏好为核心。拿不准时一律按 title 判定。
 2. 逐题归因：把每道题及每个错误标记为「属于目标点」或「独立于目标点」。
@@ -269,13 +234,13 @@ python3 learn-from-english/scripts/learning_records.py batch-upsert --input <JSO
 
 若发现目标分曾因「独立于目标点」的错误被下调，必须先更正评分后再提交，不能把独立错误当作扣分依据。
 
-把评分和本轮实际出现的可复用错误模式组成一个 JSON 对象，并只调用一次：
+把评分和本轮实际出现的可复用错误模式组成一个 JSON 对象，作为 `review-round` 的 `review` 段，随本轮笔记和后续菜单一次提交（见「会话效率」）：
 
 ```bash
-python3 learn-from-english/scripts/learning_records.py complete-review --input <JSON 文件或 ->
+python3 learn-from-english/scripts/learning_records.py review-round --input <JSON 文件或 ->
 ```
 
-输入格式：
+`review` 段的格式（单独跑 `complete-review --input` 的入参与此完全相同，只在只写记录、不写笔记的重试路径里单独使用它）：
 
 ```json
 {
@@ -307,7 +272,7 @@ python3 learn-from-english/scripts/learning_records.py complete-review --input <
 - `status: mastered`：同一知识点累计第 3 次达到 10 分，进入已掌握状态，并作为完整英语考试套题素材；未满 3 次的 10 分仍显示为 `familiar`。
 - `lapse_count` 增加：原已标熟或已掌握知识点出现遗忘。
 
-命令还会返回 `next_review_at`、`status` 与 `lapse_count`，这些只用来判断记录已怎么变化，不再写进聊天回复。写入成功后按「生成本轮学习笔记」写一份本轮笔记，再按「评分后的回复」输出得分行、判定表格与后续菜单。写入失败时仍完成教学反馈，说明“本轮评分与错题未能保存；本轮记录变更已回滚”，并把含 `claim_owner`、`claim_token` 的完整 payload 只保留在当前对话。此时不要输出得分行与判定表格，只显示“重试保存本轮评分”和“放弃保存并返回菜单”；重试时原样调用 `complete-review` 并复用凭据，放弃时必须确保本轮评分、状态、历史、错题和 claim 全部清除，再清除 payload。若回滚未完整成功，说明可能残留部分变更并停止后续写入。上下文丢失时说明无法重试并返回初始菜单。
+命令还会返回 `next_review_at`、`status` 与 `lapse_count`，这些只用来判断记录已怎么变化，不再写进聊天回复。写入成功后按「生成本轮学习笔记」准备好本轮笔记，与评分一起用一次 `review-round` 落盘，再按「评分后的回复」输出得分行、判定表格与后续菜单。写入失败时仍完成教学反馈，说明“本轮评分与错题未能保存；本轮记录变更已回滚”，并把含 `claim_owner`、`claim_token` 的完整 payload 只保留在当前对话。此时不要输出得分行与判定表格，只显示“重试保存本轮评分”和“放弃保存并返回菜单”；重试时原样调用 `complete-review` 并复用凭据，放弃时必须确保本轮评分、状态、历史、错题和 claim 全部清除，再清除 payload。若回滚未完整成功，说明可能残留部分变更并停止后续写入。上下文丢失时说明无法重试并返回初始菜单。
 
 如果重试仍返回“review claim does not exist”或其他领取凭据失效错误，不得暗示评分已经保存；如实说明当前 payload 无法再提交。只有用户明确选择放弃时才尝试 `release-claim`；释放成功后清除 payload 并返回初始菜单，释放失败也要如实说明，不能把失败当作已回滚。
 
@@ -324,12 +289,12 @@ python3 learn-from-english/scripts/learning_records.py complete-review --input <
 
 以下内容一律不写进聊天，因为它们已经落在 `learning-record-notes/` 的笔记里：
 
-- 小结、总结、逐条解析、逐题的考点、错误机制、英语表达逻辑、正确表达（「讲解错题与未作答题」的四步模板只用于笔记的 `错题讲解` 折叠块）；
+- 小结、总结、逐条解析、逐题的考点、错误机制、英语表达逻辑、正确表达（`references/error-explanation.md` 的四步模板只用于笔记的 `错题讲解` 折叠块）；
 - 状态变化说明、下次复习时间、最关键建议、本轮写入的文件与字段等过程说明；
 - 自检与校验过程（`note_status`、`auto_fixed`、`tracking_mismatch`）；
 - 追问式收尾与下一步建议（后续动作只由第 3 部分的菜单承担）。
 
-只有三种情况允许在得分行、判定表格与后续菜单之外加文字：写入失败时按「失败恢复矩阵」只显示重试/放弃两个动作（此时不显示后续菜单）；用户随后明确要求讲某道题时，按「讲解错题与未作答题」一节的模板补讲该题，此时不重发判定表格；`note_status` 为 `unverified` 或笔记追踪字段与记录不一致时，用一句话如实说明（不展开细节）。
+只有三种情况允许在得分行、判定表格与后续菜单之外加文字：写入失败时读 `references/failure-recovery.md`，只显示重试/放弃两个动作（此时不显示后续菜单）；用户随后明确要求讲某道题时，读 `references/error-explanation.md` 并按其模板补讲该题，此时不重发判定表格；`note_status` 为 `unverified` 或笔记追踪字段与记录不一致时，用一句话如实说明（不展开细节）。
 
 `知识点讲解` 与 `错题讲解` 都是笔记（`learning-record-notes/`）里的强制折叠块，聊天里不再展开。
 
@@ -340,9 +305,11 @@ python3 learn-from-english/scripts/learning_records.py complete-review --input <
 首次讲解的笔记由 `learn-from-english` 用 `note.py explain` 写入（文件级 `## 讲解` 小节，位于 `## 基础信息` 之后）；这里只负责在同一个文件里按时间倒序插入复习区块（最新一轮排在所有日期区块之前），不另建文件、不改讲解小节与文件级菜单讲解小节。
 笔记是**可读副本，不是规范数据源**：它不参与 `validate`、统计、抽题或调度，缺失或被删除都不影响评分与复习计划。
 
-写笔记前必须先读 `take-english-study-notes/references/note-format.md`（何时写、文件名、模板骨架、字段取值、
-追加与修正命令、菜单项记法、校验与迁移全部在那里，**不要凭记忆或旧轮次猜格式**），并按
-`take-english-study-notes/templates/review-note.md` 逐字替换占位符。
+写入统一走 `review-round` 的 `note` 段（见「会话效率」），本节说明的是它要写进去的内容与格式；下面单独列出的 `note.py` 子命令只在组合命令不适用时使用。
+
+写笔记前先读 `take-english-study-notes/references/note-format.md`（何时写、文件名、模板骨架、字段取值、菜单项记法），
+手动追加、补写或改写时再读同目录的 `note-format-append.md`，跑校验或迁移时读 `note-format-validation.md`；
+格式不要凭记忆或旧轮次猜。版式按 `take-english-study-notes/templates/review-note.md` 逐字替换占位符。
 
 笔记的规则文档、模板、校验器与写入实现全部归 `take-english-study-notes` skill；本 Skill 只保留下面这些硬约束（全部通过
 `take-english-study-notes/scripts/note.py` 执行，它自带 `explain` / `append` / `append-explain-section` / `append-explain-part` / `append-section` / `append-part` / `replace` / `sections` / `list` / `check`）：
@@ -387,72 +354,6 @@ python3 learn-from-english/scripts/learning_records.py complete-review --input <
   `unverified` 表示校验器不可用，必须在回复里说明「本轮笔记未校验」。行尾空格、答案题号前缀、缺失的 `---`
   这三类无争议问题由写入命令自动修完再复检，结果在 `auto_fixed`；剩下的 issue 才需要按 `line` / `message` 手工修正。
 
-## 场景对话错题
-
-未作为评分复习任务的互动角色扮演不调用 `complete-review`。默认的完整场景对话脚本、以及 `focus-story` 输出的完整故事都只是示例材料，不记录错题。只有用户明确参与互动角色扮演并确实出现、得到纠正的英语错误时，才把本轮所有错误组成一批 `errors` 记录，运行一次 `batch-upsert`。完全正确时不写错误记录。
-
-## 完整英语考试套题
-
-先确定本卷的 `exam_type`、考试名称、题型和评分 profile。用户明确指定考试时服从；未指定时根据已掌握素材选择 CET-4 或 CET-6。生成 CET 之外的考试前，先查证该考试当前的官方题型与计分方式；如果考试没有统一合格线，把 `pass_score` 设为 `null`，除非用户给出目标分，此时将目标分作为本卷合格线并在 `score_note` 说明。不要把 710 分制、425 合格线或省略听力规则套到其他考试。
-
-生成新套题的入口先运行：
-
-```bash
-python3 learn-from-english/scripts/learning_records.py mastered-list
-```
-
-只使用返回的 `status: mastered` 记录作为素材池。生成完整试卷内容、参考答案及“每道可作答题对应的一个或多个 mastered ID”映射后，在首次展示前运行：
-
-```bash
-python3 learn-from-english/scripts/learning_records.py paper-create --input <JSON 文件或 ->
-```
-
-当前四六级套题使用通用 Paper Schema v2 的 CET profile。输入必须包含 `exam_type`（`cet4` 或 `cet6`）、对应的 `exam_name`（`CET-4` 或 `CET-6`）、`format_id: cet-no-listening-v1`、简短 `theme`、`source_record_ids`、`sections`、`answer_keys`、`objective_items`、`subjective_components`、`grading_scheme`，以及覆盖全部 answer key 的 `record_map`。严格使用以下配置：
-
-- `writing`：`directions`、`prompt`、`word_requirement`、`reference_answer`。
-- `listening`：固定为 `{"omitted": true, "question_slots": 25}`。
-- `reading.section_a`、`section_b`、`section_c`：各含 `directions`、`passage` 和 10 个 `questions`；每题含正确范围内的 `number`、`prompt`、字符串 `choices`、`answer` 和 `explanation`。
-- `translation`：`directions`、`source_text`、`reference_answer`。
-- `answer_keys`：依次为 `writing`、字符串 `26` 至 `55`、`translation`。
-- `objective_items`：Questions 26-35 每题 0.5 原始分，36-45 每题 1 分，46-55 每题 2 分；每项同时保存 `answer`。
-- `subjective_components`：`writing.max_score` 和 `translation.max_score` 均为 15。
-- `grading_scheme`：`raw_max_score: 65`、`reported_max_score: 710`、`pass_score: 425`、`conversion: linear`、`precision: 2`、`rounding_step: null`、`score_unit: 分`，并用 `score_note` 明确这是无听力模拟折算分。
-
-`record_map` 的每个值是至少含一个 source ID 的数组。只把命令返回的 `paper_id` 和标准标题显示在卷首，不向用户展示存储的参考答案、解析或映射。所有 source 和 mapping ID 必须是当前 `mastered` 记录。文件自动保存到 `exam-papers/<paper_id>.json`，一卷一文件。其他考试可使用不同 `exam_type`、answer keys、主客观评分项与 `grading_scheme`，不要把 CET 题型或 710 分制写成通用规则。
-
-按 CET-4/CET-6 笔试形式生成，不声称来自官方真题。卷首同时标明“官方题位 57、当前实际生成并可作答 32”：写作 1 题、听力题位 25 个但不生成、阅读 30 题、翻译 1 题。保留官方考试时间和占比：CET-4 125 分钟、CET-6 130 分钟；写作 15%、听力 35%、阅读 35%、翻译 15%。不要把省略听力后的试卷称为 65% 满分或减少版。
-
-完整套题必须保持官方笔试顺序、题型、题量和内部比例：
-
-- Part I Writing：短文写作 1 题，30 分钟，占 15%。给出正式 Directions、题目和字数要求；不附范文或答案。
-- Part II Listening Comprehension：CET-4/CET-6 均为 25 题，占 35%；CET-4 为 25 分钟，CET-6 为 30 分钟。按当前仓库规则省略听力，不生成听力材料、听力题、听力答案或伪音频文本；只写一行省略说明并保留该部分在试卷中的位置。
-- Part III Reading Comprehension：30 题，40 分钟，占 35%。Section A 词汇理解/选词填空 10 题，占 5%；Section B 长篇阅读/匹配 10 题，占 10%；Section C 仔细阅读 10 题，占 20%（通常两篇短文，每篇 5 题）。阅读题号按真实试卷习惯标为 Questions 26-55，不因听力省略而从 1 重新编号。
-- Part IV Translation：汉译英段落翻译 1 题，30 分钟，占 15%。给出正式 Directions 和中文段落；不附参考译文。
-
-根据素材的词汇抽象度、句法复杂度、话题和语域判断 CET-4 或 CET-6，用户指定时服从指定级别。首次呈现时不附答案、解析、提示或菜单；把整套未作答试卷作为唯一操作入口，并在其后的 attribution block 标注 `*Picked from mastered-learning-records · mastered*`。
-
-允许用户按题号、Section 或 Part 分段提交。每次只确认收到的范围并列出仍缺少的可作答题，不提前公布答案或评分。用户完成 32 个可作答项，或明确提交并跳过剩余项后，才结束作答；用户提前要求答案时，先确认这会结束当前作答，再在确认后揭示。
-
-每次收到答案或明确跳过项时立即运行：
-
-```bash
-python3 learn-from-english/scripts/learning_records.py paper-submit --input <JSON 文件或 ->
-```
-
-首次提交只传 `paper_id`、`answers` 和 `skipped`，让命令创建新的 `attempt_id`；后续提交必须复用该 `attempt_id`。`answers` 的键使用 `writing`、`26` 至 `55`、`translation`。命令成功后以返回的覆盖数量为准；上下文丢失时通过 `paper-get --paper-id <paper_id> --attempt-id <attempt_id>` 恢复，不让用户重答已保存内容。
-
-结束作答后按题逐项批改阅读，按 CET 写作与翻译维度评价内容、组织、准确性和语言质量；错题按“讲解错题”的固定模板写进套题笔记的 `错题讲解` 折叠块，按题目映射汇总哪些 mastered 知识点表现稳定、哪些需要重新巩固的内容同样只写进笔记；聊天只按「评分后的回复」输出得分行、判定表格与后续菜单。只提取用户实际展示且已解释的独立可复用错误，不因总分低或选错一道题推断其他弱点。选择题错误可用用户所选的错误内容作 `source`，写作和翻译用用户原句作 `source`，并为每条错误提供修正后的代表句。
-
-把批改结果和错误组成一次协调写入：
-
-```bash
-python3 learn-from-english/scripts/learning_records.py paper-complete --input <JSON 文件或 ->
-```
-
-输入包含 `paper_id`、`attempt_id`、`subjective_scores: {"writing": 0-15, "translation": 0-15}`、完整 `feedback` 和 `errors`。工具按存储的参考答案计算 35 原始阅读分，与写作、翻译组成 65 原始分，再按试卷的线性配置报告为 710 分制。报告满分为 710，达到 425 返回 `passed: true`。向用户展示 `reported_score / 710` 和 425 合格线，同时明确说明这是对应 CET 级别的“无听力模拟折算分”，不是官方考试成绩。
-
-`paper-complete` 在同一写锁下保存 completed attempt 和实际错误；不调用 `complete-review`，不改变 mastered 记录的分数、状态、次数或调度。保存失败时保留完整 payload，只显示“重试保存本次试卷评分”和“放弃评分保存并保留进行中作答”；放弃时不得删除已保存答案，且不得声称成绩或错误已保存。保存成功后先按「生成本轮学习笔记」写一份套题笔记，再按「评分后的回复」输出得分行、判定表格与后续菜单。
-
 ## 历史与统计
 
 用户要求查看某条记录的复习过程时运行：
@@ -468,28 +369,6 @@ python3 learn-from-english/scripts/learning_records.py stats --period 30d
 ```
 
 使用 `snapshot_totals`、`daily`、`by_category`、`score_distribution`、`due_backlog`、`lapse_count` 和 `mastery_count` 说明当前规模、每日趋势、类别弱点、分数分布、积压、遗忘与掌握情况。明确说明 mastered 精简归档会清除掌握前的逐次历史，因此平均分、近期事件和分类统计只覆盖当前仍保留的事件；不要把它们描述成终身完整统计。
-
-## 失败恢复矩阵
-
-所有写操作的失败处理都落到同一套动作，不再按命令分别发明流程：
-
-| 场景 | 立即动作 | 聊天输出 | payload | 回滚不完整时 |
-|---|---|---|---|---|
-| `batch-upsert` 保存知识点失败 | 继续发送教学正文 | 只显示「重试保存本轮记录」「放弃保存并继续」 | 只留在当前对话 | 说明可能残留部分记录变更并停止后续写入，不得说“已回滚” |
-| `complete-review` 保存评分失败 | 继续发送批改正文 | 只显示「重试保存本轮评分」「放弃保存并返回菜单」 | 只留在当前对话，重试原样携带 `claim_owner` / `claim_token` | 同上；领取凭据失效的提示语见“评分与协调记录” |
-| `paper-complete` 保存套题评分失败 | 继续发送批改正文 | 只显示「重试保存本次试卷评分」「放弃评分保存并保留进行中作答」 | 只留在当前对话 | 同上；放弃时不得删除已保存答案 |
-| `append` / `append-explain-section` / `append-explain-part` / `append-section` / `append-part` / `replace` 写入失败（路径不合规、区块缺标题、文件被占用、同标题小节已存在、目标小节不存在等） | 继续发送当天正文；命令报错原样说明原因 | 只输出得分行、判定表格与后续菜单 | 修正后的区块只留在当前对话 | 不得改用 `Write` 直接改写笔记文件来绕过失败；`append-section` 报小节已存在时改用 `append-part`（同一菜单项补下一道题，日期区块的小节只放习题；故事 / 对话原文再生成一份要走 `append-explain-part`）或 `replace` 修正，不要追加第二个同标题小节；`append-part` 报小节不存在时改用 `append-section` 新建；`append-explain-section` 返回 `duplicate: true` 说明这一项已记录过，不要按新内容重复记录、也不改名绕过；确需修正或补充讲解要点时用同一命令加 `--rewrite` 整节重写，并把已有的 `场景对话原文` / `故事原文` 一起带上；`append-explain-part` 报小节不存在时改用 `append-explain-section` 新建 |
-| `replace` 报「一次只改一个小节」 | 说明这次替换同时重写了多个既有小节 | 只输出得分行、判定表格与后续菜单 | 修正后的区块只留在当前对话 | 一次只改一节；批量迁移逐节加 `--rewrite-section`，并同轮跑 `check --all` |
-| `replace` 返回非空 `preserved_sections` | 写入成功，这些小节是别的对话的成果，已被自动保留在区块末尾 | 只输出得分行、判定表格与后续菜单 | 不涉及 | 不要手工删掉它们；确实要删时用 `--drop-section` 明确列出 |
-| `append` 返回 `duplicate: true`（同标题同内容） | 按已写入处理，不再追加 | 只输出得分行、判定表格与后续菜单 | 不涉及 | 不重试、不手工补写；内容有实质修改才用替换命令 |
-| `append` 返回 `heading_adjusted: true` | 按返回的 `heading` 继续，两轮内容都已保留 | 只输出得分行、判定表格与后续菜单 | 不涉及 | 不要用原请求时间再追加一遍 |
-| `note_status: invalid`（校验失败，退出码 1） | 写入已成功，用替换命令修正本轮区块后重跑 | 只输出得分行、判定表格与后续菜单 | 不涉及 | 不得把退出码 1 当成写入失败去重试；第二次仍失败时正文如实说明并留待下一轮修正 |
-| `note_status: unverified`（校验器不可用） | 正常发送正文 | 只输出得分行、判定表格与后续菜单 | 不涉及 | 正文如实说明「本轮笔记未校验」，不得当作已通过 |
-| 返回 `tracking_mismatch`（追踪表与记录不符） | 先看 `basic_info_synced`：顶部 `累计复习次数` / `下次复习` 已自动回填；剩下的身份行或本轮字段按 `tracking_expected` 改完本轮区块，用 `replace` 重写并复检。历史笔记顶部是旧值时用 `note.py sync --file <笔记文件>` 修复 | 只输出得分行、判定表格与后续菜单 | 不涉及 | 不要改记录数据去迁就手抄值；`题量与错题数` 不在比对范围内 |
-| `note.py` 找不到 `learning_records.py`（只装了复习 skill） | 说明缺少写入命令的位置，先跑 `note.py check --all` 确认校验可用 | 只输出得分行、判定表格与后续菜单 | 不涉及 | 不得改用 `Write` 直接落盘；按报错里的 `probed` 路径提示安装 learn-from-english 或设置 `LEARN_ENGLISH_CLI` |
-| `menu` / `next-review` / 查询类命令失败 | 说明命令失败原因，按上下文退回初始菜单或直接回答 | 初始菜单 | 不涉及 | 不适用 |
-
-跨文件写入由脚本的事务日志兜底：写入前把目标文件的原始内容备份到 `learning-records/.txn/` 并记录 `.txn-journal.json`；中途失败会立即回滚，进程被杀时下一次任意写操作或 `validate` 会先恢复再继续。看到 `.txn-recovery.log` 记录时，如实说明“上次未完成的写入已自动回滚”，不要描述成“已回滚本轮”。
 
 ## 数据边界
 

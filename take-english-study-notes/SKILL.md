@@ -58,7 +58,7 @@ python3 take-english-study-notes/scripts/note.py check --all [--fix]
   索引条目与日期区块标题同口径（`<日期> <HH:MM> · <复习|练习|套题>`），同一天同一菜单项有多份时按时间先后补 ` - 01`、` - 02`。
   每次写入与 `check --all --fix` 都会按真实小节重建，所以改标题、加删小节或区块后不必手工同步；校验器逐条比对，
   缺锚点、锚点与区块/标题对不上、缺索引、缺 `复习历史：`、索引后还写正文、条目对不上或残留索引块都报错。
-  格式见 `references/note-format.md` 的「可跳转索引」与「复习目录」。
+  格式见 `references/note-format-validation.md` 的「可跳转索引」与「复习目录」。
 - 讲解型内容（讲解要点、对比、场景对话、小故事）一律写 `## 讲解` 之后；日期区块只放 `## 本轮习题` 与带习题的菜单项。
   同一个菜单项重复选中时，除场景对话与小故事外不再按新内容重复记录：`append-explain-section` 返回 `duplicate: true` 就停手。
   讲解要点要改、要补，三类文件级小节（带习题的讲解要点、场景对话、小故事）走同一条规则：同一命令加 `--rewrite` 整节替换，
@@ -75,7 +75,7 @@ python3 take-english-study-notes/scripts/note.py check --all [--fix]
 
 - 模板：`take-english-study-notes/templates/review-note.md`
 - 校验器：`take-english-study-notes/scripts/check_note.py`（独立运行，不依赖任何其他 skill）
-- 口径全集：`take-english-study-notes/references/note-format.md`
+- 口径全集：`take-english-study-notes/references/note-format.md`；追加与改写的命令细则在 `references/note-format-append.md`，校验、派生索引与迁移在 `references/note-format-validation.md`
 
 ## 骨架要点
 

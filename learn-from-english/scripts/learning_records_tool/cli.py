@@ -13,6 +13,7 @@ from .cache import DEFAULT_MAX_AGE_SECONDS, get_snapshot, git_head
 from .menu import annotate_writes
 from .models import CATEGORIES, STATUSES, RecordError, record_id
 from .papers import PAPER_STATUSES, PaperService
+from .round_flow import finish_round
 from .service import RecordService
 from .store import RecordStore
 
@@ -220,6 +221,18 @@ def handle_error_cluster_get(args: argparse.Namespace) -> dict[str, Any]:
     )
 
 
+def handle_review_round(args: argparse.Namespace) -> dict[str, Any]:
+    """Score, write the note, validate it and build the menu in one call.
+
+    Keeps the same writes and the same checks as the separate commands; it only
+    removes the round trips between them.
+    """
+    payload = read_input(args.input)
+    if not isinstance(payload, dict):
+        raise RecordError("review-round input must be an object")
+    return finish_round(payload, service(), REPO_ROOT)
+
+
 def handle_paper_create(args: argparse.Namespace) -> dict[str, Any]:
     return paper_service().create(read_input(args.input))
 
@@ -343,6 +356,16 @@ def build_parser() -> argparse.ArgumentParser:
     )
     complete.add_argument("--input", required=True, help="JSON file path or - for stdin")
     complete.set_defaults(handler=handle_complete_review)
+
+    round_flow = subparsers.add_parser(
+        "review-round",
+        help=(
+            "finish a scored round in one call: complete-review, note write, "
+            "note check and the follow-up menu"
+        ),
+    )
+    round_flow.add_argument("--input", required=True, help="JSON file path or - for stdin")
+    round_flow.set_defaults(handler=handle_review_round)
 
     rescore = subparsers.add_parser(
         "rescore", help="correct the most recent review score of one record"
@@ -576,6 +599,8 @@ def main() -> int:
                 exit_code = 1
     json.dump(result, sys.stdout, ensure_ascii=False, indent=2)
     sys.stdout.write("\n")
+    if isinstance(result, dict) and result.get("ok") is False:
+        return 1
     if args.command == "validate" and not result.get("valid", False):
         return 1
     return exit_code

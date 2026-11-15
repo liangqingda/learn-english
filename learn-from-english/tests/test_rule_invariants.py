@@ -484,6 +484,8 @@ class DocumentationDriftTest(unittest.TestCase):
             REPO_ROOT / "AGENTS.md",
             REPO_ROOT / "learn-from-english" / "SKILL.md",
             REPO_ROOT / "practice-learning-records" / "SKILL.md",
+            *sorted((REPO_ROOT / "practice-learning-records" / "references").glob("*.md")),
+            *sorted((REPO_ROOT / "take-english-study-notes" / "references").glob("*.md")),
         ]
         for doc in docs:
             text = doc.read_text(encoding="utf-8")

@@ -2,7 +2,7 @@
 
 每次英语讲解、每一轮有实际作答的复习、聚焦练习或完整套题，豆包都会在此目录写 Markdown 笔记，用于事后复盘；同一个知识点的讲解与之后的复习都写在同一个文件里。
 
-规则只有一处权威来源：**[`take-english-study-notes/references/note-format.md`](../take-english-study-notes/references/note-format.md)**。
+规则只有一处权威来源：**[`take-english-study-notes/references/note-format.md`](../take-english-study-notes/references/note-format.md)**（追加与改写细则见同目录 `note-format-append.md`，校验与迁移见 `note-format-validation.md`）。
 版式以 [`templates/review-note.md`](../take-english-study-notes/templates/review-note.md) 为准，合规性由
 `take-english-study-notes/scripts/check_note.py` 强制校验。本文件只列速查：
 
