@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 253,
+  "revision": 258,
   "category": "grammar",
   "records": {
     "grammar:a-bit-of-a-singular-countable": {
@@ -514,6 +514,32 @@
       "mastered_at": null,
       "review_history": []
     },
+    "grammar:noun-postmodifier-active-infinitive": {
+      "id": "grammar:noun-postmodifier-active-infinitive",
+      "category": "grammar",
+      "key": "noun-postmodifier-active-infinitive",
+      "status": "learning",
+      "title": "名词 + 后置不定式：用主动形式表示待做的事",
+      "explanation": "a price to pay、three reports to write、nothing to lose 都是“名词 + 后置不定式”。英语在这里用主动不定式表示“待做、该做、可做”，即使名词本身是被处理的对象（价钱是被付的、报告是被写的），也不用被动式；只有在强调“将来被别人执行”时才换成 to be done。",
+      "source": "There is a price to pay for everything worth having.",
+      "example": "He still has three reports to write before Monday.",
+      "tags": [
+        "follow-up-learning",
+        "infinitive",
+        "postmodifier"
+      ],
+      "first_learned_at": "2026-11-15T12:13:41+08:00",
+      "last_learned_at": "2026-11-15T12:13:41+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "grammar:now-discourse-marker": {
       "id": "grammar:now-discourse-marker",
       "category": "grammar",
@@ -711,6 +737,32 @@
       "mastered_at": null,
       "review_history": [],
       "key": "present-perfect-for-duration"
+    },
+    "grammar:price-to-be-paid-passive-infinitive": {
+      "id": "grammar:price-to-be-paid-passive-infinitive",
+      "category": "grammar",
+      "key": "price-to-be-paid-passive-infinitive",
+      "status": "learning",
+      "title": "a price to be paid：被动不定式的正式预告用法",
+      "explanation": "a price to be paid 用被动不定式，强调代价“将来要由某人偿付”，常见于合同、公告、条款等书面语境；日常评论里仍用固定说法 a price to pay。两者都成立，区别在语域和信息焦点，不在对错。",
+      "source": "a price to be paid",
+      "example": "Any delay will incur a price to be paid by the contractor.",
+      "tags": [
+        "follow-up-learning",
+        "passive",
+        "register"
+      ],
+      "first_learned_at": "2026-11-15T12:13:41+08:00",
+      "last_learned_at": "2026-11-15T12:13:41+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "grammar:purpose-infinitive-to": {
       "id": "grammar:purpose-infinitive-to",

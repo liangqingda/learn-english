@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 257,
+  "revision": 258,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -1965,6 +1965,31 @@
       ],
       "key": "duration-rest-possessive-or-hyphenated-form"
     },
+    "errors:each-thing-paid-a-price-subject": {
+      "id": "errors:each-thing-paid-a-price-subject",
+      "category": "errors",
+      "key": "each-thing-paid-a-price-subject",
+      "status": "learning",
+      "title": "把“每件事都有代价”写成事物主动 pay",
+      "explanation": "pay 的主语必须是付出代价的人或机构；事物只能“自带代价”。中文“每件事都有代价”在英语里用 everything comes with a price to pay / there is a price to pay for everything，主语换成事物时动词要换成 come with 或 there be。",
+      "source": "but each thing paid a price for it",
+      "example": "Everything comes with a price to pay.",
+      "tags": [
+        "follow-up-learning",
+        "subject"
+      ],
+      "first_learned_at": "2026-11-15T12:13:41+08:00",
+      "last_learned_at": "2026-11-15T12:13:41+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:eastward-for-westbound-us-travel": {
       "id": "errors:eastward-for-westbound-us-travel",
       "category": "errors",
@@ -3835,6 +3860,31 @@
       ],
       "first_learned_at": "2026-11-10T21:25:23+08:00",
       "last_learned_at": "2026-11-10T21:25:23+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:nothing-to-lose-not-loss": {
+      "id": "errors:nothing-to-lose-not-loss",
+      "category": "errors",
+      "key": "nothing-to-lose-not-loss",
+      "status": "learning",
+      "title": "nothing to lose 被写成 nothing to loss",
+      "explanation": "不定式符号 to 后面必须跟动词原形，lose 是动词；loss 是名词，只能出现在 to 之外的位置（the loss of a job）。nothing to lose 属于“名词 + 后置不定式”结构，to 是不定式标志而不是介词。",
+      "source": "I have nothing to loss",
+      "example": "I have nothing to lose now, so I may as well try.",
+      "tags": [
+        "follow-up-learning",
+        "infinitive"
+      ],
+      "first_learned_at": "2026-11-15T12:13:41+08:00",
+      "last_learned_at": "2026-11-15T12:13:41+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -6203,6 +6253,31 @@
       "mastered_at": null,
       "review_history": [],
       "key": "the-typo-should-be-they"
+    },
+    "errors:there-are-nouns-need-to-reply": {
+      "id": "errors:there-are-nouns-need-to-reply",
+      "category": "errors",
+      "key": "there-are-nouns-need-to-reply",
+      "status": "learning",
+      "title": "there be 后直接接 need to reply，一句两个谓语",
+      "explanation": "There are + 名词后面的成分必须是修饰该名词的短语或关系从句，不能直接再放一个谓语动词。两种改法：There are two emails to reply to.（不定式后置，介词 to 不能丢）或 There are two emails that need to be replied to.（关系从句 + 被动）。",
+      "source": "There are two emails need to reply",
+      "example": "There are two emails to reply to before Friday.",
+      "tags": [
+        "follow-up-learning",
+        "structure"
+      ],
+      "first_learned_at": "2026-11-15T12:13:41+08:00",
+      "last_learned_at": "2026-11-15T12:13:41+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:there-be-cannot-take-second-finite-verb": {
       "id": "errors:there-be-cannot-take-second-finite-verb",

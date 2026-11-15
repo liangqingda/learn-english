@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>2</td></tr>
 <tr><td>下次复习</td><td>2026-11-18 12:05</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-07 20:22</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-15 12:06</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-15 12:14</td></tr>
 </table>
 
 ## 讲解
@@ -229,6 +229,182 @@ My cousin finally bought the old farm she always wanted. She gave up every weeke
 
 </details>
 
+
+---
+
+## 练习「a price to pay」的关键语法结构
+
+**讲解要点**：
+- 名词 + 后置不定式用主动形式，表示“待做、该做、可做”
+  - `a price to pay`（要付的代价）
+  - `three reports to write`（要写三份报告）
+  - `nothing to lose`（没什么可失去的）
+- 即使名词本身是被处理的对象，也不用被动式；被动不定式只在预告“将来由某人执行”时出现
+  - `a price to be paid by the contractor`（由承包商偿付的代价）
+- there be 后面的名词只能用短语或关系从句修饰，不能直接接第二个谓语
+  - `There are two emails to reply to.`（有两封邮件要回）
+  - `There are two emails that need to be replied to.`（有两封需要回复的邮件）
+- 中文“每件事都有代价”要让事物作主语时换动词，不能用事物去 pay
+  - `Everything comes with a price to pay.`（每件事都有代价）
+- pay 的主语是付代价的人或机构，for 引出换来的东西
+  - `She paid a price for speaking first.`（她因为先开口付出了代价）
+
+### 1. 填空
+
+**题目**：用括号内动词的恰当形式填空。
+There is a price ____ (pay) for everything worth having, and most people only see it afterwards.
+
+**我的答案**：to pay
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：名词 price 的后置不定式修饰。
+2. **规则与机制**：不定式以主动形式 to pay 后置修饰 price，表示“待偿付的那笔代价”；不能写成 paying 或 to be paid 的随意变体。
+3. **英语的表达逻辑**：英语用主动不定式表达“尚待执行”，把动作的承受者留在名词位置，不切换成被动语态。
+4. **可迁移表达**：`There is a lot of work to do.`（有很多活要干）/ `She has two children to look after.`（她有两个孩子要照顾）
+
+</details>
+
+### 2. 改错
+
+**题目**：只改错处，句意不变。
+He still has three reports to writing before Monday morning.
+
+**我的答案**：He still has three reports to write before Monday morning.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：to 在本句里是不定式标志，不是介词。
+2. **规则与机制**：名词 + 后置不定式结构固定为 to + 动词原形；写成 to writing 说明把 to 误当介词，后面才接动名词。
+3. **英语的表达逻辑**：英语用 to do 表示“待完成”，用 to + 动名词只出现在少数固定搭配（look forward to doing、be used to doing），本句不属于这些搭配。
+4. **可迁移表达**：`I have three calls to make.`（我有三个电话要打）/ `We still have a room to book.`（我们还有一间房要订）
+
+</details>
+
+### 3. 单项选择
+
+**题目**：一份书面公告要预告“将来才需要偿付的赔偿”，下面哪种说法最合适？
+- A. a price to pay
+- B. a price to be paid
+- C. a price paying
+- D. a price paid
+
+**我的答案**：A
+
+**判定**：⚠️ 部分正确（搭配合法，但没有体现“将来由他人偿付”的书面意味）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：主动不定式与被动不定式在名词后置位置的分工。
+2. **规则与机制**：a price to pay 是口语与评论里的固定说法；a price to be paid 用被动不定式，强调“将来要由某人偿付”，是合同、公告、条款里的正式表达。
+3. **英语的表达逻辑**：英语用被动不定式把“执行者未出现、责任待落定”这件事编码进名词短语，语域因此显得正式。
+4. **可迁移表达**：`Any delay will incur a price to be paid by the contractor.`（任何延误都会产生由承包商偿付的代价）/ `There are still two forms to be signed.`（还有两份表格要签）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：a price to pay 与 a price to be paid 的语域差异。
+2. **为什么错**：两者语法都成立，但题目设定是书面公告、且强调的是“将来由某方偿付”，这时英语习惯用被动不定式；选 A 只表达“有代价要付”，没有交代责任与时点。
+3. **英语的表达逻辑**：英语靠不定式的语态承载“谁执行、什么时候执行”，主动式默认说话方或泛指的人，被动式把执行者留空并推向将来。
+4. **正确表达**：`a price to be paid`（待偿付的代价）；可迁移：`The fee to be paid at the end of the month is 200 yuan.`（月底要付的费用是两百元）
+
+</details>
+
+### 4. 改写
+
+**题目**：用 “come with” 和 “a price to pay” 合并成一句。
+Owning a shop on this street is profitable. You have to answer phone calls at midnight.
+
+**我的答案**：Owning a shop on this street is profitable and it comes with a price to pay.
+
+**判定**：⚠️ 部分正确（两个结构都用上了，但代价内容整段丢失）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：come with + a price to pay 承载“收益与代价同时出现”，以及用破折号补充代价内容。
+2. **规则与机制**：come with 的主语是带来代价的那件事；具体代价用破折号、冒号或 for 从句后置说明，否则句子只有结论没有内容。
+3. **英语的表达逻辑**：英语把代价当成需要具体化的名词内容，习惯先给结论 a price to pay，再把细节挂在句子末尾。
+4. **可迁移表达**：`Running a shop here comes with a price to pay — midnight calls.`（在这条街开店是有代价的：半夜的电话）/ `That salary comes with a price to pay: no weekends.`（那份薪水是有代价的：没有周末）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：用指定结构合并两句并保留两条信息。
+2. **为什么错**：结构选对了，但第二句的“半夜接电话”没有写进去，句子只剩“有代价”；另外用 and it comes with 拼接时 it 指代不清，读者无法确定是开店这件事还是街道。
+3. **英语的表达逻辑**：英语在并列两个评价时首选 but 表示转折，把代价放在后半句；指代不明时宁可重述名词也不用 it。
+4. **正确表达**：`Owning a shop on this street is profitable, but it comes with a price to pay — phone calls at midnight.`（在这条街开店很赚钱，但代价是半夜要接电话）
+
+</details>
+
+### 5. 翻译
+
+**题目**：中译英。
+我没有什么可失去的了，但每件事都有代价。
+
+**我的答案**：I have nothing to loss, but each thing paid a price for it.
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：nothing to lose 的后置不定式，以及“每件事都有代价”的主语选择。
+2. **规则与机制**：to 后面必须跟动词原形 lose；事物不能作 pay 的主语，表达“事物自带代价”要用 everything comes with a price to pay 或 there is a price to pay for everything。
+3. **英语的表达逻辑**：英语区分“人付出”（pay）与“事物伴随”（come with / there be），主语类型决定动词选择。
+4. **可迁移表达**：`I have nothing to lose.`（我没什么可失去的了）/ `Everything comes with a price to pay.`（每件事都有代价）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：名词 + 后置不定式的形式，以及 pay 与 come with 的主语分工。
+2. **为什么错**：一是 to loss 把动词写成了名词 loss，不定式后面只能接原形 lose；二是 each thing paid a price for it 让“事情”主动付代价，英语里 pay 的主语必须是人或机构，事物只能“带来”代价。
+3. **英语的表达逻辑**：英语把代价看成获益的伴随属性，事物作主语时动词是 come with；只有当事人出现时，才由当事人作主语去 pay。
+4. **正确表达**：`I have nothing to lose, but everything comes with a price to pay.`（我没什么可失去的了，但每件事都有代价）；可迁移：`There is a price to pay for every shortcut.`（每条捷径都有代价）
+
+</details>
+
+### 6. 短写作
+
+**题目**：用英文写两句话。
+这周还有两封邮件要回，而且这件事肯定有代价。
+
+**我的答案**：There are two emails need to reply and it comes with a price to pay.
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：there be + 名词 + 后置不定式，以及用 there is a price to pay 表达“肯定有代价”。
+2. **规则与机制**：There are two emails 后面只能接修饰 emails 的成分：to reply to（介词 to 不能丢）或 that need to be replied to；一句里不能再出现第二个谓语 need。
+3. **英语的表达逻辑**：英语用不定式或关系从句把一个名词“挂上动作”，而不是把动作直接并排放在名词后。
+4. **可迁移表达**：`There are two emails to reply to this week.`（这周有两封邮件要回）/ `There is certainly a price to pay for that.`（那件事肯定有代价）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：there be 结构后的名词修饰方式，以及“有代价”的存在句表达。
+2. **为什么错**：There are two emails need to reply 把 need 直接当成了第二个谓语，句子结构断裂；reply 后面还缺介词 to（邮件是“被回复”的对象）；后半句 it comes with 的 it 没有明确指代，“肯定有代价”更适合用 there is certainly a price to pay。
+3. **英语的表达逻辑**：英语靠“名词 + 不定式 / 关系从句”把动作挂在名词上，靠 there be 把“存在某笔代价”独立成句，避免一句多谓语和指代含混。
+4. **正确表达**：`There are two emails to reply to this week, and there is certainly a price to pay for it.`（这周还有两封邮件要回，而且这件事肯定有代价）
+
+</details>
 
 ---
 
