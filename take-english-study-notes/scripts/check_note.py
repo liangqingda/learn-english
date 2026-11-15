@@ -327,6 +327,12 @@ def validate_menu_section(
         )
     if not mfields and (not in_round_block or not q_positions):
         add(line_no, "每个菜单项必须有 `**讲解要点**：`，其下用列表逐条写要点")
+    if not in_round_block and q_positions:
+        add(
+            line_no,
+            "文件级讲解区只放讲解与原文，不要写习题：带习题的菜单项在日期区块里另建同名小节，"
+            "本小节只保留 `**讲解要点**：`",
+        )
     points = [
         line
         for line in intro

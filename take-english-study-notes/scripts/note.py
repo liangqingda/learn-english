@@ -5,7 +5,7 @@
     python3 take-english-study-notes/scripts/note.py explain --file <note.md> --content-file - [--update] [--check]
     python3 take-english-study-notes/scripts/note.py append --file <note.md> --content-file - [--check]
     python3 take-english-study-notes/scripts/note.py append-section --file <note.md> --heading "<# ...>" --content-file - [--check]
-    python3 take-english-study-notes/scripts/note.py append-explain-section --file <note.md> --content-file - [--check]
+    python3 take-english-study-notes/scripts/note.py append-explain-section --file <note.md> --content-file - [--rewrite] [--check]
     python3 take-english-study-notes/scripts/note.py append-explain-part --file <note.md> --section "## ..." --content-file - [--check]
     python3 take-english-study-notes/scripts/note.py append-part --file <note.md> --heading "<# ...>" --section "## ..." --content-file - [--check]
     python3 take-english-study-notes/scripts/note.py replace --file <note.md> --heading "<# ...>" --content-file - [--rewrite-section "## ..."] [--check]
@@ -238,8 +238,10 @@ def handle_append_part(args: argparse.Namespace) -> dict[str, Any]:
 def handle_append_explain_section(args: argparse.Namespace) -> dict[str, Any]:
     """把菜单项的讲解要点 / 场景对话 / 小故事写到文件级讲解区（`## 讲解` 之后）。"""
     note = store()
-    result = note.append_explain_section(args.file, read_content(args.content_file))
-    if args.check and result.get("appended_section"):
+    result = note.append_explain_section(
+        args.file, read_content(args.content_file), rewrite=args.rewrite
+    )
+    if args.check and (result.get("appended_section") or result.get("rewritten")):
         validate_after_write(note, result)
     return result
 
@@ -377,6 +379,11 @@ def build_parser() -> argparse.ArgumentParser:
     )
     append_explain_section.add_argument("--file", required=True, help="learning-record-notes/<category>-<slug>.md")
     append_explain_section.add_argument("--content-file", required=True, help="raw '## ...' Markdown section path or - for stdin")
+    append_explain_section.add_argument(
+        "--rewrite",
+        action="store_true",
+        help="replace an existing same-title file-level section instead of returning duplicate",
+    )
     append_explain_section.add_argument("--check", action="store_true", help="run the validator afterwards")
     append_explain_section.set_defaults(handler=handle_append_explain_section)
 

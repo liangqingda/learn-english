@@ -121,6 +121,29 @@ class NoteAppendTest(unittest.TestCase):
         self.assertIn("<summary>故事原文 1</summary>", text)
         self.assertIn("<summary>故事原文 2</summary>", text)
 
+    def test_append_explain_section_rewrite_replaces_only_that_section(self) -> None:
+        """`--rewrite` 用来修正首轮写错的讲解小节，其它小节与日期区块不能动。"""
+        self._note_with_explanation()
+        self.store.append_explain_section(
+            self.note, "## 对比 A 和 B\n\n**讲解要点**：\n- 旧的一条\n"
+        )
+        before = self.note.read_text(encoding="utf-8")
+        result = self.store.append_explain_section(
+            self.note,
+            "## 对比 A 和 B\n\n**讲解要点**：\n- 新的一条\n",
+            rewrite=True,
+        )
+        self.assertTrue(result["rewritten"])
+        after = self.note.read_text(encoding="utf-8")
+        self.assertIn("新的一条", after)
+        self.assertNotIn("旧的一条", after)
+        self.assertEqual(after.count("## 对比 A 和 B"), 1)
+        # 其余内容保持原样（只多了一次「笔记更新时间」的时间戳变化）
+        self.assertEqual(
+            [line for line in before.split("\n") if line.startswith("# ")],
+            [line for line in after.split("\n") if line.startswith("# ")],
+        )
+
     def test_sections_lists_file_level_explanation_sections(self) -> None:
         """`sections` 要能看到文件级讲解区，调用方才能在写入前判断是否已记录过。"""
         self._note_with_explanation()
@@ -129,8 +152,7 @@ class NoteAppendTest(unittest.TestCase):
         )
         whole = self.store.sections(self.note)
         self.assertEqual(whole["explain_sections"], ["## 讲解", "## 对比 A 和 B"])
-        result = self.store.sections(self.note, heading="")
-        self.assertIn("## 对比 A 和 B", result["explain_sections"])
+        self.assertNotIn("## 基础信息", whole["explain_sections"])
 
     def test_append_part_refuses_a_missing_section(self) -> None:
         self.store.append(self.note, round_block())

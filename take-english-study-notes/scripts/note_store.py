@@ -1030,11 +1030,15 @@ class NoteStore:
             "bytes": len(composed.encode("utf-8")),
         }
 
-    def append_explain_section(self, path: str, content: str) -> dict[str, Any]:
+    def append_explain_section(
+        self, path: str, content: str, *, rewrite: bool = False
+    ) -> dict[str, Any]:
         """在文件级讲解区（``## 讲解`` 之后、所有日期区块之前）追加一个 ``## 小节``。
 
         菜单项的讲解要点只在第一轮写一次，重复选择同一项时不再新建小节；
         已存在同名小节时返回 ``duplicate``，调用方据此停止重复记录。
+        ``rewrite=True`` 时改成就地替换这个同名小节（用于修正首轮写错的内容），
+        别的小节一字不动。
         """
         target = self.resolve(path)
         section = _normalize_text(content).strip("\n")
@@ -1061,6 +1065,10 @@ class NoteStore:
                 )
             for index in range(explain_start + 1, area_end):
                 if lines[index].strip() == first:
+                    if rewrite:
+                        return self._rewrite_explain_section(
+                            target, lines, index, area_end, section, first
+                        )
                     return {
                         "ok": True,
                         "appended_section": False,
@@ -1088,6 +1096,45 @@ class NoteStore:
             "file": self.relative(target),
             "section": first,
             "blocks": blocks,
+            "bytes": len(composed.encode("utf-8")),
+        }
+
+    def _rewrite_explain_section(
+        self,
+        target: Path,
+        lines: list[str],
+        section_start: int,
+        area_end: int,
+        section: str,
+        first: str,
+    ) -> dict[str, Any]:
+        """就地替换讲解区的一个同名小节，尾部空行与后续小节保持原样。"""
+        section_end = next(
+            (
+                index
+                for index in range(section_start + 1, area_end)
+                if lines[index].startswith("## ")
+            ),
+            area_end,
+        )
+        while section_end > section_start + 1 and not lines[section_end - 1].strip():
+            section_end -= 1
+        merged = _normalize_detail_summaries(_normalize_text(section))
+        after = lines[section_end:]
+        spacer = [""] if after and after[0].strip() else []
+        composed = "\n".join(
+            lines[:section_start] + merged.split("\n") + spacer + after
+        ).rstrip("\n") + "\n"
+        composed = _bump_updated_at(composed, datetime.now())
+        self._write(target, composed)
+        return {
+            "ok": True,
+            "appended_section": False,
+            "rewritten": True,
+            "duplicate": False,
+            "file": self.relative(target),
+            "section": first,
+            "blocks": _count_blocks(composed),
             "bytes": len(composed.encode("utf-8")),
         }
 

@@ -29,7 +29,7 @@ description: 复习笔记（`learning-record-notes/*.md`）的唯一 owner：何
 ```bash
 python3 take-english-study-notes/scripts/note.py explain        --file learning-record-notes/<category>-<slug>.md --content-file - [--update] [--check]
 python3 take-english-study-notes/scripts/note.py append         --file learning-record-notes/<category>-<slug>.md --content-file - [--check]
-python3 take-english-study-notes/scripts/note.py append-explain-section --file learning-record-notes/<category>-<slug>.md --content-file - [--check]
+python3 take-english-study-notes/scripts/note.py append-explain-section --file learning-record-notes/<category>-<slug>.md --content-file - [--rewrite] [--check]
 python3 take-english-study-notes/scripts/note.py append-explain-part    --file learning-record-notes/<category>-<slug>.md --section "## <小节标题>" --content-file - [--check]
 python3 take-english-study-notes/scripts/note.py append-section --file learning-record-notes/<category>-<slug>.md --heading "<# ...>" --content-file - [--check]
 python3 take-english-study-notes/scripts/note.py append-part    --file learning-record-notes/<category>-<slug>.md --heading "<# ...>" --section "## <小节标题>" --content-file - [--check]
@@ -46,7 +46,7 @@ python3 take-english-study-notes/scripts/note.py check --all [--fix]
   `append-explain-part`（往文件级小节末尾补第二段故事 / 对话原文）、`append-section`（往日期区块加带习题的菜单项）、
   `append-part`（往日期区块既有小节末尾补一段）还是 `replace --rewrite-section`，不要拼好大段内容再被拒。
 - 讲解型内容（讲解要点、对比、场景对话、小故事）一律写 `## 讲解` 之后；日期区块只放 `## 本轮习题` 与带习题的菜单项。
-  同一个菜单项重复选中时，除场景对话与小故事外不再记录：`append-explain-section` 返回 `duplicate: true` 就停手。
+  同一个菜单项重复选中时，除场景对话与小故事外不再记录：`append-explain-section` 返回 `duplicate: true` 就停手；首轮讲解写错则加 `--rewrite` 就地替换该小节。
 - 场景对话 / 小故事只有一段原文时 summary 写 `场景对话原文` / `故事原文`（不编号、块前不写标签行）；
   出现第二段起第一段改成 `场景对话原文 1` / `故事原文 1`，其余按 `2`、`3`… 编号，写入命令会自动完成改名。
 - `explain --update` 有两种语义：文件已有 `## 讲解` 时只替换该小节；文件没有 `## 讲解` 时把这一节插入到 `## 基础信息` 表之后、所有日期区块之前（返回 `inserted: true`），不覆盖任何已有内容。补讲解一律用它，不要用 `Write` 或 `replace` 手动插小块。

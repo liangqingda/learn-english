@@ -275,6 +275,15 @@ class NoteContentValidationTest(unittest.TestCase):
         )
         self.assertEqual(self.check(text), [])
 
+    def test_file_level_menu_section_with_exercises_is_rejected(self) -> None:
+        text = note_with_explanation().replace(
+            "\n# 2026-11-07 12:00 · 复习",
+            "\n## 用 out west 做翻译练习\n\n**讲解要点**：\n- 方位短语保持分写\n\n"
+            "### 1. 翻译\n\n**题目**：中译英。\n\n**我的答案**：She headed out west.\n"
+            "\n# 2026-11-07 12:00 · 复习",
+        )
+        self.assert_caught(text, "不要写习题")
+
     def test_menu_section_before_explanation_is_rejected(self) -> None:
         text = note_with_explanation().replace(
             "## 讲解",
