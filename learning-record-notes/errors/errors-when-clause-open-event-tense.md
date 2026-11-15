@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>3</td></tr>
 <tr><td>下次复习</td><td>2026-11-18 21:09</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-15 21:09</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-16 07:24</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-16 07:55</td></tr>
 </table>
 
 ## 讲解
@@ -33,7 +33,6 @@
 
 复习历史：
 <!-- round-index -->
-- [2026-11-16 07:22 · 练习](#round-2026-11-16-0722)
 - [2026-11-15 21:09 · 复习](#round-2026-11-15-2109)
 <!-- /round-index -->
 
@@ -229,22 +228,12 @@ Last month the railway announced a new station, and the town is already arguing 
 
 # 2026-11-16 07:22 · 练习
 
-## 本轮习题 <a id="round-2026-11-16-0722"></a>
+## 练习「when 从句描述开业事件的动词和时态」的关键语法结构 <a id="practice-2026-11-16-0722-c2de7a43"></a>
 
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
 <tr><td>复习时间</td><td>2026-11-16 07:22</td></tr>
 <tr><td>分类 · 状态变化</td><td>errors · 未入库</td></tr>
-<tr><td>本轮得分</td><td>7 / 10</td></tr>
-<tr><td>题量与错题数</td><td>6 题 / 4 处错误</td></tr>
-</table>
-
----
-
-## 练习「when 从句描述开业事件的动词和时态」的关键语法结构 <a id="practice-2026-11-16-0722-c2de7a43"></a>
-
-<table style="border-collapse:collapse;width:auto">
-<colgroup><col width="150"><col></colgroup>
 <tr><td>本轮得分</td><td>7 / 10</td></tr>
 <tr><td>题量与错题数</td><td>6 题 / 4 处错误</td></tr>
 </table>
@@ -413,6 +402,10 @@ When the new library just open, there was only one reading room.
 
 </details>
 
+
+---
+
+---
 
 ---
 

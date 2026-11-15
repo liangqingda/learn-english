@@ -1219,8 +1219,6 @@ def check(path: Path) -> list[dict]:
             )
 
         group_heads = [k for k, l in enumerate(body) if SECTION2_RE.match(l)]
-        if not group_heads:
-            add(start, "区块内缺少 `## 本轮习题`")
 
         for k in range(0, group_heads[0] if group_heads else len(body)):
             stripped = body[k].strip()
@@ -1258,8 +1256,8 @@ def check(path: Path) -> list[dict]:
             (i for i, (_, title, _) in enumerate(groups) if title == QUIZ_SECTION), None
         )
         if quiz_index is None:
-            if group_heads:  # 一个二级标题都没有时只报一次，避免重复提示
-                add(start, "区块内缺少 `## 本轮习题`")
+            if not group_heads:  # 一个二级标题都没有时只报一次，避免重复提示
+                add(start, "区块内缺少题组：既没有 `## 本轮习题`，也没有任何带标题的题组小节")
         elif quiz_index != 0:
             add(
                 start + groups[quiz_index][0] + 1,
@@ -1268,9 +1266,14 @@ def check(path: Path) -> list[dict]:
 
         quiz_tracking: dict[str, str] = {}
         menu_trackings: dict[str, dict[str, str]] = {}
+        # 轮次信息表挂在区块的第一组上：题目没有菜单项标题时用 `## 本轮习题` 兜底，
+        # 题目本身带菜单项标题（如「练习「…」的关键语法结构」）时就直接挂在该标题下。
+        round_group = (
+            QUIZ_SECTION if quiz_index is not None else (groups[0][1] if groups else "")
+        )
         for g_start, g_title, g_end in groups:
             row_line = start + g_start + 1
-            if g_title == QUIZ_SECTION:
+            if g_title == round_group:
                 quiz_tracking, quiz_row_lines = validate_section_table(
                     add,
                     body,
@@ -1368,7 +1371,7 @@ def check(path: Path) -> list[dict]:
             validate_menu_section(add, line_no, g_title, section_text, in_round_block=True)
 
         if kind == "练习" and not any(QUESTION_RE.match(line) for line in body):
-            add(start, "练习区块必须有题目：菜单项小节里至少写一道 `### <n>. <题型>`")
+            add(start, "练习区块必须有题目：在本轮题组小节里至少写一道 `### <n>. <题型>`")
 
         # 7. 逐组、逐题校验（每组题号都从 1 开始，练习与主习题共用同一套模板）
         for g_start, g_title, g_end in groups:
@@ -1376,8 +1379,9 @@ def check(path: Path) -> list[dict]:
             errors_count = 0
             unanswered_count = 0
             if not q_all:
-                # 只有纯练习轮次允许 `## 本轮习题` 只带信息表：题目按菜单项分节写在各自小节里
-                if g_title == QUIZ_SECTION and kind != "练习":
+                # `## 本轮习题` 用来兜住没有菜单项标题的题组，它必须承载本轮实际做过的题目；
+                # 题目自带菜单项标题时该轮不写 `## 本轮习题`，题组直接落在那个标题之下。
+                if g_title == QUIZ_SECTION:
                     add(start, "`## 本轮习题` 内没有任何 `### <n>. <题型>` 题目")
                 continue
             for order, q_pos in enumerate(q_all, start=1):
@@ -1531,11 +1535,11 @@ def check(path: Path) -> list[dict]:
                         add(base_line, hint + " / ".join(str(label) for label in expected_labels))
 
             group_tracking = (
-                quiz_tracking if g_title == QUIZ_SECTION else menu_trackings.get(g_title, {})
+                quiz_tracking if g_title == round_group else menu_trackings.get(g_title, {})
             )
             counts_value = group_tracking.get("题量与错题数", "")
             if counts_value:
-                scope = "本轮" if g_title == QUIZ_SECTION else "本小节"
+                scope = "本轮" if g_title == round_group else "本小节"
                 counts_match = COUNTS_RE.match(counts_value)
                 if counts_match:
                     declared_total = int(counts_match.group("total"))

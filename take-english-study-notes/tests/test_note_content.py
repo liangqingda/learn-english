@@ -273,24 +273,14 @@ def menu_practice_scored(
 
 
 def practice_note_text(*, menu_counts: str = "1 题 / 0 处错误") -> str:
-    """练习轮次：本轮得分只写笔记，`## 本轮习题` 只带信息表，题目按菜单项分节。"""
+    """练习轮次：题目自带菜单项标题，该轮不写 `## 本轮习题`，轮次信息表挂在该小节标题下。"""
     base = note_text().replace(
         "# 2026-11-07 12:00 · 复习", "# 2026-11-07 12:00 · 练习"
     ).replace("errors · learning → familiar", "errors · 未入库")
     head, _sep, rest = base.partition("## 本轮习题\n\n")
     table_end = rest.index("</table>") + len("</table>\n\n")
-    return (
-        head
-        + "## 本轮习题\n\n"
-        + rest[:table_end]
-        + "## 练习「out west」的关键语法结构\n\n"
-        '<table style="border-collapse:collapse;width:auto">\n'
-        '<colgroup><col width="150"><col></colgroup>\n'
-        "<tr><td>本轮得分</td><td>9 / 10</td></tr>\n"
-        f"<tr><td>题量与错题数</td><td>{menu_counts}</td></tr>\n"
-        "</table>\n\n"
-        + rest[table_end:]
-    )
+    table = rest[:table_end].replace("1 题 / 0 处错误", menu_counts)
+    return head + "## 练习「out west」的关键语法结构\n\n" + table + rest[table_end:]
 
 
 def with_file_level_section(base: str, section: str) -> str:
