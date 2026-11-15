@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 237,
+  "revision": 252,
   "category": "grammar",
   "records": {
     "grammar:alternative-question-a-or-b": {
@@ -704,6 +704,30 @@
       ],
       "first_learned_at": "2026-11-12T07:27:41+08:00",
       "last_learned_at": "2026-11-12T07:27:41+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:quantity-phrase-countability-boundary": {
+      "id": "grammar:quantity-phrase-countability-boundary",
+      "category": "grammar",
+      "key": "quantity-phrase-countability-boundary",
+      "status": "learning",
+      "title": "量词短语的可数性边界：a little bit of / a bit of / a little / a few / some",
+      "explanation": "英语先看名词是可数还是不可数，再选限定词。不可数名词可用 a little bit of、a bit of、a little、some、a small amount of；复数可数名词只能用 a few、some、several。a little bit of 与 a bit of 意思相同、都可接不可数名词，a bit of 更短更随意；a little 直接接不可数名词，不带 of；a little of 只有在后面还有限定词或代词时才成立（a little of that wine）。a little bit 还能修饰形容词，此时不带 of。",
+      "source": "We still have a little bit of time.",
+      "example": "There are only a few chairs left, so there is a little bit of space by the window.",
+      "tags": [
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-11-15T11:01:04+08:00",
+      "last_learned_at": "2026-11-15T11:01:04+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

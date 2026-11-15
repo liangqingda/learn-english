@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-18 10:52</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-09 20:35</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-15 10:54</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-15 11:01</td></tr>
 </table>
 
 ## 讲解
@@ -180,3 +180,25 @@ Don't worry, there is still ____ water in the bottle.
 4. **正确表达**：`There are a few tomatoes in the fridge.`（冰箱里有几个西红柿。）可迁移：`There are a few eggs and a little bit of milk in the fridge.`（冰箱里有几个鸡蛋和一点牛奶。）
 
 </details>
+
+## 对比「a little bit 后接名词时缺少 of」和相近表达
+
+**讲解要点**：
+- a little bit of 与 a bit of 表意相同，都可接不可数名词；a bit of 更短更随口，a little bit of 更强调“就一丁点”
+  - `We only need a bit of salt.`（我们只要一点盐。）
+  - `We only need a little bit of salt.`（我们只要一丁点盐。）
+- a little 直接接不可数名词，不带 of，语气中性、书面同样可用
+  - `There is a little water left.`（还剩一点水。）
+  - `She has a little time this afternoon.`（她今天下午有一点时间。）
+- a little of 只有在后面还带限定词或代词时才成立
+  - `Would you like a little of this soup?`（你想喝一点这个汤吗？）
+  - `a little of water` 不成立，光杆名词写作 `a little water`
+- a little bit 修饰形容词时不再带 of，of 只属于名词搭配
+  - `The tea is a little bit hot.`（茶有点烫。）
+  - `I'm a little bit tired today.`（我今天有点累。）
+- a few 与 a little bit of 的区别不在“多少”，而在名词类别：前者数个体，后者量内容
+  - `Only a few students came.`（只来了几个学生。）
+  - `There is a little bit of milk left.`（还剩一点牛奶。）
+- some 对可数与不可数通用，语气最中性；a small amount of 是 a little bit of 的正式版本
+  - `Some chairs are broken.`（有些椅子坏了。）
+  - `The report shows a small amount of progress.`（报告显示有少量进展。）
