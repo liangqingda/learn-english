@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>3</td></tr>
 <tr><td>下次复习</td><td>2026-11-18 21:09</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-15 21:09</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-15 21:10</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-15 21:13</td></tr>
 </table>
 
 ## 讲解
@@ -35,6 +35,31 @@
 <!-- round-index -->
 - [2026-11-15 21:09 · 复习](#round-2026-11-15-2109)
 <!-- /round-index -->
+
+## 看一套围绕「when 从句描述开业事件的动词和时态」的完整场景对话
+
+**讲解要点**：
+- 回忆“某处刚开业的时候”，when 从句的动词必须落在 open 上，用 opened 或 had just opened，不能用 close，也不能留原形。
+  - I still remember when the bakery had just opened.（我还记得这家面包店刚开业的时候）
+  - When the cinema opened in 1998, tickets cost only two yuan.（这家影院 1998 年开业的时候，票价只有两块钱）
+- 从句落到过去完成时后，主句描述当时场景也要留在过去时域。
+  - When the shop had just opened, there was only one bench outside.（那家店刚开业的时候，门外只有一条长椅）
+- 叙述“开业那一年”这种单一事件，用一般过去时 open + in + 年份，不用进行体。
+  - The bakery opened in 2016 and has been busy ever since.（这家面包店 2016 年开业，从那以后一直很忙）
+
+<details>
+<summary>场景对话原文</summary>
+
+- **Maggie**：Every time I walk down this street, I still remember when the little bakery **had just opened**.
+- **Tom**：Same here. It **opened** in 2016, didn't it? The whole street smelled of fresh bread for weeks.
+- **Maggie**：That's right. Back then there was only one bench outside, and the owner kept handing out free samples.
+- **Tom**：My mother still talks about when it **had just opened** and she queued for an hour just for a birthday cake.
+- **Maggie**：I used to say "when it just close" until my teacher corrected me.
+- **Tom**：Right — you can't use close there. **Close** means shutting down, the opposite direction.
+- **Maggie**：So it's "when it **had just opened**", because by the time we walked in, the opening was already finished.
+- **Tom**：Exactly. And the main clause stays in the past too: when it **had just opened**, **there was** only a bench and a tiny counter.
+
+</details>
 
 # 2026-11-15 21:09 · 复习
 
