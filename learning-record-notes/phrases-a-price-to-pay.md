@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>2</td></tr>
 <tr><td>下次复习</td><td>2026-11-18 12:05</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-07 20:22</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-15 12:17</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-15 12:18</td></tr>
 </table>
 
 ## 讲解
@@ -445,6 +445,46 @@ Owning a shop on this street is profitable. You have to answer phone calls at mi
 - **Priya**：Probably. But I've learned one thing: nobody pays that kind of price for something they don't really want.
 
 </details>
+
+---
+
+## 读一个围绕「a price to pay」的小故事
+
+**讲解要点**：
+- there was a price to pay：代价作为事后发现的事实被交代出来，用过去时最自然。
+  - `She learned there was a price to pay: two hundred euros less every month.`（她发现是有代价的：每月少了二百欧元）
+- sth comes with a price to pay：用伴随结构把代价挂在某个具体安排上，主语是那件事本身。
+  - `Every Saturday morning came with a price to pay.`（每个周六早晨都带着代价）
+- a price to pay for + 名词：for 引出“换来的是什么”，代价与收益一一对应。
+  - `There was a price to pay for the day shift.`（白班是要付代价的）
+- a price worth paying：判断值不值，worth 后接动名词，不接不定式。
+  - `Some prices are worth paying in full.`（有些代价值得全额付清）
+
+**故事原文**：
+
+<details>
+<summary>故事原文</summary>
+
+For eleven years Marta cooked the night meals at a hospital in Zaragoza. When the day shift finally opened, she learned there was **a price to pay**: two hundred euros less every month. She signed the form anyway, because she wanted to eat dinner with her son.
+十一年里，玛尔塔都在萨拉戈萨一家医院做夜班餐食。白班名额终于空出来时，她发现是有代价的：每月少二百欧元。她还是签了字，因为她想和儿子一起吃晚饭。
+
+The first weeks felt like a gift. Then the quiet hours began to disappear. Her son's football matches fell on her new shift, and every Saturday morning **came with a price to pay** — a message from the coach saying the team had won without her watching. She kept those messages in a folder, as if they were receipts.
+头几周像是一份礼物。随后，安静的时间开始消失。儿子的足球赛正好排在她的新班次上，每个周六早晨都带着代价：教练发来消息，说球队赢了，而她没能到场。她把这些消息存在一个文件夹里，像收藏收据一样。
+
+In March her mother fell at home and needed someone there in the afternoons. Marta asked for three weeks off. The manager said the day shift was a package deal; **there was a price to pay** for it, and three weeks away would cost her the post. She hung up and looked at the rota pinned to her fridge.
+三月里，母亲在家摔倒，下午需要有人在家。玛尔塔请了三周假。经理说白班是个整包安排，是有代价的，离开三周就会失去这个位置。她挂了电话，盯着贴在冰箱上的排班表。
+
+She stayed on the day shift and paid a neighbour to sit with her mother after lunch. Six months later her son scored his first goal, and she was there, standing behind the fence in wet shoes. Some prices, she told her sister later, **are worth paying in full**.
+她留在了白班，并付钱请邻居午饭后去陪母亲。六个月后，儿子进了人生第一个球，她就在场，湿着鞋站在围栏后面。后来她跟妹妹说，有些代价值得全额付清。
+
+</details>
+
+| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |
+|---|---|---|
+| she learned there was a price to pay | 白班不是净赚，代价在事后才显形 | 用 there was 把代价当成客观事实交代，比 she had to pay 更冷静，也不需要点明谁付 |
+| every Saturday morning came with a price to pay | 代价黏在具体的时间安排上，反复出现 | come with 的主语是“周六早晨”这件事，若改成 I paid a price every Saturday 就把叙述焦点从制度挪到个人，故事的时间感会断 |
+| there was a price to pay for it | 支出与所得一一对应：想要白班，就得接受整包条件 | for 引出“换来的东西”，比 at the cost of 更口语，也更符合经理的口气 |
+| some prices are worth paying in full | 收尾处给代价一个判断：值 | worth 后接动名词是固定结构，换成 are worthy to pay 不合语法，换成 I accept the price 又失去了“值不值”的判断 |
 
 ---
 
