@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>3</td></tr>
 <tr><td>下次复习</td><td>2026-11-18 21:09</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-15 21:09</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-15 21:16</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-15 21:17</td></tr>
 </table>
 
 ## 讲解
@@ -87,7 +87,7 @@
   - When the shop had just opened, three shelves and one lamp were all it had.（那家店刚开业时，三排书架和一盏灯就是它的全部）
 
 <details>
-<summary>故事原文</summary>
+<summary>故事原文 1</summary>
 
 The first time I came back to that narrow street, the old bookshop was still standing, though its windows had gone blind with dust. My grandmother had run it for thirty years, and she never stopped talking about **when the shop had just opened**. I was seven then, and I still remember the morning she pulled the shutters up for the first time. There were three shelves, one lamp, and a cat that refused to leave the doorway.
 第一次回到那条窄街时，那家旧书店还立着，只是橱窗已被灰尘蒙得看不清了。奶奶经营了它三十年，总在念叨这家店刚开业的时候。那时我七岁，我还记得她第一次拉起卷帘门的那天早上。店里只有三排书架、一盏灯，还有一只赖在门口不走的猫。
@@ -109,6 +109,30 @@ Last winter the town decided to tear the whole row down for a new road. I stood 
 | 第 2 段：When the shop had just opened, the whole town was still loyal to the bigger store | 用刚开业的时间点给慢生意做背景 | 换成过去进行时 was opening 会读成“正在开门的那一瞬”，撑不起整段背景 |
 | 第 3 段：my grandmother opened a second room in 2004 | 交代 2004 年这一次扩建事件 | 换成 had opened 会和前文的回忆基线打架，这里只需要一个已完成的过去事件 |
 | 第 4 段：when the shop had just opened, there was almost nothing in it | 站在今天回忆当年的起点 | 换成现在时 there is 会把“当年什么都没有”读成现在的事实 |
+
+<details>
+<summary>故事原文 2</summary>
+
+The bus dropped me at the harbor before six, and the whole village was still asleep. I had not been back since the spring when my father's workshop had just opened. Back then the shed was so narrow that two boats could not be pulled in on the same day. I remember him holding a wrench in one hand and a paper cup of tea in the other, waiting for a hull that nobody had brought yet.
+六点前大巴把我放在港口，整个村子还在睡。自从我父亲那间修船棚刚开业的那个春天之后，我就没回来过。那时候棚子窄得一天进不了两条船。我记得他一手扳手、一手纸杯茶，等着一条还没人送来的船壳。
+
+The first summer was the hardest. **When the workshop had just opened**, every fisherman still trusted the old yard across the bay, and my father's tools sat untouched for weeks. He would sweep the floor twice a day just to have something to do. At night he wrote down every name he had heard and every repair he had watched, filling a notebook nobody asked to read.
+第一个夏天最难。那间修船棚刚开业的时候，每个渔民都还信任海湾对面那间旧船厂，父亲的工具放了好几周没人动。他一天扫两次地，只为有点事做。晚上他把听来的名字、看过的修理都记下来，写满一本没人要看的小本子。
+
+Then a typhoon changed everything. Three boats cracked along the same line, and the old yard was booked for a month. My father **opened** his doors at four in the morning and finished all three hulls in nine days. By the end of that season, fishermen were tying their ropes outside his shed before sunrise.
+后来一场台风改变了一切。三条船在同一条线上裂开，旧船厂排到了一个月的工期。父亲凌晨四点开门，九天里把三个船壳都修好。到那个季节末，渔民们天不亮就把缆绳系在他的棚子外面。
+
+Last week the village finally paved the road and tore down the shed's wooden roof. I stood in the rain where the bench used to be and tried to bring back **when the workshop had just opened**: one bench, one wrench, one cup of tea. The shed will be a parking lot by winter, but every time I tell people about my father, I start in the same place — when the workshop had just opened, there was nothing in it but a man who was willing to wait.
+上周村里终于铺了路，也拆掉了棚子的木顶。我站在雨里、在那张长凳原来的位置，努力回想起修船棚刚开业的时候：一张长凳、一把扳手、一杯茶。到冬天这里会变成一个停车场，可每次我讲起父亲，我都从同一个地方讲起——那间修船棚刚开业时，里面什么都没有，只有一个愿意等的人。
+
+</details>
+
+| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |
+|---|---|---|
+| 第 1 段：I had not been back since the spring when my father's workshop had just opened | 用“刚开业那个春天”给整段回忆定基线 | 换成 opened 只报一个事件时间，回忆基线就退成普通年份 |
+| 第 2 段：When the workshop had just opened, every fisherman still trusted the old yard | 交代刚开业时的冷清处境 | 换成 was opening 会读成“正在开门那一刻”，撑不起一个夏天的时间段 |
+| 第 3 段：My father opened his doors at four in the morning | 描述台风季里那一次开门营业的动作 | 换成 had opened 会把动作推到更早的过去，与前一句的时间线错位 |
+| 第 4 段：when the workshop had just opened, there was nothing in it but a man who was willing to wait | 站在今天回到起点做收尾 | 换成现在时 there is 会让“当年空无一物”变成今天的描写，回忆感消失 |
 
 # 2026-11-15 21:09 · 复习
 
