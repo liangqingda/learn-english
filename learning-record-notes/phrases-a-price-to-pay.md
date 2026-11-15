@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>2</td></tr>
 <tr><td>下次复习</td><td>2026-11-18 12:05</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-07 20:22</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-15 12:18</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-15 12:23</td></tr>
 </table>
 
 ## 讲解
@@ -447,6 +447,29 @@ Owning a shop on this street is profitable. You have to answer phone calls at mi
 </details>
 
 ---
+
+**完整场景对话 2**：
+
+<details>
+<summary>场景对话原文 2</summary>
+
+- **Hector**：You're in the pool before six. That's not normal for a father of two.
+- **Sam**：My wife works nights this month. If I train now, I'm home before the kids wake up.
+- **Hector**：And you're still doing the triathlon in June?
+- **Sam**：I am. Which means there is **a price to pay** — sleep, mostly.
+- **Hector**：How much sleep?
+- **Sam**：Five hours. Maybe six on Sunday.
+- **Hector**：Five hours for four months. You'll **pay a price for that** in your knees, not your alarm clock.
+- **Sam**：I know. My physio said the same thing last week.
+- **Hector**：Then why June and not September?
+- **Sam**：Because September **comes with a price to pay** too — my daughter starts school, and every morning would be hers.
+- **Hector**：That's honest, at least.
+- **Sam**：I keep a list on my phone of what I'm giving up. My wife calls it my receipts folder.
+- **Hector**：Mine was a notebook. Eight hundred pages, forty years.
+- **Sam**：Was it worth it?
+- **Hector**：Some of it. The yellow pages, the ones with the races, those were **prices worth paying**. The rest I just paid because I didn't know how to stop.
+
+</details>
 
 ## 读一个围绕「a price to pay」的小故事
 
