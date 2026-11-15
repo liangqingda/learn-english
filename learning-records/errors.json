@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 256,
+  "revision": 257,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -2117,6 +2117,31 @@
       ],
       "first_learned_at": "2026-11-08T14:39:49+08:00",
       "last_learned_at": "2026-11-08T14:39:49+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:everyone-who-third-person-agreement": {
+      "id": "errors:everyone-who-third-person-agreement",
+      "category": "errors",
+      "key": "everyone-who-third-person-agreement",
+      "status": "learning",
+      "title": "Everyone who ... 后谓语未用第三人称单数",
+      "explanation": "everyone / anyone 作先行词时视为单数，定语从句里的谓语要用 wants / has 这类第三人称单数形式，不能跟 who 后面直接接原形。",
+      "source": "Everyone who want to stay at the table",
+      "example": "Anyone who wants to stay in the game has to pay a price.",
+      "tags": [
+        "agreement",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-15T12:05:12+08:00",
+      "last_learned_at": "2026-11-15T12:05:12+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -4897,6 +4922,57 @@
       "review_history": [],
       "key": "preserve-pronoun-gender-in-translation"
     },
+    "errors:price-to-pay-meaning-as-cost": {
+      "id": "errors:price-to-pay-meaning-as-cost",
+      "category": "errors",
+      "key": "price-to-pay-meaning-as-cost",
+      "status": "learning",
+      "title": "a price to pay 被理解成额外收益",
+      "explanation": "a price to pay 指为了得到某样东西而必须承受的代价、损失或后果，不是伴随而来的额外收入。语义核心是“付出去的”，方向与 gain 相反。",
+      "source": "A. It gives you extra money along with the benefit.",
+      "example": "A promotion can come with a price to pay: evenings and weekends gone.",
+      "tags": [
+        "meaning",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-15T12:05:12+08:00",
+      "last_learned_at": "2026-11-15T12:05:12+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:price-to-pay-noun-vs-pay-a-price": {
+      "id": "errors:price-to-pay-noun-vs-pay-a-price",
+      "category": "errors",
+      "key": "price-to-pay-noun-vs-pay-a-price",
+      "status": "learning",
+      "title": "名词短语 a price to pay 与动词短语 pay a price 混用",
+      "explanation": "两者都成立但结构不同：a price to pay 是名词短语，动词不定式 to pay 后置修饰 price，常放进 there is / come with 句型；pay a price for sth 是动词短语，主语是付出代价的人。改写题要求用名词短语时不能换成动词句，且 pay a price for the farm 会被读成“花钱买下农场”，丢掉“放弃周末”这层代价。",
+      "source": "My cousin paid a high price for his ld farm.",
+      "example": "My cousin finally got the old farm she wanted, but there was a price to pay — two years of weekends.",
+      "tags": [
+        "collocation",
+        "review-error",
+        "structure"
+      ],
+      "first_learned_at": "2026-11-15T12:05:12+08:00",
+      "last_learned_at": "2026-11-15T12:05:12+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:problem-with-pronunciation-collocation": {
       "id": "errors:problem-with-pronunciation-collocation",
       "category": "errors",
@@ -5914,6 +5990,31 @@
         }
       ],
       "key": "specific-known-plural-noun-use-the"
+    },
+    "errors:stay-in-the-game-not-at-the-table": {
+      "id": "errors:stay-in-the-game-not-at-the-table",
+      "category": "errors",
+      "key": "stay-in-the-game-not-at-the-table",
+      "status": "learning",
+      "title": "“留在牌桌上”译成 stay at the table",
+      "explanation": "stay in the game 才是英语里“留在竞争/牌局里、没有被淘汰”的固定说法；at the table 只表示人在桌子旁边这个物理位置。",
+      "source": "stay at the table",
+      "example": "Anyone who wants to stay in the game has to pay a price.",
+      "tags": [
+        "idiom",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-15T12:05:12+08:00",
+      "last_learned_at": "2026-11-15T12:05:12+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:sudden-adjective-not-suddenly-before-noun": {
       "id": "errors:sudden-adjective-not-suddenly-before-noun",

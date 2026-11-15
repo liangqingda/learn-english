@@ -4,21 +4,233 @@
 <colgroup><col width="150"><col></colgroup>
 <tr><td>记录 ID / 试卷 ID</td><td>phrases:a-price-to-pay</td></tr>
 <tr><td>目标知识点</td><td>a price to pay</td></tr>
-<tr><td>累计复习次数</td><td>1</td></tr>
-<tr><td>下次复习</td><td>2026-11-10 20:22</td></tr>
+<tr><td>累计复习次数</td><td>2</td></tr>
+<tr><td>下次复习</td><td>2026-11-18 12:05</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-07 20:22</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-09 20:38</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-15 12:06</td></tr>
 </table>
 
 ## 讲解
 
 **核心含义**：
+- a price to pay：为了得到某样东西而必须承受的代价、损失或后果，落点在“要付出什么”，而不是“能拿到什么”。
+- 这里的 price 是抽象代价（时间、健康、隐私、自由、关系），与金额、标价无关。
 
-- 本条为历史知识点补建笔记：建笔记时还没有生成过讲解，正文留空待补。
+**使用场景与语气**：
+- 用于事后评议某个选择、机会或成就的另一面，语气偏认命、提醒或冷静的总结。
+- 常出现在职业、生活与议论文话题里；口语开场常用 Well, there's 或 There's always。
 
-**待补充**：
+**结构与搭配**：
+- a price to pay 是名词短语，动词不定式 to pay 后置修饰 price，不可改成 a price paying。
+- 存在句与伴随结构：There is a price to pay for sth. / Sth comes with a price to pay.
+- 动词短语 pay a price for sth. 的主语是付出代价的人：He paid a high price for that promotion.
+- 程度修饰放在 price 前：a heavy / big / high price to pay。
 
-- 下次讲解或复习这条知识点时，按本记录的分类补写本节；补全后用 `note.py explain --update` 替换这段占位内容。
+**容易混淆**：
+- pay a price for the farm 会被读成“为农场花了大价钱”，要表达“放弃两年周末”这类代价必须用名词短语：there was a price to pay — two years of weekends.
+- at the cost of 是介词短语，侧重“以…为牺牲”，后接名词或动名词：at the cost of her weekends.
+
+**可迁移表达**：
+- There is a price to pay for saying yes to everything.（对什么都答应，是要付代价的）
+- Fame came with a price to pay — her privacy.（成名是有代价的：她的隐私）
+- He paid a high price for that promotion.（他为那次升职付出了高昂的代价）
+- Nobody stays in the game without paying a price.（没有谁是不付代价就留在牌桌上的）
+
+# 2026-11-15 12:05 · 复习
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>复习时间</td><td>2026-11-15 12:05</td></tr>
+<tr><td>分类 · 状态变化</td><td>phrases · learning → learning</td></tr>
+<tr><td>本轮得分</td><td>6 / 10</td></tr>
+<tr><td>题量与错题数</td><td>7 题 / 4 处错误</td></tr>
+</table>
+
+## 本轮习题
+
+### 1. 单项选择
+
+**题目**：英语里说某事 “comes with a price to pay”，意思最接近下面哪一项？
+- A. It gives you extra money along with the benefit.
+- B. It brings a cost or loss you have to accept together with the benefit.
+- C. It requires you to book it in advance.
+- D. It comes with a discount you can use later.
+
+**我的答案**：A
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：a price to pay 的语义方向，以及 come with 引出抽象代价的搭配。
+2. **规则与机制**：price 在这个固定搭配里是抽象代价（时间、健康、隐私），pay 指付出，整个短语的方向是“失去”，与收入方向相反。
+3. **英语的表达逻辑**：英语把代价当作附着在获益之上的伴随成分，用 with 表示两者同时出现，当事物（升职、成名、捷径）作主语。
+4. **可迁移表达**：`A promotion can come with a price to pay: evenings and weekends gone.`（升职可能自带代价：夜晚和周末都没了）/ `The shortcut comes with a price to pay.`（这条捷径是有代价的）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：a price to pay 在 come with 结构里的抽象含义。
+2. **为什么错**：把 price 读回最熟悉的“价格、金钱”，又把 pay 理解成“被支付”，于是把这句听成“附带额外给钱”，把代价读成了收益。
+3. **英语的表达逻辑**：当事物作主语时，英语用 come with 引出它带来的另一面；price 在这里是 loss / consequence 的名词化说法，不是金额。
+4. **正确表达**：It brings a cost or loss you have to accept together with the benefit.（它带来与好处同时出现、你不得不承受的代价或损失）；可迁移：`A bigger salary often comes with a price to pay — time.`（更高的薪水常常自带代价：时间）
+
+</details>
+
+### 2. 填空
+
+**题目**：每空填一词。
+Every shortcut in this business carries a hidden bill: there is always a price ______ ______ somewhere down the road.
+
+**我的答案**：to pay
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：存在句 There is a price to pay 内部的“名词 + 后置不定式”结构。
+2. **规则与机制**：price 是名词，to pay 是不定式短语后置修饰它，限定“待偿付的那笔代价”；不定式符号 to 与动词原形 pay 必须成对出现，缺一不成立。
+3. **英语的表达逻辑**：英语常用“名词 + 不定式”把动作当作名词的用途或待办内容，price to pay 就是“要付的那笔账”，而不是“付费这个动作”。
+4. **可迁移表达**：`There is always a price to pay for fast growth.`（快速增长总有代价）/ `Every easy answer leaves a price to pay.`（每个轻松得来的答案都留下代价）
+
+</details>
+
+### 3. 语境判断
+
+**题目**：下面哪种场合最自然不会说错地用上 “Well, there's the price to pay”？
+- A. 朋友问你今天天气怎么样。
+- B. 同事刚签下很大的订单，但已经连续三个月没休息。
+- C. 你在餐厅想让服务员换一双筷子。
+- D. 你在手机上查下一班地铁几点到站。
+
+**我的答案**：B
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：a/the price to pay 的话语功能——评论获益背后的损失。
+2. **规则与机制**：这句话要求语境里同时存在“得到了什么”和“为此失去什么”，形成对价关系；纯物理位置、服务请求、信息查询都不产生对价。
+3. **英语的表达逻辑**：英语把代价看成收益的对价，只有存在对价关系的场景才用得上这句评语，否则句子会失去参照物。
+4. **可迁移表达**：`Well, that's the price to pay for a record like this.`（嗯，这样的纪录就是要付代价的）/ `There's the price to pay — no weekends for three months.`（代价来了：三个月没有周末）
+
+</details>
+
+### 4. 单项选择
+
+**题目**：“他在创业中失去了健康”，哪一句英语最自然？
+- A. He paid a high price for his startup — his health.
+- B. He cost his health for the startup.
+- C. He spent a high price of health for the startup.
+- D. His startup took price from his health.
+
+**我的答案**：A
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：pay a price for sth 的动词搭配，以及 pay 与 cost 的方向差异。
+2. **规则与机制**：pay 的主语是付出代价的人，代价作宾语，for 引出换来的东西；cost 作动词时主语必须是事物（The trip cost him his job），人不能用 cost 支配自己的健康；spend 的宾语是时间或金钱，不能接 price。
+3. **英语的表达逻辑**：英语严格区分“人付出”（pay / spend）与“事物花费某人某物”（cost），两个方向的主语不能互换。
+4. **可迁移表达**：`She paid a price for speaking first.`（她因为先开口付出了代价）/ `The decision cost him his job.`（这个决定让他丢了工作）
+
+</details>
+
+### 5. 改写
+
+**题目**：用 “a price to pay” 合并成一句。
+My cousin finally bought the old farm she always wanted. She gave up every weekend for two years to afford it.
+
+**我的答案**：My cousin paid a high price for his ld farm.
+
+**判定**：⚠️ 部分正确（搭配成立，但换成了动词句且丢失代价内容）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：名词短语 a price to pay 与动词短语 pay a price 的分工，以及 there was 句型承载信息焦点。
+2. **规则与机制**：a price to pay 是名词短语，可以作表语或宾语，具体代价用破折号、冒号后置补充；pay a price for 后面的宾语是“换来的东西”，写 for the farm 就把代价指向买农场的钱。
+3. **英语的表达逻辑**：英语允许把“代价”提到句首焦点位置，再用破折号补充具体内容，这比动词句更适合突出损失。
+4. **可迁移表达**：`The old farm came with a price to pay — two years of weekends.`（那座旧农场是有代价的：两年的周末）/ `There was a price to pay for that land: every weekend.`（为那块地是要付代价的：每个周末）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：把同一组信息改写成含 a price to pay 的名词短语结构。
+2. **为什么错**：改成了动词句 pay a high price for his farm——for 后面写“农场”，英语读者会理解成为了买农场花的钱；同时 his 与前面的 she 不一致，真正要交代的“两年周末”整段丢失。
+3. **英语的表达逻辑**：英语把“代价的具体内容”当作可以后置补充的新信息，用名词短语加破折号挂在句尾，而不是塞进 for 的宾语位。
+4. **正确表达**：`My cousin finally got the old farm she always wanted, but there was a price to pay — two years of weekends.`（表姐终于得到了她一直想要的那座旧农场，但代价是两年的周末）；可迁移：`Getting that degree came with a price to pay — three years of evenings.`（拿到那个学位是有代价的：三年的夜晚）
+
+</details>
+
+### 6. 翻译
+
+**题目**：中译英。
+任何一个想留在牌桌上的人都得付出代价。
+
+**我的答案**：Everyone who want to stay at the table will pay a price.
+
+**判定**：⚠️ 部分正确（目标搭配用对，从句单复数与固定说法有误）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：pay a price 表达“付出代价”，以及 everyone / anyone + who 从句的主谓一致。
+2. **规则与机制**：everyone、anyone 视为单数，定语从句谓语用 wants / has 这类第三人称单数形式；主句谓语写成 has to pay 或 pays。
+3. **英语的表达逻辑**：英语用单数视角处理“任何一个人”，即使指一群人，也按个体逐个计数。
+4. **可迁移表达**：`Anyone who wants to stay in the game has to pay a price.`（任何想留在牌桌上的人都必须付出代价）/ `Everyone who signs up pays a price.`（每个报名的人都要付代价）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：目标搭配 pay a price 的使用，附带 everyone who 从句的单复数与“留在牌桌上”的固定说法。
+2. **为什么错**：pay a price 用对了；两处出错：一是 everyone 后的 who 从句谓语写成 want，没有用第三人称单数 wants；二是把“留在牌桌上”直译成 stay at the table，这个说法在英语里只表示人坐在桌子旁边，不表示“没被淘汰”。
+3. **英语的表达逻辑**：英语把“留在局中”处理成游戏隐喻 in the game，竞争义落在 game 这个词上，桌子只是物理位置，承载不了这层含义。
+4. **正确表达**：`Anyone who wants to stay in the game has to pay a price.`（任何想留在牌桌上的人都得付出代价）；可迁移：`She stayed in the game by cutting her sleep.`（她靠压缩睡眠留在牌桌上）
+
+</details>
+
+### 7. 造句
+
+**题目**：用英文写两句话表达下面的意思（不必逐字对应）：为了这份工作我搬到了外地，代价是很少见到家人。
+
+**我的答案**：I paid a price for the job.
+
+**判定**：⚠️ 部分正确（搭配正确，但信息不完整）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：用 pay a price for 承载完整信息：换来什么、代价内容是什么。
+2. **规则与机制**：pay a price for + 换来的东西，代价的具体内容另起一句或用冒号、破折号引出；只写 for the job 只交代了“为了工作”，没交代代价落在哪。
+3. **英语的表达逻辑**：英语要求代价落在具体名词上（时间、睡眠、陪伴），抽象成一句“付出了代价”在信息上是空的。
+4. **可迁移表达**：`I moved to another city for this job, and I paid a price for it — I hardly see my family now.`（为这份工作我搬到了外地，代价是现在很少见到家人）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：用本轮固定搭配完成中文意思的两句话转换。
+2. **为什么错**：只写了 I paid a price for the job. 一句，搭配本身没错，但“搬到外地”和“很少见到家人”两条信息都没交代，读者无法知道代价具体是什么。
+3. **英语的表达逻辑**：英语把代价当成可以具体化的名词内容，通常先陈述事实，再用冒号或破折号把代价引出来。
+4. **正确表达**：`I moved to another city for this job. There is a price to pay — I hardly see my family now.`（为这份工作我搬到了另一个城市。代价是现在很少见到家人）；可迁移：`I took the night shift and paid a price for it: no dinners with my family.`（我上了夜班并为此付出代价：没法跟家人一起吃晚饭）
+
+</details>
+
+
+---
 
 # 2026-11-07 20:22 · 复习
 
