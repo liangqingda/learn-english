@@ -244,26 +244,29 @@ def story_sentences(section_text: str) -> int:
 
 
 def details_blocks(section_text: str, base: str) -> list[dict]:
-    """按出现顺序取回 summary 为 `<base>`、`<base> 2`、`<base> 3`… 的折叠块。
+    """按出现顺序取回 summary 为 `<base>`、`<base> 1`、`<base> 2`… 的折叠块。
 
-    同一个菜单项在一个日期区块里被选中第二次时，笔记按 `<base>` / `<base> 2`
-    追加多份原文，所以校验必须逐块进行，不能只看第一块。
+    同一小节只有一块时 summary 写 `<base>`，出现第二块起改成 `<base> 1`
+    / `<base> 2`；校验逐块进行，不能只看第一块。
     """
     blocks: list[dict] = []
     for match in DETAILS_SUMMARY_RE.finditer(section_text):
         summary = match.group(1).strip()
-        if summary == base:
-            number = 1
-        else:
-            suffix = summary[len(base) :].strip()
-            if not suffix.isdigit():
-                continue
+        suffix = summary[len(base) :].strip() if summary.startswith(base) else None
+        if suffix == "":
+            number = 0
+            numbered = False
+        elif suffix is not None and suffix.isdigit():
             number = int(suffix)
+            numbered = True
+        else:
+            continue
         close = section_text.find("</details>", match.end())
         end = close if close >= 0 else len(section_text)
         blocks.append(
             {
                 "number": number,
+                "numbered": numbered,
                 "summary": summary,
                 "body": section_text[match.end() : end],
                 "end": close + len("</details>") if close >= 0 else len(section_text),
@@ -272,11 +275,131 @@ def details_blocks(section_text: str, base: str) -> list[dict]:
     return blocks
 
 
+def check_detail_numbering(add, line_no: int, blocks: list[dict], base: str, label: str) -> None:
+    """一节只有一段原文时不编号；出现第二段起按 1、2、3… 连续编号。"""
+    if not blocks:
+        return
+    if len(blocks) == 1:
+        if blocks[0]["numbered"]:
+            add(
+                line_no,
+                f"这一节只有一段{label}，summary 写 `<summary>{base}</summary>`，不要编号："
+                f"当前是 `{blocks[0]['summary']}`",
+            )
+        return
+    for expected, block in enumerate(blocks, 1):
+        if not block["numbered"] or block["number"] != expected:
+            add(
+                line_no,
+                f"{label}出现多段时必须按出现顺序编号：第 {expected} 段应写 "
+                f"`<summary>{base} {expected}</summary>`，当前是 `{block['summary']}`",
+            )
+
+
 def has_story_table(section_text: str, block_end: int) -> bool:
     """折叠块之后必须紧跟收尾三列表，且表格位于下一个折叠块之前。"""
     next_block = section_text.find("<details>", block_end)
     tail = section_text[block_end : next_block if next_block >= 0 else len(section_text)]
     return STORY_TABLE_HEADER in tail
+
+
+def validate_menu_section(
+    add, line_no: int, title: str, section_text: str, *, in_round_block: bool
+) -> None:
+    """校验一个菜单项小节：讲解要点（首次记在讲解之后）+ 习题或原文。
+
+    - 文件级小节（`in_round_block=False`）：必须有 `**讲解要点**：`，正文是讲解与原文。
+    - 日期区块内的小节：讲解已记在文件级，这里可以只放习题；两样都没有的空小节仍然报错。
+    """
+    lines = section_text.split("\n")
+    q_positions = [k for k, line in enumerate(lines) if QUESTION_RE.match(line)]
+    intro = lines[1:(q_positions[0] if q_positions else len(lines))]
+    mfields = [m.group(1) for line in intro if (m := MENU_FIELD_RE.match(line))]
+    if mfields and mfields[0] != "讲解要点":
+        add(
+            line_no,
+            "每个菜单项的第一组字段必须是 `**讲解要点**：`，不要先写 `**可迁移表达**：`",
+        )
+    if "可迁移表达" in mfields:
+        add(
+            line_no,
+            "菜单项只写一组 `**讲解要点**：`：把可迁移表达/示例写成对应要点的缩进子项，不要另起 `**可迁移表达**：`",
+        )
+    if not mfields and (not in_round_block or not q_positions):
+        add(line_no, "每个菜单项必须有 `**讲解要点**：`，其下用列表逐条写要点")
+    points = [
+        line
+        for line in intro
+        if STRUCTURED_LINE_RE.match(line.strip()) and not MENU_CHILD_RE.match(line)
+    ]
+    children = [line for line in intro if MENU_CHILD_RE.match(line)]
+    if mfields[:1] == ["讲解要点"] and not points:
+        add(line_no, "`**讲解要点**：` 必须用无序/有序列表逐条写要点，不要揉成一段文字")
+    if points and not children:
+        add(
+            line_no,
+            "每条讲解要点至少要有一个缩进子项写出对应的可迁移表达或示例（`  - 例句`）",
+        )
+    if "场景对话" in title:
+        dialogue_blocks = details_blocks(section_text, DIALOGUE_SUMMARY)
+        if not dialogue_blocks:
+            add(
+                line_no,
+                "场景对话小节必须保留完整对话原文：`<details><summary>场景对话原文</summary>` 不能省，"
+                "只写讲解要点不算完成",
+            )
+        check_detail_numbering(add, line_no, dialogue_blocks, DIALOGUE_SUMMARY, "场景对话原文")
+        for block in dialogue_blocks:
+            turns = [
+                line
+                for line in block["body"].split("\n")
+                if re.match(r"^- \*\*[^*]+\*\*：", line.strip())
+            ]
+            if len(turns) < 4:
+                add(
+                    line_no,
+                    f"{block['summary']} 至少要有 4 句台词（当前 {len(turns)} 句）：对话被截断或只写了开场白，"
+                    "等于这一段没有交付",
+                )
+    if "小故事" in title:
+        story_blocks = details_blocks(section_text, STORY_SUMMARY)
+        if not story_blocks:
+            add(
+                line_no,
+                "小故事小节必须保留完整故事原文：`<details><summary>故事原文</summary>` 不能省，"
+                "只写讲解要点不算完成",
+            )
+        check_detail_numbering(add, line_no, story_blocks, STORY_SUMMARY, "故事原文")
+        for block in story_blocks:
+            sentence_count = count_story_sentences(block["body"])
+            if sentence_count < 8:
+                add(
+                    line_no,
+                    f"{block['summary']} 至少要有 8 句英文叙事（当前 {sentence_count} 句）："
+                    "故事被截断或只写了几句，等于这一段没有交付",
+                )
+            if not has_story_table(section_text, block["end"]):
+                add(
+                    line_no,
+                    f"{block['summary']} 后面必须紧跟收尾三列表（`{STORY_TABLE_HEADER}`），"
+                    "一张表放在块外、写完表格才算这一段完整",
+                )
+    section_opens = section_text.count("<details>")
+    section_closes = section_text.count("</details>")
+    if section_opens != section_closes:
+        add(
+            line_no,
+            f"折叠块必须成对闭合：本小节 `<details>` {section_opens} 个、`</details>` {section_closes} 个，"
+            "漏写闭合标签会把后面的小节整段折进上一个折叠块",
+        )
+    if mfields and not any(
+        STRUCTURED_LINE_RE.match(line.strip()) or line.strip().startswith("<table")
+        for line in intro
+    ):
+        add(
+            line_no,
+            "菜单项的讲解必须拆成有序列表、无序列表或表格逐条记录：不要把多条规则揉成一整段文字",
+        )
 
 
 MENU_FIELD_RE = re.compile(r"^\*\*(讲解要点|可迁移表达)\*\*：")
@@ -407,12 +530,16 @@ def check(path: Path) -> list[dict]:
         add(base_heads[1] + 1, f"`## {BASIC_SECTION}` 整个文件只能出现一次：基础信息与单次复习无关，不要每轮各写一份")
     else:
         h_base = base_heads[0]
-        if other_heads:
+        early_heads = [k for k in other_heads if k < h_base]
+        if early_heads:
             add(
-                other_heads[0] + 1,
+                early_heads[0] + 1,
                 f"`## {BASIC_SECTION}` 之前不要写其它二级标题，文件从 `## {BASIC_SECTION}` 开始",
             )
-        if any(l.strip().startswith("<details") for l in head):
+        if any(
+            l.strip().startswith("<details")
+            for l in head[: explain_heads[0] if explain_heads else len(head)]
+        ):
             add(h_base + 1, f"`## {BASIC_SECTION}` 固定展示，不要包进 `<details>` 折叠块")
         if h_table is None or h_table_close is None or h_table_close < h_table:
             add(h_base + 1, "`## 基础信息` 下缺少无表头追踪表：必须写成 `<table>` … `</table>`，每行 `<tr><td>字段</td><td>值</td></tr>`")
@@ -512,8 +639,6 @@ def check(path: Path) -> list[dict]:
         h_explain = explain_heads[0]
         if h_table_close is not None and h_explain < h_table_close:
             add(h_explain + 1, f"`## {explain_section}` 必须写在基础信息表之后")
-        if any(l.strip().startswith("<details") for l in head[h_explain:]):
-            add(h_explain + 1, f"`## {explain_section}` 固定展示，不要包进 `<details>` 折叠块")
         explain_end = next(
             (
                 k
@@ -523,6 +648,8 @@ def check(path: Path) -> list[dict]:
             len(head),
         )
         explain_body = head[h_explain + 1 : explain_end]
+        if any(l.strip().startswith("<details") for l in explain_body):
+            add(h_explain + 1, f"`## {explain_section}` 固定展示，不要包进 `<details>` 折叠块")
         if any(TABLE_ROW_RE.match(line.strip()) and "讲解时间" in line for line in explain_body):
             add(h_explain + 1, f"`## {explain_section}` 不是轮次区块：不写 `讲解时间`、`分类 · 状态变化` 这类本轮追踪行")
         explain_required = str(
@@ -602,6 +729,22 @@ def check(path: Path) -> list[dict]:
                 number,
                 "编号条目不要写成 `- 1.` / `* 1.` / `- 1)`：Markdown 会把编号解析成无序列表内嵌的有序列表；编号直接顶格写 `1.`",
             )
+
+    # 5c. 文件级菜单讲解小节：讲解要点、场景对话/小故事原文统一放在「## 讲解」之后、所有日期区块之前
+    if explain_heads:
+        pre_explain = [k for k in other_heads if k < explain_heads[0]]
+        if pre_explain:
+            add(pre_explain[0] + 1, "文件级菜单讲解小节必须写在 `## 讲解` 之后：讲解在前，菜单讲解在后")
+        for k in [k for k in other_heads if k > explain_heads[0]]:
+            title = SECTION2_RE.match(head[k]).group(1).strip()
+            span_end = next(
+                (j for j in range(k + 1, len(head)) if SECTION2_RE.match(head[j])), len(head)
+            )
+            validate_menu_section(
+                add, k + 1, title, "\n".join(head[k:span_end]), in_round_block=False
+            )
+    elif other_heads:
+        add(other_heads[0] + 1, "文件级菜单讲解小节必须写在 `## 讲解` 之后：先写讲解再写菜单讲解")
 
     # 6. 每个区块的内部结构：二级标题分组（## 本轮习题 + 每个菜单项各一组）
     for idx, (start, date, time, kind) in enumerate(sections):
@@ -769,105 +912,8 @@ def check(path: Path) -> list[dict]:
             if quiz_index is not None and gidx < quiz_index:
                 add(line_no, "菜单项必须放在 `## 本轮习题` 之后：某道习题出现在菜单项之后")
 
-            q_positions = [g_start + k for k, line in enumerate(body[g_start:g_end]) if QUESTION_RE.match(line)]
-            intro = body[g_start + 1 : (q_positions[0] if q_positions else g_end)]
-            mfields = [m.group(1) for line in intro if (m := MENU_FIELD_RE.match(line))]
-            if mfields and mfields[0] != "讲解要点":
-                add(
-                    line_no,
-                    "每个菜单项的第一组字段必须是 `**讲解要点**：`，不要先写 `**可迁移表达**：`",
-                )
-            if "可迁移表达" in mfields:
-                add(
-                    line_no,
-                    "菜单项只写一组 `**讲解要点**：`：把可迁移表达/示例写成对应要点的缩进子项，不要另起 `**可迁移表达**：`",
-                )
-            if not mfields:
-                add(line_no, "每个菜单项必须有 `**讲解要点**：`，其下用列表逐条写要点")
-            points = [
-                line
-                for line in intro
-                if STRUCTURED_LINE_RE.match(line.strip()) and not MENU_CHILD_RE.match(line)
-            ]
-            children = [line for line in intro if MENU_CHILD_RE.match(line)]
-            if mfields[:1] == ["讲解要点"] and not points:
-                add(line_no, "`**讲解要点**：` 必须用无序/有序列表逐条写要点，不要揉成一段文字")
-            if points and not children:
-                add(
-                    line_no,
-                    "每条讲解要点至少要有一个缩进子项写出对应的可迁移表达或示例（`  - 例句`）",
-                )
             section_text = "\n".join(body[g_start:g_end])
-            if "场景对话" in g_title:
-                dialogue_blocks = details_blocks(section_text, DIALOGUE_SUMMARY)
-                if not dialogue_blocks:
-                    add(
-                        line_no,
-                        "场景对话小节必须保留完整对话原文：`<details><summary>场景对话原文</summary>` 不能省，"
-                        "只写讲解要点不算完成",
-                    )
-                for expected, block in enumerate(dialogue_blocks, 1):
-                    if block["number"] != expected:
-                        add(
-                            line_no,
-                            f"场景对话原文要按出现顺序编号：第 {expected} 块应写 `<summary>{DIALOGUE_SUMMARY} {expected}</summary>`，"
-                            f"当前是 `{block['summary']}`",
-                        )
-                    turns = [
-                        line
-                        for line in block["body"].split("\n")
-                        if re.match(r"^- \*\*[^*]+\*\*：", line.strip())
-                    ]
-                    if len(turns) < 4:
-                        add(
-                            line_no,
-                            f"{block['summary']} 至少要有 4 句台词（当前 {len(turns)} 句）：对话被截断或只写了开场白，"
-                            "等于这一段没有交付",
-                        )
-            if "小故事" in g_title:
-                story_blocks = details_blocks(section_text, STORY_SUMMARY)
-                if not story_blocks:
-                    add(
-                        line_no,
-                        "小故事小节必须保留完整故事原文：`<details><summary>故事原文</summary>` 不能省，"
-                        "只写讲解要点不算完成",
-                    )
-                for expected, block in enumerate(story_blocks, 1):
-                    if block["number"] != expected:
-                        add(
-                            line_no,
-                            f"故事原文要按出现顺序编号：第 {expected} 块应写 `<summary>{STORY_SUMMARY} {expected}</summary>`，"
-                            f"当前是 `{block['summary']}`",
-                        )
-                    sentence_count = count_story_sentences(block["body"])
-                    if sentence_count < 8:
-                        add(
-                            line_no,
-                            f"{block['summary']} 至少要有 8 句英文叙事（当前 {sentence_count} 句）："
-                            "故事被截断或只写了几句，等于这一段没有交付",
-                        )
-                    if not has_story_table(section_text, block["end"]):
-                        add(
-                            line_no,
-                            f"{block['summary']} 后面必须紧跟收尾三列表（`{STORY_TABLE_HEADER}`），"
-                            "一张表放在块外、写完表格才算这一段完整",
-                        )
-            section_opens = section_text.count("<details>")
-            section_closes = section_text.count("</details>")
-            if section_opens != section_closes:
-                add(
-                    line_no,
-                    f"折叠块必须成对闭合：本小节 `<details>` {section_opens} 个、`</details>` {section_closes} 个，"
-                    "漏写闭合标签会把后面的小节整段折进上一个折叠块",
-                )
-            if not any(
-                STRUCTURED_LINE_RE.match(line.strip()) or line.strip().startswith("<table")
-                for line in intro
-            ):
-                add(
-                    line_no,
-                    "菜单项的讲解必须拆成有序列表、无序列表或表格逐条记录：不要把多条规则揉成一整段文字",
-                )
+            validate_menu_section(add, line_no, g_title, section_text, in_round_block=True)
 
         # 7. 逐组、逐题校验（每组题号都从 1 开始，练习与主习题共用同一套模板）
         for g_start, g_title, g_end in groups:

@@ -162,6 +162,59 @@ def _strip_trailing_dividers(rounds: str) -> str:
     return "\n".join(lines).rstrip("\n")
 
 
+DETAIL_BASES = ("场景对话原文", "故事原文")
+DETAIL_SUMMARY_RE = re.compile(r"<summary>\s*([^<]+?)\s*</summary>")
+
+
+def _normalize_detail_summaries(text: str) -> str:
+    """同一小节里只剩一段原文时不编号，出现第二段起按 1、2、3… 编号。
+
+    旧的单段原文写的是 ``<summary>故事原文</summary>``，追加第二段时它要变成
+    ``故事原文 1``，否则校验器会把两段都判成编号错位。
+    """
+    for base in DETAIL_BASES:
+        while True:
+            current = [
+                match
+                for match in DETAIL_SUMMARY_RE.finditer(text)
+                if re.fullmatch(rf"{re.escape(base)}(?:\s+\d+)?", match.group(1).strip())
+            ]
+            if len(current) < 2:
+                break
+            wrong = next(
+                (
+                    (index, match)
+                    for index, match in enumerate(current, 1)
+                    if match.group(1).strip() != f"{base} {index}"
+                ),
+                None,
+            )
+            if wrong is None:
+                break
+            index, match = wrong
+            replacement = f"<summary>{base} {index}</summary>"
+            text = text[: match.start()] + replacement + text[match.end() :]
+    return text
+
+
+def _explain_area_bounds(lines: list[str]) -> tuple[int, int]:
+    """Return the file-level explanation region: after ``## 讲解``, before the first date block.
+
+    ``end`` is the index of the first level-1 heading (or ``len(lines)``), which
+    is exactly where a new file-level menu section may be inserted.
+    """
+    first_round = next(
+        (index for index, line in enumerate(lines) if line.startswith("# ")), len(lines)
+    )
+    explain_start = next(
+        (index for index, line in enumerate(lines[:first_round]) if EXPLAIN_HEAD_RE.match(line)),
+        None,
+    )
+    if explain_start is None:
+        return first_round, first_round
+    return explain_start, first_round
+
+
 def _next_free_heading(heading: str, existing: list[str]) -> str:
     """Give the incoming block a heading that keeps the file's headings unique.
 
@@ -274,6 +327,7 @@ def _note_index(text: str) -> dict[str, Any]:
     normalized = _normalize_text(text)
     record = RECORD_ID_ROW_RE.search(normalized)
     blocks: list[dict[str, Any]] = []
+    explain_sections: list[str] = []
     current: dict[str, Any] | None = None
     chunk: list[str] = []
     for line in normalized.split("\n"):
@@ -296,10 +350,17 @@ def _note_index(text: str) -> dict[str, Any]:
             chunk.append(line)
             if line.startswith("## "):
                 current["sections"].append(line.strip())
+        elif line.startswith("## ") and line.strip() != "## 基础信息":
+            # 文件级讲解区：`## 讲解` 与只讲解、不带习题的菜单小节
+            explain_sections.append(line.strip())
     if current is not None:
         block_match = RECORD_ID_ROW_RE.search("\n".join(chunk))
         current["record_id"] = block_match.group(1).strip() if block_match else None
-    return {"record_id": record.group(1).strip() if record else None, "blocks": blocks}
+    return {
+        "record_id": record.group(1).strip() if record else None,
+        "blocks": blocks,
+        "explain_sections": explain_sections,
+    }
 
 
 class NoteStore:
@@ -478,7 +539,7 @@ class NoteStore:
             if adjusted:
                 block = _swap_heading(block, heading)
             body = _normalize_text(existing).rstrip("\n")
-            # 新一轮按时间倒序插在最前：最新一轮紧跟 `## 基础信息` / `## 讲解`，
+            # 新一轮按时间倒序插在最前：最新一轮紧跟文件级讲解区（`## 讲解` 与只讲解的菜单小节），
             # 旧区块整体原样保留在下方，不重排、不改写别的会话已经写下的内容。
             if not body.strip():
                 if not head:
@@ -881,7 +942,8 @@ class NoteStore:
         """在已有 ``## section`` 的末尾追加一段正文（不新建小节）。
 
         同一个菜单项在一个日期区块里被选中第二次时，讲解要点沿用同一份，
-        故事 / 对话原文按 ``故事原文 2`` / ``场景对话原文 2`` 追加在后面。
+        故事 / 对话原文按 ``故事原文 2`` / ``场景对话原文 2`` 追加在后面，
+        并且自动把第一段从 ``故事原文`` 改成 ``故事原文 1``。
         新增小节用 ``append_section``，这里只往既有小节末尾补一段，别的小节一字不动。
         """
         part = _normalize_text(content).strip("\n")
@@ -949,8 +1011,12 @@ class NoteStore:
                 section_end -= 1
             before = lines[:section_end]
             after = lines[section_end:]
-            body = ["", *part.split("\n")]
-            composed = "\n".join(before + body + after).rstrip("\n") + "\n"
+            merged = "\n".join(before[section_start:] + ["", *part.split("\n")])
+            merged = _normalize_detail_summaries(merged)
+            spacer = [""] if after and after[0].strip() else []
+            composed = "\n".join(
+                before[:section_start] + merged.split("\n") + spacer + after
+            ).rstrip("\n") + "\n"
             composed = _bump_updated_at(composed, datetime.now())
             self._write(target, composed)
             blocks = _count_blocks(composed)
@@ -960,6 +1026,141 @@ class NoteStore:
             "file": self.relative(target),
             "heading": wanted_block,
             "section": wanted_section,
+            "blocks": blocks,
+            "bytes": len(composed.encode("utf-8")),
+        }
+
+    def append_explain_section(self, path: str, content: str) -> dict[str, Any]:
+        """在文件级讲解区（``## 讲解`` 之后、所有日期区块之前）追加一个 ``## 小节``。
+
+        菜单项的讲解要点只在第一轮写一次，重复选择同一项时不再新建小节；
+        已存在同名小节时返回 ``duplicate``，调用方据此停止重复记录。
+        """
+        target = self.resolve(path)
+        section = _normalize_text(content).strip("\n")
+        if not section:
+            raise NoteError("note section is empty")
+        first = section.split("\n")[0].strip()
+        if not first.startswith("## "):
+            raise NoteError("a note section must start with a '## ' heading")
+        for line in section.split("\n")[1:]:
+            if line.startswith("# "):
+                raise NoteError(
+                    "a note section cannot contain a level-1 heading; date blocks own those"
+                )
+        with self._exclusive_lock():
+            existing = _normalize_text(self._read(target))
+            if not existing:
+                raise NoteError(f"note does not exist: {self.relative(target)}")
+            lines = existing.split("\n")
+            explain_start, area_end = _explain_area_bounds(lines)
+            if area_end <= explain_start:
+                raise NoteError(
+                    f"note has no `## {EXPLAIN_SECTION}` section: write the explanation first, "
+                    "then file-level menu sections go after it"
+                )
+            for index in range(explain_start + 1, area_end):
+                if lines[index].strip() == first:
+                    return {
+                        "ok": True,
+                        "appended_section": False,
+                        "duplicate": True,
+                        "exists": True,
+                        "file": self.relative(target),
+                        "section": first,
+                        "hint": (
+                            "this menu item is already explained in the file-level area; "
+                            "do not record it a second time"
+                        ),
+                    }
+            prefix = lines[:area_end]
+            while prefix and not prefix[-1].strip():
+                prefix.pop()
+            tail = lines[area_end:]
+            composed = "\n".join(prefix + ["", *section.split("\n")] + ([""] + tail if tail else []))
+            composed = _bump_updated_at(composed.rstrip("\n") + "\n", datetime.now())
+            self._write(target, composed)
+            blocks = _count_blocks(composed)
+        return {
+            "ok": True,
+            "appended_section": True,
+            "duplicate": False,
+            "file": self.relative(target),
+            "section": first,
+            "blocks": blocks,
+            "bytes": len(composed.encode("utf-8")),
+        }
+
+    def append_explain_part(
+        self, path: str, section_heading: str, content: str
+    ) -> dict[str, Any]:
+        """往文件级小节末尾追加一段原文（同一菜单项第二次生成的故事 / 对话）。
+
+        小节里出现第二段原文时，第一段的 summary 自动从 ``故事原文`` 改成
+        ``故事原文 1``，其余段落按顺序编号。
+        """
+        part = _normalize_text(content).strip("\n")
+        if not part:
+            raise NoteError("note section part is empty")
+        for line in part.split("\n"):
+            if line.startswith("# "):
+                raise NoteError(
+                    "a section part cannot contain a level-1 heading; "
+                    "date blocks go through append"
+                )
+            if line.startswith("## "):
+                raise NoteError(
+                    "a section part cannot start a new '## section'; "
+                    "use append-explain-section for a new section"
+                )
+        wanted = _normalize_text(section_heading).strip()
+        if not wanted.startswith("## "):
+            raise NoteError("section heading must start with '## '")
+        target = self.resolve(path)
+        with self._exclusive_lock():
+            existing = _normalize_text(self._read(target))
+            if not existing:
+                raise NoteError(f"note does not exist: {self.relative(target)}")
+            lines = existing.split("\n")
+            explain_start, area_end = _explain_area_bounds(lines)
+            section_start = next(
+                (
+                    index
+                    for index in range(explain_start + 1, area_end)
+                    if lines[index].strip() == wanted
+                ),
+                None,
+            )
+            if section_start is None:
+                raise NoteError(
+                    f"section not found in the file-level explanation area: {wanted}; "
+                    "use append-explain-section to add it first"
+                )
+            section_end = next(
+                (
+                    index
+                    for index in range(section_start + 1, area_end)
+                    if lines[index].startswith("## ")
+                ),
+                area_end,
+            )
+            while section_end > section_start + 1 and not lines[section_end - 1].strip():
+                section_end -= 1
+            merged = "\n".join(lines[section_start:section_end] + ["", *part.split("\n")])
+            merged = _normalize_detail_summaries(merged)
+            after = lines[section_end:]
+            spacer = [""] if after and after[0].strip() else []
+            composed = "\n".join(
+                lines[:section_start] + merged.split("\n") + spacer + after
+            ).rstrip("\n") + "\n"
+            composed = _bump_updated_at(composed, datetime.now())
+            self._write(target, composed)
+            blocks = _count_blocks(composed)
+        return {
+            "ok": True,
+            "appended_part": True,
+            "file": self.relative(target),
+            "section": wanted,
             "blocks": blocks,
             "bytes": len(composed.encode("utf-8")),
         }
@@ -1058,6 +1259,7 @@ class NoteStore:
         return {
             "file": relative,
             "record_id": entry["record_id"],
+            "explain_sections": entry["explain_sections"],
             "blocks": blocks,
             "block_count": len(entry["blocks"]),
         }

@@ -258,7 +258,7 @@ python3 learn-from-english/scripts/take-english-study-notes/scripts/note.py sect
 
 `snapshot` 是一次拿齐“仓库现在到哪了”的只读入口：`git_head`、笔记文件清单、每个文件的**轮次区块与 `##` 小节标题索引**、`record_files`（记录 ID → 笔记文件，记录已改名也能定位）。结果缓存在 `.cache/snapshot.json`，默认 30 分钟有效（`--max-age` 可改，`--refresh` 强制重建），命中时带 `source: cache` 与 `age_seconds`；`live_git_head` 与 `head_drift` 给出一次实时 HEAD 比对，`head_drift: true` 表示工作树已被别的会话推进，只读展示可继续，写入前再 `--refresh`。笔记写入已独立到 `take-english-study-notes`，不再刷新这份快照；写前确认目标区块用 `take-english-study-notes/scripts/note.py sections`，需要新的仓库索引时再跑 `snapshot --refresh`。缓存只是加速层：读索引前会比对文件的 `size` 与 `mtime`，不一致就回退到真实解析，删掉缓存文件也永远安全。菜单 option 现在带 `writes`：`false` 的项（场景对话、小故事、学习进度、错题聚类、剖析当前题、历史试卷导航）只展示内容，不做仓库核对；校验器只在写入路径运行。
 
-`sections` 是写笔记前的只读体检：返回该文件的全部轮次标题与每个轮次下的 `##` 小节标题，`--heading` 只看一个轮次；带 `--section "## ..."` 时额外返回 `has_section`，据此决定 `append-section`、`append-part` 还是 `replace --rewrite-section`，不必拼好整段内容再被拒。它同样走缓存索引，文件被外部改动时自动回真实解析。
+`sections` 是写笔记前的只读体检：返回该文件的全部轮次标题与每个轮次下的 `##` 小节标题，`--heading` 只看一个轮次；带 `--section "## ..."` 时额外返回 `has_section`，据此决定 `append-explain-section`（讲解区新建）、`append-explain-part`（讲解区再补一段原文）、`append-section`（日期区块新建带习题的菜单项）、`append-part`（日期区块既有小节补一段）还是 `replace --rewrite-section`，不必拼好整段内容再被拒。它同样走缓存索引，文件被外部改动时自动回真实解析。
 
 ### 校验、修复和迁移
 

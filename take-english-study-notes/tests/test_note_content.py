@@ -29,6 +29,18 @@ def basic_block(values: dict[str, str]) -> str:
     )
 
 
+def note_with_explanation(**kwargs) -> str:
+    """在第一个日期区块之前插一份 `## 讲解`，用于校验文件级菜单小节的位置。"""
+    text = note_text(**kwargs)
+    marker = "\n# "
+    index = text.index(marker)
+    explain = (
+        "\n## 讲解\n\n**错误机制**：\n\n- 一条机制\n\n"
+        "**可迁移表达**：\n\n- `She headed out west.`（她往西边出发。）\n"
+    )
+    return text[:index] + explain + text[index:]
+
+
 def note_text(
     *,
     stamp: str = "2026-11-07 12:00",
@@ -197,7 +209,7 @@ class NoteContentValidationTest(unittest.TestCase):
         text = with_menu_section(
             note_text(),
             story_section(
-                story_block("故事原文") + STORY_TABLE,
+                story_block("故事原文 1") + STORY_TABLE,
                 story_block("故事原文 2", "Only two sentences here. And another one.") + STORY_TABLE,
             ),
         )
@@ -207,17 +219,17 @@ class NoteContentValidationTest(unittest.TestCase):
         text = with_menu_section(
             note_text(),
             story_section(
-                story_block("故事原文") + STORY_TABLE,
+                story_block("故事原文 1") + STORY_TABLE,
                 story_block("故事原文 3") + STORY_TABLE,
             ),
         )
-        self.assert_caught(text, "第 2 块应写")
+        self.assert_caught(text, "第 2 段应写")
 
     def test_every_story_block_needs_its_own_table(self) -> None:
         text = with_menu_section(
             note_text(),
             story_section(
-                story_block("故事原文") + STORY_TABLE,
+                story_block("故事原文 1") + STORY_TABLE,
                 story_block("故事原文 2"),
             ),
         )
@@ -227,9 +239,21 @@ class NoteContentValidationTest(unittest.TestCase):
         text = with_menu_section(
             note_text(),
             story_section(
-                story_block("故事原文") + STORY_TABLE,
+                story_block("故事原文 1") + STORY_TABLE,
                 story_block("故事原文 2") + STORY_TABLE,
             ),
+        )
+        self.assertEqual(self.check(text), [])
+
+    def test_single_story_block_must_not_be_numbered(self) -> None:
+        text = with_menu_section(
+            note_text(), story_section(story_block("故事原文 1") + STORY_TABLE)
+        )
+        self.assert_caught(text, "不要编号")
+
+    def test_single_story_block_without_number_passes(self) -> None:
+        text = with_menu_section(
+            note_text(), story_section(story_block("故事原文") + STORY_TABLE)
         )
         self.assertEqual(self.check(text), [])
 
@@ -240,6 +264,40 @@ class NoteContentValidationTest(unittest.TestCase):
             any(keyword in issue["message"] for issue in issues),
             [issue["message"] for issue in issues],
         )
+
+    def test_file_level_menu_section_after_explanation_passes(self) -> None:
+        """讲解型菜单项写在 `## 讲解` 之后、日期区块之前是合法结构。"""
+        text = note_with_explanation().replace(
+            "\n# 2026-11-07 12:00 · 复习",
+            "\n## 对比 out west 和 in the west\n\n**讲解要点**：\n- 方位短语保持分写\n"
+            "  - `She headed out west.`（她往西边出发。）\n"
+            "\n# 2026-11-07 12:00 · 复习",
+        )
+        self.assertEqual(self.check(text), [])
+
+    def test_menu_section_before_explanation_is_rejected(self) -> None:
+        text = note_with_explanation().replace(
+            "## 讲解",
+            "## 对比 out west 和 in the west\n\n**讲解要点**：\n- 一条要点\n\n## 讲解",
+        )
+        self.assert_caught(text, "必须写在 `## 讲解` 之后")
+
+    def test_round_section_with_exercises_only_passes(self) -> None:
+        """带习题的菜单项在日期区块里只写习题，不重复讲解要点。"""
+        text = note_text() + (
+            "\n## 用 out west 做翻译练习\n\n"
+            "### 1. 翻译\n\n"
+            "**题目**：中译英：她往西边出发了。\n\n"
+            "**我的答案**：She headed out west.\n\n"
+            "**判定**：✅ 正确\n\n"
+            "<details>\n<summary>知识点讲解</summary>\n\n"
+            "1. **本题知识点**：out west 作方向状语\n"
+            "2. **规则与机制**：out 与 west 分写\n"
+            "3. **英语的表达逻辑**：方向副词短语\n"
+            "4. **可迁移表达**：head out west\n\n"
+            "</details>\n"
+        )
+        self.assertEqual(self.check(text), [])
 
     def test_baseline_note_is_valid(self) -> None:
         self.assertEqual(self.check(note_text()), [])

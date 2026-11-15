@@ -57,7 +57,7 @@ python3 learn-from-english/scripts/learning_records.py snapshot --notes
 
 结果来自 30 分钟有效的会话缓存；笔记写入已独立到 `take-english-study-notes`，不再刷新该缓存，只读路径不必加 `--refresh`，写入前若怀疑被别的会话改过则加一次 `--refresh` 或直接用 `note.py sections` 复核。
 
-写笔记前先运行 `take-english-study-notes/scripts/note.py sections --file <笔记文件> --section "## <小节标题>"`（或 `snapshot --notes`）确认目标区块是否已有同名 `##` 小节，再决定用 `append-section`（新增）、`append-part`（同一菜单项再生成一份原文，追加到该小节末尾）还是 `replace --rewrite-section`（改写），不要先拼好大段内容再被脚本拒绝。一轮的全部错题用一次 `batch-upsert` 写入（已评分复习用一次 `complete-review`），不逐题调用。只读展示不运行 `check_note.py`；校验只在写入路径上跑，结果如实报告。快照 `stale: true` 或怀疑被别的会话改动时，只读内容照常展示，只在真正写入前重新取一次快照或重读该文件。
+写笔记前先运行 `take-english-study-notes/scripts/note.py sections --file <笔记文件> --section "## <小节标题>"`（或 `snapshot --notes`）确认文件级讲解区与目标区块是否已有同名 `##` 小节，再决定用 `append-explain-section`（讲解区新建）、`append-explain-part`（讲解区同一菜单项再生成一份原文）、`append-section`（日期区块新建带习题的菜单项）、`append-part`（日期区块既有小节末尾补一段）还是 `replace --rewrite-section`（改写），不要先拼好大段内容再被脚本拒绝。一轮的全部错题用一次 `batch-upsert` 写入（已评分复习用一次 `complete-review`），不逐题调用。只读展示不运行 `check_note.py`；校验只在写入路径上跑，结果如实报告。快照 `stale: true` 或怀疑被别的会话改动时，只读内容照常展示，只在真正写入前重新取一次快照或重读该文件。
 
 ## 处理数字选择
 
@@ -73,8 +73,8 @@ python3 learn-from-english/scripts/learning_records.py snapshot --notes
 - `continue-paper-attempt`：按 action 运行带 `paper_id` 和 `attempt_id` 的 `paper-get`，恢复已保存答案，只列出仍缺少的可作答项并继续该 attempt。
 - `retry-random-paper`：运行 `paper-list --status completed --random`，再对返回的 `paper_id` 运行 `paper-get`；展示原卷但不展示旧答案，首次提交时省略 `attempt_id` 以创建新的 attempt。
 - `starter-practice`：在没有学习记录时，围绕一个日常表达生成 2 至 3 道基础英语练习；不写入评分。题目未作答时不显示菜单；用户提交后批改，并仅在实际出错时用一次 `batch-upsert` 保存可复用错误。
-- `scenario-dialogue`：有当前记录或 focus 时围绕它输出完整多轮场景对话；仅在两者都不存在时使用脚本给出的日常场景。不要把已有记录替换成咖啡店主题，也不要默认开启互动角色扮演，除非用户明确要求 role-play。菜单不记录你选过什么，同一个知识点下这一项可以反复被选中：再次选中时必须换人物、换场合、换冲突，不得复用上一次的台词骨架；笔记里用 `append-part` 往同一小节追加 `场景对话原文 2`（记法见 `take-english-study-notes/references/note-format.md`）。
-- `focus-story`：围绕 option 的 `focus` 输出单线叙事小故事，不写成对话；篇幅、结构、目标表达落点、中文对照与收尾三列表按仓库根目录 `AGENTS.md` 的小故事规则执行。它不生成练习、不计分、不调用 `complete-review`、不写 `errors`，完整故事只是示例材料；展示完照常给下一轮菜单。同一知识点下再次选中时，必须换场景、换人物、换情节走向，不得只改几个词重写上一版；笔记里用 `append-part` 追加 `故事原文 2` 与它自己的三列表，讲解要点仍只有首次那一份。
+- `scenario-dialogue`：有当前记录或 focus 时围绕它输出完整多轮场景对话；仅在两者都不存在时使用脚本给出的日常场景。不要把已有记录替换成咖啡店主题，也不要默认开启互动角色扮演，除非用户明确要求 role-play。菜单不记录你选过什么，同一个知识点下这一项可以反复被选中：再次选中时必须换人物、换场合、换冲突，不得复用上一次的台词骨架；笔记里写 `## 讲解` 之后的文件级小节（首次 `append-explain-section`，第二次起 `append-explain-part`），只有一段时 summary 写 `场景对话原文`，第二段起第一段改成 `场景对话原文 1`、第二段写 `场景对话原文 2`（记法见 `take-english-study-notes/references/note-format.md`）。
+- `focus-story`：围绕 option 的 `focus` 输出单线叙事小故事，不写成对话；篇幅、结构、目标表达落点、中文对照与收尾三列表按仓库根目录 `AGENTS.md` 的小故事规则执行。它不生成练习、不计分、不调用 `complete-review`、不写 `errors`，完整故事只是示例材料；展示完照常给下一轮菜单。同一知识点下再次选中时，必须换场景、换人物、换情节走向，不得只改几个词重写上一版；笔记里写 `## 讲解` 之后的文件级小节（首次 `append-explain-section`，第二次起 `append-explain-part`），summary 按 `故事原文`（单段）/ `故事原文 1`、`故事原文 2`（多段）编号，每段各带自己的三列表，讲解要点仍只有首次那一份。
 - `follow-up-directions`：只作为 5 个练习方向的导航父项，本身不执行、不单独作答；用户选中其子项时按子项自己的 `follow-up-learning` 分派。
 - `follow-up-learning`：围绕 option label 和 `focus` 生成语法、词汇、对比、发音或产出内容。若生成未作答练习，不显示菜单；用户提交后批改，但不调用 `complete-review`。只把实际展示的可复用错误用一次 `batch-upsert` 保存。若讲解引入新的稳定知识点，按“后续学习知识点记录”保存。
 - `explain-current-exercise`：`review-complete` 菜单已不再返回该项，保留分派只为兼容历史菜单；它只在用户刚完成的复习答案存在错误或存在未作答题时解释该题组，不生成新题；错题说明考点、错误机制与正确表达，未作答题说明卡点与参考表达背后的英语计量、语义或结构逻辑。
@@ -305,21 +305,28 @@ python3 learn-from-english/scripts/learning_records.py complete-review --input <
 ## 生成本轮学习笔记
 
 每一轮有实际作答的复习、聚焦练习或套题结束后，除写入规范记录外，还要在仓库根目录 `learning-record-notes/` 下写一份 Markdown 笔记。
-首次讲解的笔记由 `learn-from-english` 用 `note.py explain` 写入（文件级 `## 讲解` 小节，位于 `## 基础信息` 之后）；这里只负责在同一个文件里按时间倒序插入复习区块（最新一轮紧跟讲解、排在最前），不另建文件、不改讲解小节。
+首次讲解的笔记由 `learn-from-english` 用 `note.py explain` 写入（文件级 `## 讲解` 小节，位于 `## 基础信息` 之后）；这里只负责在同一个文件里按时间倒序插入复习区块（最新一轮排在所有日期区块之前），不另建文件、不改讲解小节与文件级菜单讲解小节。
 笔记是**可读副本，不是规范数据源**：它不参与 `validate`、统计、抽题或调度，缺失或被删除都不影响评分与复习计划。
 
 写笔记前必须先读 `take-english-study-notes/references/note-format.md`（何时写、文件名、模板骨架、字段取值、
 追加与修正命令、菜单项记法、校验与迁移全部在那里，**不要凭记忆或旧轮次猜格式**），并按
 `take-english-study-notes/templates/review-note.md` 逐字替换占位符。
 
-笔记的规则文档、模板、校验器与写入实现全部归 `take-english-study-notes` skill；本 Skill 只保留七条硬约束（全部通过
-`take-english-study-notes/scripts/note.py` 执行，它自带 `explain` / `append` / `append-section` / `append-part` / `replace` / `sections` / `list` / `check`）：
+笔记的规则文档、模板、校验器与写入实现全部归 `take-english-study-notes` skill；本 Skill 只保留下面这些硬约束（全部通过
+`take-english-study-notes/scripts/note.py` 执行，它自带 `explain` / `append` / `append-explain-section` / `append-explain-part` / `append-section` / `append-part` / `replace` / `sections` / `list` / `check`）：
 
 - 只在这一条命令上写笔记，禁止用 `Write` 改写笔记文件，也禁止先落固定路径的临时区块文件。
-- 每份笔记都必须有 `## 讲解`。`append` / `append-section` / `append-part` / `replace` 之前先确认目标文件已有这一节；缺了就先用
+- 每份笔记都必须有 `## 讲解`。`append` / `append-section` / `append-part` / `append-explain-section` / `append-explain-part` / `replace` 之前先确认目标文件已有这一节；缺了就先用
   `note.py explain --update` 补一份（插到 `## 基础信息` 表之后、日期区块之前，返回 `inserted: true`），
   确实没有正文可写时按 `note-format.md` 的占位提示写法填写，再写本轮区块。校验器允许缺讲解，不会替你拦。
-- 同一菜单项第二次生成的原文用 `append-part` 追加到那个既有小节的末尾（`--section` 指向小节标题，原文按 `故事原文 2` / `场景对话原文 2` 连续编号），不要用整块 `replace` 重写整节。
+- **位置规则**：只讲解、不带习题的菜单项（对比相近表达、扩展讲解、场景对话、小故事）写 `## 讲解` 之后的文件级 `## <选项原文>` 小节
+  （`append-explain-section`）；带习题的菜单项把讲解要点写进文件级同名小节，本轮习题写进日期区块里的同名小节（`append-section`，
+  小节内不再写 `**讲解要点**：`）。日期区块里只放 `## 本轮习题` 与带习题的菜单项。
+- **重复规则**：同一菜单项重复选中时，除场景对话与小故事外不再记录——讲解只写第一轮一次，后续只把新习题追加到日期区块；
+  `append-explain-section` 返回 `duplicate: true` 就停手，不要改名绕过去。
+- 场景对话 / 小故事每选中一次都要追加一段完整原文：第一次用 `append-explain-section`，第二次起用 `append-explain-part`
+  往同一小节末尾追加；只有一段时 summary 写 `场景对话原文` / `故事原文`（不编号、块前不写标签行），出现第二段起第一段改成
+  `场景对话原文 1` / `故事原文 1`，其余按 `2`、`3`… 连续编号（写入命令会自动改名）。
 - 给已有区块补菜单小节用 `append-section`（锁内只追加一个 `## ` 小节，区块其余内容一字不动），
   **不要**为了加一节去整块 `replace`：同一个日期区块会被不同对话持续追加小节，整块重写就是覆盖事故的来源。
   `replace` 只用于修正本轮自己刚写错的内容，且它在锁内会自动保留新内容没有带上的既有小节（返回 `preserved_sections`）；
@@ -327,7 +334,7 @@ python3 learn-from-english/scripts/learning_records.py complete-review --input <
   （报「一次只改一个小节」）；确有批量迁移时对每个小节逐个加 `--rewrite-section`，并在同一轮跑 `check --all`
   确认结构没被改坏，回复里报告 `modified_sections`。
 - 写入是「自由文本整段替换」最容易出事的环节：批量改写小节时必须用锚点定位到下一个同级标记（下一个 `##`、`###`、
-  `**完整场景对话**：`），禁止按「读到区块结束」收边；临时脚本只负责拼装文本，落地必须经上面这条命令，
+  `</details>`），禁止按「读到区块结束」收边；临时脚本只负责拼装文本，落地必须经上面这条命令，
   写完必须核对折叠块 `<details>` / `</details>` 成对、现有小节一个没少。
 - 追踪字段分两处：文件顶部的 `## 基础信息`（全文件唯一一份）放记录 ID / 试卷 ID、目标知识点、累计复习次数、下次复习、
   笔记生成时间、笔记更新时间；每个日期区块的裸表格（不加任何小标题）只放复习时间、分类 · 状态变化、本轮得分、题量与错题数（套题再加主观题得分）。
@@ -436,7 +443,7 @@ python3 learn-from-english/scripts/learning_records.py stats --period 30d
 | `batch-upsert` 保存知识点失败 | 继续发送教学正文 | 只显示「重试保存本轮记录」「放弃保存并继续」 | 只留在当前对话 | 说明可能残留部分记录变更并停止后续写入，不得说“已回滚” |
 | `complete-review` 保存评分失败 | 继续发送批改正文 | 只显示「重试保存本轮评分」「放弃保存并返回菜单」 | 只留在当前对话，重试原样携带 `claim_owner` / `claim_token` | 同上；领取凭据失效的提示语见“评分与协调记录” |
 | `paper-complete` 保存套题评分失败 | 继续发送批改正文 | 只显示「重试保存本次试卷评分」「放弃评分保存并保留进行中作答」 | 只留在当前对话 | 同上；放弃时不得删除已保存答案 |
-| `append` / `append-section` / `append-part` / `replace` 写入失败（路径不合规、区块缺标题、文件被占用、同标题小节已存在、目标小节不存在等） | 继续发送当天正文；命令报错原样说明原因 | 只输出得分行、判定表格与后续菜单 | 修正后的区块只留在当前对话 | 不得改用 `Write` 直接改写笔记文件来绕过失败；`append-section` 报小节已存在时改用 `append-part`（同一菜单项再生成一份原文）或 `replace` 修正，不要追加第二个同标题小节；`append-part` 报小节不存在时改用 `append-section` 新建 |
+| `append` / `append-explain-section` / `append-explain-part` / `append-section` / `append-part` / `replace` 写入失败（路径不合规、区块缺标题、文件被占用、同标题小节已存在、目标小节不存在等） | 继续发送当天正文；命令报错原样说明原因 | 只输出得分行、判定表格与后续菜单 | 修正后的区块只留在当前对话 | 不得改用 `Write` 直接改写笔记文件来绕过失败；`append-section` 报小节已存在时改用 `append-part`（同一菜单项再生成一份原文）或 `replace` 修正，不要追加第二个同标题小节；`append-part` 报小节不存在时改用 `append-section` 新建；`append-explain-section` 返回 `duplicate: true` 说明这一项已记录过，按规则停手，不改名绕过；`append-explain-part` 报小节不存在时改用 `append-explain-section` 新建 |
 | `replace` 报「一次只改一个小节」 | 说明这次替换同时重写了多个既有小节 | 只输出得分行、判定表格与后续菜单 | 修正后的区块只留在当前对话 | 一次只改一节；批量迁移逐节加 `--rewrite-section`，并同轮跑 `check --all` |
 | `replace` 返回非空 `preserved_sections` | 写入成功，这些小节是别的对话的成果，已被自动保留在区块末尾 | 只输出得分行、判定表格与后续菜单 | 不涉及 | 不要手工删掉它们；确实要删时用 `--drop-section` 明确列出 |
 | `append` 返回 `duplicate: true`（同标题同内容） | 按已写入处理，不再追加 | 只输出得分行、判定表格与后续菜单 | 不涉及 | 不重试、不手工补写；内容有实质修改才用替换命令 |

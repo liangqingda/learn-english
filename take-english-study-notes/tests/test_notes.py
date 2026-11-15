@@ -70,6 +70,68 @@ class NoteAppendTest(unittest.TestCase):
         self.assertIn("故事原文 2", text)
         self.assertLess(text.index("**讲解要点**"), text.index("故事原文 2"))
 
+    def _note_with_explanation(self) -> None:
+        self.store.write_explanation(
+            self.note,
+            "## 基础信息\n\n<table>\n</table>\n\n## 讲解\n\n**错误机制**：\n\n- 讲解\n",
+        )
+
+    def test_append_explain_section_lands_after_explanation_and_before_rounds(self) -> None:
+        """讲解型菜单项进文件级讲解区：在 `## 讲解` 之后、所有日期区块之前。"""
+        self._note_with_explanation()
+        self.store.append(self.note, round_block())
+        result = self.store.append_explain_section(
+            self.note,
+            "## 对比 out west 和 in the west\n\n**讲解要点**：\n- 一条要点\n  - `She went out west.`（她往西边去了。）\n",
+        )
+        self.assertTrue(result["appended_section"])
+        text = self.note.read_text(encoding="utf-8")
+        self.assertLess(text.index("## 讲解"), text.index("## 对比 out west 和 in the west"))
+        self.assertLess(
+            text.index("## 对比 out west 和 in the west"),
+            text.index("# 2026-11-07 21:00 · 复习"),
+        )
+
+    def test_append_explain_section_reports_duplicates(self) -> None:
+        """同一菜单项重复选中不再记录：第二次写入返回 duplicate，文件不变。"""
+        self._note_with_explanation()
+        section = "## 对比 out west 和 in the west\n\n**讲解要点**：\n- 一条要点\n"
+        self.store.append_explain_section(self.note, section)
+        before = self.note.read_bytes()
+        result = self.store.append_explain_section(self.note, section)
+        self.assertFalse(result["appended_section"])
+        self.assertTrue(result["duplicate"])
+        self.assertEqual(self.note.read_bytes(), before)
+
+    def test_append_explain_part_renumbers_the_first_block(self) -> None:
+        """出现第二段原文时，第一段自动从 `故事原文` 改成 `故事原文 1`。"""
+        self._note_with_explanation()
+        self.store.append_explain_section(
+            self.note,
+            "## 读一个围绕 out west 的小故事\n\n**讲解要点**：\n- 一条要点\n\n"
+            "<details>\n<summary>故事原文</summary>\n\nFirst version.\n\n</details>\n",
+        )
+        result = self.store.append_explain_part(
+            self.note,
+            "## 读一个围绕 out west 的小故事",
+            "<details>\n<summary>故事原文 2</summary>\n\nSecond version.\n\n</details>\n",
+        )
+        self.assertTrue(result["appended_part"])
+        text = self.note.read_text(encoding="utf-8")
+        self.assertIn("<summary>故事原文 1</summary>", text)
+        self.assertIn("<summary>故事原文 2</summary>", text)
+
+    def test_sections_lists_file_level_explanation_sections(self) -> None:
+        """`sections` 要能看到文件级讲解区，调用方才能在写入前判断是否已记录过。"""
+        self._note_with_explanation()
+        self.store.append_explain_section(
+            self.note, "## 对比 A 和 B\n\n**讲解要点**：\n- 一条\n"
+        )
+        whole = self.store.sections(self.note)
+        self.assertEqual(whole["explain_sections"], ["## 讲解", "## 对比 A 和 B"])
+        result = self.store.sections(self.note, heading="")
+        self.assertIn("## 对比 A 和 B", result["explain_sections"])
+
     def test_append_part_refuses_a_missing_section(self) -> None:
         self.store.append(self.note, round_block())
         with self.assertRaises(NoteError):

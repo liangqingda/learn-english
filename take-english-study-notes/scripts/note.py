@@ -5,6 +5,8 @@
     python3 take-english-study-notes/scripts/note.py explain --file <note.md> --content-file - [--update] [--check]
     python3 take-english-study-notes/scripts/note.py append --file <note.md> --content-file - [--check]
     python3 take-english-study-notes/scripts/note.py append-section --file <note.md> --heading "<# ...>" --content-file - [--check]
+    python3 take-english-study-notes/scripts/note.py append-explain-section --file <note.md> --content-file - [--check]
+    python3 take-english-study-notes/scripts/note.py append-explain-part --file <note.md> --section "## ..." --content-file - [--check]
     python3 take-english-study-notes/scripts/note.py append-part --file <note.md> --heading "<# ...>" --section "## ..." --content-file - [--check]
     python3 take-english-study-notes/scripts/note.py replace --file <note.md> --heading "<# ...>" --content-file - [--rewrite-section "## ..."] [--check]
     python3 take-english-study-notes/scripts/note.py sync --file <note.md> [--check]
@@ -233,6 +235,26 @@ def handle_append_part(args: argparse.Namespace) -> dict[str, Any]:
     return result
 
 
+def handle_append_explain_section(args: argparse.Namespace) -> dict[str, Any]:
+    """把菜单项的讲解要点 / 场景对话 / 小故事写到文件级讲解区（`## 讲解` 之后）。"""
+    note = store()
+    result = note.append_explain_section(args.file, read_content(args.content_file))
+    if args.check and result.get("appended_section"):
+        validate_after_write(note, result)
+    return result
+
+
+def handle_append_explain_part(args: argparse.Namespace) -> dict[str, Any]:
+    """往文件级小节的末尾再补一段原文：同一菜单项第二次生成的故事 / 对话走这条路。"""
+    note = store()
+    result = note.append_explain_part(
+        args.file, args.section, read_content(args.content_file)
+    )
+    if args.check and result.get("appended_part"):
+        validate_after_write(note, result)
+    return result
+
+
 def handle_replace(args: argparse.Namespace) -> dict[str, Any]:
     note = store()
     result = note.replace_block(
@@ -283,6 +305,7 @@ def handle_sections(args: argparse.Namespace) -> dict[str, Any]:
     whole = note.sections(args.file)
     result: dict[str, Any] = {"file": whole["file"]}
     result["record_id"] = whole["record_id"]
+    result["explain_sections"] = whole.get("explain_sections", [])
     result["blocks"] = [
         {"heading": block["heading"], "sections": block["sections"]}
         for block in whole["blocks"]
@@ -292,7 +315,7 @@ def handle_sections(args: argparse.Namespace) -> dict[str, Any]:
     if args.section:
         queried = args.section.strip()
         result["queried_section"] = queried
-        result["has_section"] = any(
+        result["has_section"] = queried in whole.get("explain_sections", []) or any(
             queried in block["sections"] for block in whole["blocks"]
         )
     return result
@@ -347,6 +370,25 @@ def build_parser() -> argparse.ArgumentParser:
     append_part.add_argument("--content-file", required=True, help="raw Markdown fragment path or - for stdin")
     append_part.add_argument("--check", action="store_true", help="run the validator afterwards")
     append_part.set_defaults(handler=handle_append_part)
+
+    append_explain_section = subparsers.add_parser(
+        "append-explain-section",
+        help="append one '## section' to the file-level explanation area (after '## 讲解')",
+    )
+    append_explain_section.add_argument("--file", required=True, help="learning-record-notes/<category>-<slug>.md")
+    append_explain_section.add_argument("--content-file", required=True, help="raw '## ...' Markdown section path or - for stdin")
+    append_explain_section.add_argument("--check", action="store_true", help="run the validator afterwards")
+    append_explain_section.set_defaults(handler=handle_append_explain_section)
+
+    append_explain_part = subparsers.add_parser(
+        "append-explain-part",
+        help="append a body fragment to a file-level '## section' (repeat story / dialogue)",
+    )
+    append_explain_part.add_argument("--file", required=True, help="learning-record-notes/<category>-<slug>.md")
+    append_explain_part.add_argument("--section", required=True, help="exact '## ...' title in the explanation area")
+    append_explain_part.add_argument("--content-file", required=True, help="raw Markdown fragment path or - for stdin")
+    append_explain_part.add_argument("--check", action="store_true", help="run the validator afterwards")
+    append_explain_part.set_defaults(handler=handle_append_explain_part)
 
     replace = subparsers.add_parser("replace", help="replace one existing round block in place")
     replace.add_argument("--file", required=True, help="learning-record-notes/<category>-<slug>.md")

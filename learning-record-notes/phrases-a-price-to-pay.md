@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>2</td></tr>
 <tr><td>下次复习</td><td>2026-11-18 12:05</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-07 20:22</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-15 12:23</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-15 12:45</td></tr>
 </table>
 
 ## 讲解
@@ -35,6 +35,116 @@
 - Fame came with a price to pay — her privacy.（成名是有代价的：她的隐私）
 - He paid a high price for that promotion.（他为那次升职付出了高昂的代价）
 - Nobody stays in the game without paying a price.（没有谁是不付代价就留在牌桌上的）
+
+## 练习「a price to pay」的关键语法结构
+
+**讲解要点**：
+- 名词 + 后置不定式用主动形式，表示“待做、该做、可做”
+  - `a price to pay`（要付的代价）
+  - `three reports to write`（要写三份报告）
+  - `nothing to lose`（没什么可失去的）
+- 即使名词本身是被处理的对象，也不用被动式；被动不定式只在预告“将来由某人执行”时出现
+  - `a price to be paid by the contractor`（由承包商偿付的代价）
+- there be 后面的名词只能用短语或关系从句修饰，不能直接接第二个谓语
+  - `There are two emails to reply to.`（有两封邮件要回）
+  - `There are two emails that need to be replied to.`（有两封需要回复的邮件）
+- 中文“每件事都有代价”要让事物作主语时换动词，不能用事物去 pay
+  - `Everything comes with a price to pay.`（每件事都有代价）
+- pay 的主语是付代价的人或机构，for 引出换来的东西
+  - `She paid a price for speaking first.`（她因为先开口付出了代价）
+
+## 看一套围绕「a price to pay」的完整场景对话
+
+**讲解要点**：
+- there was a price to pay：事后回顾时用过去时，代价已经发生。
+  - `There was a price to pay — my weekends and most of my savings.`（代价是有的：我的周末和大部分积蓄）
+- every + 名词 + comes with a price to pay：事物作主语时，代价作为伴随属性出现。
+  - `Every second shop comes with a price to pay.`（每多开一家店都是有代价的）
+- a price to be paid in advance：被动不定式，强调代价要先付、由谁付留给上下文。
+  - `The first year is always a price to be paid in advance.`（第一年总是要先付的那笔代价）
+- pay a price for it：主语是付出代价的人，for 引出换来的东西。
+  - `I'll pay a price for it too — the quiet hours.`（我也会为此付代价：那些安静的时间）
+- a price worth paying：worth 后面直接接动名词，用来判断值不值。
+  - `Is that a price worth paying?`（这份代价值得付吗）
+
+<details>
+<summary>场景对话原文 1</summary>
+
+- **Owen**：Ten years already. Last time we talked, you were still at the bank.
+- **Priya**：I left two years ago. I run a small bookshop by the river now.
+- **Owen**：And? Was it worth it?
+- **Priya**：Worth it, but there was **a price to pay** — my weekends and most of my savings.
+- **Owen**：I heard your partner wants to open a second shop.
+- **Priya**：She does. She says two shops double the income.
+- **Owen**：And what do you say?
+- **Priya**：I keep telling her every second shop **comes with a price to pay**, and this time it would be my daughter's evenings.
+- **Owen**：Can you run two shops and still be home by seven?
+- **Priya**：Not in the first year. The first year is always **a price to be paid** in advance — stock, staff, and no sleep.
+- **Owen**：That sounds like an expensive first year.
+- **Priya**：It is. So I asked for one thing: if we do it, she takes the morning shifts.
+- **Owen**：Fair. And what did she say?
+- **Priya**：She said yes. Which means I'll **pay a price for it** too — the quiet hours I used to have alone in the shop.
+- **Owen**：Quiet hours. Is that **a price worth paying**?
+- **Priya**：Probably. But I've learned one thing: nobody pays that kind of price for something they don't really want.
+
+</details>
+
+<details>
+<summary>场景对话原文 2</summary>
+
+- **Hector**：You're in the pool before six. That's not normal for a father of two.
+- **Sam**：My wife works nights this month. If I train now, I'm home before the kids wake up.
+- **Hector**：And you're still doing the triathlon in June?
+- **Sam**：I am. Which means there is **a price to pay** — sleep, mostly.
+- **Hector**：How much sleep?
+- **Sam**：Five hours. Maybe six on Sunday.
+- **Hector**：Five hours for four months. You'll **pay a price for that** in your knees, not your alarm clock.
+- **Sam**：I know. My physio said the same thing last week.
+- **Hector**：Then why June and not September?
+- **Sam**：Because September **comes with a price to pay** too — my daughter starts school, and every morning would be hers.
+- **Hector**：That's honest, at least.
+- **Sam**：I keep a list on my phone of what I'm giving up. My wife calls it my receipts folder.
+- **Hector**：Mine was a notebook. Eight hundred pages, forty years.
+- **Sam**：Was it worth it?
+- **Hector**：Some of it. The yellow pages, the ones with the races, those were **prices worth paying**. The rest I just paid because I didn't know how to stop.
+
+</details>
+
+## 读一个围绕「a price to pay」的小故事
+
+**讲解要点**：
+- there was a price to pay：代价作为事后发现的事实被交代出来，用过去时最自然。
+  - `She learned there was a price to pay: two hundred euros less every month.`（她发现是有代价的：每月少了二百欧元）
+- sth comes with a price to pay：用伴随结构把代价挂在某个具体安排上，主语是那件事本身。
+  - `Every Saturday morning came with a price to pay.`（每个周六早晨都带着代价）
+- a price to pay for + 名词：for 引出“换来的是什么”，代价与收益一一对应。
+  - `There was a price to pay for the day shift.`（白班是要付代价的）
+- a price worth paying：判断值不值，worth 后接动名词，不接不定式。
+  - `Some prices are worth paying in full.`（有些代价值得全额付清）
+
+<details>
+<summary>故事原文</summary>
+
+For eleven years Marta cooked the night meals at a hospital in Zaragoza. When the day shift finally opened, she learned there was **a price to pay**: two hundred euros less every month. She signed the form anyway, because she wanted to eat dinner with her son.
+十一年里，玛尔塔都在萨拉戈萨一家医院做夜班餐食。白班名额终于空出来时，她发现是有代价的：每月少二百欧元。她还是签了字，因为她想和儿子一起吃晚饭。
+
+The first weeks felt like a gift. Then the quiet hours began to disappear. Her son's football matches fell on her new shift, and every Saturday morning **came with a price to pay** — a message from the coach saying the team had won without her watching. She kept those messages in a folder, as if they were receipts.
+头几周像是一份礼物。随后，安静的时间开始消失。儿子的足球赛正好排在她的新班次上，每个周六早晨都带着代价：教练发来消息，说球队赢了，而她没能到场。她把这些消息存在一个文件夹里，像收藏收据一样。
+
+In March her mother fell at home and needed someone there in the afternoons. Marta asked for three weeks off. The manager said the day shift was a package deal; **there was a price to pay** for it, and three weeks away would cost her the post. She hung up and looked at the rota pinned to her fridge.
+三月里，母亲在家摔倒，下午需要有人在家。玛尔塔请了三周假。经理说白班是个整包安排，是有代价的，离开三周就会失去这个位置。她挂了电话，盯着贴在冰箱上的排班表。
+
+She stayed on the day shift and paid a neighbour to sit with her mother after lunch. Six months later her son scored his first goal, and she was there, standing behind the fence in wet shoes. Some prices, she told her sister later, **are worth paying in full**.
+她留在了白班，并付钱请邻居午饭后去陪母亲。六个月后，儿子进了人生第一个球，她就在场，湿着鞋站在围栏后面。后来她跟妹妹说，有些代价值得全额付清。
+
+</details>
+
+| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |
+|---|---|---|
+| she learned there was a price to pay | 白班不是净赚，代价在事后才显形 | 用 there was 把代价当成客观事实交代，比 she had to pay 更冷静，也不需要点明谁付 |
+| every Saturday morning came with a price to pay | 代价黏在具体的时间安排上，反复出现 | come with 的主语是“周六早晨”这件事，若改成 I paid a price every Saturday 就把叙述焦点从制度挪到个人，故事的时间感会断 |
+| there was a price to pay for it | 支出与所得一一对应：想要白班，就得接受整包条件 | for 引出“换来的东西”，比 at the cost of 更口语，也更符合经理的口气 |
+| some prices are worth paying in full | 收尾处给代价一个判断：值 | worth 后接动名词是固定结构，换成 are worthy to pay 不合语法，换成 I accept the price 又失去了“值不值”的判断 |
 
 # 2026-11-15 12:05 · 复习
 
@@ -234,21 +344,6 @@ My cousin finally bought the old farm she always wanted. She gave up every weeke
 
 ## 练习「a price to pay」的关键语法结构
 
-**讲解要点**：
-- 名词 + 后置不定式用主动形式，表示“待做、该做、可做”
-  - `a price to pay`（要付的代价）
-  - `three reports to write`（要写三份报告）
-  - `nothing to lose`（没什么可失去的）
-- 即使名词本身是被处理的对象，也不用被动式；被动不定式只在预告“将来由某人执行”时出现
-  - `a price to be paid by the contractor`（由承包商偿付的代价）
-- there be 后面的名词只能用短语或关系从句修饰，不能直接接第二个谓语
-  - `There are two emails to reply to.`（有两封邮件要回）
-  - `There are two emails that need to be replied to.`（有两封需要回复的邮件）
-- 中文“每件事都有代价”要让事物作主语时换动词，不能用事物去 pay
-  - `Everything comes with a price to pay.`（每件事都有代价）
-- pay 的主语是付代价的人或机构，for 引出换来的东西
-  - `She paid a price for speaking first.`（她因为先开口付出了代价）
-
 ### 1. 填空
 
 **题目**：用括号内动词的恰当形式填空。
@@ -405,109 +500,6 @@ Owning a shop on this street is profitable. You have to answer phone calls at mi
 4. **正确表达**：`There are two emails to reply to this week, and there is certainly a price to pay for it.`（这周还有两封邮件要回，而且这件事肯定有代价）
 
 </details>
-
----
-
-## 看一套围绕「a price to pay」的完整场景对话
-
-**讲解要点**：
-- there was a price to pay：事后回顾时用过去时，代价已经发生。
-  - `There was a price to pay — my weekends and most of my savings.`（代价是有的：我的周末和大部分积蓄）
-- every + 名词 + comes with a price to pay：事物作主语时，代价作为伴随属性出现。
-  - `Every second shop comes with a price to pay.`（每多开一家店都是有代价的）
-- a price to be paid in advance：被动不定式，强调代价要先付、由谁付留给上下文。
-  - `The first year is always a price to be paid in advance.`（第一年总是要先付的那笔代价）
-- pay a price for it：主语是付出代价的人，for 引出换来的东西。
-  - `I'll pay a price for it too — the quiet hours.`（我也会为此付代价：那些安静的时间）
-- a price worth paying：worth 后面直接接动名词，用来判断值不值。
-  - `Is that a price worth paying?`（这份代价值得付吗）
-
-**完整场景对话**：
-
-<details>
-<summary>场景对话原文</summary>
-
-- **Owen**：Ten years already. Last time we talked, you were still at the bank.
-- **Priya**：I left two years ago. I run a small bookshop by the river now.
-- **Owen**：And? Was it worth it?
-- **Priya**：Worth it, but there was **a price to pay** — my weekends and most of my savings.
-- **Owen**：I heard your partner wants to open a second shop.
-- **Priya**：She does. She says two shops double the income.
-- **Owen**：And what do you say?
-- **Priya**：I keep telling her every second shop **comes with a price to pay**, and this time it would be my daughter's evenings.
-- **Owen**：Can you run two shops and still be home by seven?
-- **Priya**：Not in the first year. The first year is always **a price to be paid** in advance — stock, staff, and no sleep.
-- **Owen**：That sounds like an expensive first year.
-- **Priya**：It is. So I asked for one thing: if we do it, she takes the morning shifts.
-- **Owen**：Fair. And what did she say?
-- **Priya**：She said yes. Which means I'll **pay a price for it** too — the quiet hours I used to have alone in the shop.
-- **Owen**：Quiet hours. Is that **a price worth paying**?
-- **Priya**：Probably. But I've learned one thing: nobody pays that kind of price for something they don't really want.
-
-</details>
-
----
-
-**完整场景对话 2**：
-
-<details>
-<summary>场景对话原文 2</summary>
-
-- **Hector**：You're in the pool before six. That's not normal for a father of two.
-- **Sam**：My wife works nights this month. If I train now, I'm home before the kids wake up.
-- **Hector**：And you're still doing the triathlon in June?
-- **Sam**：I am. Which means there is **a price to pay** — sleep, mostly.
-- **Hector**：How much sleep?
-- **Sam**：Five hours. Maybe six on Sunday.
-- **Hector**：Five hours for four months. You'll **pay a price for that** in your knees, not your alarm clock.
-- **Sam**：I know. My physio said the same thing last week.
-- **Hector**：Then why June and not September?
-- **Sam**：Because September **comes with a price to pay** too — my daughter starts school, and every morning would be hers.
-- **Hector**：That's honest, at least.
-- **Sam**：I keep a list on my phone of what I'm giving up. My wife calls it my receipts folder.
-- **Hector**：Mine was a notebook. Eight hundred pages, forty years.
-- **Sam**：Was it worth it?
-- **Hector**：Some of it. The yellow pages, the ones with the races, those were **prices worth paying**. The rest I just paid because I didn't know how to stop.
-
-</details>
-
-## 读一个围绕「a price to pay」的小故事
-
-**讲解要点**：
-- there was a price to pay：代价作为事后发现的事实被交代出来，用过去时最自然。
-  - `She learned there was a price to pay: two hundred euros less every month.`（她发现是有代价的：每月少了二百欧元）
-- sth comes with a price to pay：用伴随结构把代价挂在某个具体安排上，主语是那件事本身。
-  - `Every Saturday morning came with a price to pay.`（每个周六早晨都带着代价）
-- a price to pay for + 名词：for 引出“换来的是什么”，代价与收益一一对应。
-  - `There was a price to pay for the day shift.`（白班是要付代价的）
-- a price worth paying：判断值不值，worth 后接动名词，不接不定式。
-  - `Some prices are worth paying in full.`（有些代价值得全额付清）
-
-**故事原文**：
-
-<details>
-<summary>故事原文</summary>
-
-For eleven years Marta cooked the night meals at a hospital in Zaragoza. When the day shift finally opened, she learned there was **a price to pay**: two hundred euros less every month. She signed the form anyway, because she wanted to eat dinner with her son.
-十一年里，玛尔塔都在萨拉戈萨一家医院做夜班餐食。白班名额终于空出来时，她发现是有代价的：每月少二百欧元。她还是签了字，因为她想和儿子一起吃晚饭。
-
-The first weeks felt like a gift. Then the quiet hours began to disappear. Her son's football matches fell on her new shift, and every Saturday morning **came with a price to pay** — a message from the coach saying the team had won without her watching. She kept those messages in a folder, as if they were receipts.
-头几周像是一份礼物。随后，安静的时间开始消失。儿子的足球赛正好排在她的新班次上，每个周六早晨都带着代价：教练发来消息，说球队赢了，而她没能到场。她把这些消息存在一个文件夹里，像收藏收据一样。
-
-In March her mother fell at home and needed someone there in the afternoons. Marta asked for three weeks off. The manager said the day shift was a package deal; **there was a price to pay** for it, and three weeks away would cost her the post. She hung up and looked at the rota pinned to her fridge.
-三月里，母亲在家摔倒，下午需要有人在家。玛尔塔请了三周假。经理说白班是个整包安排，是有代价的，离开三周就会失去这个位置。她挂了电话，盯着贴在冰箱上的排班表。
-
-She stayed on the day shift and paid a neighbour to sit with her mother after lunch. Six months later her son scored his first goal, and she was there, standing behind the fence in wet shoes. Some prices, she told her sister later, **are worth paying in full**.
-她留在了白班，并付钱请邻居午饭后去陪母亲。六个月后，儿子进了人生第一个球，她就在场，湿着鞋站在围栏后面。后来她跟妹妹说，有些代价值得全额付清。
-
-</details>
-
-| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |
-|---|---|---|
-| she learned there was a price to pay | 白班不是净赚，代价在事后才显形 | 用 there was 把代价当成客观事实交代，比 she had to pay 更冷静，也不需要点明谁付 |
-| every Saturday morning came with a price to pay | 代价黏在具体的时间安排上，反复出现 | come with 的主语是“周六早晨”这件事，若改成 I paid a price every Saturday 就把叙述焦点从制度挪到个人，故事的时间感会断 |
-| there was a price to pay for it | 支出与所得一一对应：想要白班，就得接受整包条件 | for 引出“换来的东西”，比 at the cost of 更口语，也更符合经理的口气 |
-| some prices are worth paying in full | 收尾处给代价一个判断：值 | worth 后接动名词是固定结构，换成 are worthy to pay 不合语法，换成 I accept the price 又失去了“值不值”的判断 |
 
 ---
 

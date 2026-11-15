@@ -15,7 +15,8 @@ description: 复习笔记（`learning-record-notes/*.md`）的唯一 owner：何
 |---|---|---|
 | 讲解轮（用户发来一句英语、正文里实质讲解过） | `learn-from-english` | 每条实际讲解的记录一个文件，写 `## 基础信息` + 文件级 `## 讲解` |
 | 有实际作答的复习 / 聚焦练习 / 套题 | `practice-learning-records` | 往该记录已有文件追加一个日期区块 `# <date> <time> · 复习\|练习\|套题` |
-| 菜单型后续学习（场景对话、小故事、扩展讲解、追加练习） | 两者皆可 | 往同一日期区块追加 `## <选项原文>` 小节，不另建文件 |
+| 菜单型后续学习（场景对话、小故事、扩展讲解、对比相近表达） | 两者皆可 | 只讲解、不带习题的写成 `## 讲解` 之后的文件级 `## <选项原文>` 小节（`append-explain-section`），不进日期区块 |
+| 带习题的菜单项（如「练习…的关键语法结构」） | `practice-learning-records` | 讲解要点写文件级小节（第一轮一次），本轮习题写日期区块里同名小节（`append-section`） |
 | 笔记存在但缺少 `## 讲解`（历史补建、只写过复习区块） | 任一写该笔记的 skill | **先补齐讲解**：用 `explain --update` 插一份（没有正文时写占位提示），再写本轮区块 |
 | 某个知识点还没有任何笔记 | 任一提到该记录的 skill | 用 `explain` 创建文件，讲解正文缺失时写占位提示，不留空文件 |
 
@@ -28,6 +29,8 @@ description: 复习笔记（`learning-record-notes/*.md`）的唯一 owner：何
 ```bash
 python3 take-english-study-notes/scripts/note.py explain        --file learning-record-notes/<category>-<slug>.md --content-file - [--update] [--check]
 python3 take-english-study-notes/scripts/note.py append         --file learning-record-notes/<category>-<slug>.md --content-file - [--check]
+python3 take-english-study-notes/scripts/note.py append-explain-section --file learning-record-notes/<category>-<slug>.md --content-file - [--check]
+python3 take-english-study-notes/scripts/note.py append-explain-part    --file learning-record-notes/<category>-<slug>.md --section "## <小节标题>" --content-file - [--check]
 python3 take-english-study-notes/scripts/note.py append-section --file learning-record-notes/<category>-<slug>.md --heading "<# ...>" --content-file - [--check]
 python3 take-english-study-notes/scripts/note.py append-part    --file learning-record-notes/<category>-<slug>.md --heading "<# ...>" --section "## <小节标题>" --content-file - [--check]
 python3 take-english-study-notes/scripts/note.py replace        --file learning-record-notes/<category>-<slug>.md --heading "<# ...>" --content-file - [--rewrite-section "## ..."] [--check]
@@ -39,7 +42,13 @@ python3 take-english-study-notes/scripts/note.py check --all [--fix]
 
 - 写入全程在 `learning-record-notes/.notes.lock` 排他锁内完成「读 → 拼装 → `os.replace` 原子替换」，调用方不自己改写文件。
 - 禁止用 `Write` 或任何编辑器直接改笔记；也禁止先落固定路径（如 `/tmp/note-block.md`）的临时内容文件，并行会话会互相覆盖。
-- 写之前先 `sections` 查目标文件已有哪些轮次与 `##` 小节，再决定 `append-section`（新增小节）、`append-part`（往已有小节末尾补一段，用于同一菜单项第二次生成的故事 / 对话原文）还是 `replace --rewrite-section`，不要拼好大段内容再被拒。
+- 写之前先 `sections` 查目标文件已有哪些轮次与 `##` 小节，再决定 `append-explain-section`（文件级讲解小节首次写入）、
+  `append-explain-part`（往文件级小节末尾补第二段故事 / 对话原文）、`append-section`（往日期区块加带习题的菜单项）、
+  `append-part`（往日期区块既有小节末尾补一段）还是 `replace --rewrite-section`，不要拼好大段内容再被拒。
+- 讲解型内容（讲解要点、对比、场景对话、小故事）一律写 `## 讲解` 之后；日期区块只放 `## 本轮习题` 与带习题的菜单项。
+  同一个菜单项重复选中时，除场景对话与小故事外不再记录：`append-explain-section` 返回 `duplicate: true` 就停手。
+- 场景对话 / 小故事只有一段原文时 summary 写 `场景对话原文` / `故事原文`（不编号、块前不写标签行）；
+  出现第二段起第一段改成 `场景对话原文 1` / `故事原文 1`，其余按 `2`、`3`… 编号，写入命令会自动完成改名。
 - `explain --update` 有两种语义：文件已有 `## 讲解` 时只替换该小节；文件没有 `## 讲解` 时把这一节插入到 `## 基础信息` 表之后、所有日期区块之前（返回 `inserted: true`），不覆盖任何已有内容。补讲解一律用它，不要用 `Write` 或 `replace` 手动插小块。
 - `append` / `append-section` / `append-part` / `replace` 加 `--check` 会在写入后自动跑本 skill 的校验器，并自动修复无争议问题（行尾空格、答案题号前缀、缺失的 `---` 等），结果放在 `auto_fixed`；`explain --check` 只校验不回改。
 
@@ -64,10 +73,11 @@ python3 take-english-study-notes/scripts/note.py check --all [--fix]
   栏目按本记录分类聚焦、自由选取（至少两栏，每栏列表或表格），模板 meta `explain-required-labels` 声明各分类必写栏：
   `vocabulary` / `phrases` → `核心含义`；`grammar` → `语法机制`；`usage` → `语气与语域`；`errors` → `错误机制`。
   讲语法时不要写历史文化背景与发音；讲短语、用法时可以写。
-- 每个日期区块 `# <YYYY-MM-DD> <HH:MM> · 复习|练习|套题` 下是一张裸表格（不加小标题）：复习时间、分类 · 状态变化、
-  本轮得分、题量与错题数；套题再加主观题得分。区块按时间倒序排列：最新一轮紧跟 `## 讲解`，旧区块依次排在它之后。
+- 文件级讲解区 = `## 讲解` + 若干只讲解、不带习题的菜单小节（场景对话、小故事、对比、扩展讲解），全部在所有日期区块之前。
+  每个日期区块 `# <YYYY-MM-DD> <HH:MM> · 复习|练习|套题` 下是一张裸表格（不加小标题）：复习时间、分类 · 状态变化、
+  本轮得分、题量与错题数；套题再加主观题得分。区块按时间倒序排列：最新一轮紧跟文件级讲解区，旧区块依次排在它之后。
 - 文件名必须等于记录 ID：`<category>-<key>.md`，`<key>` 小写、连字符。同一记录已有笔记时，命令会拒绝另建文件并给出应复用的路径。
-- 批量改写小节必须用锚点定位到下一个同级标记（下一个 `##`、`###`、`**完整场景对话**：`），禁止按「读到区块结束」收边，
+- 批量改写小节必须用锚点定位到下一个同级标记（下一个 `##`、`###`、`</details>`），禁止按「读到区块结束」收边，
   否则会静默吞掉同节内的其他内容。
 
 ## 校验
@@ -91,5 +101,5 @@ python3 take-english-study-notes/scripts/note.py check --all [--fix]
 ## 与其他 skill 的边界
 
 - `learn-from-english`：记录库、菜单、讲解正文；讲解要落笔记时调本 skill 的 `explain`。
-- `practice-learning-records`：复习、练习、套题评分；要落笔记时调本 skill 的 `append` / `append-section` / `append-part` / `replace`。
+- `practice-learning-records`：复习、练习、套题评分；要落笔记时调本 skill 的 `append` / `append-explain-section` / `append-explain-part` / `append-section` / `append-part` / `replace`。
 - 本 skill 不读抽题调度、不算分、不改规范记录，只写 `learning-record-notes/` 下的可读副本。
