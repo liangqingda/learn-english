@@ -1,8 +1,33 @@
 {
   "schema_version": 2,
-  "revision": 260,
+  "revision": 261,
   "category": "errors",
   "records": {
+    "errors:a-few-kinds-of-food-plural": {
+      "id": "errors:a-few-kinds-of-food-plural",
+      "category": "errors",
+      "key": "a-few-kinds-of-food-plural",
+      "status": "learning",
+      "title": "a few kinds of food 误写成 a few kind of foods",
+      "explanation": "a few 后面接可数名词复数，kinds 必须加 -s；food 表示食物类别时通常不可数，用 kind of food，不加 -s。",
+      "source": "a few kind of foods",
+      "example": "When the snack shop had just opened, there were only a few kinds of food.",
+      "tags": [
+        "agreement",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T07:22:57+08:00",
+      "last_learned_at": "2026-11-16T07:22:57+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:a-little-bit-earlier-comparative": {
       "id": "errors:a-little-bit-earlier-comparative",
       "category": "errors",
@@ -79,6 +104,31 @@
       ],
       "first_learned_at": "2026-11-15T10:52:55+08:00",
       "last_learned_at": "2026-11-15T10:52:55+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:a-vs-an-before-vowel-sound": {
+      "id": "errors:a-vs-an-before-vowel-sound",
+      "category": "errors",
+      "key": "a-vs-an-before-vowel-sound",
+      "status": "learning",
+      "title": "元音音素前误用 a（应为 an）",
+      "explanation": "不定冠词看的是读音而不是拼写：old 以元音音素开头，所以写 an old chair；a 只用在辅音音素前。",
+      "source": "a old chair",
+      "example": "There was only an old chair outside the shop.",
+      "tags": [
+        "article",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T07:22:57+08:00",
+      "last_learned_at": "2026-11-16T07:22:57+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -4933,16 +4983,16 @@
       "key": "present-tense-in-past-narration",
       "status": "learning",
       "title": "叙述过去情形时误用一般现在时",
-      "explanation": "回忆过去某个时间点的场景，主句和 there be 结构都要用过去时；is / has 会把场景拉回现在，与 when 从句的过去完成时冲突。",
-      "source": "There is only a house / only has a restaurant",
+      "explanation": "回忆过去某个时间点的场景，主句和 there be 结构都要用过去时；is / has / come 会把场景拉回现在，与 when 从句的过去完成时冲突。",
+      "source": "the clinic only three patients come in its first month",
       "example": "When the little hotel had just opened, there was only one restaurant on the whole street.",
       "tags": [
         "review-error",
         "tense"
       ],
       "first_learned_at": "2026-11-15T21:09:32+08:00",
-      "last_learned_at": "2026-11-15T21:09:32+08:00",
-      "learned_count": 1,
+      "last_learned_at": "2026-11-16T07:22:57+08:00",
+      "learned_count": 2,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,
@@ -5843,6 +5893,31 @@
         }
       ],
       "key": "several-plus-plural-count-noun"
+    },
+    "errors:shoe-repair-shop-noun-phrase": {
+      "id": "errors:shoe-repair-shop-noun-phrase",
+      "category": "errors",
+      "key": "shoe-repair-shop-noun-phrase",
+      "status": "learning",
+      "title": "修鞋铺误写成 the repair shoes",
+      "explanation": "“修鞋铺”是一个提供服务的店铺，英语用 the shoe-repair shop（或 the shoe repair shop）；repair shoes 读成“修鞋”这个动作或“被修的鞋”，不能直接充当店铺名词。",
+      "source": "the repair shoes",
+      "example": "When the shoe-repair shop had just opened, there was only an old chair outside.",
+      "tags": [
+        "review-error",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-11-16T07:22:57+08:00",
+      "last_learned_at": "2026-11-16T07:22:57+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:short-rest-not-short-resting": {
       "id": "errors:short-rest-not-short-resting",

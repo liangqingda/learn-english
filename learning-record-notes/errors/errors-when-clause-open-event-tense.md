@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>3</td></tr>
 <tr><td>下次复习</td><td>2026-11-18 21:09</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-15 21:09</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-15 21:21</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-16 07:24</td></tr>
 </table>
 
 ## 讲解
@@ -33,6 +33,7 @@
 
 复习历史：
 <!-- round-index -->
+- [2026-11-16 07:22 · 练习](#round-2026-11-16-0722)
 - [2026-11-15 21:09 · 复习](#round-2026-11-15-2109)
 <!-- /round-index -->
 
@@ -209,6 +210,211 @@ Last month the railway announced a new station, and the town is already arguing 
 | 第 2 段：When the stall had just opened, the only customers were train conductors | 交代刚开业时客源极少的处境 | 换成 was opening 会读成“正在支摊那一瞬”，装不下每天从五点熬到末班车的状态 |
 | 第 3 段：she opened a real shop two steps from the platform | 说明两年后那一次真正开店的动作 | 换成 had opened 会把开店推到更早的过去，与“两年后”的顺序打架 |
 | 第 4 段：remembers when the stall had just opened: two stools, one pot... | 用最初的模样给故事收口 | 换成现在时会把“现在只有两口凳子”读成当下事实，回忆就退成眼前的事实 |
+
+## 练习「when 从句描述开业事件的动词和时态」的关键语法结构
+
+**讲解要点**：
+- “某处刚开业的时候”用 `when + 主语 + had just opened`，从句给完成状态，主句描述当时情形也要落在过去时。
+  - When the clinic had just opened, only three patients came in its first month.（那家诊所刚开业的时候，第一个月只来了三个病人）
+  - When the shoe-repair shop had just opened, there was only an old chair outside.（那家修鞋铺刚开业的时候，门外只有一把旧椅子）
+- when 从句放句首并用逗号隔开后，主句不再重复 when，也不能把主句动词留在现在时；`come / is / has` 会把回忆拉回现在。
+  - When the snack shop had just opened, there were only a few kinds of food.（那家小吃店刚开业的时候，只有几种吃食）
+- 名词短语要一次写完整：店铺说 the shoe-repair shop，元音音素前用 an，`a few` 后接复数名词（a few kinds of food）。
+  - She bought an old chair at the shoe-repair shop.（她在那家修鞋铺买了一把旧椅子）
+
+复习历史：
+<!-- practice-index -->
+- [2026-11-16 07:22 · 练习](#practice-2026-11-16-0722-c2de7a43)
+<!-- /practice-index -->
+
+# 2026-11-16 07:22 · 练习
+
+## 本轮习题 <a id="round-2026-11-16-0722"></a>
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>复习时间</td><td>2026-11-16 07:22</td></tr>
+<tr><td>分类 · 状态变化</td><td>errors · 未入库</td></tr>
+<tr><td>本轮得分</td><td>7 / 10</td></tr>
+<tr><td>题量与错题数</td><td>6 题 / 4 处错误</td></tr>
+</table>
+
+---
+
+## 练习「when 从句描述开业事件的动词和时态」的关键语法结构 <a id="practice-2026-11-16-0722-c2de7a43"></a>
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>本轮得分</td><td>7 / 10</td></tr>
+<tr><td>题量与错题数</td><td>6 题 / 4 处错误</td></tr>
+</table>
+
+### 1. 单项选择
+
+**题目**：选择最佳选项填空
+
+The bakery ____ its doors in 2013, and the queue outside never really disappeared.
+
+- A. opened
+- B. was opening
+- C. has opened
+- D. opens
+
+**我的答案**：A
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：带年份的一次性开业事件用一般过去时。
+2. **规则与机制**：`in 2013` 只标记事件发生的年份，句子交代的是“开业”这一完成动作，用 opened；was opening 是过程体，has opened 是现在完成时（与后文过去叙述冲突）。
+3. **英语的表达逻辑**：英语把开业处理成有起止的完整事件，指明年份就等于宣布事件已结束，因此落在一般过去时。
+4. **可迁移表达**：The bakery opened its doors in 2013.（这家面包店 2013 年开业）；The clinic opened in 2015 and has been busy ever since.（那家诊所 2015 年开业，从那以后一直很忙）
+
+</details>
+
+### 2. 填空
+
+**题目**：用括号内动词的适当形式填空，每处 ____ 只填一个词或一个词形
+
+I still remember when the bookshop ____ just ____ — the shelves were almost empty.
+（open）
+
+**我的答案**：had \ opened
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：`had just + 过去分词` 表“刚完成”。
+2. **规则与机制**：remember when 把时间锚在过去某一点，`had just opened` 说明开业在那一点之前刚完成；just 夹在助动词与过去分词之间。
+3. **英语的表达逻辑**：英语用过去完成时把动作前置到回忆时间点之前，形成“刚开完业”的状态背景。
+4. **可迁移表达**：I still remember when the bookshop had just opened.（我还记得那家书店刚开业的时候）；She still remembers when the library had just opened.（她还记得那家图书馆刚开馆的时候）
+
+</details>
+
+### 3. 改写
+
+**题目**：用 when 从句合并两句，句意不变
+
+The clinic opened in 2015. In its first month only three patients came.
+
+**我的答案**：I still remember the clinic only three patients come in its first month when it had just opened.
+
+**判定**：⚠️ 部分正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：when 从句合并两句，以及从句与主句的时态一致。
+2. **规则与机制**：参考改写为 `When the clinic had just opened, only three patients came in its first month.`；when 从句放句首，逗号后接主句，主句动词用过去时 came。
+3. **英语的表达逻辑**：英语把时间背景放从句、把当时的结果放主句，两者都要在过去时域内；从句在前时主句不再重复 when。
+4. **可迁移表达**：When the clinic had just opened, only three patients came in its first month.（那家诊所刚开业的时候，第一个月只来了三个病人）；When the shop had just opened, only one customer came in the first week.（那家店刚开业的时候，第一周只来了一位顾客）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：主句动词时态 + when 从句的位置。
+2. **为什么错**：从句 `when it had just opened` 已经落成过去完成时，主句却用现在时 come，把“第一个月只来三个病人”说成现在的规律；同时 when 从句被挂在句末、中间又塞进 `the clinic only three patients`，句子结构不成型。
+3. **英语的表达逻辑**：英语用主句承载结果、从句承载时间背景，两者共用一个时间域；主句现在时会让整句脱离“2015 年那个月”。
+4. **正确表达**：When the clinic had just opened, only three patients came in its first month.（那家诊所刚开业的时候，第一个月只来了三个病人）；可迁移：When the shop had just opened, only one customer came in the first week.（那家店刚开业的时候，第一周只来了一位顾客）
+
+</details>
+
+### 4. 改错
+
+**题目**：改错（只改错处，句意不变）
+
+When the new library just open, there was only one reading room.
+
+**我的答案**：When the new library had just opened, there was only one reading room.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：when 从句里的“刚开馆”需要完成形式。
+2. **规则与机制**：`just open` 是原形，既没时态也没完成义；改成 had just opened 后，从句给完成状态，主句 there was 保持过去时。
+3. **英语的表达逻辑**：英语要求谓语动词带时态标记；just 本身不是时态，它只修饰完成结构。
+4. **可迁移表达**：When the new library had just opened, there was only one reading room.（新图书馆刚开馆的时候，只有一个阅览室）；When the pool had just opened, there was only one lane.（泳池刚开放的时候，只有一条泳道）
+
+</details>
+
+### 5. 翻译
+
+**题目**：中译英
+
+这家修鞋铺刚开业的时候，门口只有一把旧椅子。
+
+**我的答案**：When the repair shoes had just opened, there was only a old chair.
+
+**判定**：⚠️ 部分正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：时间从句结构 + 店铺名词短语 + 不定冠词。
+2. **规则与机制**：参考译文 `When the shoe-repair shop had just opened, there was only an old chair outside.`；店铺用 the shoe-repair shop，元音音素前用 an old chair。
+3. **英语的表达逻辑**：英语用“修饰语 + 中心名词”造复合名词（shoe-repair shop），冠词则跟着下一个词的读音走。
+4. **可迁移表达**：When the shoe-repair shop had just opened, there was only an old chair outside.（那家修鞋铺刚开业的时候，门外只有一把旧椅子）；He waited on an old bench outside the shop.（他在店外一条旧长凳上等）
+
+</details>
+
+<details>
+<summary>错题讲解 1</summary>
+
+1. **考点**：店铺名词短语的构成。
+2. **为什么错**：`the repair shoes` 把动作和宾语直接拼在一起，读成“修鞋这件事”或“被修的鞋”，不能指代一家店；表达店铺要用 the shoe-repair shop。
+3. **英语的表达逻辑**：英语用“宾语 + 动词-ing/动词原形”或“名词 + 名词”构成复合名词指场所，如 shoe-repair shop、hair salon。
+4. **正确表达**：When the shoe-repair shop had just opened, there was only an old chair outside.（那家修鞋铺刚开业的时候，门外只有一把旧椅子）
+
+</details>
+
+<details>
+<summary>错题讲解 2</summary>
+
+1. **考点**：不定冠词 a / an 的选择。
+2. **为什么错**：old 的读音以元音音素开头，冠词必须用 an；写成 a old chair 是照拼写选冠词。
+3. **英语的表达逻辑**：英语的 a / an 跟着下一个词的读音走，不跟字母走；元音音素前用 an。
+4. **正确表达**：There was only an old chair outside.（门外只有一把旧椅子）；可迁移：She bought an old chair at the market.（她在市场上买了一把旧椅子）
+
+</details>
+
+### 6. 造句
+
+**题目**：用 when 从句写两句话：一句描述一家店刚开业时的情形，一句说明它几年后扩建（每句不少于 10 个词）
+
+**我的答案**：When the snack shop had just opened, there was only a few kind of foods.
+
+**判定**：⚠️ 部分正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：when 从句 + 数量短语的搭配，以及两句式产出。
+2. **规则与机制**：`there were only a few kinds of food` 中 a few 后接复数 kinds，food 表示类别时不可数；第二句应另起一句交代扩建。
+3. **英语的表达逻辑**：英语用 a few + 复数名词表示“少数几个”，用 kind of + 不可数名词表示“种类”。
+4. **可迁移表达**：When the snack shop had just opened, there were only a few kinds of food.（那家小吃店刚开业的时候，只有几种吃食）；Two years later they opened a second counter.（两年后他们又开了一个柜台）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：a few + 复数名词、kind of + 不可数名词，以及两句话的产出要求。
+2. **为什么错**：`a few kind of foods` 里 kinds 少加 -s、food 多加 -s，两处都是数的一致问题；此外题目要求两句，实际只写了一句，扩建那一半没有交付。
+3. **英语的表达逻辑**：英语的数标记落在可数名词和其限定词上，a few 已经指明“复数”，后面的名词必须跟着变复数；kind of 后面的类别名词保持不可数。
+4. **正确表达**：When the snack shop had just opened, there were only a few kinds of food.（那家小吃店刚开业的时候，只有几种吃食）；可迁移：When the stall had just opened, there were only two kinds of noodles.（那个摊子刚开业的时候，只有两种面）
+
+</details>
+
+
+---
 
 # 2026-11-15 21:09 · 复习
 
