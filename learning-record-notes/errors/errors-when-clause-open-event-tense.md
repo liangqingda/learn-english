@@ -89,6 +89,20 @@
 
 </details>
 
+<details>
+<summary>场景对话原文 4</summary>
+
+- **Lena**：I've drafted the first minute of the walking tour, but the line about the old tram depot still sounds wrong to me.
+- **Mr. Hale**：Read it out. Start with the year you found in the archive.
+- **Lena**："When the market was opening in 1998, there were only six stalls." Is that acceptable?
+- **Mr. Hale**：The year is right, but the form isn't. Say it **opened** in 1998 — one finished event. Keep the process form for something that was already under way.
+- **Lena**：And if I want the feeling of those first weeks?
+- **Mr. Hale**：Then use **when the market had just opened**. **When the market had just opened**, six stalls stood in a hall built for sixty, and the roof leaked every time it rained.
+- **Lena**：So one line marks the year, and the other marks the moment just after it.
+- **Mr. Hale**：Exactly. And keep the rest in the past: **when the market had just opened**, visitors **were** rare, and the guards **knew** every face by name.
+
+</details>
+
 ## 读一个围绕「when 从句描述开业事件的动词和时态」的小故事
 
 **讲解要点**：
