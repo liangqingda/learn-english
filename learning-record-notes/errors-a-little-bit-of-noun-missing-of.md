@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-18 10:52</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-09 20:35</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-15 11:08</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-15 11:19</td></tr>
 </table>
 
 ## 讲解
@@ -220,3 +220,157 @@ Don't worry, there is still ____ water in the bottle.
 - a bit of a + 单数可数名词是另一条固定结构，of 后面是完整的名词短语，a bit 在这里当程度副词，意思是“有点”。
   - `The meeting was a bit of a mess.`（这个会议有点乱。）
   - `He's a bit of a perfectionist.`（他有点完美主义。）
+
+## 练习「a little bit of 与相关量词搭配」的关键语法结构
+
+**讲解要点**：
+- 量词结构的选择先看名词类别，再看计量形象：微量调料走 a touch of / a dash of，可抓握实物走 a handful of。
+  - `Add a touch of cinnamon to the cake.`（往蛋糕里加一点肉桂。）
+  - `He added a handful of nuts to the salad.`（他往沙拉里加了一把坚果。）
+- a bit of a + 单数可数名词是三层结构，of 和 a 都不能省。
+  - `The meeting turned out to be a bit of a mess.`（这个会议结果有点乱。）
+- a handful of 做主语时，谓语随 of 后面的名词变化：复数名词用 are，物质名词用 is。
+  - `There is a handful of sand on the floor.`（地上有一把沙子。）
+
+### 1. 单项选择
+
+**题目**：Add ____ of cinnamon to the cake — just enough to smell it.
+- A. a handful
+- B. a touch
+- C. a few
+- D. many
+
+**我的答案**：A
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：a touch of 与 a handful of 的计量形象差异。
+2. **规则与机制**：本句要把调料按“微量”计量，a touch of + 不可数名词正好表达“加一点点味道”；a handful of 计的是手掌能抓起的实物，用来说肉桂会把量放大成“一把”。
+3. **英语的表达逻辑**：英语的“少量”按形象分工：touch 取“轻轻一碰”，dash 取“快速一倒”，handful 取“一把抓起”，同一个“少”字被拆成三种画面。
+4. **可迁移表达**：`Add a touch of salt to the sauce.`（往酱汁里加一点盐。） / `There's a touch of ginger in this sauce.`（这酱汁里有一点姜味。）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：a handful of 的适用范围。
+2. **为什么错**：cinnamon 是细粉末调料，菜谱里按味道层面加一小撮；用 a handful of 会把计量单位变成手掌容量，语义夸张且不符合烹饪语境。
+3. **英语的表达逻辑**：英语把可抓握的实物与不可抓握的细微量分开计量，前者用 handful，后者用 touch / dash。
+4. **正确表达**：`Add a touch of cinnamon to the cake.`（往蛋糕里加一点肉桂。）可迁移：`Add a dash of pepper to the soup.`（往汤里加一点胡椒。）
+
+</details>
+
+### 2. 填空
+
+**题目**：用 a little bit 的正确形式填空，补全句子（必要时补上所需介词）。
+There is only ____ soup left, so let's order another bowl.
+
+**我的答案**：a little bit of
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：a little bit of + 不可数名词。
+2. **规则与机制**：soup 为不可数名词，a little bit 必须靠 of 接到名词上，形成 a little bit of soup。
+3. **英语的表达逻辑**：不可数名词没有个体单位，量词短语要先造出“量”，再用 of 把量落到名词上。
+4. **可迁移表达**：`There is a little bit of milk left.`（还剩一点牛奶。） / `We still have a little bit of time.`（我们还剩一点时间。）
+
+</details>
+
+### 3. 改错
+
+**题目**：The meeting turned out to be a bit mess.
+
+**我的答案**：The meeting turned out to be a bit mess.
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：a bit of a + 单数可数名词。
+2. **规则与机制**：mess 是可数名词单数，要构成“有点……”的评价结构，必须写全 a bit of a mess：a bit 表程度、of 连接、a 标记单数可数名词。
+3. **英语的表达逻辑**：英语评价名词时把“程度”与“名词短语”两层分开，of 是它们之间的接口，冠词则负责标记后面的名词是个可数的单数个体。
+4. **可迁移表达**：`It's a bit of a problem for us.`（这对我们来说有点麻烦。） / `She's a bit of a hero in our team.`（她在我们队里算个小英雄。）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：a bit of a 结构中 of 与冠词的必需性。
+2. **为什么错**：原句把 a bit 当形容词直接扣在 mess 前，丢掉了 of，于是 a bit 变成了没头没尾的修饰语；单数可数名词前也没有 a。
+3. **英语的表达逻辑**：a bit 本身是名词短语性质的程度表达，不能直接做定语，必须借 of 才能进入名词短语；可数名词单数又必须带限定词。
+4. **正确表达**：`The meeting turned out to be a bit of a mess.`（这个会议结果有点乱。）可迁移：`The trip was a bit of a disaster.`（这趟旅行有点糟。）
+
+</details>
+
+### 4. 改错
+
+**题目**：There are a handful of sand on the floor.
+
+**我的答案**：There is a handful of sand on the floor.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：a handful of 作主语时的主谓一致。
+2. **规则与机制**：a handful of + 物质名词（sand）时，真正决定谓语数的是后面的不可数名词，因此用 is；若换成 a handful of coins，则用 are。
+3. **英语的表达逻辑**：英语的一致性跟着“被计量的内容”走，而不是跟着量词短语本身走。
+4. **可迁移表达**：`There is a handful of rice in the bowl.`（碗里有一把米。） / `There are a handful of students waiting outside.`（外面有几个学生在等。）
+
+</details>
+
+### 5. 改写
+
+**题目**：用 a handful of 改写句子，句意不变：Only very few people attended the meeting.
+
+**我的答案**：A handful of people attended the meeting.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：a handful of + 复数可数名词表达“少数几个”。
+2. **规则与机制**：people 是复数可数名词，可被 a handful of 计量；改写后仍保留“人很少”的含义，只是更形象。
+3. **英语的表达逻辑**：英语可以用具体的手部动作画面来表达抽象的数量少，这类量词保留了原始的物理形象。
+4. **可迁移表达**：`Only a handful of companies control the market.`（只有少数几家公司控制着市场。） / `A handful of students passed the exam.`（少数几个学生通过了考试。）
+
+</details>
+
+### 6. 翻译
+
+**题目**：中译英：她的声音里带着一点讽刺。
+
+**我的答案**：Her voice carries a little bit irony.
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：a little bit of + 不可数抽象名词。
+2. **规则与机制**：irony 是不可数抽象名词，a little bit 修饰它时必须借助 of，写成 a little bit of irony。
+3. **英语的表达逻辑**：抽象名词在英语里按不可数内容处理，只能通过 of 引出的量词短语来计量。
+4. **可迁移表达**：`There's a touch of irony in his voice.`（他的语气里带着一点讽刺。） / `She spoke with a little bit of bitterness.`（她说话时带着一点苦涩。）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：a little bit 修饰名词时缺少 of。
+2. **为什么错**：a little bit 是程度短语，本身不是限定词，直接贴在 irony 前就缺了连接件，读起来像两个名词短语硬拼在一起。
+3. **英语的表达逻辑**：英语把“量”和“被量的内容”分成两个成分，of 负责把二者缝合成一个名词短语；形容词可以裸接名词，量词短语不行。
+4. **正确表达**：`Her voice carries a little bit of irony.`（她的声音里带着一点讽刺。）可迁移：`There is a little bit of sadness in her smile.`（她的笑容里带着一点忧伤。）
+
+</details>

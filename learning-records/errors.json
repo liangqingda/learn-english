@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 251,
+  "revision": 256,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -46,8 +46,8 @@
         "follow-up-error"
       ],
       "first_learned_at": "2026-11-01T18:49:37+08:00",
-      "last_learned_at": "2026-11-01T18:49:37+08:00",
-      "learned_count": 1,
+      "last_learned_at": "2026-11-15T11:18:58+08:00",
+      "learned_count": 2,
       "mastery_score": 7.0,
       "review_count": 1,
       "high_score_streak": 0,
@@ -1072,6 +1072,30 @@
       ],
       "first_learned_at": "2026-11-08T14:39:49+08:00",
       "last_learned_at": "2026-11-08T14:39:49+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:bit-of-a-mess-missing-of": {
+      "id": "errors:bit-of-a-mess-missing-of",
+      "category": "errors",
+      "key": "bit-of-a-mess-missing-of",
+      "status": "learning",
+      "title": "a bit of a + 单数可数名词：of 和冠词都不能省",
+      "explanation": "评价人或事“有点……”用 a bit of a + 单数可数名词，of 引出后面的名词短语，a 标记单数可数名词；删掉 of 或 a 都会让结构崩塌，只剩 a bit mess / a bit of mess 这类错误形式。",
+      "source": "The meeting turned out to be a bit mess.",
+      "example": "The meeting turned out to be a bit of a mess.",
+      "tags": [
+        "follow-up-error"
+      ],
+      "first_learned_at": "2026-11-15T11:18:58+08:00",
+      "last_learned_at": "2026-11-15T11:18:58+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -2672,6 +2696,30 @@
       "mastered_at": null,
       "review_history": [],
       "key": "half-an-hour-article"
+    },
+    "errors:handful-vs-touch-spice-amount": {
+      "id": "errors:handful-vs-touch-spice-amount",
+      "category": "errors",
+      "key": "handful-vs-touch-spice-amount",
+      "status": "learning",
+      "title": "a handful of 用于可抓握实物，不用来说明调料用量",
+      "explanation": "a handful of 描述一手能抓起的实物（坚果、沙子、硬币），而说要“加一点调料”时用 a touch of / a dash of，因为调料是细微量，不按“把”计量。",
+      "source": "Add a handful of cinnamon to the cake.",
+      "example": "Add a touch of cinnamon to the cake.",
+      "tags": [
+        "follow-up-error"
+      ],
+      "first_learned_at": "2026-11-15T11:18:58+08:00",
+      "last_learned_at": "2026-11-15T11:18:58+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:have-plus-past-participle": {
       "id": "errors:have-plus-past-participle",
