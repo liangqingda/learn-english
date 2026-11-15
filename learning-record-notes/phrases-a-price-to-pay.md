@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>2</td></tr>
 <tr><td>下次复习</td><td>2026-11-18 12:05</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-07 20:22</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-15 12:14</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-15 12:17</td></tr>
 </table>
 
 ## 讲解
@@ -403,6 +403,46 @@ Owning a shop on this street is profitable. You have to answer phone calls at mi
 2. **为什么错**：There are two emails need to reply 把 need 直接当成了第二个谓语，句子结构断裂；reply 后面还缺介词 to（邮件是“被回复”的对象）；后半句 it comes with 的 it 没有明确指代，“肯定有代价”更适合用 there is certainly a price to pay。
 3. **英语的表达逻辑**：英语靠“名词 + 不定式 / 关系从句”把动作挂在名词上，靠 there be 把“存在某笔代价”独立成句，避免一句多谓语和指代含混。
 4. **正确表达**：`There are two emails to reply to this week, and there is certainly a price to pay for it.`（这周还有两封邮件要回，而且这件事肯定有代价）
+
+</details>
+
+---
+
+## 看一套围绕「a price to pay」的完整场景对话
+
+**讲解要点**：
+- there was a price to pay：事后回顾时用过去时，代价已经发生。
+  - `There was a price to pay — my weekends and most of my savings.`（代价是有的：我的周末和大部分积蓄）
+- every + 名词 + comes with a price to pay：事物作主语时，代价作为伴随属性出现。
+  - `Every second shop comes with a price to pay.`（每多开一家店都是有代价的）
+- a price to be paid in advance：被动不定式，强调代价要先付、由谁付留给上下文。
+  - `The first year is always a price to be paid in advance.`（第一年总是要先付的那笔代价）
+- pay a price for it：主语是付出代价的人，for 引出换来的东西。
+  - `I'll pay a price for it too — the quiet hours.`（我也会为此付代价：那些安静的时间）
+- a price worth paying：worth 后面直接接动名词，用来判断值不值。
+  - `Is that a price worth paying?`（这份代价值得付吗）
+
+**完整场景对话**：
+
+<details>
+<summary>场景对话原文</summary>
+
+- **Owen**：Ten years already. Last time we talked, you were still at the bank.
+- **Priya**：I left two years ago. I run a small bookshop by the river now.
+- **Owen**：And? Was it worth it?
+- **Priya**：Worth it, but there was **a price to pay** — my weekends and most of my savings.
+- **Owen**：I heard your partner wants to open a second shop.
+- **Priya**：She does. She says two shops double the income.
+- **Owen**：And what do you say?
+- **Priya**：I keep telling her every second shop **comes with a price to pay**, and this time it would be my daughter's evenings.
+- **Owen**：Can you run two shops and still be home by seven?
+- **Priya**：Not in the first year. The first year is always **a price to be paid** in advance — stock, staff, and no sleep.
+- **Owen**：That sounds like an expensive first year.
+- **Priya**：It is. So I asked for one thing: if we do it, she takes the morning shifts.
+- **Owen**：Fair. And what did she say?
+- **Priya**：She said yes. Which means I'll **pay a price for it** too — the quiet hours I used to have alone in the shop.
+- **Owen**：Quiet hours. Is that **a price worth paying**?
+- **Priya**：Probably. But I've learned one thing: nobody pays that kind of price for something they don't really want.
 
 </details>
 
