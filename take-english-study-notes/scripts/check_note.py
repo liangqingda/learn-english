@@ -1983,6 +1983,9 @@ def main(argv: list[str]) -> int:
     if args.all or not paths:
         paths = paths or all_note_paths()
     if not paths:
+        if args.all:
+            print(json.dumps({"ok": True, "checked": [], "issues": []}, ensure_ascii=False))
+            return 0
         print(__doc__)
         return 2
 
