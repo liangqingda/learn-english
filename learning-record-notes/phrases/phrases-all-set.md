@@ -12,10 +12,6 @@
 
 ## 讲解
 
-<!-- round-index -->
-- [2026-11-14 21:59 · 复习](#round-2026-11-14-2159)
-<!-- /round-index -->
-
 **核心含义**：
 
 - all set 表示「一切就绪、安排妥当、搞定」；set 在此是形容词，意为 ready / arranged，all 加强语气。
@@ -34,6 +30,11 @@
 
 - 只描述「人或整体安排」已就绪的状态，不能像 deliver / send 那样接 to + 地点表示「送到某地」。
 - × the luggage was all set to the hotel lobby → the luggage was delivered to the hotel lobby。
+
+复习历史：
+<!-- round-index -->
+- [2026-11-14](#round-2026-11-14-2159)
+<!-- /round-index -->
 
 ## 读一个围绕「all set：一切就绪 / 搞定」的小故事
 

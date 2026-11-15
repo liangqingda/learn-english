@@ -12,11 +12,6 @@
 
 ## 讲解
 
-<!-- round-index -->
-- [2026-11-14 21:53 · 复习](#round-2026-11-14-2153)
-- [2026-11-14 09:26 · 复习](#round-2026-11-14-0926)
-<!-- /round-index -->
-
 **核心含义**：
 
 - dish out 把某物分发出去、给出去：食物（dish out napkins）、建议、批评、惩罚、钱都能用。
@@ -37,6 +32,12 @@
 **常见误用**：
 
 - 宾语误接人（× dish out him criticism）→ dish out criticism to him / criticize him。
+
+复习历史：
+<!-- round-index -->
+- [2026-11-14 - 02](#round-2026-11-14-2153)
+- [2026-11-14 - 01](#round-2026-11-14-0926)
+<!-- /round-index -->
 
 ## 读一个围绕「dish out：分发、给出（食物、批评、惩罚）」的小故事
 

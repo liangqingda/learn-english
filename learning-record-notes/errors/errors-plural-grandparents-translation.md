@@ -12,10 +12,6 @@
 
 ## 讲解
 
-<!-- round-index -->
-- [2026-11-11 07:38 · 复习](#round-2026-11-11-0738)
-<!-- /round-index -->
-
 **错误机制**：
 
 - 中文“祖父母”默认指两位长辈，英语对应复数 grandparents；只写单数 grandparent 时，听者会理解为其中一位。
@@ -36,6 +32,11 @@
 
 - My grandparents have lived in this village for forty years.（我祖父母在这个村子住了四十年）
 - I visit my grandparents every summer.（我每年夏天都去看望我的祖父母）
+
+复习历史：
+<!-- round-index -->
+- [2026-11-11](#round-2026-11-11-0738)
+<!-- /round-index -->
 
 # 2026-11-11 07:38 · 复习
 

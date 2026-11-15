@@ -12,10 +12,6 @@
 
 ## 讲解
 
-<!-- round-index -->
-- [2026-11-10 21:38 · 复习](#round-2026-11-10-2138)
-<!-- /round-index -->
-
 **核心含义**：
 - after all 表示“毕竟、说到底、终究”：给出理由，或修正说话人（也包括对方）先前的预期，与时间先后无关。
 - 它不能表示“后来、然后”，那个意思要用 later / afterwards / after that。
@@ -39,6 +35,11 @@
 - Don't be too hard on her — she's only been here a week, after all.（别对她太苛刻，毕竟她才来一周。）
 - I thought the test would be easy, but it was hard after all.（我原以为这次考试很简单，结果却很难。）
 - After all, this is his first time.（毕竟这是他的第一次。）
+
+复习历史：
+<!-- round-index -->
+- [2026-11-10](#round-2026-11-10-2138)
+<!-- /round-index -->
 
 # 2026-11-10 21:38 · 复习
 

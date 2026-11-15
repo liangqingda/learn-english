@@ -12,10 +12,6 @@
 
 ## 讲解
 
-<!-- round-index -->
-- [2026-11-13 20:49 · 复习](#round-2026-11-13-2049)
-<!-- /round-index -->
-
 **核心含义**：
 
 - dish up 指把食物从锅里或大盘里盛到盘子、碗里，再端上桌给人吃，语气日常。
@@ -38,11 +34,12 @@
 
 - Could you dish up the rice while I set the table?
 
-## 对比「dish up：把饭菜盛好端上桌」和相近表达
+复习历史：
+<!-- round-index -->
+- [2026-11-13](#round-2026-11-13-2049)
+<!-- /round-index -->
 
-<!-- practice-index -->
-- [2026-11-13 20:49 · 复习](#practice-2026-11-13-2049-bb0836e6)
-<!-- /practice-index -->
+## 对比「dish up：把饭菜盛好端上桌」和相近表达
 
 **讲解要点**：
 - 先看动作终点：dish up、serve、plate 的终点是餐桌，dish out、hand out 的终点是接东西的人
@@ -59,6 +56,11 @@
   - They handed out the new schedules to everyone.（他们给每个人发了新的日程表。）
 - 词形选择还受宾语可数性约束：beef、rice、soup 这类不可数名词回指用 it，代词仍要放在动词与 up 之间
   - The beef is ready, so dish it up now.（牛肉好了，现在盛出来端上桌。）
+
+复习历史：
+<!-- practice-index -->
+- [2026-11-13](#practice-2026-11-13-2049-bb0836e6)
+<!-- /practice-index -->
 
 ## 看一套围绕「dish up：把饭菜盛好端上桌」的完整场景对话
 

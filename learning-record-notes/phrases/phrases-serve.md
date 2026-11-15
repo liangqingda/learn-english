@@ -12,10 +12,6 @@
 
 ## 讲解
 
-<!-- round-index -->
-- [2026-11-10 21:02 · 复习](#round-2026-11-10-2102)
-<!-- /round-index -->
-
 **核心含义**：
 
 - serve 表示把饭菜或饮料端给、供应给别人；也可表示「为某人服务」。
@@ -35,6 +31,11 @@
 - 接受者用 for（× served the tea for the guests）→ serve the tea to the guests 或双宾结构。
 - 说 serve service（×）→ 提供服务用 provide / offer / give service。
 - 用被动 be served for 表示「负责」（× It is served for recruit）→ be responsible for + 名词。
+
+复习历史：
+<!-- round-index -->
+- [2026-11-10](#round-2026-11-10-2102)
+<!-- /round-index -->
 
 # 2026-11-10 21:02 · 复习
 

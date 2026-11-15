@@ -12,10 +12,6 @@
 
 ## 讲解
 
-<!-- round-index -->
-- [2026-11-09 21:02 · 复习](#round-2026-11-09-2102)
-<!-- /round-index -->
-
 **核心含义**：
 - headquarters 指一个组织（公司、军队、警方等）的最高管理与决策机构及其所在地，中文对应“总部、总公司”。
 - 它拼写固定以 -s 结尾，指一个总部时也写 the headquarters，不需要再去掉 s。
@@ -33,6 +29,11 @@
 - The company's headquarters is in Shenzhen, but the factory is in Tianjin.
 - We moved our headquarters from Beijing to Shanghai last year.
 - All hiring decisions are made at headquarters.
+
+复习历史：
+<!-- round-index -->
+- [2026-11-09](#round-2026-11-09-2102)
+<!-- /round-index -->
 
 # 2026-11-09 21:02 · 复习
 

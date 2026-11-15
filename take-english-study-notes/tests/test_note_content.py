@@ -12,7 +12,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "take-english-study-notes" / "scripts"))
 
 import check_note
-from note_store import apply_practice_index  # noqa: E402
+from note_store import INDEX_TITLE, apply_practice_index  # noqa: E402
 
 NOTES_DIR = "learning-record-notes"
 
@@ -507,6 +507,65 @@ class NoteContentValidationTest(unittest.TestCase):
         self.assertIn("(#practice-2026-11-07-2100-", index_ids[0])
         self.assertIn("(#practice-2026-11-07-1200-", index_ids[-1])
 
+    def test_fix_reports_nothing_on_an_valid_note(self) -> None:
+        """合规文件再跑 `--fix` 必须零修复：标题行右侧的锚点不能被当成序号的一部分。"""
+        text = apply_practice_index(
+            with_file_level_section(
+                note_with_explanation() + menu_practice(),
+                "## 练习「out west」的关键语法结构\n\n"
+                "**讲解要点**：\n\n- 方向副词短语\n"
+                "  - `She headed out west.`（她往西边出发。）\n",
+            )
+        )
+        self.assertEqual(self.check_raw(text), [])
+        fixed, fixes = check_note.apply_safe_fixes(text)
+        self.assertEqual(fixes, [])
+        self.assertEqual(fixed, text)
+
+    def test_index_block_sits_after_the_explanation(self) -> None:
+        """`复习历史：` 与索引块都落在讲解内容之后、小节末尾，不再挡在正文前面。"""
+        text = apply_practice_index(
+            with_file_level_section(
+                note_with_explanation() + menu_practice(),
+                "## 练习「out west」的关键语法结构\n\n"
+                "**讲解要点**：\n\n- 方向副词短语\n"
+                "  - `She headed out west.`（她往西边出发。）\n",
+            )
+        )
+        self.assertEqual(self.check_raw(text), [])
+        round_index = text.index("<!-- round-index -->")
+        practice_index = text.index("<!-- practice-index -->")
+        self.assertLess(text.index("**错误机制**"), round_index)
+        self.assertLess(text.index("**讲解要点**"), practice_index)
+        self.assertLess(round_index, text.index("## 练习「out west」的关键语法结构"))
+        self.assertLess(text.rindex(INDEX_TITLE), practice_index)
+        self.assertEqual(text.count(INDEX_TITLE), 2)
+
+    def test_index_title_is_required(self) -> None:
+        """索引块前一行必须是 `复习历史：`，漏掉会被拦下。"""
+        text = apply_practice_index(note_with_explanation())
+        text = text.replace(f"{INDEX_TITLE}\n", "", 1)
+        issues = self.check_raw(text)
+        self.assertTrue(any(INDEX_TITLE in issue["message"] for issue in issues))
+
+    def test_content_after_index_block_is_rejected(self) -> None:
+        """索引块之后不能再写讲解正文：索引固定在小节末尾。"""
+        text = apply_practice_index(
+            with_file_level_section(
+                note_with_explanation() + menu_practice(),
+                "## 练习「out west」的关键语法结构\n\n"
+                "**讲解要点**：\n\n- 方向副词短语\n"
+                "  - `She headed out west.`（她往西边出发。）\n",
+            )
+        )
+        text = text.replace(
+            "<!-- /practice-index -->\n",
+            "<!-- /practice-index -->\n\n**补充**：后写的讲解。\n",
+            1,
+        )
+        issues = self.check_raw(text)
+        self.assertTrue(any("讲解内容之后（小节末尾）" in issue["message"] for issue in issues))
+
     def test_round_index_lists_every_round_quiz(self) -> None:
         """`## 讲解` 下按时间倒序列出每个日期区块的 `## 本轮习题`，锚点挂在标题行右侧。"""
         text = apply_practice_index(
@@ -537,9 +596,11 @@ class NoteContentValidationTest(unittest.TestCase):
         )
 
     def test_round_index_mismatch_is_rejected(self) -> None:
-        text = apply_practice_index(note_with_explanation())
+        text = apply_practice_index(
+            with_second_round(note_with_explanation(), "2026-11-07 21:00")
+        )
         text = text.replace(
-            "- [2026-11-07 12:00 · 复习](#round-", "- [2026-11-07 12:00 · 练习](#round-", 1
+            "- [2026-11-07 - 01](#round-", "- [2026-11-07 - 09](#round-", 1
         )
         issues = self.check_raw(text)
         self.assertTrue(
@@ -586,8 +647,8 @@ class NoteContentValidationTest(unittest.TestCase):
             )
         )
         text = text.replace(
-            "- [2026-11-07 12:00 · 复习](#practice-2026-11-07-1200-",
-            "- [2026-11-07 12:00 · 练习](#practice-2026-11-07-1200-",
+            "- [2026-11-07](#practice-2026-11-07-1200-",
+            "- [2026-11-07 - 09](#practice-2026-11-07-1200-",
             1,
         )
         issues = self.check_raw(text)

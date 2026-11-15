@@ -12,11 +12,6 @@
 
 ## 讲解
 
-<!-- round-index -->
-- [2026-11-15 12:05 · 复习](#round-2026-11-15-1205)
-- [2026-11-07 20:22 · 复习](#round-2026-11-07-2022)
-<!-- /round-index -->
-
 **核心含义**：
 - a price to pay：为了得到某样东西而必须承受的代价、损失或后果，落点在“要付出什么”，而不是“能拿到什么”。
 - 这里的 price 是抽象代价（时间、健康、隐私、自由、关系），与金额、标价无关。
@@ -41,12 +36,13 @@
 - He paid a high price for that promotion.（他为那次升职付出了高昂的代价）
 - Nobody stays in the game without paying a price.（没有谁是不付代价就留在牌桌上的）
 
-## 练习「a price to pay」的关键语法结构
+复习历史：
+<!-- round-index -->
+- [2026-11-15](#round-2026-11-15-1205)
+- [2026-11-07](#round-2026-11-07-2022)
+<!-- /round-index -->
 
-<!-- practice-index -->
-- [2026-11-15 12:05 · 复习](#practice-2026-11-15-1205-8cd81652)
-- [2026-11-07 20:22 · 复习](#practice-2026-11-07-2022-8cd81652)
-<!-- /practice-index -->
+## 练习「a price to pay」的关键语法结构
 
 **讲解要点**：
 - 名词 + 后置不定式用主动形式，表示“待做、该做、可做”
@@ -70,6 +66,12 @@
   - `a heavy price to pay for fame`（为名气付出的沉重代价）
 - 定语从句可整体压缩为不定式：`the price that people have to pay for shortcuts` → `the price to pay for shortcuts`。
   - `I still have two reports to write.`（我还有两份报告要写）
+
+复习历史：
+<!-- practice-index -->
+- [2026-11-15](#practice-2026-11-15-1205-8cd81652)
+- [2026-11-07](#practice-2026-11-07-2022-8cd81652)
+<!-- /practice-index -->
 
 ## 看一套围绕「a price to pay」的完整场景对话
 

@@ -12,10 +12,6 @@
 
 ## 讲解
 
-<!-- round-index -->
-- [2026-11-15 10:53 · 复习](#round-2026-11-15-1053)
-<!-- /round-index -->
-
 **错误机制**：
 
 - a little bit 是程度副词短语，本身只表示“有一点点”，不带名词；一旦要修饰名词，就必须先接介词 of，形成 a little bit of + 不可数名词。
@@ -39,6 +35,11 @@
 - a little + 不可数名词：There's little water left.（剩下的水不多。）这里 little 自带否定意味，不能换成 a little bit of。
 - a few + 复数可数名词：There are a few tomatoes in the fridge.（冰箱里有几个西红柿。）
 - a little bit 修饰形容词时不再带 of：The soup is a little bit too salty.（汤有点太咸了。）
+
+复习历史：
+<!-- round-index -->
+- [2026-11-15](#round-2026-11-15-1053)
+<!-- /round-index -->
 
 ## 对比「a little bit 后接名词时缺少 of」和相近表达
 
@@ -82,10 +83,6 @@
 
 ## 练习「a little bit of 与相关量词搭配」的关键语法结构
 
-<!-- practice-index -->
-- [2026-11-15 10:53 · 复习](#practice-2026-11-15-1053-d2cb9a16)
-<!-- /practice-index -->
-
 **讲解要点**：
 - 量词结构的选择先看名词类别，再看计量形象：微量调料走 a touch of / a dash of，可抓握实物走 a handful of。
   - `Add a touch of cinnamon to the cake.`（往蛋糕里加一点肉桂。）
@@ -94,6 +91,11 @@
   - `The meeting turned out to be a bit of a mess.`（这个会议结果有点乱。）
 - a handful of 做主语时，谓语随 of 后面的名词变化：复数名词用 are，物质名词用 is。
   - `There is a handful of sand on the floor.`（地上有一把沙子。）
+
+复习历史：
+<!-- practice-index -->
+- [2026-11-15](#practice-2026-11-15-1053-d2cb9a16)
+<!-- /practice-index -->
 
 # 2026-11-15 10:53 · 复习
 

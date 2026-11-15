@@ -12,10 +12,6 @@
 
 ## 讲解
 
-<!-- round-index -->
-- [2026-11-08 15:54 · 复习](#round-2026-11-08-1554)
-<!-- /round-index -->
-
 **语气与语域**：
 
 - later、then、afterward 是叙事和口语里承接「后来」的自然说法，语气轻，只交代时间先后。
@@ -32,6 +28,11 @@
 **可迁移表达**：
 
 - She tried teaching first, but later settled into translation.
+
+复习历史：
+<!-- round-index -->
+- [2026-11-08](#round-2026-11-08-1554)
+<!-- /round-index -->
 
 ## 看一套围绕「after 不宜直接当 later 连接后续动作」的完整场景对话
 
@@ -67,10 +68,6 @@
 
 ## 练习「after 不宜直接当 later 连接后续动作」的关键语法结构
 
-<!-- practice-index -->
-- [2026-11-08 15:54 · 复习](#practice-2026-11-08-1554-725d8b2b)
-<!-- /practice-index -->
-
 **讲解要点**：
 - `after` + 名词短语作状语：`after supper`、`after the meeting`，介词不能悬空。
   - After the meeting, he drove straight to the airport.
@@ -83,11 +80,12 @@
 - `afterwards` 可置句首或句末，置句首时要紧跟一个完整主句，不能与另一主句共用逗号。
   - We arrived late and afterwards ate dinner at the hotel.
 
-## 扩展「after 不宜直接当 later 连接后续动作」相关词汇和搭配
-
+复习历史：
 <!-- practice-index -->
-- [2026-11-08 15:54 · 复习](#practice-2026-11-08-1554-43386955)
+- [2026-11-08](#practice-2026-11-08-1554-725d8b2b)
 <!-- /practice-index -->
+
+## 扩展「after 不宜直接当 later 连接后续动作」相关词汇和搭配
 
 **讲解要点**：
 - 表示「后来、随后」的副词与短语各司其职：`later` 中性泛指，`later on` 更口语且多指将来，`afterwards`／`afterward` 指序列之后，`then` 承接动作顺序，`after that` 便于衔接段落，`subsequently` 正式书面，`not long after` 强调间隔短。
@@ -100,6 +98,11 @@
   - The street is named after a poet.
 - `later` 还可作形容词比较级（`the later version`），与副词 `later` 同形不同用。
   - We compared the earlier draft with the later version.
+
+复习历史：
+<!-- practice-index -->
+- [2026-11-08](#practice-2026-11-08-1554-43386955)
+<!-- /practice-index -->
 
 ## 对比「after 的三种用法」和相近表达
 

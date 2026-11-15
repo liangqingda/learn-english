@@ -23,10 +23,12 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from note_store import (  # noqa: E402
+    INDEX_TITLE,
     INLINE_ANCHOR_RE,
     ROUND_INDEX_END,
     ROUND_INDEX_START,
     apply_practice_index,
+    day_labels,
     practice_anchor_id,
     round_anchor_id,
 )
@@ -332,14 +334,22 @@ def split_section_seq(title: str) -> tuple[str, int | None]:
     return match.group("base").strip(), int(match.group("seq"))
 
 
+def heading_without_anchor(line: str) -> str:
+    """标题行去掉右侧隐藏锚点后的文本：改序号时不能把锚点当成标题的一部分。"""
+    return INLINE_ANCHOR_RE.sub("", line.rstrip()).strip()
+
+
 INDEX_START = "<!-- practice-index -->"
 INDEX_END = "<!-- /practice-index -->"
 INDEX_ITEM_RE = re.compile(r"^- \[(?P<label>[^\]]+)\]\(#(?P<id>[^)]+)\)$")
 
 
 def practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str, str, str]]]:
-    """菜单项 → [(展示文本, 实际锚点, 应有锚点, 行号)]，按时间倒序；行号取小节标题行。"""
-    raw: dict[tuple[str, str], tuple[str, str, str, str, int]] = {}
+    """菜单项 → [(展示文本, 实际锚点, 应有锚点, 行号)]，按时间倒序；行号取小节标题行。
+
+    展示文本只写日期，同一天同一菜单项多份按时间先后补 ` - 01`、` - 02`，与写入命令同口径。
+    """
+    raw: dict[tuple[str, str], tuple[str, str, str, str]] = {}
     date = time = kind = None
     for index, line in enumerate(lines):
         heading = SECTION_RE.match(line)
@@ -352,23 +362,28 @@ def practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str, str, st
         title = section.group(1).strip()
         if title == QUIZ_SECTION:
             continue
-        base, seq = split_section_seq(title)
-        label = f"{date} {time} · {kind}" + (f" - {seq:02d}" if seq is not None else "")
+        base, _seq = split_section_seq(title)
         anchor_match = INLINE_ANCHOR_RE.search(line.rstrip())
         anchor = anchor_match.group("id") if anchor_match else ""
         expected = practice_anchor_id(date, time, f"## {base}")
-        raw[(base, f"{date} {time}")] = (label, anchor, expected, str(index + 1))
+        raw[(base, f"{date} {time}")] = (date, anchor, expected, str(index + 1))
+    labels: dict[tuple[str, str], str] = {}
+    for base in {item_base for item_base, _stamp in raw}:
+        day = day_labels(
+            sorted((stamp, info[0]) for (item_base, stamp), info in raw.items() if item_base == base)
+        )
+        labels.update({(base, stamp): label for stamp, label in day.items()})
     grouped: dict[str, list[tuple[str, str, str, str]]] = {}
-    for (base, _stamp), (label, anchor, expected, line_no) in sorted(
+    for (base, stamp), (_date, anchor, expected, line_no) in sorted(
         raw.items(), key=lambda item: item[0][1], reverse=True
     ):
-        grouped.setdefault(base, []).append((label, anchor, expected, line_no))
+        grouped.setdefault(base, []).append((labels[(base, stamp)], anchor, expected, line_no))
     return grouped
 
 
 def round_entries(lines: list[str]) -> list[tuple[str, str, str, int]]:
     """每个日期区块的 `## 本轮习题` → [(展示文本, 实际锚点, 应有锚点, 行号)]，按时间倒序。"""
-    raw: dict[str, tuple[str, str, str, int]] = {}
+    raw: dict[str, tuple[str, str, int]] = {}
     date = time = kind = None
     for index, line in enumerate(lines):
         heading = SECTION_RE.match(line)
@@ -383,18 +398,21 @@ def round_entries(lines: list[str]) -> list[tuple[str, str, str, int]]:
         anchor_match = INLINE_ANCHOR_RE.search(line.rstrip())
         anchor = anchor_match.group("id") if anchor_match else ""
         raw[f"{date} {time}"] = (
-            f"{date} {time} · {kind}",
             anchor,
             round_anchor_id(date, time),
             index + 1,
         )
-    return [raw[stamp] for stamp in sorted(raw, reverse=True)]
+    labels = day_labels(sorted((stamp, stamp[:10]) for stamp in raw))
+    return [
+        (labels[stamp], anchor, expected, line_no)
+        for stamp, (anchor, expected, line_no) in sorted(raw.items(), reverse=True)
+    ]
 
 
 def index_block(
     lines: list[str], start: int, start_marker: str = INDEX_START, end_marker: str = INDEX_END
-) -> tuple[list[tuple[str, str]], int] | None:
-    """从 `## 小节` 后读一块索引，返回 (条目, 结束行号)。"""
+) -> tuple[list[tuple[str, str]], int, int] | None:
+    """从 `## 小节` 后读一块索引，返回 (条目, 开始标记行号, 结束标记行号)。"""
     end = next(
         (
             index
@@ -412,8 +430,16 @@ def index_block(
                 if match:
                     items.append((match.group("label"), match.group("id")))
                 cursor += 1
-            return items, cursor
+            return items, index, cursor
     return None
+
+
+def index_tail_is_clean(lines: list[str], end_line: int) -> bool:
+    """索引块之后到该小节结束只允许空行：索引必须落在讲解内容之后。"""
+    cursor = end_line + 1
+    while cursor < len(lines) and not lines[cursor].strip():
+        cursor += 1
+    return cursor >= len(lines) or lines[cursor].startswith("# ") or lines[cursor].startswith("## ")
 
 
 def day_menu_sections(lines: list[str]) -> dict[tuple[str, str], list[tuple[str, int | None, int]]]:
@@ -842,14 +868,24 @@ def check(path: Path) -> list[dict]:
         elif block is None:
             add(
                 explain_head + 1,
-                f"`## {DEFAULT_EXPLAIN_SECTION}` 标题下必须写一块 `<!-- round-index -->` … "
-                "`<!-- /round-index -->`，按时间倒序列出每个日期区块的 `## 本轮习题`（新的在前）"
-                "（写入命令会自动生成）",
+                f"`## {DEFAULT_EXPLAIN_SECTION}` 的讲解内容之后必须写 `{INDEX_TITLE}` + "
+                "`<!-- round-index -->` … `<!-- /round-index -->`，按时间倒序列出每个日期区块的 "
+                "`## 本轮习题`（新的在前）（写入命令会自动生成）",
             )
         else:
-            actual_rounds, end_line = block
+            actual_rounds, start_line, end_line = block
+            if start_line == 0 or head[start_line - 1].strip() != INDEX_TITLE:
+                add(
+                    start_line + 1,
+                    f"复习目录前一行必须单独写 `{INDEX_TITLE}`（索引放在讲解内容之后）",
+                )
             if end_line >= len(head) or head[end_line].strip() != ROUND_INDEX_END:
                 add(explain_head + 1, "复习目录缺少结束标记 `<!-- /round-index -->`")
+            elif not index_tail_is_clean(head, end_line):
+                add(
+                    explain_head + 1,
+                    f"复习目录必须放在讲解内容之后（小节末尾）：索引块之后不要再写讲解正文",
+                )
             elif actual_rounds != expected_rounds:
                 add(
                     explain_head + 1,
@@ -885,13 +921,21 @@ def check(path: Path) -> list[dict]:
         if block is None:
             add(
                 index + 1,
-                f"`{base}` 已经有 {len(expected)} 份习题小节，必须在标题下写一块 "
+                f"`{base}` 已经有 {len(expected)} 份习题小节，讲解内容之后必须写 `{INDEX_TITLE}` + "
                 "`<!-- practice-index -->` … `<!-- /practice-index -->` 索引（写入命令会自动生成）",
             )
             continue
-        actual, end_line = block
+        actual, start_line, end_line = block
+        if start_line == 0 or lines[start_line - 1].strip() != INDEX_TITLE:
+            add(
+                start_line + 1,
+                f"`{base}` 的索引前一行必须单独写 `{INDEX_TITLE}`（索引放在讲解内容之后）",
+            )
         if end_line >= len(lines) or lines[end_line].strip() != INDEX_END:
             add(index + 1, "索引块缺少结束标记 `<!-- /practice-index -->`")
+            continue
+        if not index_tail_is_clean(lines, end_line):
+            add(index + 1, f"索引块必须放在 `{base}` 讲解内容之后（小节末尾），索引后不要再写正文")
             continue
         if actual != expected:
             add(
@@ -1909,7 +1953,7 @@ def apply_safe_fixes(text: str) -> tuple[str, list[str]]:
             wanted_title = (
                 f"## {base}" if len(ordered) == 1 else f"## {base} - {position:02d}"
             )
-            if output[line_no - 1].strip() != wanted_title:
+            if heading_without_anchor(output[line_no - 1]) != wanted_title:
                 output[line_no - 1] = wanted_title
                 seq_changed = True
     if seq_changed:

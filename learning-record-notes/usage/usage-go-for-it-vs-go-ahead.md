@@ -12,10 +12,6 @@
 
 ## 讲解
 
-<!-- round-index -->
-- [2026-11-13 21:02 · 复习](#round-2026-11-13-2102)
-<!-- /round-index -->
-
 **核心含义**：
 
 - go for it：口语打气语，意思是“去争取吧、放手去干”，用于推动一个还在犹豫或害怕的人去做某事。
@@ -45,6 +41,11 @@
 - "Can I open the window?" "Sure, go ahead."（“我可以开窗吗？”“可以，开吧。”）
 - The board gave us the go-ahead to start in June.（董事会批准我们六月启动。）
 - We'll go ahead with the plan as scheduled.（我们将按计划推进这项方案。）
+
+复习历史：
+<!-- round-index -->
+- [2026-11-13](#round-2026-11-13-2102)
+<!-- /round-index -->
 
 ## 看一套围绕「go for it 与 go ahead 的语气差异」的完整场景对话
 

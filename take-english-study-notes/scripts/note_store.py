@@ -123,6 +123,8 @@ INDEX_START = "<!-- practice-index -->"
 INDEX_END = "<!-- /practice-index -->"
 ROUND_INDEX_START = "<!-- round-index -->"
 ROUND_INDEX_END = "<!-- /round-index -->"
+# 索引块的小标题：写在讲解内容之后、索引链接之前，渲染时显示成一行「复习历史：」
+INDEX_TITLE = "复习历史："
 INLINE_ANCHOR_RE = re.compile(
     r'\s*<a id="(?P<id>'
     r"practice-\d{4}-\d{2}-\d{2}-\d{4}-[0-9a-f]{8}"
@@ -150,6 +152,10 @@ def _strip_practice_index(text: str) -> str:
     for raw in _normalize_text(text).split("\n"):
         stripped = _split_inline_anchor(raw.rstrip())[0]
         marker = stripped.strip()
+        if marker == INDEX_TITLE:
+            while lines and not lines[-1].strip():
+                lines.pop()
+            continue
         if marker in (INDEX_START, ROUND_INDEX_START):
             while lines and not lines[-1].strip():
                 lines.pop()
@@ -293,9 +299,13 @@ def round_anchor_id(date: str, time: str) -> str:
     return f"round-{date}-{time.replace(':', '')}"
 
 
-def _practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str]]]:
-    """菜单项 → [(索引展示文本, 锚点 id)]，按时间倒序排列（新的在前）。"""
-    entries: dict[tuple[str, str], tuple[str, str]] = {}
+def practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str]]]:
+    """菜单项 → [(索引展示文本, 锚点 id)]，按时间倒序排列（新的在前）。
+
+    展示文本只写日期；同一天同一菜单项有多份时按时间先后补 ` - 01`、` - 02`，
+    与几份小节标题的序号口径一致，不由标题里的后缀决定，避免手改标题影响目录。
+    """
+    seen: dict[tuple[str, str], str] = {}
     date = time = kind = None
     for line in lines:
         stripped = _split_inline_anchor(line.strip())[0]
@@ -305,22 +315,47 @@ def _practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str]]]:
             continue
         if date is None or not stripped.startswith("## "):
             continue
-        base, seq = _section_base(stripped)
+        base, _seq = _section_base(stripped)
         if base == f"## {QUIZ_SECTION}":
             continue
-        label = f"{date} {time} · {kind}" + (f" - {seq:02d}" if seq is not None else "")
-        entries[(base, f"{date} {time}")] = (label, practice_anchor_id(date, time, base))
+        seen[(base, f"{date} {time}")] = date
+    labels: dict[tuple[str, str], str] = {}
+    for base in {base for base, _stamp in seen}:
+        day = day_labels(
+            sorted((stamp, date) for (item_base, stamp), date in seen.items() if item_base == base)
+        )
+        labels.update({(base, stamp): label for stamp, label in day.items()})
     grouped: dict[str, list[tuple[str, str]]] = {}
-    for (base, _stamp), (label, anchor_id) in sorted(
-        entries.items(), key=lambda item: item[0][1], reverse=True
-    ):
-        grouped.setdefault(base, []).append((label, anchor_id))
+    for base, stamp in sorted(seen, key=lambda item: item[1], reverse=True):
+        grouped.setdefault(base, []).append(
+            (labels[(base, stamp)], practice_anchor_id(stamp[:10], stamp[11:], base))
+        )
     return grouped
+
+
+def day_labels(stamps: list[tuple[str, str]]) -> dict[str, str]:
+    """索引条目的展示文本：只写日期；同一天有多条时按时间先后补 ` - 01`、` - 02`。
+
+    `stamps` 是 ``[(<date> <HH:MM>, <date>)]``。同一天两条复习区块若都显示成同一个日期，
+    目录里就分不清哪条是哪次，因此沿用日期区块小节的同日序号规则。
+    """
+    by_date: dict[str, list[str]] = {}
+    for stamp, date in stamps:
+        by_date.setdefault(date, []).append(stamp)
+    labels: dict[str, str] = {}
+    for date, day_stamps in by_date.items():
+        ordered = sorted(day_stamps)
+        if len(ordered) == 1:
+            labels[ordered[0]] = date
+            continue
+        for position, stamp in enumerate(ordered, 1):
+            labels[stamp] = f"{date} - {position:02d}"
+    return labels
 
 
 def _round_entries(lines: list[str]) -> list[tuple[str, str]]:
     """每个日期区块的 `## 本轮习题` → [(展示文本, 锚点 id)]，按时间倒序（新的在前）。"""
-    entries: dict[str, tuple[str, str]] = {}
+    entries: dict[str, str] = {}
     date = time = kind = None
     for line in lines:
         stripped = _split_inline_anchor(line.strip())[0]
@@ -333,11 +368,12 @@ def _round_entries(lines: list[str]) -> list[tuple[str, str]]:
         base, _seq = _section_base(stripped)
         if base != f"## {QUIZ_SECTION}":
             continue
-        entries[f"{date} {time}"] = (
-            f"{date} {time} · {kind}",
-            round_anchor_id(date, time),
-        )
-    return [entries[stamp] for stamp in sorted(entries, reverse=True)]
+        entries[f"{date} {time}"] = date
+    labels = day_labels(sorted(entries.items()))
+    return [
+        (labels[stamp], round_anchor_id(stamp[:10], stamp[11:]))
+        for stamp in sorted(entries, reverse=True)
+    ]
 
 
 def apply_practice_index(text: str) -> str:
@@ -345,17 +381,29 @@ def apply_practice_index(text: str) -> str:
 
     - 每个日期区块里的菜单项小节、以及 `## 本轮习题`，都在标题行右侧挂一行
       `<a id="practice-…"></a>` / `<a id="round-…"></a>`：标题本身不显示它，跳转直接落在标题上。
-    - 文件级同名小节标题下写 `<!-- practice-index -->` … `<!-- /practice-index -->`，
-      按时间倒序列出该菜单项的全部习题小节（新的在前）。
-    - `## 讲解` 标题下写 `<!-- round-index -->` … `<!-- /round-index -->`，
-      列出整份笔记每个日期区块的 `## 本轮习题`（新的在前），作为复习历史目录。
+    - 文件级同名小节的**讲解内容之后**写 `复习历史：` + `<!-- practice-index -->` …
+      `<!-- /practice-index -->`，按时间倒序列出该菜单项的全部习题小节（新的在前）。
+    - `## 讲解` 的讲解内容之后写 `复习历史：` + `<!-- round-index -->` …
+      `<!-- /round-index -->`，列出整份笔记每个日期区块的 `## 本轮习题`（新的在前）。
     """
     lines = _normalize_text(text).split("\n")
-    entries = _practice_entries(lines)
+    entries = practice_entries(lines)
     rounds = _round_entries(lines)
     out: list[str] = []
     index = 0
     in_block = False
+    pending: list[str] | None = None
+
+    def flush_index() -> None:
+        """把当前文件级小节待写的索引块落到小节末尾（讲解内容之后）。"""
+        nonlocal pending
+        if pending is None:
+            return
+        while out and not out[-1].strip():
+            out.pop()
+        out.extend(["", INDEX_TITLE, *pending, ""])
+        pending = None
+
     while index < len(lines):
         line = lines[index]
         title, old_anchor = _split_inline_anchor(line)
@@ -365,11 +413,13 @@ def apply_practice_index(text: str) -> str:
             index += 1
             continue
         if stripped.startswith("# "):
+            flush_index()
             in_block = True
             out.append(title)
             index += 1
             continue
         if stripped.startswith("## "):
+            flush_index()
             base, _seq = _section_base(stripped)
             if in_block:
                 date = time = None
@@ -390,43 +440,36 @@ def apply_practice_index(text: str) -> str:
                 continue
             out.append(title)
             index += 1
-            # 先吞掉上一次生成的两类索引块与两侧空行，避免重写后叠加
-            skip_start = index
-            while index < len(lines) and not lines[index].strip():
-                index += 1
-            if index < len(lines) and lines[index].strip() in (INDEX_START, ROUND_INDEX_START):
-                while index < len(lines) and (
-                    lines[index].strip()
-                    in (INDEX_START, INDEX_END, ROUND_INDEX_START, ROUND_INDEX_END)
-                    or INDEX_LINE_RE.match(lines[index].strip())
-                    or not lines[index].strip()
-                ):
-                    index += 1
-                skip_start = index
-            block: list[str] | None = None
             if base == f"## {EXPLAIN_SECTION}" and rounds:
-                block = [
+                pending = [
                     ROUND_INDEX_START,
                     *[f"- [{label}](#{anchor})" for label, anchor in rounds],
                     ROUND_INDEX_END,
                 ]
             elif base not in (f"## {EXPLAIN_SECTION}", "## 基础信息") and base in entries:
-                block = [
+                pending = [
                     INDEX_START,
                     *[f"- [{label}](#{anchor})" for label, anchor in entries[base]],
                     INDEX_END,
                 ]
-            if block:
-                out.append("")
-                out.extend(block)
-                out.append("")
-                continue
-            # 没有对应索引时，把吞掉的空行补回一行
-            if skip_start < index:
-                out.append("")
+            continue
+        marker = stripped
+        if marker in (INDEX_TITLE, INDEX_START, ROUND_INDEX_START):
+            # 旧索引块（标题行紧跟索引的旧位置、或已在末尾）整体吞掉，稍后按新位置重建
+            while out and not out[-1].strip():
+                out.pop()
+            while index < len(lines) and (
+                lines[index].strip()
+                in (INDEX_TITLE, INDEX_START, INDEX_END, ROUND_INDEX_START, ROUND_INDEX_END)
+                or INDEX_LINE_RE.match(lines[index].strip())
+                or not lines[index].strip()
+            ):
+                index += 1
+            out.append("")
             continue
         out.append(line)
         index += 1
+    flush_index()
     while out and not out[-1].strip():
         out.pop()
     return "\n".join(out) + "\n"

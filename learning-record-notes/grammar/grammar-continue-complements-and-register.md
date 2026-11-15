@@ -12,10 +12,6 @@
 
 ## 讲解
 
-<!-- round-index -->
-- [2026-11-10 21:09 · 复习](#round-2026-11-10-2109)
-<!-- /round-index -->
-
 **语法机制**：
 
 - continue doing / continue to do：都表示继续做某事；doing 更强调动作本身的延续，to do 更中性。
@@ -37,6 +33,11 @@
 
 - After a short break, we continued discussing the plan.
 - After the budget, we continued on to the timeline.
+
+复习历史：
+<!-- round-index -->
+- [2026-11-10](#round-2026-11-10-2109)
+<!-- /round-index -->
 
 # 2026-11-10 21:09 · 复习
 

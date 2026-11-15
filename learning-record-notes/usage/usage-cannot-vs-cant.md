@@ -12,10 +12,6 @@
 
 ## 讲解
 
-<!-- round-index -->
-- [2026-11-10 21:25 · 复习](#round-2026-11-10-2125)
-<!-- /round-index -->
-
 **核心含义**：
 - cannot 与 can't 意思完全相同，都表示「不能、无法」，差别只在正式度，不在意义。
 
@@ -32,6 +28,11 @@
 - Applicants cannot submit more than one form.（申请人不能提交多份表格）
 - I can't make it tonight, sorry.（今晚我来不了，抱歉）
 - The system cannot be restored before 9 a.m.（系统在九点前无法恢复）
+
+复习历史：
+<!-- round-index -->
+- [2026-11-10](#round-2026-11-10-2125)
+<!-- /round-index -->
 
 # 2026-11-10 21:25 · 复习
 

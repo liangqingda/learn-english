@@ -12,10 +12,6 @@
 
 ## 讲解
 
-<!-- round-index -->
-- [2026-11-13 20:30 · 复习](#round-2026-11-13-2030)
-<!-- /round-index -->
-
 **语法机制**：
 - 过去完成时 had + 过去分词 专门给两个过去事件排先后：它标的是“更早的那一个”，参照点是句中另一个过去时间或过去动作。
 - 参照点常由一般过去时从句、过去时间状语（by the time…、when…、before…）或前文语境提供；句子里没有任何过去参照点时，不能用它表示“很久以前发生过”。
@@ -44,6 +40,11 @@
 - 主语 + said / told + (that) + had + 过去分词 —— She told me she had finished the report two days before the deadline.（她告诉我她在截止日期前两天就完成了报告）
 - When + 一般过去时, 主语 + had + 过去分词 —— When I arrived at the station, the train had already left.（我到车站时，火车已经开走了）
 - 主语 + had + 过去分词 + when + 一般过去时 —— He had sold the house when I phoned him yesterday.（我昨天打电话给他时，他已经把房子卖了）
+
+复习历史：
+<!-- round-index -->
+- [2026-11-13](#round-2026-11-13-2030)
+<!-- /round-index -->
 
 # 2026-11-13 20:30 · 复习
 
