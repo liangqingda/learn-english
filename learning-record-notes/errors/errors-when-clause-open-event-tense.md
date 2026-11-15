@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>3</td></tr>
 <tr><td>下次复习</td><td>2026-11-18 21:09</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-15 21:09</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-15 21:13</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-15 21:15</td></tr>
 </table>
 
 ## 讲解
@@ -60,6 +60,41 @@
 - **Tom**：Exactly. And the main clause stays in the past too: when it **had just opened**, **there was** only a bench and a tiny counter.
 
 </details>
+
+## 读一个围绕「when 从句描述开业事件的动词和时态」的小故事
+
+**讲解要点**：
+- 故事反复用 `when the shop had just opened` 把“刚开业”当被回忆的时间背景，从句用过去完成时交代基线。
+  - When the shop had just opened, there was almost nothing in it.（那家店刚开业的时候，里面几乎什么都没有）
+  - She still talks about when the bookshop had just opened.（她还在说那家书店刚开业的时候）
+- 叙述开业年份这种单一事件时，动词换成一般过去时 open，并配 in + 年份。
+  - My grandmother opened a second room in 2004.（我奶奶 2004 年又开了一间房）
+- 被回忆的时间点定在过去后，主句的 there be、kept 等描述动作同样留在过去时。
+  - When the shop had just opened, three shelves and one lamp were all it had.（那家店刚开业时，三排书架和一盏灯就是它的全部）
+
+<details>
+<summary>故事原文</summary>
+
+The first time I came back to that narrow street, the old bookshop was still standing, though its windows had gone blind with dust. My grandmother had run it for thirty years, and she never stopped talking about **when the shop had just opened**. I was seven then, and I still remember the morning she pulled the shutters up for the first time. There were three shelves, one lamp, and a cat that refused to leave the doorway.
+第一次回到那条窄街时，那家旧书店还立着，只是橱窗已被灰尘蒙得看不清了。奶奶经营了它三十年，总在念叨这家店刚开业的时候。那时我七岁，我还记得她第一次拉起卷帘门的那天早上。店里只有三排书架、一盏灯，还有一只赖在门口不走的猫。
+
+Business was slow at first, so slowly that my grandmother kept a notebook of every single customer. **When the shop had just opened**, the whole town was still loyal to the bigger store two blocks away. She would stand at the door at four in the afternoon, watch people walk past, and then go back inside and rearrange the same three shelves. Years later she told me that rearranging was the only thing that kept her from giving up.
+生意起初很慢，慢到奶奶把每一位顾客都记进本子里。那家店刚开业的时候，全镇人还都忠于两条街外那家大店。她会在下午四点站在门口，看人们走过去，然后回店里把同样的三排书架再摆一遍。多年后她告诉我，正是这个反复摆书的动作让她撑了下来。
+
+Time does its own quiet work. The bigger store closed down, readers began to drift back, and my grandmother **opened** a second room in 2004. By the time I left for university, the narrow shop had become the warmest corner of the street. She never called it a success; she called it **the years when the shop had just opened**, as if those first quiet months were the part she loved most.
+时间自会悄悄起作用。那家大店关门了，读者开始慢慢回来，奶奶 2004 年又开了一间房。等我离家上大学时，这家小店已经成了街上最暖的角落。她从不称这是成功，只说那是“刚开业的那几年”，仿佛最初那几个安静的月份才是她最爱的部分。
+
+Last winter the town decided to tear the whole row down for a new road. I stood outside with the keys in my hand and tried to picture **when the shop had just opened**: three shelves, one lamp, a stubborn cat. The building will go, but that first morning keeps coming back to me, and every time I tell the story I begin with the same words — when the shop had just opened, there was almost nothing in it, and that was enough.
+去年冬天，镇上决定为修新路把整排房子拆掉。我拿着钥匙站在门外，努力回想那家店刚开业时的样子：三排书架、一盏灯、一只倔强的猫。这栋楼会消失，可那个最初的早晨总回到我心里，每次讲起这个故事，我都用同一句开头——那家店刚开业的时候，里面几乎什么都没有，而那就够了。
+
+</details>
+
+| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |
+|---|---|---|
+| 第 1 段：she never stopped talking about when the shop had just opened | 奶奶反复回忆“刚开业那段日子” | 换成 opened 只交代开业这一个动作，丢掉“刚开完、还没多久”的时段感 |
+| 第 2 段：When the shop had just opened, the whole town was still loyal to the bigger store | 用刚开业的时间点给慢生意做背景 | 换成过去进行时 was opening 会读成“正在开门的那一瞬”，撑不起整段背景 |
+| 第 3 段：my grandmother opened a second room in 2004 | 交代 2004 年这一次扩建事件 | 换成 had opened 会和前文的回忆基线打架，这里只需要一个已完成的过去事件 |
+| 第 4 段：when the shop had just opened, there was almost nothing in it | 站在今天回忆当年的起点 | 换成现在时 there is 会把“当年什么都没有”读成现在的事实 |
 
 # 2026-11-15 21:09 · 复习
 
