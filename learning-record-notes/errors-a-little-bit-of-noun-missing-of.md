@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-18 10:52</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-09 20:35</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-15 11:01</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-15 11:08</td></tr>
 </table>
 
 ## 讲解
@@ -202,3 +202,21 @@ Don't worry, there is still ____ water in the bottle.
 - some 对可数与不可数通用，语气最中性；a small amount of 是 a little bit of 的正式版本
   - `Some chairs are broken.`（有些椅子坏了。）
   - `The report shows a small amount of progress.`（报告显示有少量进展。）
+
+## 扩展「a little bit 后接名词时缺少 of」相关词汇和搭配
+
+**讲解要点**：
+- 英语的“少量”按名词类别分装备：不可数名词走 a little bit of / a bit of / a touch of / a dash of，复数可数名词走 a few / some / a handful of。
+  - `There is a little bit of butter left.`（还剩一点黄油。）
+  - `There are a few tomatoes in the fridge.`（冰箱里有几个西红柿。）
+- a touch of 强调“轻轻加一笔”，多用于味道、颜色、情绪，语感比 a little bit of 精致。
+  - `Add a touch of salt to the sauce.`（往酱汁里加一点盐。）
+  - `There's a touch of irony in his voice.`（他的语气里带着一点讽刺。）
+- a dash of 专指快速倒入的少量液体调料。
+  - `Add a dash of milk to the coffee.`（往咖啡里加一点牛奶。）
+- a handful of 多接复数可数名词，表示“少数几个”，比 a few 更有画面感；接沙子、米这类物质名词时表示“一把”的实量。
+  - `Only a handful of people came.`（只来了寥寥几个人。）
+  - `He threw a handful of sand into the water.`（他往水里扔了一把沙子。）
+- a bit of a + 单数可数名词是另一条固定结构，of 后面是完整的名词短语，a bit 在这里当程度副词，意思是“有点”。
+  - `The meeting was a bit of a mess.`（这个会议有点乱。）
+  - `He's a bit of a perfectionist.`（他有点完美主义。）

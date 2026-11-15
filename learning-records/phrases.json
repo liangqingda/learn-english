@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 250,
+  "revision": 255,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -34,6 +34,54 @@
       ],
       "key": "a-bit-informal-degree"
     },
+    "phrases:a-dash-of-liquid-seasoning": {
+      "id": "phrases:a-dash-of-liquid-seasoning",
+      "category": "phrases",
+      "key": "a-dash-of-liquid-seasoning",
+      "status": "learning",
+      "title": "a dash of：少量液体或调料",
+      "explanation": "a dash of + 不可数名词，表示做菜时随手一倒的少量，多用于液体调料（牛奶、醋、酱油）与细颗粒调味品（盐、胡椒），常见于烹饪说明；不用于抽象事物。",
+      "source": "Add a dash of milk to the coffee.",
+      "example": "She put a dash of vinegar in the dressing.",
+      "tags": [
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-11-15T11:06:53+08:00",
+      "last_learned_at": "2026-11-15T11:08:50+08:00",
+      "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:a-handful-of-plural-count": {
+      "id": "phrases:a-handful-of-plural-count",
+      "category": "phrases",
+      "key": "a-handful-of-plural-count",
+      "status": "learning",
+      "title": "a handful of：少量（后接复数可数名词）",
+      "explanation": "a handful of 表示“一手能握住的量、少数几个”，多接复数可数名词（a handful of people / nuts）；接 sand、rice 这类不可数物质时表示“一把”的实量，而不是“几个”。比 a few 更有画面感，常暗示数量少。",
+      "source": "Only a handful of people came.",
+      "example": "She added a handful of nuts to the salad.",
+      "tags": [
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-11-15T11:06:53+08:00",
+      "last_learned_at": "2026-11-15T11:07:44+08:00",
+      "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "phrases:a-price-to-pay": {
       "id": "phrases:a-price-to-pay",
       "category": "phrases",
@@ -66,6 +114,30 @@
         }
       ],
       "key": "a-price-to-pay"
+    },
+    "phrases:a-touch-of-small-amount": {
+      "id": "phrases:a-touch-of-small-amount",
+      "category": "phrases",
+      "key": "a-touch-of-small-amount",
+      "status": "learning",
+      "title": "a touch of：一点（少量添加，语感精致文雅）",
+      "explanation": "a touch of + 不可数名词，表示“加上一点点”，多用于调味、色彩、情绪等细微添加，语感比 a little bit of 更精致、略正式。",
+      "source": "Add a touch of salt to the sauce.",
+      "example": "There's a touch of irony in his voice.",
+      "tags": [
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-11-15T11:06:53+08:00",
+      "last_learned_at": "2026-11-15T11:06:53+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "phrases:a-wide-range-of": {
       "id": "phrases:a-wide-range-of",

@@ -1,8 +1,32 @@
 {
   "schema_version": 2,
-  "revision": 252,
+  "revision": 253,
   "category": "grammar",
   "records": {
+    "grammar:a-bit-of-a-singular-countable": {
+      "id": "grammar:a-bit-of-a-singular-countable",
+      "category": "grammar",
+      "key": "a-bit-of-a-singular-countable",
+      "status": "learning",
+      "title": "a bit of a + 单数可数名词：有点……（口语评价）",
+      "explanation": "a bit of 后面可以接 a + 单数可数名词，构成 a bit of a + 名词，用于口语评价人或事“有点……”，如 a bit of a problem / a bit of a mess；此时 of 后面是完整名词短语，不是不可数名词。",
+      "source": "The meeting was a bit of a mess.",
+      "example": "It's a bit of a problem for us.",
+      "tags": [
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-11-15T11:06:53+08:00",
+      "last_learned_at": "2026-11-15T11:06:53+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "grammar:alternative-question-a-or-b": {
       "id": "grammar:alternative-question-a-or-b",
       "category": "grammar",
