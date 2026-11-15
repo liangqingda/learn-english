@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>2</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 21:59</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-10 19:17</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-14 22:05</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-15 10:01</td></tr>
 </table>
 
 ## 讲解
@@ -228,3 +228,32 @@ By noon the shop was quiet again, and Mei sat on the step outside with a cup of 
 | 第 2 段，答应林先生四十个蛋糕 | 表示这个临时请求也能办到 | 需要一句利落的应承；说 It is possible 太生硬，说 No problem 又偏套话，all set 更贴口语 |
 | 第 3 段，交蛋糕时说 All set, Mr. Lin | 把「订单已经完成」这件事交代给客人 | 交代完成状态而不是强调动作过程；说 I have finished them 把注意力拉到她自己，语气不如 all set 客观 |
 | 第 4 段，面对下月大订单说 I'll be all set | 表示还需要一周才能达到就绪状态 | 表达的是将来的状态而非动作；说 I will finish it 只说了动作，没说出「准备好了」这层意思 |
+
+## 看一套围绕「all set：一切就绪 / 搞定」的完整场景对话
+
+**讲解要点**：
+- 询问进度时用 be all set? 或 be all set for + 事，回答可以直接给状态，也可以先否定再补上还缺的一项。
+  - Are we all set for the launch? — Not yet; the guest list is still printing.（发布会都准备好了吗？— 还没，嘉宾名单还在打印）
+- all set 只交代「已就绪」这一状态，具体安排要用动作句补充，避免把状态词当动作词用。
+  - The samples were delivered to the lobby half an hour ago.（样品半小时前就送到大堂了）
+- 将来才达到的就绪状态用 will be all set by + 时间，比 will finish 更强调「准备好了」这层意思。
+  - I'll be all set by tonight.（今晚之前我就准备好了）
+
+<details>
+<summary>场景对话原文</summary>
+
+- **Sun**：Is the conference room ready for the ten o'clock launch?（十点的发布会，会议室准备好了吗？）
+- **Ivy**：Almost. The projector is on, and the brochures arrived this morning.（差不多了。投影开着，宣传册今早到了。）
+- **Sun**：Good. And the samples?（好。样品呢？）
+- **Ivy**：They were delivered to the lobby half an hour ago.（半小时前送到大堂了。）
+- **Sun**：Perfect. So we're all set?（太好了。那我们是不是都齐了？）
+- **Ivy**：Not yet — the guest list is still printing.（还没，嘉宾名单还在打印。）
+- **Sun**：Tell me when it's done. I'll hold the doors until then.（打印好了告诉我，在那之前我先不开门。）
+- **Ivy**：All set now — the list, the samples, and the coffee.（现在都齐了，名单、样品、咖啡。）
+- **Sun**：All set. Let's open the doors.（都齐了，开门吧。）
+- **Courier**：Where should I put these boxes?（这些箱子放哪儿？）
+- **Ivy**：Please deliver them to the lobby, next to the reception desk.（请送到大堂，接待台旁边。）
+- **Sun**：One more thing — are you all set for tomorrow's follow-up meeting?（还有一件事，明天的跟进会你准备好了吗？）
+- **Ivy**：Not quite, but I'll be all set by tonight.（还差一点，不过今晚之前我就准备好了。）
+
+</details>
