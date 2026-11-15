@@ -1,6 +1,6 @@
 ---
 name: practice-learning-records
-description: 从规范学习记录中选择到期或低分知识点开展复习，按回答记录 0 至 10 分，并在一次协调写操作中保存评分、状态变化和实际错题；也支持复习已标熟或已掌握知识点、查看历史统计、基于已掌握知识点生成/持久化/续答/重做/评分四六级与 IELTS 风格等考试套题，以及按用户给出的复习笔记相对路径直接学习该笔记对应的知识点。当用户消息去除首尾空白后仅为中文“你好”或“复习”，仅为单独的英文单词 review 或 hi（忽略大小写），或仅为一条复习笔记的相对路径（形如 `learning-record-notes/<category>-<slug>.md`）时必须使用；在本 Skill 打开的复习或套题流程中，用户回复最近菜单中的数字或答案时也使用。除 review、hi 之外的英文输入（含 hello 等单词）一律由 learn-from-english 讲解，本 Skill 不拦截其它英文触发词。
+description: 从规范学习记录中选择到期或低分知识点开展复习，按回答记录 0 至 10 分，并在一次协调写操作中保存评分、状态变化和实际错题；也支持复习已标熟或已掌握知识点、查看历史统计、基于已掌握知识点生成/持久化/续答/重做/评分四六级与 IELTS 风格等考试套题，以及按用户给出的复习笔记相对路径直接学习该笔记对应的知识点。当用户消息去除首尾空白后仅为中文“你好”或“复习”，仅为单独的英文单词 review、hi 或 practice（忽略大小写），或仅为一条复习笔记的相对路径（形如 `learning-record-notes/<category>-<slug>.md`）时必须使用；其中 practice 跳过菜单、直接从综合复习范围随机抽一条记录出题；在本 Skill 打开的复习或套题流程中，用户回复最近菜单中的数字或答案时也使用。除 review、hi、practice 之外的英文输入（含 hello 等单词）一律由 learn-from-english 讲解，本 Skill 不拦截其它英文触发词。
 ---
 
 # 复习英语学习记录
@@ -9,7 +9,7 @@ description: 从规范学习记录中选择到期或低分知识点开展复习�
 
 ## 打开复习菜单
 
-收到触发词“你好”或“复习”（中文，去除首尾空白后仅为此二者），或单独的英文单词 review、hi（去除首尾空白后仅为此内容，忽略大小写）时运行下面的初始菜单；消息仅为一条复习笔记相对路径时按「从笔记相对路径学习知识点」直接开始那一轮，不弹初始菜单：
+收到触发词“你好”或“复习”（中文，去除首尾空白后仅为此二者），或单独的英文单词 review、hi（去除首尾空白后仅为此内容，忽略大小写）时运行下面的初始菜单；消息仅为一条复习笔记相对路径时按「从笔记相对路径学习知识点」直接开始那一轮，不弹初始菜单；消息为单独的英文单词 practice 时按「practice 直接随机出题」直接开始一轮，同样不弹初始菜单：
 
 ```bash
 python3 learn-from-english/scripts/learning_records.py menu --context initial
@@ -18,6 +18,21 @@ python3 learn-from-english/scripts/learning_records.py menu --context initial
 严格按返回的 `options` 顺序、`label` 原文和 `group` 展示菜单，不自行增加、删除、重新分组或估算数量。数量只保留在脚本生成的标签末尾。顶层选项跨分组连续编号为 `1`、`2`；option 含 `children` 时，在父项下把子项编号为 `1-1`、`1-2`，更深层继续追加段。把编号路径与 option 对象只保留在当前对话。脚本保证 `Other Menus` 至少动态生成 3 项；把 `mastered-exam-paper` 和返回的历史试卷选项原样放在 `Popular Menus`。把 `disabled: true` 的项显示为暂不可用但不执行；用户选择时说明记录正被其他会话领取并保持当前菜单。
 
 若 `state` 为 `empty`，说明目前没有学习记录，并直接展示脚本返回的状态、基础练习和咖啡店场景入口，不编造历史知识点。
+
+## practice 直接随机出题
+
+用户消息（去掉首尾空白）整条只是英文单词 `practice`（忽略大小写）时，直接开始一轮普通复习：不运行 `menu`、不展示任何菜单。抽题范围与初始菜单的 `1-1` / `1-2` / `1-3` 完全相同，即 `vocabulary`、`phrases`、`grammar`、`usage`、`errors` 五个分类中 `learning` 状态的记录（当前 301 条），再由 `--random` 按低分与遗忘次数加权抽取，所以这一轮落在哪个分类、哪个知识点是随机的。
+
+1. 先生成当前对话专属 owner，再运行：
+
+```bash
+python3 learn-from-english/scripts/learning_records.py next-review --path mixed+usage+vocabulary-phrases+errors-grammar --random --claim-owner <owner>
+```
+
+   不要把范围扩到 `familiar` 或 `mastered`：那两类仍然只在初始菜单里主动选择。
+2. 保留返回的 `id`、`category`、`status`、`owner` 与 `token`，按「开展普通复习」出 5 至 10 题（默认 6 题），并把题组作为本轮唯一操作入口：不显示菜单，也不在题目之前泄露知识点名称或答案方向。
+3. 用户作答后按「评分与协调记录」评分并用一次 `complete-review` 保存、按「生成本轮学习笔记」写笔记，再按「评分后的回复」输出得分行、判定表格与后续菜单；此后与普通复习完全一致。
+4. 返回 `record: null` 时说明当前没有可抽的 `learning` 记录，不编造知识点，改为运行初始菜单。
 
 ## 从笔记相对路径学习知识点
 
