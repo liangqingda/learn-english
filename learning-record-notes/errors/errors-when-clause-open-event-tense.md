@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>3</td></tr>
 <tr><td>下次复习</td><td>2026-11-18 21:09</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-15 21:09</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-15 21:15</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-15 21:16</td></tr>
 </table>
 
 ## 讲解
@@ -48,7 +48,7 @@
   - The bakery opened in 2016 and has been busy ever since.（这家面包店 2016 年开业，从那以后一直很忙）
 
 <details>
-<summary>场景对话原文</summary>
+<summary>场景对话原文 1</summary>
 
 - **Maggie**：Every time I walk down this street, I still remember when the little bakery **had just opened**.
 - **Tom**：Same here. It **opened** in 2016, didn't it? The whole street smelled of fresh bread for weeks.
@@ -58,6 +58,20 @@
 - **Tom**：Right — you can't use close there. **Close** means shutting down, the opposite direction.
 - **Maggie**：So it's "when it **had just opened**", because by the time we walked in, the opening was already finished.
 - **Tom**：Exactly. And the main clause stays in the past too: when it **had just opened**, **there was** only a bench and a tiny counter.
+
+</details>
+
+<details>
+<summary>场景对话原文 2</summary>
+
+- **Leo**：I brought my old swimming goggles, but this pool looks nothing like the one I remember.
+- **Priya**：That's because it was rebuilt twice. I still remember **when the pool had just opened** — we were nine and the water was freezing.
+- **Leo**：Wait, was it opening in 2009? I thought that was the year the ice rink opened.
+- **Priya**：No — the pool **opened** in 2009. The rink **opened** a year later, in 2010.
+- **Leo**：So you'd say "when the pool was opening" that summer, right?
+- **Priya**：Not really. **When the pool had just opened**, there was only one lane and no lifeguard at all. We needed the finished event, not the process.
+- **Leo**：Got it. And the main part stays in the past too?
+- **Priya**：Exactly: **when the pool had just opened**, **there was** only one lane, and **we swam** in it every single afternoon.
 
 </details>
 
