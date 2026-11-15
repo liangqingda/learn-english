@@ -218,24 +218,67 @@ MENU_EMOJI_RE = re.compile(
     "^[\U0001F000-\U0001FAFF\u2600-\u27BF\u2B00-\u2BFF\u2190-\u21FF\uFE0F\u200D]"
 )
 STORY_SUMMARY = "故事原文"
+DIALOGUE_SUMMARY = "场景对话原文"
 STORY_SENTENCE_RE = re.compile(r"[A-Za-z][^.!?]*[.!?]")
+DETAILS_SUMMARY_RE = re.compile(r"<summary>\s*([^<]+?)\s*</summary>")
+STORY_TABLE_CELLS = ("故事里的位置", "当时想表达什么", "为什么不换别的表达")
+STORY_TABLE_HEADER = "| " + " | ".join(STORY_TABLE_CELLS) + " |"
 
 
-def story_sentences(section_text: str) -> int:
-    """数出 `故事原文` 折叠块里的英文叙事句数。
+def count_story_sentences(block_text: str) -> int:
+    """数出英文叙事句数。
 
     译文行以中文句号收尾，不会被计成英文句子；缩写成「只写了两句就收工」的故事会被这条拦住。
     """
-    start = section_text.find(f"<summary>{STORY_SUMMARY}</summary>")
-    if start < 0:
-        return 0
-    end = section_text.find("</details>", start)
-    block = section_text[start : end if end >= 0 else len(section_text)]
     return sum(
         1
-        for match in STORY_SENTENCE_RE.findall(block)
+        for match in STORY_SENTENCE_RE.findall(block_text)
         if len(re.findall(r"[A-Za-z]+", match)) >= 3
     )
+
+
+def story_sentences(section_text: str) -> int:
+    """数出第一个 `故事原文` 折叠块里的英文叙事句数（兼容旧调用）。"""
+    blocks = details_blocks(section_text, STORY_SUMMARY)
+    return count_story_sentences(blocks[0]["body"]) if blocks else 0
+
+
+def details_blocks(section_text: str, base: str) -> list[dict]:
+    """按出现顺序取回 summary 为 `<base>`、`<base> 2`、`<base> 3`… 的折叠块。
+
+    同一个菜单项在一个日期区块里被选中第二次时，笔记按 `<base>` / `<base> 2`
+    追加多份原文，所以校验必须逐块进行，不能只看第一块。
+    """
+    blocks: list[dict] = []
+    for match in DETAILS_SUMMARY_RE.finditer(section_text):
+        summary = match.group(1).strip()
+        if summary == base:
+            number = 1
+        else:
+            suffix = summary[len(base) :].strip()
+            if not suffix.isdigit():
+                continue
+            number = int(suffix)
+        close = section_text.find("</details>", match.end())
+        end = close if close >= 0 else len(section_text)
+        blocks.append(
+            {
+                "number": number,
+                "summary": summary,
+                "body": section_text[match.end() : end],
+                "end": close + len("</details>") if close >= 0 else len(section_text),
+            }
+        )
+    return blocks
+
+
+def has_story_table(section_text: str, block_end: int) -> bool:
+    """折叠块之后必须紧跟收尾三列表，且表格位于下一个折叠块之前。"""
+    next_block = section_text.find("<details>", block_end)
+    tail = section_text[block_end : next_block if next_block >= 0 else len(section_text)]
+    return STORY_TABLE_HEADER in tail
+
+
 MENU_FIELD_RE = re.compile(r"^\*\*(讲解要点|可迁移表达)\*\*：")
 MENU_CHILD_RE = re.compile(r"^(?:\s{2,}|\t)(?:[-*] |\d+\. )")
 NOTE_DIR_NAME = "learning-record-notes"
@@ -755,38 +798,60 @@ def check(path: Path) -> list[dict]:
                     "每条讲解要点至少要有一个缩进子项写出对应的可迁移表达或示例（`  - 例句`）",
                 )
             section_text = "\n".join(body[g_start:g_end])
-            if "场景对话" in g_title and "场景对话原文" not in section_text:
-                add(
-                    line_no,
-                    "场景对话小节必须保留完整对话原文：`<details><summary>场景对话原文</summary>` 不能省，"
-                    "只写讲解要点不算完成",
-                )
-            if "小故事" in g_title and STORY_SUMMARY not in section_text:
-                add(
-                    line_no,
-                    "小故事小节必须保留完整故事原文：`<details><summary>故事原文</summary>` 不能省，"
-                    "只写讲解要点不算完成",
-                )
-            if "小故事" in g_title:
-                sentence_count = story_sentences(section_text)
-                if sentence_count < 8:
-                    add(
-                        line_no,
-                        f"故事原文至少要有 8 句英文叙事（当前 {sentence_count} 句）：故事被截断或只写了几句，"
-                        "等于这一段没有交付",
-                    )
             if "场景对话" in g_title:
-                turns = [
-                    line
-                    for line in section_text.split("\n")
-                    if re.match(r"^- \*\*[^*]+\*\*：", line.strip())
-                ]
-                if len(turns) < 4:
+                dialogue_blocks = details_blocks(section_text, DIALOGUE_SUMMARY)
+                if not dialogue_blocks:
                     add(
                         line_no,
-                        f"场景对话原文至少要有 4 句台词（当前 {len(turns)} 句）：对话被截断或只写了开场白，"
-                        "等于这一段没有交付",
+                        "场景对话小节必须保留完整对话原文：`<details><summary>场景对话原文</summary>` 不能省，"
+                        "只写讲解要点不算完成",
                     )
+                for expected, block in enumerate(dialogue_blocks, 1):
+                    if block["number"] != expected:
+                        add(
+                            line_no,
+                            f"场景对话原文要按出现顺序编号：第 {expected} 块应写 `<summary>{DIALOGUE_SUMMARY} {expected}</summary>`，"
+                            f"当前是 `{block['summary']}`",
+                        )
+                    turns = [
+                        line
+                        for line in block["body"].split("\n")
+                        if re.match(r"^- \*\*[^*]+\*\*：", line.strip())
+                    ]
+                    if len(turns) < 4:
+                        add(
+                            line_no,
+                            f"{block['summary']} 至少要有 4 句台词（当前 {len(turns)} 句）：对话被截断或只写了开场白，"
+                            "等于这一段没有交付",
+                        )
+            if "小故事" in g_title:
+                story_blocks = details_blocks(section_text, STORY_SUMMARY)
+                if not story_blocks:
+                    add(
+                        line_no,
+                        "小故事小节必须保留完整故事原文：`<details><summary>故事原文</summary>` 不能省，"
+                        "只写讲解要点不算完成",
+                    )
+                for expected, block in enumerate(story_blocks, 1):
+                    if block["number"] != expected:
+                        add(
+                            line_no,
+                            f"故事原文要按出现顺序编号：第 {expected} 块应写 `<summary>{STORY_SUMMARY} {expected}</summary>`，"
+                            f"当前是 `{block['summary']}`",
+                        )
+                    sentence_count = count_story_sentences(block["body"])
+                    if sentence_count < 8:
+                        add(
+                            line_no,
+                            f"{block['summary']} 至少要有 8 句英文叙事（当前 {sentence_count} 句）："
+                            "故事被截断或只写了几句，等于这一段没有交付",
+                        )
+                    if not has_story_table(section_text, block["end"]):
+                        add(
+                            line_no,
+                            f"{block['summary']} 后面必须紧跟收尾三列表（`{STORY_TABLE_HEADER}`），"
+                            "一张表放在块外、写完表格才算这一段完整",
+                        )
             section_opens = section_text.count("<details>")
             section_closes = section_text.count("</details>")
             if section_opens != section_closes:

@@ -5,6 +5,7 @@
     python3 take-english-study-notes/scripts/note.py explain --file <note.md> --content-file - [--update] [--check]
     python3 take-english-study-notes/scripts/note.py append --file <note.md> --content-file - [--check]
     python3 take-english-study-notes/scripts/note.py append-section --file <note.md> --heading "<# ...>" --content-file - [--check]
+    python3 take-english-study-notes/scripts/note.py append-part --file <note.md> --heading "<# ...>" --section "## ..." --content-file - [--check]
     python3 take-english-study-notes/scripts/note.py replace --file <note.md> --heading "<# ...>" --content-file - [--rewrite-section "## ..."] [--check]
     python3 take-english-study-notes/scripts/note.py sync --file <note.md> [--check]
     python3 take-english-study-notes/scripts/note.py sections --file <note.md> [--heading "<# ...>"] [--section "## <小节标题>"]
@@ -221,6 +222,17 @@ def handle_append_section(args: argparse.Namespace) -> dict[str, Any]:
     return result
 
 
+def handle_append_part(args: argparse.Namespace) -> dict[str, Any]:
+    """往已有小节的末尾补一段：同一菜单项第二次生成的故事 / 对话原文走这条路。"""
+    note = store()
+    result = note.append_part(
+        args.file, args.heading, args.section, read_content(args.content_file)
+    )
+    if args.check and result.get("appended_part"):
+        validate_after_write(note, result)
+    return result
+
+
 def handle_replace(args: argparse.Namespace) -> dict[str, Any]:
     note = store()
     result = note.replace_block(
@@ -324,6 +336,17 @@ def build_parser() -> argparse.ArgumentParser:
     append_section.add_argument("--content-file", required=True, help="raw '## ...' Markdown section path or - for stdin")
     append_section.add_argument("--check", action="store_true", help="run the validator afterwards")
     append_section.set_defaults(handler=handle_append_section)
+
+    append_part = subparsers.add_parser(
+        "append-part",
+        help="append a body fragment to the end of an existing '## section' (repeat story / dialogue)",
+    )
+    append_part.add_argument("--file", required=True, help="learning-record-notes/<category>-<slug>.md")
+    append_part.add_argument("--heading", required=True, help="exact level-1 heading line of the target round")
+    append_part.add_argument("--section", required=True, help="exact '## ...' section title to append into")
+    append_part.add_argument("--content-file", required=True, help="raw Markdown fragment path or - for stdin")
+    append_part.add_argument("--check", action="store_true", help="run the validator afterwards")
+    append_part.set_defaults(handler=handle_append_part)
 
     replace = subparsers.add_parser("replace", help="replace one existing round block in place")
     replace.add_argument("--file", required=True, help="learning-record-notes/<category>-<slug>.md")

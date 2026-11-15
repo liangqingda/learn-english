@@ -29,6 +29,7 @@ description: 复习笔记（`learning-record-notes/*.md`）的唯一 owner：何
 python3 take-english-study-notes/scripts/note.py explain        --file learning-record-notes/<category>-<slug>.md --content-file - [--update] [--check]
 python3 take-english-study-notes/scripts/note.py append         --file learning-record-notes/<category>-<slug>.md --content-file - [--check]
 python3 take-english-study-notes/scripts/note.py append-section --file learning-record-notes/<category>-<slug>.md --heading "<# ...>" --content-file - [--check]
+python3 take-english-study-notes/scripts/note.py append-part    --file learning-record-notes/<category>-<slug>.md --heading "<# ...>" --section "## <小节标题>" --content-file - [--check]
 python3 take-english-study-notes/scripts/note.py replace        --file learning-record-notes/<category>-<slug>.md --heading "<# ...>" --content-file - [--rewrite-section "## ..."] [--check]
 python3 take-english-study-notes/scripts/note.py sections       --file learning-record-notes/<category>-<slug>.md [--heading "<# ...>"] [--section "## <小节标题>"]
 python3 take-english-study-notes/scripts/note.py sync           --file learning-record-notes/<category>-<slug>.md [--check]
@@ -38,9 +39,9 @@ python3 take-english-study-notes/scripts/note.py check --all [--fix]
 
 - 写入全程在 `learning-record-notes/.notes.lock` 排他锁内完成「读 → 拼装 → `os.replace` 原子替换」，调用方不自己改写文件。
 - 禁止用 `Write` 或任何编辑器直接改笔记；也禁止先落固定路径（如 `/tmp/note-block.md`）的临时内容文件，并行会话会互相覆盖。
-- 写之前先 `sections` 查目标文件已有哪些轮次与 `##` 小节，再决定 `append-section` 还是 `replace --rewrite-section`，不要拼好大段内容再被拒。
+- 写之前先 `sections` 查目标文件已有哪些轮次与 `##` 小节，再决定 `append-section`（新增小节）、`append-part`（往已有小节末尾补一段，用于同一菜单项第二次生成的故事 / 对话原文）还是 `replace --rewrite-section`，不要拼好大段内容再被拒。
 - `explain --update` 有两种语义：文件已有 `## 讲解` 时只替换该小节；文件没有 `## 讲解` 时把这一节插入到 `## 基础信息` 表之后、所有日期区块之前（返回 `inserted: true`），不覆盖任何已有内容。补讲解一律用它，不要用 `Write` 或 `replace` 手动插小块。
-- `append` / `append-section` / `replace` 加 `--check` 会在写入后自动跑本 skill 的校验器，并自动修复无争议问题（行尾空格、答案题号前缀、缺失的 `---` 等），结果放在 `auto_fixed`；`explain --check` 只校验不回改。
+- `append` / `append-section` / `append-part` / `replace` 加 `--check` 会在写入后自动跑本 skill 的校验器，并自动修复无争议问题（行尾空格、答案题号前缀、缺失的 `---` 等），结果放在 `auto_fixed`；`explain --check` 只校验不回改。
 
 ## 规则来源与优先级
 
@@ -90,5 +91,5 @@ python3 take-english-study-notes/scripts/note.py check --all [--fix]
 ## 与其他 skill 的边界
 
 - `learn-from-english`：记录库、菜单、讲解正文；讲解要落笔记时调本 skill 的 `explain`。
-- `practice-learning-records`：复习、练习、套题评分；要落笔记时调本 skill 的 `append` / `append-section` / `replace`。
+- `practice-learning-records`：复习、练习、套题评分；要落笔记时调本 skill 的 `append` / `append-section` / `append-part` / `replace`。
 - 本 skill 不读抽题调度、不算分、不改规范记录，只写 `learning-record-notes/` 下的可读副本。

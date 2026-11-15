@@ -51,6 +51,35 @@ class NoteAppendTest(unittest.TestCase):
     def tearDown(self) -> None:
         self.directory.cleanup()
 
+    def test_append_part_adds_to_an_existing_section_only(self) -> None:
+        self.store.append(self.note, round_block())
+        self.store.append_section(
+            self.note,
+            "# 2026-11-07 21:00 · 复习",
+            "## 读一个围绕 out west 的小故事\n\n**讲解要点**：\n- out west 表示往西\n  - `She headed out west.`（她往西边出发。）\n",
+        )
+        result = self.store.append_part(
+            self.note,
+            "# 2026-11-07 21:00 · 复习",
+            "## 读一个围绕 out west 的小故事",
+            "<details><summary>故事原文 2</summary>\n\nSecond version.\n\n</details>\n",
+        )
+        self.assertTrue(result["appended_part"])
+        text = self.note.read_text(encoding="utf-8")
+        self.assertEqual(text.count("## 读一个围绕 out west 的小故事"), 1)
+        self.assertIn("故事原文 2", text)
+        self.assertLess(text.index("**讲解要点**"), text.index("故事原文 2"))
+
+    def test_append_part_refuses_a_missing_section(self) -> None:
+        self.store.append(self.note, round_block())
+        with self.assertRaises(NoteError):
+            self.store.append_part(
+                self.note,
+                "# 2026-11-07 21:00 · 复习",
+                "## 不存在的小节",
+                "正文",
+            )
+
     def test_first_append_creates_the_file_level_basic_info_block(self) -> None:
         result = self.store.append(self.note, round_block())
         self.assertTrue(result["appended"])
@@ -472,6 +501,94 @@ class NoteCliTest(unittest.TestCase):
         payload = json.loads(completed.stdout)
         self.assertTrue(payload["appended"])
         self.assertTrue(payload["check"]["ok"])
+
+    def test_cli_append_part_adds_a_second_story_and_still_validates(self) -> None:
+        self.run_cli(
+            ["append", "--file", "learning-record-notes/errors-out-west.md", "--content-file", "-"],
+            block_text(heading="2026-11-09 09:00 · 复习", answer="west"),
+        )
+        section = (
+            "## 读一个围绕 out west 的小故事\n\n"
+            "**讲解要点**：\n"
+            "- out west 表示“往西边”\n"
+            "  - `She headed out west.`（她往西边出发。）\n\n"
+            "<details><summary>故事原文</summary>\n\n"
+            "Lin walked out west at dawn. She carried a map. The trail bent west. "
+            "Rain fell before noon. She found the mill. Nobody waited. "
+            "She lit a torch. The rain stopped. She headed out west again.\n\n"
+            "林在黎明时往西走。她带着一张地图。\n\n"
+            "</details>\n\n"
+            "| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |\n"
+            "|---|---|---|\n"
+            "| 第 1 段 | 往西走 | out west 是固定短语 |\n"
+        )
+        self.run_cli(
+            [
+                "append-section",
+                "--file",
+                "learning-record-notes/errors-out-west.md",
+                "--heading",
+                "# 2026-11-09 09:00 · 复习",
+                "--content-file",
+                "-",
+            ],
+            section,
+        )
+        part = (
+            "<details><summary>故事原文 2</summary>\n\n"
+            "Sam drove out west for work. He left before sunrise. The road turned west. "
+            "A truck blocked the lane. He waited an hour. The driver apologized. "
+            "Sam reached the site late. Nobody minded. He drove out west again.\n\n"
+            "萨姆为了工作往西开。他日出前出发。\n\n"
+            "</details>\n\n"
+            "| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |\n"
+            "|---|---|---|\n"
+            "| 第 1 段 | 往西开 | out west 保持分写 |\n"
+        )
+        completed = self.run_cli(
+            [
+                "append-part",
+                "--file",
+                "learning-record-notes/errors-out-west.md",
+                "--heading",
+                "# 2026-11-09 09:00 · 复习",
+                "--section",
+                "## 读一个围绕 out west 的小故事",
+                "--content-file",
+                "-",
+                "--check",
+            ],
+            part,
+        )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        payload = json.loads(completed.stdout)
+        self.assertTrue(payload["appended_part"])
+        self.assertTrue(payload["check"]["ok"])
+        text = self.note.read_text(encoding="utf-8")
+        self.assertEqual(text.count("## 读一个围绕 out west 的小故事"), 1)
+        self.assertIn("故事原文 2", text)
+
+    def test_cli_append_part_rejects_a_new_section_heading(self) -> None:
+        self.run_cli(
+            ["append", "--file", "learning-record-notes/errors-out-west.md", "--content-file", "-"],
+            block_text(heading="2026-11-09 09:00 · 复习", answer="west"),
+        )
+        completed = self.run_cli(
+            [
+                "append-part",
+                "--file",
+                "learning-record-notes/errors-out-west.md",
+                "--heading",
+                "# 2026-11-09 09:00 · 复习",
+                "--section",
+                "## 某小节",
+                "--content-file",
+                "-",
+            ],
+            "## 另一个小节\n\n正文\n",
+        )
+        self.assertEqual(completed.returncode, 2)
+        self.assertIn("append-section", completed.stderr)
 
     def test_cli_auto_fixes_safe_issues_before_reporting(self) -> None:
         completed = self.run_cli(

@@ -875,6 +875,95 @@ class NoteStore:
             "bytes": len(composed.encode("utf-8")),
         }
 
+    def append_part(
+        self, path: str, heading: str, section_heading: str, content: str
+    ) -> dict[str, Any]:
+        """在已有 ``## section`` 的末尾追加一段正文（不新建小节）。
+
+        同一个菜单项在一个日期区块里被选中第二次时，讲解要点沿用同一份，
+        故事 / 对话原文按 ``故事原文 2`` / ``场景对话原文 2`` 追加在后面。
+        新增小节用 ``append_section``，这里只往既有小节末尾补一段，别的小节一字不动。
+        """
+        part = _normalize_text(content).strip("\n")
+        if not part:
+            raise NoteError("note section part is empty")
+        for line in part.split("\n"):
+            if line.startswith("# "):
+                raise NoteError(
+                    "a section part cannot contain a level-1 heading; "
+                    "new sections go through append-section"
+                )
+            if line.startswith("## "):
+                raise NoteError(
+                    "a section part cannot start a new '## section'; "
+                    "use append-section for a new section"
+                )
+        wanted_block = _normalize_text(heading).strip()
+        wanted_section = _normalize_text(section_heading).strip()
+        if not wanted_section.startswith("## "):
+            raise NoteError("section heading must start with '## '")
+        target = self.resolve(path)
+        with self._exclusive_lock():
+            existing = _normalize_text(self._read(target))
+            if not existing:
+                raise NoteError(f"note does not exist: {self.relative(target)}")
+            lines = existing.split("\n")
+            matches = [index for index, line in enumerate(lines) if line.strip() == wanted_block]
+            if not matches:
+                raise NoteError(f"heading not found in note: {wanted_block}")
+            if len(matches) > 1:
+                raise NoteError(
+                    f"heading appears {len(matches)} times; refusing an ambiguous append: {wanted_block}"
+                )
+            start = matches[0]
+            end = next(
+                (
+                    index
+                    for index in range(start + 1, len(lines))
+                    if lines[index].startswith("# ")
+                ),
+                len(lines),
+            )
+            section_start = next(
+                (
+                    index
+                    for index in range(start + 1, end)
+                    if lines[index].strip() == wanted_section
+                ),
+                None,
+            )
+            if section_start is None:
+                raise NoteError(
+                    f"section not found in block {wanted_block}: {wanted_section}; "
+                    "use append-section to add it first"
+                )
+            section_end = next(
+                (
+                    index
+                    for index in range(section_start + 1, end)
+                    if lines[index].startswith("## ")
+                ),
+                end,
+            )
+            while section_end > section_start + 1 and not lines[section_end - 1].strip():
+                section_end -= 1
+            before = lines[:section_end]
+            after = lines[section_end:]
+            body = ["", *part.split("\n")]
+            composed = "\n".join(before + body + after).rstrip("\n") + "\n"
+            composed = _bump_updated_at(composed, datetime.now())
+            self._write(target, composed)
+            blocks = _count_blocks(composed)
+        return {
+            "ok": True,
+            "appended_part": True,
+            "file": self.relative(target),
+            "heading": wanted_block,
+            "section": wanted_section,
+            "blocks": blocks,
+            "bytes": len(composed.encode("utf-8")),
+        }
+
     def sync_basic_info(self, path: str, values: dict[str, str]) -> dict[str, Any]:
         """Refresh the record-level rows of the file-level ``基础信息`` table.
 

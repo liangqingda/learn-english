@@ -142,6 +142,48 @@ def paper_note_text(*, second_reference: str | None = "第 1 题", second_detail
     )
 
 
+STORY_SENTENCES = (
+    "Lin walked out west on a cold morning. "
+    "She carried a torch and a map. "
+    "The trail bent west after the river. "
+    "Rain started before noon. "
+    "She found the camp near the old mill. "
+    "Nobody was waiting there. "
+    "She lit the torch anyway. "
+    "By night the rain stopped. "
+    "She headed out west again at dawn."
+)
+
+STORY_TABLE = (
+    "| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |\n"
+    "|---|---|---|\n"
+    "| 第 1 段「walked out west」 | 往西边出发 | out west 是固定方位短语 |\n"
+)
+
+
+def story_block(summary: str, sentences: str = STORY_SENTENCES) -> str:
+    return (
+        f"<details><summary>{summary}</summary>\n\n"
+        f"{sentences}\n\n"
+        "她在一个寒冷的早晨往西走。\n\n"
+        "</details>\n\n"
+    )
+
+
+def story_section(*parts: str) -> str:
+    return (
+        "## 读一个围绕 out west 的小故事\n\n"
+        "**讲解要点**：\n"
+        "- out west 表示“往西边、在西边”\n"
+        "  - `She headed out west.`（她往西边出发。）\n\n"
+        + "".join(parts)
+    )
+
+
+def with_menu_section(base: str, section: str) -> str:
+    return base + "\n" + section
+
+
 class NoteContentValidationTest(unittest.TestCase):
     def check(self, text: str, name: str = "errors-out-west.md") -> list[dict]:
         with tempfile.TemporaryDirectory() as directory:
@@ -150,6 +192,46 @@ class NoteContentValidationTest(unittest.TestCase):
             path = notes / name
             path.write_text(text, encoding="utf-8")
             return check_note.check(path)
+
+    def test_numbered_story_blocks_are_validated_one_by_one(self) -> None:
+        text = with_menu_section(
+            note_text(),
+            story_section(
+                story_block("故事原文") + STORY_TABLE,
+                story_block("故事原文 2", "Only two sentences here. And another one.") + STORY_TABLE,
+            ),
+        )
+        self.assert_caught(text, "故事原文 2 至少要有 8 句英文叙事")
+
+    def test_story_numbering_must_be_consecutive(self) -> None:
+        text = with_menu_section(
+            note_text(),
+            story_section(
+                story_block("故事原文") + STORY_TABLE,
+                story_block("故事原文 3") + STORY_TABLE,
+            ),
+        )
+        self.assert_caught(text, "第 2 块应写")
+
+    def test_every_story_block_needs_its_own_table(self) -> None:
+        text = with_menu_section(
+            note_text(),
+            story_section(
+                story_block("故事原文") + STORY_TABLE,
+                story_block("故事原文 2"),
+            ),
+        )
+        self.assert_caught(text, "故事原文 2 后面必须紧跟收尾三列表")
+
+    def test_two_complete_story_blocks_pass(self) -> None:
+        text = with_menu_section(
+            note_text(),
+            story_section(
+                story_block("故事原文") + STORY_TABLE,
+                story_block("故事原文 2") + STORY_TABLE,
+            ),
+        )
+        self.assertEqual(self.check(text), [])
 
     def assert_caught(self, text: str, keyword: str, name: str = "errors-out-west.md") -> None:
         issues = self.check(text, name)
