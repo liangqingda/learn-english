@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 258,
+  "revision": 260,
   "category": "errors",
   "records": {
     "errors:a-little-bit-earlier-comparative": {
@@ -2868,6 +2868,31 @@
       "review_history": [],
       "key": "help-yourself-to-not-with-for-offer"
     },
+    "errors:hotel-vs-pub-wrong-noun": {
+      "id": "errors:hotel-vs-pub-wrong-noun",
+      "category": "errors",
+      "key": "hotel-vs-pub-wrong-noun",
+      "status": "learning",
+      "title": "小旅馆误译为 pub",
+      "explanation": "pub 指英式酒馆，不指住宿的地方；小旅馆应说 (small) hotel 或 inn。",
+      "source": "the pub had just opened",
+      "example": "The small hotel had just opened in 2010.",
+      "tags": [
+        "review-error",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-11-15T21:09:32+08:00",
+      "last_learned_at": "2026-11-15T21:09:32+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:inform-is-verb-use-notification": {
       "id": "errors:inform-is-verb-use-notification",
       "category": "errors",
@@ -4008,11 +4033,12 @@
       "source": "Local residents still remember when the new library had just closed.",
       "example": "Local residents still remember when the new library had just opened.",
       "tags": [
-        "review-error"
+        "review-error",
+        "word-choice"
       ],
       "first_learned_at": "2026-08-01T20:53:07+08:00",
-      "last_learned_at": "2026-08-01T20:53:07+08:00",
-      "learned_count": 1,
+      "last_learned_at": "2026-11-15T21:09:32+08:00",
+      "learned_count": 2,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,
@@ -4255,6 +4281,31 @@
       "mastered_at": null,
       "review_history": [],
       "key": "past-perfect-requires-past-participle"
+    },
+    "errors:past-progressive-for-completed-event": {
+      "id": "errors:past-progressive-for-completed-event",
+      "category": "errors",
+      "key": "past-progressive-for-completed-event",
+      "status": "learning",
+      "title": "已完成事件误用过去进行时",
+      "explanation": "描述带明确过去时间点（如 in 1998）的一次性开业事件时，英语用一般过去时 opened its doors；was opening 表示当时那个动作正在进行，与年份式事件叙述不匹配。",
+      "source": "was opening",
+      "example": "The little cinema opened its doors in 1998.",
+      "tags": [
+        "review-error",
+        "tense"
+      ],
+      "first_learned_at": "2026-11-15T21:09:32+08:00",
+      "last_learned_at": "2026-11-15T21:09:32+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:past-tense-after-after-clause": {
       "id": "errors:past-tense-after-after-clause",
@@ -4866,6 +4917,31 @@
       ],
       "first_learned_at": "2026-11-10T21:09:28+08:00",
       "last_learned_at": "2026-11-10T21:09:28+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:present-tense-in-past-narration": {
+      "id": "errors:present-tense-in-past-narration",
+      "category": "errors",
+      "key": "present-tense-in-past-narration",
+      "status": "learning",
+      "title": "叙述过去情形时误用一般现在时",
+      "explanation": "回忆过去某个时间点的场景，主句和 there be 结构都要用过去时；is / has 会把场景拉回现在，与 when 从句的过去完成时冲突。",
+      "source": "There is only a house / only has a restaurant",
+      "example": "When the little hotel had just opened, there was only one restaurant on the whole street.",
+      "tags": [
+        "review-error",
+        "tense"
+      ],
+      "first_learned_at": "2026-11-15T21:09:32+08:00",
+      "last_learned_at": "2026-11-15T21:09:32+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -6888,11 +6964,11 @@
       "first_learned_at": "2026-07-30T10:36:25+08:00",
       "last_learned_at": "2026-07-30T10:36:25+08:00",
       "learned_count": 1,
-      "mastery_score": 7.0,
-      "review_count": 2,
+      "mastery_score": 5.0,
+      "review_count": 3,
       "high_score_streak": 0,
-      "last_reviewed_at": "2026-08-09T15:46:44+08:00",
-      "next_review_at": "2026-08-12T15:46:44+08:00",
+      "last_reviewed_at": "2026-11-15T21:09:32+08:00",
+      "next_review_at": "2026-11-18T21:09:32+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
@@ -6905,6 +6981,12 @@
         {
           "score": 7.0,
           "reviewed_at": "2026-08-09T15:46:44+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
+        },
+        {
+          "score": 5.0,
+          "reviewed_at": "2026-11-15T21:09:32+08:00",
           "previous_status": "learning",
           "new_status": "learning"
         }
@@ -6934,6 +7016,31 @@
       "mastered_at": null,
       "review_history": [],
       "key": "while-clause-missing-linking-verb"
+    },
+    "errors:whole-street-word-order": {
+      "id": "errors:whole-street-word-order",
+      "category": "errors",
+      "key": "whole-street-word-order",
+      "status": "learning",
+      "title": "the whole street 误写成 the whole of street",
+      "explanation": "whole 作定语直接修饰名词，写成 the whole street；若用 the whole of，后面必须接带限定词的名词（the whole of the street），不能省冠词。",
+      "source": "The whole of street",
+      "example": "There was only one restaurant on the whole street.",
+      "tags": [
+        "review-error",
+        "word-order"
+      ],
+      "first_learned_at": "2026-11-15T21:09:32+08:00",
+      "last_learned_at": "2026-11-15T21:09:32+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:wide-range-of-singular-head-verb-agreement": {
       "id": "errors:wide-range-of-singular-head-verb-agreement",
@@ -7002,6 +7109,31 @@
       ],
       "first_learned_at": "2026-11-07T20:22:45+08:00",
       "last_learned_at": "2026-11-07T20:22:45+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:year-preposition-on-vs-in": {
+      "id": "errors:year-preposition-on-vs-in",
+      "category": "errors",
+      "key": "year-preposition-on-vs-in",
+      "status": "learning",
+      "title": "年份前误用 on（应为 in）",
+      "explanation": "英语中具体年份用介词 in；on 只用于具体某一天或某一天的上下午，所以 in 2021 才对。",
+      "source": "on 2021",
+      "example": "The little hotel had just opened in 2010.",
+      "tags": [
+        "preposition",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-15T21:09:32+08:00",
+      "last_learned_at": "2026-11-15T21:09:32+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

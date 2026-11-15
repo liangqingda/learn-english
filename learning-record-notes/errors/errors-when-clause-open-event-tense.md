@@ -1,0 +1,218 @@
+## 基础信息
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>记录 ID / 试卷 ID</td><td>errors:when-clause-open-event-tense</td></tr>
+<tr><td>目标知识点</td><td>when 从句描述开业事件的动词和时态</td></tr>
+<tr><td>累计复习次数</td><td>3</td></tr>
+<tr><td>下次复习</td><td>2026-11-18 21:09</td></tr>
+<tr><td>笔记生成时间</td><td>2026-11-15 21:09</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-15 21:10</td></tr>
+</table>
+
+## 讲解
+
+**错误机制**：
+- 中文说“某地刚开业的时候”，着眼的是一个状态；英语把这件事当成一个已完成的动作事件，所以 when 从句里必须用 open 的过去形式（opened 或 had just opened），不能用原形，也不能换成语义相反的 close。
+- `remember / talk about / picture + when 从句` 里，when 引导的是被回忆的过去时间点，从句时态要跟着落到过去：单纯叙述开业那年用一般过去时 opened，强调“刚开完业、还没多久”的完成状态用 had just opened。
+- 一旦从句用了过去完成时，主句描述当时场景的部分也要留在过去（there was / only had），否则现在时会把这个场景拉回当前。
+
+**为什么错**：
+- close 表示“关门、歇业”，方向与“开业”完全相反，属于动词选反，而不是时态问题。
+- was opening 是过去进行时，强调“当时正在开门”的过程；与 in 1998 这类只标记事件发生时间的年份状语搭配时，英语要的是一次完成的 open 事件。
+- 年份前用 in 而不是 on；on 只接具体某一天或某一天的上午、下午。
+
+**正确表达**：
+- Many old-timers still remember when the theater had just opened.（很多老住户还记得那家剧院刚开业时的样子）
+- When the little hotel had just opened in 2010, there was only one restaurant on the whole street.（那家小旅馆 2010 年刚开业的时候，整条街上只有一家饭馆）
+
+**可迁移表达**：
+- I still remember when this bakery had just opened and everything smelled of fresh bread.（我还记得这家面包店刚开业的时候，到处都是新烤面包的味道）
+- By the time we moved in, the café had just opened on the corner.（我们搬进来的时候，那家咖啡馆刚在街角开张）
+- The shop opened its doors in 1998, and it has been crowded ever since.（这家店 1998 年开业，从那以后一直很热闹）
+
+复习历史：
+<!-- round-index -->
+- [2026-11-15 21:09 · 复习](#round-2026-11-15-2109)
+<!-- /round-index -->
+
+# 2026-11-15 21:09 · 复习
+
+## 本轮习题 <a id="round-2026-11-15-2109"></a>
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>复习时间</td><td>2026-11-15 21:09</td></tr>
+<tr><td>分类 · 状态变化</td><td>errors · learning → learning</td></tr>
+<tr><td>本轮得分</td><td>5 / 10</td></tr>
+<tr><td>题量与错题数</td><td>6 题 / 4 处错误</td></tr>
+</table>
+
+### 1. 单项选择
+
+**题目**：选择最佳选项填空
+
+The small cinema on our corner ____ its doors in 1998, and tickets cost only two yuan back then.
+
+- A. opened
+- B. closed
+- C. was opening
+- D. opens
+
+**我的答案**：C
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：带明确过去年份的一次性事件，用一般过去时的 open 事件动词。
+2. **规则与机制**：`in 1998` 只标记事件发生的时间点，句子要交代“开业”这一完成动作，用 opened；was opening 强调当时正在进行的过程，与年份式事件叙述不匹配。
+3. **英语的表达逻辑**：英语把“开业”当作一个有起止的动作事件，指定年份就意味着事件已经完成，所以落到一般过去时，而不是过程进行体。
+4. **可迁移表达**：The small cinema opened its doors in 1998.（这家小影院 1998 年开业）；The bakery opened on a rainy Monday morning.（面包店在一个下雨的周一早上开张）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：过去进行时与一般过去时在“事件式叙述”里的分工。
+2. **为什么错**：was opening 描述的是“当时正在开门”的过程，英语要求带年份的事件句给出一个已完成动作；过程体需要另一个动作作参照（如 when we walked past），而本题只有年份。
+3. **英语的表达逻辑**：英语用一般过去时打包一个完整事件，用进行体铺开事件内部的过程；没有参照动作和时间段时，过程体用不上。
+4. **正确表达**：The small cinema opened its doors in 1998.（这家小影院 1998 年开业）；可迁移：The shop opened its doors in 1998, and it has been crowded ever since.（这家店 1998 年开业，从那以后一直很热闹）
+
+</details>
+
+### 2. 填空
+
+**题目**：用括号内动词的适当形式填空，注意每处 ____ 只填一个词或一个词形
+
+— The old diner is gone now, but I can still picture the week it ____ just ____ on Maple Street.
+（open）
+
+**我的答案**：had \ opened
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：`had just + 过去分词` 表示“刚完成”的过去完成状态。
+2. **规则与机制**：`the week it had just opened` 把开业设成被回忆时间点之前刚完成的动作，构成 had just opened；just 落在助动词与过去分词之间。
+3. **英语的表达逻辑**：英语用过去完成时把“开门营业”处理成更早的完成状态，给后面的回忆场景提供时间背景。
+4. **可迁移表达**：I can still picture the week the diner had just opened.（我还能想起那家小餐馆刚开业那周的样子）；By the time we moved in, the café had just opened on the corner.（我们搬进来的时候，那家咖啡馆刚在街角开张）
+
+</details>
+
+### 3. 改错
+
+**题目**：改错（只改错处，句意不变）
+
+My grandparents still talk about when the noodle shop just close and the owner kept handing out free tea.
+
+**我的答案**：My grandparents still talk about when the noodle shop had just closed and the owner kept handing out free tea.
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：when 从句里“刚开业”要用 open 的过去完成形式。
+2. **规则与机制**：`still talk about when ...` 引导被回忆的过去时间点，从句动词要落到过去，且“刚开业”用 had just opened 才带出完成义。
+3. **英语的表达逻辑**：英语在这里要同时交代两件事——时间在过去、开业已完成；过去完成时一次性满足两个条件。
+4. **可迁移表达**：They still talk about when the noodle shop had just opened.（他们还在说那家面馆刚开业的时候）；She still remembers when the bookstore had just opened upstairs.（她还记得那家书店刚在楼上开张的时候）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：open 与 close 的语义方向，以及 had just + 过去分词的完成义。
+2. **为什么错**：时态改对了，但动词仍用 close——close 是“关门歇业”，与“刚开业、老板还发免费茶”的语境相反，方向错了；原句的错误是动词选反加原形，改对时态不等于改对动词。
+3. **英语的表达逻辑**：英语把 open 和 close 当成一对方向相反的事件动词，营业开始只能落在 open 上；“刚开业”再加一层完成义，写成 had just opened。
+4. **正确表达**：My grandparents still talk about when the noodle shop had just opened and the owner kept handing out free tea.（我祖父母还在说那家面馆刚开业、老板一直送免费茶的时候）；可迁移：The shop had just opened when the first customers walked in.（这家店刚开业，第一批客人就进来了）
+
+</details>
+
+### 4. 语境判断
+
+**题目**：选择最接近句意的解释
+
+Neighbors still remember when the bakery had just opened.
+
+- A. 邻居们还记得面包店刚开业那阵子的情形
+- B. 邻居们担心面包店马上就要关门了
+- C. 邻居们记得面包店每天早上几点开门
+- D. 邻居们对面包店关门那一天的印象很深
+
+**我的答案**：A
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：`remember when + had just opened` 的整体语义落点。
+2. **规则与机制**：remember when 指向过去某个时间点，had just opened 说明那一刻开业刚刚完成，所以整句是“记得刚开业那阵子”，而不是“每天几点开门”。
+3. **英语的表达逻辑**：英语用过去完成时把开业放在被回忆时间点之前，形成一个短时段背景，这正是“刚开业那阵子”的表达方式。
+4. **可迁移表达**：Neighbors still remember when the bakery had just opened.（邻居们还记得面包店刚开业那阵子的情形）；Locals still remember when the market had just opened.（当地人还记得市场刚开张那阵子的情形）
+
+</details>
+
+### 5. 翻译
+
+**题目**：中译英
+
+这家小旅馆 2010 年刚开业的时候，整条街上只有一家饭馆。
+
+**我的答案**：The whole of street only has a restaurant when the pub had just opened on 2021.
+
+**判定**：⚠️ 部分正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：时间状语从句里“刚开业”的结构，以及整条街、只有一家饭馆的表达。
+2. **规则与机制**：`When + 主语 + had just opened + in 2010, there was only one restaurant on the whole street.`；年份用 in，`the whole street` 直接作名词短语，全句保持在过去时。
+3. **英语的表达逻辑**：英语先把时间背景（刚开业）放在从句，再用 there be 铺当时的场景，两者都要落在过去。
+4. **可迁移表达**：When the little hotel had just opened in 2010, there was only one restaurant on the whole street.（那家小旅馆 2010 年刚开业的时候，整条街上只有一家饭馆）；When the school had just opened, there was only one bus to the town.（那所学校刚开办的时候，只有一趟车进城）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：中译英整句结构 + 三处独立搭配错误。
+2. **为什么错**：目标结构“刚开业”用对了（had just opened），但整句有独立问题：`The whole of street` 缺冠词且语序错，应为 the whole street；`only has` 用现在时，回忆过去场景要用 only had / there was；`on 2021` 年份介词错；`pub` 指酒馆，旅馆应为 hotel。
+3. **英语的表达逻辑**：英语用限定词 + 名词直接组合（the whole street），用 in 给年份定位，并用过去时把整个场景固定在 2010 年。
+4. **正确表达**：When the little hotel had just opened in 2010, there was only one restaurant on the whole street.（那家小旅馆 2010 年刚开业的时候，整条街上只有一家饭馆）；可迁移：There was only one shop on the whole street twenty years ago.（二十年前整条街上只有一家店）
+
+</details>
+
+### 6. 造句
+
+**题目**：用 remember when 写两句话，描述你熟悉的一家店刚开业时的情形（每句不少于 10 个词）
+
+**我的答案**：There is only a house when the shop had just opened.
+
+**判定**：⚠️ 部分正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：`remember when + 过去完成时` 框架与过去场景的时态一致。
+2. **规则与机制**：完整框架是 `I still remember when the shop had just opened, and there was only ...`；从句用过去完成时，主句描述当时情形用过去时，两句都要交代清楚。
+3. **英语的表达逻辑**：remember when 把回忆锚在过去某一刻，前后都要留在过去时域，才能形成完整的时间画面。
+4. **可迁移表达**：I still remember when the shop had just opened, and there was only one shelf inside.（我还记得这家店刚开业的时候，里面只有一排货架）；My mother still remembers when the market had just opened and half the stalls were empty.（我妈还记得市场刚开张的时候，一半摊位都空着）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：remember when 框架的完整性 + 主句时态。
+2. **为什么错**：没有用上要求的 remember when 框架，只写了一句，而且主句 `There is` 用了现在时，与从句 had just opened 的过去时域冲突；题目要求两句话，实际只交了一句。
+3. **英语的表达逻辑**：英语靠时态把回忆框定在过去；主句留在现在时，会让“只有一间房”读成现在的事实，和“刚开业的时候”对不上。
+4. **正确表达**：I still remember when the shop had just opened, and there was only one room in it.（我还记得这家店刚开业的时候，里面只有一个房间）；可迁移：I still remember when the cinema had just opened, and there was only one screen.（我还记得这家影院刚开业的时候，只有一个放映厅）
+
+</details>
