@@ -132,9 +132,27 @@ def build_snapshot(repo_root: Path | str) -> dict[str, Any]:
     notes: dict[str, Any] = {}
     record_files: dict[str, str] = {}
     if notes_dir.is_dir():
-        for path in sorted(notes_dir.glob("*.md")):
-            if path.name.lower() == "readme.md":
-                continue
+        candidates: list[Path] = []
+        try:
+            directories = [
+                entry
+                for entry in sorted(notes_dir.iterdir())
+                if entry.is_dir() and not entry.is_symlink()
+            ]
+        except OSError:
+            directories = []
+        for directory in directories:
+            candidates.extend(
+                path
+                for path in directory.glob("*.md")
+                if path.is_file() and path.name.lower() != "readme.md"
+            )
+        candidates.extend(
+            path
+            for path in notes_dir.glob("*.md")
+            if path.is_file() and path.name.lower() != "readme.md"
+        )
+        for path in sorted(candidates):
             try:
                 entry = note_entry(path, repo_root=root)
             except OSError:

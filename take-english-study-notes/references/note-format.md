@@ -26,13 +26,19 @@
   `follow-up-learning` 练习、`error-clusters` 专题练习、互动角色扮演里用户实际作答的题组同样计分，
   但得分只写进笔记（`本轮得分` 填 `x / 10`、`分类 · 状态变化` 填 `<category> · 未入库`），不调用 `complete-review`。
   纯展示项（场景对话脚本、小故事、讲解）不产生题组，也就没有本轮得分。
-- 文件名不带日期：`learning-record-notes/<category>-<slug>.md`。`category` 只能取 `learning-record-notes/categories.json`
+- 笔记按分类分目录存放：`learning-record-notes/<category>/<category>-<slug>.md`，目录名必须等于文件名前缀
+  （`errors/errors-out-west.md`、`paper/paper-cet6-xxx.md`）。目录与文件名前缀不一致、或直接放在
+  `learning-record-notes/` 根下都会被校验器拒绝；`categories.json` 与 `README.md` 留在根目录。
+- 文件名不带日期：`learning-record-notes/<category>/<category>-<slug>.md`。`category` 只能取 `learning-record-notes/categories.json`
   里声明的键（现有 `vocabulary`、`phrases`、`grammar`、`usage`、`errors`；套题用 `paper`）；一轮练习即使实质考查 ≥2 个分类，
   也只写「锚点记录」所在的分类——锚点取本轮错得最多、
   或主要考查的那一条记录，它的记录 ID 就决定文件名；禁止 `mixed`、`misc`、`practice` 等自造前缀。
+  写入命令仍接受旧式平铺路径（`learning-record-notes/<category>-<slug>.md`）：`NoteStore.resolve`
+  会按文件名前缀算出分类目录，并在第一次写入时把旧文件移进去。
 - **分类清单只有一份**：键、中文标题、展示顺序与 `hidden` 都由 `learning-record-notes/categories.json` 定义。
   改标题、调列顺序、把某类从看板藏起来只改这个文件，不要再抄一份到笔记正文、复习菜单或其他项目
-  （`my-dashboard` 的英语页直接读它来排看板列）。**新增一个全新分类**除了改该文件，还要同步本节的
+  （`my-dashboard` 的英语页直接读它来排看板列）。**新增一个全新分类**除了改该文件，还要新建同名目录
+  （`learning-record-notes/<new-key>/`）、同步本节的
   分类列表、`check_note.py` 的分类集合和下面的「各分类必写栏」——校验器靠那里拦自造前缀。
   别处读到的不在清单里的前缀，说明这里是唯一漏改的地方。
 - `slug` 取记录 `id` 或 `paper_id` 的语义部分，只保留小写字母、数字、连字符。记录 `key` 与 `slug`
@@ -61,7 +67,7 @@
 2. 追加：
    ```bash
    python3 take-english-study-notes/scripts/note.py append \
-     --file learning-record-notes/<category>-<slug>.md \
+     --file learning-record-notes/<category>/<category>-<slug>.md \
      --content-file - --check <<'EOF'
    # <YYYY-MM-DD HH:MM> · 复习
    …本轮区块全文…
@@ -79,7 +85,7 @@
    - 讲解型（讲解要点、对比、场景对话、小故事）：用**文件级小节**命令，锁内把这一节插到 `## 讲解` 之后、所有日期区块之前。
      ```bash
      python3 take-english-study-notes/scripts/note.py append-explain-section \
-       --file learning-record-notes/<category>-<slug>.md \
+       --file learning-record-notes/<category>/<category>-<slug>.md \
        --content-file - --check <<'EOF'
      ## <菜单项原文>
      **讲解要点**：
@@ -99,7 +105,7 @@
        命令会自动把第一段的 summary 改成 `<base> 1`，其余按顺序编号。
      ```bash
      python3 take-english-study-notes/scripts/note.py append-explain-part \
-       --file learning-record-notes/<category>-<slug>.md \
+       --file learning-record-notes/<category>/<category>-<slug>.md \
        --section "## <文件级小节标题>" --content-file - --check <<'EOF'
      <details>
      <summary>场景对话原文 2</summary>
@@ -111,7 +117,7 @@
      **不要**为了加一节而整块 `replace`。小节内只写 `### <n>. <题型>` 习题，不重复 `**讲解要点**：`。
      ```bash
      python3 take-english-study-notes/scripts/note.py append-section \
-       --file learning-record-notes/<category>-<slug>.md \
+       --file learning-record-notes/<category>/<category>-<slug>.md \
        --heading "# <目标区块标题>" \
        --content-file - --check <<'EOF'
      ## <菜单项原文>
@@ -127,7 +133,7 @@
    写入命令会自动把 `笔记更新时间` 刷成本次写入的分钟（追加、区块替换、追加小节都算），不要手工改这一行：
    ```bash
    python3 take-english-study-notes/scripts/note.py replace \
-     --file learning-record-notes/<category>-<slug>.md \
+     --file learning-record-notes/<category>/<category>-<slug>.md \
      --heading "# <本轮标题>" \
      --content-file - --check <<'EOF'
    # <本轮标题>
@@ -143,7 +149,7 @@
 
 7. 讲解笔记用讲解命令创建（只有 `基础信息 + ## 讲解`，没有日期区块；后续复习再 `append` 追加）：
    ```bash
-   python3 take-english-study-notes/scripts/note.py explain      --file learning-record-notes/<category>-<slug>.md      --content-file - --check <<'EOF'
+   python3 take-english-study-notes/scripts/note.py explain      --file learning-record-notes/<category>/<category>-<slug>.md      --content-file - --check <<'EOF'
    ## 基础信息
    …追踪表…
    ## 讲解
@@ -172,7 +178,7 @@
    文件里已有 `## 讲解` 时，本轮区块插在整个文件级讲解区（`## 讲解` 与只讲解的菜单小节）之后；若文件已有日期区块，本轮与旧区块之间写一行 `---`。
 9. 只修顶部 `累计复习次数` / `下次复习` 两行（记录级字段）用同步命令，不要用 `replace` 去改整个区块：
    ```bash
-   python3 take-english-study-notes/scripts/note.py sync --file learning-record-notes/<category>-<slug>.md [--check]
+   python3 take-english-study-notes/scripts/note.py sync --file learning-record-notes/<category>/<category>-<slug>.md [--check]
    ```
    - 值来自 `record-tracking`，只改「基础信息」表里的这两行，日期区块里的同名行一个字都不动，返回 `synced`。
    - `append` / `replace` 写完后也会自动回填这两行（`basic_info_synced`），所以日常复习不需要额外跑这一条；
@@ -325,10 +331,12 @@
 ```bash
 python3 take-english-study-notes/scripts/note.py check --all          # 全量校验默认 notes 目录
 python3 take-english-study-notes/scripts/note.py check --all --fix    # 先修无争议项再校验
-python3 take-english-study-notes/scripts/note.py check learning-record-notes/<category>-<slug>.md
+python3 take-english-study-notes/scripts/note.py check learning-record-notes/<category>/<category>-<slug>.md
 ```
 
-`--all` 用 `$LEARN_ENGLISH_REPO_ROOT`（缺省取本脚本所在仓库根）定位 `learning-record-notes/`，跳过 `README.md`；
+`--all` 用 `$LEARN_ENGLISH_REPO_ROOT`（缺省取本脚本所在仓库根）定位 `learning-record-notes/`，逐个分类子目录
+（`errors/`、`phrases/`、`grammar/`、`usage/`、`vocabulary/`、`paper/`）收集 `.md`，跳过 `README.md`；
+残留在目录根下的平铺笔记也会被收进来，并由校验器报「必须放进分类目录」；
 CI 每次 push 跑这一条。`--fix` 只处理无争议问题：行尾空格、`我的答案` 的题号前缀、缺失的区块 `---` 分隔、
 缺失的 `笔记更新时间` 行（按该区块 `笔记生成时间` 补齐）、把记录级字段上移到文件顶部唯一一份 `## 基础信息`、给每轮补 `复习时间` 行、把原先包住两处的 `<details>` 折叠块拆成固定展示（每轮表格不加小标题）、把日期标题下、`## 本轮习题` 之前的本轮追踪表移到该标题之下（内容一字不动）、删掉非套题里恒为 `—` 的 `主观题得分` 行，
 删掉 `基础信息` 与第一个日期区块之间多余的 `---`、把旧版 `# … · 讲解` 轮次区块迁移为文件级 `## 讲解` 小节，

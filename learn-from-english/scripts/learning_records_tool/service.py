@@ -668,7 +668,7 @@ class RecordService:
             "category": category,
             "status": record["status"],
             "title": record["title"],
-            "note_file": f"learning-record-notes/{category}-{key}.md" if key else None,
+            "note_file": f"learning-record-notes/{category}/{category}-{key}.md" if key else None,
             "tracking": {
                 "记录 ID / 试卷 ID": identifier,
                 "分类 · 状态变化": transition,

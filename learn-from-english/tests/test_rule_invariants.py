@@ -338,17 +338,27 @@ class MenuItemNoteTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             notes = Path(directory) / "learning-record-notes"
             notes.mkdir()
+            # 散落在笔记目录根下：先被「必须放进分类目录」拦下
             path = notes / "misc-a-price-to-pay.md"
             path.write_text(self.base_note(), encoding="utf-8")
             issues = check_note.check(path)
-            self.assertTrue(any("自造前缀" in issue["message"] for issue in issues))
+            self.assertTrue(any("必须放进分类目录" in issue["message"] for issue in issues))
 
-            path = notes / "mixed-a-price-to-pay.md"
-            path.write_text(self.base_note(), encoding="utf-8")
-            issues = check_note.check(path)
-            self.assertTrue(any("自造前缀" in issue["message"] for issue in issues))
+            for prefix in ("misc", "mixed"):
+                directory_path = notes / prefix
+                directory_path.mkdir()
+                path = directory_path / f"{prefix}-a-price-to-pay.md"
+                path.write_text(self.base_note(), encoding="utf-8")
+                issues = check_note.check(path)
+                self.assertTrue(
+                    any("自造前缀" in issue["message"] for issue in issues), issues
+                )
+                self.assertTrue(
+                    any("不能自造" in issue["message"] for issue in issues), issues
+                )
 
-            path = notes / "phrases-a-price-to-pay.md"
+            path = notes / "phrases" / "phrases-a-price-to-pay.md"
+            path.parent.mkdir()
             path.write_text(
                 apply_practice_index(
                     self.base_note().replace("errors:out-west", "phrases:a-price-to-pay")

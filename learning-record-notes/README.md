@@ -6,11 +6,14 @@
 版式以 [`templates/review-note.md`](../take-english-study-notes/templates/review-note.md) 为准，合规性由
 `take-english-study-notes/scripts/check_note.py` 强制校验。本文件只列速查：
 
-- 文件名 `<category>-<slug>.md`，不带日期；`category` 只能取 [`categories.json`](categories.json) 里声明的键
+- 笔记按分类放进同名子目录：`<category>/<category>-<slug>.md`，目录名必须等于文件名前缀
+  （`errors/errors-back-west-spacing.md`、套题 `paper/paper-<paper_id>.md`）。直接散落在本目录根下的
+  `.md` 会被校验器拒绝；本目录根只放 `categories.json` 与 `README.md`。
+  文件名不带日期；`category` 只能取 [`categories.json`](categories.json) 里声明的键
   （现有 `vocabulary` / `phrases` / `grammar` / `usage` / `errors`，套题用 `paper`）；
   跨分类的一轮练习归到「锚点记录」所在类别（锚点＝本轮错得最多或主要考查的那条记录），
   不存在 `mixed` 这类前缀。主题相同一律复用同一文件。
-  记录 ID 必须与文件名一致（`errors:back-west-spacing` → `errors-back-west-spacing.md`）。
+  记录 ID 必须与文件名一致（`errors:back-west-spacing` → `errors/errors-back-west-spacing.md`）。
 - **分类清单只有一份**：[`categories.json`](categories.json)。它定义分类的键、中文标题、展示顺序和
   `hidden`（`paper` 这类不在看板展示的分类）。改标题、调列顺序、把某类从看板藏起来只改这个文件；
   `my-dashboard` 的英语页直接读它来排看板列。
@@ -30,7 +33,7 @@
 
 ```bash
 python3 take-english-study-notes/scripts/note.py append \
-  --file learning-record-notes/<category>-<slug>.md \
+  --file learning-record-notes/<category>/<category>-<slug>.md \
   --content-file - --check <<'EOF'
 # <YYYY-MM-DD HH:MM> · 复习
 …本轮区块全文…

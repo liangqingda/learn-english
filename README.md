@@ -204,17 +204,19 @@ python3 learn-from-english/scripts/learning_records.py paper-menu
 
 ### 复习笔记
 
-`learning-record-notes/` 下的 Markdown 笔记是可读副本，也只能通过脚本写入。讲解写成文件级的 `## 讲解` 小节（紧跟 `## 基础信息`、在所有日期区块之前，一个知识点只有一份），同一知识点的复习继续追加到同一个文件：
+`learning-record-notes/` 下的 Markdown 笔记是可读副本，按分类分目录存放
+（`learning-record-notes/<category>/<category>-<slug>.md`，目录名与文件名前缀一致），也只能通过脚本写入。
+讲解写成文件级的 `## 讲解` 小节（紧跟 `## 基础信息`、在所有日期区块之前，一个知识点只有一份），同一知识点的复习继续追加到同一个文件：
 
 ```bash
 python3 take-english-study-notes/scripts/note.py append \
-  --file learning-record-notes/errors-back-west-spacing.md \
+  --file learning-record-notes/errors/errors-back-west-spacing.md \
   --content-file - --check <<'EOF'
 # 2026-11-07 21:30 · 复习
 …本轮区块全文…
 EOF
 python3 take-english-study-notes/scripts/note.py replace \
-  --file learning-record-notes/errors-back-west-spacing.md \
+  --file learning-record-notes/errors/errors-back-west-spacing.md \
   --heading "# 2026-11-07 21:30 · 复习" \
   --content-file - <<'EOF'
 # 2026-11-07 21:30 · 复习
@@ -249,7 +251,7 @@ python3 learn-from-english/scripts/learning_records.py familiar-list --brief
 python3 learn-from-english/scripts/learning_records.py snapshot --record "<record-id>"
 python3 learn-from-english/scripts/learning_records.py snapshot --notes
 python3 learn-from-english/scripts/take-english-study-notes/scripts/note.py sections \
-  --file "learning-record-notes/<note>.md" --section "## <section title>"
+  --file "learning-record-notes/<category>/<category>-<slug>.md" --section "## <section title>"
 ```
 
 `search` 默认检索全部状态，按相关度排序，并返回 `matched_fields`、`snippet` 和 `relevance`；调用方可以用重复的 `--status` 限制范围。`stats` 在基础总数与事件之外返回 `snapshot_totals`、`daily`、`by_category`、`score_distribution`、`due_backlog`、`mastered_random_pool`、`lapse_count` 和 `mastery_count`；其中 `due_backlog` 只统计仍需调度的 learning/familiar 记录，已掌握记录作为随机抽查池单列。
@@ -291,8 +293,10 @@ python3 learn-from-english/scripts/learning_records.py migrate-v2 --dry-run
 ├── exam-papers/
 │   └── <paper_id>.json
 ├── learning-record-notes/
+│   ├── categories.json
 │   ├── README.md
-│   └── <category>-<slug>.md
+│   └── <category>/
+│       └── <category>-<slug>.md
 ├── learn-from-english/
 │   ├── SKILL.md
 │   ├── agents/openai.yaml

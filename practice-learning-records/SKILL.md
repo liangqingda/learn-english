@@ -1,6 +1,6 @@
 ---
 name: practice-learning-records
-description: 从规范学习记录中选择到期或低分知识点开展复习，按回答记录 0 至 10 分，并在一次协调写操作中保存评分、状态变化和实际错题；有习题的练习项（`starter-practice`、`follow-up-learning`、两个错题聚类练习）也按 0 至 10 计分，但得分只写进 `learning-record-notes/` 的笔记、不写规范记录；也支持复习已标熟或已掌握知识点、查看历史统计、基于已掌握知识点生成/持久化/续答/重做/评分四六级与 IELTS 风格等考试套题，以及按用户给出的复习笔记相对路径直接学习该笔记对应的知识点。当用户消息去除首尾空白后仅为中文“你好”或“复习”，仅为单独的英文单词 review、hi 或 practice（忽略大小写），或仅为一条复习笔记的相对路径（形如 `learning-record-notes/<category>-<slug>.md`）时必须使用；其中 practice 跳过菜单、直接从综合复习范围随机抽一条记录出题；在本 Skill 打开的复习或套题流程中，用户回复最近菜单中的数字或答案时也使用。除 review、hi、practice 之外的英文输入（含 hello 等单词）一律由 learn-from-english 讲解，本 Skill 不拦截其它英文触发词。
+description: 从规范学习记录中选择到期或低分知识点开展复习，按回答记录 0 至 10 分，并在一次协调写操作中保存评分、状态变化和实际错题；有习题的练习项（`starter-practice`、`follow-up-learning`、两个错题聚类练习）也按 0 至 10 计分，但得分只写进 `learning-record-notes/` 的笔记、不写规范记录；也支持复习已标熟或已掌握知识点、查看历史统计、基于已掌握知识点生成/持久化/续答/重做/评分四六级与 IELTS 风格等考试套题，以及按用户给出的复习笔记相对路径直接学习该笔记对应的知识点。当用户消息去除首尾空白后仅为中文“你好”或“复习”，仅为单独的英文单词 review、hi 或 practice（忽略大小写），或仅为一条复习笔记的相对路径（形如 `learning-record-notes/<category>/<category>-<slug>.md`）时必须使用；其中 practice 跳过菜单、直接从综合复习范围随机抽一条记录出题；在本 Skill 打开的复习或套题流程中，用户回复最近菜单中的数字或答案时也使用。除 review、hi、practice 之外的英文输入（含 hello 等单词）一律由 learn-from-english 讲解，本 Skill 不拦截其它英文触发词。
 ---
 
 # 复习英语学习记录
@@ -37,7 +37,8 @@ python3 learn-from-english/scripts/learning_records.py next-review --path mixed+
 ## 从笔记相对路径学习知识点
 
 用户消息（去掉首尾空白、可带反引号或引号）整条只是一条复习笔记的相对路径，形如
-`learning-record-notes/errors-before-begin-gerund-or-clause.md`（也接受带仓库根前缀的写法）时，直接以这条笔记
+`learning-record-notes/errors/errors-before-begin-gerund-or-clause.md`（也接受带仓库根前缀的写法，以及迁移前的平铺写法
+`learning-record-notes/errors-before-begin-gerund-or-clause.md`，它按文件名前缀解析到同一个笔记文件）时，直接以这条笔记
 对应的知识点为目标开始一轮学习，不再弹初始菜单、也不要用户重发“复习”。这条路径本身就是复习触发，不走
 `AGENTS.md` 的工程语境豁免，不要当成文件操作去回答。
 
@@ -334,7 +335,8 @@ python3 learn-from-english/scripts/learning_records.py complete-review --input <
 
 ## 生成本轮学习笔记
 
-每一轮有实际作答的复习、聚焦练习或套题结束后，除写入规范记录外（练习轮次只写笔记，见「练习计分」），还要在仓库根目录 `learning-record-notes/` 下写一份 Markdown 笔记。
+每一轮有实际作答的复习、聚焦练习或套题结束后，除写入规范记录外（练习轮次只写笔记，见「练习计分」），还要在仓库根目录 `learning-record-notes/` 的**对应分类子目录**里写一份 Markdown 笔记
+（`learning-record-notes/<category>/<category>-<slug>.md`，目录名与文件名前缀必须一致）。
 首次讲解的笔记由 `learn-from-english` 用 `note.py explain` 写入（文件级 `## 讲解` 小节，位于 `## 基础信息` 之后）；这里只负责在同一个文件里按时间倒序插入复习区块（最新一轮排在所有日期区块之前），不另建文件、不改讲解小节与文件级菜单讲解小节。
 笔记是**可读副本，不是规范数据源**：它不参与 `validate`、统计、抽题或调度，缺失或被删除都不影响评分与复习计划。
 

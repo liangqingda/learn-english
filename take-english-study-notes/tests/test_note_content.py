@@ -312,7 +312,10 @@ class NoteContentValidationTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             notes = Path(directory) / NOTES_DIR
             notes.mkdir()
-            path = notes / name
+            # 笔记按分类分目录存放：目录名取文件名前缀
+            category = name.split("-", 1)[0]
+            path = notes / category / name
+            path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(text, encoding="utf-8")
             return check_note.check(path)
 
@@ -470,7 +473,10 @@ class NoteContentValidationTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             notes = Path(directory) / NOTES_DIR
             notes.mkdir()
-            path = notes / name
+            # 笔记按分类分目录存放：目录名取文件名前缀
+            category = name.split("-", 1)[0]
+            path = notes / category / name
+            path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(text, encoding="utf-8")
             return check_note.check(path)
 
@@ -864,8 +870,8 @@ class NoteEntryPointTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             notes = root / NOTES_DIR
-            notes.mkdir()
-            (notes / "errors-out-west.md").write_text(
+            (notes / "errors").mkdir(parents=True)
+            (notes / "errors" / "errors-out-west.md").write_text(
                 apply_practice_index(note_text()), encoding="utf-8"
             )
             completed = self.run_wrapper(["check", "--all"], root, cli=str(root / "missing.py"))
@@ -890,7 +896,7 @@ class NoteEntryPointTest(unittest.TestCase):
                 [
                     "append",
                     "--file",
-                    "learning-record-notes/errors-out-west.md",
+                    "learning-record-notes/errors/errors-out-west.md",
                     "--content-file",
                     "-",
                     "--check",
@@ -908,8 +914,7 @@ class RealNotesTest(unittest.TestCase):
     """仓库里真实笔记必须持续通过校验，模板改版时这里会先响。"""
 
     def test_every_note_in_the_repository_is_valid(self) -> None:
-        notes = sorted((REPO_ROOT / NOTES_DIR).glob("*.md"))
-        notes = [path for path in notes if path.name.lower() != "readme.md"]
+        notes = check_note.all_note_paths()
         self.assertTrue(notes, "仓库里应当至少有一份笔记")
         for path in notes:
             with self.subTest(note=path.name):

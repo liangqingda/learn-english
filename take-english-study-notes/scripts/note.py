@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""笔记（`learning-record-notes/*.md`）的统一入口：规则、模板、校验、写入都在本 skill 内。
+"""笔记（`learning-record-notes/<category>/<category>-<slug>.md`）的统一入口：规则、模板、校验、写入都在本 skill 内。
 
 用法：
     python3 take-english-study-notes/scripts/note.py explain --file <note.md> --content-file - [--update] [--check]
@@ -13,7 +13,7 @@
     python3 take-english-study-notes/scripts/note.py sections --file <note.md> [--heading "<# ...>"] [--section "## <小节标题>"]
     python3 take-english-study-notes/scripts/note.py list [--record <id>]
     python3 take-english-study-notes/scripts/note.py check --all [--fix]
-    python3 take-english-study-notes/scripts/note.py check learning-record-notes/<category>-<slug>.md
+    python3 take-english-study-notes/scripts/note.py check learning-record-notes/<category>/<category>-<slug>.md
 
 写入全程在 `learning-record-notes/.notes.lock` 排他锁内完成，调用方不自己改写文件。
 追踪字段（记录 ID、目标知识点、累计复习次数、下次复习、分类 · 状态变化、本轮得分）在写入后自动与
@@ -337,7 +337,7 @@ def build_parser() -> argparse.ArgumentParser:
     explain = subparsers.add_parser(
         "explain", help="create a note with the file-level '## 讲解' section (one per knowledge point)"
     )
-    explain.add_argument("--file", required=True, help="learning-record-notes/<category>-<slug>.md")
+    explain.add_argument("--file", required=True, help="learning-record-notes/<category>/<category>-<slug>.md")
     explain.add_argument("--content-file", required=True, help="raw Markdown (基础信息 + 讲解) path or - for stdin")
     explain.add_argument(
         "--update",
@@ -348,7 +348,7 @@ def build_parser() -> argparse.ArgumentParser:
     explain.set_defaults(handler=handle_explain)
 
     append = subparsers.add_parser("append", help="append one round block under an exclusive lock")
-    append.add_argument("--file", required=True, help="learning-record-notes/<category>-<slug>.md")
+    append.add_argument("--file", required=True, help="learning-record-notes/<category>/<category>-<slug>.md")
     append.add_argument("--content-file", required=True, help="raw Markdown block path or - for stdin")
     append.add_argument("--check", action="store_true", help="run the validator and tracking compare afterwards")
     append.set_defaults(handler=handle_append)
@@ -356,7 +356,7 @@ def build_parser() -> argparse.ArgumentParser:
     append_section = subparsers.add_parser(
         "append-section", help="append one '## section' inside an existing round block"
     )
-    append_section.add_argument("--file", required=True, help="learning-record-notes/<category>-<slug>.md")
+    append_section.add_argument("--file", required=True, help="learning-record-notes/<category>/<category>-<slug>.md")
     append_section.add_argument("--heading", required=True, help="exact level-1 heading line of the target round")
     append_section.add_argument("--content-file", required=True, help="raw '## ...' Markdown section path or - for stdin")
     append_section.add_argument("--check", action="store_true", help="run the validator afterwards")
@@ -366,7 +366,7 @@ def build_parser() -> argparse.ArgumentParser:
         "append-part",
         help="append a body fragment to the end of an existing '## section' (repeat story / dialogue)",
     )
-    append_part.add_argument("--file", required=True, help="learning-record-notes/<category>-<slug>.md")
+    append_part.add_argument("--file", required=True, help="learning-record-notes/<category>/<category>-<slug>.md")
     append_part.add_argument("--heading", required=True, help="exact level-1 heading line of the target round")
     append_part.add_argument("--section", required=True, help="exact '## ...' section title to append into")
     append_part.add_argument("--content-file", required=True, help="raw Markdown fragment path or - for stdin")
@@ -377,7 +377,7 @@ def build_parser() -> argparse.ArgumentParser:
         "append-explain-section",
         help="append one '## section' to the file-level explanation area (after '## 讲解')",
     )
-    append_explain_section.add_argument("--file", required=True, help="learning-record-notes/<category>-<slug>.md")
+    append_explain_section.add_argument("--file", required=True, help="learning-record-notes/<category>/<category>-<slug>.md")
     append_explain_section.add_argument("--content-file", required=True, help="raw '## ...' Markdown section path or - for stdin")
     append_explain_section.add_argument(
         "--rewrite",
@@ -391,14 +391,14 @@ def build_parser() -> argparse.ArgumentParser:
         "append-explain-part",
         help="append a body fragment to a file-level '## section' (repeat story / dialogue)",
     )
-    append_explain_part.add_argument("--file", required=True, help="learning-record-notes/<category>-<slug>.md")
+    append_explain_part.add_argument("--file", required=True, help="learning-record-notes/<category>/<category>-<slug>.md")
     append_explain_part.add_argument("--section", required=True, help="exact '## ...' title in the explanation area")
     append_explain_part.add_argument("--content-file", required=True, help="raw Markdown fragment path or - for stdin")
     append_explain_part.add_argument("--check", action="store_true", help="run the validator afterwards")
     append_explain_part.set_defaults(handler=handle_append_explain_part)
 
     replace = subparsers.add_parser("replace", help="replace one existing round block in place")
-    replace.add_argument("--file", required=True, help="learning-record-notes/<category>-<slug>.md")
+    replace.add_argument("--file", required=True, help="learning-record-notes/<category>/<category>-<slug>.md")
     replace.add_argument("--heading", required=True, help="exact level-1 heading line of the round to replace")
     replace.add_argument("--content-file", required=True, help="raw Markdown block path or - for stdin")
     replace.add_argument(
@@ -419,14 +419,14 @@ def build_parser() -> argparse.ArgumentParser:
     sync = subparsers.add_parser(
         "sync", help="rewrite the file-level 累计复习次数 / 下次复习 rows from the record store"
     )
-    sync.add_argument("--file", required=True, help="learning-record-notes/<category>-<slug>.md")
+    sync.add_argument("--file", required=True, help="learning-record-notes/<category>/<category>-<slug>.md")
     sync.add_argument("--check", action="store_true", help="run the validator and tracking compare afterwards")
     sync.set_defaults(handler=handle_sync)
 
     sections = subparsers.add_parser(
         "sections", help="index one note's round blocks and '##' sections (read-only)"
     )
-    sections.add_argument("--file", required=True, help="learning-record-notes/<category>-<slug>.md")
+    sections.add_argument("--file", required=True, help="learning-record-notes/<category>/<category>-<slug>.md")
     sections.add_argument("--heading", help="only this exact level-1 heading line")
     sections.add_argument("--section", help="report has_section for this '## ...' title")
     sections.set_defaults(handler=handle_sections)

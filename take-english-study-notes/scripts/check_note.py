@@ -662,9 +662,20 @@ def filename_category(path: Path) -> str | None:
 
 
 def check_filename(path: Path) -> list[dict]:
-    """分类前缀只允许五类学习记录分类或套题 `paper`，禁止 `mixed` 等自造前缀；文件名不带日期。"""
+    """笔记必须放进与文件名前缀同名的分类目录，文件名形如 `<category>-<slug>.md`，且不带日期。"""
 
-    if path.parent.name != NOTE_DIR_NAME:
+    parent = path.parent
+    if parent.name == NOTE_DIR_NAME:
+        # 旧版平铺布局遗留：笔记目录根下只允许 README 与 categories.json
+        if path.name.lower() == "readme.md":
+            return []
+        return [
+            {
+                "line": 1,
+                "message": f"笔记必须放进分类目录：应写到 `{NOTE_DIR_NAME}/<category>/{path.name}`，当前直接放在 `{NOTE_DIR_NAME}/` 下",
+            }
+        ]
+    if parent.parent.name != NOTE_DIR_NAME:
         return []
     issues: list[dict] = []
     if DATE_SUFFIX_RE.search(path.name):
@@ -689,6 +700,20 @@ def check_filename(path: Path) -> list[dict]:
             {
                 "line": 1,
                 "message": f"文件名前缀只能取五类学习记录分类（{', '.join(NOTE_CATEGORIES)}），不得使用 `{prefix}` 等自造前缀：主题相同请复用既有文件",
+            }
+        )
+    if parent.name not in NOTE_CATEGORIES:
+        issues.append(
+            {
+                "line": 1,
+                "message": f"笔记所在目录只能取 {', '.join(NOTE_CATEGORIES)} 之一，不能自造 `{parent.name}`：分类目录必须与文件名前缀一致",
+            }
+        )
+    elif parent.name != prefix:
+        issues.append(
+            {
+                "line": 1,
+                "message": f"笔记 `{path.name}` 必须放在 `{NOTE_DIR_NAME}/{prefix}/`，不能放在 `{NOTE_DIR_NAME}/{parent.name}/`：分类目录与文件名前缀必须一致",
             }
         )
     return issues
@@ -1505,8 +1530,24 @@ def repo_root() -> Path:
 
 
 def all_note_paths() -> list[Path]:
-    notes_dir = repo_root() / "learning-record-notes"
-    return sorted(path for path in notes_dir.glob("*.md") if path.name.lower() != "readme.md")
+    """Every note file: one level of category directories, plus any flat file still awaiting migration."""
+    notes_dir = repo_root() / NOTE_DIR_NAME
+    paths: list[Path] = []
+    if notes_dir.is_dir():
+        for directory in sorted(notes_dir.iterdir()):
+            if not directory.is_dir() or directory.is_symlink():
+                continue
+            paths.extend(
+                path
+                for path in directory.glob("*.md")
+                if path.is_file() and path.name.lower() != "readme.md"
+            )
+        paths.extend(
+            path
+            for path in notes_dir.glob("*.md")
+            if path.is_file() and path.name.lower() != "readme.md"
+        )
+    return sorted(paths)
 
 
 def move_round_tables_under_quiz(lines: list[str]) -> tuple[list[str], bool]:

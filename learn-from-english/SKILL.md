@@ -1,6 +1,6 @@
 ---
 name: learn-from-english
-description: 当用户发送英文单词、短语、句子、段落、对话、标题、引用、英文错误信息，或者中英文混合内容时，帮助用户从真实输入中学习英语；只要消息中出现任何英文内容，无论多么简短，都触发本 Skill，包括单独的英文单词如 hello 或单个英文字母。唯一例外：用户消息去除首尾空白后仅为中文“你好”或“复习”，仅为单独的英文单词 review、hi 或 practice（忽略大小写），或仅为一条复习笔记的相对路径（形如 `learning-record-notes/<category>-<slug>.md`）时，交给 practice-learning-records；其中 practice 是无菜单直出题入口。解释含义、语境、语法、词汇、搭配、语气、发音和自然表达；讲解单词或短语时必须说明有助于理解当代用法的历史、地域或文化背景与来源，没有值得展开的特定背景时也要明确说明。在当前英语学习对话中，当用户回复数字选择上一轮的学习选项时，也使用本 Skill。
+description: 当用户发送英文单词、短语、句子、段落、对话、标题、引用、英文错误信息，或者中英文混合内容时，帮助用户从真实输入中学习英语；只要消息中出现任何英文内容，无论多么简短，都触发本 Skill，包括单独的英文单词如 hello 或单个英文字母。唯一例外：用户消息去除首尾空白后仅为中文“你好”或“复习”，仅为单独的英文单词 review、hi 或 practice（忽略大小写），或仅为一条复习笔记的相对路径（形如 `learning-record-notes/<category>/<category>-<slug>.md`）时，交给 practice-learning-records；其中 practice 是无菜单直出题入口。解释含义、语境、语法、词汇、搭配、语气、发音和自然表达；讲解单词或短语时必须说明有助于理解当代用法的历史、地域或文化背景与来源，没有值得展开的特定背景时也要明确说明。在当前英语学习对话中，当用户回复数字选择上一轮的学习选项时，也使用本 Skill。
 ---
 
 # 从英语输入中学习
@@ -11,7 +11,7 @@ description: 当用户发送英文单词、短语、句子、段落、对话、�
 
 先去除用户消息的首尾空白。只要消息中含有任何英文内容——单词、短语、句子、段落、混合内容，甚至单独的英文单词如 `hello` 或单个英文字母——就使用本 Skill 讲解，不因输入过短而转交或跳过。
 
-唯一例外：用户消息去除首尾空白后仅为中文“你好”或“复习”，仅为单独的英文单词 review、hi 或 practice（忽略大小写），或仅为一条复习笔记的相对路径（形如 `learning-record-notes/errors-before-begin-gerund-or-clause.md`，可带反引号或引号）时，立即停止本 Skill，改用 `practice-learning-records`；此类输入不属于本 Skill 的讲解范围。其中 review、hi 打开复习初始菜单，practice 则跳过菜单、直接从综合复习范围随机抽一条记录出题。**这条笔记路径检查先于下面的工程语境判断**：整条只是笔记路径时按复习处理，不要当成文件操作。另一类不进入教学的是工程语境：消息是代码块、文件路径、shell 或 Git 命令、`repo`/`skill`/`commit`/`test`/`API` 这类标识符，或带 `#dev` 前缀时，按仓库根目录 `AGENTS.md` 的「Engineering-context exemption」处理该工程任务，不产出英语讲解。凡出现其它英文内容，即使伴随中文“你好”“复习”，也仍按本 Skill 处理，把其中的英语作为学习材料。
+唯一例外：用户消息去除首尾空白后仅为中文“你好”或“复习”，仅为单独的英文单词 review、hi 或 practice（忽略大小写），或仅为一条复习笔记的相对路径（形如 `learning-record-notes/errors/errors-before-begin-gerund-or-clause.md`，可带反引号或引号）时，立即停止本 Skill，改用 `practice-learning-records`；此类输入不属于本 Skill 的讲解范围。其中 review、hi 打开复习初始菜单，practice 则跳过菜单、直接从综合复习范围随机抽一条记录出题。**这条笔记路径检查先于下面的工程语境判断**：整条只是笔记路径时按复习处理，不要当成文件操作。另一类不进入教学的是工程语境：消息是代码块、文件路径、shell 或 Git 命令、`repo`/`skill`/`commit`/`test`/`API` 这类标识符，或带 `#dev` 前缀时，按仓库根目录 `AGENTS.md` 的「Engineering-context exemption」处理该工程任务，不产出英语讲解。凡出现其它英文内容，即使伴随中文“你好”“复习”，也仍按本 Skill 处理，把其中的英语作为学习材料。
 
 ## 完成核心流程
 
@@ -31,13 +31,14 @@ description: 当用户发送英文单词、短语、句子、段落、对话、�
 笔记的规则、模板、校验器与写入实现都在 `take-english-study-notes` skill 里，本节只说明「什么时候写、哪条记录写什么栏目」；格式细节一律以
 `take-english-study-notes/SKILL.md` 与 `take-english-study-notes/references/note-format.md` 为准。
 
-记录保存成功后，为**每条实际讲解的记录**在仓库根目录 `learning-record-notes/` 写一份笔记：一个知识点一个文件，之后的复习继续写在同一个文件里。
+记录保存成功后，为**每条实际讲解的记录**在仓库根目录 `learning-record-notes/` 的对应分类子目录里写一份笔记
+（`learning-record-notes/<category>/<category>-<slug>.md`）：一个知识点一个文件，之后的复习继续写在同一个文件里。
 
 讲解是**文件级固定小节** `## 讲解`，位置紧跟 `## 基础信息` 表格之后、在所有日期区块之前：一个知识点只有一次首次讲解，只有复习才会多轮，所以讲解不进入轮次编号、不带 `讲解时间` / `分类 · 状态变化` / 本轮得分 / 题量这些本轮字段。
 
 1. 先读 `take-english-study-notes/references/note-format.md` 与 `take-english-study-notes/templates/review-note.md` 里的讲解骨架，逐字替换占位符；不要凭记忆拼格式。
-2. 文件名按记录 ID 生成：`<category>-<key>.md`（`phrases:you-are-what-you-eat` → `phrases-you-are-what-you-eat.md`）。同一记录已有笔记时命令会拒绝另建文件并给出应复用的路径。
-3. 只通过 `take-english-study-notes/scripts/note.py explain --file learning-record-notes/<category>-<slug>.md --content-file - --check` 创建，内容走标准输入；禁止用 `Write` 改写笔记文件，也不要用固定路径的中转文件。返回 `duplicate: true` 说明该文件已有 `## 讲解`，按已写入处理，不要再写第二份。
+2. 路径按记录 ID 生成：`<category>/<category>-<key>.md`（`phrases:you-are-what-you-eat` → `learning-record-notes/phrases/phrases-you-are-what-you-eat.md`）。同一记录已有笔记时命令会拒绝另建文件并给出应复用的路径。
+3. 只通过 `take-english-study-notes/scripts/note.py explain --file learning-record-notes/<category>/<category>-<slug>.md --content-file - --check` 创建，内容走标准输入；禁止用 `Write` 改写笔记文件，也不要用固定路径的中转文件。返回 `duplicate: true` 说明该文件已有 `## 讲解`，按已写入处理，不要再写第二份。
 4. **写之前若发现该记录已有笔记但没有 `## 讲解`**（历史补建、只被复习写过区块），先用同一个命令加 `--update` 补齐，再写本轮内容：命令会把这一节插到 `## 基础信息` 表之后、所有日期区块之前（返回 `inserted: true`），不覆盖已有区块；确实没有正文可写时按 `note-format.md` 的占位提示写法填写，不要留空或省略这一节。
 5. 基础信息表用脚本返回的 tracking 值（记录 ID、目标知识点、累计复习次数、下次复习、笔记生成时间、笔记更新时间）；讲解小节不写任何追踪行。
 6. `## 讲解` 必须**只讲这条记录自己那一层**，栏目按分类自选、不要求凑齐固定几项（至少两栏，每栏写成列表或表格）：

@@ -66,7 +66,7 @@ class NoteAppendTest(unittest.TestCase):
         self.directory = tempfile.TemporaryDirectory()
         self.repo = Path(self.directory.name)
         self.store = NoteStore(self.repo)
-        self.note = self.repo / "learning-record-notes" / "errors-out-west.md"
+        self.note = self.repo / "learning-record-notes" / "errors" / "errors-out-west.md"
 
     def tearDown(self) -> None:
         self.directory.cleanup()
@@ -492,10 +492,36 @@ class NoteAppendTest(unittest.TestCase):
 
     def test_relative_and_bare_paths_resolve_to_notes_dir(self) -> None:
         result = self.store.append("errors-out-west.md", round_block())
-        self.assertEqual(result["file"], "learning-record-notes/errors-out-west.md")
+        self.assertEqual(result["file"], "learning-record-notes/errors/errors-out-west.md")
         self.assertTrue(self.note.exists())
 
-    def test_legacy_file_without_dividers_keeps_history_as_suffix(self) -> None:
+    def test_flat_path_is_moved_into_its_category_directory(self) -> None:
+        """迁移前的平铺路径仍可用：第一次被引用时文件落进分类目录。"""
+        legacy = self.repo / "learning-record-notes" / "errors-out-west.md"
+        legacy.parent.mkdir(parents=True)
+        legacy.write_text("old\n", encoding="utf-8")
+        resolved = self.store.resolve("learning-record-notes/errors-out-west.md")
+        self.assertEqual(
+            resolved,
+            (self.repo / "learning-record-notes" / "errors" / "errors-out-west.md").resolve(),
+        )
+        self.assertTrue(resolved.is_file())
+        self.assertFalse(legacy.exists())
+        self.assertEqual(
+            self.store.relative(resolved), "learning-record-notes/errors/errors-out-west.md"
+        )
+
+    def test_category_directory_must_match_the_filename_prefix(self) -> None:
+        with self.assertRaises(NoteError):
+            self.store.append(
+                "learning-record-notes/phrases/errors-out-west.md", round_block()
+            )
+        with self.assertRaises(NoteError):
+            self.store.append(
+                "learning-record-notes/errors/phrases-out-west.md", round_block()
+            )
+
+
         legacy = round_block("2026-11-04 10:00") + round_block("2026-11-05 10:00")
         self.note.parent.mkdir(parents=True, exist_ok=True)
         self.note.write_text(legacy, encoding="utf-8")
@@ -603,7 +629,7 @@ class NoteAppendTest(unittest.TestCase):
     def test_sync_basic_info_requires_an_existing_note(self) -> None:
         with self.assertRaises(NoteError):
             self.store.sync_basic_info(
-                self.repo / "learning-record-notes" / "errors-out-west.md",
+                self.repo / "learning-record-notes" / "errors" / "errors-out-west.md",
                 {"累计复习次数": "1"},
             )
 
@@ -670,7 +696,7 @@ class NoteAppendTest(unittest.TestCase):
                     str(SCRIPT),
                     "append",
                     "--file",
-                    "learning-record-notes/errors-out-west.md",
+                    "learning-record-notes/errors/errors-out-west.md",
                     "--content-file",
                     str(path),
                 ],
@@ -756,7 +782,7 @@ class NoteCliTest(unittest.TestCase):
         self.directory = tempfile.TemporaryDirectory()
         self.addCleanup(self.directory.cleanup)
         self.repo = Path(self.directory.name)
-        self.note = self.repo / "learning-record-notes" / "errors-out-west.md"
+        self.note = self.repo / "learning-record-notes" / "errors" / "errors-out-west.md"
 
     def run_cli(self, args: list[str], stdin_text: str | None = None) -> subprocess.CompletedProcess:
         environment = dict(os.environ, LEARN_ENGLISH_REPO_ROOT=str(self.repo))
@@ -774,7 +800,7 @@ class NoteCliTest(unittest.TestCase):
             [
                 "append",
                 "--file",
-                "learning-record-notes/errors-out-west.md",
+                "learning-record-notes/errors/errors-out-west.md",
                 "--content-file",
                 "-",
                 "--check",
@@ -790,7 +816,7 @@ class NoteCliTest(unittest.TestCase):
     def test_cli_append_part_adds_a_second_exercise_and_still_validates(self) -> None:
         """同一菜单项再选一次只追加新习题：小节数不变，笔记仍然通过校验。"""
         self.run_cli(
-            ["append", "--file", "learning-record-notes/errors-out-west.md", "--content-file", "-"],
+            ["append", "--file", "learning-record-notes/errors/errors-out-west.md", "--content-file", "-"],
             block_text(heading="2026-11-09 09:00 · 复习", answer="west"),
         )
         section = extra_section("## 扩展练习", "第一题的题干").strip("\n") + "\n"
@@ -798,7 +824,7 @@ class NoteCliTest(unittest.TestCase):
             [
                 "append-section",
                 "--file",
-                "learning-record-notes/errors-out-west.md",
+                "learning-record-notes/errors/errors-out-west.md",
                 "--heading",
                 "# 2026-11-09 09:00 · 复习",
                 "--content-file",
@@ -823,7 +849,7 @@ class NoteCliTest(unittest.TestCase):
             [
                 "append-part",
                 "--file",
-                "learning-record-notes/errors-out-west.md",
+                "learning-record-notes/errors/errors-out-west.md",
                 "--heading",
                 "# 2026-11-09 09:00 · 复习",
                 "--section",
@@ -844,14 +870,14 @@ class NoteCliTest(unittest.TestCase):
 
     def test_cli_append_part_rejects_a_new_section_heading(self) -> None:
         self.run_cli(
-            ["append", "--file", "learning-record-notes/errors-out-west.md", "--content-file", "-"],
+            ["append", "--file", "learning-record-notes/errors/errors-out-west.md", "--content-file", "-"],
             block_text(heading="2026-11-09 09:00 · 复习", answer="west"),
         )
         completed = self.run_cli(
             [
                 "append-part",
                 "--file",
-                "learning-record-notes/errors-out-west.md",
+                "learning-record-notes/errors/errors-out-west.md",
                 "--heading",
                 "# 2026-11-09 09:00 · 复习",
                 "--section",
@@ -869,7 +895,7 @@ class NoteCliTest(unittest.TestCase):
             [
                 "append",
                 "--file",
-                "learning-record-notes/errors-out-west.md",
+                "learning-record-notes/errors/errors-out-west.md",
                 "--content-file",
                 "-",
                 "--check",
@@ -887,7 +913,7 @@ class NoteCliTest(unittest.TestCase):
             [
                 "append",
                 "--file",
-                "learning-record-notes/errors-out-west.md",
+                "learning-record-notes/errors/errors-out-west.md",
                 "--content-file",
                 "-",
                 "--check",
@@ -908,7 +934,7 @@ class NoteCliTest(unittest.TestCase):
             [
                 "append",
                 "--file",
-                "learning-record-notes/errors-out-west.md",
+                "learning-record-notes/errors/errors-out-west.md",
                 "--content-file",
                 "-",
                 "--check",
@@ -924,7 +950,7 @@ class NoteCliTest(unittest.TestCase):
             [
                 "append",
                 "--file",
-                "learning-record-notes/errors-out-west.md",
+                "learning-record-notes/errors/errors-out-west.md",
                 "--content-file",
                 "-",
             ],
@@ -934,15 +960,15 @@ class NoteCliTest(unittest.TestCase):
             [
                 "append",
                 "--file",
-                "learning-record-notes/errors-out-west-again.md",
+                "learning-record-notes/errors/errors-out-west-again.md",
                 "--content-file",
                 "-",
             ],
             block_text(heading="2026-11-10 09:00 · 复习", answer="west"),
         )
         self.assertEqual(refused.returncode, 2)
-        self.assertIn("already has a note at learning-record-notes/errors-out-west.md", refused.stderr)
-        self.assertFalse((self.repo / "learning-record-notes" / "errors-out-west-again.md").exists())
+        self.assertIn("already has a note at learning-record-notes/errors/errors-out-west.md", refused.stderr)
+        self.assertFalse((self.repo / "learning-record-notes" / "errors" / "errors-out-west-again.md").exists())
 
     def test_cli_replace_block_rewrites_only_that_round(self) -> None:
         for heading in ("2026-11-09 09:00 · 复习", "2026-11-10 09:00 · 复习"):
@@ -950,7 +976,7 @@ class NoteCliTest(unittest.TestCase):
                 [
                     "append",
                     "--file",
-                    "learning-record-notes/errors-out-west.md",
+                    "learning-record-notes/errors/errors-out-west.md",
                     "--content-file",
                     "-",
                 ],
@@ -961,7 +987,7 @@ class NoteCliTest(unittest.TestCase):
             [
                 "replace",
                 "--file",
-                "learning-record-notes/errors-out-west.md",
+                "learning-record-notes/errors/errors-out-west.md",
                 "--heading",
                 "# 2026-11-09 09:00 · 复习",
                 "--content-file",
@@ -980,7 +1006,7 @@ class NoteCliTest(unittest.TestCase):
             [
                 "append",
                 "--file",
-                "learning-record-notes/errors-out-west.md",
+                "learning-record-notes/errors/errors-out-west.md",
                 "--content-file",
                 "-",
             ],
@@ -992,7 +1018,7 @@ class NoteCliTest(unittest.TestCase):
             [
                 "replace",
                 "--file",
-                "learning-record-notes/errors-out-west.md",
+                "learning-record-notes/errors/errors-out-west.md",
                 "--heading",
                 "# 2026-11-09 09:00 · 复习",
                 "--content-file",
@@ -1013,7 +1039,7 @@ class NoteCliTest(unittest.TestCase):
             [
                 "append",
                 "--file",
-                "learning-record-notes/errors-out-west.md",
+                "learning-record-notes/errors/errors-out-west.md",
                 "--content-file",
                 "-",
             ],
@@ -1025,7 +1051,7 @@ class NoteCliTest(unittest.TestCase):
             [
                 "replace",
                 "--file",
-                "learning-record-notes/errors-out-west.md",
+                "learning-record-notes/errors/errors-out-west.md",
                 "--heading",
                 "# 2026-11-09 09:00 · 复习",
                 "--drop-section",
@@ -1045,7 +1071,7 @@ class NoteCliTest(unittest.TestCase):
             [
                 "append",
                 "--file",
-                "learning-record-notes/errors-out-west.md",
+                "learning-record-notes/errors/errors-out-west.md",
                 "--content-file",
                 "-",
             ],
@@ -1057,7 +1083,7 @@ class NoteCliTest(unittest.TestCase):
             [
                 "append-section",
                 "--file",
-                "learning-record-notes/errors-out-west.md",
+                "learning-record-notes/errors/errors-out-west.md",
                 "--heading",
                 "# 2026-11-09 09:00 · 复习",
                 "--content-file",
@@ -1075,7 +1101,7 @@ class NoteCliTest(unittest.TestCase):
             [
                 "append-section",
                 "--file",
-                "learning-record-notes/errors-out-west.md",
+                "learning-record-notes/errors/errors-out-west.md",
                 "--heading",
                 "# 2026-11-09 09:00 · 复习",
                 "--content-file",
@@ -1091,7 +1117,7 @@ class NoteCliTest(unittest.TestCase):
             [
                 "append",
                 "--file",
-                "learning-record-notes/errors-out-west.md",
+                "learning-record-notes/errors/errors-out-west.md",
                 "--content-file",
                 "-",
             ],
@@ -1103,7 +1129,7 @@ class NoteCliTest(unittest.TestCase):
             [
                 "append-section",
                 "--file",
-                "learning-record-notes/errors-out-west.md",
+                "learning-record-notes/errors/errors-out-west.md",
                 "--heading",
                 "# 2026-11-09 09:00 · 复习",
                 "--content-file",
@@ -1120,7 +1146,7 @@ class NoteCliTest(unittest.TestCase):
             [
                 "append",
                 "--file",
-                "learning-record-notes/errors-out-west.md",
+                "learning-record-notes/errors/errors-out-west.md",
                 "--content-file",
                 "-",
             ],
@@ -1138,7 +1164,7 @@ class NoteCliTest(unittest.TestCase):
             [
                 "replace",
                 "--file",
-                "learning-record-notes/errors-out-west.md",
+                "learning-record-notes/errors/errors-out-west.md",
                 "--heading",
                 "# 2026-11-09 09:00 · 复习",
                 "--content-file",
@@ -1154,7 +1180,7 @@ class NoteCliTest(unittest.TestCase):
             [
                 "replace",
                 "--file",
-                "learning-record-notes/errors-out-west.md",
+                "learning-record-notes/errors/errors-out-west.md",
                 "--heading",
                 "# 2026-11-09 09:00 · 复习",
                 "--rewrite-section",
@@ -1179,7 +1205,7 @@ class NoteCliTest(unittest.TestCase):
     def test_cli_append_syncs_stale_record_rows(self) -> None:
         """写入后顶部两行自动回填成规范记录的值，不再只报 tracking_mismatch。"""
         self.run_cli(
-            ["append", "--file", "learning-record-notes/errors-out-west.md", "--content-file", "-"],
+            ["append", "--file", "learning-record-notes/errors/errors-out-west.md", "--content-file", "-"],
             block_text(heading="2026-11-09 09:00 · 复习", answer="west"),
         )
         install_stub_record_store(
@@ -1195,7 +1221,7 @@ class NoteCliTest(unittest.TestCase):
             [
                 "append",
                 "--file",
-                "learning-record-notes/errors-out-west.md",
+                "learning-record-notes/errors/errors-out-west.md",
                 "--content-file",
                 "-",
                 "--check",
@@ -1213,7 +1239,7 @@ class NoteCliTest(unittest.TestCase):
     def test_cli_still_reports_a_row_the_record_does_not_own(self) -> None:
         """身份行（记录 ID / 目标知识点）不由同步覆盖，不一致照样报出来。"""
         self.run_cli(
-            ["append", "--file", "learning-record-notes/errors-out-west.md", "--content-file", "-"],
+            ["append", "--file", "learning-record-notes/errors/errors-out-west.md", "--content-file", "-"],
             block_text(heading="2026-11-09 09:00 · 复习", answer="west"),
         )
         install_stub_record_store(
@@ -1229,7 +1255,7 @@ class NoteCliTest(unittest.TestCase):
             [
                 "append",
                 "--file",
-                "learning-record-notes/errors-out-west.md",
+                "learning-record-notes/errors/errors-out-west.md",
                 "--content-file",
                 "-",
                 "--check",
@@ -1244,7 +1270,7 @@ class NoteCliTest(unittest.TestCase):
     def test_cli_sync_repairs_a_stale_header(self) -> None:
         """已有笔记可用 sync 子命令就地修复顶部的记录级两行。"""
         self.run_cli(
-            ["append", "--file", "learning-record-notes/errors-out-west.md", "--content-file", "-"],
+            ["append", "--file", "learning-record-notes/errors/errors-out-west.md", "--content-file", "-"],
             block_text(heading="2026-11-09 09:00 · 复习", answer="west"),
         )
         install_stub_record_store(
@@ -1260,7 +1286,7 @@ class NoteCliTest(unittest.TestCase):
             [
                 "sync",
                 "--file",
-                "learning-record-notes/errors-out-west.md",
+                "learning-record-notes/errors/errors-out-west.md",
                 "--check",
             ]
         )
@@ -1275,11 +1301,11 @@ class NoteCliTest(unittest.TestCase):
 
     def test_cli_sync_skips_when_the_record_store_is_missing(self) -> None:
         self.run_cli(
-            ["append", "--file", "learning-record-notes/errors-out-west.md", "--content-file", "-"],
+            ["append", "--file", "learning-record-notes/errors/errors-out-west.md", "--content-file", "-"],
             block_text(heading="2026-11-09 09:00 · 复习", answer="west"),
         )
         completed = self.run_cli(
-            ["sync", "--file", "learning-record-notes/errors-out-west.md"]
+            ["sync", "--file", "learning-record-notes/errors/errors-out-west.md"]
         )
         self.assertEqual(completed.returncode, 0, completed.stderr)
         payload = json.loads(completed.stdout)
@@ -1303,7 +1329,7 @@ class NoteCliTest(unittest.TestCase):
             [
                 "append",
                 "--file",
-                "learning-record-notes/errors-out-west.md",
+                "learning-record-notes/errors/errors-out-west.md",
                 "--content-file",
                 "-",
             ],
@@ -1314,7 +1340,7 @@ class NoteCliTest(unittest.TestCase):
         try:
             result = note.verify_tracking(
                 NoteStore(self.repo),
-                "learning-record-notes/errors-out-west.md",
+                "learning-record-notes/errors/errors-out-west.md",
                 "# 2026-11-09 09:00 · 复习",
             )
         finally:

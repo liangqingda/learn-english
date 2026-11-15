@@ -38,7 +38,7 @@ class NoteContextTest(unittest.TestCase):
         }
         service = RecordService(self.StubStore({"errors:out-west": record}))
         result = service.note_context("errors:out-west")
-        self.assertEqual(result["note_file"], "learning-record-notes/errors-out-west.md")
+        self.assertEqual(result["note_file"], "learning-record-notes/errors/errors-out-west.md")
         tracking = result["tracking"]
         self.assertEqual(tracking["分类 · 状态变化"], "errors · learning → familiar")
         self.assertEqual(tracking["本轮得分"], "9 / 10")

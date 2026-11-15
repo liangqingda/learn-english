@@ -34,6 +34,9 @@ class NoteError(Exception):
 
 NOTES_DIR_NAME = "learning-record-notes"
 LOCK_FILE_NAME = ".notes.lock"
+# 笔记按分类分目录存放（`learning-record-notes/errors/errors-xxx.md`），目录名就是文件名前缀；
+# 分类键本身由 `learning-record-notes/categories.json` 定义、由 `check_note.py` 校验，
+# 写入器只强制「目录名 == 文件名前缀」，不再抄一份分类表。
 # slug 只允许小写 ASCII 字母、数字与连字符；中文主题要意译成英文短语（与 check_note 一致）。
 SLUG_FILE_RE = re.compile(r"^[a-z0-9][a-z0-9\-]*\.md$")
 HEADING_RE = re.compile(
@@ -59,6 +62,19 @@ BASIC_HEAD_RE = re.compile(r"^## 基础信息\s*\n.*?(?=^# )", re.S | re.M)
 EXPLAIN_SECTION = "讲解"
 QUIZ_SECTION = "本轮习题"
 EXPLAIN_HEAD_RE = re.compile(r"^## 讲解\s*$", re.M)
+
+
+def filename_category(name: str) -> str | None:
+    """文件名前缀，也就是它该待的分类目录名：`errors-out-west.md` → `errors`。
+
+    没有连字符（如 `headquarters.md`）或前缀含数字说明缺分类前缀，返回 None。
+    """
+    stem = name[:-3] if name.endswith(".md") else name
+    separator = stem.find("-")
+    if separator <= 0:
+        return None
+    prefix = stem[:separator]
+    return prefix if prefix.isalpha() else None
 
 
 def _split_head(text: str) -> tuple[str, str]:
@@ -692,32 +708,74 @@ class NoteStore:
 
     # -- path handling ---------------------------------------------------
     def resolve(self, path: str) -> Path:
+        """Resolve a note path to ``<notes>/<category>/<category>-<slug>.md``.
+
+        Accepts the canonical relative form, an absolute path, a bare file
+        name, and the pre-directory form ``learning-record-notes/<name>.md``:
+        the category directory is always derived from the file name prefix, so
+        an old flat path keeps working and the file is moved into its category
+        directory the first time it is touched.
+        """
         raw = Path(path).expanduser()
+        if raw.is_symlink():
+            raise NoteError("refusing to write through a symbolic link")
+        notes_dir = self.notes_dir.resolve()
         if raw.is_absolute():
-            candidate = raw
+            candidate = raw.resolve()
         elif raw.parent == Path("."):
             candidate = self.notes_dir / raw.name
         else:
-            candidate = self.repo_root / raw
+            candidate = (self.repo_root / raw).resolve()
         if candidate.is_symlink():
             raise NoteError("refusing to write through a symbolic link")
-        target = candidate.resolve()
-        notes_dir = self.notes_dir.resolve()
-        if target.parent != notes_dir:
-            raise NoteError(
-                f"note path must live directly under {NOTES_DIR_NAME}/: {path}"
-            )
-        if not SLUG_FILE_RE.match(target.name):
+        if not SLUG_FILE_RE.match(candidate.name):
             raise NoteError(
                 "note file name must look like <category>-<slug>.md "
                 "(lowercase letters, digits, and hyphens only)"
             )
+        category = filename_category(candidate.name)
+        if category is None:
+            raise NoteError(
+                "note file name must start with a `<category>-` prefix, "
+                "e.g. errors-out-west.md"
+            )
+        parent = candidate.parent
+        if parent.name and parent.parent == notes_dir:
+            if parent.name != category:
+                raise NoteError(
+                    f"note {candidate.name} belongs in {NOTES_DIR_NAME}/{category}/, "
+                    f"not {NOTES_DIR_NAME}/{parent.name}/"
+                )
+            target = candidate
+        elif parent == notes_dir:
+            # 旧版平铺路径：落到分类目录里（若旧文件还在，稍后随写入迁移）
+            target = notes_dir / category / candidate.name
+        else:
+            raise NoteError(
+                f"note path must live under {NOTES_DIR_NAME}/<category>/: {path}"
+            )
+        if target.is_symlink():
+            raise NoteError("refusing to write through a symbolic link")
         if target.exists() and not target.is_file():
             raise NoteError(f"note path is not a regular file: {path}")
+        legacy = notes_dir / candidate.name
+        if not target.exists() and legacy.is_file() and not legacy.is_symlink():
+            # 一次性升级：旧平铺文件在第一次被引用时移进分类目录。
+            # 另一个会话可能刚移过，取不到旧文件就当作已迁移。
+            target.parent.mkdir(parents=True, exist_ok=True)
+            try:
+                os.replace(legacy, target)
+            except FileNotFoundError:
+                pass
         return target
 
     def relative(self, target: Path) -> str:
-        return f"{NOTES_DIR_NAME}/{target.name}"
+        category = (
+            target.parent.name
+            if target.parent.parent == self.notes_dir.resolve()
+            else filename_category(target.name) or ""
+        )
+        return f"{NOTES_DIR_NAME}/{category}/{target.name}"
 
     # -- locking and atomic publication ---------------------------------
     @contextmanager
@@ -1584,6 +1642,28 @@ class NoteStore:
             "bytes": len(composed.encode("utf-8")) if changed else None,
         }
 
+    def _note_paths(self) -> list[Path]:
+        """Every note file: one level of category directories plus any not-yet-migrated flat file."""
+        paths: list[Path] = []
+        try:
+            directories = [
+                entry
+                for entry in sorted(self.notes_dir.iterdir())
+                if entry.is_dir() and not entry.is_symlink()
+            ]
+        except OSError:
+            directories = []
+        for directory in directories:
+            paths.extend(
+                path
+                for path in directory.glob("*.md")
+                if path.is_file() and path.name.lower() != "readme.md"
+            )
+        for path in self.notes_dir.glob("*.md"):
+            if path.is_file() and path.name.lower() != "readme.md":
+                paths.append(path)
+        return sorted(paths)
+
     def list_notes(self, record_id: str | None = None) -> list[dict[str, Any]]:
         """List note blocks, optionally filtered by the record id they track.
 
@@ -1594,9 +1674,7 @@ class NoteStore:
         if not self.notes_dir.is_dir():
             return []
         entries: list[dict[str, Any]] = []
-        for path in sorted(self.notes_dir.glob("*.md")):
-            if path.name.lower() == "readme.md":
-                continue
+        for path in self._note_paths():
             relative = self.relative(path)
             text = path.read_text(encoding="utf-8")
             blocks = [

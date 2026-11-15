@@ -5,7 +5,9 @@ description: 复习笔记（`learning-record-notes/*.md`）的唯一 owner：何
 
 # 复习笔记（take-english-study-notes）
 
-一个知识点一个 Markdown 文件，放在仓库根 `learning-record-notes/`。笔记是**可读副本，不是规范数据源**：
+一个知识点一个 Markdown 文件，放在仓库根 `learning-record-notes/` 下**按分类分的子目录**里
+（`learning-record-notes/errors/errors-out-west.md`），目录名与文件名前缀必须一致，`categories.json` 与 `README.md`
+留在目录根。笔记是**可读副本，不是规范数据源**：
 不参与 `validate`、统计、抽题或调度，缺失或被删除都不影响评分与复习计划，但它是给人读的唯一入口，
 所以版式必须能被校验器机检、被多会话并发安全写入。
 
@@ -27,15 +29,15 @@ description: 复习笔记（`learning-record-notes/*.md`）的唯一 owner：何
 ## 唯一入口
 
 ```bash
-python3 take-english-study-notes/scripts/note.py explain        --file learning-record-notes/<category>-<slug>.md --content-file - [--update] [--check]
-python3 take-english-study-notes/scripts/note.py append         --file learning-record-notes/<category>-<slug>.md --content-file - [--check]
-python3 take-english-study-notes/scripts/note.py append-explain-section --file learning-record-notes/<category>-<slug>.md --content-file - [--rewrite] [--check]
-python3 take-english-study-notes/scripts/note.py append-explain-part    --file learning-record-notes/<category>-<slug>.md --section "## <小节标题>" --content-file - [--check]
-python3 take-english-study-notes/scripts/note.py append-section --file learning-record-notes/<category>-<slug>.md --heading "<# ...>" --content-file - [--check]
-python3 take-english-study-notes/scripts/note.py append-part    --file learning-record-notes/<category>-<slug>.md --heading "<# ...>" --section "## <小节标题>" --content-file - [--check]
-python3 take-english-study-notes/scripts/note.py replace        --file learning-record-notes/<category>-<slug>.md --heading "<# ...>" --content-file - [--rewrite-section "## ..."] [--check]
-python3 take-english-study-notes/scripts/note.py sections       --file learning-record-notes/<category>-<slug>.md [--heading "<# ...>"] [--section "## <小节标题>"]
-python3 take-english-study-notes/scripts/note.py sync           --file learning-record-notes/<category>-<slug>.md [--check]
+python3 take-english-study-notes/scripts/note.py explain        --file learning-record-notes/<category>/<category>-<slug>.md --content-file - [--update] [--check]
+python3 take-english-study-notes/scripts/note.py append         --file learning-record-notes/<category>/<category>-<slug>.md --content-file - [--check]
+python3 take-english-study-notes/scripts/note.py append-explain-section --file learning-record-notes/<category>/<category>-<slug>.md --content-file - [--rewrite] [--check]
+python3 take-english-study-notes/scripts/note.py append-explain-part    --file learning-record-notes/<category>/<category>-<slug>.md --section "## <小节标题>" --content-file - [--check]
+python3 take-english-study-notes/scripts/note.py append-section --file learning-record-notes/<category>/<category>-<slug>.md --heading "<# ...>" --content-file - [--check]
+python3 take-english-study-notes/scripts/note.py append-part    --file learning-record-notes/<category>/<category>-<slug>.md --heading "<# ...>" --section "## <小节标题>" --content-file - [--check]
+python3 take-english-study-notes/scripts/note.py replace        --file learning-record-notes/<category>/<category>-<slug>.md --heading "<# ...>" --content-file - [--rewrite-section "## ..."] [--check]
+python3 take-english-study-notes/scripts/note.py sections       --file learning-record-notes/<category>/<category>-<slug>.md [--heading "<# ...>"] [--section "## <小节标题>"]
+python3 take-english-study-notes/scripts/note.py sync           --file learning-record-notes/<category>/<category>-<slug>.md [--check]
 python3 take-english-study-notes/scripts/note.py list           [--record <id>]
 python3 take-english-study-notes/scripts/note.py check --all [--fix]
 ```
