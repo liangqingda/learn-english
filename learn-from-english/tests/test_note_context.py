@@ -78,7 +78,8 @@ class NoteContextTest(unittest.TestCase):
         record = {"id": "errors:new", "category": "errors", "title": "t", "status": "learning", "review_history": []}
         service = RecordService(self.StubStore({"errors:new": record}))
         tracking = service.note_context("errors:new")["tracking"]
-        self.assertEqual(tracking["分类 · 状态变化"], "errors · 未评分")
+        # 没有评分历史就没有状态变化：这一行不给值，写入时不写
+        self.assertEqual(tracking["分类 · 状态变化"], "")
         self.assertEqual(tracking["本轮得分"], "—")
         self.assertEqual(tracking["下次复习"], "—")
 

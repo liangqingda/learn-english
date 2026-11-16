@@ -143,10 +143,16 @@ def verify_tracking(note: NoteStore, file: str, heading: str) -> dict[str, Any]:
     expected = record_tracking(rows.get("记录 ID / 试卷 ID", ""))
     if expected is None:
         return {"tracking_skipped": "record store unavailable; tracking rows not verified"}
+    # 记录侧给空串表示「这一项本轮没有发生」，例如状态没变化：笔记里也必须真的没有这一行
     mismatches = [
-        {"field": field, "expected": value, "actual": rows.get(field)}
+        {
+            "field": field,
+            "expected": value or "（本轮没有发生，不写这一行）",
+            "actual": rows.get(field),
+        }
         for field, value in expected.items()
-        if field not in TRACKING_SKIP and rows.get(field) != value
+        if field not in TRACKING_SKIP
+        and rows.get(field) != (value or None)
     ]
     if not mismatches:
         return {}

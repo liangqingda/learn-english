@@ -70,6 +70,7 @@ def note_text(
     table = "\n".join(
         f"<tr><td>{row}</td><td>{rows[row]}</td></tr>"
         for row in check_note.ROUND_ROWS
+        if rows[row]  # 空值 = 本轮没有这项事实，整行不写
     )
     return (
         basic_block(basic)
@@ -108,7 +109,7 @@ def paper_note_text(*, second_reference: str | None = "第 1 题", second_detail
     }
     rows = {
         "生成时间": "2026-11-07 12:00",
-        "分类 · 状态变化": "paper · 未评分",
+        "分类 · 状态变化": "",
         "本轮得分": "—",
         "题量与错题数": "2 题 / 0 处错误",
         "主观题得分": "写作 8/15 · 翻译 9/15",
@@ -116,6 +117,7 @@ def paper_note_text(*, second_reference: str | None = "第 1 题", second_detail
     table = "\n".join(
         f"<tr><td>{row}</td><td>{rows[row]}</td></tr>"
         for row in check_note.expected_round_rows("套题")
+        if rows[row]  # 空值 = 本轮没有这项事实，整行不写
     )
     knowledge = (
         "<details>\n<summary>知识点讲解</summary>\n\n"
@@ -279,7 +281,7 @@ def practice_note_text(*, menu_counts: str = "1 题 / 0 处错误") -> str:
     """练习轮次：题目自带菜单项标题，该轮不写 `## 本轮习题`，轮次信息表挂在该小节标题下。"""
     base = note_text().replace(
         "# 2026-11-07 12:00 · 复习", "# 2026-11-07 12:00 · 练习"
-    ).replace("errors · learning → familiar", "errors · 未入库")
+    ).replace('<tr><td>分类 · 状态变化</td><td>errors · learning → familiar</td></tr>\n', "")
     head, _sep, rest = base.partition("## 本轮习题\n\n")
     table_end = rest.index("</table>") + len("</table>\n\n")
     table = rest[:table_end].replace("1 题 / 0 处错误", menu_counts)
@@ -1029,10 +1031,35 @@ class NoteContentValidationTest(unittest.TestCase):
         moved = head + table + "## 本轮习题\n\n" + remainder
         self.assert_caught(moved, "日期标题后不要再直接放表格")
 
-    def test_practice_score_not_persisted_uses_weiruku(self) -> None:
-        """只写笔记的练习用 `未入库` 标记，说明这份得分没有进入规范记录。"""
-        text = note_text().replace("errors · learning → familiar", "errors · 未入库")
+    def test_round_table_without_a_status_change_row_passes(self) -> None:
+        """状态没有变化的轮次整行不写 `分类 · 状态变化`，表格照旧合规。"""
+        text = note_text().replace(
+            '<tr><td>分类 · 状态变化</td><td>errors · learning → familiar</td></tr>\n', ""
+        )
         self.assertEqual(self.check(text), [])
+
+    def test_same_status_on_both_sides_is_caught(self) -> None:
+        """`familiar → familiar` 说明状态没动：这一行不该出现。"""
+        text = note_text().replace("errors · learning → familiar", "errors · familiar → familiar")
+        self.assert_caught(text, "两端不能相同")
+
+    def test_non_transition_markers_are_caught(self) -> None:
+        """`未入库` / `未评分` 不是状态变化，这一行只写真实迁移。"""
+        text = note_text().replace("errors · learning → familiar", "errors · 未入库")
+        self.assert_caught(text, "只写真实迁移")
+
+    def test_menu_section_may_not_carry_a_status_change_row(self) -> None:
+        """菜单项小节只记这一节自己的得分与题量，状态变化已在轮次表写过一次。"""
+        text = with_menu_section(
+            note_text(),
+            menu_practice_scored().replace(
+                "<tr><td>本轮得分</td>",
+                "<tr><td>分类 · 状态变化</td><td>errors · learning → familiar</td></tr>\n"
+                "<tr><td>本轮得分</td>",
+                1,
+            ),
+        )
+        self.assert_caught(text, "只属于本轮表")
 
 
 

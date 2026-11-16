@@ -1439,6 +1439,60 @@ class NoteCliTest(unittest.TestCase):
         self.assertEqual(result, {})
 
 
+    def test_tracking_requires_absent_status_row_when_nothing_changed(self) -> None:
+        """记录侧说状态没变（空值）时，笔记里多写这一行同样算不一致，少写则合规。"""
+        import note  # noqa: PLC0415
+
+        expected = {
+            "记录 ID / 试卷 ID": "errors:out-west",
+            "分类 · 状态变化": "",
+            "本轮得分": "10 / 10",
+            "目标知识点": "out west 不是 outwest",
+            "累计复习次数": "2",
+            "下次复习": "2026-11-23 09:00",
+            "笔记生成时间": "2026-11-09 09:05",
+            "笔记更新时间": "2026-11-09 09:05",
+        }
+        self.run_cli(
+            [
+                "append",
+                "--file",
+                "learning-record-notes/errors/errors-out-west.md",
+                "--content-file",
+                "-",
+            ],
+            block_text(heading="2026-11-09 09:00 · 复习", answer="west"),
+        )
+        text = self.note.read_text(encoding="utf-8").replace(
+            "<tr><td>分类 · 状态变化</td><td>errors · learning → familiar</td></tr>\n", "", 1
+        )
+        self.note.write_text(text, encoding="utf-8")
+        original = note.record_tracking
+        note.record_tracking = lambda identifier: expected
+        try:
+            clean = note.verify_tracking(
+                NoteStore(self.repo),
+                "learning-record-notes/errors/errors-out-west.md",
+                "# 2026-11-09 09:00 · 复习",
+            )
+            self.assertEqual(clean, {})
+            text = self.note.read_text(encoding="utf-8").replace(
+                "<tr><td>本轮得分</td>",
+                "<tr><td>分类 · 状态变化</td><td>errors · familiar → familiar</td></tr>\n"
+                "<tr><td>本轮得分</td>",
+                1,
+            )
+            self.note.write_text(text, encoding="utf-8")
+            dirty = note.verify_tracking(
+                NoteStore(self.repo),
+                "learning-record-notes/errors/errors-out-west.md",
+                "# 2026-11-09 09:00 · 复习",
+            )
+        finally:
+            note.record_tracking = original
+        fields = [item["field"] for item in dirty.get("tracking_mismatch", [])]
+        self.assertIn("分类 · 状态变化", fields)
+
 def install_stub_record_store(repo: Path, tracking: dict) -> None:
     """Write a minimal learn-from-english CLI so the tracking compare runs offline."""
     script = repo / "learn-from-english" / "scripts" / "learning_records.py"

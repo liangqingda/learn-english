@@ -651,10 +651,12 @@ class RecordService:
         last = history[-1] if history else None
         category = record["category"]
         if last:
-            transition = f"{category} · {last.get('previous_status')} → {last.get('new_status')}"
+            # 只有真的改了状态才给值：两端相同（或这轮根本没评分）时不写这一行
+            previous, current = last.get("previous_status"), last.get("new_status")
+            transition = f"{category} · {previous} → {current}" if previous != current else ""
             score_text = f"{float(last.get('score')):g} / 10"
         else:
-            transition = f"{category} · 未评分"
+            transition = ""
             score_text = "—"
         next_review_at = record.get("next_review_at")
         next_text = "—"
@@ -682,7 +684,8 @@ class RecordService:
                 "笔记生成时间": datetime.now().astimezone().strftime("%Y-%m-%d %H:%M"),
                 "笔记更新时间": datetime.now().astimezone().strftime("%Y-%m-%d %H:%M"),
             },
-            "note": "`题量与错题数` 必须按本轮实际题数与 `错题讲解` 块数填写，脚本无法推断",
+            "note": "`题量与错题数` 必须按本轮实际题数与 `错题讲解` 块数填写，脚本无法推断；"
+            "`分类 · 状态变化` 为空表示本轮没有改变记录状态，这一行整行不写",
         }
 
     def error_cluster_records(

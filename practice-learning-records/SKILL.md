@@ -96,7 +96,7 @@ payload 只有四段，缺省段跳过：
 
 ## 练习计分
 
-`starter-practice`、`follow-up-learning`、`error-cluster-review`、`error-cluster-review-unclustered` 的题组照常按 0 至 10 计分，但得分只写进 `learning-record-notes/` 的笔记，不改 `learning-records/`、`mastered-learning-records/`；笔记锚点、`未入库` 写法、错题入库与后续菜单见 `references/practice-scoring.md`。
+`starter-practice`、`follow-up-learning`、`error-cluster-review`、`error-cluster-review-unclustered` 的题组照常按 0 至 10 计分，但得分只写进 `learning-record-notes/` 的笔记，不改 `learning-records/`、`mastered-learning-records/`；笔记锚点、`分类 · 状态变化` 的写与不写、错题入库与后续菜单见 `references/practice-scoring.md`。
 
 ## 选择复习记录
 
@@ -256,7 +256,7 @@ python3 learn-from-english/scripts/learning_records.py review-round --input <JSO
 1. 写入统一走 `review-round` 的 `note` 段，一次落盘评分、笔记与菜单；`note.py` 的子命令只在组合命令不适用时单独使用。
 2. 目标文件还没有文件级 `## 讲解` 时必须带上 `explain.content`；笔记只在记录首次写笔记时新建，已有笔记一律复用同一路径。
 3. 只有开启新一轮（`practice` 抽题、`review` 复习、套题）才建新日期区块；菜单里继续做的习题（含隔天再做）追加到文件里最新那个区块，用 `append-section`（同一菜单项第二次被选中时编号成 ` - 01` / ` - 02` 各建一节，一节一表、题号各从 1 起），不按当天日期另建区块、也不并进既有小节。
-4. 复习轮次的 `body` 写真实状态变化，练习轮次写 `<category> · 未入库`；两种都由 `note` 段承载。
+4. `body` 里的 `分类 · 状态变化` 只在这轮真的改了记录状态时写（`<category> · <旧状态> → <新状态>`，两端必须不同）；练习轮次没有状态变化，整行不写。两种都由 `note` 段承载。
 5. `note_status` 为 `invalid` 时按 issue 就地修正，为 `unverified` 时在回复里说明「本轮笔记未校验」。
 
 ## 历史与统计

@@ -55,6 +55,9 @@ ROUND_ROWS = [
     "题量与错题数",
 ]
 
+# 只在本轮真的改了记录状态时才出现的行：旧状态与新状态相同时整行不写
+STATUS_ROW = "分类 · 状态变化"
+
 # 带习题的菜单项小节：只记这一节题组的得分与题量，得分不写入规范记录
 MENU_ROWS = [
     "生成时间",
@@ -103,6 +106,7 @@ def validate_section_table(
     expected_rows: list[str],
     *,
     required: bool,
+    optional_rows: tuple[str, ...] = (),
 ) -> tuple[dict[str, str], dict[str, int]]:
     """校验小节标题下、第一题之前那张表；返回字段 → 值。
 
@@ -154,11 +158,26 @@ def validate_section_table(
                 )
             )
     rows = [row for _, row, _value in row_lines]
-    if rows != expected_rows:
+    # 可选行可以整行不出现（状态没变化时就不写），出现时位置仍要守在它该在的地方
+    required_rows = [row for row in expected_rows if row not in optional_rows]
+    if [row for row in rows if row not in optional_rows] != required_rows:
         add(
             start + open_at + 1,
-            "信息表行数与顺序必须与模板一致：" + " / ".join(str(row) for row in expected_rows),
+            "信息表行数与顺序必须与模板一致："
+            + " / ".join(str(row) for row in expected_rows)
+            + "（`分类 · 状态变化` 只在本轮改了记录状态时才写）",
         )
+    else:
+        for row in optional_rows:
+            if row not in rows:
+                continue
+            position = expected_rows.index(row)
+            prefix = [item for item in rows[: rows.index(row)] if item not in optional_rows]
+            if prefix != expected_rows[:position]:
+                add(
+                    start + open_at + 1,
+                    f"`{row}` 的位置不对：它应紧跟 `{expected_rows[position - 1]}` 之后",
+                )
     for line_no, row, value in row_lines:
         if not value:
             add(line_no, f"信息表 `{row}` 的值不能为空；未知时写 `—`")
@@ -314,8 +333,8 @@ RECORD_ID_RE = re.compile(
 )
 NOTE_NAME_RE = re.compile(rf"^([a-z]+)-({NOTE_KEY_FRAGMENT})\.md$")
 TRANSITION_RE = re.compile(
-    r"^(vocabulary|phrases|grammar|usage|errors|paper) · "
-    r"((learning|familiar|mastered) → (learning|familiar|mastered)|未入库|未评分)$"
+    r"^(?P<category>vocabulary|phrases|grammar|usage|errors|paper) · "
+    r"(?P<from>learning|familiar|mastered) → (?P<to>learning|familiar|mastered)$"
 )
 UNANSWERED_WORDS = ("未作答", "未完成", "漏答")
 KNOWLEDGE_REF_RE = re.compile(r"^\*\*知识点\*\*：同\s*第\s*(\d+)\s*题")
@@ -1299,6 +1318,7 @@ def check(path: Path) -> list[dict]:
                     g_title,
                     expected_round_rows(kind),
                     required=True,
+                    optional_rows=(STATUS_ROW,),
                 )
                 stamp_text = f"{date} {time}"
                 generated_at = quiz_tracking.get("生成时间", "")
@@ -1315,13 +1335,21 @@ def check(path: Path) -> list[dict]:
                             quiz_row_lines.get("生成时间", row_line),
                             f"`生成时间` 不得早于轮次标题时间 `{stamp_text}`：当前为 `{generated_at}`",
                         )
-                transition = quiz_tracking.get("分类 · 状态变化", "")
-                if transition and not TRANSITION_RE.match(transition):
-                    add(
-                        quiz_row_lines.get("分类 · 状态变化", row_line),
-                        "`分类 · 状态变化` 必须写成 `<category> · <旧状态> → <新状态>`、"
-                        f"`<category> · 未入库` 或 `<category> · 未评分`：当前为 `{transition}`",
-                    )
+                transition = quiz_tracking.get(STATUS_ROW, "")
+                if transition:
+                    transition_match = TRANSITION_RE.match(transition)
+                    if not transition_match:
+                        add(
+                            quiz_row_lines.get(STATUS_ROW, row_line),
+                            "`分类 · 状态变化` 只写真实迁移，格式必须是 `<category> · <旧状态> → <新状态>`："
+                            f"当前为 `{transition}`；没有改变记录状态时整行不写",
+                        )
+                    elif transition_match.group("from") == transition_match.group("to"):
+                        add(
+                            quiz_row_lines.get(STATUS_ROW, row_line),
+                            f"`分类 · 状态变化` 的两端不能相同（`{transition}`）："
+                            "状态没有变化的轮次整行不写，这一行只在真的改了状态时才出现",
+                        )
                 score = quiz_tracking.get("本轮得分", "")
                 if score and not SCORE_RE.match(score):
                     add(
@@ -1345,6 +1373,12 @@ def check(path: Path) -> list[dict]:
                 tracking, tracking_rows = validate_section_table(
                     add, body, start, g_start, g_end, g_title, list(MENU_ROWS), required=False
                 )
+                if tracking.get(STATUS_ROW):
+                    add(
+                        tracking_rows.get(STATUS_ROW, row_line),
+                        f"`{STATUS_ROW}` 只属于本轮表：菜单项小节只记这一节自己的得分与题量，"
+                        "状态变化已经在轮次表里写过一次了",
+                    )
                 if not tracking:
                     continue
                 menu_trackings[g_title] = tracking
