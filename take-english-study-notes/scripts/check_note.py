@@ -1241,7 +1241,7 @@ def check(path: Path) -> list[dict]:
             else:
                 add(
                     start + k + 1,
-                    f"日期标题下必须先写 `## {QUIZ_SECTION}`：不要把内容挂在日期标题与这一节之间",
+                    f"日期标题下先写本轮题组标题（`## {QUIZ_SECTION}` 或带菜单项标题的题组小节）：不要把内容挂在日期标题与这一节之间",
                 )
             break
 
@@ -1370,8 +1370,11 @@ def check(path: Path) -> list[dict]:
             section_text = "\n".join(body[g_start:g_end])
             validate_menu_section(add, line_no, g_title, section_text, in_round_block=True)
 
-        if kind == "练习" and not any(QUESTION_RE.match(line) for line in body):
-            add(start, "练习区块必须有题目：在本轮题组小节里至少写一道 `### <n>. <题型>`")
+        if not any(QUESTION_RE.match(line) for line in body):
+            if kind == "练习":
+                add(start, "练习区块必须有题目：在本轮题组小节里至少写一道 `### <n>. <题型>`")
+            else:
+                add(start, "区块内必须有题目：本轮实际作答的题组至少写一道 `### <n>. <题型>`")
 
         # 7. 逐组、逐题校验（每组题号都从 1 开始，练习与主习题共用同一套模板）
         for g_start, g_title, g_end in groups:

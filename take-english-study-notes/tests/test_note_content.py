@@ -804,6 +804,16 @@ class NoteContentValidationTest(unittest.TestCase):
         text = practice_note_text().split("## 练习「out west」的关键语法结构")[0]
         self.assert_caught(text, "练习区块必须有题目")
 
+    def test_review_block_needs_questions(self) -> None:
+        """没有菜单标题的复习轮也不能只剩题组标题和表：本轮至少要有一道题。"""
+        text = note_text().split("### 1.")[0]
+        self.assert_caught(text, "区块内必须有题目")
+
+    def test_block_without_any_group_heading_is_caught(self) -> None:
+        """日期标题下既没有 `## 本轮习题`、也没有带标题的题组小节时直接报错。"""
+        text = note_text().split("## 本轮习题")[0] + "### 1. 单项选择\n"
+        self.assert_caught(text, "区块内缺少题组")
+
     def test_fix_moves_the_round_table_under_the_quiz_heading(self) -> None:
         """旧布局把表格放在日期标题后，`--fix` 只换位置，内容一字不动。"""
         text = note_text()
