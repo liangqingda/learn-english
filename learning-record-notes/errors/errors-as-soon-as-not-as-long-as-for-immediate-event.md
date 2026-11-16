@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>2</td></tr>
 <tr><td>下次复习</td><td>2026-11-23 20:21</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-16 20:20</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-16 21:30</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-17 07:31</td></tr>
 </table>
 
 ## 讲解
@@ -165,6 +165,7 @@ By four in the morning the corridor lights came back on, and phones along the co
 
 复习历史：
 <!-- practice-index -->
+- [2026-11-17 07:31 · 复习](#practice-2026-11-17-0731-4bbcee55-03)
 - [2026-11-16 21:22 · 复习 - 02](#practice-2026-11-16-2122-4bbcee55-02)
 - [2026-11-16 20:39 · 复习 - 01](#practice-2026-11-16-2039-4bbcee55-01)
 <!-- /practice-index -->
@@ -1279,5 +1280,184 @@ If you don't book online, you can't get a discount.
 2. **为什么错**：Unless I arrived, you don't laugh 从句用过去时、主句用现在时，时间层断裂；而且 unless 表「除非」，主句应是否定结果，写成 you won't laugh 才与「除非我到，他就不笑」对应。
 3. **英语的表达逻辑**：英语要求主从两个小句在同一时间层上，讲将来的前提与结果都落在将来。
 4. **正确表达**：Unless I arrive, he won't laugh.（除非我到，他不会笑）；可迁移：Unless you confirm today, we won't hold the room.（除非你今天确认，否则我们不留房）
+
+</details>
+
+## 练习「as soon as 与 as long as 的区别」的关键语法结构 - 03 <a id="practice-2026-11-17-0731-4bbcee55-03"></a>
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>生成时间</td><td>2026-11-17 07:31</td></tr>
+<tr><td>本轮得分</td><td>4 / 10</td></tr>
+<tr><td>题量与错题数</td><td>6 题 / 5 处错误</td></tr>
+</table>
+
+### 1. 单项选择
+
+**题目**：选择最佳选项填空
+____ had the bell rung than the pupils rushed out.
+- A. No sooner
+- B. Hardly
+- C. As soon as
+- D. The moment
+
+**我的答案**：A
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：no sooner ... than 是固定倒装搭配，no sooner 置句首时把 had 提到主语前。
+2. **规则与机制**：No sooner had the bell rung than the pupils rushed out. —— 主句部分倒装，than 从句用一般过去时；空后已有 than，所以只能填 no sooner，hardly 要配 when。
+3. **英语的表达逻辑**：英语这两套「刚……就……」结构各有固定搭档，句尾的连接词反过来决定了句首该用哪个词。
+4. **可迁移表达**：No sooner had the bell rung than the pupils rushed out.（铃声刚响学生们就冲了出去）；Hardly had the bell rung when the pupils rushed out.（铃声刚响学生们就冲了出去）
+
+</details>
+
+### 2. 翻译
+
+**题目**：中译英
+只要你还在这儿，我就不会走。
+
+**我的答案**：As long as you are here, I don't leave.
+
+**判定**：⚠️ 部分正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：as long as 从句用一般现在时，主句表达将来的意愿用 will。
+2. **规则与机制**：As long as you are here, I won't leave. —— 从句交代前提，主句用 won't 承担将来的否定结果。
+3. **英语的表达逻辑**：英语把「不会走」这种将来意愿放在主句的 will 上，从句只回答「只要你还在」这个前提是否成立。
+4. **可迁移表达**：As long as you are here, I won't leave.（只要你还在这儿，我就不会走）；As long as the door stays open, we can come in.（只要门一直开着，我们就能进来）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：条件句主句讲将来要加 will，否定用 won't。
+2. **为什么错**：I don't leave 用一般现在时，读成「我平时不走」的习惯陈述，与「我不会走」的将来承诺不符；中文的「不会」对应的是 won't，不是 don't。
+3. **英语的表达逻辑**：英语用 will 表达说话时刻之后的意愿或承诺，一般现在时只陈述习惯或事实。
+4. **正确表达**：As long as you are here, I won't leave.（只要你还在这儿，我就不会走）；可迁移：As long as you need me, I won't quit.（只要你还需要我，我就不会退出）
+
+</details>
+
+### 3. 填空
+
+**题目**：用括号里动词的正确形式填空
+I'll call you the moment the plane ____ (land).
+
+**我的答案**：had landed
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：the moment 引导的时间从句表将来时用一般现在时，不用过去完成时。
+2. **规则与机制**：I'll call you the moment the plane lands. —— 主句 will call 承担将来，从句 lands 只交代触发点；land 是规则动词，第三人称单数加 -s。
+3. **英语的表达逻辑**：英语的时间从句不承担将来时，也不需要用完成体去「提前」一个还没发生的动作。
+4. **可迁移表达**：I'll call you the moment the plane lands.（飞机一落地我就给你打电话）；Text me the moment you get home.（你一到家就给我发消息）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：the moment 从句表将来用一般现在时。
+2. **为什么错**：had landed 是过去完成时，把「落地」放到过去之前的另一层时间里，与主句 I'll call 的将来指向冲突；落地还没发生，动词只能是 lands。
+3. **英语的表达逻辑**：过去完成时表达「过去的过去」，这里既没有过去参照点，也没有已完成动作，用它等于凭空加了一层时间。
+4. **正确表达**：I'll call you the moment the plane lands.（飞机一落地我就给你打电话）；可迁移：The moment the shop opens, I'll go in.（店一开门我就进去）
+
+</details>
+
+### 4. 语境判断
+
+**题目**：下面哪句成立
+① As long as he finished the report, he went home.
+② As soon as he finished the report, he went home.
+
+**我的答案**：#2
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：as long as 表达「只要」这种可反复成立的前提，过去叙事里的一次性触发要用 as soon as。
+2. **规则与机制**：② 的两个动作都在过去、且紧接发生，符合 as soon as 的时间关系；① 把一次性动作当成前提，读成「只要他写完报告就回家」，语义不成立。
+3. **英语的表达逻辑**：英语按「一次性时刻」与「反复成立的前提」分配连接词，过去完成的一次性动作交给时间连接词。
+4. **可迁移表达**：As soon as he finished the report, he went home.（他一写完报告就回家了）；As long as he finishes by six, he can go home.（只要他六点前弄完就可以回家）
+
+</details>
+
+### 5. 改错
+
+**题目**：只改错处，句意不变
+We can't start unless the payment doesn't arrive.
+
+**我的答案**：We can't start as long as the payment doesn't arrive.
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：unless 本身等于 if not，从句不能再加 not；改写时也不该换成 as long as + 否定来绕开。
+2. **规则与机制**：We can't start unless the payment arrives. —— unless 承担「除非」，从句回到肯定形式，主句保持否定，正好是「除非款项到账，否则不能开始」。
+3. **英语的表达逻辑**：英语用 unless 一个词承担 if not，从句保持肯定；从句再写 not 就叠成双重否定，与主句的否定合起来更绕。
+4. **可迁移表达**：We can't start unless the payment arrives.（除非款项到账，否则我们不能开始）；Unless the form is signed, we can't process it.（除非表格签字，否则我们无法处理）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：unless 从句用肯定形式，不能再带 not。
+2. **为什么错**：原句错在 unless the payment doesn't arrive 的双重否定；把 unless 换成 as long as the payment doesn't arrive 只是换了字面，否定层数没有减少（读成「只要款项不到账就不能开始」），既没修好错处，也改变了句子的说法。
+3. **英语的表达逻辑**：英语的否定连接词自带否定，从句保持肯定才是标准形态；改错题只能动出错的那一层。
+4. **正确表达**：We can't start unless the payment arrives.（除非款项到账，否则我们不能开始）；可迁移：Unless you confirm today, we can't hold the room.（除非你今天确认，否则我们无法留房）
+
+</details>
+
+### 6. 造句
+
+**题目**：按下面两个要求各写一句
+- ① 用 as soon as 写一句关于将来的安排。
+- ② 用 as long as 的「时长」义写一句。
+
+**我的答案**：① As soon as I grow up, I married her. ② As long as I grow up, I married her.
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：① 讲将来的安排，从句用一般现在时、主句用 will；② as long as 表时长时后面接时长或从句描述持续时间，不能配一次性动作。
+2. **规则与机制**：As soon as I grow up, I'll marry her.（我一长大就娶她）；As long as I live, I'll remember that day.（只要我活着，我就会记得那一天）
+3. **英语的表达逻辑**：英语让主句承担将来（will），从句只交代时间或条件；时长义要求后面的内容在时间上有长度，一次性动作放不进去。
+4. **可迁移表达**：As soon as I grow up, I'll marry her.（我一长大就娶她）；You can stay as long as you like.（你想待多久就待多久）
+
+</details>
+
+<details>
+<summary>错题讲解 1</summary>
+
+1. **考点**：as soon as 从句用一般现在时，主句讲将来要用 will。
+2. **为什么错**：grow up 用现在时没错，但主句 married 是过去时，两句话的时间层断裂；「我长大就娶她」是将来打算，主句必须写 I'll marry her。
+3. **英语的表达逻辑**：英语里将来信息只能由主句的 will 承担，从句保持现在时，主句落到过去时就会把整句读成已成事实。
+4. **正确表达**：As soon as I grow up, I'll marry her.（我一长大就娶她）；可迁移：As soon as I get the offer, I'll tell you.（我一拿到录用通知就告诉你）
+
+</details>
+
+<details>
+<summary>错题讲解 2</summary>
+
+1. **考点**：as long as 的时长义要求后面接可延续的内容，不能配一次性动作，也不能沿用过去时。
+2. **为什么错**：As long as I grow up 把「长大」这个一次性变化当成持续时间，语义不成立；主句 married 又是过去时，读成既成事实，与时长的框架也不匹配。
+3. **英语的表达逻辑**：英语的时长结构要求「持续多久」与「持续期间发生什么」两头都能拉长时间，一次性动词需要换成可延续的表达。
+4. **正确表达**：As long as I live, I'll remember that day.（只要我活着，我就会记得那一天）；可迁移：You can stay as long as you like.（你想待多久就待多久）
 
 </details>

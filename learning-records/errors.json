@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 271,
+  "revision": 272,
   "category": "errors",
   "records": {
     "errors:a-few-kinds-of-food-plural": {
@@ -795,14 +795,14 @@
       "status": "learning",
       "title": "as long as 表达前提，不能描述过去一次性触发",
       "explanation": "as long as 从句要求内容是可反复成立的前提（the door is open / I arrive before eight）。用它配过去时的一次性动作会读成「只要我到了他就笑」，语义不成立；过去叙事的一次性触发交给 as soon as 或 when。",
-      "source": "As long as I arrived, he laughed.",
+      "source": "As long as I grow up, I married her.",
       "example": "As long as I arrive before eight, I can join the meeting.",
       "tags": [
         "review-error"
       ],
       "first_learned_at": "2026-11-16T21:21:46+08:00",
-      "last_learned_at": "2026-11-16T21:21:46+08:00",
-      "learned_count": 1,
+      "last_learned_at": "2026-11-17T07:31:45+08:00",
+      "learned_count": 2,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,
@@ -873,8 +873,8 @@
         "review-error"
       ],
       "first_learned_at": "2026-11-16T20:39:17+08:00",
-      "last_learned_at": "2026-11-16T20:39:17+08:00",
-      "learned_count": 1,
+      "last_learned_at": "2026-11-17T07:31:45+08:00",
+      "learned_count": 2,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,
@@ -1675,15 +1675,15 @@
       "key": "conditional-main-clause-future-tense",
       "status": "learning",
       "title": "条件从句成立后，主句讲将来要用 will",
-      "explanation": "as long as 等条件从句用一般现在时，主句描述尚未发生的结果时必须加 will；主句用一般现在时会把结果读成习惯性陈述。",
-      "source": "we pay in full",
+      "explanation": "as long as 等条件从句用一般现在时，主句表达将来的意愿、承诺或结果时要加 will，否定用 won't；主句用 don't / 一般现在时会读成习惯陈述。",
+      "source": "As long as you are here, I don't leave.",
       "example": "As long as the goods pass inspection, we'll pay in full.",
       "tags": [
         "review-error"
       ],
       "first_learned_at": "2026-11-16T21:21:46+08:00",
-      "last_learned_at": "2026-11-16T21:21:46+08:00",
-      "learned_count": 1,
+      "last_learned_at": "2026-11-17T07:31:45+08:00",
+      "learned_count": 2,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,
@@ -6963,6 +6963,30 @@
       "review_history": [],
       "key": "thats-ok-for-accepting-request-unnatural"
     },
+    "errors:the-moment-clause-present-not-past-perfect": {
+      "id": "errors:the-moment-clause-present-not-past-perfect",
+      "category": "errors",
+      "key": "the-moment-clause-present-not-past-perfect",
+      "status": "learning",
+      "title": "the moment 从句表将来用一般现在时",
+      "explanation": "the moment / the minute 引导时间从句，讲尚未发生的触发点时用一般现在时（lands / arrives），不用过去完成时；主句用 will 承担将来。第三人称单数记得加 -s。",
+      "source": "I'll call you the moment the plane had landed.",
+      "example": "I'll call you the moment the plane lands.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-17T07:31:45+08:00",
+      "last_learned_at": "2026-11-17T07:31:45+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:the-typo-should-be-they": {
       "id": "errors:the-typo-should-be-they",
       "category": "errors",
@@ -7257,6 +7281,30 @@
       ],
       "first_learned_at": "2026-11-13T20:49:44+08:00",
       "last_learned_at": "2026-11-13T20:49:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:unless-clause-no-not": {
+      "id": "errors:unless-clause-no-not",
+      "category": "errors",
+      "key": "unless-clause-no-not",
+      "status": "learning",
+      "title": "unless 从句用肯定形式，不能再加 not",
+      "explanation": "unless 本身等于 if not，从句里再出现 not 就变成双重否定；改错时也不能换成 as long as + 否定来绕开，否定层数并没有减少。标准形态是 unless + 肯定从句 + 否定主句。",
+      "source": "We can't start as long as the payment doesn't arrive.",
+      "example": "We can't start unless the payment arrives.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-17T07:31:45+08:00",
+      "last_learned_at": "2026-11-17T07:31:45+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
