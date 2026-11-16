@@ -48,7 +48,7 @@ python3 take-english-study-notes/scripts/note.py check --all [--fix]
   `append-explain-part`（往文件级小节末尾补第二段故事 / 对话原文）、`append-section`（往日期区块加带习题的菜单项）、
   `append-part`（往日期区块既有小节末尾补一段）还是 `replace --rewrite-section`，不要拼好大段内容再被拒。
 - 同一天多次练同一菜单项：**日期标题不变**，同一天的多个区块算一个「天组」，同一菜单项的习题小节从第 2 份起按时间升序编号
-  （`## <选项原文> - 01`、` - 02`…），当天只有一份时不带后缀，跨天重新起算；`append` / `append-section` 在锁内自动补号
+  （`## <选项原文> - 01`、` - 02`…），当天只有一份时不带后缀；同一轮隔天再练仍在同一个区块、同一个「天组」，重复菜单项用 `append-part` 并入既有小节。`append` / `append-section` 在锁内自动补号
   （把已有那份改成 ` - 01`）并把实际标题放进返回的 `section`、被改名的旧标题放进 `section_renamed`，校验器核对单份不带后缀、多份连续。
 - 自带派生内容，都由写入命令生成、不要手写：每份带习题的菜单项小节与每个区块的 `## 本轮习题`，都在**标题行右侧**
   挂一个空元素锚点 `<a id="practice-<date>-<HHMM>-<8 hex>"></a>` / `<a id="round-<date>-<HHMM>"></a>`
