@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>2</td></tr>
 <tr><td>下次复习</td><td>2026-11-23 20:21</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-16 20:20</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-16 20:23</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-16 20:27</td></tr>
 </table>
 
 ## 讲解
@@ -34,6 +34,36 @@
 <!-- round-index -->
 - [2026-11-16 20:20 · 复习](#round-2026-11-16-2020)
 <!-- /round-index -->
+
+## 看一套围绕「as soon as 与 as long as 的区别」的完整场景对话
+
+**讲解要点**：
+- as soon as 从句写的是一个真实发生的事件，用它来定时间点；as long as 从句写的是一个前提，用它来定条件，两者不能互换。
+  - Boarding will start as soon as the cleaning crew finishes.（清洁组一结束登机就开始）
+  - You can sit here as long as your name has been called.（只要叫到你的名字，你就可以坐这儿）
+- 句子讲将来的事时，as soon as 从句仍用一般现在时，把「将来」交给主句的 will。
+  - I'll page you as soon as the gate changes.（登机口一变我就广播找你）
+- as long as 后面是条件，从句常用一般现在时，主句可以用 can / may / will 这类情态或将来形式。
+  - You may leave your bag here as long as you come back before boarding.（只要你登机前来取，就可以把包放这儿）
+- 「只要」不等于「一……就……」：前者允许动作不发生，后者要求动作立刻跟上，判断标准是句子里有没有「紧接」的先后关系。
+  - As soon as the door opened, people started queuing.（门一开人们就开始排队）
+  - As long as the door stays open, people can queue inside.（只要门开着，人们就可以在里面排队）
+
+<details>
+<summary>场景对话原文</summary>
+
+- **Gate agent Maya**：Good evening. Boarding for flight 628 will start **as soon as** the cleaning crew finishes up.（晚上好。628 航班的登机，清洁组一收工就开始）
+- **Passenger Mr. Okafor**：Good, I've been standing here for an hour. Can I charge my phone at that counter **as long as** I stay close to the gate?（太好了，我在这儿站了一个小时了。只要我离登机口近，能在那个柜台充电吗）
+- **Gate agent Maya**：**As long as** you keep an eye on your own bag, yes. We can't watch it for you.（只要你看着自己的包就行，可以。我们没法替你看着）
+- **Passenger Mr. Okafor**：Fair enough. And will you announce the gate change here?（行。登机口如果有变动，会在这儿广播吗）
+- **Gate agent Maya**：**As soon as** the new gate shows up on my screen, I'll announce it twice.（新登机口一出现在我的屏幕上，我就连播两遍）
+- **Passenger Mr. Okafor**：Last time nobody told me, and I only found out **after** the flight had already left.（上次没人告诉我，航班起飞之后我才知道）
+- **Gate agent Maya**：That shouldn't happen again. **As long as** you're within earshot, you'll hear me.（不会再这样了。只要你在这个能听见的范围里，就会听到我）
+- **Passenger Mr. Okafor**：Then I'll stay right here. One more thing — can my wife come through security **as long as** she has a boarding pass for a later flight?（那我就待在这儿。还有件事——只要我妻子有晚一点的航班的登机牌，她能过安检进来吗）
+- **Gate agent Maya**：No, I'm afraid not. Security opens the line **as soon as** the first flight of the morning is ready, and only passengers on that flight get through.（恐怕不行。安检是在早班第一趟航班准备好时才开通道，只有那趟航班的旅客能过）
+- **Passenger Mr. Okafor**：Understood. I'll tell her to wait outside.（明白了。我让她在外面等）
+
+</details>
 
 # 2026-11-16 20:20 · 复习
 
