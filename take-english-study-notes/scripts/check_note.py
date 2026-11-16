@@ -1632,14 +1632,34 @@ def missing_notes(root: Path) -> list[str]:
     return missing
 
 
+def missing_notes_sample(absent: list[str], limit: int = 50) -> list[str]:
+    """按分类轮流取样：`errors` 占多数时，光按字母序截断会让其他分类一条都看不到。"""
+    buckets: dict[str, list[str]] = {}
+    for identifier in absent:
+        buckets.setdefault(identifier.partition(":")[0], []).append(identifier)
+    sample: list[str] = []
+    while len(sample) < limit and any(buckets.values()):
+        for category in sorted(buckets):
+            if len(sample) >= limit:
+                break
+            if buckets[category]:
+                sample.append(buckets[category].pop(0))
+    return sample
+
+
 def missing_notes_report(root: Path) -> dict[str, Any]:
     """`missing_notes` payload for `--all`: a report, never a validation error."""
     absent = missing_notes(root)
+    by_category: dict[str, int] = {}
+    for identifier in absent:
+        category = identifier.partition(":")[0]
+        by_category[category] = by_category.get(category, 0) + 1
     return {
         "count": len(absent),
-        "records": absent[:50],
+        "by_category": dict(sorted(by_category.items())),
+        "records": missing_notes_sample(absent),
         "truncated": len(absent) > 50,
-        "note": "笔记按需生成：这些记录还没有笔记文件，不构成校验错误",
+        "note": "笔记按需生成：这些记录还没有笔记文件，不构成校验错误；records 按分类轮流取样，最多 50 条",
     }
 
 

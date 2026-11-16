@@ -907,6 +907,34 @@ class NoteContentValidationTest(unittest.TestCase):
             self.assertTrue(report["ok"])
             self.assertEqual(report["missing_notes"]["count"], 1)
             self.assertEqual(report["missing_notes"]["records"], ["errors:out-east"])
+            self.assertEqual(report["missing_notes"]["by_category"], {"errors": 1})
+
+    def test_missing_notes_sample_covers_every_category(self) -> None:
+        """`errors` 记录占多数时，取样按分类轮流来，别的分类不能被字母序挤没。"""
+        import io
+        import json
+        import os
+        from contextlib import redirect_stdout
+        from unittest import mock
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "learning-records").mkdir()
+            records = {f"errors:out-west-{index}": {} for index in range(60)}
+            records["phrases:as-long-as-it-takes"] = {}
+            (root / "learning-records" / "errors.json").write_text(
+                json.dumps({"records": records}, ensure_ascii=False), encoding="utf-8"
+            )
+            buffer = io.StringIO()
+            with mock.patch.dict(os.environ, {"LEARN_ENGLISH_REPO_ROOT": str(root)}):
+                with redirect_stdout(buffer):
+                    check_note.main(["check_note.py", "--all"])
+            report = json.loads(buffer.getvalue())["missing_notes"]
+            self.assertEqual(report["count"], 61)
+            self.assertTrue(report["truncated"])
+            self.assertEqual(len(report["records"]), 50)
+            self.assertIn("phrases:as-long-as-it-takes", report["records"])
+            self.assertEqual(report["by_category"], {"errors": 60, "phrases": 1})
 
     def test_all_mode_reports_missing_notes_without_any_note_file(self) -> None:
         import io
