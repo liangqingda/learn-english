@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 272,
+  "revision": 273,
   "category": "errors",
   "records": {
     "errors:a-few-kinds-of-food-plural": {
@@ -3931,6 +3931,31 @@
       ],
       "key": "missing-third-person-s-after-she-points-out"
     },
+    "errors:missing-verb-after-frequency-adverb": {
+      "id": "errors:missing-verb-after-frequency-adverb",
+      "category": "errors",
+      "key": "missing-verb-after-frequency-adverb",
+      "status": "learning",
+      "title": "频率副词后缺失谓语动词",
+      "explanation": "rarely 是副词，只能修饰谓语，不能单独承担谓语功能；写成 it rarely in normal 时句子没有动词，需要补上 appears / occurs 这类谓语。",
+      "source": "it rarely in normal",
+      "example": "It rarely appears in formal writing.",
+      "tags": [
+        "review-error",
+        "sentence-structure"
+      ],
+      "first_learned_at": "2026-11-17T07:43:29+08:00",
+      "last_learned_at": "2026-11-17T07:43:29+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:misspelling-energy": {
       "id": "errors:misspelling-energy",
       "category": "errors",
@@ -5137,7 +5162,7 @@
     "errors:phrase-mistranslated-as-word": {
       "id": "errors:phrase-mistranslated-as-word",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "把 phrase 误译成 word",
       "explanation": "phrase 是短语，word 是单词；中文提示说“这个短语”时，英文应说 this phrase，而不是 this word。",
       "source": "Now, this word is often used in informal situation.",
@@ -5149,14 +5174,21 @@
       "first_learned_at": "2026-08-02T10:24:33+08:00",
       "last_learned_at": "2026-08-02T10:24:33+08:00",
       "learned_count": 2,
-      "mastery_score": 0.0,
-      "review_count": 0,
-      "high_score_streak": 0,
-      "last_reviewed_at": null,
-      "next_review_at": null,
+      "mastery_score": 10.0,
+      "review_count": 1,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-11-17T07:43:29+08:00",
+      "next_review_at": "2026-12-17T07:43:29+08:00",
       "lapse_count": 0,
       "mastered_at": null,
-      "review_history": [],
+      "review_history": [
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-11-17T07:43:29+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        }
+      ],
       "key": "phrase-mistranslated-as-word"
     },
     "errors:plate-x-with-y-garnish": {
@@ -6079,6 +6111,31 @@
       "mastered_at": null,
       "review_history": [],
       "key": "regain-concentration-collocation"
+    },
+    "errors:register-adjectives-as-nouns-oral-normal": {
+      "id": "errors:register-adjectives-as-nouns-oral-normal",
+      "category": "errors",
+      "key": "register-adjectives-as-nouns-oral-normal",
+      "status": "learning",
+      "title": "用 oral / normal 这类形容词充当语域名词",
+      "explanation": "表示“在口语里 / 在正式文章里”要用 in + 名词短语：in spoken English、in formal writing。oral 与 normal 是形容词，不能直接放在 in 后面当名词用。",
+      "source": "This phrase is usual in oral, but it rarely in normal.",
+      "example": "This phrase is common in spoken English but rare in formal writing.",
+      "tags": [
+        "review-error",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-11-17T07:43:29+08:00",
+      "last_learned_at": "2026-11-17T07:43:29+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:registration-vs-register-noun-event": {
       "id": "errors:registration-vs-register-noun-event",
@@ -7492,6 +7549,31 @@
       "review_history": [],
       "key": "using-shall-you-for-friendly-suggestion"
     },
+    "errors:usual-vs-common-adjective": {
+      "id": "errors:usual-vs-common-adjective",
+      "category": "errors",
+      "key": "usual-vs-common-adjective",
+      "status": "learning",
+      "title": "usual 与 common 混用",
+      "explanation": "usual 强调“一贯如此、按惯例”，common 强调“出现频率高、普遍存在”。描述某表达在口语里出现得多应说 common，而不是 usual。",
+      "source": "This phrase is usual in oral",
+      "example": "This phrase is common in spoken English.",
+      "tags": [
+        "review-error",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-11-17T07:43:29+08:00",
+      "last_learned_at": "2026-11-17T07:43:29+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:vegetarian-food-rendered-as-vegetables": {
       "id": "errors:vegetarian-food-rendered-as-vegetables",
       "category": "errors",
@@ -7506,6 +7588,31 @@
       ],
       "first_learned_at": "2026-11-10T21:01:44+08:00",
       "last_learned_at": "2026-11-10T21:01:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:verb-form-is-consist-of": {
+      "id": "errors:verb-form-is-consist-of",
+      "category": "errors",
+      "key": "verb-form-is-consist-of",
+      "status": "learning",
+      "title": "把 consist of 写成 is consist of",
+      "explanation": "consist 是不及物动词，本身可直接接 of 作谓语；is consist of 把限定动词 be 与原形动词叠加，句子出现两个谓语成分。要么用 consists of，要么用 is composed of。",
+      "source": "the phrase is consist of many words",
+      "example": "A phrase consists of several words.",
+      "tags": [
+        "review-error",
+        "verb-form"
+      ],
+      "first_learned_at": "2026-11-17T07:43:29+08:00",
+      "last_learned_at": "2026-11-17T07:43:29+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
