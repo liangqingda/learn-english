@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 257,
+  "revision": 265,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -278,6 +278,54 @@
         }
       ],
       "key": "all-set"
+    },
+    "phrases:as-long-as-it-takes": {
+      "id": "phrases:as-long-as-it-takes",
+      "category": "phrases",
+      "key": "as-long-as-it-takes",
+      "status": "learning",
+      "title": "as long as it takes：需要多久就多久",
+      "explanation": "as long as it takes 是固定搭配，把 as long as 的「时长」义与 it takes 结合，表示愿意一直持续到事情完成为止；同类说法还有 as long as necessary。不要与 as soon as possible（尽快）互换。",
+      "source": "We'll keep looking as long as it takes.",
+      "example": "The repair will take a week, and we'll wait as long as it takes.",
+      "tags": [
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-11-16T20:45:02+08:00",
+      "last_learned_at": "2026-11-16T20:45:02+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:as-soon-as-possible": {
+      "id": "phrases:as-soon-as-possible",
+      "category": "phrases",
+      "key": "as-soon-as-possible",
+      "status": "learning",
+      "title": "as soon as possible：尽快、越早越好",
+      "explanation": "as soon as possible 是固定搭配，表示在条件允许的最短时间内完成某事，常放在句末；商务与日常都可用，缩写为 ASAP。注意不要和 as long as possible（能拖多久就拖多久/能持续多久就持续多久）混用，也不要写成 as soon as possibly。",
+      "source": "Please reply as soon as possible.",
+      "example": "Please send the signed form back as soon as possible.",
+      "tags": [
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-11-16T20:45:02+08:00",
+      "last_learned_at": "2026-11-16T20:45:02+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "phrases:back-east-us": {
       "id": "phrases:back-east-us",
@@ -1164,6 +1212,30 @@
       "mastered_at": null,
       "review_history": []
     },
+    "phrases:no-sooner-than-inversion": {
+      "id": "phrases:no-sooner-than-inversion",
+      "category": "phrases",
+      "key": "no-sooner-than-inversion",
+      "status": "learning",
+      "title": "no sooner ... than：刚一……就……（部分倒装）",
+      "explanation": "no sooner 放在句首时主句要部分倒装：No sooner had + 主语 + 过去分词 + than + 从句，从句用一般过去时。同义结构是 hardly / scarcely ... when，两者不能混搭（no sooner 配 than，hardly 配 when）。",
+      "source": "No sooner he had arrived than the meeting began.",
+      "example": "No sooner had he arrived than the meeting began.",
+      "tags": [
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-11-16T20:45:02+08:00",
+      "last_learned_at": "2026-11-16T20:45:02+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "phrases:old-timers": {
       "id": "phrases:old-timers",
       "category": "phrases",
@@ -1187,6 +1259,54 @@
       "mastered_at": null,
       "review_history": [],
       "key": "old-timers"
+    },
+    "phrases:on-the-spot": {
+      "id": "phrases:on-the-spot",
+      "category": "phrases",
+      "key": "on-the-spot",
+      "status": "learning",
+      "title": "on the spot：当场、就地",
+      "explanation": "on the spot 表示就在事发地点、立刻发生，常与 treat / pay / fine / hire 这类动作搭配（当场处理、当场付款、当场罚款、当场录用）。它本身已含「当场」义，不再与 arrive 这类表示到场的动词堆叠。",
+      "source": "The paramedics treated him on the spot.",
+      "example": "The manager hired her on the spot.",
+      "tags": [
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-11-16T20:45:02+08:00",
+      "last_learned_at": "2026-11-16T20:45:02+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:provided-that-formal-condition": {
+      "id": "phrases:provided-that-formal-condition",
+      "category": "phrases",
+      "key": "provided-that-formal-condition",
+      "status": "learning",
+      "title": "provided that：只要（正式条件）",
+      "explanation": "provided (that) / on condition that 是正式的条件连接词，常见于合同、条款与商务函件，语气比 as long as 更书面；从句用一般现在时表将来，主句用 will / can 等。",
+      "source": "Provided that the goods pass inspection, we'll pay in full.",
+      "example": "We'll ship on Friday, provided that the payment clears.",
+      "tags": [
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-11-16T20:45:02+08:00",
+      "last_learned_at": "2026-11-16T20:45:02+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "phrases:regret-to-say": {
       "id": "phrases:regret-to-say",
@@ -1464,6 +1584,30 @@
       "mastered_at": null,
       "review_history": [],
       "key": "ten-minutes-of-rest"
+    },
+    "phrases:the-moment-clause": {
+      "id": "phrases:the-moment-clause",
+      "category": "phrases",
+      "key": "the-moment-clause",
+      "status": "learning",
+      "title": "the moment + 从句：一……就……",
+      "explanation": "the moment / the minute 直接引导时间状语从句，等于 as soon as，但更口语、更强调「正好那一刻」。从句用一般现在时表将来，主句可用过去时或将来时；the moment 前不加介词，也不加 that。",
+      "source": "The interview ended. She called her parents.",
+      "example": "The moment the interview ended, she called her parents.",
+      "tags": [
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-11-16T20:45:02+08:00",
+      "last_learned_at": "2026-11-16T20:45:02+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "phrases:there-is-no-way": {
       "id": "phrases:there-is-no-way",
