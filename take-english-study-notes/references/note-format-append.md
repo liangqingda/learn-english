@@ -137,3 +137,22 @@
    - `note_status: "invalid"`：写入已成功但笔记不合规（进程退出码 1）。按 issue 的 `line` / `message` 用替换命令就地修正，
      再重跑一次；**不要**把退出码 1 当成写入失败去重试追加。
    - `note_status: "unverified"`：校验器不可用，未执行校验；在回复里如实说明「本轮笔记未校验」，不要当作通过。
+
+## 写入前预校验与最小改写
+
+大块区块（多题题组，正文超过约 3000 字）不要写完就赌校验器通过：写入之后才发现 `invalid` 再整块重写，是最慢的一步，
+而且整块重写容易顺手改坏没出问题的小节。
+
+1. 先在 `mktemp` 出来的草稿上装配并预校验（`check` 接受仓库外路径，不会碰仓库里的笔记）：
+   ```bash
+   DRAFT=$(mktemp -t note-draft.XXXXXX)
+   # 把本轮区块写进 $DRAFT
+   python3 take-english-study-notes/scripts/note.py check "$DRAFT"    # 约 0.1s
+   ```
+   仍不要用固定路径的临时文件（如 `/tmp/note-block.md`），必须走 `mktemp`。
+2. 预校验要在写入前清零的装配错误：`- 1.` / `- 2.` 这类缩进编号、`**<栏目>**：` 或四步标签只写标签不带内容、
+   题与小节之间缺 `---`、`<details>` 与 `</details>` 不成对、`题量与错题数` 与实际题数 / `错题讲解` 块数不符。
+3. 草稿 `ok: true` 后再把同一份内容交给 `append` / `replace` / `review-round` 的 `note` 段：`review-round` 的 `body`
+   直接复用草稿正文，不要重新生成一遍。
+4. 已经落盘之后才发现要改一两处时，先 `Edit` 草稿，再用 `replace --rewrite-section "## <小节标题>"` 只替换那一个小节；
+   不要为了改一句措辞重新生成整块正文，也不要用 `replace` 去动第二个小节（一次一个，见上一条）。
