@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>2</td></tr>
 <tr><td>下次复习</td><td>2026-11-23 20:21</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-16 20:20</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-16 20:29</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-16 20:39</td></tr>
 </table>
 
 ## 讲解
@@ -99,6 +99,27 @@ By seven the shop was full, and the rye sold out before eight. Hal stuck a note 
 | **as soon as** the light is orange, start baking | 写成操作规矩：灯变橙就立刻进炉，不允许拖 | 换成 as long as 只剩「只要灯是橙的就可以烤」，许可还在，即时性没了 |
 
 </details>
+
+## 练习「as soon as 与 as long as 的区别」的关键语法结构
+
+**讲解要点**：
+- as soon as 从句讲将来的事时仍用一般现在时，把「将来」交给主句的 will。
+  - I'll hand in the form as soon as I finish the last page.（一写完最后一页我就交表）
+  - We'll leave as soon as the taxi comes.（出租车一到我们就走）
+- as long as 从句是前提，主句多用 can / may 这类情态动词给许可，而不是用 must 下命令。
+  - As long as you bring your own racket, you can join the match.（只要你自带球拍，就能参加比赛）
+- as soon as 从句前置时后面必须加逗号，后置时不加。
+  - As soon as the alarm went off, everyone left the building.（警报一响，所有人都离开了大楼）
+  - Everyone left the building as soon as the alarm went off.（警报一响所有人就离开了大楼）
+- 过去叙述里主句与从句时态一致；不规则动词的过去式要单独记，hit 的过去式仍是 hit。
+  - The lights went out as soon as the storm hit the coast.（暴风雨一上岸，灯就灭了）
+- 讲将来的事时，as soon as 的主句要用将来时，不能落到过去时。
+  - As soon as I grow up, I'll marry her.（我一长大就娶她）
+
+复习历史：
+<!-- practice-index -->
+- [2026-11-16 20:20 · 复习](#practice-2026-11-16-2020-4bbcee55)
+<!-- /practice-index -->
 
 # 2026-11-16 20:20 · 复习
 
@@ -285,5 +306,150 @@ By seven the shop was full, and the rye sold out before eight. Hal stuck a note 
 2. **为什么错**：wake 后面缺 up / early 这类补足成分，读者无法判断条件到底是「醒来」还是「起床」；条件越模糊，as long as 就越站不住。
 3. **英语的表达逻辑**：英语的条件从句要求一个可判断成立与否的完整命题，光秃秃的动词给不出这个命题。
 4. **正确表达**：I go for a walk in the morning as long as I wake up early.（只要我起得早，早上就会去散步）；可迁移：You can borrow it as long as you bring it back tomorrow.（只要你明天还回来，就可以借走）
+
+</details>
+
+## 练习「as soon as 与 as long as 的区别」的关键语法结构 <a id="practice-2026-11-16-2020-4bbcee55"></a>
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>本轮得分</td><td>7 / 10</td></tr>
+<tr><td>题量与错题数</td><td>6 题 / 2 处错误</td></tr>
+</table>
+
+### 1. 单项选择
+
+**题目**：We'll leave as soon as the taxi ____.
+- A. will come
+- B. comes
+- C. came
+- D. is coming
+
+**我的答案**：B
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：as soon as 从句讲将来的事时用一般现在时，主句承担将来时。
+2. **规则与机制**：时间状语从句里不出现 will；主句有 We'll，将来信息已经由主句承担，从句回到一般现在时 comes。
+3. **英语的表达逻辑**：英语把「将来」压在主句一个 will 上，从句只描述事件本身，所以 come 用现在时。
+4. **可迁移表达**：She'll call you as soon as she lands.（她一落地就给你打电话）；We'll start as soon as everyone sits down.（大家一坐下我们就开始）
+
+</details>
+
+### 2. 语境判断
+
+**题目**：下面两句只有一句在语义与结构上成立，指出是哪一句
+1. As long as you bring your own racket, you can join the match.
+2. As long as you bring your own racket, you must join the match.
+
+**我的答案**：#1
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：as long as 从句是前提，主句用 can / may 给出许可，而不是用 must 下命令。
+2. **规则与机制**：条件从句只负责限定范围，主句的情态动词决定语气强度；must 把许可变成义务，与「只要」的逻辑打架。
+3. **英语的表达逻辑**：英语把「前提」和「许可」分给两个小句，情态动词落在主句，读者一眼就能看出哪部分是条件、哪部分是允许。
+4. **可迁移表达**：As long as you finish the report, you may leave early.（只要你交完报告，就可以早点走）；You can borrow my bike as long as you return it by Sunday.（只要你周日前还回来，就能借我的自行车）
+
+</details>
+
+### 3. 改写
+
+**题目**：用 as soon as 把两句合成一句，as soon as 引导的从句放在句首
+The alarm went off. Everyone left the building at once.
+
+**我的答案**：As soon as the alarm went off, everyone left the building at once.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：as soon as 从句前置时后面紧跟逗号，主句跟在逗号之后。
+2. **规则与机制**：从句前置属于标记前置，英语用逗号把从句与主句隔开；从句后置时则不加逗号。
+3. **英语的表达逻辑**：逗号在这里承担「先交代触发点、再给结果」的阅读节奏，句子越长逗号越必要。
+4. **可迁移表达**：As soon as the rain stopped, we went out.（雨一停我们就出门了）；Everyone clapped as soon as the singer finished.（歌手一唱完大家就鼓掌）
+
+</details>
+
+### 4. 填空
+
+**题目**：The lights went out as soon as the storm ____ (hit) the coast.
+
+**我的答案**：hitted
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：过去叙述中 as soon as 从句与主句同为过去时，题目要的是 hit 的过去式。
+2. **规则与机制**：hit 属于三种形式同形的不规则动词，原形、过去式、过去分词都写 hit。
+3. **英语的表达逻辑**：英语靠动词形式标记时间，不规则动词的形式必须按词形表单独记，不能按 -ed 规则套用。
+4. **可迁移表达**：The storm hit the coast at midnight.（暴风雨午夜上岸）；They hit the road as soon as the meeting ended.（会议一结束他们就出发了）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：hit 的过去式形式。
+2. **为什么错**：把 hit 当成规则动词，加了 -ed 写成 hitted；英语里 hit 三种形式同形，直接写 hit。
+3. **英语的表达逻辑**：不规则动词的过去式不能靠规则推导，词形变化本身就是记忆单位。
+4. **正确表达**：The lights went out as soon as the storm hit the coast.（暴风雨一上岸，灯就灭了）；可迁移：The news hit everyone hard.（这个消息让所有人都很受打击）
+
+</details>
+
+### 5. 翻译
+
+**题目**：会议一结束，大家就立刻离开了办公室。
+
+**我的答案**：As soon as the meeting finished, everyone left the office.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：中文「一……就立刻」既可以只靠 as soon as 前置来表达，也可以用 as soon as + right away 双层强调。
+2. **规则与机制**：as soon as 从句前置加逗号；主句动作与从句动作同为过去时；想补出「立刻」时加 right away / at once，位置在主句动词之后。
+3. **英语的表达逻辑**：as soon as 本身已经编码了紧接关系，right away 只是额外重音，不写也不改变时序。
+4. **可迁移表达**：As soon as the meeting finished, everyone left the office at once.（会议一结束，大家立刻离开了办公室）；As soon as the votes were counted, she called her family.（票一数完她就给家里打了电话）
+
+</details>
+
+### 6. 造句
+
+**题目**：按下面两个要求各写一句
+- ① 用 as soon as 写一句讲将来的事（从句放在句首，表示「一……就……」）。
+- ② 用 as long as 写一句给出许可的话（主句用 can 或 may）。
+
+**我的答案**：① As soon as I grow up, I married her. ② As long as you have money, you can buy the car.
+
+**判定**：⚠️ 部分正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：讲将来的事时，as soon as 从句用一般现在时，主句用将来时；as long as 主句用 can / may 给许可。
+2. **规则与机制**：①「长大」是将来才发生的条件，主句必须落在将来时 will marry 上；②的结构完全成立，主句 can buy 承担许可。
+3. **英语的表达逻辑**：英语把时间信息集中在主句的时态上，从句负责描述事件；主句一旦写成过去时，整句就从「将来」掉回「已发生」。
+4. **可迁移表达**：As soon as the term ends, I'll go home.（学期一结束我就回家）；As long as you keep the receipt, you can return it within a month.（只要留着收据，一个月内就可以退）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：as soon as 讲将来的事时，主句要用将来时。
+2. **为什么错**：①写成 As soon as I grow up, I married her，从句用现在时、主句却用过去时 married，时态前后断裂，句子读起来像「已经结婚」。
+3. **英语的表达逻辑**：从句已经用一般现在时代替将来，主句就必须是 will + 动词原形，时态分工不能两边都落空。
+4. **正确表达**：As soon as I grow up, I'll marry her.（我一长大就娶她）；可迁移：As soon as it gets dark, the streetlights will come on.（天一黑路灯就会亮）
 
 </details>

@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 263,
+  "revision": 264,
   "category": "errors",
   "records": {
     "errors:a-few-kinds-of-food-plural": {
@@ -754,6 +754,30 @@
       ],
       "first_learned_at": "2026-11-16T20:21:29+08:00",
       "last_learned_at": "2026-11-16T20:21:29+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:as-soon-as-future-main-clause": {
+      "id": "errors:as-soon-as-future-main-clause",
+      "category": "errors",
+      "key": "as-soon-as-future-main-clause",
+      "status": "learning",
+      "title": "as soon as 讲将来的事时主句用将来时",
+      "explanation": "as soon as 从句用一般现在时表将来，将来信息必须由主句承担：主句要用 will + 动词原形；主句写成过去时会与从句的现在时断裂，整句从「将来」掉回「已发生」。",
+      "source": "As soon as I grow up, I married her.",
+      "example": "As soon as I grow up, I'll marry her.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T20:39:17+08:00",
+      "last_learned_at": "2026-11-16T20:39:17+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -2995,6 +3019,30 @@
       "mastered_at": null,
       "review_history": [],
       "key": "help-yourself-to-not-with-for-offer"
+    },
+    "errors:hit-irregular-past-tense": {
+      "id": "errors:hit-irregular-past-tense",
+      "category": "errors",
+      "key": "hit-irregular-past-tense",
+      "status": "learning",
+      "title": "hit 的过去式仍是 hit，不加 -ed",
+      "explanation": "hit 属于原形、过去式、过去分词三形同形的不规则动词，过去式直接写 hit，不能按规则动词加 -ed 写成 hitted。",
+      "source": "The lights went out as soon as the storm hitted the coast.",
+      "example": "The lights went out as soon as the storm hit the coast.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T20:39:17+08:00",
+      "last_learned_at": "2026-11-16T20:39:17+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:hotel-vs-pub-wrong-noun": {
       "id": "errors:hotel-vs-pub-wrong-noun",
