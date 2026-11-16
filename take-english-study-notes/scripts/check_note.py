@@ -548,11 +548,9 @@ def check_detail_numbering(add, line_no: int, blocks: list[dict], base: str, lab
             )
 
 
-def has_story_table(section_text: str, block_end: int) -> bool:
-    """折叠块之后必须紧跟收尾三列表，且表格位于下一个折叠块之前。"""
-    next_block = section_text.find("<details>", block_end)
-    tail = section_text[block_end : next_block if next_block >= 0 else len(section_text)]
-    return STORY_TABLE_HEADER in tail
+def story_block_has_table(block_body: str) -> bool:
+    """收尾三列表必须折叠在同一个 `故事原文` 块内：块内先叙事与译文，再写表格。"""
+    return STORY_TABLE_HEADER in block_body
 
 
 def validate_menu_section(
@@ -652,11 +650,20 @@ def validate_menu_section(
                     f"{block['summary']} 至少要有 8 句英文叙事（当前 {sentence_count} 句）："
                     "故事被截断或只写了几句，等于这一段没有交付",
                 )
-            if not has_story_table(section_text, block["end"]):
+            if not story_block_has_table(block["body"]):
                 add(
                     line_no,
-                    f"{block['summary']} 后面必须紧跟收尾三列表（`{STORY_TABLE_HEADER}`），"
-                    "一张表放在块外、写完表格才算这一段完整",
+                    f"{block['summary']} 折叠块内必须包含收尾三列表（`{STORY_TABLE_HEADER}`）："
+                    "英文叙事与译文之后把表格写进同一个 `<details>` 块，放在块外等于这一段没有交付",
+                )
+        if story_blocks:
+            inside_tables = sum(
+                block["body"].count(STORY_TABLE_HEADER) for block in story_blocks
+            )
+            if section_text.count(STORY_TABLE_HEADER) > inside_tables:
+                add(
+                    line_no,
+                    "收尾三列表必须折叠进故事原文块内：表格不要留在 `</details>` 之后",
                 )
     section_opens = section_text.count("<details>")
     section_closes = section_text.count("</details>")

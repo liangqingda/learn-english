@@ -175,13 +175,13 @@ STORY_TABLE = (
 )
 
 
-def story_block(summary: str, sentences: str = STORY_SENTENCES) -> str:
-    return (
-        f"<details><summary>{summary}</summary>\n\n"
-        f"{sentences}\n\n"
-        "她在一个寒冷的早晨往西走。\n\n"
-        "</details>\n\n"
-    )
+def story_block(
+    summary: str, sentences: str = STORY_SENTENCES, *, table: bool = True
+) -> str:
+    body = f"{sentences}\n\n她在一个寒冷的早晨往西走。\n\n"
+    if table:
+        body += STORY_TABLE + "\n"
+    return f"<details><summary>{summary}</summary>\n\n{body}</details>\n\n"
 
 
 def story_section(*parts: str) -> str:
@@ -313,8 +313,8 @@ class NoteContentValidationTest(unittest.TestCase):
         text = with_menu_section(
             note_text(),
             story_section(
-                story_block("故事原文 1") + STORY_TABLE,
-                story_block("故事原文 2", "Only two sentences here. And another one.") + STORY_TABLE,
+                story_block("故事原文 1"),
+                story_block("故事原文 2", "Only two sentences here. And another one."),
             ),
         )
         self.assert_caught(text, "故事原文 2 至少要有 8 句英文叙事")
@@ -323,8 +323,8 @@ class NoteContentValidationTest(unittest.TestCase):
         text = with_menu_section(
             note_text(),
             story_section(
-                story_block("故事原文 1") + STORY_TABLE,
-                story_block("故事原文 3") + STORY_TABLE,
+                story_block("故事原文 1"),
+                story_block("故事原文 3"),
             ),
         )
         self.assert_caught(text, "第 2 段应写")
@@ -333,38 +333,46 @@ class NoteContentValidationTest(unittest.TestCase):
         text = with_menu_section(
             note_text(),
             story_section(
-                story_block("故事原文 1") + STORY_TABLE,
-                story_block("故事原文 2"),
+                story_block("故事原文 1"),
+                story_block("故事原文 2", table=False),
             ),
         )
-        self.assert_caught(text, "故事原文 2 后面必须紧跟收尾三列表")
+        self.assert_caught(text, "故事原文 2 折叠块内必须包含收尾三列表")
+
+    def test_story_table_outside_the_block_is_rejected(self) -> None:
+        """收尾三列表必须折叠进故事原文块内，留在块外要被拦下。"""
+        text = with_file_level_section(
+            note_text(),
+            story_section(story_block("故事原文", table=False) + STORY_TABLE),
+        )
+        self.assert_caught(text, "表格不要留在")
 
     def test_two_complete_story_blocks_pass(self) -> None:
         text = with_file_level_section(
             note_text(),
             story_section(
-                story_block("故事原文 1") + STORY_TABLE,
-                story_block("故事原文 2") + STORY_TABLE,
+                story_block("故事原文 1"),
+                story_block("故事原文 2"),
             ),
         )
         self.assertEqual(self.check(text), [])
 
     def test_single_story_block_must_not_be_numbered(self) -> None:
         text = with_file_level_section(
-            note_text(), story_section(story_block("故事原文 1") + STORY_TABLE)
+            note_text(), story_section(story_block("故事原文 1"))
         )
         self.assert_caught(text, "不要编号")
 
     def test_single_story_block_without_number_passes(self) -> None:
         text = with_file_level_section(
-            note_text(), story_section(story_block("故事原文") + STORY_TABLE)
+            note_text(), story_section(story_block("故事原文"))
         )
         self.assertEqual(self.check(text), [])
 
     def test_story_section_in_a_round_block_is_rejected(self) -> None:
         """小故事属于文件级讲解区：留在日期区块里必须被拦下。"""
         text = with_menu_section(
-            note_text(), story_section(story_block("故事原文") + STORY_TABLE)
+            note_text(), story_section(story_block("故事原文"))
         )
         self.assert_caught(text, "日期区块只放习题")
 

@@ -448,6 +448,9 @@ class MenuItemNoteTest(unittest.TestCase):
         story_block = (
             "<details>\n<summary>故事原文</summary>\n\n"
             f"{body}\n\n（第 1 段译文）\n\n"
+            "| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |\n"
+            "|---|---|---|\n"
+            "| 第 1 段 | 提醒代价 | 固定搭配 |\n\n"
             "</details>\n\n"
             if block
             else ""
@@ -457,9 +460,6 @@ class MenuItemNoteTest(unittest.TestCase):
             "**讲解要点**：\n\n"
             "- 目标表达的落点\n  - There is always a price to pay.（总要付出代价。）\n\n"
             + story_block
-            + "| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |\n"
-            "|---|---|---|\n"
-            "| 第 1 段 | 提醒代价 | 固定搭配 |\n"
         )
 
     def test_story_section_without_story_text_is_rejected(self) -> None:

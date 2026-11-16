@@ -268,9 +268,9 @@ class NoteAppendTest(unittest.TestCase):
             story_heading
             + "\n\n**讲解要点**：\n- 旧的一条\n"
             "  - `There is a price to pay.`（总要付出代价。）\n\n"
-            "<details>\n<summary>故事原文</summary>\n\nLine one. Line two.\n\n</details>\n\n"
+            "<details>\n<summary>故事原文</summary>\n\nLine one. Line two.\n\n"
             "| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |\n"
-            "|---|---|---|\n| 第 1 段 | 代价 | 固定搭配 |\n",
+            "|---|---|---|\n| 第 1 段 | 代价 | 固定搭配 |\n\n</details>\n\n",
         )
         with self.assertRaises(NoteError) as caught:
             self.store.append_explain_section(
@@ -287,20 +287,22 @@ class NoteAppendTest(unittest.TestCase):
         heading = "## 读一个围绕 a price to pay 的小故事"
         table = (
             "\n| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |\n"
-            "|---|---|---|\n| 第 1 段 | 代价 | 固定搭配 |\n"
+            "|---|---|---|\n| 第 1 段 | 代价 | 固定搭配 |\n\n"
         )
         self.store.append_explain_section(
             self.note,
             heading
             + "\n\n**讲解要点**：\n- 一条要点\n  - `There is a price to pay.`（总要付出代价。）\n\n"
-            "<details>\n<summary>故事原文</summary>\n\nFirst story.\n\n</details>\n"
-            + table,
+            "<details>\n<summary>故事原文</summary>\n\nFirst story.\n"
+            + table
+            + "</details>\n",
         )
         self.store.append_explain_part(
             self.note,
             heading,
-            "<details>\n<summary>故事原文 2</summary>\n\nSecond story.\n\n</details>\n"
-            + table,
+            "<details>\n<summary>故事原文 2</summary>\n\nSecond story.\n"
+            + table
+            + "</details>\n",
         )
         with self.assertRaises(NoteError) as caught:
             self.store.append_explain_section(
@@ -319,9 +321,9 @@ class NoteAppendTest(unittest.TestCase):
         self._note_with_explanation()
         story_heading = "## 读一个围绕 a price to pay 的小故事"
         story_source = (
-            "<details>\n<summary>故事原文</summary>\n\nLine one. Line two.\n\n</details>\n\n"
+            "<details>\n<summary>故事原文</summary>\n\nLine one. Line two.\n\n"
             "| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |\n"
-            "|---|---|---|\n| 第 1 段 | 代价 | 固定搭配 |\n"
+            "|---|---|---|\n| 第 1 段 | 代价 | 固定搭配 |\n\n</details>\n\n"
         )
         self.store.append_explain_section(
             self.note,
