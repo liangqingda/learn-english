@@ -56,6 +56,14 @@ SYNCABLE_ROWS = {
     "累计复习次数": ROUND_COUNT_ROW_RE,
     "下次复习": NEXT_REVIEW_ROW_RE,
 }
+# 每个带习题的小节（含 `## 本轮习题`）的表格首行：这一节写进笔记的真实时刻。
+# 它只在小节首次落盘时盖章，之后重写、补题、重建索引都原样保留；讲解区的
+# `复习历史` 链接文案与锚点 id 都从这个值取时间，不再拿日期区块标题当时间来源。
+GENERATED_AT_FIELD = "生成时间"
+GENERATED_AT_ROW_RE = re.compile(
+    r"<tr><td>\s*生成时间\s*</td><td>(?P<value>[^<]*)</td></tr>"
+)
+GENERATED_AT_STAMP_RE = re.compile(r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$")
 # 文件级「基础信息」折叠块：整份笔记唯一一份，只随第一个区块一起写入
 BASIC_HEAD_RE = re.compile(r"^## 基础信息\s*\n.*?(?=^# )", re.S | re.M)
 # 讲解是一个知识点唯一的一份说明，写成文件级小节，不参与轮次编号
@@ -169,6 +177,11 @@ def _strip_practice_index(text: str) -> str:
     while lines and not lines[-1].strip():
         lines.pop()
     return "\n".join(lines)
+
+
+def _without_generated_at(text: str) -> str:
+    """去掉 `生成时间` 行，用于判重：写入时盖章，重试的同一份内容不会因此被判成新的。"""
+    return GENERATED_AT_ROW_RE.sub("", _normalize_text(text))
 
 
 def _comparable(text: str) -> str:
@@ -315,6 +328,90 @@ def section_index_labels(items: list[tuple[str, str]]) -> list[str]:
     return labels
 
 
+def generated_at(text: str) -> str | None:
+    """读一节表格里的 `生成时间`（`YYYY-MM-DD HH:MM`）；没有或格式不对时返回 None。"""
+    match = GENERATED_AT_ROW_RE.search(_normalize_text(text))
+    if not match:
+        return None
+    stamp = match.group("value").strip()
+    return stamp if GENERATED_AT_STAMP_RE.match(stamp) else None
+
+
+def _stamp_one_table(text: str, stamp: str) -> str:
+    """给一节里的第一张表补一行 `生成时间`；已经有这一行时一字不动。"""
+    start = text.find("<table")
+    if start == -1:
+        return text
+    close = "</table>"
+    end = text.find(close, start)
+    if end == -1:
+        return text
+    table = text[start : end + len(close)]
+    if GENERATED_AT_ROW_RE.search(table):
+        return text
+    colgroup = table.find("</colgroup>")
+    insert_at = table.find("\n", colgroup) + 1 if colgroup != -1 else table.find("\n") + 1
+    if insert_at == 0:
+        insert_at = 0
+    row = f"<tr><td>{GENERATED_AT_FIELD}</td><td>{stamp}</td></tr>\n"
+    table = table[:insert_at] + row + table[insert_at:]
+    return text[:start] + table + text[end + len(close) :]
+
+
+def fill_generated_at(
+    text: str, stamp: str, overrides: dict[str, str] | None = None
+) -> str:
+    """给每个 `## ` 小节的第一张表盖上 `生成时间`。
+
+    `overrides`（小节标题 → 时间）用来在重写时保留原有值：`生成时间` 只在小节首次
+    落盘时盖章，之后的补题、重写、索引重建都不改它。
+    """
+    overrides = overrides or {}
+    parts = re.split(r"(?m)^(?=## )", _normalize_text(text))
+    filled: list[str] = []
+    for part in parts:
+        heading = part.split("\n", 1)[0].strip() if part.startswith("## ") else ""
+        filled.append(_stamp_one_table(part, overrides.get(heading, stamp)))
+    return "".join(filled)
+
+
+def _now_stamp(when: datetime | None = None) -> str:
+    """写入时刻的 `生成时间` 文本：小节首次落盘时盖一次，之后不再变动。"""
+    return (when or datetime.now()).strftime("%Y-%m-%d %H:%M")
+
+
+def generated_at_by_line(lines: list[str]) -> dict[int, str]:
+    """`## 小节` 标题所在行号 → 该节的 `生成时间`；缺这一行时回落到区块标题时间。"""
+    stamps: dict[int, str] = {}
+    date: str | None = None
+    time: str | None = None
+    section_line: int | None = None
+    for index, line in enumerate(lines):
+        heading = HEADING_RE.match(line.strip())
+        if heading:
+            if section_line is not None and date and time:
+                stamps.setdefault(section_line, f"{date} {time}")
+            date, time = heading.group("date"), heading.group("time")
+            section_line = None
+            continue
+        if line.startswith("## "):
+            if section_line is not None and date and time:
+                stamps.setdefault(section_line, f"{date} {time}")
+            section_line = index
+            continue
+        if section_line is not None:
+            match = GENERATED_AT_ROW_RE.search(line)
+            if match:
+                value = match.group("value").strip()
+                if GENERATED_AT_STAMP_RE.match(value):
+                    stamps[section_line] = value
+                else:
+                    stamps.setdefault(section_line, "?")
+    if section_line is not None and date and time:
+        stamps.setdefault(section_line, f"{date} {time}")
+    return {line: value for line, value in stamps.items() if value != "?"}
+
+
 def round_anchor_id(date: str, time: str) -> str:
     """日期区块里 `## 本轮习题` 的锚点；一个区块固定一份，用日期 + 时间即可唯一。"""
     return f"round-{date}-{time.replace(':', '')}"
@@ -323,13 +420,14 @@ def round_anchor_id(date: str, time: str) -> str:
 def practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str]]]:
     """菜单项 → [(索引展示文本, 锚点 id)]，按时间倒序排列（新的在前）。
 
-    展示文本与日期区块标题同口径（`<date> <HH:MM> · <kind>`）；同一天同一菜单项有多份时
-    按时间先后补 ` - 01`、` - 02`，不由标题里的后缀决定，避免手改标题影响目录。同一区块里
-    重复练同一菜单项时两份小节时间相同，按标题序号排先后，并各自带上序号锚点。
+    时间取该小节表格里的 `生成时间`（这一节真正写进笔记的时刻），不取日期区块标题；
+    同一天同一菜单项有多份时按时间先后补 ` - 01`、` - 02`，同一分钟落到两份时再按
+    标题序号区分，锚点 id 与展示文本用的是同一个时间。
     """
+    stamps = generated_at_by_line(lines)
     occurrences: dict[str, list[tuple[str, str, int | None]]] = {}
     date = time = kind = None
-    for line in lines:
+    for index, line in enumerate(lines):
         stripped = _split_inline_anchor(line.strip())[0]
         heading = HEADING_RE.match(stripped)
         if heading:
@@ -340,7 +438,8 @@ def practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str]]]:
         base, seq = _section_base(stripped)
         if base == f"## {QUIZ_SECTION}":
             continue
-        occurrences.setdefault(base, []).append((f"{date} {time}", kind, seq))
+        stamp = stamps.get(index) or f"{date} {time}"
+        occurrences.setdefault(base, []).append((stamp, kind, seq))
     grouped: dict[str, list[tuple[str, str]]] = {}
     for base, items in occurrences.items():
         ordered = sorted(items, key=lambda item: (item[0], item[2] or 0))
@@ -407,6 +506,7 @@ def apply_practice_index(text: str) -> str:
     """
     lines = _normalize_text(text).split("\n")
     entries = practice_entries(lines)
+    stamps = generated_at_by_line(lines)
     rounds = _round_entries(lines)
     out: list[str] = []
     index = 0
@@ -448,6 +548,11 @@ def apply_practice_index(text: str) -> str:
                         date, time = heading.group("date"), heading.group("time")
                         break
                 out.append(title)
+                stamp = stamps.get(index)
+                # `## 本轮习题` 的锚点标的是这一轮开始的时间（与区块标题一致）；
+                # 只有带菜单项标题的习题小节才用表格里的 `生成时间`。
+                if stamp and base != f"## {QUIZ_SECTION}":
+                    date, time = stamp[:10], stamp[11:]
                 index += 1
                 if date and time:
                     anchor = (
@@ -931,6 +1036,7 @@ class NoteStore:
         head, raw_block = _split_head(content)
         block = _normalize_block(raw_block)
         _check_round_sections(block)
+        block = fill_generated_at(block, _now_stamp())
         declared = RECORD_ID_ROW_RE.search(content)
         if declared and not target.exists():
             tracked = self.find_note_for_record(declared.group(1).strip())
@@ -948,7 +1054,9 @@ class NoteStore:
                 written = next(
                     item for item in existing_blocks if item[0] == requested_heading
                 )
-                if _comparable(written[1]) == _comparable(block):
+                if _comparable(_without_generated_at(written[1])) == _comparable(
+                    _without_generated_at(block)
+                ):
                     return {
                         "ok": True,
                         "appended": False,
@@ -1230,6 +1338,12 @@ class NoteStore:
             # 所以锁内把「旧有但新内容没带上」的小节原样保留在区块末尾，
             # 只有调用方显式列出的小节才允许真的删掉。
             existing_sections = _sections("\n".join(lines[start:end]))
+            keep_stamps = {
+                section_heading: stamp
+                for section_heading, body in existing_sections
+                if (stamp := generated_at(body))
+            }
+            block = fill_generated_at(block, _now_stamp(), keep_stamps)
             replacement_sections = {heading for heading, _ in _sections(block)}
             preserved = [
                 (section_heading, body)
@@ -1299,6 +1413,7 @@ class NoteStore:
         section = _normalize_text(content).strip("\n")
         if not section:
             raise NoteError("note section is empty")
+        section = fill_generated_at(section, _now_stamp())
         first = section.split("\n")[0].strip()
         if not first.startswith("## "):
             raise NoteError("a note section must start with a '## ' heading")
@@ -1337,7 +1452,9 @@ class NoteStore:
             for existing_heading, body in _sections("\n".join(block_lines)):
                 if _section_base(existing_heading)[0] != incoming_base:
                     continue
-                if _comparable(body) == _comparable(section):
+                if _comparable(_without_generated_at(body)) == _comparable(
+                    _without_generated_at(section)
+                ):
                     return {
                         "ok": True,
                         "appended_section": False,

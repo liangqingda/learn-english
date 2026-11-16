@@ -165,8 +165,8 @@ By four in the morning the corridor lights came back on, and phones along the co
 
 复习历史：
 <!-- practice-index -->
-- [2026-11-16 20:20 · 复习 - 02](#practice-2026-11-16-2020-4bbcee55-02)
-- [2026-11-16 20:20 · 复习 - 01](#practice-2026-11-16-2020-4bbcee55-01)
+- [2026-11-16 21:22 · 复习 - 02](#practice-2026-11-16-2122-4bbcee55-02)
+- [2026-11-16 20:39 · 复习 - 01](#practice-2026-11-16-2039-4bbcee55-01)
 <!-- /practice-index -->
 
 ## 扩展「as soon as 与 as long as 的区别」相关词汇和搭配
@@ -189,7 +189,7 @@ By four in the morning the corridor lights came back on, and phones along the co
 
 复习历史：
 <!-- practice-index -->
-- [2026-11-16 20:20 · 复习](#practice-2026-11-16-2020-3540aa22)
+- [2026-11-16 20:54 · 复习](#practice-2026-11-16-2054-3540aa22)
 <!-- /practice-index -->
 
 ## 对比「as soon as 与 as long as 的区别」和相近表达
@@ -212,7 +212,7 @@ By four in the morning the corridor lights came back on, and phones along the co
 
 复习历史：
 <!-- practice-index -->
-- [2026-11-16 20:20 · 复习](#practice-2026-11-16-2020-f0f5c658)
+- [2026-11-16 21:08 · 复习](#practice-2026-11-16-2108-f0f5c658)
 <!-- /practice-index -->
 
 ## 用「as soon as 与 as long as 的区别」做翻译和改写练习
@@ -237,7 +237,7 @@ By four in the morning the corridor lights came back on, and phones along the co
 
 复习历史：
 <!-- practice-index -->
-- [2026-11-16 20:20 · 复习](#practice-2026-11-16-2020-310bcee6)
+- [2026-11-16 21:14 · 复习](#practice-2026-11-16-2114-310bcee6)
 <!-- /practice-index -->
 
 # 2026-11-16 20:20 · 复习
@@ -246,7 +246,7 @@ By four in the morning the corridor lights came back on, and phones along the co
 
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
-<tr><td>复习时间</td><td>2026-11-16 20:20</td></tr>
+<tr><td>生成时间</td><td>2026-11-16 20:24</td></tr>
 <tr><td>分类 · 状态变化</td><td>errors · learning → familiar</td></tr>
 <tr><td>本轮得分</td><td>8 / 10</td></tr>
 <tr><td>题量与错题数</td><td>6 题 / 6 处错误</td></tr>
@@ -428,10 +428,11 @@ By four in the morning the corridor lights came back on, and phones along the co
 
 </details>
 
-## 练习「as soon as 与 as long as 的区别」的关键语法结构 - 01 <a id="practice-2026-11-16-2020-4bbcee55-01"></a>
+## 练习「as soon as 与 as long as 的区别」的关键语法结构 - 01 <a id="practice-2026-11-16-2039-4bbcee55-01"></a>
 
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
+<tr><td>生成时间</td><td>2026-11-16 20:39</td></tr>
 <tr><td>本轮得分</td><td>7 / 10</td></tr>
 <tr><td>题量与错题数</td><td>6 题 / 2 处错误</td></tr>
 </table>
@@ -573,10 +574,11 @@ The alarm went off. Everyone left the building at once.
 
 </details>
 
-## 扩展「as soon as 与 as long as 的区别」相关词汇和搭配 <a id="practice-2026-11-16-2020-3540aa22"></a>
+## 扩展「as soon as 与 as long as 的区别」相关词汇和搭配 <a id="practice-2026-11-16-2054-3540aa22"></a>
 
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
+<tr><td>生成时间</td><td>2026-11-16 20:54</td></tr>
 <tr><td>本轮得分</td><td>7 / 10</td></tr>
 <tr><td>题量与错题数</td><td>6 题 / 4 处错误</td></tr>
 </table>
@@ -739,10 +741,11 @@ The interview ended. She called her parents.
 
 </details>
 
-## 对比「as soon as 与 as long as 的区别」和相近表达 <a id="practice-2026-11-16-2020-f0f5c658"></a>
+## 对比「as soon as 与 as long as 的区别」和相近表达 <a id="practice-2026-11-16-2108-f0f5c658"></a>
 
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
+<tr><td>生成时间</td><td>2026-11-16 21:08</td></tr>
 <tr><td>本轮得分</td><td>7 / 10</td></tr>
 <tr><td>题量与错题数</td><td>6 题 / 5 处错误</td></tr>
 </table>
@@ -917,10 +920,11 @@ As long as I know, she has worked here for ten years.
 
 </details>
 
-## 用「as soon as 与 as long as 的区别」做翻译和改写练习 <a id="practice-2026-11-16-2020-310bcee6"></a>
+## 用「as soon as 与 as long as 的区别」做翻译和改写练习 <a id="practice-2026-11-16-2114-310bcee6"></a>
 
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
+<tr><td>生成时间</td><td>2026-11-16 21:14</td></tr>
 <tr><td>本轮得分</td><td>5 / 10</td></tr>
 <tr><td>题量与错题数</td><td>6 题 / 6 处错误</td></tr>
 </table>
@@ -1098,10 +1102,11 @@ As soon as he stepped in, the room went quiet.
 
 </details>
 
-## 练习「as soon as 与 as long as 的区别」的关键语法结构 - 02 <a id="practice-2026-11-16-2020-4bbcee55-02"></a>
+## 练习「as soon as 与 as long as 的区别」的关键语法结构 - 02 <a id="practice-2026-11-16-2122-4bbcee55-02"></a>
 
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
+<tr><td>生成时间</td><td>2026-11-16 21:22</td></tr>
 <tr><td>本轮得分</td><td>5 / 10</td></tr>
 <tr><td>题量与错题数</td><td>6 题 / 5 处错误</td></tr>
 </table>

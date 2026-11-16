@@ -31,6 +31,7 @@ from note_store import (  # noqa: E402
     ROUND_INDEX_START,
     apply_practice_index,
     day_labels,
+    generated_at_by_line,
     section_index_labels,
     practice_anchor_id,
     round_anchor_id,
@@ -48,7 +49,7 @@ BASIC_ROWS = [
 
 # 每个轮次区块「本轮信息」：只记这一轮发生过什么
 ROUND_ROWS = [
-    "复习时间",
+    "生成时间",
     "分类 · 状态变化",
     "本轮得分",
     "题量与错题数",
@@ -56,6 +57,7 @@ ROUND_ROWS = [
 
 # 带习题的菜单项小节：只记这一节题组的得分与题量，得分不写入规范记录
 MENU_ROWS = [
+    "生成时间",
     "本轮得分",
     "题量与错题数",
 ]
@@ -350,10 +352,11 @@ INDEX_ITEM_RE = re.compile(r"^- \[(?P<label>[^\]]+)\]\(#(?P<id>[^)]+)\)$")
 def practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str, str, str]]]:
     """菜单项 → [(展示文本, 实际锚点, 应有锚点, 行号)]，按时间倒序；行号取小节标题行。
 
-    展示文本与日期区块标题同口径（`日期 时间 · 类型`），同一天同一菜单项多份按时间先后补
-    ` - 01`、` - 02`，与写入命令一致；同一区块里重复练同一菜单项时按标题序号排先后，
-    锚点也带上序号。
+    展示文本的时间取该小节表格里的 `生成时间`（小节真正落盘的时刻），与写入命令一致；
+    同一天同一菜单项多份按时间先后补 ` - 01`、` - 02`，同一分钟落到两份时再按标题序号排，
+    锚点 id 用同一个时间拼成。
     """
+    stamps = generated_at_by_line(lines)
     occurrences: dict[str, list[tuple[str, str, int | None, str, str, str]]] = {}
     date = time = kind = None
     for index, line in enumerate(lines):
@@ -370,9 +373,10 @@ def practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str, str, st
         base, seq = split_section_seq(title)
         anchor_match = INLINE_ANCHOR_RE.search(line.rstrip())
         anchor = anchor_match.group("id") if anchor_match else ""
-        expected = practice_anchor_id(date, time, f"## {base}", seq)
+        stamp = stamps.get(index) or f"{date} {time}"
+        expected = practice_anchor_id(stamp[:10], stamp[11:], f"## {base}", seq)
         occurrences.setdefault(base, []).append(
-            (f"{date} {time}", kind, seq, anchor, expected, str(index + 1))
+            (stamp, kind, seq, anchor, expected, str(index + 1))
         )
     grouped: dict[str, list[tuple[str, str, str, str]]] = {}
     for base, items in occurrences.items():
@@ -1257,7 +1261,7 @@ def check(path: Path) -> list[dict]:
                 )
             break
 
-        # 本轮信息表写在 `## 本轮习题` 之下；带习题的菜单项小节各带一张两行表
+        # 本轮信息表写在 `## 本轮习题` 之下；带习题的菜单项小节各带一张三行表
         groups: list[tuple[int, str, int]] = []
         for gidx, k in enumerate(group_heads):
             title = SECTION2_RE.match(body[k]).group(1).strip()
@@ -1297,12 +1301,20 @@ def check(path: Path) -> list[dict]:
                     required=True,
                 )
                 stamp_text = f"{date} {time}"
-                review_time = quiz_tracking.get("复习时间", "")
-                if review_time and review_time != stamp_text:
+                generated_at = quiz_tracking.get("生成时间", "")
+                if generated_at and not TIMESTAMP_RE.match(generated_at):
                     add(
-                        quiz_row_lines.get("复习时间", row_line),
-                        f"`复习时间` 必须与轮次标题时间一致：应为 `{stamp_text}`，当前为 `{review_time}`",
+                        quiz_row_lines.get("生成时间", row_line),
+                        f"`生成时间` 必须写成 `YYYY-MM-DD HH:MM`：当前为 `{generated_at}`",
                     )
+                elif generated_at and TIMESTAMP_RE.match(generated_at):
+                    # 生成时间是小节真正落盘的时刻，可以晚于本轮开始时间，
+                    # 但不能早于它——那说明这一行是从别处抄来的。
+                    if generated_at < stamp_text:
+                        add(
+                            quiz_row_lines.get("生成时间", row_line),
+                            f"`生成时间` 不得早于轮次标题时间 `{stamp_text}`：当前为 `{generated_at}`",
+                        )
                 transition = quiz_tracking.get("分类 · 状态变化", "")
                 if transition and not TRANSITION_RE.match(transition):
                     add(
@@ -1336,6 +1348,12 @@ def check(path: Path) -> list[dict]:
                 if not tracking:
                     continue
                 menu_trackings[g_title] = tracking
+                section_stamp = tracking.get("生成时间", "")
+                if section_stamp and not TIMESTAMP_RE.match(section_stamp):
+                    add(
+                        tracking_rows.get("生成时间", row_line),
+                        f"`生成时间` 必须写成 `YYYY-MM-DD HH:MM`：当前为 `{section_stamp}`",
+                    )
                 score = tracking.get("本轮得分", "")
                 if score and not SCORE_RE.match(score):
                     add(
@@ -1855,7 +1873,7 @@ def apply_safe_fixes(text: str) -> tuple[str, list[str]]:
         lines = [line for index, line in enumerate(lines) if index not in drop]
         fixes.append(f"删掉讲解正文里多余的 `## {TEMPLATE['explain_section']}正文` 标题")
 
-    # 结构迁移：记录级字段上移到文件顶部唯一一份「基础信息」，每轮只留本轮字段并补 `复习时间`
+    # 结构迁移：记录级字段上移到文件顶部唯一一份「基础信息」，每轮只留本轮字段并补 `生成时间`
     headings = [k for k, line in enumerate(lines) if line.startswith("# ") and SECTION_RE.match(line)]
     head_text = "\n".join(lines[: headings[0]]) if headings else "\n".join(lines)
     migrated_split = False
@@ -1899,7 +1917,7 @@ def apply_safe_fixes(text: str) -> tuple[str, list[str]]:
                     continue
                 rebuilt.append(line)
                 if not inserted_time and "<colgroup>" in line:
-                    rebuilt.append(f"<tr><td>复习时间</td><td>{stamp}</td></tr>")
+                    rebuilt.append(f"<tr><td>生成时间</td><td>{stamp}</td></tr>")
                     inserted_time = True
         head_lines = [
             f"<details>",
@@ -1920,7 +1938,7 @@ def apply_safe_fixes(text: str) -> tuple[str, list[str]]:
         migrated_split = True
     if migrated_split:
         fixes.append(
-            f"把记录级字段上移到文件顶部唯一一份 `{BASIC_SECTION}` 折叠块，并把每轮追踪信息改为 `{ROUND_SECTION}` 且补 `复习时间` 行"
+            f"把记录级字段上移到文件顶部唯一一份 `{BASIC_SECTION}` 折叠块，并把每轮追踪信息改为 `{ROUND_SECTION}` 且补 `生成时间` 行"
         )
 
     # 折叠块写法 → 二级标题固定展示：基础信息与本轮信息都不再收起

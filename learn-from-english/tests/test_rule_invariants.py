@@ -173,7 +173,7 @@ class NoteTemplateTest(unittest.TestCase):
             "笔记更新时间": "2026-11-07 12:05",
         }
         round_values = {
-            "复习时间": "2026-11-07 12:00",
+            "生成时间": "2026-11-07 12:00",
             "分类 · 状态变化": "errors · learning → familiar",
             "本轮得分": "9 / 10",
             "题量与错题数": "1 题 / 1 处错误",

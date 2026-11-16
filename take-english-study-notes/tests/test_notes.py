@@ -747,7 +747,7 @@ VALID_BLOCK = """# {heading}
 
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
-<tr><td>复习时间</td><td>{stamp}</td></tr>
+<tr><td>生成时间</td><td>{stamp}</td></tr>
 <tr><td>分类 · 状态变化</td><td>errors · learning → familiar</td></tr>
 <tr><td>本轮得分</td><td>10 / 10</td></tr>
 <tr><td>题量与错题数</td><td>1 题 / 0 处错误</td></tr>
@@ -814,6 +814,38 @@ class NoteCliTest(unittest.TestCase):
         payload = json.loads(completed.stdout)
         self.assertTrue(payload["appended"])
         self.assertTrue(payload["check"]["ok"])
+
+    def test_cli_append_section_stamps_the_generated_time(self) -> None:
+        """新小节落盘时由写入器盖章 `生成时间`：调用方没写也一定有这一行。"""
+        self.run_cli(
+            ["append", "--file", "learning-record-notes/errors/errors-out-west.md", "--content-file", "-"],
+            block_text(heading="2026-11-09 09:00 · 复习", answer="west"),
+        )
+        section = extra_section("## 扩展练习", "第一题的题干").strip("\n") + "\n"
+        added = self.run_cli(
+            [
+                "append-section",
+                "--file",
+                "learning-record-notes/errors/errors-out-west.md",
+                "--heading",
+                "# 2026-11-09 09:00 · 复习",
+                "--content-file",
+                "-",
+                "--check",
+            ],
+            section,
+        )
+        self.assertEqual(added.returncode, 0, added.stderr)
+        payload = json.loads(added.stdout)
+        self.assertTrue(payload["check"]["ok"], payload["check"]["issues"])
+        text = self.note.read_text(encoding="utf-8")
+        stamp_row = [
+            line
+            for line in text.split("\n")
+            if line.startswith("<tr><td>生成时间</td><td>")
+        ]
+        self.assertTrue(stamp_row)
+        self.assertIn("## 扩展练习", text)
 
     def test_cli_append_part_adds_a_second_exercise_and_still_validates(self) -> None:
         """append-part 只在既有小节里补写题目：小节数不变，笔记仍然通过校验。"""
@@ -1389,6 +1421,7 @@ class NoteCliTest(unittest.TestCase):
             handle.write(
                 "\n## 练习「out west」的关键语法结构\n\n"
                 '<table style="border-collapse:collapse;width:auto">\n'
+                "<tr><td>生成时间</td><td>2026-11-09 09:07</td></tr>\n"
                 "<tr><td>本轮得分</td><td>6 / 10</td></tr>\n"
                 "<tr><td>题量与错题数</td><td>1 题 / 0 处错误</td></tr>\n"
                 "</table>\n"

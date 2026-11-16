@@ -62,7 +62,7 @@ def note_text(
         "笔记更新时间": "2026-11-07 12:05",
     }
     rows = {
-        "复习时间": stamp,
+        "生成时间": stamp,
         "分类 · 状态变化": "errors · learning → familiar",
         "本轮得分": score,
         "题量与错题数": counts,
@@ -107,7 +107,7 @@ def paper_note_text(*, second_reference: str | None = "第 1 题", second_detail
         "笔记更新时间": "2026-11-07 12:05",
     }
     rows = {
-        "复习时间": "2026-11-07 12:00",
+        "生成时间": "2026-11-07 12:00",
         "分类 · 状态变化": "paper · 未评分",
         "本轮得分": "—",
         "题量与错题数": "2 题 / 0 处错误",
@@ -205,7 +205,7 @@ def second_round(stamp: str, section: str = "") -> str:
         "## 本轮习题\n\n"
         '<table style="border-collapse:collapse;width:auto">\n'
         '<colgroup><col width="150"><col></colgroup>\n'
-        f"<tr><td>复习时间</td><td>{stamp}</td></tr>\n"
+        f"<tr><td>生成时间</td><td>{stamp}</td></tr>\n"
         "<tr><td>分类 · 状态变化</td><td>errors · learning → familiar</td></tr>\n"
         "<tr><td>本轮得分</td><td>9 / 10</td></tr>\n"
         "<tr><td>题量与错题数</td><td>1 题 / 0 处错误</td></tr>\n"
@@ -258,13 +258,16 @@ def menu_practice(title: str = "## 练习「out west」的关键语法结构") -
 
 
 def menu_practice_scored(
-    score: str = "9 / 10", counts: str = "1 题 / 0 处错误"
+    score: str = "9 / 10",
+    counts: str = "1 题 / 0 处错误",
+    stamp: str = "2026-11-06 21:00",
 ) -> str:
-    """带两行得分表的菜单项小节：有习题就计分，得分只落在笔记里。"""
+    """带三行得分表的菜单项小节：有习题就计分，得分只落在笔记里。"""
     title = "## 练习「out west」的关键语法结构"
     table = (
         '<table style="border-collapse:collapse;width:auto">\n'
         '<colgroup><col width="150"><col></colgroup>\n'
+        f"<tr><td>生成时间</td><td>{stamp}</td></tr>\n"
         f"<tr><td>本轮得分</td><td>{score}</td></tr>\n"
         f"<tr><td>题量与错题数</td><td>{counts}</td></tr>\n"
         "</table>\n\n"
@@ -504,6 +507,36 @@ class NoteContentValidationTest(unittest.TestCase):
         # 索引按时间倒序：21:00 在前，12:00 在后
         self.assertIn("(#practice-2026-11-07-2100-", index_ids[0])
         self.assertIn("(#practice-2026-11-07-1200-", index_ids[-1])
+
+    def test_practice_index_time_comes_from_the_generated_time_row(self) -> None:
+        """索引链接的时间取该小节的 `生成时间`，不取日期区块标题：13:10 写的节显示 13:10。"""
+        text = with_file_level_section(
+            note_text() + menu_practice_scored(stamp="2026-11-07 13:10"),
+            "## 练习「out west」的关键语法结构\n\n"
+            "**讲解要点**：\n\n- 方向副词短语\n"
+            "  - `She headed out west.`（她往西边出发。）\n",
+        )
+        text = apply_practice_index(text)
+        self.assertEqual(self.check_raw(text), [])
+        self.assertIn('<a id="practice-2026-11-07-1310-', text)
+        self.assertIn("- [2026-11-07 13:10 · 复习](#practice-2026-11-07-1310-", text)
+
+    def test_menu_section_table_must_start_with_generated_time(self) -> None:
+        """菜单项小节的表首行必须是 `生成时间`：缺了它，索引链接就没有真实时间可写。"""
+        text = with_menu_section(note_text(), menu_practice_scored())
+        text = text.replace(
+            "<tr><td>生成时间</td><td>2026-11-06 21:00</td></tr>\n", "", 1
+        )
+        self.assert_caught(text, "信息表行数与顺序必须与模板一致")
+
+    def test_generated_time_may_not_precede_the_round_heading(self) -> None:
+        """`生成时间` 可以晚于轮次标题时间，但不能更早。"""
+        text = note_text().replace(
+            "<tr><td>生成时间</td><td>2026-11-07 12:00</td></tr>",
+            "<tr><td>生成时间</td><td>2026-11-07 11:50</td></tr>",
+            1,
+        )
+        self.assert_caught(text, "`生成时间` 不得早于轮次标题时间")
 
     def test_fix_reports_nothing_on_an_valid_note(self) -> None:
         """合规文件再跑 `--fix` 必须零修复：标题行右侧的锚点不能被当成序号的一部分。"""
@@ -805,7 +838,7 @@ class NoteContentValidationTest(unittest.TestCase):
         self.assertEqual(self.check(fixed), [])
 
     def test_practice_block_is_counted_in_the_note(self) -> None:
-        """练习轮次的得分写进笔记：本轮信息表带分，菜单项小节各带两行表。"""
+        """练习轮次的得分写进笔记：本轮信息表带分，菜单项小节各带三行表。"""
         self.assertEqual(self.check(practice_note_text()), [])
 
     def test_practice_block_needs_questions(self) -> None:

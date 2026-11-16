@@ -673,6 +673,8 @@ class RecordService:
                 "记录 ID / 试卷 ID": identifier,
                 "分类 · 状态变化": transition,
                 "本轮得分": score_text,
+                # 小节表格首行：这一节写进笔记的真实时刻（先给模型一个值，写入脚本仍会盖章）
+                "生成时间": datetime.now().astimezone().strftime("%Y-%m-%d %H:%M"),
                 "目标知识点": record["title"],
                 "累计复习次数": str(record.get("review_count", 0)),
                 "下次复习": next_text,

@@ -54,7 +54,7 @@ BODY = """## 本轮习题
 
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
-<tr><td>复习时间</td><td>2026-11-16 21:30</td></tr>
+<tr><td>生成时间</td><td>2026-11-16 21:30</td></tr>
 <tr><td>分类 · 状态变化</td><td>errors · learning → familiar</td></tr>
 <tr><td>本轮得分</td><td>10 / 10</td></tr>
 <tr><td>题量与错题数</td><td>1 题 / 0 处错误</td></tr>
@@ -90,7 +90,7 @@ COMPARE_SECTION = {
 
 
 def body_at(stamp: str) -> str:
-    """Same round body, with its `复习时间` stamp moved so it reads as another round."""
+    """Same round body, with its `生成时间` stamp moved so it reads as another round."""
     return BODY.replace("2026-11-16 21:30", stamp)
 
 

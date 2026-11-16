@@ -45,9 +45,9 @@ REPO_ROOT = Path(
 ).expanduser().resolve()
 
 TRACKING_ROW_RE = re.compile(
-    r"<tr><td>(记录 ID / 试卷 ID|目标知识点|累计复习次数|下次复习|分类 · 状态变化|本轮得分|复习时间|主观题得分|笔记生成时间|笔记更新时间)</td><td>(.*?)</td></tr>"
+    r"<tr><td>(记录 ID / 试卷 ID|目标知识点|累计复习次数|下次复习|分类 · 状态变化|本轮得分|生成时间|复习时间|主观题得分|笔记生成时间|笔记更新时间)</td><td>(.*?)</td></tr>"
 )
-TRACKING_SKIP = ("题量与错题数", "主观题得分", "笔记生成时间", "笔记更新时间")
+TRACKING_SKIP = ("题量与错题数", "主观题得分", "生成时间", "笔记生成时间", "笔记更新时间")
 # 这两行的值由规范记录决定，写入后自动回填；其余追踪行不一致仍然报 tracking_mismatch
 SYNCABLE_FIELDS = tuple(SYNCABLE_ROWS)
 
