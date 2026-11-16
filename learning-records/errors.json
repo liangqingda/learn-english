@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 270,
+  "revision": 271,
   "category": "errors",
   "records": {
     "errors:a-few-kinds-of-food-plural": {
@@ -788,21 +788,45 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:as-long-as-not-for-past-trigger": {
+      "id": "errors:as-long-as-not-for-past-trigger",
+      "category": "errors",
+      "key": "as-long-as-not-for-past-trigger",
+      "status": "learning",
+      "title": "as long as 表达前提，不能描述过去一次性触发",
+      "explanation": "as long as 从句要求内容是可反复成立的前提（the door is open / I arrive before eight）。用它配过去时的一次性动作会读成「只要我到了他就笑」，语义不成立；过去叙事的一次性触发交给 as soon as 或 when。",
+      "source": "As long as I arrived, he laughed.",
+      "example": "As long as I arrive before eight, I can join the meeting.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T21:21:46+08:00",
+      "last_learned_at": "2026-11-16T21:21:46+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:as-soon-as-clause-present-not-past": {
       "id": "errors:as-soon-as-clause-present-not-past",
       "category": "errors",
       "key": "as-soon-as-clause-present-not-past",
       "status": "learning",
       "title": "讲将来的 as soon as 从句用一般现在时，不用过去时",
-      "explanation": "as soon as 从句描述尚未发生的触发动作时用一般现在时，将来信息放在主句的 will 上；写成过去时会让从句指向另一条时间线。",
+      "explanation": "as soon as 从句描述尚未发生的触发动作时用一般现在时（arrives / gets / ends），将来信息由主句的 will 承担；写成过去时会让从句落到另一条时间线，与主句的将来指向冲突。",
       "source": "As soon as I arrived, I'll call you.",
-      "example": "As soon as I arrive, I'll call you.",
+      "example": "I'll text you as soon as the parcel arrives.",
       "tags": [
         "review-error"
       ],
       "first_learned_at": "2026-11-16T21:14:06+08:00",
-      "last_learned_at": "2026-11-16T21:14:06+08:00",
-      "learned_count": 1,
+      "last_learned_at": "2026-11-16T21:21:46+08:00",
+      "learned_count": 2,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,
@@ -1635,6 +1659,30 @@
       ],
       "first_learned_at": "2026-11-16T20:54:26+08:00",
       "last_learned_at": "2026-11-16T20:54:26+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:conditional-main-clause-future-tense": {
+      "id": "errors:conditional-main-clause-future-tense",
+      "category": "errors",
+      "key": "conditional-main-clause-future-tense",
+      "status": "learning",
+      "title": "条件从句成立后，主句讲将来要用 will",
+      "explanation": "as long as 等条件从句用一般现在时，主句描述尚未发生的结果时必须加 will；主句用一般现在时会把结果读成习惯性陈述。",
+      "source": "we pay in full",
+      "example": "As long as the goods pass inspection, we'll pay in full.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T21:21:46+08:00",
+      "last_learned_at": "2026-11-16T21:21:46+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -6188,6 +6236,30 @@
       "review_history": [],
       "key": "review-status-under-review-vs-progressive"
     },
+    "errors:rewrite-must-keep-connector": {
+      "id": "errors:rewrite-must-keep-connector",
+      "category": "errors",
+      "key": "rewrite-must-keep-connector",
+      "status": "learning",
+      "title": "「句意不变」的改错不能替换连接词",
+      "explanation": "改错题要求只改错处、句意不变；把 as long as 换成 as soon as 会把「只要……就」变成「一……就」，逻辑关系被换掉，属于改写而不是改错。错在哪层就改哪层。",
+      "source": "As soon as the goods pass inspection, we pay in full.",
+      "example": "As long as the goods pass inspection, we'll pay in full.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T21:21:46+08:00",
+      "last_learned_at": "2026-11-16T21:21:46+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:right-away-vs-soon-for-immediate-action": {
       "id": "errors:right-away-vs-soon-for-immediate-action",
       "category": "errors",
@@ -7185,6 +7257,30 @@
       ],
       "first_learned_at": "2026-11-13T20:49:44+08:00",
       "last_learned_at": "2026-11-13T20:49:44+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:unless-clause-tense-match": {
+      "id": "errors:unless-clause-tense-match",
+      "category": "errors",
+      "key": "unless-clause-tense-match",
+      "status": "learning",
+      "title": "unless 从句与主句时态要落在同一时间层",
+      "explanation": "unless 等于 if not，主句应给出否定结果。从句与主句时态必须一致：讲将来时从句用一般现在时、主句用 won't，不能一个过去一个现在。",
+      "source": "Unless I arrived, you don't laugh",
+      "example": "Unless I arrive, he won't laugh.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T21:21:46+08:00",
+      "last_learned_at": "2026-11-16T21:21:46+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

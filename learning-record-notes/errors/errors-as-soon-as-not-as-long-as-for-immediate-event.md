@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>2</td></tr>
 <tr><td>下次复习</td><td>2026-11-23 20:21</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-16 20:20</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-16 21:14</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-16 21:21</td></tr>
 </table>
 
 ## 讲解
@@ -432,7 +432,7 @@ By four in the morning the corridor lights came back on, and phones along the co
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
 <tr><td>本轮得分</td><td>7 / 10</td></tr>
-<tr><td>题量与错题数</td><td>6 题 / 2 处错误</td></tr>
+<tr><td>题量与错题数</td><td>12 题 / 7 处错误</td></tr>
 </table>
 
 ### 1. 单项选择
@@ -569,6 +569,183 @@ The alarm went off. Everyone left the building at once.
 2. **为什么错**：①写成 As soon as I grow up, I married her，从句用现在时、主句却用过去时 married，时态前后断裂，句子读起来像「已经结婚」。
 3. **英语的表达逻辑**：从句已经用一般现在时代替将来，主句就必须是 will + 动词原形，时态分工不能两边都落空。
 4. **正确表达**：As soon as I grow up, I'll marry her.（我一长大就娶她）；可迁移：As soon as it gets dark, the streetlights will come on.（天一黑路灯就会亮）
+
+</details>
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>本轮得分</td><td>5 / 10</td></tr>
+<tr><td>题量与错题数</td><td>6 题 / 5 处错误</td></tr>
+</table>
+
+### 7. 填空
+
+**题目**：用括号里动词的正确形式填空
+I'll text you as soon as the parcel ____ (arrive).
+
+**我的答案**：arrived
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：主句用 will 时，as soon as 从句讲将来要用一般现在时。
+2. **规则与机制**：I'll text you as soon as the parcel arrives. —— 主句 will text 承担将来，从句 arrives 只交代触发条件。
+3. **英语的表达逻辑**：英语不把 will 带进时间或条件从句，从句的现在时本身就含「将要发生」的意思。
+4. **可迁移表达**：I'll text you as soon as the parcel arrives.（包裹一到我就给你发消息）；We'll start as soon as the last guest arrives.（最后一位客人一到我们就开始）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：讲将来的 as soon as 从句用一般现在时。
+2. **为什么错**：arrived 是过去时，与主句 I'll text 的将来指向冲突；包裹还没到，动作尚未发生，动词只能是 arrives。
+3. **英语的表达逻辑**：英语靠主句的 will 标记将来，从句只回答「什么条件触发」，所以从句不承担将来时。
+4. **正确表达**：I'll text you as soon as the parcel arrives.（包裹一到我就给你发消息）；可迁移：Call me as soon as you get the results.（一拿到结果就给我打电话）
+
+</details>
+
+### 8. 单项选择
+
+**题目**：选择最佳选项填空
+____ had she closed the door when the phone rang.
+A. Hardly
+B. No sooner
+C. As soon as
+D. As long as
+
+**我的答案**：A
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：hardly ... when 是固定的倒装搭配，hardly 置句首时把 had 提到主语前。
+2. **规则与机制**：Hardly had she closed the door when the phone rang. —— 主句部分倒装，when 从句用一般过去时；no sooner 必须配 than，所以 B 不成立。
+3. **英语的表达逻辑**：英语这两套「刚……就……」结构各有固定搭档，连接词不能互换，倒装是句首否定状语的必然结果。
+4. **可迁移表达**：Hardly had she closed the door when the phone rang.（她刚关门电话就响了）；Hardly had we started when the rain came.（我们刚开始就下雨了）
+
+</details>
+
+### 9. 改错
+
+**题目**：只改错处，句意不变
+As long as the goods pass inspection, we pay in full.
+
+**我的答案**：As soon as the goods pass inspection, we pay in full.
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：条件从句成立后，主句讲将来的结果要用 will；改错题的约束是「只改错处，句意不变」。
+2. **规则与机制**：As long as the goods pass inspection, we'll pay in full. —— 从句不动，主句补上 will，句意与原文一致。
+3. **英语的表达逻辑**：英语把条件与结果分成两个时态层次，条件用现在时，结果用将来时；改错时只能动错误的那一层。
+4. **可迁移表达**：As long as the goods pass inspection, we'll pay in full.（只要货物通过检验，我们就全额付款）；As long as you keep the receipt, we'll refund you.（只要保留收据我们就退款）
+
+</details>
+
+<details>
+<summary>错题讲解 1</summary>
+
+1. **考点**：条件句主句讲将来要用 will。
+2. **为什么错**：we pay in full 用一般现在时，读成「我们就付款」的习惯陈述，与「只要通过检验就付款」的将来结果不符；原句真正错的是主句时态，应为 we'll pay。
+3. **英语的表达逻辑**：英语里条件从句承担前提、主句承担结果，结果尚未发生就要用将来时。
+4. **正确表达**：As long as the goods pass inspection, we'll pay in full.（只要货物通过检验，我们就全额付款）；可迁移：If it rains, we'll move the party indoors.（如果下雨，我们就把聚会移到室内）
+
+</details>
+
+<details>
+<summary>错题讲解 2</summary>
+
+1. **考点**：改错题要求「句意不变」，不能替换连接词。
+2. **为什么错**：把 as long as 改成 as soon as 后，句子从「只要通过检验就付款」变成「一通过检验就立刻付款」，条件与时刻的关系被换掉，句意不再相同。
+3. **英语的表达逻辑**：英语里连接词决定句子的逻辑关系，换连接词等于换句意，属于改写而非改错。
+4. **正确表达**：As long as the goods pass inspection, we'll pay in full.（只要货物通过检验，我们就全额付款）；可迁移：As soon as the goods pass inspection, the warehouse will ship them.（货物一通过检验仓库就发货——这才是 as soon as 的位置）
+
+</details>
+
+### 10. 改写
+
+**题目**：用 unless 改写，句意不变
+If you don't book online, you can't get a discount.
+
+**我的答案**：Unless you book online, you can't get a discount.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：unless 等于 if not，改写时去掉从句里的否定词，主句保持否定。
+2. **规则与机制**：If you don't book online 变成 Unless you book online，两个否定（从句否定 + 主句否定）刚好对应「除非……否则不……」。
+3. **英语的表达逻辑**：英语用 unless 一个词承担 if not 的功能，从句回到肯定形式，句子更紧凑。
+4. **可迁移表达**：Unless you book online, you can't get a discount.（除非线上预订，否则拿不到折扣）；Unless you hurry, we'll miss the train.（除非你快点，否则我们要误车）
+
+</details>
+
+### 11. 语境判断
+
+**题目**：语境是「表格明天才交，今天填完就行」，下面哪句符合
+① As long as you finish the form today, you can hand it in tomorrow.
+② As soon as you finish the form today, you can hand it in tomorrow.
+
+**我的答案**：#1
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：as long as 讲前提是否成立，as soon as 讲两个动作紧接发生。
+2. **规则与机制**：语境强调「今天填完」只是允许明天交的条件，交表并不需要紧接着发生，所以用 as long as。
+3. **英语的表达逻辑**：英语用条件连接词表达「满足前提即可」，用时间连接词表达「随后立刻」，语义分工清晰。
+4. **可迁移表达**：As long as you finish the form today, you can hand it in tomorrow.（只要今天填完，明天交也行）；As soon as you finish the form, hand it in.（一填完就交）
+
+</details>
+
+### 12. 综合运用
+
+**题目**：用 as soon as、as long as、unless 各写一句，并注明每句属于「触发时刻」还是「条件前提」
+- ① ____
+- ② ____
+- ③ ____
+
+**我的答案**：① As soon as I arrived, he laughed.（触发时机）② As long as I arrived, he laughed.（条件前提）③ Unless I arrived, you don't laugh（条件前提）
+
+**判定**：⚠️ 部分正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：as soon as 可用于过去叙事（两边都用过去时），as long as 与 unless 讲的是前提，前后时态要协调，而且语义要能成立。
+2. **规则与机制**：As soon as I arrived, he laughed. 成立；但 as long as 描述过去一次性事件会读成「只要我到了他就笑」，语义不成立，过去叙事应改用 as soon as 或 when；unless 句的主句要与从句时态一致，讲将来则用 won't。
+3. **英语的表达逻辑**：英语按「一次性时刻」与「反复成立的前提」分配连接词，时态必须服从句子要表达的时间层。
+4. **可迁移表达**：As soon as I arrived, he laughed.（我一到他笑了）；As long as I arrive before eight, I can join the meeting.（只要我八点前到就能参会）；Unless I arrive before eight, I won't join the meeting.（除非八点前到，否则我不参会）
+
+</details>
+
+<details>
+<summary>错题讲解 1</summary>
+
+1. **考点**：as long as 表达「只要」这种前提，不能用来描述过去的一次性触发。
+2. **为什么错**：As long as I arrived, he laughed 把「我到过」当成一直成立的前提，读起来像「只要我到了，他就笑」，与想表达的「一……就」差得很远；句子本身也可以说不成立。
+3. **英语的表达逻辑**：英语的前提型连接词要求后面的内容是可反复成立的状况，一次性动作要交给时间连接词。
+4. **正确表达**：As long as I arrive before eight, I can join the meeting.（只要我八点前到就能参会）；可迁移：As long as the door is open, you can come in.（只要门开着就可以进来）
+
+</details>
+
+<details>
+<summary>错题讲解 2</summary>
+
+1. **考点**：unless 从句与主句的时态、人称要协调。
+2. **为什么错**：Unless I arrived, you don't laugh 从句用过去时、主句用现在时，时间层断裂；而且 unless 表「除非」，主句应是否定结果，写成 you won't laugh 才与「除非我到，他就不笑」对应。
+3. **英语的表达逻辑**：英语要求主从两个小句在同一时间层上，讲将来的前提与结果都落在将来。
+4. **正确表达**：Unless I arrive, he won't laugh.（除非我到，他不会笑）；可迁移：Unless you confirm today, we won't hold the room.（除非你今天确认，否则我们不留房）
 
 </details>
 
