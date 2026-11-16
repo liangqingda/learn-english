@@ -21,6 +21,9 @@ CI 每次 push 跑这一条。`--fix` 只处理无争议问题：行尾空格、
 并用 `auto_fixed` 回传改了什么。追踪字段的身份值（记录 ID、目标知识点、状态变化、本轮得分、累计复习次数、下次复习）
 同样由写入命令自动比对，不一致时返回 `tracking_mismatch` 与 `tracking_expected`。
 
+`--all` 的返回里还有一节 `missing_notes`：记录库里还没有笔记文件的记录 id（按 `learning-record-notes/<category>/<category>-<key>.md` 判断是否存在），
+只做体检报告、不参与 `ok` 判定——笔记按需生成，这类记录属正常状态，`count` 为 0 时才算全部记录都有笔记。
+
 校验器对**位置**是硬性规则：日期区块里出现 `**讲解要点**：` 或 `<summary>场景对话原文` / `<summary>故事原文` 折叠块，
 一律报「日期区块只放习题」，写入命令（`append` / `replace` / `append-section` / `append-part`）也直接拒绝同样的内容。
 这条规则只拦新写入与现存笔记：现存笔记已按规则迁移完毕，

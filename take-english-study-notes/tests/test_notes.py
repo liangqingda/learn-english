@@ -1349,6 +1349,50 @@ class NoteCliTest(unittest.TestCase):
             note.record_tracking = original
         self.assertEqual(result, {})
 
+    def test_menu_section_score_does_not_override_the_round_score(self) -> None:
+        """同一区块里追加的菜单小节各带自己的 `本轮得分`，不得覆盖轮次得分参与比对。"""
+        import note  # noqa: PLC0415
+
+        expected = {
+            "记录 ID / 试卷 ID": "errors:out-west",
+            "分类 · 状态变化": "errors · learning → familiar",
+            "本轮得分": "10 / 10",
+            "目标知识点": "out west 不是 outwest",
+            "累计复习次数": "2",
+            "下次复习": "2026-11-23 09:00",
+            "笔记生成时间": "2026-11-09 09:05",
+            "笔记更新时间": "2026-11-09 09:05",
+        }
+        self.run_cli(
+            [
+                "append",
+                "--file",
+                "learning-record-notes/errors/errors-out-west.md",
+                "--content-file",
+                "-",
+            ],
+            block_text(heading="2026-11-09 09:00 · 复习", answer="west"),
+        )
+        with self.note.open("a", encoding="utf-8") as handle:
+            handle.write(
+                "\n## 练习「out west」的关键语法结构\n\n"
+                '<table style="border-collapse:collapse;width:auto">\n'
+                "<tr><td>本轮得分</td><td>6 / 10</td></tr>\n"
+                "<tr><td>题量与错题数</td><td>1 题 / 0 处错误</td></tr>\n"
+                "</table>\n"
+            )
+        original = note.record_tracking
+        note.record_tracking = lambda identifier: expected
+        try:
+            result = note.verify_tracking(
+                NoteStore(self.repo),
+                "learning-record-notes/errors/errors-out-west.md",
+                "# 2026-11-09 09:00 · 复习",
+            )
+        finally:
+            note.record_tracking = original
+        self.assertEqual(result, {})
+
 
 def install_stub_record_store(repo: Path, tracking: dict) -> None:
     """Write a minimal learn-from-english CLI so the tracking compare runs offline."""

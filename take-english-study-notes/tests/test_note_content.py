@@ -870,7 +870,68 @@ class NoteContentValidationTest(unittest.TestCase):
             self.assertEqual(len(report["checked"]), 2)
             self.assertNotIn("README.md", report["checked"][0])
 
-    def test_reported_line_points_at_the_offending_row(self) -> None:
+    def test_all_mode_reports_records_without_notes(self) -> None:
+        """笔记按需生成：没有笔记文件的记录只进 missing_notes，不让校验失败。"""
+        import io
+        import json
+        import os
+        from contextlib import redirect_stdout
+        from unittest import mock
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "learning-records").mkdir()
+            (root / "learning-records" / "errors.json").write_text(
+                json.dumps(
+                    {
+                        "records": {
+                            "errors:out-west": {"id": "errors:out-west"},
+                            "errors:out-east": {"id": "errors:out-east"},
+                        }
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+            notes = root / NOTES_DIR / "errors"
+            notes.mkdir(parents=True)
+            (notes / "errors-out-west.md").write_text(
+                apply_practice_index(note_text()), encoding="utf-8"
+            )
+            buffer = io.StringIO()
+            with mock.patch.dict(os.environ, {"LEARN_ENGLISH_REPO_ROOT": str(root)}):
+                with redirect_stdout(buffer):
+                    code = check_note.main(["check_note.py", "--all"])
+            report = json.loads(buffer.getvalue())
+            self.assertEqual(code, 0)
+            self.assertTrue(report["ok"])
+            self.assertEqual(report["missing_notes"]["count"], 1)
+            self.assertEqual(report["missing_notes"]["records"], ["errors:out-east"])
+
+    def test_all_mode_reports_missing_notes_without_any_note_file(self) -> None:
+        import io
+        import json
+        import os
+        from contextlib import redirect_stdout
+        from unittest import mock
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "learning-records").mkdir()
+            (root / "learning-records" / "phrases.json").write_text(
+                json.dumps({"records": {"phrases:as-long-as-it-takes": {}}}, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            buffer = io.StringIO()
+            with mock.patch.dict(os.environ, {"LEARN_ENGLISH_REPO_ROOT": str(root)}):
+                with redirect_stdout(buffer):
+                    code = check_note.main(["check_note.py", "--all"])
+            report = json.loads(buffer.getvalue())
+            self.assertEqual(code, 0)
+            self.assertEqual(report["checked"], [])
+            self.assertEqual(report["missing_notes"]["records"], ["phrases:as-long-as-it-takes"])
+
+
         text = note_text()
         target = next(
             line for line in text.splitlines() if line.startswith("<tr><td>本轮得分")

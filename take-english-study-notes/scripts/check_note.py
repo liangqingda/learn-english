@@ -6,7 +6,8 @@
     python3 take-english-study-notes/scripts/check_note.py --all
     python3 take-english-study-notes/scripts/check_note.py --all --fix
 
-`--all` 校验默认 notes 目录（`$LEARN_ENGLISH_REPO_ROOT/learning-record-notes`）下的全部笔记；
+`--all` 校验默认 notes 目录（`$LEARN_ENGLISH_REPO_ROOT/learning-record-notes`）下的全部笔记，并额外返回
+`missing_notes`（还没有笔记文件的记录清单：笔记按需生成，这一项只报告、不算校验错误）；
 `--fix` 只修可以无争议判定的问题（行尾空格、`我的答案` 的题号前缀、区块之间缺失的 `---`、
 缺失的 `笔记更新时间` 行按 `笔记生成时间` 补齐、把追踪表移进 `追踪信息` 折叠块、去掉旧版的 `## 基础信息` 标题、
 删掉非套题笔记里恒为 `—` 的 `主观题得分` 行），修完再跑一次校验。成功时输出 {"ok": true, "checked": [...]}；失败时输出逐条 issue 并以退出码 1 结束。
@@ -20,6 +21,7 @@ import os
 import re
 import sys
 from pathlib import Path
+from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from note_store import (  # noqa: E402
@@ -1589,6 +1591,58 @@ def repo_root() -> Path:
     return Path(__file__).resolve().parents[2]
 
 
+def record_ids(root: Path) -> list[str]:
+    """Every canonical record id, read straight from the record store's JSON files."""
+    ids: list[str] = []
+    for folder in ("learning-records", "mastered-learning-records"):
+        directory = root / folder
+        if not directory.is_dir():
+            continue
+        for path in sorted(directory.glob("*.json")):
+            try:
+                data = json.loads(path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                continue
+            records = data.get("records", []) if isinstance(data, dict) else data
+            if isinstance(records, dict):
+                # 记录库把记录存成 id → 记录 的映射，键就是稳定 id
+                ids.extend(str(key) for key in records)
+                continue
+            if not isinstance(records, list):
+                continue
+            for record in records:
+                if isinstance(record, dict) and record.get("id"):
+                    ids.append(str(record["id"]))
+    return ids
+
+
+def missing_notes(root: Path) -> list[str]:
+    """Records with no note file yet: notes are written on demand, so this is a report, not an error."""
+    notes_dir = root / NOTE_DIR_NAME
+    missing: list[str] = []
+    for identifier in dict.fromkeys(record_ids(root)):
+        category, _, key = identifier.partition(":")
+        if not category or not key:
+            continue
+        name = f"{category}-{key}.md"
+        # 分类目录里的正常位置，加上尚未迁移的旧式平铺位置，任一处存在就算有笔记
+        if (notes_dir / category / name).is_file() or (notes_dir / name).is_file():
+            continue
+        missing.append(identifier)
+    return missing
+
+
+def missing_notes_report(root: Path) -> dict[str, Any]:
+    """`missing_notes` payload for `--all`: a report, never a validation error."""
+    absent = missing_notes(root)
+    return {
+        "count": len(absent),
+        "records": absent[:50],
+        "truncated": len(absent) > 50,
+        "note": "笔记按需生成：这些记录还没有笔记文件，不构成校验错误",
+    }
+
+
 def all_note_paths() -> list[Path]:
     """Every note file: one level of category directories, plus any flat file still awaiting migration."""
     notes_dir = repo_root() / NOTE_DIR_NAME
@@ -1998,7 +2052,17 @@ def main(argv: list[str]) -> int:
         paths = paths or all_note_paths()
     if not paths:
         if args.all:
-            print(json.dumps({"ok": True, "checked": [], "issues": []}, ensure_ascii=False))
+            print(
+                json.dumps(
+                    {
+                        "ok": True,
+                        "checked": [],
+                        "issues": [],
+                        "missing_notes": missing_notes_report(repo_root()),
+                    },
+                    ensure_ascii=False,
+                )
+            )
             return 0
         print(__doc__)
         return 2
@@ -2006,6 +2070,8 @@ def main(argv: list[str]) -> int:
     report: dict = {"ok": True, "checked": [], "issues": []}
     if args.fix:
         report["fixed"] = []
+    if args.all:
+        report["missing_notes"] = missing_notes_report(repo_root())
     for path in paths:
         if not path.is_file():
             report["ok"] = False

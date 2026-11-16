@@ -31,5 +31,6 @@ python3 learn-from-english/scripts/learning_records.py batch-upsert --input <JSO
 - 记录 `go ahead with`、`move on to`、`continue along` 这类新搭配，或一个新语法/用法差异。
 - 不记录只是重复当前复习记录的规则、普通例句改写、临时练习题、完整示例对话台词、发音提示或用户尚未提交答案的题目。
 - 若一次扩展讲到多个紧密相关的新知识点，合并为一次 `batch-upsert` 批量写入；每条记录使用稳定语义 `key`，选择 `vocabulary`、`phrases`、`grammar` 或 `usage`，不要为了普通新知识点使用 `errors`。
+- `source` 与 `example` 的取句边界：`source` 用本轮讲解里自己讲的那句原句（讲解中真正说明搭配或语法机制的那个句子），`example` 用一句正确、可迁移的代表句。不要拿练习题干、更不要拿用户的作答当 `source` 或 `example` —— 题目和用户答案只属于本轮练习与 `errors` 记录，写进去会把讲解变成贴着用户答案转述，讲不清搭配本身。`tags` 默认 `["follow-up-learning"]`。
 - 若脚本返回匹配到已有记录而不是新建，照常说明“已遇到/更新已有记录”；不要手工改 JSON。
 - 写入失败时仍完成讲解，说明“本轮新知识点未能保存；本轮记录变更已回滚”，并把原始 payload 只保留在当前对话。不要输出得分行与判定表格，只显示“重试保存”和“放弃保存并继续”；重试时原样提交，放弃时清除 payload。若回滚未完整成功，说明可能残留部分变更并停止后续写入。

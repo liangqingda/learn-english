@@ -107,6 +107,23 @@ def record_tracking(identifier: str) -> dict[str, Any] | None:
     return tracking if isinstance(tracking, dict) else None
 
 
+def round_section(block: str) -> str:
+    """区块的第一节：轮次信息表只挂在这里，后面追加的菜单小节各有自己的得分表。"""
+    lines = block.split("\n")
+    start = next((index for index, line in enumerate(lines) if line.startswith("## ")), None)
+    if start is None:
+        return block
+    end = next(
+        (
+            index
+            for index in range(start + 1, len(lines))
+            if lines[index].startswith("## ")
+        ),
+        len(lines),
+    )
+    return "\n".join(lines[start:end])
+
+
 def verify_tracking(note: NoteStore, file: str, heading: str) -> dict[str, Any]:
     """Compare the written tracking rows with the canonical record, so nobody copies them by hand."""
     target = note.resolve(file)
@@ -114,13 +131,14 @@ def verify_tracking(note: NoteStore, file: str, heading: str) -> dict[str, Any]:
     block = next((body for title, body in _split_blocks(text) if title == heading), None)
     if block is None:
         block = ""
-    # 记录级字段在文件顶部的「基础信息」里，本轮字段在目标区块里：先读全文件，再用目标区块覆盖
+    # 记录级字段在文件顶部的「基础信息」里，本轮字段在区块的第一节（轮次表）里：
+    # 同一区块后来追加的菜单小节各自带 `本轮得分`，若一起合并进来就会把本轮得分比错。
     full_rows = {
         field: value.strip() for field, value in TRACKING_ROW_RE.findall(text)
     }
     rows = {
         **full_rows,
-        **{field: value.strip() for field, value in TRACKING_ROW_RE.findall(block)},
+        **{field: value.strip() for field, value in TRACKING_ROW_RE.findall(round_section(block))},
     }
     expected = record_tracking(rows.get("记录 ID / 试卷 ID", ""))
     if expected is None:
