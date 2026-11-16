@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>2</td></tr>
 <tr><td>下次复习</td><td>2026-11-23 20:21</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-16 20:20</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-16 20:55</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-16 20:59</td></tr>
 </table>
 
 ## 讲解
@@ -94,7 +94,7 @@
   - As soon as the light is orange, start baking.（灯一变橙就开始烤）
 
 <details>
-<summary>故事原文</summary>
+<summary>故事原文 1</summary>
 
 Nia started work at four every morning, an hour before the baker, Hal, arrived. She unlocked the back door, switched on the lights, and turned on the old oven. Hal always said that the day began **as soon as** the oven light turned orange. That Tuesday the light stayed dark.
 尼娅每天早上四点上班，比面包师哈尔早到一小时。她打开后门，开灯，再启动那台老烤箱。哈尔总说，烤箱的灯一变橙，这一天就算开始了。可那个星期二，灯一直没亮。
@@ -114,6 +114,36 @@ By seven the shop was full, and the rye sold out before eight. Hal stuck a note 
 | "**As long as** the temperature stays under two hundred, we can't bake anything" | 温度不到两百度是「烤不了」的前提，前提一解除才能开工 | 换成 as soon as 会读成「温度一到两百度就烤不了」，条件和结果整个翻转 |
 | **As soon as** she got back, Hal was already kneeling by the oven | 强调她回来那一刻看到的画面，两个动作前后紧接 | as long as 无法给出「回来那一刻」，只能给出「只要她在场」这种条件 |
 | **as soon as** the light is orange, start baking | 写成操作规矩：灯变橙就立刻进炉，不允许拖 | 换成 as long as 只剩「只要灯是橙的就可以烤」，许可还在，即时性没了 |
+
+</details>
+
+<details>
+<summary>故事原文 2</summary>
+
+The typhoon hit the island at midnight, and Omar, the building's electrician for nineteen years, was already in the basement with his hand lamp. June, the new apprentice, arrived soaked and out of breath. "**As soon as** the wind drops below force eight, we go up to the roof," Omar said. June wrote it down and did not argue.
+
+（台风半夜登陆这座岛。奥马尔在这栋楼做了十九年电工，已经提着手提灯站在地下室。新来的学徒琼浑身湿透、气喘吁吁地赶到。“风一降到八级以下，我们就上楼顶，”奥马尔说。琼把这句话记了下来，没有争。）
+
+At one in the morning the wind eased at last. On the roof a cable swung loose from its bracket, hissing in the rain. "**As long as** the bracket still holds, we can reattach the cable tonight," Omar said. It did not hold: the bracket had cracked, and one end of the cable hung free.
+
+（凌晨一点风终于小了。楼顶上，一根电缆从支架上松脱，在雨里发出嘶嘶的响声。“只要支架还受力，我们今晚就能把电缆重新装回去，”奥马尔说。可支架并不受力：它已经裂了，电缆的一端悬空垂着。）
+
+June reached for the whole cable. "Not tonight," Omar said. "**As long as** that bracket is cracked, the roof isn't safe to stand on for long." They worked from the stairwell instead, pulling the cable in short, counted pulls. **As soon as** the load came off the bracket, June tied the loose end to the handrail.
+
+（琼伸手想去拽整根电缆。“今晚不行，”奥马尔说。“只要那个支架还裂着，楼顶就不适合长时间站人。”他们改从楼梯间动手，一小段一小段地拉，边拉边数。载荷一离开支架，琼就把悬空的那头系到扶手上。）
+
+By four in the morning the corridor lights came back on, and phones along the corridor began to buzz with thank-yous. Omar told June to call the office. "I'll write the report **as soon as** I have checked the last fuse," he said. June laughed: the report could wait. "**As long as** we check the fuses, the report can be late," she said, "but never the cable."
+
+（凌晨四点，走廊的灯重新亮起来，沿走廊的手机陆续响起，都是道谢的消息。奥马尔让琼给办公室打电话。“我把最后一个保险丝查完就写报告，”他说。琼笑了：报告可以晚。“只要保险丝都查过，报告可以晚，”她说，“但电缆永远不能晚。”）
+
+| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |
+|---|---|---|
+| As soon as the wind drops below force eight（第 1 段） | 风一小就上楼顶，说明的是触发那一刻 | 换成 as long as 会变成「风一直小就可以上去」，说的是持续许可，不是那一刻的触发 |
+| As long as the bracket still holds（第 2 段） | 判断能否当晚修好的前提 | 换成 as soon as 会读成「支架一受力就修」，把前提说成了时间点 |
+| As long as that bracket is cracked（第 3 段） | 限制会持续存在的条件：裂着就一直不安全 | as soon as 无法表达「在整个持续期间内」的限制 |
+| As soon as the load came off the bracket（第 3 段） | 载荷离开那一刻，动作立刻接上 | 换成 as long as 会变成「只要载荷离开就一直系绳」，语义不通 |
+| I'll write the report as soon as I have checked the last fuse（第 4 段） | 查完最后一个保险丝就立刻写 | 换成 as long as 会变成「只要查完就可以写」，丢掉「随后立刻」这层 |
+| As long as we check the fuses（第 4 段） | 给宽限的前提：只要查过就行 | 换成 as soon as 会把宽限变成触发动作，逻辑断裂 |
 
 </details>
 
