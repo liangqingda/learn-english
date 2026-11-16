@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 266,
+  "revision": 268,
   "category": "errors",
   "records": {
     "errors:a-few-kinds-of-food-plural": {
@@ -715,6 +715,30 @@
       "mastered_at": null,
       "review_history": [],
       "key": "as-a-kid-missing-article"
+    },
+    "errors:as-far-as-i-know-fixed-phrase": {
+      "id": "errors:as-far-as-i-know-fixed-phrase",
+      "category": "errors",
+      "key": "as-far-as-i-know-fixed-phrase",
+      "status": "learning",
+      "title": "据我所知是 as far as I know，不能换成 only if",
+      "explanation": "as far as I know / as far as I can tell 是固定插入语，靠 as far as 的「范围」义限定说话人的认知边界；only if 表示唯一条件，从句置句首时主句还要倒装，两者功能完全不同。",
+      "source": "Only if I know, she has worked here for ten years.",
+      "example": "As far as I know, she has worked here for ten years.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T21:08:23+08:00",
+      "last_learned_at": "2026-11-16T21:08:23+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:as-long-as-clause-needs-complete-condition": {
       "id": "errors:as-long-as-clause-needs-complete-condition",
@@ -2923,6 +2947,30 @@
       "review_history": [],
       "key": "grow-up-irregular-past-grew"
     },
+    "errors:guarantee-a-seat-not-there-be": {
+      "id": "errors:guarantee-a-seat-not-there-be",
+      "category": "errors",
+      "key": "guarantee-a-seat-not-there-be",
+      "status": "learning",
+      "title": "guarantee 后接名词或双宾语，不用 there be 从句",
+      "explanation": "guarantee 是及物动词，要交出被保证的对象：guarantee a seat / guarantee you a seat / guarantee delivery by Friday。不能用 guarantee + there be 从句的结构。",
+      "source": "we can't guarantee there still are seats",
+      "example": "We can't guarantee you a seat.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T21:08:23+08:00",
+      "last_learned_at": "2026-11-16T21:08:23+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:half-an-hour-article": {
       "id": "errors:half-an-hour-article",
       "category": "errors",
@@ -3107,6 +3155,30 @@
       ],
       "first_learned_at": "2026-11-15T21:09:32+08:00",
       "last_learned_at": "2026-11-15T21:09:32+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:in-advance-not-previously": {
+      "id": "errors:in-advance-not-previously",
+      "category": "errors",
+      "key": "in-advance-not-previously",
+      "status": "learning",
+      "title": "「提前」用 in advance，不用 previously",
+      "explanation": "in advance / ahead of time 表示在某时点之前的预备动作；previously 只表示「以前、先前」，指向过去，不能表达事先做好准备。",
+      "source": "Unless you reserve previously, we can't guarantee there still are seats.",
+      "example": "Unless you book in advance, we can't guarantee a seat.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T21:08:23+08:00",
+      "last_learned_at": "2026-11-16T21:08:23+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -4248,6 +4320,30 @@
       ],
       "key": "on-the-way-used-for-along-this-road"
     },
+    "errors:once-main-clause-future": {
+      "id": "errors:once-main-clause-future",
+      "category": "errors",
+      "key": "once-main-clause-future",
+      "status": "learning",
+      "title": "once 从句用现在时，主句讲将来要加 will",
+      "explanation": "once 引导条件从句时，从句用一般现在时，将来信息放在主句的 will 上；两个小句都用一般现在时会读成习惯动作，与一次性打算不符。",
+      "source": "Once I get off work, I get home.",
+      "example": "Once I get off work, I'll go home.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T21:08:23+08:00",
+      "last_learned_at": "2026-11-16T21:08:23+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:opened-not-closed-for-opening-event": {
       "id": "errors:opened-not-closed-for-opening-event",
       "category": "errors",
@@ -4759,6 +4855,30 @@
         }
       ],
       "key": "past-time-marker-last-night-omitted"
+    },
+    "errors:past-time-marker-needs-past-tense": {
+      "id": "errors:past-time-marker-needs-past-tense",
+      "category": "errors",
+      "key": "past-time-marker-needs-past-tense",
+      "status": "learning",
+      "title": "this morning 等过去时间标记要求过去时",
+      "explanation": "this morning / yesterday / last week 这类已过去的时间标记会把整句拉到过去，谓语必须用过去时；现在时与之搭配会自相矛盾。",
+      "source": "I have vegetables as well as eggs this morning.",
+      "example": "I had vegetables as well as eggs this morning.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T21:08:23+08:00",
+      "last_learned_at": "2026-11-16T21:08:23+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:past-time-used-to-live-present-error": {
       "id": "errors:past-time-used-to-live-present-error",

@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>2</td></tr>
 <tr><td>下次复习</td><td>2026-11-23 20:21</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-16 20:20</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-16 20:59</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-16 21:08</td></tr>
 </table>
 
 ## 讲解
@@ -189,6 +189,29 @@ By four in the morning the corridor lights came back on, and phones along the co
 复习历史：
 <!-- practice-index -->
 - [2026-11-16 20:20 · 复习](#practice-2026-11-16-2020-3540aa22)
+<!-- /practice-index -->
+
+## 对比「as soon as 与 as long as 的区别」和相近表达
+
+**讲解要点**：
+- as soon as 取一个时间点，主句动作紧接发生；once 讲「一旦完成、后续状态就成立」；when 可指一次也可指反复；while 强调过程持续；until 讲动作延续到某点为止。
+  - Call me as soon as you land.（你一落地就打给我）
+  - Once you sign, the room is yours for the semester.（一签完这学期房间就归你用）
+  - The lights flickered while the storm was passing.（暴雨过境期间灯一直在闪）
+- as ... as 家族靠中间那个词区分：soon 讲时间点、long 讲条件或时长、far 讲范围或「就……而言」、much 讲数量、well 讲并列添加。
+  - As far as I know, she has worked here for ten years.（据我所知她在这工作十年了）
+  - The repair cost as much as 2,000 yuan.（维修花了两千元之多）
+  - The kit includes a pump as well as two spare tubes.（套件里有一个打气筒和两根备用内胎）
+- as far as I know 是固定插入语，直接放在句首，不随主语变形；它不能换成 only if，only if 表示唯一条件而且放句首要倒装。
+  - As far as I can tell, the plan works.（据我判断这个方案可行）
+- 条件家族分工：if 中性、as long as 口语「只要」、provided that 正式条款、unless 等于 if not、only if 强调唯一条件。
+  - Unless you book in advance, we can't guarantee a seat.（除非你提前预约，否则我们无法保证有位子）
+- 「提前」用 in advance 或 ahead of time，previously 是「以前」；guarantee 后面接名词或双宾语，不用 there be 从句。
+  - We can't guarantee you a seat.（我们无法保证给你留位子）
+
+复习历史：
+<!-- practice-index -->
+- [2026-11-16 20:20 · 复习](#practice-2026-11-16-2020-f0f5c658)
 <!-- /practice-index -->
 
 # 2026-11-16 20:20 · 复习
@@ -687,5 +710,183 @@ The interview ended. She called her parents.
 2. **规则与机制**：① on the spot 作状语修饰 answered，位置在宾语之后；② 主句 Hardly had I got off work 已经倒装，从句 when my boss called me 用一般过去时。
 3. **英语的表达逻辑**：场所状语（on the spot）与时间连接结构（hardly ... when）各管一层，一个交代位置，一个交代紧接关系。
 4. **可迁移表达**：The guard checked my badge on the spot.（保安当场检查了我的门禁卡）；Hardly had the film started when the power went out.（电影刚开场就停电了）；美式英语里 get 的过去分词更常写 gotten：Hardly had I gotten off work when my boss called.（我刚下班老板就打来电话）
+
+</details>
+
+## 对比「as soon as 与 as long as 的区别」和相近表达 <a id="practice-2026-11-16-2020-f0f5c658"></a>
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>本轮得分</td><td>7 / 10</td></tr>
+<tr><td>题量与错题数</td><td>6 题 / 5 处错误</td></tr>
+</table>
+
+### 1. 语境判断
+
+**题目**：同事约好「到了就打电话」，下面哪句符合这个意思
+① Call me as long as you arrive.
+② Call me as soon as you arrive.
+
+**我的答案**：#2
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：as soon as 取时间点，as long as 讲条件或时长，两者不能互换。
+2. **规则与机制**：as soon as you arrive 的意思是「你一到就打给我」；as long as you arrive 会被读成「只要你到了就可以打」，说的是许可而不是时刻。
+3. **英语的表达逻辑**：英语用 soon 标记「越早越好」的时间点关系，用 long 标记条件是否成立或时长，读者的理解完全取决于中间那个形容词。
+4. **可迁移表达**：Call me as soon as you land.（你一落地就打给我）；Text me as soon as the results come out.（结果一出来就发消息给我）
+
+</details>
+
+### 2. 填空
+
+**题目**：按括号里的中文提示补全句子
+The repair cost ____ 2,000 yuan, far more than we expected.（多达）
+
+**我的答案**：as much as
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：as much as 接数量表示「多达」，是与 as long as / as soon as 形近但意义完全不同的结构。
+2. **规则与机制**：as much as + 数量或不可数名词，强调达到某个程度；后文 far more than we expected 进一步确认这是数量对比。
+3. **英语的表达逻辑**：英语用 much 承接不可数或抽象数量，用 many 承接可数复数，这里的金额属于不可数范畴。
+4. **可迁移表达**：The trip cost us as much as 3,000 yuan.（这趟旅行花了我们三千元之多）；She earns as much as her manager.（她挣得和经理一样多）
+
+</details>
+
+### 3. 单项选择
+
+**题目**：选择最佳选项填空
+The lights flickered ____ the storm was passing.
+A. while
+B. as soon as
+C. once
+D. as long as
+
+**我的答案**：A
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：while 引导的从句表示一段时间内正在进行的动作，主句动作发生在这一过程之中。
+2. **规则与机制**：the storm was passing 用进行体，本身就是一个持续过程，与 while 的「期间」义匹配；as soon as 更常接一次性动作，与进行体过程搭配不自然。
+3. **英语的表达逻辑**：英语用进行体画出一段时间范围，再用 while 把主句事件放进这个范围里，形成「在……期间发生」的关系。
+4. **可迁移表达**：The lights flickered while the storm was passing.（暴雨过境期间灯一直在闪）；She kept quiet while the manager was talking.（经理讲话时她一直没吭声）
+
+</details>
+
+### 4. 改错
+
+**题目**：只改错处，句意不变
+As long as I know, she has worked here for ten years.
+
+**我的答案**：Only if I know, she has worked here for ten years.
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：「据我所知」是固定插入语 as far as I know，靠 as far as 的「范围」义构成，与条件无关。
+2. **规则与机制**：as far as 表示「就……而言」，as far as I know / as far as I can tell 都是定型说法；only if 表示唯一条件，且置于句首时主句要倒装，不能用来表达「据我所知」。
+3. **英语的表达逻辑**：英语用「范围」来限定说话人的认知边界，所以选 far；条件靠 if / unless / as long as 承担。
+4. **可迁移表达**：As far as I know, she has worked here for ten years.（据我所知她在这工作十年了）；As far as I can tell, the plan works.（据我判断这个方案可行）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：as far as I know 是固定插入语，不能用语义无关的连接词替换。
+2. **为什么错**：把 as long as 换成 only if 之后，句子变成「只有我知道，她在这工作十年」，语义完全变了；而且 only if 从句放在句首时主句需要倒装（Only if I know can I tell you），原句语序也不成立。
+3. **英语的表达逻辑**：英语的插入语是定型单位，改一个词就等于换了一个说法；only if 属于条件连接词，不能承担「据……所知」这层功能。
+4. **正确表达**：As far as I know, she has worked here for ten years.（据我所知她在这工作十年了）；可迁移：As far as I remember, the shop closes at nine.（据我记忆，那家店九点关门）
+
+</details>
+
+### 5. 翻译
+
+**题目**：中译英
+除非你提前预约，否则我们无法保证有位子。
+
+**我的答案**：Unless you reserve previously, we can't guarantee there still are seats.
+
+**判定**：⚠️ 部分正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：unless 等于 if not，从句用肯定形式；「提前」译成 in advance 或 ahead of time；guarantee 后面直接跟名词或双宾语。
+2. **规则与机制**：Unless you book in advance, we can't guarantee a seat. 这句里 unless 已经含否定，主句再用否定构成「除非……否则不……」。
+3. **英语的表达逻辑**：英语把「提前」处理成时间上的预备（in advance），把「保证有位子」处理成 guarantee + 名词，而不是 guarantee + 一个完整从句。
+4. **可迁移表达**：Unless you book in advance, we can't guarantee a seat.（除非你提前预约，否则我们无法保证有位子）；We can't guarantee you a table on Friday.（周五我们没法保证给你留桌）
+
+</details>
+
+<details>
+<summary>错题讲解 1</summary>
+
+1. **考点**：「提前」用 in advance / ahead of time，不用 previously。
+2. **为什么错**：previously 的意思是「以前、先前」，指的是过去发生的事，而句子里要表达的是「事先预约」这个动作，两者时间指向完全不同。
+3. **英语的表达逻辑**：英语用 in advance 表示在某个时点之前的预备动作，previously 只陈述过去，不承担预备含义。
+4. **正确表达**：Unless you book in advance, we can't guarantee a seat.（除非你提前预约，否则我们无法保证有位子）；可迁移：Please pay in advance if you book online.（线上预订请提前付款）
+
+</details>
+
+<details>
+<summary>错题讲解 2</summary>
+
+1. **考点**：guarantee 后面接名词或双宾语，不用 there be 从句。
+2. **为什么错**：guarantee there still are seats 把 guarantee 当成可以带从句的动词，语序和搭配都不成立；英语里说 guarantee a seat 或 guarantee you a seat。
+3. **英语的表达逻辑**：guarantee 是及物动词，需要交出被保证的对象（位子），或者用双宾语交出「向谁保证什么」。
+4. **正确表达**：We can't guarantee you a seat.（我们无法保证给你留位子）；可迁移：The shop guarantees the repair for one year.（这家店对维修保修一年）
+
+</details>
+
+### 6. 造句
+
+**题目**：按下面两个要求各写一句
+- ① 用 once 写一句（表示「一旦」）。
+- ② 用 as well as 写一句（表示「以及」）。
+
+**我的答案**：① Once I get off work, I get home. ② I have vegetables as well as eggs this morning.
+
+**判定**：⚠️ 部分正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：once 的从句用一般现在时，主句讲将来时用 will；句子里出现 this morning 这类已过去的时间标记时，谓语要用过去时。
+2. **规则与机制**：Once I get off work, I'll go home. 里从句现在时、主句将来时，符合「一旦……就……」的时态分工；as well as 表示并列添加，连接两个名词时结构正确。
+3. **英语的表达逻辑**：英语让时间标记决定时态：this morning 指已经过去的早晨，动词必须落在过去时。
+4. **可迁移表达**：Once I get off work, I'll go home.（我一到下班时间就回家）；I had vegetables as well as eggs this morning.（今天早上我吃了蔬菜和鸡蛋）
+
+</details>
+
+<details>
+<summary>错题讲解 1</summary>
+
+1. **考点**：once 从句用现在时，主句讲将来要加 will。
+2. **为什么错**：Once I get off work, I get home 两个小句都用一般现在时，读者会读成「每次下班我都回家」的习惯动作，与「一旦下班就回家」的一次性打算不同。
+3. **英语的表达逻辑**：英语把将来信息压在主句的 will 上，从句只交代条件，从句里不出现 will。
+4. **正确表达**：Once I get off work, I'll go home.（我一到下班时间就回家）；可迁移：Once the payment clears, we'll ship the goods.（款项一到账我们就发货）
+
+</details>
+
+<details>
+<summary>错题讲解 2</summary>
+
+1. **考点**：this morning 指已经过去的早晨，谓语用过去时。
+2. **为什么错**：I have ... this morning 用一般现在时搭配过去的时间标记，时态与时间指向冲突；描述今天早上吃过什么要用 had。
+3. **英语的表达逻辑**：英语的时间状语和谓语时态必须一致，过去时间标记会把整句拉到过去。
+4. **正确表达**：I had vegetables as well as eggs this morning.（今天早上我吃了蔬菜和鸡蛋）；可迁移：She called me twice this morning.（今天早上她给我打了两次电话）
 
 </details>
