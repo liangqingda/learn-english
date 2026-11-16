@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>2</td></tr>
 <tr><td>下次复习</td><td>2026-11-23 20:21</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-16 20:20</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-16 21:08</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-16 21:14</td></tr>
 </table>
 
 ## 讲解
@@ -212,6 +212,31 @@ By four in the morning the corridor lights came back on, and phones along the co
 复习历史：
 <!-- practice-index -->
 - [2026-11-16 20:20 · 复习](#practice-2026-11-16-2020-f0f5c658)
+<!-- /practice-index -->
+
+## 用「as soon as 与 as long as 的区别」做翻译和改写练习
+
+**讲解要点**：
+- as soon as 有四种常见形态，语义不变，只是正式度与位置不同：从句前置、从句后置、no sooner ... than 的正式倒装、the moment 的口语名词化。
+  - As soon as the bell rang, the students left the hall.（铃一响学生们就离开了礼堂）
+  - No sooner had the bell rung than the students left the hall.（铃声刚响学生们就离开了礼堂）
+  - The moment the bell rang, the students left the hall.（铃声响起那一刻学生们就离开了礼堂）
+- as long as 与同族条件句可以互相改写：口语 as long as、正式 provided that、if not 用 unless，时长义直接用 as long as + 时长。
+  - As long as you keep the receipt, you can exchange it within a month.（只要留着收据，一个月内都可以换）
+  - Unless you keep the receipt, you can't exchange it.（除非留着收据，否则不能换）
+- 中译英先判语义（时刻还是条件）、再定时态（讲将来从句用一般现在时、主句用 will）、最后定正式度。
+  - I'll call you as soon as I get to the station.（我一到站就给你打电话）
+- 讲将来的 as soon as 从句里不出现 will，也不用过去时。
+  - As soon as I arrive, I'll call you.（我一到就打给你）
+- 改写时容易掉进两类词形坑：「比赛」是名词 competition 或 match，不是动词 compete；「天气」是 weather，whether 表示「是否」。
+  - The competition will go ahead as long as the weather is nice.（只要天气好比赛就照常进行）
+- no sooner ... than 的 than 从句要有完整谓语；as long as 从句讲将来用一般现在时，不用现在完成时。
+  - No sooner had he stepped in than the room went quiet.（他刚走进来房间就静了下来）
+  - You can come back as long as the activity is still going on.（只要活动还在进行你就可以回来）
+
+复习历史：
+<!-- practice-index -->
+- [2026-11-16 20:20 · 复习](#practice-2026-11-16-2020-310bcee6)
 <!-- /practice-index -->
 
 # 2026-11-16 20:20 · 复习
@@ -888,5 +913,186 @@ As long as I know, she has worked here for ten years.
 2. **为什么错**：I have ... this morning 用一般现在时搭配过去的时间标记，时态与时间指向冲突；描述今天早上吃过什么要用 had。
 3. **英语的表达逻辑**：英语的时间状语和谓语时态必须一致，过去时间标记会把整句拉到过去。
 4. **正确表达**：I had vegetables as well as eggs this morning.（今天早上我吃了蔬菜和鸡蛋）；可迁移：She called me twice this morning.（今天早上她给我打了两次电话）
+
+</details>
+
+## 用「as soon as 与 as long as 的区别」做翻译和改写练习 <a id="practice-2026-11-16-2020-310bcee6"></a>
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>本轮得分</td><td>5 / 10</td></tr>
+<tr><td>题量与错题数</td><td>6 题 / 6 处错误</td></tr>
+</table>
+
+### 1. 改写
+
+**题目**：用 as soon as 把两句合成一句
+The bell rang. The students left the hall.
+
+**我的答案**：As soon as the bell rang, the students left the hall.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：as soon as 从句前置时，两个过去动作都用一般过去时，主句与从句之间加逗号。
+2. **规则与机制**：As soon as + 从句, 主句 是这个句型的标准顺序；合并后原句的两个独立句子变成一个主从复合句。
+3. **英语的表达逻辑**：英语用连接词把「先发生」的动作降级成从句，把「随后发生」的留在主句，语序本身就交代了先后。
+4. **可迁移表达**：As soon as the rain stopped, we went out.（雨一停我们就出去了）；As soon as she saw the bill, she called the bank.（她一看到账单就给银行打了电话）
+
+</details>
+
+### 2. 改写
+
+**题目**：把 if 条件句改成 as long as 的「只要」句，句意不变
+If you keep the receipt, you can exchange it within a month.
+
+**我的答案**：You can exchange it within a month as long as you keep the receipt.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：if 与 as long as 都引导条件，as long as 更口语、语感更强调「前提只要成立就行」。
+2. **规则与机制**：改写时从句位置可以保留或后置，后置时主句与从句之间不加逗号，句子重心落在主句动作上。
+3. **英语的表达逻辑**：英语允许把条件从句放在后面，用来突出主句信息；位置变化带来的是信息重心的变化，不是意义的改变。
+4. **可迁移表达**：You can stay as long as you keep the room tidy.（只要你保持房间整洁就可以住着）；We'll refund you as long as the tag is attached.（只要吊牌还在我们就退款）
+
+</details>
+
+### 3. 翻译
+
+**题目**：中译英
+我一到站就给你打电话。
+
+**我的答案**：As soon as I arrived, I'll call you.
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：讲将来的 as soon as 从句用一般现在时，主句用 will，从句里既不写 will 也不用过去时。
+2. **规则与机制**：As soon as I arrive, I'll call you. —— 从句 arrive 现在时交代触发条件，主句 will call 承担将来的动作。
+3. **英语的表达逻辑**：英语把将来信息集中在主句，从句只陈述条件本身，所以从句一律回到现在时。
+4. **可迁移表达**：As soon as I get the tickets, I'll text you.（我一拿到票就给你发消息）；I'll call you as soon as the meeting ends.（会议一结束我就给你打电话）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：讲将来的 as soon as 从句用一般现在时，不用过去时。
+2. **为什么错**：从句写 arrived 是过去时，主句写 I'll call 是将来时，两个小句指向不同时间；「一到站就打」是尚未发生的事，从句要用 arrive。
+3. **英语的表达逻辑**：英语用现在时表达「将来条件」，因为条件的成立与否只看动作有没有发生，不看作说话时刻的位置。
+4. **正确表达**：As soon as I arrive, I'll call you.（我一到就打给你）；可迁移：As soon as the payment clears, we'll ship.（款项一到账我们就发货）
+
+</details>
+
+### 4. 翻译
+
+**题目**：中译英
+只要天气允许，比赛就照常进行。
+
+**我的答案**：The compete will go on as long as the whether is nice.
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：「比赛」的名词是 competition 或 match，「天气」是 weather；whether 表示「是否」，与 weather 拼写相近但意义无关。
+2. **规则与机制**：competition / match 作主语，weather 作 as long as 从句的主语，两句各归各位：The competition will go ahead as long as the weather is nice.
+3. **英语的表达逻辑**：英语里动词 compete 与名词 competition 分工明确，不能用动词原形占名词位置；weather 与 whether 则靠拼写区分两个完全不同的概念。
+4. **可迁移表达**：The competition will go ahead as long as the weather is nice.（只要天气好比赛就照常进行）；I don't know whether the match is still on.（我不知道比赛还举不举行）
+
+</details>
+
+<details>
+<summary>错题讲解 1</summary>
+
+1. **考点**：「比赛」的名词形式是 competition 或 match，不是 compete。
+2. **为什么错**：compete 是动词，不能直接放在 the 后面作主语；写成 The compete 既缺名词，也让后面 will go on 失去主语。
+3. **英语的表达逻辑**：英语用名词承担主语位置，动作词需要变名词（compete → competition）才能当主语。
+4. **正确表达**：The competition will go ahead as long as the weather is nice.（只要天气好比赛就照常进行）；可迁移：Two hundred players entered the competition.（两百名选手参加了这项比赛）
+
+</details>
+
+<details>
+<summary>错题讲解 2</summary>
+
+1. **考点**：「天气」是 weather，whether 表示「是否」。
+2. **为什么错**：the whether is nice 把 whether（是否）当成了天气，句子的条件从句因此失去意义；两个词只差一个字母，含义却毫不相干。
+3. **英语的表达逻辑**：英语里拼写相近的词靠词义而不是语境相邻来区分，写错一个字母就换了一个概念。
+4. **正确表达**：As long as the weather is nice, the competition will go ahead.（只要天气好比赛就照常进行）；可迁移：The weather turned cold overnight.（天气一夜之间变冷了）
+
+</details>
+
+### 5. 改写
+
+**题目**：把 as soon as 句改成 no sooner ... than 的正式倒装句，句意不变
+As soon as he stepped in, the room went quiet.
+
+**我的答案**：No sooner had he stepped in than the room when quiet.
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：no sooner ... than 结构的 than 后面要跟一个完整的从句，必须有主语和谓语。
+2. **规则与机制**：No sooner had he stepped in than the room went quiet. —— 主句部分倒装（had he stepped in），than 从句用一般过去时完整陈述。
+3. **英语的表达逻辑**：英语的从句是「主语 + 谓语」的完整小句，连接词 than 只负责引出对比，不能替代谓语。
+4. **可迁移表达**：No sooner had he stepped in than the room went quiet.（他刚走进来房间就静了下来）；No sooner had we sat down than the lights went out.（我们刚坐下灯就灭了）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：no sooner ... than 的 than 从句要完整，不能用 when 代替 than 也不省谓语。
+2. **为什么错**：写成 than the room when quiet，一是把 than 换成了时间连接词 when，二是 the room 后面没有谓语，从句悬空。
+3. **英语的表达逻辑**：no sooner 只配 than，hardly / scarcely 才配 when；两套结构混搭会让句子失去合法连接词。
+4. **正确表达**：No sooner had he stepped in than the room went quiet.（他刚走进来房间就静了下来）；可迁移：No sooner had the film started than the power went out.（电影刚开场就停电了）
+
+</details>
+
+### 6. 短写作
+
+**题目**：写 2–3 句描述一次活动开始前的约定，要求 as soon as 和 as long as 各用一次，并说明各自的条件或触发点
+
+**我的答案**：As soon as the activity begin, you left here. You come back as long as the activity haven't finished.
+
+**判定**：⚠️ 部分正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：as soon as 从句主语是第三人称单数时动词加 -s；描述持续状态的 as long as 从句用一般现在时或现在进行时。
+2. **规则与机制**：As soon as the activity begins, you can leave. You can come back as long as the activity is still going on. —— 两个从句都用一般现在时，触发点与条件分别交代清楚。
+3. **英语的表达逻辑**：英语的从句时态服从「将来条件」这一整体语义，同时主谓一致要求动词与主语在人称和数上匹配。
+4. **可迁移表达**：As soon as the activity begins, you can leave.（活动一开始你就可以离场）；You can come back as long as the activity is still going on.（只要活动还在进行你就可以回来）
+
+</details>
+
+<details>
+<summary>错题讲解 1</summary>
+
+1. **考点**：一般现在时里主语是第三人称单数，动词要加 -s。
+2. **为什么错**：the activity begin 缺 -s，主谓不一致；同一句里 you left here 又用了过去时，与「活动开始时」的将来约定冲突，应为 you can leave。
+3. **英语的表达逻辑**：英语把「数」和「时」都编码在动词上，主语是单数第三人称、时间是将来条件，动词就只能是 begins。
+4. **正确表达**：As soon as the activity begins, you can leave.（活动一开始你就可以离场）；可迁移：As soon as the bus arrives, we'll get on.（公交车一到我们就上车）
+
+</details>
+
+<details>
+<summary>错题讲解 2</summary>
+
+1. **考点**：描述持续状态的 as long as 从句用一般现在时或现在进行时；「还没结束」不能直译成 haven't finished 塞进条件从句。
+2. **为什么错**：as long as the activity haven't finished 一是主语 activity 单数与 haven't 不匹配，二是条件从句里用完成时会把「一直没结束」当成条件，语义变形；「活动还在进行」应为 is still going on。
+3. **英语的表达逻辑**：英语用现在进行或一般现在时描述「正在持续的状态」，完成时则强调「已经完成」，两者在条件从句里指向完全不同的前提。
+4. **正确表达**：You can come back as long as the activity is still going on.（只要活动还在进行你就可以回来）；可迁移：Stay as long as the shop is open.（只要店还开着就可以待着）
 
 </details>

@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 268,
+  "revision": 270,
   "category": "errors",
   "records": {
     "errors:a-few-kinds-of-food-plural": {
@@ -764,6 +764,54 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:as-long-as-clause-simple-present-not-perfect": {
+      "id": "errors:as-long-as-clause-simple-present-not-perfect",
+      "category": "errors",
+      "key": "as-long-as-clause-simple-present-not-perfect",
+      "status": "learning",
+      "title": "as long as 从句用一般现在时，不用现在完成时",
+      "explanation": "as long as 从句描述「某状态还在持续」时用一般现在时或现在进行时（is still going on）；写成现在完成时 haven't finished 会把条件变成「是否已经完成」，语义变形，而且主语活动是单数，也不匹配 haven't。",
+      "source": "You come back as long as the activity haven't finished.",
+      "example": "You can come back as long as the activity is still going on.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T21:14:06+08:00",
+      "last_learned_at": "2026-11-16T21:14:28+08:00",
+      "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:as-soon-as-clause-present-not-past": {
+      "id": "errors:as-soon-as-clause-present-not-past",
+      "category": "errors",
+      "key": "as-soon-as-clause-present-not-past",
+      "status": "learning",
+      "title": "讲将来的 as soon as 从句用一般现在时，不用过去时",
+      "explanation": "as soon as 从句描述尚未发生的触发动作时用一般现在时，将来信息放在主句的 will 上；写成过去时会让从句指向另一条时间线。",
+      "source": "As soon as I arrived, I'll call you.",
+      "example": "As soon as I arrive, I'll call you.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T21:14:06+08:00",
+      "last_learned_at": "2026-11-16T21:14:06+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:as-soon-as-event-clause-not-clock-time": {
       "id": "errors:as-soon-as-event-clause-not-clock-time",
       "category": "errors",
@@ -1483,6 +1531,30 @@
       ],
       "first_learned_at": "2026-11-08T16:18:49+08:00",
       "last_learned_at": "2026-11-08T16:18:49+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:competition-noun-not-compete": {
+      "id": "errors:competition-noun-not-compete",
+      "category": "errors",
+      "key": "competition-noun-not-compete",
+      "status": "learning",
+      "title": "「比赛」的名词是 competition / match，不是 compete",
+      "explanation": "compete 是动词，不能放在 the 后面作主语；表示「比赛」这一名词要用 competition（正式、赛事）或 match（一场比赛）。",
+      "source": "The compete will go on",
+      "example": "The competition will go ahead as long as the weather is nice.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T21:14:06+08:00",
+      "last_learned_at": "2026-11-16T21:14:06+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -4127,6 +4199,30 @@
       "mastered_at": null,
       "review_history": [],
       "key": "no-preposition-before-out-west"
+    },
+    "errors:no-sooner-than-clause-complete-verb": {
+      "id": "errors:no-sooner-than-clause-complete-verb",
+      "category": "errors",
+      "key": "no-sooner-than-clause-complete-verb",
+      "status": "learning",
+      "title": "no sooner ... than 的 than 从句要有完整谓语",
+      "explanation": "no sooner ... than 里 than 引导一个完整从句，必须有主语和谓语动词；不能把 than 换成年份 when，也不能省略谓语只留形容词。hardly / scarcely 才配 when。",
+      "source": "No sooner had he stepped in than the room when quiet.",
+      "example": "No sooner had he stepped in than the room went quiet.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T21:14:06+08:00",
+      "last_learned_at": "2026-11-16T21:14:06+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:not-sure-how-to-pronounce-for-uncertain-pronunciation": {
       "id": "errors:not-sure-how-to-pronounce-for-uncertain-pronunciation",
@@ -6868,6 +6964,30 @@
       "review_history": [],
       "key": "there-be-cannot-take-second-finite-verb"
     },
+    "errors:third-person-singular-present-s": {
+      "id": "errors:third-person-singular-present-s",
+      "category": "errors",
+      "key": "third-person-singular-present-s",
+      "status": "learning",
+      "title": "一般现在时第三人称单数动词要加 -s",
+      "explanation": "主语是第三人称单数（the activity、he、the bus）时，一般现在时的动词必须加 -s / -es：begin → begins，arrive → arrives。主谓不一致是高频扣分点。",
+      "source": "As soon as the activity begin",
+      "example": "As soon as the activity begins, you can leave.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T21:14:06+08:00",
+      "last_learned_at": "2026-11-16T21:14:06+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:third-person-singular-present-s-ending": {
       "id": "errors:third-person-singular-present-s-ending",
       "category": "errors",
@@ -7437,6 +7557,30 @@
       "mastered_at": null,
       "review_history": [],
       "key": "weather-shower-there-was-not-it-had"
+    },
+    "errors:weather-vs-whether": {
+      "id": "errors:weather-vs-whether",
+      "category": "errors",
+      "key": "weather-vs-whether",
+      "status": "learning",
+      "title": "天气是 weather，whether 表示「是否」",
+      "explanation": "weather 与 whether 拼写相近但意义无关：weather 指天气，whether 引导「是否」的间接疑问或选择从句。写作时按词义取词，不能凭读音相近混用。",
+      "source": "the whether is nice",
+      "example": "As long as the weather is nice, the competition will go ahead.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T21:14:06+08:00",
+      "last_learned_at": "2026-11-16T21:14:06+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:when-clause-open-event-tense": {
       "id": "errors:when-clause-open-event-tense",
