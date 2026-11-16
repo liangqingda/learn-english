@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>2</td></tr>
 <tr><td>下次复习</td><td>2026-11-23 20:21</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-16 20:20</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-16 20:39</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-16 20:54</td></tr>
 </table>
 
 ## 讲解
@@ -119,6 +119,29 @@ By seven the shop was full, and the rye sold out before eight. Hal stuck a note 
 复习历史：
 <!-- practice-index -->
 - [2026-11-16 20:20 · 复习](#practice-2026-11-16-2020-4bbcee55)
+<!-- /practice-index -->
+
+## 扩展「as soon as 与 as long as 的区别」相关词汇和搭配
+
+**讲解要点**：
+- as soon as possible 与 as long as possible 方向相反：前者是「尽快」，后者是「能持续多久就多久」，不能互换。
+  - Please reply as soon as possible.（请尽快回复）
+  - Stay as long as possible.（能待多久就待多久）
+- the moment / the minute 直接引导从句，不用加介词；从句前置时紧跟逗号，功能等于 as soon as。
+  - The moment the interview ended, she called her parents.（面试一结束她就给父母打了电话）
+- no sooner ... than 与 hardly ... when 都要部分倒装，把 had 提到主语前，两套结构不能混搭。
+  - No sooner had he arrived than the meeting began.（他刚到会议就开始了）
+  - Hardly had I got home when it started to rain.（我刚到家就下雨了）
+- 条件从句用一般现在时表将来，主句用将来时或情态动词；写成过去时会与主句的将来时断裂。
+  - As long as the goods pass inspection, we'll pay in full.（只要货物通过检验，我们就全额付款）
+- 「全额付款」「通过检验」在英语里是固定搭配 pay in full / pass inspection，不能按字面拆成 pay fully / passed。
+  - We'll pay in full next week.（下周我们全额付款）
+- on the spot 强调就在现场发生，instantly / promptly 强调时间上不拖延，三者分工不同。
+  - The manager hired her on the spot.（经理当场录用了她）
+
+复习历史：
+<!-- practice-index -->
+- [2026-11-16 20:20 · 复习](#practice-2026-11-16-2020-3540aa22)
 <!-- /practice-index -->
 
 # 2026-11-16 20:20 · 复习
@@ -451,5 +474,171 @@ The alarm went off. Everyone left the building at once.
 2. **为什么错**：①写成 As soon as I grow up, I married her，从句用现在时、主句却用过去时 married，时态前后断裂，句子读起来像「已经结婚」。
 3. **英语的表达逻辑**：从句已经用一般现在时代替将来，主句就必须是 will + 动词原形，时态分工不能两边都落空。
 4. **正确表达**：As soon as I grow up, I'll marry her.（我一长大就娶她）；可迁移：As soon as it gets dark, the streetlights will come on.（天一黑路灯就会亮）
+
+</details>
+
+## 扩展「as soon as 与 as long as 的区别」相关词汇和搭配 <a id="practice-2026-11-16-2020-3540aa22"></a>
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>本轮得分</td><td>7 / 10</td></tr>
+<tr><td>题量与错题数</td><td>6 题 / 4 处错误</td></tr>
+</table>
+
+### 1. 单项选择
+
+**题目**：Please reply ____; the landlord needs an answer today.
+- A. as soon as possible
+- B. as long as possible
+- C. as soon as possibly
+- D. so soon as possible
+
+**我的答案**：B
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：as soon as possible 表示「尽快」，as long as possible 表示「能持续多久就多久」。
+2. **规则与机制**：两个搭配共用 as ... as possible 的框架，但中间的形容词决定方向：soon 指时间点靠前，long 指时间长度拉长。
+3. **英语的表达逻辑**：英语用同一个框架承载两个相反的诉求，靠形容词区分「早点发生」与「持续更久」。
+4. **可迁移表达**：Send it back as soon as possible.（尽快送回来）；Keep the window open as long as possible.（尽量让窗户多开一会儿）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：as soon as possible 与 as long as possible 的语义方向。
+2. **为什么错**：房东要今天给答复，需要的是「尽快回复」，选 as long as possible 会读成「回复得越久越好」，与语境冲突；C 项 as soon as possibly 和 D 项 so soon as possible 都不是合法搭配。
+3. **英语的表达逻辑**：as ... as possible 中间只能放形容词原级，副词形式 possibly 属于错配；so ... as 的比较结构主要出现在否定句（not so ... as）里。
+4. **正确表达**：Please reply as soon as possible.（请尽快回复）；可迁移：Book the tickets as soon as possible.（尽快订票）
+
+</details>
+
+### 2. 填空
+
+**题目**：按括号里的中文提示，用固定搭配补全句子
+The repair will take a week, and we'll wait ____ （需要多久就等多久）.
+
+**我的答案**：as long as it takes
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：as long as it takes 是固定搭配，表示愿意一直等到事情完成为止。
+2. **规则与机制**：as long as 后面接一个完整小句；it takes 用一般现在时，泛指「所需的时间」。
+3. **英语的表达逻辑**：英语用 as long as 把时长变成条件，再用 it takes 把所需时间抽象化，读者不会追问具体多久。
+4. **可迁移表达**：We'll keep looking as long as it takes.（需要多久我们就找多久）；Take as long as you need.（你需要多久就用多久）
+
+</details>
+
+### 3. 改错
+
+**题目**：只改错处，句意不变
+No sooner he had arrived than the meeting began.
+
+**我的答案**：No sooner had he arrived than the meeting began.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：no sooner 置于句首时，主句要部分倒装，助动词 had 提到主语之前。
+2. **规则与机制**：no sooner 是否定意义的状语，句首否定成分触发倒装：No sooner had + 主语 + 过去分词 + than + 从句。
+3. **英语的表达逻辑**：英语把否定意味的状语放句首时会打乱语序，用倒装提示读者「这里有一个被前置的否定成分」。
+4. **可迁移表达**：No sooner had the bell rung than the students ran out.（铃声刚响学生就跑出去了）；Hardly had she sat down when the phone rang.（她刚坐下电话就响了）
+
+</details>
+
+### 4. 翻译
+
+**题目**：中译英
+只要货物通过检验，我们就全额付款。
+
+**我的答案**：As long as the goods passed, we pay fully.
+
+**判定**：⚠️ 部分正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：条件从句用一般现在时表将来，主句用将来时；「通过检验」是 pass inspection，「全额付款」是 pay in full。
+2. **规则与机制**：as long as / provided that 从句里不写 will 也不写过去时，动词用一般现在时；in full 是固定介词短语，修饰 pay。
+3. **英语的表达逻辑**：英语把将来压在主动词的时态上，从句只陈述条件本身；固定搭配里的介词不能换词性。
+4. **可迁移表达**：Provided that the goods pass inspection, we'll pay in full.（只要货物通过检验，我们就全额付款）；We'll pay in full once the invoice is approved.（发票一批下来我们就全额付款）
+
+</details>
+
+<details>
+<summary>错题讲解 1</summary>
+
+1. **考点**：条件从句用一般现在时表将来，不与主句时态冲突。
+2. **为什么错**：从句写 passed、主句写 pay，一个过去一个现在；「只要……就……」讲的是将来的条件，从句要落回一般现在时 pass，主句用 will pay。
+3. **英语的表达逻辑**：英语不允许在两个小句里各自随机选时态，条件句的时态必须服从「将来条件」这一整体语义。
+4. **正确表达**：As long as the goods pass inspection, we'll pay in full.（只要货物通过检验，我们就全额付款）；可迁移：As long as you finish the form, we can process it today.（只要你填完表，我们今天就能处理）
+
+</details>
+
+<details>
+<summary>错题讲解 2</summary>
+
+1. **考点**：「通过检验」用 pass inspection，动词 pass 后面要带 inspection。
+2. **为什么错**：只写 passed，读者只知道「通过了」，不知道通过了什么；inspection 是这条搭配不可省的名词。
+3. **英语的表达逻辑**：英语里 pass 是及物动词，必须交出被通过的对象，语义才完整。
+4. **正确表达**：The goods passed inspection on Friday.（货物周五通过了检验）；可迁移：The plan passed review last week.（方案上周通过了审核）
+
+</details>
+
+<details>
+<summary>错题讲解 3</summary>
+
+1. **考点**：「全额付款」是 pay in full，不是 pay fully。
+2. **为什么错**：fully 是副词，表示「完全地」，可以修饰很多动作但不构成「全额付款」这个固定说法；英语用 in full 这个介词短语表示款项的全部。
+3. **英语的表达逻辑**：英语把「全额」处理成付款方式（in full），而不是动作的程度（fully），所以用介词短语而非副词。
+4. **正确表达**：We'll pay in full next week.（下周我们全额付款）；可迁移：She paid in full without asking for a discount.（她没要折扣就全额付清了）
+
+</details>
+
+### 5. 改写
+
+**题目**：用 the moment 把两句合成一句
+The interview ended. She called her parents.
+
+**我的答案**：The moment the interview ended, she called her parents.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：the moment 直接引导时间从句，等于 as soon as，前置时后面加逗号。
+2. **规则与机制**：the moment 前面不加 at / in / on，通常直接跟从句；从句用一般过去时与主句保持一致。
+3. **英语的表达逻辑**：英语把「那一刻」名词化成连接词，用名词短语承担从句引导功能，句子比 as soon as 更口语。
+4. **可迁移表达**：The minute the door opened, the crowd rushed in.（门一开人群就涌了进来）；The moment he saw the bill, he called the bank.（他一看到账单就给银行打了电话）
+
+</details>
+
+### 6. 造句
+
+**题目**：按下面两个要求各写一句
+- ① 用 on the spot 写一句。
+- ② 用 hardly ... when 的倒装结构写一句。
+
+**我的答案**：① The teacher answered him on the spot. ② Hardly had I got off work when my boss called me.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：on the spot 强调就在现场发生；hardly ... when 要求把 had 提到主语前，配 when 不用 than。
+2. **规则与机制**：① on the spot 作状语修饰 answered，位置在宾语之后；② 主句 Hardly had I got off work 已经倒装，从句 when my boss called me 用一般过去时。
+3. **英语的表达逻辑**：场所状语（on the spot）与时间连接结构（hardly ... when）各管一层，一个交代位置，一个交代紧接关系。
+4. **可迁移表达**：The guard checked my badge on the spot.（保安当场检查了我的门禁卡）；Hardly had the film started when the power went out.（电影刚开场就停电了）；美式英语里 get 的过去分词更常写 gotten：Hardly had I gotten off work when my boss called.（我刚下班老板就打来电话）
 
 </details>

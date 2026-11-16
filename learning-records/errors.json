@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 264,
+  "revision": 266,
   "category": "errors",
   "records": {
     "errors:a-few-kinds-of-food-plural": {
@@ -825,6 +825,30 @@
       ],
       "key": "as-soon-as-not-as-long-as-for-immediate-event"
     },
+    "errors:as-soon-as-possible-vs-as-long-as-possible": {
+      "id": "errors:as-soon-as-possible-vs-as-long-as-possible",
+      "category": "errors",
+      "key": "as-soon-as-possible-vs-as-long-as-possible",
+      "status": "learning",
+      "title": "尽快用 as soon as possible，不用 as long as possible",
+      "explanation": "as ... as possible 框架里放哪个形容词决定方向：as soon as possible 是「尽快、越早越好」，as long as possible 是「能持续多久就多久」。催促回复、订票、交表的语境一律用 soon。",
+      "source": "as long as possible",
+      "example": "Please reply as soon as possible.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T20:54:26+08:00",
+      "last_learned_at": "2026-11-16T20:54:26+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:at-the-meeting-preposition": {
       "id": "errors:at-the-meeting-preposition",
       "category": "errors",
@@ -1500,6 +1524,30 @@
         }
       ],
       "key": "completed-action-uses-past-tense-found"
+    },
+    "errors:condition-clause-present-for-future": {
+      "id": "errors:condition-clause-present-for-future",
+      "category": "errors",
+      "key": "condition-clause-present-for-future",
+      "status": "learning",
+      "title": "条件从句用一般现在时表将来",
+      "explanation": "as long as / provided that 等条件从句讲将来的事时用一般现在时，不写 will 也不用过去时；将来信息由主句的 will 或情态动词承担，主句从句时态不能一个过去一个现在。",
+      "source": "As long as the goods passed, we pay fully.",
+      "example": "As long as the goods pass inspection, we'll pay in full.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T20:54:26+08:00",
+      "last_learned_at": "2026-11-16T20:54:26+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:continue-on-keeps-on-not-with-distance": {
       "id": "errors:continue-on-keeps-on-not-with-distance",
@@ -4297,6 +4345,30 @@
       "mastered_at": null,
       "review_history": []
     },
+    "errors:pass-inspection-collocation": {
+      "id": "errors:pass-inspection-collocation",
+      "category": "errors",
+      "key": "pass-inspection-collocation",
+      "status": "learning",
+      "title": "通过检验说 pass inspection",
+      "explanation": "pass 是及物动词，「通过检验」必须交出对象：pass inspection / pass the test / pass review。只写 passed 会让读者不知道通过了什么。",
+      "source": "the goods passed",
+      "example": "The goods passed inspection on Friday.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T20:54:26+08:00",
+      "last_learned_at": "2026-11-16T20:54:26+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:passive-clause-needs-be": {
       "id": "errors:passive-clause-needs-be",
       "category": "errors",
@@ -4740,6 +4812,30 @@
       ],
       "first_learned_at": "2026-11-15T10:52:55+08:00",
       "last_learned_at": "2026-11-15T10:52:55+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:pay-in-full-not-pay-fully": {
+      "id": "errors:pay-in-full-not-pay-fully",
+      "category": "errors",
+      "key": "pay-in-full-not-pay-fully",
+      "status": "learning",
+      "title": "全额付款说 pay in full，不用 pay fully",
+      "explanation": "「全额」在英语里是付款方式，用介词短语 in full 表示，而不是用副词 fully 表示动作程度；pay in full / pay in cash / pay by card 都是这类结构。",
+      "source": "we pay fully",
+      "example": "We'll pay in full once the goods pass inspection.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T20:54:26+08:00",
+      "last_learned_at": "2026-11-16T20:54:26+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
