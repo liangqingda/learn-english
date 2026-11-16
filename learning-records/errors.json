@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 261,
+  "revision": 263,
   "category": "errors",
   "records": {
     "errors:a-few-kinds-of-food-plural": {
@@ -716,10 +716,58 @@
       "review_history": [],
       "key": "as-a-kid-missing-article"
     },
+    "errors:as-long-as-clause-needs-complete-condition": {
+      "id": "errors:as-long-as-clause-needs-complete-condition",
+      "category": "errors",
+      "key": "as-long-as-clause-needs-complete-condition",
+      "status": "learning",
+      "title": "as long as 的条件从句要写成完整命题",
+      "explanation": "as long as 从句必须是能判断成立与否的完整条件；wake 单独使用缺少 up / early 等补足成分，条件含义不清。",
+      "source": "as long as I wake",
+      "example": "I go for a walk in the morning as long as I wake up early.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T20:21:29+08:00",
+      "last_learned_at": "2026-11-16T20:21:29+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:as-soon-as-event-clause-not-clock-time": {
+      "id": "errors:as-soon-as-event-clause-not-clock-time",
+      "category": "errors",
+      "key": "as-soon-as-event-clause-not-clock-time",
+      "status": "learning",
+      "title": "as soon as 后接完整事件从句，不写 the time is six o'clock",
+      "explanation": "英语里没有 the time is six o'clock 这种说法；时间点要么用 it 作形式主语（it was six o'clock），要么直接写成事件（the clock hit six）。",
+      "source": "I got off work as soon as the time is six o'clock pm last Friday.",
+      "example": "I got off work as soon as it was six o'clock last Friday.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T20:21:29+08:00",
+      "last_learned_at": "2026-11-16T20:21:29+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:as-soon-as-not-as-long-as-for-immediate-event": {
       "id": "errors:as-soon-as-not-as-long-as-for-immediate-event",
       "category": "errors",
-      "status": "learning",
+      "status": "familiar",
       "title": "一……就……用 as soon as，而非 as long as",
       "explanation": "as soon as 表示一个动作发生后另一个动作立即发生；as long as 通常表示“只要”这一条件或“长达”某段时间。",
       "source": "I recognize her voice as long as she speaks.",
@@ -730,11 +778,11 @@
       "first_learned_at": "2026-08-05T13:01:34+08:00",
       "last_learned_at": "2026-08-05T13:01:34+08:00",
       "learned_count": 2,
-      "mastery_score": 7.0,
-      "review_count": 1,
-      "high_score_streak": 0,
-      "last_reviewed_at": "2026-08-05T17:15:51+08:00",
-      "next_review_at": "2026-08-08T17:15:51+08:00",
+      "mastery_score": 8.0,
+      "review_count": 2,
+      "high_score_streak": 1,
+      "last_reviewed_at": "2026-11-16T20:21:29+08:00",
+      "next_review_at": "2026-11-23T20:21:29+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
@@ -743,6 +791,12 @@
           "reviewed_at": "2026-08-05T17:15:51+08:00",
           "previous_status": "learning",
           "new_status": "learning"
+        },
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-11-16T20:21:29+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
         }
       ],
       "key": "as-soon-as-not-as-long-as-for-immediate-event"
@@ -2604,6 +2658,30 @@
       "review_history": [],
       "key": "go-ahead-northward-wrong-verb"
     },
+    "errors:go-for-a-walk-not-go-to-walk": {
+      "id": "errors:go-for-a-walk-not-go-to-walk",
+      "category": "errors",
+      "key": "go-for-a-walk-not-go-to-walk",
+      "status": "learning",
+      "title": "散步用 go for a walk，不用 go to walk",
+      "explanation": "散步、游泳、跑步这类活动的常规说法是 go for + 活动名词（go for a walk / go for a swim / go for a run），也可说 go walking、take a walk。单独的 go to walk 不成立：to 不定式在 go 后面表示「为了做某事而去」，此时必须带上自己的宾语（go to walk the dog 才成立），所以泛指散步不能用这个结构。",
+      "source": "I go to walk in the morning",
+      "example": "I go for a walk in the morning.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T20:21:29+08:00",
+      "last_learned_at": "2026-11-16T20:23:34+08:00",
+      "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:go-for-it-as-permission": {
       "id": "errors:go-for-it-as-permission",
       "category": "errors",
@@ -4381,6 +4459,30 @@
       "review_history": [],
       "key": "past-tense-after-after-clause"
     },
+    "errors:past-tense-consistency-in-past-narration": {
+      "id": "errors:past-tense-consistency-in-past-narration",
+      "category": "errors",
+      "key": "past-tense-consistency-in-past-narration",
+      "status": "learning",
+      "title": "叙述过去事件时主句与从句时态要一致",
+      "explanation": "在叙述过去发生的事件时，as soon as 从句与主句都要用过去时；混入一般现在时会让时间线断裂。",
+      "source": "I smelled the flavor of the dish as soon as I come in, and I call my mum soon.",
+      "example": "I smelled the food as soon as I came in, and I called my mom right away.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T20:21:29+08:00",
+      "last_learned_at": "2026-11-16T20:21:29+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:past-tense-in-completed-event-sequence": {
       "id": "errors:past-tense-in-completed-event-sequence",
       "category": "errors",
@@ -5726,6 +5828,30 @@
       "review_history": [],
       "key": "review-status-under-review-vs-progressive"
     },
+    "errors:right-away-vs-soon-for-immediate-action": {
+      "id": "errors:right-away-vs-soon-for-immediate-action",
+      "category": "errors",
+      "key": "right-away-vs-soon-for-immediate-action",
+      "status": "learning",
+      "title": "「立刻」用 right away / at once，不用 soon",
+      "explanation": "soon 只表示在不久的将来，不承诺紧接发生；强调与上一动作零间隔的即时性要用 right away / at once。",
+      "source": "I call my mum soon.",
+      "example": "I called my mom right away.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T20:21:29+08:00",
+      "last_learned_at": "2026-11-16T20:21:29+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "errors:safety-training-not-safety-train": {
       "id": "errors:safety-training-not-safety-train",
       "category": "errors",
@@ -6133,6 +6259,30 @@
         }
       ],
       "key": "slice-into-thin-slices-not-to-slice"
+    },
+    "errors:smell-food-not-smell-flavor": {
+      "id": "errors:smell-food-not-smell-flavor",
+      "category": "errors",
+      "key": "smell-food-not-smell-flavor",
+      "status": "learning",
+      "title": "闻到气味用 smell + 食物，不用 smell the flavor",
+      "explanation": "flavor 指入口尝到的风味，属于味觉；嗅觉层面英语用 smell / the smell of / the scent of，两者不能混搭。",
+      "source": "I smelled the flavor of the dish",
+      "example": "I smelled the food the moment I walked in.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-16T20:21:29+08:00",
+      "last_learned_at": "2026-11-16T20:21:29+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:smell-of-smoke-not-smoke-smell": {
       "id": "errors:smell-of-smoke-not-smoke-smell",
