@@ -183,24 +183,26 @@ def validate_note(note: dict[str, Any]) -> None:
         )
 
 
+def explain_entry(item: Any, field: str) -> tuple[str, str]:
+    """Read one ``explain_sections`` / ``explain_parts`` entry; both share one rule."""
+    if not isinstance(item, dict):
+        raise RecordError(f"each {field} entry must be an object with 'title' and 'content'")
+    title = str(item.get("title") or "").strip()
+    content = str(item.get("content") or "").strip()
+    if not title.startswith("## ") or not content:
+        raise RecordError(f"each {field} entry needs a '## ' title and content")
+    return title, content
+
+
 def write_note(note: dict[str, Any], repo_root: Path) -> dict[str, Any]:
     """Ensure the explanation exists, then append the round block and its sections."""
     validate_note(note)
-    note_file = note.get("file")
-    if not isinstance(note_file, str) or not note_file.strip():
-        raise RecordError("note.file is required")
-    date = str(note.get("date") or "")
-    time = str(note.get("time") or "")
+    # validate_note 已经校验并挡住了缺字段：这里只做取值，不再重复一套规则
+    note_file = str(note["file"])
+    date = str(note["date"])
+    time = str(note["time"])
     kind = str(note.get("kind") or "复习")
-    body = note.get("body")
-    if not DATE_PATTERN.match(date):
-        raise RecordError("note.date must look like YYYY-MM-DD")
-    if not TIME_PATTERN.match(time):
-        raise RecordError("note.time must look like HH:MM")
-    if kind not in ROUND_KINDS:
-        raise RecordError(f"note.kind must be one of {ROUND_KINDS}")
-    if not isinstance(body, str) or not body.strip():
-        raise RecordError("note.body is required: the round block body without the '# heading' line")
+    body = str(note["body"])
 
     cli = note_cli_path(repo_root)
     result: dict[str, Any] = {"file": note_file}
@@ -241,10 +243,7 @@ def write_note(note: dict[str, Any], repo_root: Path) -> dict[str, Any]:
         return result
 
     for item in note.get("explain_sections") or []:
-        title = str(item.get("title") or "").strip()
-        content = str(item.get("content") or "").strip()
-        if not title.startswith("## ") or not content:
-            raise RecordError("each explain_sections entry needs a '## ' title and content")
+        title, content = explain_entry(item, "explain_sections")
         argv = ["append-explain-section", "--file", note_file, "--content-file", "-"]
         if item.get("rewrite"):
             argv.append("--rewrite")
@@ -259,10 +258,7 @@ def write_note(note: dict[str, Any], repo_root: Path) -> dict[str, Any]:
         )
 
     for item in note.get("explain_parts") or []:
-        title = str(item.get("title") or "").strip()
-        content = str(item.get("content") or "").strip()
-        if not title.startswith("## ") or not content:
-            raise RecordError("each explain_parts entry needs a '## ' title and content")
+        title, content = explain_entry(item, "explain_parts")
         run_note(
             cli,
             [
