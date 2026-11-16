@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>2</td></tr>
 <tr><td>下次复习</td><td>2026-11-23 20:21</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-16 20:20</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-16 20:54</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-16 20:55</td></tr>
 </table>
 
 ## 讲解
@@ -50,7 +50,7 @@
   - As long as the door stays open, people can queue inside.（只要门开着，人们就可以在里面排队）
 
 <details>
-<summary>场景对话原文</summary>
+<summary>场景对话原文 1</summary>
 
 - **Gate agent Maya**：Good evening. Boarding for flight 628 will start **as soon as** the cleaning crew finishes up.（晚上好。628 航班的登机，清洁组一收工就开始）
 - **Passenger Mr. Okafor**：Good, I've been standing here for an hour. Can I charge my phone at that counter **as long as** I stay close to the gate?（太好了，我在这儿站了一个小时了。只要我离登机口近，能在那个柜台充电吗）
@@ -62,6 +62,23 @@
 - **Passenger Mr. Okafor**：Then I'll stay right here. One more thing — can my wife come through security **as long as** she has a boarding pass for a later flight?（那我就待在这儿。还有件事——只要我妻子有晚一点的航班的登机牌，她能过安检进来吗）
 - **Gate agent Maya**：No, I'm afraid not. Security opens the line **as soon as** the first flight of the morning is ready, and only passengers on that flight get through.（恐怕不行。安检是在早班第一趟航班准备好时才开通道，只有那趟航班的旅客能过）
 - **Passenger Mr. Okafor**：Understood. I'll tell her to wait outside.（明白了。我让她在外面等）
+
+</details>
+
+<details>
+<summary>场景对话原文 2</summary>
+
+- **Customer Dani**：My rear wheel is wobbling. Can you look at it now?（我的后轮晃得厉害，你现在能看一下吗）
+- **Mechanic Ray**：I'll look at it **as soon as** I finish this brake job — ten minutes.（我把这副刹车装完就给你看，十分钟）
+- **Customer Dani**：Fine. **As long as** it's done before six, I can still make my evening ride.（行。只要六点前弄好，我今晚还能骑车出去）
+- **Mechanic Ray**：**As long as** the rim isn't cracked, it's a ten-minute fix.（只要轮圈没裂，十分钟就能修好）
+- **Customer Dani**：And if it is cracked?（要是裂了呢）
+- **Mechanic Ray**：Then we replace it. **As long as** the rim is replaced, the wheel will be safe — I won't just tighten it and send you off.（那就换轮圈。只要换掉轮圈，轮子就安全了——我不会只紧一紧就让你骑走）
+- **Customer Dani**：How long does a new rim take?（新轮圈要多久）
+- **Mechanic Ray**：It arrives Thursday. I'll text you **as soon as** it's in.（周四到。一到货我就给你发消息）
+- **Customer Dani**：Can I keep riding until then?（那在此之前我还能骑吗）
+- **Mechanic Ray**：**As long as** you stay on side streets and go slow. But stop **as soon as** you feel any wobble.（只要你走小巷、骑慢点就可以。但一感觉到晃就停下）
+- **Customer Dani**：Understood. I'll bring it back Thursday then.（明白。那我周四再送过来）
 
 </details>
 
