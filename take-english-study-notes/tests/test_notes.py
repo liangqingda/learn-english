@@ -816,7 +816,7 @@ class NoteCliTest(unittest.TestCase):
         self.assertTrue(payload["check"]["ok"])
 
     def test_cli_append_part_adds_a_second_exercise_and_still_validates(self) -> None:
-        """同一菜单项再选一次只追加新习题：小节数不变，笔记仍然通过校验。"""
+        """append-part 只在既有小节里补写题目：小节数不变，笔记仍然通过校验。"""
         self.run_cli(
             ["append", "--file", "learning-record-notes/errors/errors-out-west.md", "--content-file", "-"],
             block_text(heading="2026-11-09 09:00 · 复习", answer="west"),
@@ -1114,7 +1114,7 @@ class NoteCliTest(unittest.TestCase):
         self.assertEqual(again.returncode, 0, again.stderr)
         self.assertTrue(json.loads(again.stdout)["duplicate"])
 
-    def test_cli_append_section_refuses_a_taken_heading(self) -> None:
+    def test_cli_append_section_numbers_a_repeated_heading_in_one_block(self) -> None:
         completed = self.run_cli(
             [
                 "append",
@@ -1127,7 +1127,7 @@ class NoteCliTest(unittest.TestCase):
             + extra_section("## 对比「out west」和相近表达", "旧内容"),
         )
         self.assertEqual(completed.returncode, 0, completed.stderr)
-        refused = self.run_cli(
+        again = self.run_cli(
             [
                 "append-section",
                 "--file",
@@ -1139,9 +1139,21 @@ class NoteCliTest(unittest.TestCase):
             ],
             extra_section("## 对比「out west」和相近表达", "新内容").strip("\n") + "\n",
         )
-        self.assertEqual(refused.returncode, 2)
-        self.assertIn("already exists in this block", refused.stderr)
-        self.assertIn("旧内容", self.note.read_text(encoding="utf-8"))
+        self.assertEqual(again.returncode, 0, again.stderr)
+        payload = json.loads(again.stdout)
+        self.assertTrue(payload["appended_section"])
+        self.assertEqual(payload["section"], "## 对比「out west」和相近表达 - 02")
+        self.assertEqual(
+            [item["to"] for item in payload["section_renamed"]],
+            [
+                "## 对比「out west」和相近表达 - 01",
+                "## 对比「out west」和相近表达 - 02",
+            ],
+        )
+        text = self.note.read_text(encoding="utf-8")
+        self.assertIn("旧内容", text)
+        self.assertIn("新内容", text)
+        self.assertIn("## 对比「out west」和相近表达 - 01 <a id=", text)
 
     def test_cli_replace_rewriting_two_sections_needs_declaration(self) -> None:
         completed = self.run_cli(

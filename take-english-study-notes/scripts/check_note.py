@@ -31,6 +31,7 @@ from note_store import (  # noqa: E402
     ROUND_INDEX_START,
     apply_practice_index,
     day_labels,
+    section_index_labels,
     practice_anchor_id,
     round_anchor_id,
 )
@@ -350,9 +351,10 @@ def practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str, str, st
     """菜单项 → [(展示文本, 实际锚点, 应有锚点, 行号)]，按时间倒序；行号取小节标题行。
 
     展示文本与日期区块标题同口径（`日期 时间 · 类型`），同一天同一菜单项多份按时间先后补
-    ` - 01`、` - 02`，与写入命令一致。
+    ` - 01`、` - 02`，与写入命令一致；同一区块里重复练同一菜单项时按标题序号排先后，
+    锚点也带上序号。
     """
-    raw: dict[tuple[str, str], tuple[str, str, str, str]] = {}
+    occurrences: dict[str, list[tuple[str, str, int | None, str, str, str]]] = {}
     date = time = kind = None
     for index, line in enumerate(lines):
         heading = SECTION_RE.match(line)
@@ -365,22 +367,23 @@ def practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str, str, st
         title = section.group(1).strip()
         if title == QUIZ_SECTION:
             continue
-        base, _seq = split_section_seq(title)
+        base, seq = split_section_seq(title)
         anchor_match = INLINE_ANCHOR_RE.search(line.rstrip())
         anchor = anchor_match.group("id") if anchor_match else ""
-        expected = practice_anchor_id(date, time, f"## {base}")
-        raw[(base, f"{date} {time}")] = (kind, anchor, expected, str(index + 1))
-    labels: dict[tuple[str, str], str] = {}
-    for base in {item_base for item_base, _stamp in raw}:
-        day = day_labels(
-            sorted((stamp, info[0]) for (item_base, stamp), info in raw.items() if item_base == base)
+        expected = practice_anchor_id(date, time, f"## {base}", seq)
+        occurrences.setdefault(base, []).append(
+            (f"{date} {time}", kind, seq, anchor, expected, str(index + 1))
         )
-        labels.update({(base, stamp): label for stamp, label in day.items()})
     grouped: dict[str, list[tuple[str, str, str, str]]] = {}
-    for (base, stamp), (_kind, anchor, expected, line_no) in sorted(
-        raw.items(), key=lambda item: item[0][1], reverse=True
-    ):
-        grouped.setdefault(base, []).append((labels[(base, stamp)], anchor, expected, line_no))
+    for base, items in occurrences.items():
+        ordered = sorted(items, key=lambda item: (item[0], item[2] or 0))
+        labels = section_index_labels([(stamp, kind) for stamp, kind, _seq, _a, _e, _l in ordered])
+        entries = [
+            (labels[position], item[3], item[4], item[5])
+            for position, item in enumerate(ordered)
+        ]
+        entries.reverse()
+        grouped[base] = entries
     return grouped
 
 

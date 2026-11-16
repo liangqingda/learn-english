@@ -82,7 +82,7 @@ payload 只有四段，缺省段跳过：
 
 命令返回一个 JSON：`review`、`note`、`check` / `note_status`、`menu`。区块本来就在时返回 `already_saved: true` 并跳过全部讲解区写入，原样重试同一份 payload 不会多存一份故事 / 对话原文；要再加一段故事或对话，用下一轮的 `explain_parts`，不要靠重试。`ok: false` 时看 `failed_step` 与 `steps`：`steps` 里已完成的步骤已经落盘，按 `references/failure-recovery.md` 处理，不要整轮重试。
 
-`note.py` 的 `append-section` / `append-part` / `replace --rewrite-section` 只在组合命令不适用时单独使用（给已有区块补小节、改写刚写错的内容、批量迁移）。
+`note.py` 的 `append-section` / `append-part` / `replace --rewrite-section` 只在组合命令不适用时单独使用（给已有区块补小节——同一菜单项再选一次也走它、由写入器编号成 ` - 01` / ` - 02` 各建一节；`append-part` 只在确实要给同一个小节多补题目时用；改写刚写错的内容、批量迁移）。
 
 一轮的全部错题用一次 `batch-upsert` 写入（已评分复习由 `review-round` 的 `review` 段带 `errors` 一起写），不逐题调用。只读展示不运行 `check_note.py`；校验只在写入路径上跑，结果如实报告。快照 `stale: true` 或怀疑被别的会话改动时，只读内容照常展示，只在真正写入前重新取一次快照。
 
@@ -255,7 +255,7 @@ python3 learn-from-english/scripts/learning_records.py review-round --input <JSO
 
 1. 写入统一走 `review-round` 的 `note` 段，一次落盘评分、笔记与菜单；`note.py` 的子命令只在组合命令不适用时单独使用。
 2. 目标文件还没有文件级 `## 讲解` 时必须带上 `explain.content`；笔记只在记录首次写笔记时新建，已有笔记一律复用同一路径。
-3. 只有开启新一轮（`practice` 抽题、`review` 复习、套题）才建新日期区块；菜单里继续做的习题（含隔天再做）追加到文件里最新那个区块，用 `append-section` / `append-part`，不按当天日期另建区块。
+3. 只有开启新一轮（`practice` 抽题、`review` 复习、套题）才建新日期区块；菜单里继续做的习题（含隔天再做）追加到文件里最新那个区块，用 `append-section`（同一菜单项第二次被选中时编号成 ` - 01` / ` - 02` 各建一节，一节一表、题号各从 1 起），不按当天日期另建区块、也不并进既有小节。
 4. 复习轮次的 `body` 写真实状态变化，练习轮次写 `<category> · 未入库`；两种都由 `note` 段承载。
 5. `note_status` 为 `invalid` 时按 issue 就地修正，为 `unverified` 时在回复里说明「本轮笔记未校验」。
 

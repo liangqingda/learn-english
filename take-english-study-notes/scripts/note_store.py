@@ -127,7 +127,7 @@ ROUND_INDEX_END = "<!-- /round-index -->"
 INDEX_TITLE = "复习历史："
 INLINE_ANCHOR_RE = re.compile(
     r'\s*<a id="(?P<id>'
-    r"practice-\d{4}-\d{2}-\d{2}-\d{4}-[0-9a-f]{8}"
+    r"practice-\d{4}-\d{2}-\d{2}-\d{4}-[0-9a-f]{8}(?:-\d{2})?"
     r"|round-\d{4}-\d{2}-\d{2}-\d{4}"
     r')"></a>$'
 )
@@ -284,14 +284,35 @@ def _number_day_sections(
     return new_block, day_lines, renamed
 
 
-def practice_anchor_id(date: str, time: str, base: str) -> str:
+def practice_anchor_id(date: str, time: str, base: str, seq: int | None = None) -> str:
     """每一份习题小节的稳定锚点：日期 + 时间 + 菜单项标题的短哈希。
 
-    不展示在正文里，只给文件级小节的索引条目做跳转目标；时间落在 id 里，
-    同一天多份（` - 01`、` - 02`）各自落在不同区块，因此互不冲突。
+    不展示在正文里，只给文件级小节的索引条目做跳转目标；时间落在 id 里。同一区块内
+    重复练同一菜单项时两份小节的日期与时间完全相同，再拼上标题序号（` - 01`、` - 02`）
+    才能各自唯一。
     """
     digest = hashlib.sha1(base.encode("utf-8")).hexdigest()[:8]
-    return f"practice-{date}-{time.replace(':', '')}-{digest}"
+    anchor = f"practice-{date}-{time.replace(':', '')}-{digest}"
+    return f"{anchor}-{seq:02d}" if seq is not None else anchor
+
+
+def section_index_labels(items: list[tuple[str, str]]) -> list[str]:
+    """按给定顺序给同名小节生成索引展示文本：`<date> <HH:MM> · <kind>`。
+
+    同一天同一菜单项有多份（不同区块，或同一区块里重复练）时按顺序补 ` - 01`、` - 02`，
+    一天只有一份时不带后缀。`items` 是按时间升序排好的 `(stamp, kind)`。
+    """
+    totals: dict[str, int] = {}
+    for stamp, _kind in items:
+        totals[stamp[:10]] = totals.get(stamp[:10], 0) + 1
+    counters: dict[str, int] = {}
+    labels: list[str] = []
+    for stamp, kind in items:
+        date = stamp[:10]
+        counters[date] = counters.get(date, 0) + 1
+        label = f"{date} {stamp[11:]} · {kind}"
+        labels.append(f"{label} - {counters[date]:02d}" if totals[date] > 1 else label)
+    return labels
 
 
 def round_anchor_id(date: str, time: str) -> str:
@@ -303,9 +324,10 @@ def practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str]]]:
     """菜单项 → [(索引展示文本, 锚点 id)]，按时间倒序排列（新的在前）。
 
     展示文本与日期区块标题同口径（`<date> <HH:MM> · <kind>`）；同一天同一菜单项有多份时
-    按时间先后补 ` - 01`、` - 02`，不由标题里的后缀决定，避免手改标题影响目录。
+    按时间先后补 ` - 01`、` - 02`，不由标题里的后缀决定，避免手改标题影响目录。同一区块里
+    重复练同一菜单项时两份小节时间相同，按标题序号排先后，并各自带上序号锚点。
     """
-    seen: dict[tuple[str, str], str] = {}
+    occurrences: dict[str, list[tuple[str, str, int | None]]] = {}
     date = time = kind = None
     for line in lines:
         stripped = _split_inline_anchor(line.strip())[0]
@@ -315,21 +337,20 @@ def practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str]]]:
             continue
         if date is None or not stripped.startswith("## "):
             continue
-        base, _seq = _section_base(stripped)
+        base, seq = _section_base(stripped)
         if base == f"## {QUIZ_SECTION}":
             continue
-        seen[(base, f"{date} {time}")] = kind
-    labels: dict[tuple[str, str], str] = {}
-    for base in {base for base, _stamp in seen}:
-        day = day_labels(
-            sorted((stamp, kind) for (item_base, stamp), kind in seen.items() if item_base == base)
-        )
-        labels.update({(base, stamp): label for stamp, label in day.items()})
+        occurrences.setdefault(base, []).append((f"{date} {time}", kind, seq))
     grouped: dict[str, list[tuple[str, str]]] = {}
-    for base, stamp in sorted(seen, key=lambda item: item[1], reverse=True):
-        grouped.setdefault(base, []).append(
-            (labels[(base, stamp)], practice_anchor_id(stamp[:10], stamp[11:], base))
-        )
+    for base, items in occurrences.items():
+        ordered = sorted(items, key=lambda item: (item[0], item[2] or 0))
+        labels = section_index_labels([(stamp, kind) for stamp, kind, _seq in ordered])
+        entries = [
+            (labels[position], practice_anchor_id(item[0][:10], item[0][11:], base, item[2]))
+            for position, item in enumerate(ordered)
+        ]
+        entries.reverse()
+        grouped[base] = entries
     return grouped
 
 
@@ -418,7 +439,7 @@ def apply_practice_index(text: str) -> str:
             continue
         if stripped.startswith("## "):
             flush_index()
-            base, _seq = _section_base(stripped)
+            base, seq = _section_base(stripped)
             if in_block:
                 date = time = None
                 for back in range(len(out) - 1, -1, -1):
@@ -432,7 +453,7 @@ def apply_practice_index(text: str) -> str:
                     anchor = (
                         round_anchor_id(date, time)
                         if base == f"## {QUIZ_SECTION}"
-                        else practice_anchor_id(date, time, base)
+                        else practice_anchor_id(date, time, base, seq)
                     )
                     out[-1] = f'{title} <a id="{anchor}"></a>'
                 continue
@@ -1326,11 +1347,9 @@ class NoteStore:
                         "section": section_heading,
                         "hint": "this section is already in the block; do not append it again",
                     }
-                raise NoteError(
-                    f"section {incoming_base} already exists in this block; "
-                    "add more questions with append-part, or replace the block "
-                    "(sections that are missing from the new content are preserved)"
-                )
+                # 同一区块里重复练同一菜单项：交给 _number_day_sections 编号成
+                # `## <标题> - 01` / ` - 02`，两轮各自一张得分表，不再并进同一个小节。
+                continue
             renamed: list[dict[str, str]] = []
             date_match = HEADING_RE.match(lines[start].strip())
             if date_match and incoming_seq is None:
@@ -1368,7 +1387,8 @@ class NoteStore:
     ) -> dict[str, Any]:
         """在已有 ``## section`` 的末尾追加一段正文（不新建小节）。
 
-        日期区块里的小节只放习题，所以这里追加的是同一菜单项的又几道题；
+        日期区块里的小节只放习题，所以这里只在某一个小节里补写题目；同一菜单项再选一次
+        应当另建带序号的同标题小节（` - 01` / ` - 02`），不并节；
         讲解要点、故事 / 对话原文再选一次时走 ``append_explain_part``，追加到文件级
         讲解区里的同名小节（那里才会把 ``故事原文`` 自动改成 ``故事原文 1`` 再编号）。
         新增小节用 ``append_section``，这里只往既有小节末尾补一段，别的小节一字不动。
