@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>2</td></tr>
 <tr><td>下次复习</td><td>2026-11-23 20:21</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-16 20:20</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-16 20:27</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-16 20:29</td></tr>
 </table>
 
 ## 讲解
@@ -62,6 +62,41 @@
 - **Passenger Mr. Okafor**：Then I'll stay right here. One more thing — can my wife come through security **as long as** she has a boarding pass for a later flight?（那我就待在这儿。还有件事——只要我妻子有晚一点的航班的登机牌，她能过安检进来吗）
 - **Gate agent Maya**：No, I'm afraid not. Security opens the line **as soon as** the first flight of the morning is ready, and only passengers on that flight get through.（恐怕不行。安检是在早班第一趟航班准备好时才开通道，只有那趟航班的旅客能过）
 - **Passenger Mr. Okafor**：Understood. I'll tell her to wait outside.（明白了。我让她在外面等）
+
+</details>
+
+## 读一个围绕「as soon as 与 as long as 的区别」的小故事
+
+**讲解要点**：
+- as soon as 的位置一旦换成 as long as，句子的意思会从「时间点」整体翻成「条件」，因为两者的从句承担完全不同的功能。
+  - The day began as soon as the oven light turned orange.（灯一变橙，这一天就算开始了）
+  - As long as the temperature stays under two hundred, we can't bake anything.（只要温度还不到两百度，我们就什么都烤不了）
+- 表示「回来那一刻看到的状态」这类瞬时观察，只能用 as soon as 一类的时点连接词。
+  - As soon as she got back, Hal was already kneeling by the oven.（她一回来，哈尔已经跪在烤箱边了）
+- 写操作规则、强调「立刻」时，as soon as 自带即时性；as long as 只留下许可，丢掉紧接发生的时间感。
+  - As soon as the light is orange, start baking.（灯一变橙就开始烤）
+
+<details>
+<summary>故事原文</summary>
+
+Nia started work at four every morning, an hour before the baker, Hal, arrived. She unlocked the back door, switched on the lights, and turned on the old oven. Hal always said that the day began **as soon as** the oven light turned orange. That Tuesday the light stayed dark.
+尼娅每天早上四点上班，比面包师哈尔早到一小时。她打开后门，开灯，再启动那台老烤箱。哈尔总说，烤箱的灯一变橙，这一天就算开始了。可那个星期二，灯一直没亮。
+
+Hal arrived at five, tapped the dial twice, and shook his head. "**As long as** the temperature stays under two hundred, we can't bake anything," he said. Nia asked whether they could still sell yesterday's bread. "**As long as** it's toasted first, nobody can tell," Hal answered with a small smile, and sent her to the hardware store on the corner.
+哈尔五点到了，敲了两下旋钮，摇了摇头。「只要温度还不到两百度，我们就什么都烤不了，」他说。尼娅问昨天的面包还能不能卖。「只要先烤一下，没人尝得出来，」哈尔笑了笑，打发她去街角那家五金店。
+
+The shopkeeper handed her a new igniter and told her to hurry. **As soon as** she got back, Hal was already kneeling by the oven with a wrench in his hand. They fitted the igniter together, and the flame came back at once. **As soon as** the light turned orange, Nia slid the first tray of rye inside, and the smell reached the street ten minutes later.
+店主递给她一个新的点火器，还催她快点回去。她刚一回来，哈尔已经跪在烤箱边，手里拿着扳手。两人一起装上点火器，火苗立刻回来了。灯一变橙，尼娅就把第一盘黑麦面包推进去，十分钟后面包的香味就飘到了街上。
+
+By seven the shop was full, and the rye sold out before eight. Hal stuck a note on the oven: check the flame before you do anything else. Nia read it twice, then wrote one more line underneath: **as soon as** the light is orange, start baking.
+到七点店里就挤满了人，黑麦面包八点前就卖光了。哈尔在烤箱上贴了一张纸条：动手之前先看火。尼娅读了两遍，又在下面补了一行：灯一变橙，就开始烤。
+
+| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |
+|---|---|---|
+| the day began **as soon as** the oven light turned orange | 交代每天开工的那个时点：灯一变橙，一天就开始 | 换成 as long as 会变成「只要灯一直是橙的」，讲的是持续条件，丢掉了「那一刻开始」的时点义 |
+| "**As long as** the temperature stays under two hundred, we can't bake anything" | 温度不到两百度是「烤不了」的前提，前提一解除才能开工 | 换成 as soon as 会读成「温度一到两百度就烤不了」，条件和结果整个翻转 |
+| **As soon as** she got back, Hal was already kneeling by the oven | 强调她回来那一刻看到的画面，两个动作前后紧接 | as long as 无法给出「回来那一刻」，只能给出「只要她在场」这种条件 |
+| **as soon as** the light is orange, start baking | 写成操作规矩：灯变橙就立刻进炉，不允许拖 | 换成 as long as 只剩「只要灯是橙的就可以烤」，许可还在，即时性没了 |
 
 </details>
 
