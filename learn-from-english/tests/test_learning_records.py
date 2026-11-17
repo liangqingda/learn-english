@@ -180,6 +180,67 @@ class LearningRecordsTest(unittest.TestCase):
         self.store.initialize(empty_database())
         self.service = RecordService(self.store)
 
+    def test_review_errors_follow_their_declared_knowledge_category(self) -> None:
+        self.service.upsert(payload("grammar", "present-perfect-review-target"))
+        spelling = payload("vocabulary", "receive-spelling")
+        spelling["category"] = "vocabulary"
+        spelling["title"] = "receive 的拼写规则"
+        spelling["explanation"] = "i before e except after c: receive 写作 re-ceive。"
+        spelling["source"] = "I recieve your email."
+        spelling["example"] = "I receive your email."
+        tense = payload("grammar", "past-simple-yesterday")
+        tense["title"] = "yesterday 要求一般过去时"
+        tense["explanation"] = "有 yesterday 这类明确过去时间时用一般过去时。"
+        tense["source"] = "I receive your email yesterday."
+        tense["example"] = "I received your email yesterday."
+        errors_before = self.store.category_path("errors").read_bytes()
+
+        result = self.service.complete_review(
+            "grammar:present-perfect-review-target", 6, errors=[spelling, tense]
+        )
+
+        error_ids = [entry["id"] for entry in result["errors"]]
+        self.assertEqual(
+            error_ids, ["vocabulary:receive-spelling", "grammar:past-simple-yesterday"]
+        )
+        records = self.service.records()
+        self.assertEqual(records["vocabulary:receive-spelling"]["category"], "vocabulary")
+        self.assertEqual(records["grammar:past-simple-yesterday"]["category"], "grammar")
+        # 错题都按判型进了知识分类，errors.json 不该被顺手写出来
+        self.assertEqual(self.store.category_path("errors").read_bytes(), errors_before)
+
+    def test_review_error_without_category_stays_in_errors(self) -> None:
+        self.service.upsert(payload("grammar", "review-target-with-default-error"))
+
+        result = self.service.complete_review(
+            "grammar:review-target-with-default-error",
+            5,
+            errors=[payload("errors", "one-off-sentence")],
+        )
+
+        self.assertEqual(result["errors"][0]["id"], "errors:one-off-sentence")
+        self.assertEqual(
+            self.service.records()["errors:one-off-sentence"]["category"], "errors"
+        )
+
+    def test_similar_merge_never_crosses_categories(self) -> None:
+        first = payload("grammar", "sentence-needs-past-tense")
+        first["title"] = "yesterday 要求一般过去时"
+        first["explanation"] = "有 yesterday 这类明确过去时间时用一般过去时。"
+        first["source"] = "I receive your email yesterday."
+        first["example"] = "I received your email yesterday."
+        self.service.upsert(first)
+
+        # 同一句话、同样的错法，但这次声明成证据型错误：不得并进 grammar 记录
+        same_sentence = {**first, "category": "errors", "key": "yesterday-past-tense-evidence"}
+        created = self.service.upsert(same_sentence)
+
+        self.assertTrue(created["created"])
+        self.assertEqual(created["id"], "errors:yesterday-past-tense-evidence")
+        records = self.service.records()
+        self.assertEqual(len(records), 2)
+        self.assertEqual(records["grammar:sentence-needs-past-tense"]["learned_count"], 1)
+
     def test_batch_upsert_is_atomic_and_tracks_repeated_encounters(self) -> None:
         result = self.service.batch_upsert(
             [payload("grammar", "present-perfect"), payload("phrases", "wait-for")]

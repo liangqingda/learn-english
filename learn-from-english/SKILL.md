@@ -67,14 +67,14 @@ description: 当用户发送英文单词、短语、句子、段落、对话、�
 - `usage`：语气、语域、礼貌程度、自然度或场景选择——只有这条记录本身就是一次语气／语域判断时才用它；
   某个词或短语顺带的语域差别，写进该词／短语自己的记录（讲解里加语域栏、`tags` 标 `register` 或 `nuance`），
   不再为同一个表达另开一条 `usage` 记录。
-- `errors`：用户在明确习题或正在进行的英语场景对话中实际出现、被判定为错误或需要修正，且已解释原因的错误模式。
+- `errors`：只有判不出知识类型、或只剩「这一句错了」证据价值的一次性错误才用它。可迁移的错误先判型再落库：拼写 / 词形 / 词义 → `vocabulary`，搭配与固定表达 → `phrases`，结构、时态、句型 → `grammar`，语气 / 语域 / 场景选择 → `usage`；错句放该记录的 `source`，`key` 按知识点命名。一句错答案里同时有拼写和时态问题时，各写一条对应分类的记录，不要都塞进 `errors`。
 
 **一个表达一条记录（先搜后写）**：写入前先运行 `python3 learn-from-english/scripts/learning_records.py search --query "<本轮表达>"`
 确认是否已有记录。命中就把本轮新讲的层面（搭配、语域、典型错法）补进同一条记录的 `explanation`、`example` 与 `tags`，
 不要按「词义／搭配／语域／错法」各建一条；同一个表达被拆进多个分类，正是复习时一条知识要跨几个分类抽题的原因。
 同一表达不同层面确实无法写进一条时，才分到不同分类，并让两条记录的 `key` 指向同一个表达。
 
-不要记录快捷菜单、练习题题干、仅作为说明材料的普通例句、只被提及但未解释的项目，或非英语教学回复。普通英语输入或自由对话中的错误不得写入 `errors`；只有用户提交明确习题的答案，或正在进行的英语场景对话中提交需要纠正的英文回应后，才按仓库根目录 `AGENTS.md` 的规则记录实际答错的模式。用户通过数字菜单继续学习时，只记录该轮新近实质讲解的知识点。
+不要记录快捷菜单、练习题题干、仅作为说明材料的普通例句、只被提及但未解释的项目，或非英语教学回复。普通英语输入或自由对话中的错误不得因此新建任何记录；只有用户提交明确习题的答案，或正在进行的英语场景对话中提交需要纠正的英文回应后，才按仓库根目录 `AGENTS.md` 的规则记录实际答错的模式，并按上面的判型规则分配分类。用户通过数字菜单继续学习时，只记录该轮新近实质讲解的知识点。
 
 把本轮所有知识点组成一个 JSON 数组，并只调用一次：
 
@@ -82,7 +82,7 @@ description: 当用户发送英文单词、短语、句子、段落、对话、�
 python3 learn-from-english/scripts/learning_records.py batch-upsert --input <JSON 文件或 ->
 ```
 
-输入格式为 `{"records": [{"category": "grammar", "key": "present-perfect-experience", "title": "...", "explanation": "...", "source": "...", "example": "...", "tags": ["..."]}]}`。`tags` 只用小写 ASCII 连字符词（`word-choice`、`register`）；大小写与空格会被自动归一，中文标签在写入前报错，需先译成英文再写。同类同义知识点必须复用同一个 `key`；键只表达知识点本身，不包含日期、会话或例句。`key` 只能用小写 ASCII 字母、数字与连字符，中文主题要意译成英文短语（直接传中文会在写入前报 key 无效，不会落成中文 ID）。脚本会生成稳定 ID；相同 ID 或同类高度相似知识点会复用已有记录并保持当前状态，不用较弱内容覆盖较完整内容，但会用更丰富的新 `explanation`、`source`、`example` 和标签补全已有记录。根据返回的 `reason`、`similarity` 与 `enriched_fields` 判断匹配和补全结果。整批输入先校验后写入，任一知识点无效时整批不保存。多个分类文件由本机写锁协调并逐个原子替换；写入前脚本会把目标文件的原始内容备份到 `learning-records/.txn/` 并记录 `.txn-journal.json`；中途失败立即回滚，进程被杀时下一次写操作会先自动恢复再继续。
+输入格式为 `{"records": [{"category": "grammar", "key": "present-perfect-experience", "title": "...", "explanation": "...", "source": "...", "example": "...", "tags": ["..."]}]}`。`tags` 只用小写 ASCII 连字符词（`word-choice`、`register`）；大小写与空格会被自动归一，中文标签在写入前报错，需先译成英文再写。同类同义知识点必须复用同一个 `key`；键只表达知识点本身，不包含日期、会话或例句。`key` 只能用小写 ASCII 字母、数字与连字符，中文主题要意译成英文短语（直接传中文会在写入前报 key 无效，不会落成中文 ID）。脚本会生成稳定 ID；相同 ID 或同分类高度相似知识点会复用已有记录并保持当前状态，不用较弱内容覆盖较完整内容，但会用更丰富的新 `explanation`、`source`、`example` 和标签补全已有记录（相似匹配只在同一分类内进行，跨分类不会被合并）。根据返回的 `reason`、`similarity` 与 `enriched_fields` 判断匹配和补全结果。整批输入先校验后写入，任一知识点无效时整批不保存。多个分类文件由本机写锁协调并逐个原子替换；写入前脚本会把目标文件的原始内容备份到 `learning-records/.txn/` 并记录 `.txn-journal.json`；中途失败立即回滚，进程被杀时下一次写操作会先自动恢复再继续。
 
 不要在每轮预读全部记录。只有在用户要求复习、查询学习历史，或确实需要判断既往知识点时，才调用：
 
@@ -96,7 +96,7 @@ python3 learn-from-english/scripts/learning_records.py search --query <text> --s
 
 历史试卷菜单必须按 option 的 `kind` 分派：`historical-unanswered-paper` 按 action 运行 `paper-get` 并展示未附答案的原卷；`continue-paper-attempt` 运行带 `attempt_id` 的 `paper-get`，恢复已保存答案并列出剩余项；`retry-random-paper` 运行 `paper-list --status completed --random` 后读取该试卷，用户首次提交新答案时不传 `attempt_id`，从而创建新的 attempt。`paper-history` 父项本身不执行。
 
-`focus-story` 按 option 的 `focus` 输出单线叙事小故事：篇幅、目标表达落点、中文对照与收尾三列表按仓库根目录 `AGENTS.md` 的小故事规则，不写成对话、不追加练习；它是只读展示，不计分也不写 `errors`。写进笔记时同样只经 `take-english-study-notes` 的命令追加 `## <选项原文>` 小节，保留完整 `故事原文` 折叠块（收尾三列表折叠在同一块内，写在叙事与译文之后）。
+`focus-story` 按 option 的 `focus` 输出单线叙事小故事：篇幅、目标表达落点、中文对照与收尾三列表按仓库根目录 `AGENTS.md` 的小故事规则，不写成对话、不追加练习；它是只读展示，不计分也不写错题记录。写进笔记时同样只经 `take-english-study-notes` 的命令追加 `## <选项原文>` 小节，保留完整 `故事原文` 折叠块（收尾三列表折叠在同一块内，写在叙事与译文之后）。
 
 若写入失败，继续发送教学回复，并明确说明“本轮学习记录未能保存；本轮记录变更已回滚”。把原始 `batch-upsert` payload 只保留在当前对话，不写入仓库或其他持久文件；此时不要显示正常学习菜单，也不要展示原计划中的未作答练习，只显示“重试保存本轮记录”和“放弃保存并继续”两个恢复选项。重试时原样提交同一 payload；重试成功或用户明确放弃并清除 payload 后才恢复练习或正常菜单。完整的失败处理矩阵（含 `complete-review`、`paper-complete` 与笔记校验）只在 `practice-learning-records/references/failure-recovery.md` 一处维护，不要自行另写一套。若命令报告回滚未完整成功，不得使用“已回滚”，必须说明可能残留部分记录变更并停止后续写入；上下文丢失时说明无法恢复待保存 payload，并返回新的学习菜单。
 

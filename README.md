@@ -56,6 +56,8 @@ exam-papers/<paper_id>.json
 
 学习中和已标熟记录按类别保存在 `learning-records/<category>.json`。已掌握记录按同一类别保存在 `mastered-learning-records/<category>.json`。查询、菜单和复习抽题会合并读取两个目录，所以 CLI 调用方式保持不变。
 
+五个分类里，`vocabulary` / `phrases` / `grammar` / `usage` 装知识点，`errors` 只装**判不出知识类型、或只剩一次性证据价值**的错误；可迁移的错误按判型写进它所属的知识分类（拼写 / 词形 / 词义 → `vocabulary`，搭配与固定表达 → `phrases`，结构、时态、句型 → `grammar`，语气 / 语域 / 场景选择 → `usage`），错句与正确句放在该记录的 `source` 与 `example`。一句错答案里同时有拼写和时态问题时，就是一条 `vocabulary` 加一条 `grammar`，各自一条记录。因此 `error-clusters` 只覆盖 `errors` 分类，错题聚类菜单呈现的是证据型错误；已经进四类知识点的错误按普通知识点复习。
+
 `learning-records/` 下的每个分类文件都是一个 Schema v2 数据库片段，顶层 `category` 表示该文件只保存这一类记录。记录的 `status` 仍然保存在字段里；`learning` 和 `familiar` 留在 `learning-records/`。
 
 `mastered-learning-records/` 下的每个分类文件参考旧版 `mastered.json`，根节点直接是数组，每条只保留稳定 `id`、`title`、`explanation` 和 `mastered_at`。同一知识点累计第 3 次达到 10 分后才移动到对应的 mastered 分类文件。
@@ -146,7 +148,7 @@ python3 learn-from-english/scripts/learning_records.py complete-review \
   --input review-result.json
 ```
 
-输入包含目标 `id`、`score` 和 `errors` 数组。评分、状态转换、下次复习时间、历史事件和错误记录在一次加锁的协调写操作中处理；新增错题同样会先匹配同类相似记录，匹配到时只记一次新的 encounter。输入校验失败时不会写入；跨文件写入中途失败时执行尽力回滚，并由调用方明确告知用户本轮评分和记录未保存以及回滚结果。
+输入包含目标 `id`、`score` 和 `errors` 数组；`errors` 里每条可带 `category`，指明这条错误该落进哪个知识分类（缺省仍是 `errors`）。评分、状态转换、下次复习时间、历史事件和错误记录在一次加锁的协调写操作中处理；新增错题同样会先匹配同类相似记录（只在本分类内匹配，不会跨分类合并），匹配到时只记一次新的 encounter。输入校验失败时不会写入；跨文件写入中途失败时执行尽力回滚，并由调用方明确告知用户本轮评分和记录未保存以及回滚结果。
 
 旧的 `review` 与 `familiar-review` 命令仍可使用，但不能同时写入错题。
 

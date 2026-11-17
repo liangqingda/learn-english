@@ -107,6 +107,11 @@ class RecordService:
             return exact, "exact-id", 1.0
         matches = []
         for existing in records.values():
+            # 只在同分类里找相似记录：一条词汇拼写错误不能被并进 `errors` 记录，
+            # 一个语法点也不能被并进短语记录——合并后的记录只能有一种必写栏
+            # （见 note-format.md），跨分类合并会同时毁掉两条记录的讲解。
+            if existing.get("category") != candidate.get("category"):
+                continue
             reason = cls._similar_match_reason(candidate, existing)
             if reason is not None:
                 matches.append((reason[1], existing["id"], existing, reason[0]))
@@ -348,7 +353,15 @@ class RecordService:
     def _upsert_error(
         records: dict[str, dict[str, Any]], payload: dict[str, Any], timestamp: str
     ) -> dict[str, Any]:
-        normalized = {**payload, "category": "errors"}
+        """把本轮答错的一条错误模式落库。
+
+        双轨：可迁移的错误按它真正所属的知识分类落库（`vocabulary` 拼写 / 词形，
+        `phrases` 搭配与固定表达，`grammar` 结构与时态，`usage` 语气与语域），
+        `source` 放用户写错的原句；只有判不出类型、或只剩「这一句错了」证据价值的
+        一次性错误才落 `errors`。因此这里不再强制 `category: "errors"`，由调用方
+        在错误条目里声明分类，缺省仍按老的 `errors` 处理。
+        """
+        normalized = {**payload, "category": str(payload.get("category") or "errors")}
         candidate = new_record(normalized, timestamp=timestamp)
         match = RecordService._find_similar_record(records, candidate)
         if match is not None:

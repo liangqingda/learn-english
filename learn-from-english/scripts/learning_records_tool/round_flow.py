@@ -34,6 +34,11 @@ because only scenario dialogues and stories are recorded again.
 ``explain_parts`` entries are body-only fragments appended to an existing section;
 use them when the same menu item produces another story or dialogue block.
 
+Each entry of ``review.errors`` may carry a ``category``: a reusable mistake goes
+into the knowledge category it belongs to (``vocabulary`` / ``phrases`` /
+``grammar`` / ``usage``), and only a mistake with no transferable knowledge point
+goes into ``errors``; omitting ``category`` keeps the old ``errors`` default.
+
 Returned payload always carries ``ok``. A round whose block already exists returns
 ``already_saved: true`` and writes nothing further, so retrying the same payload
 never duplicates the explanation sections. A failed step keeps the earlier results
