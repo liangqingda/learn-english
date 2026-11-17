@@ -508,25 +508,14 @@ class RecordService:
                 else 0,
             }
 
-        result = self.store.transaction_releasing_claim(
+        # 自动删除只清记录：笔记 md 原样保留，之后仍可按笔记路径练习这个知识点，
+        # 只是不再有记录可写——所以这里不再删文件，也不再回 note / note_error。
+        return self.store.transaction_releasing_claim(
             identifier,
             operation,
             claim_owner=claim_owner,
             claim_token=claim_token,
         )
-        deleted = result.get("deleted_record") if isinstance(result, dict) else None
-        if deleted:
-            # 记录与笔记必须一起消失（同 delete-note 的口径）。笔记删除排在记录事务之后：
-            # 记录删成功才动文件；文件删不掉时只报 note_error，不让本轮评分跟着回滚。
-            from .notes import delete_note_for_record  # 局部导入，避免 notes ↔ service 循环
-
-            try:
-                result["note"] = delete_note_for_record(
-                    self.store.repo_root, deleted["category"], deleted["key"]
-                )
-            except RecordError as exc:
-                result["note_error"] = str(exc)
-        return result
 
     def rescore(self, identifier: str, score: float) -> dict[str, Any]:
         """Correct the most recent review score and replay derived review state.

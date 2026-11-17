@@ -220,7 +220,7 @@ python3 learn-from-english/scripts/learning_records.py review-round --input <JSO
 - `status: familiar`：本次达到 8 分及以上但尚未满足 `mastered` 条件，进入或留在已标熟状态。
 - `status: mastered`：同一知识点累计第 3 次达到 10 分，进入已掌握状态，并作为完整英语考试套题素材；未满 3 次的 10 分仍显示为 `familiar`。
 - `lapse_count` 增加：原已标熟或已掌握知识点出现遗忘。
-- `deleted: true`：这是一条**已掌握**记录，本轮是它连续第 3 次 10 分，记录与笔记已被自动删除，见下面「删除记录与笔记」。`mastered_ten_streak` 报出当前连击次数（离开 mastered 时为 0）。
+- `deleted: true`：这是一条**已掌握**记录，本轮是它连续第 3 次 10 分，记录已被自动删除、笔记 md 保留，见下面「删除记录与笔记」。`mastered_ten_streak` 报出当前连击次数（离开 mastered 时为 0）。
 
 命令还会返回 `next_review_at`、`status` 与 `lapse_count`，这些只用来判断记录已怎么变化，不再写进聊天回复。写入成功后按「生成本轮学习笔记」准备好本轮笔记，与评分一起用一次 `review-round` 落盘，再按「评分后的回复」输出得分行、判定表格与后续菜单。写入失败时仍完成教学反馈，说明“本轮评分与错题未能保存；本轮记录变更已回滚”，并把含 `claim_owner`、`claim_token` 的完整 payload 只保留在当前对话。此时不要输出得分行与判定表格，只显示“重试保存本轮评分”和“放弃保存并返回菜单”；重试时原样调用 `complete-review` 并复用凭据，放弃时必须确保本轮评分、状态、历史、错题和 claim 全部清除，再清除 payload。若回滚未完整成功，说明可能残留部分变更并停止后续写入。上下文丢失时说明无法重试并返回初始菜单。
 
@@ -235,12 +235,12 @@ python3 learn-from-english/scripts/learning_records.py review-round --input <JSO
 - `python3 learn-from-english/scripts/learning_records.py delete-record --id "<category>:<key>"`：只删记录（learning 与 mastered 都认），笔记文件保持不动，返回 `id` / `category` / `status` / `file`。用户明确说“删掉这条知识点、但笔记留着”时用它。
 - `python3 learn-from-english/scripts/learning_records.py delete-note --note "learning-record-notes/<category>/<category>-<slug>.md"`：删这篇笔记，并顺着笔记「基础信息」里的 `记录 ID` 一起删记录，是用户说“删掉某篇笔记／某条知识点”时的默认入口。路径必须在 `learning-record-notes/` 下、目录必须在 `categories.json` 的分类里、文件名必须以 `<category>-` 开头；先删 md，md 删不掉就整件事不做并把原因说出来；笔记里的记录 ID 与文件名对不上时只删笔记、保留记录并回传 `record_error`，不要顺着错 ID 删别人的知识点；试卷笔记（ID 不是 `<五类>:<key>` 形态）只删文件。
 
-**已掌握记录自动删除**：mastered 记录被抽查（`complete-review`，含 `review-round` 的 `review` 段）时，脚本自己维护 `mastered_ten_streak`：本次 10 分就 +1，不是 10 分就清零；连击达到 3 次时把记录从 `mastered-learning-records/` 删除，并同步删掉它对应的笔记 md（文件本就不在时 `note_deleted: false`，不算错误）。进入 mastered 的那一次 10 分属于“入档分”，不计入连击，所以正常节奏是入档后再连做 3 轮满分才退出记录库。
+**已掌握记录自动删除**：mastered 记录被抽查（`complete-review`，含 `review-round` 的 `review` 段）时，脚本自己维护 `mastered_ten_streak`：本次 10 分就 +1，不是 10 分就清零；连击达到 3 次时把记录从 `mastered-learning-records/` 删除——**只删记录，笔记 md 原样保留**（之后仍可按笔记路径练习这个知识点，见 `references/note-path-entry.md`，只是不再有记录可写）。进入 mastered 的那一次 10 分属于“入档分”，不计入连击，所以正常节奏是入档后再连做 3 轮满分才退出记录库。
 
-- 返回 `deleted: true` 且带 `deleted_record`（`id` / `category` / `key` / `title` / `ten_streak` / `file`）与 `note`（`note` / `note_deleted` / `note_error`）。
-- `review-round` 已经自动处理：本轮带了 `note` 段时，命中的那次不再给这条记录写笔记，返回 `note_skipped: {"reason": "record-auto-deleted", ...}`（没带 `note` 段就不出现该字段）；此时不要再单独补写笔记或重建 `## 讲解`。
-- 记录已删时本轮照常给得分行与判定表格，并在表格后加一句说明：该知识点已连续 3 次满分、已退出复习库（记录与笔记一起删除）；后续菜单照常生成。
-- `note_error` 非空表示记录已删但 md 没删掉（被占用，或这篇笔记的记录 ID 指向别的知识点）：处理见 `references/failure-recovery.md` 的对应行；不得自己 `rm`。
+- 返回 `deleted: true` 且带 `deleted_record`（`id` / `category` / `key` / `title` / `ten_streak` / `file`）；没有 `note` 字段，笔记不在这一步被改动。
+- `review-round` 已经自动处理：本轮带了 `note` 段时，命中的那次不再按记录口径补区块，返回 `note_skipped: {"reason": "record-auto-deleted", ...}`（没带 `note` 段就不出现该字段）；此时文件原样留着，不要补写笔记、不要重建 `## 讲解`。
+- 记录已删时本轮照常给得分行与判定表格，并在表格后加一句说明：该知识点已连续 3 次满分、记录已退出复习库，笔记保留、之后仍可按笔记路径练习；后续菜单照常生成。
+- 笔记 md 保留在原处：不要再删它、不要把它移出 `learning-record-notes/`，也不要因为记录没了就把它当孤儿清理。
 
 ## 评分后的回复
 

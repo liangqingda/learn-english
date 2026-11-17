@@ -1,13 +1,12 @@
-"""删除复习笔记与「记录已经消失」之后的孤儿笔记。
+"""删一篇复习笔记，连同它在记录库里的那条记录。
 
-为什么删笔记也要走脚本：笔记是记录的可读副本，两者必须一起消失；记录那一半的写入
-（锁、revision、未掌握 / 已掌握拆分、原子替换）只能由 ``RecordStore`` 做，
-任何调用方自己改 ``learning-records/*.json`` 都会绕开这套约束。
+为什么删笔记也要走脚本：笔记是记录的可读副本，这两者只有 ``delete-note`` 会一起消失；
+而记录那一半的写入（锁、revision、未掌握 / 已掌握拆分、原子替换）只能由 ``RecordStore``
+做，任何调用方自己改 ``learning-records/*.json`` 都会绕开这套约束。
 
-本模块同时提供两条路径：
-``NoteDeletionService.delete`` —— ``delete-note`` 命令，删笔记 + 它记录 ID 指到的记录；
-``delete_note_for_record`` —— 自动删除（已掌握记录连续三次 10 分）之后的清理，
-记录已经在事务里删掉了，这里只清可读副本，并同样校验笔记里的记录 ID。
+已掌握记录连续三次 10 分的自动删除**只删记录**：那条记录对应的笔记 md 原样保留，
+之后仍可按笔记路径练习这个知识点（只是不再有记录可写），因此本模块不再提供
+「记录删了顺手删它的笔记」这类函数。
 """
 
 from __future__ import annotations
@@ -40,44 +39,6 @@ def record_id_from_text(text: str) -> str:
     """从笔记正文里取「基础信息」表的记录 ID；取不到回空串。"""
     match = RECORD_ID_RE.search(text)
     return match.group(1).strip() if match else ""
-
-
-def delete_note_for_record(
-    repo_root: Path | str, category: str, key: str
-) -> dict[str, Any]:
-    """删掉一条记录对应的笔记文件；文件本来就不在时不报错。
-
-    给自动删除（已掌握记录连续三次 10 分）用：那条记录已经从记录库移除，
-    这里只需要同步清掉可读副本，不再回头删记录，所以不复用 ``delete-note``。
-
-    仍然校验笔记里的记录 ID：路径是按 ``<category>-<key>.md`` 推出来的，但同名文件
-    可能装着别的知识点（改过名、复制过），那种情况不删文件、抛错交给调用方报
-    ``note_error``——记录已经删了，宁可留一份孤儿笔记，也不能顺手删错别人的。
-    """
-    path = note_path_for_record(repo_root, category, key)
-    relative = path.relative_to(Path(repo_root)) if path.is_absolute() else path
-    if not path.exists():
-        return {
-            "note": relative.as_posix(),
-            "note_deleted": False,
-            "note_error": None,
-        }
-    try:
-        text = path.read_text(encoding="utf-8")
-    except OSError as exc:
-        raise RecordError(f"cannot read note file {path}: {exc}") from exc
-    owner_id = record_id_from_text(text)
-    if owner_id and owner_id != f"{category}:{key}":
-        raise RecordError(
-            f"note {relative.as_posix()} belongs to {owner_id}, not {category}:{key}; "
-            "file kept"
-        )
-    try:
-        path.unlink()
-    except OSError as exc:
-        raise RecordError(f"cannot delete note file {path}: {exc}") from exc
-    invalidate(repo_root)
-    return {"note": relative.as_posix(), "note_deleted": True, "note_error": None}
 
 
 class NoteDeletionService:

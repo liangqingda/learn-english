@@ -51,7 +51,7 @@ class MasteredAutoDeleteTest(unittest.TestCase):
         path.write_text("## 基础信息\n\n## 讲解\n", encoding="utf-8")
         return path
 
-    def test_three_consecutive_tens_delete_the_record_and_its_note(self) -> None:
+    def test_three_consecutive_tens_delete_the_record_but_keep_the_note(self) -> None:
         self.mark_mastered("usage:polite-request")
         note = self.write_note("usage", "polite-request")
 
@@ -75,9 +75,10 @@ class MasteredAutoDeleteTest(unittest.TestCase):
                 "file": "mastered-learning-records/usage.json",
             },
         )
-        self.assertEqual(third["note"]["note"], "learning-record-notes/usage/usage-polite-request.md")
-        self.assertTrue(third["note"]["note_deleted"])
-        self.assertFalse(note.exists())
+        # 只删记录：笔记 md 原样保留，之后仍可按路径练习这个知识点
+        self.assertTrue(note.exists())
+        self.assertNotIn("note", third)
+        self.assertNotIn("note_error", third)
         self.assertNotIn("usage:polite-request", self.records.records())
         self.assertEqual(self.records.summary()["totals"]["mastered"], 0)
 
@@ -116,13 +117,18 @@ class MasteredAutoDeleteTest(unittest.TestCase):
         self.assertEqual(result["mastered_ten_streak"], 1)
         self.assertFalse(result["deleted"])
 
-    def test_a_missing_note_is_reported_without_an_error(self) -> None:
+    def test_the_note_is_left_untouched_whether_it_exists_or_not(self) -> None:
+        """删记录不看笔记：没有笔记就什么都不动，有笔记也不动它。"""
         self.mark_mastered("usage:polite-request")
+
+        existing = self.write_note("usage", "polite-request")
+        before = existing.read_text(encoding="utf-8")
         for _ in range(3):
             result = self.records.complete_review("usage:polite-request", 10)
 
-        self.assertIsNone(result["note"]["note_error"])
-        self.assertFalse(result["note"]["note_deleted"])
+        self.assertTrue(result["deleted"])
+        self.assertEqual(existing.read_text(encoding="utf-8"), before)
+        self.assertNotIn("note", result)
 
     def test_a_learning_record_is_never_auto_deleted(self) -> None:
         self.records.upsert(payload("usage", "fresh"))
@@ -131,22 +137,9 @@ class MasteredAutoDeleteTest(unittest.TestCase):
         self.assertEqual(first["mastered_ten_streak"], 0)
         self.assertFalse(first["deleted"])
 
-    def test_a_note_owned_by_another_record_is_kept(self) -> None:
-        """同名笔记里写着别的记录 ID 时不删它：记录已删，但绝不能顺手删错别人的笔记。"""
+    def test_review_round_keeps_the_note_file_when_the_record_was_deleted(self) -> None:
         self.mark_mastered("usage:polite-request")
         note = self.write_note("usage", "polite-request")
-        note.write_text("## 基础信息\n\n<tr><td>记录 ID</td><td>grammar:other</td></tr>\n\n## 讲解\n", encoding="utf-8")
-
-        for _ in range(3):
-            result = self.records.complete_review("usage:polite-request", 10)
-
-        self.assertTrue(result["deleted"])
-        self.assertTrue(note.exists())
-        self.assertIsNotNone(result["note_error"])
-        self.assertIn("grammar:other", result["note_error"])
-
-    def test_review_round_skips_the_note_when_the_record_was_deleted(self) -> None:
-        self.mark_mastered("usage:polite-request")
         self.records.complete_review("usage:polite-request", 10)
         self.records.complete_review("usage:polite-request", 10)
 
@@ -170,9 +163,8 @@ class MasteredAutoDeleteTest(unittest.TestCase):
         self.assertTrue(result["review"]["deleted"])
         self.assertEqual(result["note_skipped"]["reason"], "record-auto-deleted")
         self.assertNotIn("note", result)
-        self.assertFalse(
-            (self.root / "learning-record-notes" / "usage" / "usage-polite-request.md").exists()
-        )
+        # 笔记 md 保留在原处：记录没了，这篇仍可按路径当练习素材用
+        self.assertTrue(note.exists())
 
 
 if __name__ == "__main__":

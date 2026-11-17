@@ -113,7 +113,7 @@ python3 learn-from-english/scripts/learning_records.py delete-note --note "learn
 - `delete-note` 是默认入口：删笔记并顺着笔记「基础信息」里的 `记录 ID` 一起删记录。路径必须在 `learning-record-notes/` 下、目录必须在 `categories.json` 的分类里、文件名必须以 `<category>-` 开头，否则直接拒绝；先删 md，md 删不掉（权限、占用）就整件事不做并报错；记录 ID 与文件名对不上时只删笔记、保留记录并回传 `record_error`；试卷笔记（ID 不是 `<五类>:<key>` 形态）只删文件。
 - 两个命令都走记录库事务，不要用 `git restore`、手工回退分类文件或直接删 JSON 代替。删除是写操作：成功后才按仓库根目录 `AGENTS.md` 的提交约定提交。
 
-**已掌握记录自动删除**：mastered 记录被抽查时，连续第 3 次 10 分会把记录与它的笔记一起删掉。这条规则的完整口径（连击怎么数、`note_error` 怎么处理、`review-round` 为什么会返回 `note_skipped`）只在 `practice-learning-records/SKILL.md` 的「删除记录与笔记」维护；这里只需要认得 `deleted: true` 表示该知识点已退出复习库，并如实说明。
+**已掌握记录自动删除**：mastered 记录被抽查时，连续第 3 次 10 分会删掉这条**记录**，笔记 md 保留（之后仍可按笔记路径练习，只是不再有记录可写）。完整口径（连击怎么数、`review-round` 为什么会返回 `note_skipped`、记录没了怎么按笔记路径练习）只在 `practice-learning-records/SKILL.md` 的「删除记录与笔记」与 `references/note-path-entry.md` 维护；这里只需要认得 `deleted: true` 表示该知识点已退出复习库、笔记还在，并如实说明。
 
 ## 根据输入选择讲解方式
 

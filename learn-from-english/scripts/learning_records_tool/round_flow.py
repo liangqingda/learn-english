@@ -312,8 +312,8 @@ def finish_round(
         result["steps"].append("review")
 
     note = payload.get("note")
-    # 本轮记录被自动删除（已掌握记录连续三次 10 分）时，笔记已经随记录一起删掉，
-    # 不能再给一条不存在的记录补区块，否则会留下孤儿笔记。
+    # 本轮记录被自动删除（已掌握记录连续三次 10 分）时，记录已经不在库里，笔记 md 保留：
+    # 本轮不按记录口径补区块（追踪行无从取），笔记原样留在原处，之后仍可按路径练习。
     record_deleted = bool(
         isinstance(result.get("review"), dict) and result["review"].get("deleted")
     )

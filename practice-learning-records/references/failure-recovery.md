@@ -18,7 +18,7 @@
 | `note_status: unverified`（校验器不可用） | 正常发送正文 | 只输出得分行、判定表格与后续菜单 | 不涉及 | 正文如实说明「本轮笔记未校验」，不得当作已通过 |
 | 返回 `tracking_mismatch`（追踪表与记录不符） | 先看 `basic_info_synced`：顶部 `累计复习次数` / `下次复习` 已自动回填；剩下的身份行或本轮字段按 `tracking_expected` 改完本轮区块，用 `replace` 重写并复检。历史笔记顶部是旧值时用 `note.py sync --file <笔记文件>` 修复 | 只输出得分行、判定表格与后续菜单 | 不涉及 | 不要改记录数据去迁就手抄值；`题量与错题数` 不在比对范围内 |
 | `note.py` 找不到 `learning_records.py`（只装了复习 skill） | 说明缺少写入命令的位置，先跑 `note.py check --all` 确认校验可用 | 只输出得分行、判定表格与后续菜单 | 不涉及 | 不得改用 `Write` 直接落盘；按报错里的 `probed` 路径提示安装 learn-from-english 或设置 `LEARN_ENGLISH_CLI` |
-| `complete-review` / `review-round` 返回 `deleted: true` 而 `note_error` 非空（记录已自动删除，笔记 md 没删掉：被占用，或这篇笔记的记录 ID 指向别的知识点） | 不再重试评分：记录已经不在库里。得分与判定照常输出，另加一句说明它已退出复习库、笔记文件仍需清理 | 得分行、判定表格、一句说明与后续菜单 | 不涉及 | 提示可再跑一次 `delete-note` 清掉那篇笔记；不得自己 `rm`，也不得重建记录或重建笔记 |
+| `complete-review` / `review-round` 返回 `deleted: true`（记录已自动删除，笔记 md 保留） | 不再重试评分：记录已经不在库里。得分与判定照常输出，另加一句说明它已退出复习库、笔记保留 | 得分行、判定表格、一句说明与后续菜单 | 不涉及 | 不得重建记录，也不得删掉那篇笔记；之后按笔记路径练习的走法见 `note-path-entry.md` |
 | `menu` / `next-review` / 查询类命令失败 | 说明命令失败原因，按上下文退回初始菜单或直接回答 | 初始菜单 | 不涉及 | 不适用 |
 
 跨文件写入由脚本的事务日志兜底：写入前把目标文件的原始内容备份到 `learning-records/.txn/` 并记录 `.txn-journal.json`；中途失败会立即回滚，进程被杀时下一次任意写操作或 `validate` 会先恢复再继续。看到 `.txn-recovery.log` 记录时，如实说明“上次未完成的写入已自动回滚”，不要描述成“已回滚本轮”。
