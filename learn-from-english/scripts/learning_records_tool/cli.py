@@ -12,6 +12,7 @@ from typing import Any
 from .cache import DEFAULT_MAX_AGE_SECONDS, get_snapshot, git_head
 from .menu import annotate_writes
 from .models import CATEGORIES, STATUSES, RecordError, record_id
+from .notes import NoteDeletionService
 from .papers import PAPER_STATUSES, PaperService
 from .round_flow import finish_round
 from .service import RecordService
@@ -29,6 +30,10 @@ def service() -> RecordService:
 
 def paper_service() -> PaperService:
     return PaperService(RecordStore(REPO_ROOT))
+
+
+def note_deletion_service() -> NoteDeletionService:
+    return NoteDeletionService(REPO_ROOT, service())
 
 
 
@@ -75,6 +80,24 @@ def handle_merge(args: argparse.Namespace) -> dict[str, Any]:
         source=args.record_source,
         example=args.example,
     )
+
+
+def handle_delete_record(args: argparse.Namespace) -> dict[str, Any]:
+    """删一条记录：笔记文件不归这里管，只动记录库。"""
+    deleted = service().delete_record(args.id)
+    if deleted is None:  # 正常路径下 delete_record 缺记录会报错，这里只是兜底
+        raise RecordError(f"record does not exist: {args.id}")
+    directory = (
+        "mastered-learning-records"
+        if deleted["status"] == "mastered"
+        else "learning-records"
+    )
+    return {**deleted, "deleted": True, "file": f"{directory}/{deleted['category']}.json"}
+
+
+def handle_delete_note(args: argparse.Namespace) -> dict[str, Any]:
+    """删一篇笔记，连同它记录 ID 指到的那条记录。"""
+    return note_deletion_service().delete(args.note)
 
 
 def handle_encounter(args: argparse.Namespace) -> dict[str, Any]:
@@ -346,6 +369,24 @@ def build_parser() -> argparse.ArgumentParser:
     merge.add_argument("--record-source")
     merge.add_argument("--example")
     merge.set_defaults(handler=handle_merge)
+
+    delete_record = subparsers.add_parser(
+        "delete-record",
+        help="delete one record (learning or mastered); the note file is not touched",
+    )
+    delete_record.add_argument("--id", required=True, help="<category>:<key>")
+    delete_record.set_defaults(handler=handle_delete_record)
+
+    delete_note = subparsers.add_parser(
+        "delete-note",
+        help="delete one review note together with the record its 记录 ID points at",
+    )
+    delete_note.add_argument(
+        "--note",
+        required=True,
+        help="repo-relative note path, e.g. learning-record-notes/errors/errors-foo.md",
+    )
+    delete_note.set_defaults(handler=handle_delete_note)
 
     encounter = subparsers.add_parser("encounter", help="record another learning encounter")
     encounter.add_argument("--id", required=True)

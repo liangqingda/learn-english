@@ -300,6 +300,36 @@ class RecordService:
         result = self.store.transaction(operation)
         return result
 
+    def delete_record(
+        self,
+        identifier: str,
+        *,
+        missing_ok: bool = False,
+    ) -> dict[str, Any] | None:
+        """删掉一条记录（未掌握或已掌握都认），走正常事务写入。
+
+        `missing_ok` 给「顺带删记录」的调用方用（例如删笔记时记录可能已被手工删过）：
+        记录不在库里返回 None，而不是报错把整个删除流程打断。真正的写入问题
+        （数据库损坏、写盘失败）仍然抛错，绝不静默吞掉。
+        """
+
+        def operation(database: dict[str, Any]) -> dict[str, Any] | None:
+            record = database["records"].get(identifier)
+            if record is None:
+                if missing_ok:
+                    return None
+                raise RecordError(f"record does not exist: {identifier}")
+            del database["records"][identifier]
+            return {
+                "id": identifier,
+                "category": record["category"],
+                "status": record["status"],
+                "title": record["title"],
+                "key": record.get("key"),
+            }
+
+        return self.store.transaction(operation)
+
     @staticmethod
     def _upsert_error(
         records: dict[str, dict[str, Any]], payload: dict[str, Any], timestamp: str
