@@ -170,7 +170,8 @@ python3 learn-from-english/scripts/learning_records.py delete-note \
   --note learning-record-notes/errors/errors-obsolete-pattern.md
 ```
 
-`delete-record` 只删记录（未掌握、已掌握都认），笔记文件保持不动，返回 `id` / `category` / `status` / `file`（改动的那份分类 JSON）。`delete-note` 删一篇笔记，并顺着笔记「基础信息」里的 `记录 ID` 把那条记录一并删掉：`--note` 取仓库相对路径 `learning-record-notes/<category>/<category>-<slug>.md`，目录不在笔记分类里、前缀与目录不一致、文件不存在都直接拒绝。记录那一半只在「记录 ID 的分类等于笔记分类、且 key 与文件名对得上」时才删——ID 写错或过期时保留记录并返回 `record_error`，不顺着一个错 ID 删掉别的知识点；`paper` 分类的套题笔记只删笔记文件（试卷本身不在这里删）。两者都走记录库的同一套事务写入（锁、revision、未掌握 / 已掌握拆分、原子替换），返回值里的 `record.file` 指出这次改了哪份 JSON，供调用方提交；服务层照旧不执行 Git 提交。
+`delete-record` 只删记录（未掌握、已掌握都认），笔记文件保持不动，返回 `id` / `category` / `status` / `file`（改动的那份分类 JSON）。`delete-note` 删一篇笔记，并顺着笔记「基础信息」里的 `记录 ID` 把那条记录一并删掉：`--note` 取仓库相对路径 `learning-record-notes/<category>/<category>-<slug>.md`，目录不在笔记分类里、前缀与目录不一致、文件不存在都直接拒绝；md 本身删不掉（权限、占用）时报错退出，
+记录一条都不动。记录那一半只在「记录 ID 的分类等于笔记分类、且 key 与文件名对得上」时才删——ID 写错或过期时保留记录并返回 `record_error`，不顺着一个错 ID 删掉别的知识点；`paper` 分类的套题笔记只删笔记文件（试卷本身不在这里删）。两者都走记录库的同一套事务写入（锁、revision、未掌握 / 已掌握拆分、原子替换），返回值里的 `record.file` 指出这次改了哪份 JSON，供调用方提交；服务层照旧不执行 Git 提交。
 
 
 ### 菜单和选题

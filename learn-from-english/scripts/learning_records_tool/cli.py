@@ -85,14 +85,9 @@ def handle_merge(args: argparse.Namespace) -> dict[str, Any]:
 def handle_delete_record(args: argparse.Namespace) -> dict[str, Any]:
     """删一条记录：笔记文件不归这里管，只动记录库。"""
     deleted = service().delete_record(args.id)
-    if deleted is None:  # 正常路径下 delete_record 缺记录会报错，这里只是兜底
+    if deleted is None:  # missing_ok 默认 False，缺记录会抛错，这里只做类型兜底
         raise RecordError(f"record does not exist: {args.id}")
-    directory = (
-        "mastered-learning-records"
-        if deleted["status"] == "mastered"
-        else "learning-records"
-    )
-    return {**deleted, "deleted": True, "file": f"{directory}/{deleted['category']}.json"}
+    return {**deleted, "deleted": True}
 
 
 def handle_delete_note(args: argparse.Namespace) -> dict[str, Any]:

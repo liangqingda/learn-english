@@ -308,6 +308,9 @@ class RecordService:
     ) -> dict[str, Any] | None:
         """删掉一条记录（未掌握或已掌握都认），走正常事务写入。
 
+        返回值带上 ``file``：这条记录原来落在 `learning-records/` 还是
+        `mastered-learning-records/`，由这里说了算，调用方不必自己再判一次。
+
         `missing_ok` 给「顺带删记录」的调用方用（例如删笔记时记录可能已被手工删过）：
         记录不在库里返回 None，而不是报错把整个删除流程打断。真正的写入问题
         （数据库损坏、写盘失败）仍然抛错，绝不静默吞掉。
@@ -320,12 +323,18 @@ class RecordService:
                     return None
                 raise RecordError(f"record does not exist: {identifier}")
             del database["records"][identifier]
+            directory = (
+                "mastered-learning-records"
+                if record["status"] == "mastered"
+                else "learning-records"
+            )
             return {
                 "id": identifier,
                 "category": record["category"],
                 "status": record["status"],
                 "title": record["title"],
                 "key": record.get("key"),
+                "file": f"{directory}/{record['category']}.json",
             }
 
         return self.store.transaction(operation)

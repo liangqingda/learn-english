@@ -94,23 +94,29 @@ class NoteDeletionService:
         category = self.record_category(record_id)
         if category is None or category != path.parent.name:
             return None
-        match = RECORD_ID_FORMAT_RE.fullmatch(record_id)
-        if match is None:
-            return None
-        if f"{category}-{match.group(2)}{NOTE_SUFFIX}" != path.name:
+        # record_category 已经确认过 `<category>:<key>` 的形态，这里直接取 key
+        key = record_id.split(":", 1)[1]
+        if f"{category}-{key}{NOTE_SUFFIX}" != path.name:
             return None
         return category
 
     def delete(self, note: str) -> dict[str, Any]:
         """删掉笔记文件，再按记录 ID 删记录；记录那一半失败不掩盖笔记已删的事实。"""
         path = self.resolve(note)
-        text = path.read_text(encoding="utf-8")
+        try:
+            text = path.read_text(encoding="utf-8")
+        except OSError as exc:
+            raise RecordError(f"cannot read note {note}: {exc}") from exc
         record_id = self.record_id_from_text(text)
         category = self._record_target(path, record_id)
         record: dict[str, Any] | None = None
         record_error: str | None = None
 
-        path.unlink()
+        try:
+            path.unlink()
+        except OSError as exc:
+            # 文件没删掉就什么都不算删过：记录一条都还没动，直接把原因抛出去
+            raise RecordError(f"cannot delete note file {note}: {exc}") from exc
         invalidate(self.repo_root)
 
         if category is not None:
@@ -120,14 +126,9 @@ class NoteDeletionService:
                 record_error = str(exc)
             else:
                 if deleted is not None:
-                    directory = (
-                        "mastered-learning-records"
-                        if deleted["status"] == "mastered"
-                        else "learning-records"
-                    )
+                    # file 由记录服务给出：哪份 JSON 变了不在这一层再判一次
                     record = {
                         **deleted,
-                        "file": f"{directory}/{category}.json",
                         "mastered": deleted["status"] == "mastered",
                     }
         elif self.record_category(record_id) is not None:

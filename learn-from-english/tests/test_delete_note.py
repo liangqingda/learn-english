@@ -7,6 +7,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 SCRIPT_DIR = Path(__file__).resolve().parents[1] / "scripts"
 sys.path.insert(0, str(SCRIPT_DIR))
@@ -155,6 +156,22 @@ class NoteDeletionTest(unittest.TestCase):
             self.deletions.delete("learning-record-notes/../README.md")
         with self.assertRaises(RecordError):
             self.deletions.delete("learning-record-notes/errors/other-demo.md")
+
+    def test_delete_note_leaves_the_record_alone_when_the_file_cannot_be_removed(
+        self,
+    ) -> None:
+        self.records.upsert(payload("errors", "demo"))
+        self.write_note(
+            "learning-record-notes/errors/errors-demo.md", note_text("errors:demo")
+        )
+
+        with mock.patch.object(Path, "unlink", side_effect=OSError("read-only")):
+            with self.assertRaises(RecordError) as caught:
+                self.deletions.delete("learning-record-notes/errors/errors-demo.md")
+
+        self.assertIn("cannot delete note file", str(caught.exception))
+        # md 没删掉，记录也不能先被删掉
+        self.assertIn("errors:demo", self.records.records())
 
     def test_delete_note_rejects_a_missing_note(self) -> None:
         with self.assertRaises(RecordError):
