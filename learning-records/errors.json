@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 273,
+  "revision": 274,
   "category": "errors",
   "records": {
     "errors:a-few-kinds-of-food-plural": {
@@ -1173,6 +1173,31 @@
         }
       ],
       "key": "back-west-spacing"
+    },
+    "errors:bare-singular-countable-noun": {
+      "id": "errors:bare-singular-countable-noun",
+      "category": "errors",
+      "key": "bare-singular-countable-noun",
+      "status": "learning",
+      "title": "单数可数名词裸用（缺冠词）",
+      "explanation": "单数可数名词作主语时必须带限定词：a phrase / the phrase / each phrase。写成 Phrase is consist of… 缺少冠词，句子不成立。",
+      "source": "Phrase is consist of many words.",
+      "example": "A phrase consists of many words.",
+      "tags": [
+        "article",
+        "practice-error"
+      ],
+      "first_learned_at": "2026-11-17T20:07:37+08:00",
+      "last_learned_at": "2026-11-17T20:07:37+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "errors:base-verb-after-does-in-direct-question": {
       "id": "errors:base-verb-after-does-in-direct-question",
@@ -5168,12 +5193,13 @@
       "source": "Now, this word is often used in informal situation.",
       "example": "Now, this phrase is often used in informal situations.",
       "tags": [
+        "practice-error",
         "review-error",
         "word-choice"
       ],
       "first_learned_at": "2026-08-02T10:24:33+08:00",
-      "last_learned_at": "2026-08-02T10:24:33+08:00",
-      "learned_count": 2,
+      "last_learned_at": "2026-11-17T20:07:37+08:00",
+      "learned_count": 3,
       "mastery_score": 10.0,
       "review_count": 1,
       "high_score_streak": 1,
@@ -6119,15 +6145,16 @@
       "status": "learning",
       "title": "用 oral / normal 这类形容词充当语域名词",
       "explanation": "表示“在口语里 / 在正式文章里”要用 in + 名词短语：in spoken English、in formal writing。oral 与 normal 是形容词，不能直接放在 in 后面当名词用。",
-      "source": "This phrase is usual in oral, but it rarely in normal.",
+      "source": "common in almost, but they almost never appear in normal",
       "example": "This phrase is common in spoken English but rare in formal writing.",
       "tags": [
+        "practice-error",
         "review-error",
         "word-choice"
       ],
       "first_learned_at": "2026-11-17T07:43:29+08:00",
-      "last_learned_at": "2026-11-17T07:43:29+08:00",
-      "learned_count": 1,
+      "last_learned_at": "2026-11-17T20:07:37+08:00",
+      "learned_count": 2,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,
@@ -6846,6 +6873,31 @@
       ],
       "first_learned_at": "2026-11-15T12:05:12+08:00",
       "last_learned_at": "2026-11-15T12:05:12+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "errors:subject-verb-agreement-plural-noun-is": {
+      "id": "errors:subject-verb-agreement-plural-noun-is",
+      "category": "errors",
+      "key": "subject-verb-agreement-plural-noun-is",
+      "status": "learning",
+      "title": "复数主语搭配 is",
+      "explanation": "主语是复数名词（these phrases）时，谓语要用复数形式 consist 或 are，不能用 is；主谓一致先于其他成分判断。",
+      "source": "These phrases is consist of three words.",
+      "example": "These phrases consist of three words.",
+      "tags": [
+        "agreement",
+        "practice-error"
+      ],
+      "first_learned_at": "2026-11-17T20:07:37+08:00",
+      "last_learned_at": "2026-11-17T20:07:37+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -7605,15 +7657,16 @@
       "status": "learning",
       "title": "把 consist of 写成 is consist of",
       "explanation": "consist 是不及物动词，本身可直接接 of 作谓语；is consist of 把限定动词 be 与原形动词叠加，句子出现两个谓语成分。要么用 consists of，要么用 is composed of。",
-      "source": "the phrase is consist of many words",
-      "example": "A phrase consists of several words.",
+      "source": "Each phrase is consist of two or three words.",
+      "example": "Each phrase consists of two or three words.",
       "tags": [
+        "practice-error",
         "review-error",
         "verb-form"
       ],
       "first_learned_at": "2026-11-17T07:43:29+08:00",
-      "last_learned_at": "2026-11-17T07:43:29+08:00",
-      "learned_count": 1,
+      "last_learned_at": "2026-11-17T20:07:37+08:00",
+      "learned_count": 2,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,
