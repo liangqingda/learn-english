@@ -9,13 +9,16 @@
     python3 take-english-study-notes/scripts/note.py append-explain-part --file <note.md> --section "## ..." --content-file - [--check]
     python3 take-english-study-notes/scripts/note.py append-part --file <note.md> --heading "<# ...>" --section "## ..." --content-file - [--check]
     python3 take-english-study-notes/scripts/note.py replace --file <note.md> --heading "<# ...>" --content-file - [--rewrite-section "## ..."] [--check]
+    python3 take-english-study-notes/scripts/note.py write --file <note.md> --content-file -
     python3 take-english-study-notes/scripts/note.py sync --file <note.md> [--check]
     python3 take-english-study-notes/scripts/note.py sections --file <note.md> [--heading "<# ...>"] [--section "## <小节标题>"]
     python3 take-english-study-notes/scripts/note.py list [--record <id>]
     python3 take-english-study-notes/scripts/note.py check --all [--fix]
     python3 take-english-study-notes/scripts/note.py check learning-record-notes/<category>/<category>-<slug>.md
 
-写入全程在 `learning-record-notes/.notes.lock` 排他锁内完成，调用方不自己改写文件。
+`write` 是整篇写入（编辑器场景）：候选正文先落盘再校验，校验不过立刻回滚到保存前的版本，
+仓库里不会留下被拒的稿子。写入全程在 `learning-record-notes/.notes.lock` 排他锁内完成，
+调用方不自己改写文件。
 追踪字段（记录 ID、目标知识点、累计复习次数、下次复习、分类 · 状态变化、本轮得分）在写入后自动与
 规范记录比对；记录事实由 learn-from-english 的 `learning_records.py record-tracking` 提供，
 找不到该脚本时跳过比对并在结果里说明，不阻断写入。文件顶部「基础信息」里的 `累计复习次数` 与
@@ -295,6 +298,11 @@ def handle_replace(args: argparse.Namespace) -> dict[str, Any]:
     return result
 
 
+def handle_write(args: argparse.Namespace) -> dict[str, Any]:
+    """整篇替换一篇笔记；校验不过就回滚，并把校验问题原样返回给调用方。"""
+    return store().write_entire(args.file, read_content(args.content_file))
+
+
 def handle_sync(args: argparse.Namespace) -> dict[str, Any]:
     """Repair a note whose record-level rows no longer match the record store."""
     note = store()
@@ -445,6 +453,13 @@ def build_parser() -> argparse.ArgumentParser:
     )
     replace.add_argument("--check", action="store_true", help="run the validator and tracking compare afterwards")
     replace.set_defaults(handler=handle_replace)
+
+    write = subparsers.add_parser(
+        "write", help="replace a whole note file, keeping it only if the validator accepts it"
+    )
+    write.add_argument("--file", required=True, help="learning-record-notes/<category>/<category>-<slug>.md")
+    write.add_argument("--content-file", required=True, help="full Markdown note path or - for stdin")
+    write.set_defaults(handler=handle_write)
 
     sync = subparsers.add_parser(
         "sync", help="rewrite the file-level 累计复习次数 / 下次复习 rows from the record store"

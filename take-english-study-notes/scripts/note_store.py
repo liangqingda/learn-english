@@ -812,6 +812,13 @@ def _sync_basic_rows(text: str, values: dict[str, str]) -> tuple[str, list[str]]
     return "\n".join(lines), changed
 
 
+def _status_of(report: dict[str, Any]) -> str:
+    """校验报告 → 写入状态三态：通过 / 未通过 / 校验器不可用。"""
+    if report.get("ok") is True:
+        return "valid"
+    return "unverified" if report.get("ok") is None else "invalid"
+
+
 def _note_index(text: str) -> dict[str, Any]:
     """Index one note without the records snapshot cache: file-level id + blocks' sections."""
     normalized = _normalize_text(text)
@@ -999,7 +1006,11 @@ class NoteStore:
             raise NoteError(f"cannot read note {path}: {exc}") from exc
 
     def _write(self, path: Path, text: str) -> None:
-        text = apply_practice_index(text)
+        """落盘前重建习题 / 复习索引块，再原子替换。"""
+        self._publish(path, apply_practice_index(text))
+
+    def _publish(self, path: Path, text: str) -> None:
+        """原文照写，不动索引块：回滚成写入前的版本时用它。"""
         path.parent.mkdir(parents=True, exist_ok=True)
         mode = path.stat().st_mode & 0o777 if path.exists() else 0o644
         descriptor, temporary_name = tempfile.mkstemp(
@@ -1915,8 +1926,42 @@ class NoteStore:
             "block_count": len(entry["blocks"]),
         }
 
-    def check(self, path: str, *, fix: bool = False) -> dict[str, Any]:
+    def write_entire(self, path: str, content: str) -> dict[str, Any]:
+        """用 `content` 整篇替换一篇笔记，校验不过就回滚到写入前的正文。
+
+        给「整篇编辑」的外部调用方用（编辑器里改的是全文，没有块可合并）：
+        候选文本先原子写到目标文件上，再让校验器看一遍；`ok` 为 false 时立刻
+        回滚成写入前的正文（文件原本不存在就删掉），所以仓库里不会留下被拒的版本。
+        校验器不可用（`ok` 为 None）时照写，并把 `note_status` 标成 `unverified`。
+        """
         target = self.resolve(path)
+        existed = target.exists()
+        with self._exclusive_lock():
+            previous = self._read(target)
+            self._write(target, content)
+            report = self._validator_report(target)
+            if report.get("ok") is False:
+                if existed:
+                    self._publish(target, previous)
+                else:
+                    target.unlink(missing_ok=True)
+                return {
+                    "ok": False,
+                    "file": self.relative(target),
+                    "written": False,
+                    "check": report,
+                    "note_status": "invalid",
+                    "hint": "校验未通过，正文已回滚到保存前的版本",
+                }
+        return {
+            "ok": True,
+            "file": self.relative(target),
+            "written": True,
+            "check": report,
+            "note_status": _status_of(report),
+        }
+
+    def _validator_report(self, target: Path, *, fix: bool = False) -> dict[str, Any]:
         checker = self.checker_path
         if not checker.is_file():
             return {"ok": None, "skipped": "validator script not found", "issues": []}
@@ -1930,9 +1975,11 @@ class NoteStore:
         except OSError as exc:
             raise NoteError(f"cannot run note validator: {exc}") from exc
         try:
-            report = json.loads(completed.stdout or "{}")
+            return json.loads(completed.stdout or "{}")
         except json.JSONDecodeError:
             raise NoteError(
                 f"note validator returned unreadable output: {completed.stdout.strip()}"
             ) from None
-        return report
+
+    def check(self, path: str, *, fix: bool = False) -> dict[str, Any]:
+        return self._validator_report(self.resolve(path), fix=fix)

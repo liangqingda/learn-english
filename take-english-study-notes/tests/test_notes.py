@@ -14,7 +14,7 @@ SCRIPT_DIR = Path(__file__).resolve().parents[1] / "scripts"
 sys.path.insert(0, str(SCRIPT_DIR))
 
 from note_store import NoteError  # noqa: E402
-from note_store import NoteStore, _normalize_block  # noqa: E402
+from note_store import NoteStore, _normalize_block, apply_practice_index  # noqa: E402
 
 
 
@@ -777,6 +777,59 @@ def block_text(heading: str, answer: str) -> str:
     return NOTE_HEAD + VALID_BLOCK.format(heading=heading, stamp=heading.split(" · ")[0], answer=answer)
 
 
+class NoteWriteEntireTest(unittest.TestCase):
+    """整篇写入：校验通过才落盘，不过就回滚。"""
+
+    def setUp(self) -> None:
+        self.directory = tempfile.TemporaryDirectory()
+        self.addCleanup(self.directory.cleanup)
+        self.repo = Path(self.directory.name)
+        self.store = NoteStore(self.repo)
+        self.note = self.repo / "learning-record-notes" / "errors" / "errors-out-west.md"
+        self.note.parent.mkdir(parents=True, exist_ok=True)
+        self.note.write_text(
+            block_text(heading="2026-11-09 09:00 · 复习", answer="west"), encoding="utf-8"
+        )
+        self.baseline = self.note.read_text(encoding="utf-8")
+
+    def test_accepts_a_valid_full_note(self) -> None:
+        result = self.store.write_entire(
+            "learning-record-notes/errors/errors-out-west.md", self.baseline
+        )
+
+        self.assertTrue(result["written"])
+        self.assertTrue(result["check"]["ok"])
+        self.assertEqual(result["note_status"], "valid")
+        # 写入会重建习题 / 复习索引块，其余正文原样落地
+        self.assertEqual(
+            self.note.read_text(encoding="utf-8"),
+            apply_practice_index(self.baseline),
+        )
+
+    def test_rolls_back_when_the_validator_rejects_the_text(self) -> None:
+        broken = self.baseline.replace("</details>", "")
+
+        result = self.store.write_entire(
+            "learning-record-notes/errors/errors-out-west.md", broken
+        )
+
+        self.assertFalse(result["ok"])
+        self.assertFalse(result["written"])
+        self.assertFalse(result["check"]["ok"])
+        self.assertEqual(result["note_status"], "invalid")
+        self.assertTrue(result["check"]["issues"])
+        # 被拒的版本不留在仓库里
+        self.assertEqual(self.note.read_text(encoding="utf-8"), self.baseline)
+
+    def test_rejection_of_a_new_file_leaves_no_file_behind(self) -> None:
+        target = "learning-record-notes/grammar/grammar-present-perfect.md"
+
+        result = self.store.write_entire(target, "## 讲解\n\n没有基础信息表\n")
+
+        self.assertFalse(result["written"])
+        self.assertFalse((self.repo / target).exists())
+
+
 class NoteCliTest(unittest.TestCase):
     """命令级用例：校验退出码、stdin 输入、块级替换。"""
 
@@ -814,6 +867,53 @@ class NoteCliTest(unittest.TestCase):
         payload = json.loads(completed.stdout)
         self.assertTrue(payload["appended"])
         self.assertTrue(payload["check"]["ok"])
+
+    def test_cli_write_rejects_an_invalid_note_with_exit_code_1(self) -> None:
+        """`write` 只在整篇校验通过时落盘；被拒时进程退出码为 1，文件保持原样。"""
+        self.note.parent.mkdir(parents=True, exist_ok=True)
+        self.note.write_text(
+            block_text(heading="2026-11-09 09:00 · 复习", answer="west"), encoding="utf-8"
+        )
+        baseline = self.note.read_text(encoding="utf-8")
+
+        completed = self.run_cli(
+            [
+                "write",
+                "--file",
+                "learning-record-notes/errors/errors-out-west.md",
+                "--content-file",
+                "-",
+            ],
+            baseline.replace("</details>", ""),
+        )
+
+        self.assertEqual(completed.returncode, 1, completed.stderr)
+        payload = json.loads(completed.stdout)
+        self.assertFalse(payload["written"])
+        self.assertFalse(payload["check"]["ok"])
+        self.assertEqual(self.note.read_text(encoding="utf-8"), baseline)
+
+    def test_cli_write_publishes_a_valid_note(self) -> None:
+        self.note.parent.mkdir(parents=True, exist_ok=True)
+        self.note.write_text(
+            block_text(heading="2026-11-09 09:00 · 复习", answer="west"), encoding="utf-8"
+        )
+
+        completed = self.run_cli(
+            [
+                "write",
+                "--file",
+                "learning-record-notes/errors/errors-out-west.md",
+                "--content-file",
+                "-",
+            ],
+            self.note.read_text(encoding="utf-8"),
+        )
+
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        payload = json.loads(completed.stdout)
+        self.assertTrue(payload["written"])
+        self.assertEqual(payload["note_status"], "valid")
 
     def test_cli_append_section_stamps_the_generated_time(self) -> None:
         """新小节落盘时由写入器盖章 `生成时间`：调用方没写也一定有这一行。"""
