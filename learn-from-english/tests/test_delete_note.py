@@ -33,6 +33,27 @@ def payload(category: str, key: str) -> dict[str, object]:
     }
 
 
+CATEGORIES_JSON = {
+    "categories": [
+        {"key": "errors", "label": "错题"},
+        {"key": "phrases", "label": "短语"},
+        {"key": "usage", "label": "用法"},
+        {"key": "grammar", "label": "语法"},
+        {"key": "vocabulary", "label": "词汇"},
+        {"key": "paper", "label": "套题", "hidden": True},
+    ]
+}
+
+
+def write_categories(root: Path) -> None:
+    """笔记分类清单：删除只认它，测试里按真实仓库的形态铺一份。"""
+    directory = root / "learning-record-notes"
+    directory.mkdir(parents=True, exist_ok=True)
+    (directory / "categories.json").write_text(
+        json.dumps(CATEGORIES_JSON, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+
+
 def note_text(record_id: str) -> str:
     return "\n".join(
         [
@@ -59,6 +80,7 @@ class NoteDeletionTest(unittest.TestCase):
         self.store.initialize(empty_database())
         self.records = RecordService(self.store)
         self.deletions = NoteDeletionService(self.root, self.records)
+        write_categories(self.root)
 
     def write_note(self, relative: str, text: str) -> Path:
         path = self.root / relative
@@ -177,6 +199,17 @@ class NoteDeletionTest(unittest.TestCase):
         with self.assertRaises(RecordError):
             self.deletions.delete("learning-record-notes/errors/errors-missing.md")
 
+    def test_delete_note_refuses_when_the_category_list_is_missing(self) -> None:
+        """破坏性操作读不到分类清单就拒绝，不猜一套兜底分类。"""
+        note = self.write_note("learning-record-notes/errors/errors-demo.md", note_text("errors:demo"))
+        (self.root / "learning-record-notes" / "categories.json").unlink()
+
+        with self.assertRaises(RecordError) as caught:
+            self.deletions.delete("learning-record-notes/errors/errors-demo.md")
+
+        self.assertIn("cannot read note categories", str(caught.exception))
+        self.assertTrue(note.exists())
+
 
 class DeleteCliTest(unittest.TestCase):
     """CLI surface: my-dashboard 靠 stdout 的 JSON 与退出码判断结果。"""
@@ -188,6 +221,7 @@ class DeleteCliTest(unittest.TestCase):
         store = RecordStore(self.root)
         store.initialize(empty_database())
         RecordService(store).upsert(payload("errors", "cli"))
+        write_categories(self.root)
         self.note = self.root / "learning-record-notes/errors/errors-cli.md"
         self.note.parent.mkdir(parents=True)
         self.note.write_text(note_text("errors:cli"), encoding="utf-8")
@@ -232,6 +266,30 @@ class DeleteCliTest(unittest.TestCase):
         result = json.loads(completed.stdout)
         self.assertTrue(result["deleted"])
         self.assertEqual(result["file"], "learning-records/errors.json")
+
+    def test_delete_record_reports_the_note_it_leaves_behind(self) -> None:
+        completed = self.run_cli("delete-record", "--id", "errors:cli")
+
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        result = json.loads(completed.stdout)
+        self.assertEqual(
+            result["note_file"], "learning-record-notes/errors/errors-cli.md"
+        )
+
+    def test_delete_note_strict_turns_a_record_failure_into_a_non_zero_exit(self) -> None:
+        # 笔记里的 ID 指向别人：md 会删掉，记录保留并回 record_error
+        self.note.write_text(note_text("errors:other"), encoding="utf-8")
+
+        completed = self.run_cli(
+            "delete-note", "--note", "learning-record-notes/errors/errors-cli.md", "--strict"
+        )
+
+        self.assertEqual(completed.returncode, 1)
+        result = json.loads(completed.stdout)
+        # md 确实删了，退出码只反映「记录没删成」这半截
+        self.assertTrue(result["note_deleted"])
+        self.assertIn("记录 ID 与笔记文件不一致", result["record_error"])
+        self.assertFalse(result["ok"])
 
 
 if __name__ == "__main__":

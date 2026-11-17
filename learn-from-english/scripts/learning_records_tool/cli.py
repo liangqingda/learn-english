@@ -83,16 +83,35 @@ def handle_merge(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def handle_delete_record(args: argparse.Namespace) -> dict[str, Any]:
-    """删一条记录：笔记文件不归这里管，只动记录库。"""
+    """删一条记录：笔记文件不归这里管，只动记录库。
+
+    笔记文件不在这里删，但会顺手告诉调用方它还在不在：记录没了、笔记还留着，
+    这篇就从「记录的副本」变成指向空记录的孤儿，需要人决定要不要一起删。
+    """
     deleted = service().delete_record(args.id)
     if deleted is None:  # missing_ok 默认 False，缺记录会抛错，这里只做类型兜底
         raise RecordError(f"record does not exist: {args.id}")
-    return {**deleted, "deleted": True}
+    result: dict[str, Any] = {**deleted, "deleted": True}
+    key = deleted.get("key")
+    if key:
+        note_path = Path(
+            "learning-record-notes",
+            deleted["category"],
+            f"{deleted['category']}-{key}.md",
+        )
+        if (REPO_ROOT / note_path).is_file():
+            result["note_file"] = note_path.as_posix()
+    return result
 
 
 def handle_delete_note(args: argparse.Namespace) -> dict[str, Any]:
     """删一篇笔记，连同它记录 ID 指到的那条记录。"""
-    return note_deletion_service().delete(args.note)
+    result = note_deletion_service().delete(args.note)
+    if args.strict and result.get("record_error"):
+        # 默认退出码 0：md 已经删了，记录失败只是要带给调用方的中间状态。
+        # `--strict` 时把它当失败，供人工或别的脚本按退出码判断。
+        result["ok"] = False
+    return result
 
 
 def handle_encounter(args: argparse.Namespace) -> dict[str, Any]:
@@ -380,6 +399,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--note",
         required=True,
         help="repo-relative note path, e.g. learning-record-notes/errors/errors-foo.md",
+    )
+    delete_note.add_argument(
+        "--strict",
+        action="store_true",
+        help="exit 1 when the note was deleted but its record could not be",
     )
     delete_note.set_defaults(handler=handle_delete_note)
 

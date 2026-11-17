@@ -53,8 +53,6 @@ def delete_note_for_record(
         raise RecordError(f"cannot delete note file {path}: {exc}") from exc
     invalidate(repo_root)
     return {"note": relative.as_posix(), "note_deleted": True, "note_error": None}
-# 没有 categories.json 时的兜底：五个记录分类 + 套题
-FALLBACK_CATEGORIES = (*CATEGORIES, "paper")
 
 
 class NoteDeletionService:
@@ -66,19 +64,29 @@ class NoteDeletionService:
         self.records = records
 
     def categories(self) -> tuple[str, ...]:
-        """笔记允许的分类：以 ``learning-record-notes/categories.json`` 为准。"""
+        """笔记允许的分类，只认 ``learning-record-notes/categories.json``。
+
+        删除是破坏性操作，清单读不到就**拒绝**而不是猜一套兜底值：清单缺失时
+        任何猜出来的分类都可能放行一篇本不该动的笔记。
+        """
         config_path = self.notes_dir / "categories.json"
         try:
             config = json.loads(config_path.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError):
-            return FALLBACK_CATEGORIES
+        except (OSError, json.JSONDecodeError) as exc:
+            raise RecordError(
+                f"cannot read note categories {config_path.relative_to(self.repo_root)}: {exc}"
+            ) from exc
         entries = config.get("categories") if isinstance(config, dict) else None
         keys = tuple(
             entry["key"]
             for entry in entries or []
             if isinstance(entry, dict) and isinstance(entry.get("key"), str)
         )
-        return keys or FALLBACK_CATEGORIES
+        if not keys:
+            raise RecordError(
+                f"note categories list is empty: {config_path.relative_to(self.repo_root)}"
+            )
+        return keys
 
     def resolve(self, note: str) -> Path:
         """把入参收敛成 ``learning-record-notes/<category>/<category>-<slug>.md``。"""
@@ -90,9 +98,10 @@ class NoteDeletionService:
         if path.suffix != NOTE_SUFFIX:
             raise RecordError(f"note must be a {NOTE_SUFFIX} file: {note}")
         category = path.parent.name
-        if category not in self.categories():
+        categories = self.categories()
+        if category not in categories:
             raise RecordError(
-                f"note directory must be one of: {', '.join(self.categories())}: {note}"
+                f"note directory must be one of: {', '.join(categories)}: {note}"
             )
         if not path.name.startswith(f"{category}-"):
             raise RecordError(
