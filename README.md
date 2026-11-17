@@ -56,7 +56,7 @@ exam-papers/<paper_id>.json
 
 学习中和已标熟记录按类别保存在 `learning-records/<category>.json`。已掌握记录按同一类别保存在 `mastered-learning-records/<category>.json`。查询、菜单和复习抽题会合并读取两个目录，所以 CLI 调用方式保持不变。
 
-五个分类里，`vocabulary` / `phrases` / `grammar` / `usage` 装知识点，`errors` 只装**判不出知识类型、或只剩一次性证据价值**的错误；可迁移的错误按判型写进它所属的知识分类（拼写 / 词形 / 词义 → `vocabulary`，搭配与固定表达 → `phrases`，结构、时态、句型 → `grammar`，语气 / 语域 / 场景选择 → `usage`），错句与正确句放在该记录的 `source` 与 `example`。一句错答案里同时有拼写和时态问题时，就是一条 `vocabulary` 加一条 `grammar`，各自一条记录。因此 `error-clusters` 只覆盖 `errors` 分类，错题聚类菜单呈现的是证据型错误；已经进四类知识点的错误按普通知识点复习。
+五个分类里，`vocabulary` / `phrases` / `grammar` 与 `usage` 装知识点，`usage` 只装语用判断（语气、语域、礼貌度、场合，必须有对比对象），词义与结构类的差别回到 `vocabulary` / `phrases` / `grammar`；`errors` 只装**判不出知识类型、或只剩一次性证据价值**的错误；可迁移的错误按判型写进它所属的知识分类（拼写 / 词形 / 词义 → `vocabulary`，搭配与固定表达 → `phrases`，结构、时态、句型 → `grammar`，语气 / 语域 / 场景选择 → `usage`），错句与正确句放在该记录的 `source` 与 `example`。一句错答案里同时有拼写和时态问题时，就是一条 `vocabulary` 加一条 `grammar`，各自一条记录。因此 `error-clusters` 只覆盖 `errors` 分类，错题聚类菜单呈现的是证据型错误；已经进四类知识点的错误按普通知识点复习。
 
 `learning-records/` 下的每个分类文件都是一个 Schema v2 数据库片段，顶层 `category` 表示该文件只保存这一类记录。记录的 `status` 仍然保存在字段里；`learning` 和 `familiar` 留在 `learning-records/`。
 
@@ -163,6 +163,15 @@ python3 learn-from-english/scripts/learning_records.py merge \
 ```
 
 `merge` 只允许合并同一 category 的记录，会保留标签、学习次数、复习次数和历史事件，删除来源记录，并按合并后的最低掌握分重新确定当前状态。
+
+### 重新归类记录
+
+```bash
+python3 learn-from-english/scripts/learning_records.py recategorize \
+  --id usage:while-for-duration --category grammar
+```
+
+`recategorize` 把一条归错桶的记录搬到另一个分类（`--key` 可一并换键，默认沿用原 key）：状态、掌握分、复习次数与逐次历史、标签全部原样带走，不新建空白记录再补历史，旧 ID 上的复习领取凭据同时作废。它不动笔记：分类一变，笔记目录、文件名前缀和必写栏都要跟着变，所以目标路径或原路径只要有笔记文件就拒绝写入，需先自行处理那篇笔记。目标 ID 已存在时同样拒绝，这种情况通常该做的是 `merge`。
 
 ### 删除记录与笔记
 

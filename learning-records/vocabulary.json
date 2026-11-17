@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 234,
+  "revision": 283,
   "category": "vocabulary",
   "records": {
     "vocabulary:a-little-bit": {
@@ -59,6 +59,47 @@
       "mastered_at": null,
       "review_history": [],
       "key": "across-preposition-adverb-vs-cross-verb"
+    },
+    "vocabulary:after-vs-later-sequence": {
+      "id": "vocabulary:after-vs-later-sequence",
+      "category": "vocabulary",
+      "status": "familiar",
+      "title": "after 不能直接替代 later 承接后续动作",
+      "explanation": "表达“后来……”时，after 不能直接替代 later/then/afterward 来承接后续动作；自然说法是 but later settled 或 but then settled。",
+      "source": "表达“后来……”时，after 不能直接替代 later/then/afterward 来承接后续动作；自然说法是 but later settled 或 but then settled。",
+      "example": "",
+      "tags": [],
+      "first_learned_at": "2026-07-30T17:25:37+08:00",
+      "last_learned_at": "2026-07-30T17:25:37+08:00",
+      "learned_count": 1,
+      "mastery_score": 10.0,
+      "review_count": 3,
+      "high_score_streak": 2,
+      "last_reviewed_at": "2026-11-08T15:54:05+08:00",
+      "next_review_at": "2027-01-07T15:54:05+08:00",
+      "lapse_count": 1,
+      "mastered_at": null,
+      "review_history": [
+        {
+          "score": 6.0,
+          "reviewed_at": "2026-08-02T16:38:01+08:00",
+          "previous_status": "mastered",
+          "new_status": "learning"
+        },
+        {
+          "score": 8.0,
+          "reviewed_at": "2026-08-07T08:44:05+08:00",
+          "previous_status": "learning",
+          "new_status": "familiar"
+        },
+        {
+          "score": 10.0,
+          "reviewed_at": "2026-11-08T15:54:05+08:00",
+          "previous_status": "familiar",
+          "new_status": "familiar"
+        }
+      ],
+      "key": "after-vs-later-sequence"
     },
     "vocabulary:afterwards-afterward-spelling": {
       "id": "vocabulary:afterwards-afterward-spelling",
@@ -675,6 +716,30 @@
       ],
       "key": "slice-cut-into-thin-pieces"
     },
+    "vocabulary:slightly-somewhat-formal-degree": {
+      "id": "vocabulary:slightly-somewhat-formal-degree",
+      "category": "vocabulary",
+      "status": "learning",
+      "title": "slightly / somewhat：略微（正式书面）",
+      "explanation": "slightly 和 somewhat 是较正式的书面程度副词，表“略微、有点”，正式写作中优先于口语的 a little bit / a bit。",
+      "source": "The price rose slightly.",
+      "example": "The results were somewhat unexpected.",
+      "tags": [
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-11-01T18:44:49+08:00",
+      "last_learned_at": "2026-11-01T18:44:49+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": [],
+      "key": "slightly-somewhat-formal-degree"
+    },
     "vocabulary:stand-bear-put-up-with": {
       "id": "vocabulary:stand-bear-put-up-with",
       "category": "vocabulary",
@@ -750,6 +815,31 @@
       "mastered_at": null,
       "review_history": [],
       "key": "stir-mix-by-moving-spoon"
+    },
+    "vocabulary:subsequently-formal-transition": {
+      "id": "vocabulary:subsequently-formal-transition",
+      "category": "vocabulary",
+      "key": "subsequently-formal-transition",
+      "status": "learning",
+      "title": "subsequently 是正式书面的顺序副词",
+      "explanation": "subsequently 表示“随后”，语域偏正式书面（报告、法律、学术），常置句首并以逗号隔开；日常口语用 later、then、afterwards。",
+      "source": "Subsequently, the company opened two new branches.",
+      "example": "Subsequently, the company opened two new branches.",
+      "tags": [
+        "comparison",
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-11-08T16:21:04+08:00",
+      "last_learned_at": "2026-11-08T16:21:04+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "vocabulary:traveller-traveler-spelling": {
       "id": "vocabulary:traveller-traveler-spelling",

@@ -82,6 +82,11 @@ def handle_merge(args: argparse.Namespace) -> dict[str, Any]:
     )
 
 
+def handle_recategorize(args: argparse.Namespace) -> dict[str, Any]:
+    """把一条记录换到另一个分类：状态与逐次历史原样带走，不新建空白记录。"""
+    return service().recategorize(args.id, args.category, key=args.key)
+
+
 def handle_delete_record(args: argparse.Namespace) -> dict[str, Any]:
     """删一条记录：笔记文件不归这里管，只动记录库。
 
@@ -380,6 +385,15 @@ def build_parser() -> argparse.ArgumentParser:
     merge.add_argument("--record-source")
     merge.add_argument("--example")
     merge.set_defaults(handler=handle_merge)
+
+    recategorize = subparsers.add_parser(
+        "recategorize",
+        help="move one record into another category, keeping its history",
+    )
+    recategorize.add_argument("--id", required=True, help="<category>:<key>")
+    recategorize.add_argument("--category", required=True, help="target category")
+    recategorize.add_argument("--key", help="target key (defaults to the current key)")
+    recategorize.set_defaults(handler=handle_recategorize)
 
     delete_record = subparsers.add_parser(
         "delete-record",

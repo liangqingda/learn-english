@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 265,
+  "revision": 277,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -279,6 +279,30 @@
       ],
       "key": "all-set"
     },
+    "phrases:as-far-as-meaning": {
+      "id": "phrases:as-far-as-meaning",
+      "category": "phrases",
+      "key": "as-far-as-meaning",
+      "status": "learning",
+      "title": "as far as：就……而言 / 远至",
+      "explanation": "as far as 与 as long as 形近但不同义：as far as 表示「就……而言」（as far as I know / as far as I can tell）或表示距离「远至某处」。它不引导条件，不能表达「只要」。",
+      "source": "As long as I know, she has worked here for ten years.",
+      "example": "As far as I know, she has worked here for ten years.",
+      "tags": [
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-11-16T21:02:16+08:00",
+      "last_learned_at": "2026-11-16T21:02:16+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "phrases:as-long-as-it-takes": {
       "id": "phrases:as-long-as-it-takes",
       "category": "phrases",
@@ -303,6 +327,30 @@
       "mastered_at": null,
       "review_history": []
     },
+    "phrases:as-much-as-quantity": {
+      "id": "phrases:as-much-as-quantity",
+      "category": "phrases",
+      "key": "as-much-as-quantity",
+      "status": "learning",
+      "title": "as much as：多达 / 和……一样多",
+      "explanation": "as much as 接数量表示「多达」，接不可数名词或程度表示「和……一样多」；与 as long as（只要/长达）和 as soon as（一……就）方向完全不同，三者都要看中间那个词。",
+      "source": "The repair cost as much as 2,000 yuan.",
+      "example": "The repair cost as much as 2,000 yuan, far more than we expected.",
+      "tags": [
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-11-16T21:02:16+08:00",
+      "last_learned_at": "2026-11-16T21:02:16+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "phrases:as-soon-as-possible": {
       "id": "phrases:as-soon-as-possible",
       "category": "phrases",
@@ -317,6 +365,30 @@
       ],
       "first_learned_at": "2026-11-16T20:45:02+08:00",
       "last_learned_at": "2026-11-16T20:45:02+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:as-well-as-addition": {
+      "id": "phrases:as-well-as-addition",
+      "category": "phrases",
+      "key": "as-well-as-addition",
+      "status": "learning",
+      "title": "as well as：以及、也",
+      "explanation": "as well as 表示并列添加，相当于 and also，不是比较结构；与 as long as / as soon as 只是外形相似。连接两个主语时，谓语与前面的主语保持一致。",
+      "source": "The kit includes a pump as well as two spare tubes.",
+      "example": "The kit includes a pump as well as two spare tubes.",
+      "tags": [
+        "follow-up-learning"
+      ],
+      "first_learned_at": "2026-11-16T21:02:16+08:00",
+      "last_learned_at": "2026-11-16T21:02:16+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

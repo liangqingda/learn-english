@@ -6,7 +6,8 @@
     "explanation": "表达“公司总部”通常用 headquarters，而不是 head；head 更常指人或身体部位。",
     "example": "",
     "tags": [],
-    "mastered_at": "2026-07-30T17:40:27+08:00"
+    "mastered_at": "2026-07-30T17:40:27+08:00",
+    "mastered_ten_streak": 0
   },
   {
     "id": "vocabulary:pour-liquid",
@@ -15,7 +16,8 @@
     "explanation": "pour 常指让液体从一个容器流入另一个容器，典型宾语是 water、milk、tea、sauce 等；也可说 pour someone a drink。",
     "example": "",
     "tags": [],
-    "mastered_at": "2026-08-01T21:15:03+08:00"
+    "mastered_at": "2026-08-01T21:15:03+08:00",
+    "mastered_ten_streak": 0
   },
   {
     "id": "vocabulary:restaurant-spelling",
@@ -24,7 +26,8 @@
     "explanation": "restaurant 正确拼写为 r-e-s-t-a-u-r-a-n-t，中间是 -au-，不要漏掉 a 写成 resturant。",
     "example": "",
     "tags": [],
-    "mastered_at": "2026-07-31T07:53:34+08:00"
+    "mastered_at": "2026-07-31T07:53:34+08:00",
+    "mastered_ten_streak": 0
   },
   {
     "id": "vocabulary:shenzhen-spelling",
@@ -33,6 +36,7 @@
     "explanation": "英文城市名 Shenzhen 要拼作 Shenzhen，不要写成 ShenShen。",
     "example": "",
     "tags": [],
-    "mastered_at": "2026-07-30T16:15:02+08:00"
+    "mastered_at": "2026-07-30T16:15:02+08:00",
+    "mastered_ten_streak": 0
   }
 ]

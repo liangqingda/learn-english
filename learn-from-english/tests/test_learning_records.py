@@ -180,6 +180,49 @@ class LearningRecordsTest(unittest.TestCase):
         self.store.initialize(empty_database())
         self.service = RecordService(self.store)
 
+    def test_recategorize_moves_a_record_and_keeps_its_history(self) -> None:
+        created = self.service.upsert(payload("usage", "while-for-duration"))
+        self.service.complete_review(created["id"], 7)
+
+        moved = self.service.recategorize(created["id"], "grammar")
+
+        self.assertEqual(moved["id"], "grammar:while-for-duration")
+        self.assertEqual(moved["previous_id"], "usage:while-for-duration")
+        self.assertEqual(moved["review_count"], 1)
+        records = self.service.records()
+        self.assertNotIn("usage:while-for-duration", records)
+        grammar_record = records["grammar:while-for-duration"]
+        self.assertEqual(grammar_record["category"], "grammar")
+        self.assertEqual(len(grammar_record["review_history"]), 1)
+        self.assertEqual(grammar_record["mastery_score"], 7.0)
+
+    def test_recategorize_keeps_a_mastered_record_in_the_mastered_files(self) -> None:
+        created = self.service.upsert(payload("usage", "mastered-then-moved"))
+        mark_mastered(self.service, created["id"])
+
+        moved = self.service.recategorize(created["id"], "phrases")
+
+        self.assertEqual(moved["status"], "mastered")
+        self.assertEqual(moved["file"], "mastered-learning-records/phrases.json")
+
+    def test_recategorize_refuses_an_occupied_target_id(self) -> None:
+        self.service.upsert(payload("usage", "shared-key"))
+        self.service.upsert(payload("grammar", "shared-key"))
+
+        with self.assertRaises(RecordError):
+            self.service.recategorize("usage:shared-key", "grammar")
+
+    def test_recategorize_refuses_while_a_note_file_exists(self) -> None:
+        self.service.upsert(payload("usage", "note-bound-record"))
+        note_path = self.store.repo_root / "learning-record-notes" / "usage" / "usage-note-bound-record.md"
+        note_path.parent.mkdir(parents=True, exist_ok=True)
+        note_path.write_text("记录 ID usage:note-bound-record\n", encoding="utf-8")
+
+        with self.assertRaises(RecordError):
+            self.service.recategorize("usage:note-bound-record", "phrases")
+
+        self.assertIn("usage:note-bound-record", self.service.records())
+
     def test_review_errors_follow_their_declared_knowledge_category(self) -> None:
         self.service.upsert(payload("grammar", "present-perfect-review-target"))
         spelling = payload("vocabulary", "receive-spelling")

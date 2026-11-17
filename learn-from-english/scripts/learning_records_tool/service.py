@@ -306,6 +306,74 @@ class RecordService:
         result = self.store.transaction(operation)
         return result
 
+    def recategorize(
+        self, identifier: str, category: str, *, key: str | None = None
+    ) -> dict[str, Any]:
+        """把一条记录换到另一个分类，`key` 默认保持原样。
+
+        只为「当初归错了桶」服务（例如一条 `usage` 其实是短语搭配，应该搬进
+        `phrases`）：状态、复习次数、逐次历史、标签全部原样带过去，不新建一条
+        空白记录再补历史。笔记 md 不归这里管——分类变了，笔记目录、文件名前缀和
+        必写栏都要跟着变（`usage` 要「语气与语域」，`phrases` 要「核心含义」），
+        所以目标位置或原位置只要有笔记文件就拒绝写入，交给调用方先处理笔记。
+        """
+        from .notes import note_path_for_record  # 局部导入，避免 notes ↔ service 循环
+
+        stripped = identifier.partition(":")[0]
+        if not stripped:
+            raise RecordError(f"invalid record id: {identifier}")
+        current_key = identifier.partition(":")[2]
+        target_key = (key or current_key).strip()
+        target_id = record_id(category, target_key)
+        if target_id == identifier:
+            raise RecordError("recategorize must change the category or the key")
+        for probe_category, probe_key in (
+            (stripped, current_key),
+            (category, target_key),
+        ):
+            probe = note_path_for_record(self.store.repo_root, probe_category, probe_key)
+            if probe.is_file():
+                raise RecordError(
+                    f"note file exists for {probe_category}:{probe_key} "
+                    f"({probe.relative_to(self.store.repo_root).as_posix()}); "
+                    "handle the note before recategorizing the record"
+                )
+
+        def operation(database: dict[str, Any]) -> dict[str, Any]:
+            record = database["records"].get(identifier)
+            if record is None:
+                raise RecordError(f"record does not exist: {identifier}")
+            if target_id in database["records"]:
+                raise RecordError(f"record already exists: {target_id}")
+            moved = {
+                **record,
+                "id": target_id,
+                "category": category,
+                "key": record_id(category, target_key).partition(":")[2],
+            }
+            del database["records"][identifier]
+            database["records"][target_id] = moved
+            directory = (
+                "mastered-learning-records"
+                if moved["status"] == "mastered"
+                else "learning-records"
+            )
+            return {
+                "id": target_id,
+                "previous_id": identifier,
+                "category": category,
+                "key": moved["key"],
+                "status": moved["status"],
+                "review_count": moved["review_count"],
+                "learned_count": moved["learned_count"],
+                "file": f"{directory}/{category}.json",
+            }
+
+        # 记录换了身份，旧 ID 上的复习领取凭据一并作废
+        return self.store.transaction_releasing_claim(
+            identifier, operation, drop_claim=True
+        )
+
     def delete_record(
         self,
         identifier: str,
