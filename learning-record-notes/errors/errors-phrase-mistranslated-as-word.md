@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-12-17 07:43</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-17 07:45</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-17 20:07</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-18 07:12</td></tr>
 </table>
 
 ## 讲解
@@ -58,6 +58,23 @@
 复习历史：
 <!-- practice-index -->
 - [2026-11-17 20:06 · 复习](#practice-2026-11-17-2006-d9044e9c)
+<!-- /practice-index -->
+
+## 辨析「把 phrase 误译成 word」里的发音和重读
+
+**讲解要点**：
+- 短语的主重音落在内容词，介词与冠词通常弱读：in advance、on purpose、in the long run、on the whole。
+  - in advance（主重音在 advance）——提前
+  - on the whole（主重音在 whole）——总的来说
+- 复合名词整体是一个单位，重音落在第一个成分；形容词修饰名词的短语，重音落在名词上。
+  - a hot dog（食物“热狗”，重音在 hot）
+  - a hot dog（“一只很热的狗”，重音在 dog）
+- 同一个拼写靠重音区分“整体义”和“字面义”，重音位置一换，听者的理解也跟着换。
+  - a greenhouse（温室，重音在 green）／a green house（绿色的房子，重音在 house）
+
+复习历史：
+<!-- practice-index -->
+- [2026-11-18 07:11 · 复习](#practice-2026-11-18-0711-de3e0660)
 <!-- /practice-index -->
 
 # 2026-11-17 07:45 · 复习
@@ -426,5 +443,164 @@
 2. **为什么错**：Phrase 是单数可数名词，句首没有 a / the / each，英语不允许这样直接作主语。
 3. **英语的表达逻辑**：英语要求单数可数名词带限定词来确定指称，泛指用 a，特指用 the。
 4. **正确表达**：A phrase consists of many words.（短语由很多词组成）；可迁移：A word can stand alone; a phrase cannot.（单词可以单独使用，短语不行）
+
+</details>
+
+## 辨析「把 phrase 误译成 word」里的发音和重读 <a id="practice-2026-11-18-0711-de3e0660"></a>
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>生成时间</td><td>2026-11-18 07:11</td></tr>
+<tr><td>本轮得分</td><td>4 / 10</td></tr>
+<tr><td>题量与错题数</td><td>6 题 / 3 处错误</td></tr>
+</table>
+
+### 1. 单项选择
+
+**题目**：短语 “in advance” 单独朗读时，主重音通常落在哪个词上？
+- A. in
+- B. advance
+- C. 两个词同样重
+- D. 两个词都弱读
+
+**我的答案**：A
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：介词短语的主重音落在内容词，介词本身弱读。
+2. **规则与机制**：in advance 由“介词 + 名词”构成，名词 advance 承载词义核心，主重音随之落在它上面；in 在语流中弱读。
+3. **英语的表达逻辑**：英语用重音标出信息焦点，承载词义的实词重读，语法功能词弱读。
+4. **可迁移表达**：in advance（重音在 advance，提前）；on purpose（重音在 purpose，故意）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：介词短语中功能词与内容词的重读分工。
+2. **为什么错**：把介词 in 当成主重音的载体；介词只连接成分，本身不承载信息焦点。
+3. **英语的表达逻辑**：重音跟着信息走，短语里只有内容词才承担“说什么”的部分。
+4. **正确表达**：in advance（主重音在 advance）；可迁移：in the long run（主重音在 long）；on the whole（主重音在 whole）
+
+</details>
+
+### 2. 填空
+
+**题目**：“by and large” 单独朗读时，主重音落在 ____ 上。（只填一个词）
+
+**我的答案**：large
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：固定短语的主重音落在语义最实在的成分。
+2. **规则与机制**：by and large 中 and 是连词，by 与 large 构成核心意思“大体上”，主重音落在 large 上。
+3. **英语的表达逻辑**：连词和介词在固定短语里只起连接作用，重音让位给承载含义的词。
+4. **可迁移表达**：by and large（主重音在 large，大体上）；in advance（主重音在 advance，提前）
+
+</details>
+
+### 3. 单项选择
+
+**题目**：下面哪一个短语朗读时主重音落在第一个词上？
+- A. a hot dog（指食物“热狗”）
+- B. a hot dog（指“一只很热的狗”）
+- C. a green house（指“绿色的房子”）
+- D. a tall man（指“高个子男人”）
+
+**我的答案**：B
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：复合名词与“形容词 + 名词”短语的重音差异。
+2. **规则与机制**：复合名词（hot dog 指食物）整体作一个单位，重音落在第一个成分 hot；形容词修饰名词时（a hot dog 指很热的狗、a green house 指绿色的房子），重音落在名词上。
+3. **英语的表达逻辑**：重音位置本身是意义标记——重音在前提示“这是一个整体概念”，重音在后提示“修饰语 + 中心词”的常规结构。
+4. **可迁移表达**：a hot dog（食物，重音在 hot）；a hot dog（热的狗，重音在 dog）；a greenhouse（温室，重音在 green）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：复合名词首词重音，与形容词 + 名词的名词重音。
+2. **为什么错**：选了“一只很热的狗”，那是形容词修饰名词的结构，重音应落在名词 dog 上，不是首词。
+3. **英语的表达逻辑**：英语靠重音位置区分“整体概念”与“临时修饰”，两者写法相同、读法不同。
+4. **正确表达**：a hot dog（食物“热狗”，重音在 hot）；可迁移：a green house（绿色的房子，重音在 house）／a greenhouse（温室，重音在 green）
+
+</details>
+
+### 4. 语境判断
+
+**题目**：“in the long run” 在自然语流里，哪一部分通常被弱读、不承载重音？
+- A. in 和 the
+- B. long
+- C. run
+- D. long 和 run
+
+**我的答案**：A
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：介词与冠词在短语里的弱读。
+2. **规则与机制**：in the long run 里 in、the 是功能词，通常弱读；long 承载主重音，run 次之。
+3. **英语的表达逻辑**：英语句子的重音节奏由实词建立，功能词压缩为轻读音节以保持节奏。
+4. **可迁移表达**：in the long run（重音在 long，长远来看）；at the end of the day（重音在 day，归根结底）
+
+</details>
+
+### 5. 综合运用
+
+**题目**：写出 “on purpose” 单独朗读时主重音落在哪个词上，并用一句中文说明判断依据。
+
+**我的答案**：purpose，purpose 是主要要说的内容，on 只是辅助
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：重音与信息焦点的一致性。
+2. **规则与机制**：on purpose 中 purpose 承载“故意”这一核心含义，主重音落在它上；on 只负责连接。
+3. **英语的表达逻辑**：英语把主重音放在说话人想让人抓住的那个词上，功能词退为背景。
+4. **可迁移表达**：on purpose（重音在 purpose，故意）；by accident（重音在 accident，偶然）
+
+</details>
+
+### 6. 造句
+
+**题目**：用 “on the whole” 写一句英语，并写出这句里 “on the whole” 承载主重音的那个词。
+
+**我的答案**：On the whole, it is raining outside. 主重音是 on
+
+**判定**：⚠️ 部分正确（句子成立，重音判断有误）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：句首介词短语的重音位置，以及它在句中的停顿处理。
+2. **规则与机制**：on the whole 的主重音落在 whole；作句首状语时后面通常有逗号停顿，on、the 仍弱读。
+3. **英语的表达逻辑**：句首状语的重音仍服从“内容词重读、功能词弱读”，位置变化不改变内部重音。
+4. **可迁移表达**：On the whole, the plan works.（总的来说，这个方案可行）；On the whole, it is raining outside.（总的来说，外面在下雨）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：on the whole 的主重音落在 whole，而非介词 on。
+2. **为什么错**：把句首第一个词 on 当作重音所在；句首位置带来的是停顿，不是重音转移。
+3. **英语的表达逻辑**：重音由信息量决定，介词 on 只起连接作用，whole 才承载“整体”的意思。
+4. **正确表达**：On the whole（主重音在 whole）；可迁移：On the whole, the plan works.（总的来说，这个方案可行）
 
 </details>

@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 277,
+  "revision": 284,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -551,6 +551,31 @@
         }
       ],
       "key": "come-on-in-invite-guest-inside"
+    },
+    "phrases:compound-noun-stress-first-element": {
+      "id": "phrases:compound-noun-stress-first-element",
+      "category": "phrases",
+      "key": "compound-noun-stress-first-element",
+      "status": "learning",
+      "title": "复合名词重音在首词，形容词+名词重音在名词",
+      "explanation": "复合名词（hot dog 指食物、greenhouse 指温室）整体是一个单位，重音落在第一个成分；形容词修饰名词的短语（a hot dog 指很热的狗、a green house 指绿色的房子）重音落在名词上。",
+      "source": "a hot dog（指很热的狗）判为主重音在 hot",
+      "example": "a hot dog（食物）重音在 hot；a hot dog（热的狗）重音在 dog",
+      "tags": [
+        "follow-up-learning",
+        "stress"
+      ],
+      "first_learned_at": "2026-11-18T07:12:18+08:00",
+      "last_learned_at": "2026-11-18T07:12:18+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "phrases:dish-out": {
       "id": "phrases:dish-out",
@@ -1346,6 +1371,31 @@
       ],
       "first_learned_at": "2026-11-16T20:45:02+08:00",
       "last_learned_at": "2026-11-16T20:45:02+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:prepositional-phrase-main-stress-content-word": {
+      "id": "phrases:prepositional-phrase-main-stress-content-word",
+      "category": "phrases",
+      "key": "prepositional-phrase-main-stress-content-word",
+      "status": "learning",
+      "title": "介词短语的主重音落在内容词",
+      "explanation": "in advance、in the long run、on the whole 这类介词短语，主重音落在末尾的内容词（advance / long / whole）；介词 in、on 与冠词 the 通常弱读，不承载主重音。",
+      "source": "in advance：主重音判为 in",
+      "example": "in advance（主重音在 advance）；on the whole（主重音在 whole）",
+      "tags": [
+        "follow-up-learning",
+        "stress"
+      ],
+      "first_learned_at": "2026-11-18T07:12:18+08:00",
+      "last_learned_at": "2026-11-18T07:12:18+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
