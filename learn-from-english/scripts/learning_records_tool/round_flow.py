@@ -312,7 +312,17 @@ def finish_round(
         result["steps"].append("review")
 
     note = payload.get("note")
-    if note is not None:
+    # 本轮记录被自动删除（已掌握记录连续三次 10 分）时，笔记已经随记录一起删掉，
+    # 不能再给一条不存在的记录补区块，否则会留下孤儿笔记。
+    record_deleted = bool(
+        isinstance(result.get("review"), dict) and result["review"].get("deleted")
+    )
+    if note is not None and record_deleted:
+        result["note_skipped"] = {
+            "reason": "record-auto-deleted",
+            "record": result["review"].get("deleted_record"),
+        }
+    elif note is not None:
         if not isinstance(note, dict):
             raise RecordError("note must be an object")
         validate_note(note)

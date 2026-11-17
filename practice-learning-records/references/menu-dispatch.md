@@ -8,7 +8,7 @@
 - `review-path`：运行 action 指定的 `next-review --path <path>`。
 - `continue-review`：运行 `next-review --random`。
 - `familiar-review`：按 action 运行 `next-review --status familiar`。
-- `mastered-review`：按 action 运行 `next-review --status mastered --random`，把它作为已掌握知识点的随机抽查。
+- `mastered-review`：按 action 运行 `next-review --status mastered --random`，把它作为已掌握知识点的随机抽查；评分照常走 `review-round` 的 `review` 段。已成掌握记录连续第 3 次 10 分时脚本会把记录与其笔记一起自动删除（返回 `deleted: true`；本轮带 `note` 段时另返回 `note_skipped: record-auto-deleted`），此时不补写笔记，照常输出得分行、判定表格与后续菜单。
 - `mastered-exam-paper`：运行 `mastered-list`；用户已指定考试类型时使用相应 profile，未指定时根据当前学习目标选择合适类型并在卷首明确考试名称和评分规则。
 - `paper-history`：只作为包含历史试卷 children 的导航父项，不直接执行。
 - `historical-unanswered-paper`：按 action 运行 `paper-get --paper-id <paper_id>`，展示不含答案和解析的原卷；选择本身不创建作答。
@@ -27,3 +27,5 @@
 - `status`：执行返回的 action；初始进度入口通常运行 `stats --period 30d`，只请求分类数量时运行 `summary --include-familiar --include-mastered`。
 
 上下文丢失或数字路径无效时重新运行初始菜单。不要要求用户重新发送“你好”，也不要尝试从规范学习记录恢复普通复习题组或待保存 payload；持久化套题必须通过 `paper-menu`、`paper-get` 和 attempt 数据恢复。
+
+删除知识点或笔记不是菜单动作：用户直接说“删掉某条知识点／某篇笔记”时，不在本文件分派，按 `practice-learning-records/SKILL.md` 的「删除记录与笔记」走 `delete-record` 或 `delete-note`，不要自己改 JSON 或 `rm` 文件。

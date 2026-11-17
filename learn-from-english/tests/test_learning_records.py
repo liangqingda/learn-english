@@ -440,6 +440,7 @@ class LearningRecordsTest(unittest.TestCase):
                 "example",
                 "tags",
                 "mastered_at",
+                "mastered_ten_streak",
             },
         )
         self.assertEqual(stored[0]["id"], "usage:polite-request")
@@ -484,6 +485,7 @@ class LearningRecordsTest(unittest.TestCase):
                 "example",
                 "tags",
                 "mastered_at",
+                "mastered_ten_streak",
             },
         )
         self.assertNotIn("review_history", first_mastered)
@@ -539,6 +541,7 @@ class LearningRecordsTest(unittest.TestCase):
                 "example",
                 "tags",
                 "mastered_at",
+                "mastered_ten_streak",
             },
         )
 

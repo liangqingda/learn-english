@@ -100,6 +100,21 @@ python3 learn-from-english/scripts/learning_records.py search --query <text> --s
 
 若写入失败，继续发送教学回复，并明确说明“本轮学习记录未能保存；本轮记录变更已回滚”。把原始 `batch-upsert` payload 只保留在当前对话，不写入仓库或其他持久文件；此时不要显示正常学习菜单，也不要展示原计划中的未作答练习，只显示“重试保存本轮记录”和“放弃保存并继续”两个恢复选项。重试时原样提交同一 payload；重试成功或用户明确放弃并清除 payload 后才恢复练习或正常菜单。完整的失败处理矩阵（含 `complete-review`、`paper-complete` 与笔记校验）只在 `practice-learning-records/references/failure-recovery.md` 一处维护，不要自行另写一套。若命令报告回滚未完整成功，不得使用“已回滚”，必须说明可能残留部分记录变更并停止后续写入；上下文丢失时说明无法恢复待保存 payload，并返回新的学习菜单。
 
+## 删除记录与笔记
+
+用户明确要求删除某条知识点或某篇学习笔记时才动删除，且只能走下面两条命令，不得直接编辑分类 JSON、不得自己 `rm` 笔记文件：
+
+```bash
+python3 learn-from-english/scripts/learning_records.py delete-record --id "<category>:<key>"
+python3 learn-from-english/scripts/learning_records.py delete-note --note "learning-record-notes/<category>/<category>-<slug>.md"
+```
+
+- `delete-record` 只删记录（learning 与 mastered 都认），笔记保持不动；返回 `id` / `category` / `status` / `file`（被改写的分类 JSON）。用户要“记录删了、笔记留着”时用它。
+- `delete-note` 是默认入口：删笔记并顺着笔记「基础信息」里的 `记录 ID` 一起删记录。路径必须在 `learning-record-notes/` 下、目录必须在 `categories.json` 的分类里、文件名必须以 `<category>-` 开头，否则直接拒绝；先删 md，md 删不掉（权限、占用）就整件事不做并报错；记录 ID 与文件名对不上时只删笔记、保留记录并回传 `record_error`；试卷笔记（ID 不是 `<五类>:<key>` 形态）只删文件。
+- 两个命令都走记录库事务，不要用 `git restore`、手工回退分类文件或直接删 JSON 代替。删除是写操作：成功后才按仓库根目录 `AGENTS.md` 的提交约定提交。
+
+**已掌握记录自动删除**：mastered 记录被抽查时，连续第 3 次 10 分会把记录与它的笔记一起删掉。这条规则的完整口径（连击怎么数、`note_error` 怎么处理、`review-round` 为什么会返回 `note_skipped`）只在 `practice-learning-records/SKILL.md` 的「删除记录与笔记」维护；这里只需要认得 `deleted: true` 表示该知识点已退出复习库，并如实说明。
+
 ## 根据输入选择讲解方式
 
 ### 单词

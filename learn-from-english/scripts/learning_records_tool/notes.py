@@ -19,10 +19,40 @@ from .service import RecordService
 
 NOTES_DIR = "learning-record-notes"
 NOTE_SUFFIX = ".md"
+
 # 「基础信息」表里的记录行：`<tr><td>记录 ID / 试卷 ID</td><td>errors:foo</td></tr>`
 # 一行取不到就当作「这篇没有记录（如试卷笔记先不认）」，不靠猜。
 RECORD_ID_RE = re.compile(r"记录 ID[^<]{0,40}</td>\s*<td>\s*([^<]*?)\s*</td>")
 RECORD_ID_FORMAT_RE = re.compile(r"([a-z]+):([a-z0-9]+(?:-[a-z0-9]+)*)")
+
+
+def note_path_for_record(repo_root: Path | str, category: str, key: str) -> Path:
+    """记录对应的笔记路径：``learning-record-notes/<category>/<category>-<key>.md``。"""
+    return Path(repo_root) / NOTES_DIR / category / f"{category}-{key}{NOTE_SUFFIX}"
+
+
+def delete_note_for_record(
+    repo_root: Path | str, category: str, key: str
+) -> dict[str, Any]:
+    """删掉一条记录对应的笔记文件；文件本来就不在时不报错。
+
+    给自动删除（已掌握记录连续三次 10 分）用：那条记录已经从记录库移除，
+    这里只需要同步清掉可读副本，不再回头删记录，所以不复用 ``delete-note``。
+    """
+    path = note_path_for_record(repo_root, category, key)
+    relative = path.relative_to(Path(repo_root)) if path.is_absolute() else path
+    if not path.exists():
+        return {
+            "note": relative.as_posix(),
+            "note_deleted": False,
+            "note_error": None,
+        }
+    try:
+        path.unlink()
+    except OSError as exc:
+        raise RecordError(f"cannot delete note file {path}: {exc}") from exc
+    invalidate(repo_root)
+    return {"note": relative.as_posix(), "note_deleted": True, "note_error": None}
 # 没有 categories.json 时的兜底：五个记录分类 + 套题
 FALLBACK_CATEGORIES = (*CATEGORIES, "paper")
 

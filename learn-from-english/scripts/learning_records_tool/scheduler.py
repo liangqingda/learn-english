@@ -7,6 +7,9 @@ from typing import Any
 
 
 REQUIRED_MASTERY_TEN_COUNT = 3
+# 已掌握记录再被抽查时，连续这么多次 10 分就视为真正掌握、自动退出记录库
+# （记录与笔记一起删）。中间只要有一次不是 10 分就清零重数。
+MASTERED_AUTO_DELETE_TEN_COUNT = 3
 
 
 def ten_score_count(record: dict[str, Any]) -> int:

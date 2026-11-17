@@ -105,6 +105,13 @@ These rules apply to every skill that presents an English exercise and evaluates
 - Structural validation passing does not prove content completeness. When a checker only validates structure, say which part of the content it cannot verify.
 - `learning-record-notes/categories.json` is the only category list (keys, Chinese labels, column order, `hidden`). Change a label, the order or a hidden flag there and nothing else. A brand-new category also adds its own directory `learning-record-notes/<new-key>/` and updates `check_note.py`'s category set and the required-column table in `note-format.md`, because the validator rejects undeclared prefixes. `my-dashboard` reads this file for its English board, so never copy the list into another repo.
 
+# Deletion of records and notes
+
+- Deleting a knowledge point or a review note is a write: it goes only through `python3 learn-from-english/scripts/learning_records.py delete-record --id "<category>:<key>"` (record only, note untouched) or `delete-note --note learning-record-notes/<category>/<category>-<slug>.md` (note plus the record its `记录 ID` names). Never delete record JSON, a paper, or a note file by hand, with `rm`, or with `git restore`.
+- `delete-note` is the default entry when the user says "delete this knowledge point / this note": it removes the md first and then the record, keeps the record when the note's `记录 ID` does not match the file name (`record_error`), and removes only the file for a paper note whose ID is not shaped `<category>:<key>`.
+- Mastered records leave the library on their own: when a `mastered` record is reviewed again, three consecutive 10 scores delete the record from `mastered-learning-records/` and its note md together (`deleted: true`, plus `deleted_record` and `note`). The 10 that promoted the record is the entry score and does not count, and any score below 10 resets `mastered_ten_streak`.
+- When `review-round` reports `note_skipped: {"reason": "record-auto-deleted"}`, do not write a note for that record; state the exit in one sentence and keep the normal score line, verdict table and menu. A non-empty `note_error` means the record is gone but the md could not be removed — say so and point to `delete-note`; never `rm` it.
+
 # Session efficiency
 
 - A read-only menu selection (option `writes: false`: 场景对话、小故事、学习进度、错题聚类、剖析当前题、历史试卷导航、练习方向导航) must never trigger a repository state check. No `git status`, `git log`, `git diff`, no `learning-record-notes/` scan and no note grep before answering; answer from the current conversation plus the snapshot.

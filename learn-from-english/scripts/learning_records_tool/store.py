@@ -34,6 +34,9 @@ class RecordStore:
         "example",
         "tags",
         "mastered_at",
+        # 已掌握记录被抽查时，连续 10 分的次数要跨归档保留，否则每次写入都被精简掉，
+        # “连续三次 10 分自动删除”永远数不到第 3 次。
+        "mastered_ten_streak",
     )
 
     def __init__(self, repo_root: Path):
@@ -383,6 +386,20 @@ class RecordStore:
                         "message": "mastered_at must be an ISO timestamp with timezone",
                     }
                 )
+            if "mastered_ten_streak" in record:
+                streak = record.get("mastered_ten_streak")
+                if (
+                    not isinstance(streak, int)
+                    or isinstance(streak, bool)
+                    or streak < 0
+                ):
+                    issues.append(
+                        {
+                            "id": identifier,
+                            "field": "mastered_ten_streak",
+                            "message": "mastered_ten_streak must be a non-negative integer",
+                        }
+                    )
         return issues
 
     @classmethod
@@ -426,6 +443,7 @@ class RecordStore:
                 "next_review_at": None,
                 "lapse_count": 0,
                 "mastered_at": mastered_at,
+                "mastered_ten_streak": int(record.get("mastered_ten_streak", 0) or 0),
                 "review_history": [],
             }
         hydrated = {

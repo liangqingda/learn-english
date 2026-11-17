@@ -26,6 +26,7 @@ from .models import (
     validate_database,
 )
 from .scheduler import (
+    MASTERED_AUTO_DELETE_TEN_COUNT,
     REQUIRED_MASTERY_TEN_COUNT,
     interval_days,
     review_priority,
@@ -456,6 +457,28 @@ class RecordService:
                 self._upsert_error(database["records"], payload, reviewed_at_text)
                 for payload in error_payloads
             ]
+            # 已掌握记录再被抽查：连续 10 分够次数就自动退出记录库。
+            # 计数跨归档保留在 mastered_ten_streak 里（见 RecordStore.MASTERED_FIELDS）；
+            # 掉出 mastered（分数 < 10）当场清零，重新排期时不带着旧连击。
+            auto_deleted: dict[str, Any] | None = None
+            if record["status"] == "mastered":
+                streak = 0
+                if previous_status == "mastered" and float(score) == 10:
+                    streak = int(record.get("mastered_ten_streak") or 0) + 1
+                record["mastered_ten_streak"] = streak
+                if streak >= MASTERED_AUTO_DELETE_TEN_COUNT:
+                    auto_deleted = {
+                        "id": identifier,
+                        "category": record["category"],
+                        "key": record.get("key"),
+                        "title": record["title"],
+                        "ten_streak": streak,
+                        # 只有 mastered 记录会走到这里，改动的是已掌握库
+                        "file": f"mastered-learning-records/{record['category']}.json",
+                    }
+                    del database["records"][identifier]
+            else:
+                record.pop("mastered_ten_streak", None)
             return {
                 "id": identifier,
                 "score": float(score),
@@ -473,7 +496,12 @@ class RecordService:
                 "mastered": record["status"] == "mastered",
                 "moved_to_learning_records": previous_status in {"familiar", "mastered"}
                 and record["status"] == "learning",
-                "deleted": False,
+                "deleted": auto_deleted is not None,
+                "deleted_record": auto_deleted,
+                # 只有仍在 mastered 的才有连击概念；离开 mastered 一律报 0，不报 null
+                "mastered_ten_streak": int(record.get("mastered_ten_streak") or 0)
+                if record["status"] == "mastered"
+                else 0,
             }
 
         result = self.store.transaction_releasing_claim(
@@ -482,6 +510,18 @@ class RecordService:
             claim_owner=claim_owner,
             claim_token=claim_token,
         )
+        deleted = result.get("deleted_record") if isinstance(result, dict) else None
+        if deleted:
+            # 记录与笔记必须一起消失（同 delete-note 的口径）。笔记删除排在记录事务之后：
+            # 记录删成功才动文件；文件删不掉时只报 note_error，不让本轮评分跟着回滚。
+            from .notes import delete_note_for_record  # 局部导入，避免 notes ↔ service 循环
+
+            try:
+                result["note"] = delete_note_for_record(
+                    self.store.repo_root, deleted["category"], deleted["key"]
+                )
+            except RecordError as exc:
+                result["note_error"] = str(exc)
         return result
 
     def rescore(self, identifier: str, score: float) -> dict[str, Any]:

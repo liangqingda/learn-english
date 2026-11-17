@@ -10,7 +10,8 @@
 - 三级状态：`learning`、`familiar`、`mastered`。
 - 间隔复习：根据得分、连续高分和遗忘次数计算 `next_review_at`。
 - 掌握判定：复习中同一知识点累计 3 次达到 10 分后才进入 `mastered`。
-- 精简归档：知识点进入 `mastered` 后保留稳定 ID、语义 `key`、标题、讲解、代表例句、标签和掌握时间；逐次评分历史与计数会被重置，失分回落时例句与标签仍然可用。
+- 精简归档：知识点进入 `mastered` 后保留稳定 ID、语义 `key`、标题、讲解、代表例句、标签、掌握时间和连续满分的抽查计数 `mastered_ten_streak`；逐次评分历史与计数会被重置，失分回落时例句与标签仍然可用。
+- 掌握退出：`mastered` 记录被抽查时，连续第 3 次 10 分自动退出记录库——记录与它的笔记 md 一起删除；中间一次不到 10 分就清零重数，进入 mastered 的那次 10 分是入档分，不计入连击。
 - 集中菜单：脚本按对话上下文生成菜单树 —— `initial`、`review-complete`、`learn`（教学侧）三种上下文共用同一生成器，历史试卷入口默认合并进 `menu` 输出；Skill 只负责渲染与分派。
 - 数量就近展示：记录数量只标在对应菜单项末尾，不额外输出状态汇总开场。
 - 相关检索与聚类：搜索返回相关度、命中字段和摘要；`error-clusters` 按可复用模式聚类，并把无法成组的错题作为 `unclustered` 单独列出，同时给出 `tag_families`；`duplicates --threshold 0.85` 列出可合并的近义记录。
@@ -173,6 +174,16 @@ python3 learn-from-english/scripts/learning_records.py delete-note \
 `delete-record` 只删记录（未掌握、已掌握都认），笔记文件保持不动，返回 `id` / `category` / `status` / `file`（改动的那份分类 JSON）。`delete-note` 删一篇笔记，并顺着笔记「基础信息」里的 `记录 ID` 把那条记录一并删掉：`--note` 取仓库相对路径 `learning-record-notes/<category>/<category>-<slug>.md`，目录不在笔记分类里、前缀与目录不一致、文件不存在都直接拒绝；md 本身删不掉（权限、占用）时报错退出，
 记录一条都不动。记录那一半只在「记录 ID 的分类等于笔记分类、且 key 与文件名对得上」时才删——ID 写错或过期时保留记录并返回 `record_error`，不顺着一个错 ID 删掉别的知识点；`paper` 分类的套题笔记只删笔记文件（试卷本身不在这里删）。两者都走记录库的同一套事务写入（锁、revision、未掌握 / 已掌握拆分、原子替换），返回值里的 `record.file` 指出这次改了哪份 JSON，供调用方提交；服务层照旧不执行 Git 提交。
 
+
+### 已掌握记录自动删除
+
+`mastered` 记录被抽查（`complete-review` / `review-round` 的 `review` 段）时，`RecordService.complete_review` 自己维护 `mastered_ten_streak`：本次 10 分 +1，否则清零；连击达到 `MASTERED_AUTO_DELETE_TEN_COUNT`（3）就把记录从 `mastered-learning-records/` 删除，并在事务提交后同步删掉 `learning-record-notes/<category>/<category>-<key>.md`。
+
+- 计数存在 `mastered_ten_streak`，已列进 `RecordStore.MASTERED_FIELDS`：否则每次写入都被精简归档掉，连击永远数不到第 3 次。
+- 进 mastered 的那次 10 分不算连击，计数从 0 开始；掉出 mastered（分数 < 10）当场丢弃该字段并报 0，重新掌握后要重新连击。
+- 返回 `deleted: true`，带 `deleted_record`（`id` / `category` / `key` / `title` / `ten_streak` / `file`）与 `note`（`note` / `note_deleted` / `note_error`）。笔记删除排在记录事务之后：记录删成功才删 md，md 删不掉只回 `note_error`，不让本轮评分跟着回滚；md 本来就不在时 `note_deleted: false`，不算错误。
+- `review-round` 命中时跳过笔记写入，返回 `note_skipped: {"reason": "record-auto-deleted", "record": ...}`，不留下指向已删记录的孤儿笔记。
+- 该行为不区分分类：`errors` 分类里被复习到掌握的错误记录同样适用。
 
 ### 菜单和选题
 
