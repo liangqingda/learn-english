@@ -240,7 +240,7 @@ python3 learn-from-english/scripts/learning_records.py review-round --input <JSO
 - 返回 `deleted: true` 且带 `deleted_record`（`id` / `category` / `key` / `title` / `ten_streak` / `file`）与 `note`（`note` / `note_deleted` / `note_error`）。
 - `review-round` 已经自动处理：本轮带了 `note` 段时，命中的那次不再给这条记录写笔记，返回 `note_skipped: {"reason": "record-auto-deleted", ...}`（没带 `note` 段就不出现该字段）；此时不要再单独补写笔记或重建 `## 讲解`。
 - 记录已删时本轮照常给得分行与判定表格，并在表格后加一句说明：该知识点已连续 3 次满分、已退出复习库（记录与笔记一起删除）；后续菜单照常生成。
-- `note_error` 非空表示记录已删但 md 没删掉（权限或占用），处理见 `references/failure-recovery.md` 的对应行；不得自己 `rm`。
+- `note_error` 非空表示记录已删但 md 没删掉（被占用，或这篇笔记的记录 ID 指向别的知识点）：处理见 `references/failure-recovery.md` 的对应行；不得自己 `rm`。
 
 ## 评分后的回复
 

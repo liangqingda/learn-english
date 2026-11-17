@@ -181,7 +181,7 @@ python3 learn-from-english/scripts/learning_records.py delete-note \
 
 - 计数存在 `mastered_ten_streak`，已列进 `RecordStore.MASTERED_FIELDS`：否则每次写入都被精简归档掉，连击永远数不到第 3 次。
 - 进 mastered 的那次 10 分不算连击，计数从 0 开始；掉出 mastered（分数 < 10）当场丢弃该字段并报 0，重新掌握后要重新连击。
-- 返回 `deleted: true`，带 `deleted_record`（`id` / `category` / `key` / `title` / `ten_streak` / `file`）与 `note`（`note` / `note_deleted` / `note_error`）。笔记删除排在记录事务之后：记录删成功才删 md，md 删不掉只回 `note_error`，不让本轮评分跟着回滚；md 本来就不在时 `note_deleted: false`，不算错误。
+- 返回 `deleted: true`，带 `deleted_record`（`id` / `category` / `key` / `title` / `ten_streak` / `file`）与 `note`（`note` / `note_deleted` / `note_error`）。笔记删除排在记录事务之后：记录删成功才删 md，md 删不掉只回 `note_error`，不让本轮评分跟着回滚；md 本来就不在时 `note_deleted: false`，不算错误；md 还在但「基础信息」里的记录 ID 指向别的知识点时也不删它，同样只回 `note_error`——宁可留一份孤儿笔记，也不顺手删错别人。
 - `review-round` 命中时跳过笔记写入，返回 `note_skipped: {"reason": "record-auto-deleted", "record": ...}`，不留下指向已删记录的孤儿笔记。
 - 该行为不区分分类：`errors` 分类里被复习到掌握的错误记录同样适用。
 

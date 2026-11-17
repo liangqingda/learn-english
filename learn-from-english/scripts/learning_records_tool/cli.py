@@ -12,7 +12,7 @@ from typing import Any
 from .cache import DEFAULT_MAX_AGE_SECONDS, get_snapshot, git_head
 from .menu import annotate_writes
 from .models import CATEGORIES, STATUSES, RecordError, record_id
-from .notes import NoteDeletionService
+from .notes import NoteDeletionService, note_path_for_record
 from .papers import PAPER_STATUSES, PaperService
 from .round_flow import finish_round
 from .service import RecordService
@@ -94,13 +94,10 @@ def handle_delete_record(args: argparse.Namespace) -> dict[str, Any]:
     result: dict[str, Any] = {**deleted, "deleted": True}
     key = deleted.get("key")
     if key:
-        note_path = Path(
-            "learning-record-notes",
-            deleted["category"],
-            f"{deleted['category']}-{key}.md",
-        )
-        if (REPO_ROOT / note_path).is_file():
-            result["note_file"] = note_path.as_posix()
+        # 路径规则只由 notes 模块给，别在这里再拼一遍
+        note_path = note_path_for_record(REPO_ROOT, deleted["category"], key)
+        if note_path.is_file():
+            result["note_file"] = note_path.relative_to(REPO_ROOT).as_posix()
     return result
 
 

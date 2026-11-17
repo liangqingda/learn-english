@@ -869,6 +869,20 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertEqual(learning["record"]["id"], "grammar:low")
         self.assertEqual(familiar["record"]["id"], "grammar:high")
 
+    def test_delete_record_drops_its_pending_review_claim(self) -> None:
+        """记录删掉后，它的领取凭据也要一起作废，不能留在 claims 里指向空记录。"""
+        self.service.upsert(payload("grammar", "claimed-then-deleted"))
+        self.service.next_review(categories=["grammar"], claim_owner="session-a")
+        claims = json.loads(self.store.review_claims_path.read_text(encoding="utf-8"))
+        self.assertIn("grammar:claimed-then-deleted", claims["claims"])
+
+        deleted = self.service.delete_record("grammar:claimed-then-deleted")
+
+        self.assertTrue(deleted["claim_released"])
+        claims = json.loads(self.store.review_claims_path.read_text(encoding="utf-8"))
+        self.assertNotIn("grammar:claimed-then-deleted", claims["claims"])
+        self.assertNotIn("grammar:claimed-then-deleted", self.service.records())
+
     def test_next_review_claims_records_to_avoid_parallel_duplicates(self) -> None:
         self.service.upsert(payload("grammar", "first"))
         self.service.upsert(payload("grammar", "second"))

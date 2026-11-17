@@ -131,6 +131,20 @@ class MasteredAutoDeleteTest(unittest.TestCase):
         self.assertEqual(first["mastered_ten_streak"], 0)
         self.assertFalse(first["deleted"])
 
+    def test_a_note_owned_by_another_record_is_kept(self) -> None:
+        """同名笔记里写着别的记录 ID 时不删它：记录已删，但绝不能顺手删错别人的笔记。"""
+        self.mark_mastered("usage:polite-request")
+        note = self.write_note("usage", "polite-request")
+        note.write_text("## 基础信息\n\n<tr><td>记录 ID</td><td>grammar:other</td></tr>\n\n## 讲解\n", encoding="utf-8")
+
+        for _ in range(3):
+            result = self.records.complete_review("usage:polite-request", 10)
+
+        self.assertTrue(result["deleted"])
+        self.assertTrue(note.exists())
+        self.assertIsNotNone(result["note_error"])
+        self.assertIn("grammar:other", result["note_error"])
+
     def test_review_round_skips_the_note_when_the_record_was_deleted(self) -> None:
         self.mark_mastered("usage:polite-request")
         self.records.complete_review("usage:polite-request", 10)

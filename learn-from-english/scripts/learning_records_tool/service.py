@@ -338,7 +338,11 @@ class RecordService:
                 "file": f"{directory}/{record['category']}.json",
             }
 
-        return self.store.transaction(operation)
+        # drop_claim：记录要被删掉，这条记录上的复习领取凭据一起作废，
+        # 不留在 .review-claims.json 里指向一个已经不存在的 ID
+        return self.store.transaction_releasing_claim(
+            identifier, operation, drop_claim=True
+        )
 
     @staticmethod
     def _upsert_error(

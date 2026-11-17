@@ -1,8 +1,13 @@
-"""删一篇复习笔记，连同它在记录库里的那条记录。
+"""删除复习笔记与「记录已经消失」之后的孤儿笔记。
 
 为什么删笔记也要走脚本：笔记是记录的可读副本，两者必须一起消失；记录那一半的写入
 （锁、revision、未掌握 / 已掌握拆分、原子替换）只能由 ``RecordStore`` 做，
 任何调用方自己改 ``learning-records/*.json`` 都会绕开这套约束。
+
+本模块同时提供两条路径：
+``NoteDeletionService.delete`` —— ``delete-note`` 命令，删笔记 + 它记录 ID 指到的记录；
+``delete_note_for_record`` —— 自动删除（已掌握记录连续三次 10 分）之后的清理，
+记录已经在事务里删掉了，这里只清可读副本，并同样校验笔记里的记录 ID。
 """
 
 from __future__ import annotations
@@ -31,6 +36,12 @@ def note_path_for_record(repo_root: Path | str, category: str, key: str) -> Path
     return Path(repo_root) / NOTES_DIR / category / f"{category}-{key}{NOTE_SUFFIX}"
 
 
+def record_id_from_text(text: str) -> str:
+    """从笔记正文里取「基础信息」表的记录 ID；取不到回空串。"""
+    match = RECORD_ID_RE.search(text)
+    return match.group(1).strip() if match else ""
+
+
 def delete_note_for_record(
     repo_root: Path | str, category: str, key: str
 ) -> dict[str, Any]:
@@ -38,6 +49,10 @@ def delete_note_for_record(
 
     给自动删除（已掌握记录连续三次 10 分）用：那条记录已经从记录库移除，
     这里只需要同步清掉可读副本，不再回头删记录，所以不复用 ``delete-note``。
+
+    仍然校验笔记里的记录 ID：路径是按 ``<category>-<key>.md`` 推出来的，但同名文件
+    可能装着别的知识点（改过名、复制过），那种情况不删文件、抛错交给调用方报
+    ``note_error``——记录已经删了，宁可留一份孤儿笔记，也不能顺手删错别人的。
     """
     path = note_path_for_record(repo_root, category, key)
     relative = path.relative_to(Path(repo_root)) if path.is_absolute() else path
@@ -47,6 +62,16 @@ def delete_note_for_record(
             "note_deleted": False,
             "note_error": None,
         }
+    try:
+        text = path.read_text(encoding="utf-8")
+    except OSError as exc:
+        raise RecordError(f"cannot read note file {path}: {exc}") from exc
+    owner_id = record_id_from_text(text)
+    if owner_id and owner_id != f"{category}:{key}":
+        raise RecordError(
+            f"note {relative.as_posix()} belongs to {owner_id}, not {category}:{key}; "
+            "file kept"
+        )
     try:
         path.unlink()
     except OSError as exc:
@@ -112,11 +137,6 @@ class NoteDeletionService:
         return path
 
     @staticmethod
-    def record_id_from_text(text: str) -> str:
-        match = RECORD_ID_RE.search(text)
-        return match.group(1).strip() if match else ""
-
-    @staticmethod
     def record_category(record_id: str) -> str | None:
         """记录 ID 的分类前缀；不是 ``<五类记录分类>:<key>`` 的（如试卷 ID）返回 None。"""
         match = RECORD_ID_FORMAT_RE.fullmatch(record_id)
@@ -146,7 +166,7 @@ class NoteDeletionService:
             text = path.read_text(encoding="utf-8")
         except OSError as exc:
             raise RecordError(f"cannot read note {note}: {exc}") from exc
-        record_id = self.record_id_from_text(text)
+        record_id = record_id_from_text(text)
         category = self._record_target(path, record_id)
         record: dict[str, Any] | None = None
         record_error: str | None = None

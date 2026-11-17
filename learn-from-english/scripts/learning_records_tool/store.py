@@ -1028,7 +1028,14 @@ class RecordStore:
         *,
         claim_owner: str | None = None,
         claim_token: str | None = None,
+        drop_claim: bool = False,
     ) -> T:
+        """在当前事务里写记录，并顺手清掉 ``identifier`` 的复习领取凭据。
+
+        ``drop_claim`` 给删除这类「记录本来就要消失」的调用方用：凭据不管归谁、
+        是否过期，都随记录一起作废，避免凭据留在 ``.review-claims.json`` 里指向
+        一条已经不存在的记录。普通评分写入仍然必须带 owner + token。
+        """
         with self._exclusive_lock():
             self.learning_dir.mkdir(parents=True, exist_ok=True)
             self.mastered_dir.mkdir(parents=True, exist_ok=True)
@@ -1038,6 +1045,9 @@ class RecordStore:
             claim_index = claims.setdefault("claims", {})
             claim = claim_index.get(identifier)
             claim_was_present = claim is not None
+            if drop_claim:
+                # 记录要被删掉了：凭据没有意义，不校验 owner / token
+                claim = None
             if claim is not None:
                 try:
                     expires_at = parse_timestamp(claim.get("expires_at"))
