@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-18 20:14</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-18 21:00</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-18 21:06</td></tr>
 </table>
 
 ## 讲解
@@ -87,6 +87,22 @@
 - **Cole**：Me too. And I **can't help checking** the delivery tracker every day.
 - **Nadia**：Good. I **can't stand paying** full price for half a gym.
 - **Cole**：Understood. I **can't stand the excuses** either, but your complaint is fair — I'll write it up today.
+
+</details>
+
+<details>
+<summary>场景对话原文 3</summary>
+
+- **Tomas**：Excuse me, I've been coming here every evening, and I **can't stand the humming** from the air conditioner.（打扰一下，我每天晚上都来这儿，实在受不了空调的嗡嗡声。）
+- **Ms. Iyer**：I know. I **can't stand it when it starts up** again every twenty minutes.（我知道。它每二十分钟重新启动一次，我实在受不了。）
+- **Tomas**：And the reading room next door keeps leaving chairs for friends who never show up. I **can't stand people reserving seats** with a notebook.（隔壁阅览室老是把椅子留给根本不来的朋友。我受不了有人拿个笔记本占座。）
+- **Ms. Iyer**：That's against our rules. I **can't stand the arguments** it causes at nine o'clock.（那是违反规定的。我受不了九点那会儿因此起的争执。）
+- **Tomas**：Fair enough. I **can't stand complaining**, but I also can't stand losing my study spot.（说得对。我受不了抱怨，但我也受不了丢掉我的自习位。）
+- **Ms. Iyer**：Honestly, I **can't help checking** the thermostat every half hour, but the fan is fifteen years old.（说实话，我忍不住每半小时就去看一眼温控器，可那台风机已经十五年了。）
+- **Tomas**：Then I **can't wait for** the new building to open in June.（那我可迫不及待想等六月新馆开放了。）
+- **Ms. Iyer**：So do I. Until then, I'll put a sign on the reserved seats and call maintenance about the fan.（我也是。在那之前，我会在那些占座的位子上贴张提示，再打电话让维修来看看风机。）
+- **Tomas**：Thank you. I **can't stand waiting** for a repair that never comes.（谢谢。我受不了等一场永远不来的维修。）
+- **Ms. Iyer**：You won't have to. I'll follow it up tomorrow morning myself.（你不会等太久的。明天早上我亲自去跟进。）
 
 </details>
 
