@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-19 07:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-19 07:58</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-19 07:59</td></tr>
 </table>
 
 ## 讲解
@@ -99,6 +99,43 @@
   - 莉娜：麻烦你了。还有，我迫不及待想再一觉睡到天亮。
 - **Owen**：Give me an hour. I **can't stand leaving a phone half fixed**.
   - 欧文：给我一个小时。我不喜欢把手机修到一半就放下。
+
+</details>
+
+## 读一个围绕「can't stand + 名词/动名词」的小故事
+
+**讲解要点**：
+- 把“受不了”挂在具体的声音、气味、动作上，句子就有画面感；抽象地说 I can't stand it 反而听不出抱怨什么。
+  - She could not stand the noise any longer.（她再也受不了那噪音了。）
+  - Ana still can't stand the smell of the shutter grease.（阿娜仍然受不了卷帘门上润滑油的味道。）
+- “被人怎样对待”用被动动名词 being + 过去分词，责任方不必出现也能说清。
+  - He could not stand being served by people who were still rattled.（他受不了被还在心慌的人招待。）
+
+<details>
+<summary>故事原文</summary>
+
+Ana started the five a.m. shift at a bakery on Riding Street last winter. The ovens were warm and the street was still dark, and she liked having the first hour to herself. Then the shop next door changed hands, and the new owners began unloading crates at five fifteen. The metal shutter came up with a screech that ran through the whole block.
+
+（去年冬天，阿娜开始在赖丁街一家面包店上早上五点的班。烤箱是暖的，街上还黑着，她喜欢独享第一个小时。后来隔壁店铺换了老板，新老板五点一刻开始卸货。金属卷帘门拉起来时的刺耳声能传遍整条街。）
+
+By the third week Ana **could not stand the noise any longer**. She started arriving at four forty to finish the mixing before the shutter went up. Her manager noticed the earlier clock-ins and asked why. "I **can't stand it when that shutter goes up** while I'm weighing flour," she said. He told her the neighbours had a licence and nothing could be done about the hour.
+
+（到第三周，阿娜再也受不了那噪音了。她开始四点四十到店，赶在卷帘门升起前把面团和好。经理注意到她打卡越来越早，问她原因。“我称面粉的时候那卷帘门就拉起来，我真受不了，”她说。他告诉她隔壁有执照，时间上没法改。）
+
+So Ana changed what she could: she moved the radio to the front counter and turned it up while the crates were unloaded. The staff stopped flinching at five fifteen, and the first loaves came out better because nobody was rushing. A regular customer, Mr. Osei, said he **could not stand being served by people who were still rattled**. He began coming in every morning before work.
+
+（于是阿娜改了她能改的：把收音机搬到前柜台，卸货时把音量调大。员工五点一刻不再一惊一乍，第一批面包也更好，因为没人赶着做。常客奥塞先生说，他受不了被还在心慌的人招待。他开始每天早上上班前来一次。）
+
+In April the neighbours switched to plastic crates and a quiet trolley. Ana still **can't stand the smell of the shutter grease**, but she no longer plans her morning around it. She tells new staff to say what bothers them on the first day.
+
+（四月，隔壁换成了塑料周转箱和安静的推车。阿娜仍然受不了卷帘门上润滑油的味道，但她不再围着它安排整个早上。她让新员工第一天就把受不了的事说出来。）
+
+| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |
+|---|---|---|
+| could not stand the noise any longer | 忍到极限，已经在改自己的作息 | 换成 the noise was annoying 只说明烦，说不出她为什么提前四十分钟到店 |
+| I can't stand it when that shutter goes up | 把抱怨对准每天那个时刻，而不是讨厌整条街 | 换成 I don't like the shop next door 会让经理以为她在评价邻居，而不是那个时点上的干扰 |
+| could not stand being served by people who were still rattled | 说明自己为什么宁愿换店，也点出服务状态 | 换成 he didn't like the staff 变成对人不对事，丢了“被心慌的人招待”这层被动关系 |
+| still can't stand the smell of the shutter grease | 结尾保留一点没解决的厌恶，人物更真实 | 换成 she likes everything now 太圆满，也让前面所有让步失去分量 |
 
 </details>
 
