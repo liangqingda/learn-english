@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-18 20:14</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-18 21:16</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-18 21:29</td></tr>
 </table>
 
 ## 讲解
@@ -196,6 +196,34 @@ In March the dryer finally broke for good. The owner replaced it with a quiet mo
 | I can't stand it when that dryer buzzes after every load | 把抱怨指向具体情境，而不是抽象地讨厌噪音 | 换成 I don't like the dryer 会让经理以为她不喜欢整台机器，而不是那种反复出现的声响 |
 | he could not stand doing laundry in noisy places | 说明自己为什么舍近求远，把习惯解释清楚 | 换成 he didn't like noisy shops 听起来只是偏好，不足以解释每周开车过城的成本 |
 | she still can't stand folding fitted sheets | 用轻松的自嘲收尾，承认仍有受不了的事 | 换成 she still hates folding sheets 语气更重也更绝对，失去“能接受、只是受不了”的分寸 |
+
+</details>
+
+<details>
+<summary>故事原文 3</summary>
+
+Aya took the night shift on the sleeper train between Osaka and Aomori last winter. The carriages were quiet after eleven, and she liked walking the aisle with a small torch. Then came the new door alarm: a beep that sounded every time a compartment door stayed open for more than ten seconds. At two in the morning it went off six times in one hour.
+
+（去年冬天，阿雅跑大阪到青森之间的卧铺夜班车。十一点以后车厢很安静，她喜欢拿小手电沿着过道走。后来装上了新的车门警报：只要包厢门开着超过十秒，就会响一声。凌晨两点那一小时里，它响了六次。）
+
+By the third week she **could not stand the beeping** any longer. She started standing by the doors and closing them herself, which meant she never finished her paperwork. Her supervisor asked why the reports were late, and she told him the truth: "I **can't stand it when that alarm goes off** behind a sleeping passenger." He said the sensor could not be fixed until the train reached its depot.
+
+（到第三周，她再也受不了那滴滴声了。她开始守在门口自己关门，结果报表从来没写完。主管问她报告为什么交晚了，她说了实话：“那警报在一个睡着的乘客背后响起来，我真受不了。”他说传感器要等列车回到段里才能修。）
+
+So she put a strip of tape over the sensor and stood a handwritten card in each compartment: "Please close the door." The beeping stopped, and the passengers slept. One regular, an older salesman, told her he **could not stand riding** in cars where the alarms went on all night, and had switched lines twice. He wrote a short note to the company, praising her.
+
+（于是她用一条胶带贴住传感器，又在每个包厢里立起一张手写卡片：“请关门。”滴滴声停了，乘客也能睡了。一位常客是上了年纪的销售员，他告诉她，他受不了坐在整夜警报乱响的车厢里，为此换过两次线路。他给公司写了封短信，表扬她。）
+
+In spring the company replaced the sensors and printed proper cards. Aya was moved to the day shift, which she had asked for. She still **can't stand the smell** of instant coffee at four in the morning, but she no longer dreads the aisle.
+
+（春天，公司换掉了传感器，还印了正规的提示卡。阿雅调到了白班，那正是她申请过的。她仍然受不了凌晨四点那股速溶咖啡的味道，但她不再害怕走过道了。）
+
+| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |
+|---|---|---|
+| she could not stand the beeping any longer | 忍到极限、开始越权自己动手 | 换成 the beeping annoyed her 只说明烦，撑不起她贴胶带、自己关门的做法 |
+| I can't stand it when that alarm goes off behind a sleeping passenger | 把抱怨锁定在具体情境，同时点出对乘客的影响 | 换成 I don't like the alarm 听起来只是偏好，主管无法判断该修什么 |
+| he could not stand riding in cars where the alarms went on all night | 解释自己为什么要换线路，把长期习惯说清楚 | 换成 he didn't like noisy trains 太笼统，说不清他为此付出的换线成本 |
+| she still can't stand the smell of instant coffee at four in the morning | 用具体的小厌恶收尾，承认仍有受不了的事 | 换成 she still hates early shifts 会把矛头指向班次，而她想说的是那股味道 |
 
 </details>
 
