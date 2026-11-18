@@ -310,11 +310,30 @@ python3 learn-from-english/scripts/learning_records.py migrate-v2 --dry-run
 
 `validate` 检查 Schema 版本、规范化 ID、字段类型、ISO 时区时间、状态关系、分数范围、标签重复、复习计数和时间先后关系。`repair` 只处理无歧义问题，并支持预览。
 
+## 外部工具契约（`contract.json`）
+
+仓库根的 `contract.json` 声明外部工具（目前是 `my-dashboard` 的英语页）依赖的那几件事。
+表里任何一项变了都要同时把 `contractVersion` +1，外部工具才不会拿着旧口径继续读：
+
+| 字段 | 值 | 含义 |
+| --- | --- | --- |
+| `contractVersion` | `1` | 契约版本；其余字段任一变化都要 +1 |
+| `python` | `python3` | 调用下面两个脚本的解释器 |
+| `notesDir` | `learning-record-notes` | 笔记目录（相对仓库根） |
+| `categoriesFile` | `learning-record-notes/categories.json` | 分类清单唯一来源 |
+| `commands.writeNote` | `take-english-study-notes/scripts/note.py write` | 整篇写入，仓库唯一的笔记写入口 |
+| `commands.deleteNote` | `learn-from-english/scripts/learning_records.py delete-note` | 删笔记连同它的记录 |
+
+外部工具只在开发期按本机路径读这套数据，生产构建用构建期快照，不依赖本仓库存在。
+`contract.json` 不是说明文档：`learn-from-english/tests/test_rule_invariants.py` 里的
+`RepoContractTest` 会核对它声明的目录与命令真实存在、骨架字段与仓库实际一致，写歪了就测试失败。
+
 ## 目录结构
 
 ```text
 .
 ├── AGENTS.md
+├── contract.json
 ├── learning-records/
 │   ├── errors.json
 │   ├── grammar.json
@@ -371,4 +390,4 @@ python3 -m compileall -q learn-from-english/scripts learn-from-english/tests
 git diff --check
 ```
 
-测试覆盖批量校验与协调回滚、重复学习、评分与错题写入、状态转换、评分历史、间隔调度、上下文化菜单、旧数据迁移、校验修复、故障注入、CLI 兼容和服务层不介入 Git。GitHub Actions 会在推送和 Pull Request 上自动执行测试、数据校验与编译检查。
+测试覆盖批量校验与协调回滚、重复学习、评分与错题写入、状态转换、评分历史、间隔调度、上下文化菜单、旧数据迁移、校验修复、故障注入、CLI 兼容、`contract.json` 与实际骨架一致和服务层不介入 Git。GitHub Actions 会在推送和 Pull Request 上自动执行测试、数据校验与编译检查。

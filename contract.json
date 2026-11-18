@@ -1,0 +1,16 @@
+{
+  "contractVersion": 1,
+  "python": "python3",
+  "notesDir": "learning-record-notes",
+  "categoriesFile": "learning-record-notes/categories.json",
+  "commands": {
+    "writeNote": {
+      "script": "take-english-study-notes/scripts/note.py",
+      "args": ["write"]
+    },
+    "deleteNote": {
+      "script": "learn-from-english/scripts/learning_records.py",
+      "args": ["delete-note"]
+    }
+  }
+}

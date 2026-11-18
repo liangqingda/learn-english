@@ -15,6 +15,7 @@ sys.path.insert(0, str(SCRIPTS_DIR))
 sys.path.insert(0, str(REPO_ROOT / "take-english-study-notes" / "scripts"))
 
 import check_note  # noqa: E402
+import note  # noqa: E402
 from note_store import apply_practice_index  # noqa: E402
 
 from learning_records_tool.cli import build_parser  # noqa: E402
@@ -500,6 +501,45 @@ class DocumentationDriftTest(unittest.TestCase):
     def test_learn_skill_uses_the_script_menu(self) -> None:
         text = (REPO_ROOT / "learn-from-english" / "SKILL.md").read_text(encoding="utf-8")
         self.assertIn("--context learn", text)
+
+
+class RepoContractTest(unittest.TestCase):
+    """`contract.json` 是给外部工具（my-dashboard）的接口声明，必须和仓库实际骨架一致。"""
+
+    def contract(self) -> dict[str, object]:
+        path = REPO_ROOT / "contract.json"
+        self.assertTrue(path.is_file(), "仓库根缺少 contract.json")
+
+        return json.loads(path.read_text(encoding="utf-8"))
+
+    def test_version_and_skeleton(self) -> None:
+        contract = self.contract()
+        self.assertEqual(contract["contractVersion"], 1)
+        self.assertEqual(contract["python"], "python3")
+        self.assertEqual(contract["notesDir"], "learning-record-notes")
+        self.assertEqual(
+            contract["categoriesFile"], "learning-record-notes/categories.json"
+        )
+        # 契约声明「能读到」的路径必须真的能读到，否则外部工具按它取数只会空手而归
+        for relative in (contract["notesDir"], contract["categoriesFile"]):
+            self.assertTrue((REPO_ROOT / relative).exists(), str(relative))
+
+    def test_declared_commands_exist(self) -> None:
+        commands = self.contract()["commands"]
+        write_command = commands["writeNote"]
+        delete_command = commands["deleteNote"]
+
+        for command in (write_command, delete_command):
+            self.assertTrue(
+                (REPO_ROOT / command["script"]).is_file(), command["script"]
+            )
+
+        # 声明的是「脚本 + 子命令」，子命令表里找不到就等于外部工具调不动
+        note_commands = set(note.build_parser()._subparsers._group_actions[0].choices)
+        self.assertIn(write_command["args"][0], note_commands)
+
+        record_commands = set(build_parser()._subparsers._group_actions[0].choices)
+        self.assertIn(delete_command["args"][0], record_commands)
 
 
 class ServiceInvariantTest(unittest.TestCase):
