@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 286,
+  "revision": 287,
   "category": "grammar",
   "records": {
     "grammar:a-bit-of-a-singular-countable": {
@@ -51,6 +51,31 @@
       "mastered_at": null,
       "review_history": [],
       "key": "alternative-question-a-or-b"
+    },
+    "grammar:article-the-before-specific-noun": {
+      "id": "grammar:article-the-before-specific-noun",
+      "category": "grammar",
+      "key": "article-the-before-specific-noun",
+      "status": "learning",
+      "title": "特指名词前的定冠词 the（the noise / the smell）",
+      "explanation": "指双方都能指认的那一个具体事物时必须加 the；去掉后变成泛指，与原来的句意不符。",
+      "source": "She says she can't stand noise from the building site next door.",
+      "example": "She says she can't stand the noise from the building site next door.",
+      "tags": [
+        "article",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-18T20:55:34+08:00",
+      "last_learned_at": "2026-11-18T20:55:34+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "grammar:article-with-transport-nouns": {
       "id": "grammar:article-with-transport-nouns",
@@ -455,6 +480,31 @@
       ],
       "first_learned_at": "2026-11-07T21:22:36+08:00",
       "last_learned_at": "2026-11-07T21:22:36+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:it-when-clause-after-stand": {
+      "id": "grammar:it-when-clause-after-stand",
+      "category": "grammar",
+      "key": "it-when-clause-after-stand",
+      "status": "learning",
+      "title": "can't stand it when + 从句（it 后必须用 when 引出事件）",
+      "explanation": "can't stand 后要表达“每当发生某事”时，先用形式宾语 it 占位，再由 when 引出真正的宾语从句；it 与从句之间缺 when 时句子不成立。",
+      "source": "I can't stand it they change demands during meetings.",
+      "example": "I can't stand it when they change the requirements at every meeting.",
+      "tags": [
+        "clause",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-18T20:55:34+08:00",
+      "last_learned_at": "2026-11-18T20:55:34+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

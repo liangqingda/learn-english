@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 286,
+  "revision": 287,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -224,6 +224,31 @@
       ],
       "first_learned_at": "2026-11-08T16:09:04+08:00",
       "last_learned_at": "2026-11-08T16:09:04+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:all-night-time-adverbial": {
+      "id": "phrases:all-night-time-adverbial",
+      "category": "phrases",
+      "key": "all-night-time-adverbial",
+      "status": "learning",
+      "title": "all night 作时间状语不加冠词",
+      "explanation": "表示“整夜”用 all night，不说 all the night；the 在这里不承担特指功能。",
+      "source": "They are noisy all the night.",
+      "example": "They are noisy all night.",
+      "tags": [
+        "adverbial",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-18T20:55:34+08:00",
+      "last_learned_at": "2026-11-18T20:55:34+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -1306,6 +1331,31 @@
       ],
       "first_learned_at": "2026-11-12T07:27:41+08:00",
       "last_learned_at": "2026-11-12T07:27:41+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:next-door-adverbial": {
+      "id": "phrases:next-door-adverbial",
+      "category": "phrases",
+      "key": "next-door-adverbial",
+      "status": "learning",
+      "title": "next door 作地点状语不加 the",
+      "explanation": "表示“隔壁”用 next door 这个固定状语，the next door 指“下一扇门”，语义不同。",
+      "source": "I can't stand the noise from the next door.",
+      "example": "I can't stand the noise from next door.",
+      "tags": [
+        "adverbial",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-18T20:55:34+08:00",
+      "last_learned_at": "2026-11-18T20:55:34+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-18 20:14</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-18 20:29</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-18 20:55</td></tr>
 </table>
 
 ## 讲解
@@ -110,6 +110,25 @@ On Saturday the saxophone started at seven and stopped by nine. The fifth-floor 
 | I can't stand counting these lines | 强调“记录这件事本身”让人崩溃 | 换成 I hate writing this list 只说不喜欢，说不清为什么要把纸递给店主 |
 
 </details>
+
+## 练习「can't stand + 名词/动名词」的关键语法结构
+
+**讲解要点**：
+- can't stand 是及物动词短语，宾语必须是名词性成分：名词、动名词，或“名词 + 分词”，不能直接塞介词短语或从句
+  - She can't stand the noise from the street.（她受不了街上的噪音）
+  - She can't stand being interrupted in meetings.（她受不了开会时被打断）
+- 强调“某种情况”时用形式宾语 it，再接 when 从句；it 后面少了 when 就直接接从句不成立
+  - I can't stand it when they change the requirements.（他们临时改需求，我实在受不了）
+- 被动含义用 being + 过去分词，与主动动名词形成对照
+  - He can't stand being told what to do.（他受不了被人指挥）
+  - He can't stand people telling him what to do.（他受不了别人指挥他）
+- 定冠词与时间、地点状语的固定说法：the noise 特指某一处噪音；all night 不加冠词；next door 作状语也不加 the
+  - The noise from next door kept her awake all night.（隔壁的噪音让她整夜没睡）
+
+复习历史：
+<!-- practice-index -->
+- [2026-11-18 20:55 · 复习](#practice-2026-11-18-2055-f1490a83)
+<!-- /practice-index -->
 
 # 2026-11-18 20:14 · 复习
 
@@ -268,5 +287,166 @@ On Saturday the saxophone started at seven and stopped by nine. The fifth-floor 
 2. **为什么错**：the noisy 里 the 只能限定名词，形容词 noisy 无法独立承担名词功能；要表达“噪音”必须换成名词 noise
 3. **英语的表达逻辑**：英语名词与形容词分工明确，形容词占宾语位需要先有名词，只有 the + 形容词表示群体（the rich）时才成立
 4. **正确表达**：I can't stand the noise.（我受不了那种噪音）；可迁移：I can't stand the noise from the construction site.（我受不了工地的噪音）
+
+</details>
+
+## 练习「can't stand + 名词/动名词」的关键语法结构 <a id="practice-2026-11-18-2055-f1490a83"></a>
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>生成时间</td><td>2026-11-18 20:55</td></tr>
+<tr><td>本轮得分</td><td>6 / 10</td></tr>
+<tr><td>题量与错题数</td><td>6 题 / 4 处错误</td></tr>
+</table>
+
+### 1. 填空
+
+**题目**：用括号内动词的正确形式填空。The students in the back row can't stand ____（listen）to the same lecture twice in one week.
+
+**我的答案**：listening
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：can't stand 后接动名词
+2. **规则与机制**：stand 后接 V-ing 表示反复发生的动作，listen 变成 listening
+3. **英语的表达逻辑**：英语把“忍受某类反复行为”处理成动名词，动作先取得名词身份再作宾语
+4. **可迁移表达**：She can't stand repeating the same exercise.（她受不了重复做同一道题）
+
+</details>
+
+### 2. 改错
+
+**题目**：只改错处，句意不变。She says she can't stand with the noise from the building site next door.
+
+**我的答案**：She says she can't stand noise from the building site next door.
+
+**判定**：⚠️ 部分正确（多余的 with 去掉了，但丢掉了特指的 the）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：can't stand 直接接名词，不借助介词
+2. **规则与机制**：stand 是及物动词，宾语直接跟在后面；with 只用于 put up with 这类介词型短语
+3. **英语的表达逻辑**：英语里及物动词与介词短语分工明确，加上多余的介词会让宾语变成介词宾语、句子失去动词宾语
+4. **可迁移表达**：He can't stand the smell of paint.（他受不了油漆味）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：特指名词前的定冠词
+2. **为什么错**：the noise from the building site 是双方都知道的特定噪音，去掉 the 后变成泛指的“噪音”这一类东西，与“句意不变”的要求不符
+3. **英语的表达逻辑**：英语用 the 标记“听话人也能指认的那一个”，泛指才裸用不可数名词
+4. **正确表达**：She says she can't stand the noise from the building site next door.（她说她受不了隔壁工地传来的噪音）
+
+</details>
+
+### 3. 改写
+
+**题目**：用 can't stand 改写，保持句意。Colleagues keep interrupting her during meetings, and she finds it unbearable.
+
+**我的答案**：She can't stand it that colleagues keep interrupting her during meetings.
+
+**判定**：⚠️ 部分正确（it that 结构不如 it when 自然，也没有把“被打断”压成被动动名词）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：被动动名词 being + 过去分词
+2. **规则与机制**：主语是动作承受者时用 being done；interrupt sb 变被动为 sb be interrupted，动名词形式就是 being interrupted
+3. **英语的表达逻辑**：英语用 V-ing 的主动 / 被动两套形式区分“我做”与“我被做”，不必另起从句
+4. **可迁移表达**：He can't stand being kept waiting.（他受不了让人晾着等）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：改写时保留原句主语关系的动名词形式
+2. **为什么错**：原句的事实是“她被同事打断”，改写却把 colleagues 提成从句主语，主语关系变了；it that 虽有人用，标准且更自然的说法是 it when
+3. **英语的表达逻辑**：英语优先把反复发生的事压成一个名词性短语，从句只在必要时才用
+4. **正确表达**：She can't stand being interrupted during meetings.（她受不了开会时被打断）；可迁移：She can't stand being talked over.（她受不了别人抢话）
+
+</details>
+
+### 4. 单项选择
+
+**题目**：选择最贴近原句意思的一项。原句：I can't stand the new manager.
+- A. 我受不了新经理。
+- B. 我支持新经理。
+- C. 我在等新经理。
+- D. 我替新经理说话。
+
+**我的答案**：A
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：stand 在 can't stand 中的词义
+2. **规则与机制**：can't stand sb / sth 意为“无法忍受某人或某物”；stand for 是“代表、支持”，stand by 是“站在……一边”
+3. **英语的表达逻辑**：同一个动词跟不同副词或介词构成完全不同的意思，看的是整个短语而不只是 stand
+4. **可迁移表达**：I can't stand his jokes.（我受不了他的玩笑）；The letters stand for the company.（这些字母代表公司）
+
+</details>
+
+### 5. 翻译
+
+**题目**：中译英。我受不了他们每次开会都临时改需求。
+
+**我的答案**：I can't stand it they change demands during meetings.
+
+**判定**：❌ 错误（it 后面缺 when，从句不能直接跟在 it 后）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：形式宾语 it + when 从句
+2. **规则与机制**：it 占住宾语位置，真正的宾语由 when 从句承担；没有 when，it 与从句之间就没有连接成分
+3. **英语的表达逻辑**：英语不允许两个名词性成分直接并排，中间必须有连接词或关系词
+4. **可迁移表达**：I can't stand it when the Wi-Fi drops.（网络一断我就受不了）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：it when 从句的连接词
+2. **为什么错**：it 是形式宾语，后面必须由 when 引出真正的事件；直接写 it they change… 等于两个主谓结构硬拼在一起
+3. **英语的表达逻辑**：英语用 when 把“每当发生某事”这层意思显性化，缺了它句子读起来像少了一段
+4. **正确表达**：I can't stand it when they change the requirements at every meeting.（他们每次开会都改需求，我真受不了）；可迁移：I can't stand it when people talk over me.（别人抢我的话我受不了）
+
+</details>
+
+### 6. 短写作
+
+**题目**：用 3 句英文写一段酒店投诉。你在酒店住了两晚，想在网上写一段 3 句的投诉。用 can't stand 描述三件你受不了的事，三句里至少使用两种不同的宾语形式（不必说明是哪两种）。
+
+**我的答案**：I can't stand the noise from the next door. They are noisy all the night. I can't stand it they don't notice it.
+
+**判定**：⚠️ 部分正确（第三句缺 when，第二句 all the night 与第一句 the next door 不合习惯说法）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：can't stand 接名词、接句子时的两种结构，以及时间、地点状语的固定说法
+2. **规则与机制**：名词宾语直接跟在 stand 后；it when 从句要用 when；all night、next door 都是固定状语，不加冠词
+3. **英语的表达逻辑**：英语的冠词与介词短语有固定搭配，状语位置的 next door、all night 已自带“那一个 / 整段”的含义
+4. **可迁移表达**：The people next door had a party all night.（隔壁的人整夜开派对）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：状语固定说法与 it when 结构
+2. **为什么错**：the next door 把状语当成名词短语加了冠词；all the night 多了 the；第三句的 it 后面又漏了 when
+3. **英语的表达逻辑**：英语里表示“隔壁”“整夜”这类位置和时段使用固定状语，冠词在这里不承担特指功能
+4. **正确表达**：I can't stand the noise from next door. They are noisy all night. I can't stand it when they don't do anything about it.（我受不了隔壁的噪音；他们整夜都很吵；我受不了他们对此不管不问）；可迁移：I can't stand the music from next door at night.（我受不了隔壁夜里的音乐）
 
 </details>
