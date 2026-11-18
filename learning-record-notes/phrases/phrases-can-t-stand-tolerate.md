@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-18 20:14</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-18 20:55</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-18 20:57</td></tr>
 </table>
 
 ## 讲解
@@ -55,7 +55,7 @@
   - My sister can't wait to hear from me.（我妹妹迫不及待想听到我的消息）
 
 <details>
-<summary>场景对话原文</summary>
+<summary>场景对话原文 1</summary>
 
 - **Maya**：Three hours at this gate and they still haven't called our flight. I **can't stand waiting** like this.
 - **Walter**：You're not alone. I **can't stand the noise** in this hall, either.
@@ -69,6 +69,24 @@
 - **Walter**：It's fine. Honestly, I **can't stand sitting** in this plastic chair for another hour.
 - **Maya**：Then let's walk to the other end. There's a quieter corner, and I **can't stand the draft** here either.
 - **Walter**：Lead the way.
+
+</details>
+
+<details>
+<summary>场景对话原文 2</summary>
+
+- **Nadia**：I've been a member here for two years, and I **can't stand the state of the locker room** in the evening.
+- **Cole**：I hear you. I **can't stand cleaning up** after people who leave towels everywhere.
+- **Nadia**：It's not just the towels. I **can't stand waiting** twenty minutes for a treadmill because three of them are out of order.
+- **Cole**：Two came back online this morning. I **can't stand the old booking system** myself — it double-books machines.
+- **Nadia**：And the sauna? I **can't stand it when the temperature drops** halfway through a session.
+- **Cole**：That's the timer. I **can't stand it either when the door is left open**.
+- **Nadia**：Also, someone keeps hogging the leg press for forty minutes. I **can't stand people hogging equipment**.
+- **Cole**：Fair. I **can't stand telling people off**, but I'll do it if it keeps coming up.
+- **Nadia**：Thanks. Honestly, I **can't wait to see** the new machines arrive.
+- **Cole**：Me too. And I **can't help checking** the delivery tracker every day.
+- **Nadia**：Good. I **can't stand paying** full price for half a gym.
+- **Cole**：Understood. I **can't stand the excuses** either, but your complaint is fair — I'll write it up today.
 
 </details>
 
