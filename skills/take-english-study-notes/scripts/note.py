@@ -1,0 +1,522 @@
+#!/usr/bin/env python3
+"""笔记（`learning-record-notes/<category>/<category>-<slug>.md`）的统一入口：规则、模板、校验、写入都在本 skill 内。
+
+用法：
+    python3 skills/take-english-study-notes/scripts/note.py explain --file <note.md> --content-file - [--update] [--check]
+    python3 skills/take-english-study-notes/scripts/note.py append --file <note.md> --content-file - [--check]
+    python3 skills/take-english-study-notes/scripts/note.py append-section --file <note.md> --heading "<# ...>" --content-file - [--check]
+    python3 skills/take-english-study-notes/scripts/note.py append-explain-section --file <note.md> --content-file - [--rewrite] [--check]
+    python3 skills/take-english-study-notes/scripts/note.py append-explain-part --file <note.md> --section "## ..." --content-file - [--check]
+    python3 skills/take-english-study-notes/scripts/note.py append-part --file <note.md> --heading "<# ...>" --section "## ..." --content-file - [--check]
+    python3 skills/take-english-study-notes/scripts/note.py replace --file <note.md> --heading "<# ...>" --content-file - [--rewrite-section "## ..."] [--check]
+    python3 skills/take-english-study-notes/scripts/note.py write --file <note.md> --content-file -
+    python3 skills/take-english-study-notes/scripts/note.py sync --file <note.md> [--check]
+    python3 skills/take-english-study-notes/scripts/note.py sections --file <note.md> [--heading "<# ...>"] [--section "## <小节标题>"]
+    python3 skills/take-english-study-notes/scripts/note.py list [--record <id>]
+    python3 skills/take-english-study-notes/scripts/note.py check --all [--fix]
+    python3 skills/take-english-study-notes/scripts/note.py check learning-record-notes/<category>/<category>-<slug>.md
+
+`write` 是整篇写入（编辑器场景）：候选正文先落盘再校验，校验不过立刻回滚到保存前的版本，
+仓库里不会留下被拒的稿子。写入全程在 `learning-record-notes/.notes.lock` 排他锁内完成，
+调用方不自己改写文件。
+追踪字段（记录 ID、目标知识点、累计复习次数、下次复习、分类 · 状态变化、本轮得分）在写入后自动与
+规范记录比对；记录事实由 learn-from-english 的 `learning_records.py record-tracking` 提供，
+找不到该脚本时跳过比对并在结果里说明，不阻断写入。文件顶部「基础信息」里的 `累计复习次数` 与
+`下次复习` 属于记录级字段，写入后自动回填成规范记录的值（返回 `basic_info_synced`），
+旧笔记可用 `sync` 子命令就地修复；其余字段不一致仍然报 `tracking_mismatch`。
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import re
+import subprocess
+import sys
+from pathlib import Path
+from typing import Any
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from note_store import NoteStore, NoteError, _split_blocks, find_repo_root  # noqa: E402
+from note_store import RECORD_ID_ROW_RE, SYNCABLE_ROWS  # noqa: E402
+
+
+REPO_ROOT = find_repo_root(Path(__file__))
+
+TRACKING_ROW_RE = re.compile(
+    r"<tr><td>(记录 ID / 试卷 ID|目标知识点|累计复习次数|下次复习|分类 · 状态变化|本轮得分|生成时间|复习时间|主观题得分|笔记生成时间|笔记更新时间)</td><td>(.*?)</td></tr>"
+)
+TRACKING_SKIP = ("题量与错题数", "主观题得分", "生成时间", "笔记生成时间", "笔记更新时间")
+# 这两行的值由规范记录决定，写入后自动回填；其余追踪行不一致仍然报 tracking_mismatch
+SYNCABLE_FIELDS = tuple(SYNCABLE_ROWS)
+
+
+def repo_root() -> Path:
+    return REPO_ROOT
+
+
+def store() -> NoteStore:
+    return NoteStore(repo_root())
+
+
+def cli_candidates() -> list[Path]:
+    candidates: list[Path] = []
+    override = os.environ.get("LEARN_ENGLISH_CLI")
+    if override:
+        candidates.append(Path(override).expanduser())
+    candidates.append(
+        repo_root() / "skills" / "learn-from-english" / "scripts" / "learning_records.py"
+    )
+    for root in (
+        Path.home() / ".agents" / "skills",
+        Path.home() / ".claude" / "skills",
+        Path.home() / "Doubao" / "skills",
+    ):
+        candidates.append(root / "learn-from-english" / "scripts" / "learning_records.py")
+    return candidates
+
+
+def locate_records_cli() -> Path | None:
+    for candidate in cli_candidates():
+        try:
+            if candidate.is_file():
+                return candidate.resolve()
+        except OSError:
+            continue
+    return None
+
+
+def record_tracking(identifier: str) -> dict[str, Any] | None:
+    """Ask the record store for the authoritative tracking values (read-only)."""
+    if not identifier:
+        return None
+    cli = locate_records_cli()
+    if cli is None:
+        return None
+    try:
+        completed = subprocess.run(
+            [sys.executable, str(cli), "record-tracking", "--id", identifier],
+            capture_output=True,
+            text=True,
+            check=False,
+            timeout=60,
+        )
+        payload = json.loads(completed.stdout or "{}")
+    except (OSError, subprocess.SubprocessError, json.JSONDecodeError):
+        return None
+    tracking = payload.get("tracking")
+    return tracking if isinstance(tracking, dict) else None
+
+
+def round_section(block: str) -> str:
+    """区块的第一节：轮次信息表只挂在这里，后面追加的菜单小节各有自己的得分表。"""
+    lines = block.split("\n")
+    start = next((index for index, line in enumerate(lines) if line.startswith("## ")), None)
+    if start is None:
+        return block
+    end = next(
+        (
+            index
+            for index in range(start + 1, len(lines))
+            if lines[index].startswith("## ")
+        ),
+        len(lines),
+    )
+    return "\n".join(lines[start:end])
+
+
+def verify_tracking(note: NoteStore, file: str, heading: str) -> dict[str, Any]:
+    """Compare the written tracking rows with the canonical record, so nobody copies them by hand."""
+    target = note.resolve(file)
+    text = target.read_text(encoding="utf-8")
+    block = next((body for title, body in _split_blocks(text) if title == heading), None)
+    if block is None:
+        block = ""
+    # 记录级字段在文件顶部的「基础信息」里，本轮字段在区块的第一节（轮次表）里：
+    # 同一区块后来追加的菜单小节各自带 `本轮得分`，若一起合并进来就会把本轮得分比错。
+    full_rows = {
+        field: value.strip() for field, value in TRACKING_ROW_RE.findall(text)
+    }
+    rows = {
+        **full_rows,
+        **{field: value.strip() for field, value in TRACKING_ROW_RE.findall(round_section(block))},
+    }
+    expected = record_tracking(rows.get("记录 ID / 试卷 ID", ""))
+    if expected is None:
+        return {"tracking_skipped": "record store unavailable; tracking rows not verified"}
+    # 记录侧给空串表示「这一项本轮没有发生」，例如状态没变化：笔记里也必须真的没有这一行
+    mismatches = [
+        {
+            "field": field,
+            "expected": value or "（本轮没有发生，不写这一行）",
+            "actual": rows.get(field),
+        }
+        for field, value in expected.items()
+        if field not in TRACKING_SKIP
+        and rows.get(field) != (value or None)
+    ]
+    if not mismatches:
+        return {}
+    return {"tracking_mismatch": mismatches, "tracking_expected": expected}
+
+
+def validate_after_write(note: NoteStore, result: dict[str, Any]) -> dict[str, Any]:
+    """Check, auto-repair the safe issues, re-check, then verify tracking rows."""
+    heading = result.get("heading", "")
+    check = note.check(result["file"])
+    if check.get("ok") is False:
+        repaired = note.check(result["file"], fix=True)
+        if repaired.get("fixed"):
+            result["auto_fixed"] = repaired["fixed"]
+            check = note.check(result["file"])
+    result["check"] = check
+    result["check_ok"] = check.get("ok")
+    result["note_status"] = "valid" if check.get("ok") else ("unverified" if check.get("ok") is None else "invalid")
+    if heading:
+        tracking = verify_tracking(note, result["file"], heading)
+        synced = sync_record_rows(note, result, tracking)
+        if synced:
+            tracking = verify_tracking(note, result["file"], heading)
+        result.update(tracking)
+    return result
+
+
+def sync_record_rows(
+    note: NoteStore, result: dict[str, Any], tracking: dict[str, Any]
+) -> list[str]:
+    """Bring the file-level record rows in line with the record store.
+
+    ``append``/``replace`` only publish the dated block, so 累计复习次数 and
+    下次复习 would stay at the values copied when the note was created. Those
+    two rows are owned by the record, so they are rewritten from
+    ``tracking_expected`` instead of being reported as a mismatch; identity
+    rows (记录 ID / 目标知识点) and per-round rows are still reported.
+    """
+    rows = [
+        item
+        for item in tracking.get("tracking_mismatch") or []
+        if item.get("field") in SYNCABLE_FIELDS
+    ]
+    if not rows:
+        return []
+    expected = tracking.get("tracking_expected") or {}
+    values = {
+        item["field"]: item["expected"]
+        for item in rows
+        if item.get("expected") is not None
+    }
+    if not values:
+        return []
+    synced = note.sync_basic_info(result["file"], values).get("synced", [])
+    if synced:
+        result["basic_info_synced"] = synced
+    return list(synced)
+
+
+def read_content(path: str) -> str:
+    if path == "-":
+        return sys.stdin.read()
+    return Path(path).expanduser().read_text(encoding="utf-8")
+
+
+def handle_explain(args: argparse.Namespace) -> dict[str, Any]:
+    note = store()
+    result = note.write_explanation(args.file, read_content(args.content_file), update=args.update)
+    if args.check and (
+        result.get("appended") or result.get("updated") or result.get("inserted")
+    ):
+        result["check"] = note.check(result["file"])
+        result["check_ok"] = result["check"].get("ok")
+        result["note_status"] = (
+            "valid" if result["check"].get("ok") else ("unverified" if result["check"].get("ok") is None else "invalid")
+        )
+    return result
+
+
+def handle_append(args: argparse.Namespace) -> dict[str, Any]:
+    note = store()
+    result = note.append(args.file, read_content(args.content_file))
+    if args.check:
+        validate_after_write(note, result)
+    return result
+
+
+def handle_append_section(args: argparse.Namespace) -> dict[str, Any]:
+    note = store()
+    result = note.append_section(args.file, args.heading, read_content(args.content_file))
+    if args.check and result.get("appended_section"):
+        validate_after_write(note, result)
+    return result
+
+
+def handle_append_part(args: argparse.Namespace) -> dict[str, Any]:
+    """往已有小节的末尾补一段：同一菜单项第二次生成的故事 / 对话原文走这条路。"""
+    note = store()
+    result = note.append_part(
+        args.file, args.heading, args.section, read_content(args.content_file)
+    )
+    if args.check and result.get("appended_part"):
+        validate_after_write(note, result)
+    return result
+
+
+def handle_append_explain_section(args: argparse.Namespace) -> dict[str, Any]:
+    """把菜单项的讲解要点 / 场景对话 / 小故事写到文件级讲解区（`## 讲解` 之后）。"""
+    note = store()
+    result = note.append_explain_section(
+        args.file, read_content(args.content_file), rewrite=args.rewrite
+    )
+    if args.check and (result.get("appended_section") or result.get("rewritten")):
+        validate_after_write(note, result)
+    return result
+
+
+def handle_append_explain_part(args: argparse.Namespace) -> dict[str, Any]:
+    """往文件级小节的末尾再补一段原文：同一菜单项第二次生成的故事 / 对话走这条路。"""
+    note = store()
+    result = note.append_explain_part(
+        args.file, args.section, read_content(args.content_file)
+    )
+    if args.check and result.get("appended_part"):
+        validate_after_write(note, result)
+    return result
+
+
+def handle_replace(args: argparse.Namespace) -> dict[str, Any]:
+    note = store()
+    result = note.replace_block(
+        args.file,
+        args.heading,
+        read_content(args.content_file),
+        tuple(args.drop_section or ()),
+        tuple(args.rewrite_section or ()),
+    )
+    if args.check:
+        validate_after_write(note, result)
+    return result
+
+
+def handle_write(args: argparse.Namespace) -> dict[str, Any]:
+    """整篇替换一篇笔记；校验不过就回滚，并把校验问题原样返回给调用方。"""
+    return store().write_entire(args.file, read_content(args.content_file))
+
+
+def handle_sync(args: argparse.Namespace) -> dict[str, Any]:
+    """Repair a note whose record-level rows no longer match the record store."""
+    note = store()
+    target = note.resolve(args.file)
+    text = target.read_text(encoding="utf-8") if target.is_file() else ""
+    declared = RECORD_ID_ROW_RE.search(text) if text else None
+    identifier = declared.group(1).strip() if declared else ""
+    expected = record_tracking(identifier)
+    if expected is None:
+        return {
+            "ok": True,
+            "tracking_skipped": "record store unavailable; 基础信息 rows not synced",
+            "file": note.relative(target),
+        }
+    values = {
+        field: expected[field]
+        for field in SYNCABLE_FIELDS
+        if expected.get(field) is not None
+    }
+    result = note.sync_basic_info(args.file, values)
+    if args.check:
+        check = note.check(result["file"])
+        result["check"] = check
+        result["check_ok"] = check.get("ok")
+        result["note_status"] = (
+            "valid" if check.get("ok") else ("unverified" if check.get("ok") is None else "invalid")
+        )
+        result.update(verify_tracking(note, result["file"], ""))
+    return result
+
+
+def handle_sections(args: argparse.Namespace) -> dict[str, Any]:
+    note = store()
+    whole = note.sections(args.file)
+    target = note.resolve(args.file)
+    text = target.read_text(encoding="utf-8") if target.is_file() else ""
+    result: dict[str, Any] = {"file": whole["file"]}
+    result["record_id"] = whole["record_id"]
+    # 写入方必须先确认文件级 `## 讲解` 存在；这里一次给出答案，省掉一次 grep
+    result["has_explanation"] = bool(
+        re.search(r"^## 讲解\s*(?:<a .*?</a>)?\s*$", text, re.M)
+    )
+    result["explain_sections"] = whole.get("explain_sections", [])
+    result["blocks"] = [
+        {"heading": block["heading"], "sections": block["sections"]}
+        for block in whole["blocks"]
+        if args.heading is None or block["heading"] == args.heading
+    ]
+    result["block_count"] = whole["block_count"]
+    if args.section:
+        queried = args.section.strip()
+        result["queried_section"] = queried
+        result["has_section"] = queried in whole.get("explain_sections", []) or any(
+            queried in block["sections"] for block in whole["blocks"]
+        )
+    return result
+
+
+def handle_list(args: argparse.Namespace) -> dict[str, Any]:
+    return {"notes": store().list_notes(args.record)}
+
+
+CHECK_COMMANDS = ("check", "validate")
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    explain = subparsers.add_parser(
+        "explain", help="create a note with the file-level '## 讲解' section (one per knowledge point)"
+    )
+    explain.add_argument("--file", required=True, help="learning-record-notes/<category>/<category>-<slug>.md")
+    explain.add_argument("--content-file", required=True, help="raw Markdown (基础信息 + 讲解) path or - for stdin")
+    explain.add_argument(
+        "--update",
+        action="store_true",
+        help="rewrite the existing '## 讲解' section; if the note has none yet, insert it after the 基础信息 table",
+    )
+    explain.add_argument("--check", action="store_true", help="run the validator afterwards")
+    explain.set_defaults(handler=handle_explain)
+
+    append = subparsers.add_parser("append", help="append one round block under an exclusive lock")
+    append.add_argument("--file", required=True, help="learning-record-notes/<category>/<category>-<slug>.md")
+    append.add_argument("--content-file", required=True, help="raw Markdown block path or - for stdin")
+    append.add_argument("--check", action="store_true", help="run the validator and tracking compare afterwards")
+    append.set_defaults(handler=handle_append)
+
+    append_section = subparsers.add_parser(
+        "append-section", help="append one '## section' inside an existing round block"
+    )
+    append_section.add_argument("--file", required=True, help="learning-record-notes/<category>/<category>-<slug>.md")
+    append_section.add_argument("--heading", required=True, help="exact level-1 heading line of the target round")
+    append_section.add_argument("--content-file", required=True, help="raw '## ...' Markdown section path or - for stdin")
+    append_section.add_argument("--check", action="store_true", help="run the validator afterwards")
+    append_section.set_defaults(handler=handle_append_section)
+
+    append_part = subparsers.add_parser(
+        "append-part",
+        help="append a body fragment to the end of an existing '## section' (repeat story / dialogue)",
+    )
+    append_part.add_argument("--file", required=True, help="learning-record-notes/<category>/<category>-<slug>.md")
+    append_part.add_argument("--heading", required=True, help="exact level-1 heading line of the target round")
+    append_part.add_argument("--section", required=True, help="exact '## ...' section title to append into")
+    append_part.add_argument("--content-file", required=True, help="raw Markdown fragment path or - for stdin")
+    append_part.add_argument("--check", action="store_true", help="run the validator afterwards")
+    append_part.set_defaults(handler=handle_append_part)
+
+    append_explain_section = subparsers.add_parser(
+        "append-explain-section",
+        help="append one '## section' to the file-level explanation area (after '## 讲解')",
+    )
+    append_explain_section.add_argument("--file", required=True, help="learning-record-notes/<category>/<category>-<slug>.md")
+    append_explain_section.add_argument("--content-file", required=True, help="raw '## ...' Markdown section path or - for stdin")
+    append_explain_section.add_argument(
+        "--rewrite",
+        action="store_true",
+        help="replace an existing same-title file-level section instead of returning duplicate",
+    )
+    append_explain_section.add_argument("--check", action="store_true", help="run the validator afterwards")
+    append_explain_section.set_defaults(handler=handle_append_explain_section)
+
+    append_explain_part = subparsers.add_parser(
+        "append-explain-part",
+        help="append a body fragment to a file-level '## section' (repeat story / dialogue)",
+    )
+    append_explain_part.add_argument("--file", required=True, help="learning-record-notes/<category>/<category>-<slug>.md")
+    append_explain_part.add_argument("--section", required=True, help="exact '## ...' title in the explanation area")
+    append_explain_part.add_argument("--content-file", required=True, help="raw Markdown fragment path or - for stdin")
+    append_explain_part.add_argument("--check", action="store_true", help="run the validator afterwards")
+    append_explain_part.set_defaults(handler=handle_append_explain_part)
+
+    replace = subparsers.add_parser("replace", help="replace one existing round block in place")
+    replace.add_argument("--file", required=True, help="learning-record-notes/<category>/<category>-<slug>.md")
+    replace.add_argument("--heading", required=True, help="exact level-1 heading line of the round to replace")
+    replace.add_argument("--content-file", required=True, help="raw Markdown block path or - for stdin")
+    replace.add_argument(
+        "--drop-section",
+        action="append",
+        metavar="HEADING",
+        help="allow dropping an existing '## section'; sections the new content omits are preserved",
+    )
+    replace.add_argument(
+        "--rewrite-section",
+        action="append",
+        metavar="HEADING",
+        help="declare a '## section' this replacement may rewrite (only one per replace otherwise)",
+    )
+    replace.add_argument("--check", action="store_true", help="run the validator and tracking compare afterwards")
+    replace.set_defaults(handler=handle_replace)
+
+    write = subparsers.add_parser(
+        "write", help="replace a whole note file, keeping it only if the validator accepts it"
+    )
+    write.add_argument("--file", required=True, help="learning-record-notes/<category>/<category>-<slug>.md")
+    write.add_argument("--content-file", required=True, help="full Markdown note path or - for stdin")
+    write.set_defaults(handler=handle_write)
+
+    sync = subparsers.add_parser(
+        "sync", help="rewrite the file-level 累计复习次数 / 下次复习 rows from the record store"
+    )
+    sync.add_argument("--file", required=True, help="learning-record-notes/<category>/<category>-<slug>.md")
+    sync.add_argument("--check", action="store_true", help="run the validator and tracking compare afterwards")
+    sync.set_defaults(handler=handle_sync)
+
+    sections = subparsers.add_parser(
+        "sections", help="index one note's round blocks and '##' sections (read-only)"
+    )
+    sections.add_argument("--file", required=True, help="learning-record-notes/<category>/<category>-<slug>.md")
+    sections.add_argument("--heading", help="only this exact level-1 heading line")
+    sections.add_argument("--section", help="report has_section for this '## ...' title")
+    sections.set_defaults(handler=handle_sections)
+
+    listing = subparsers.add_parser("list", help="list notes, optionally filtered by record id")
+    listing.add_argument("--record", help="only notes tracking this record id")
+    listing.set_defaults(handler=handle_list)
+
+    return parser
+
+
+def fail(message: str) -> int:
+    print(
+        json.dumps({"ok": False, "error": message}, ensure_ascii=False, indent=2),
+        file=sys.stderr,
+    )
+    return 2
+
+
+def main(argv: list[str]) -> int:
+    args = argv[1:]
+    if not args:
+        print(__doc__)
+        return 2
+    if args[0] in CHECK_COMMANDS:
+        # 校验器就在本目录，独立运行不需要另装任何 skill
+        import check_note  # noqa: PLC0415
+
+        return check_note.main(["note.py", *args[1:]])
+
+    parser = build_parser()
+    namespace = parser.parse_args(args)
+    handler = getattr(namespace, "handler", None)
+    if handler is None:  # pragma: no cover - argparse 已经要求子命令
+        return fail(f"unknown command: {namespace.command}")
+    try:
+        result = handler(namespace)
+    except NoteError as exc:
+        return fail(str(exc))
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    check = result.get("check") if isinstance(result, dict) else None
+    if isinstance(check, dict) and check.get("ok") is False:
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))

@@ -20,6 +20,20 @@
 - 可配置评分：每张试卷自行定义主客观评分项、原始满分、报告满分、合格线和换算方式；四六级无听力卷报告为 710 分制，425 分合格。
 - 崩溃可恢复：跨文件写入前把目标文件原始内容备份到 `learning-records/.txn/` 并写 `.txn-journal.json`；中途失败立即回滚，进程被杀时下一次写操作自动恢复并记账到 `.txn-recovery.log`。
 
+## 目录
+
+```text
+skills/                              三个 skill 的实体（.agents/skills/ 里是指向它们的软链）
+skills/learn-from-english/           记录读写、菜单与评分的 CLI
+skills/practice-learning-records/    复习、练习与套题的调度规则
+skills/take-english-study-notes/     复习笔记的写入与校验
+learning-records/                    学习中的规范记录
+mastered-learning-records/           已掌握的规范记录
+learning-record-notes/               复习笔记（可读副本）
+```
+
+skill 与数据目录在仓库根平级；脚本用「向上找 `contract.json`」定位仓库根，所以 skill 目录换位置不会把数据读写到别处。
+
 ## 架构
 
 ```text
@@ -38,7 +52,7 @@ mastered-learning-records/<category>.json
 exam-papers/<paper_id>.json
 ```
 
-实现位于 `learn-from-english/scripts/learning_records_tool/`：
+实现位于 `skills/learn-from-english/scripts/learning_records_tool/`：
 
 | 模块 | 职责 |
 | --- | --- |
@@ -50,7 +64,7 @@ exam-papers/<paper_id>.json
 | `papers.py` | 完整套题校验、一卷一文件、多次作答、评分和历史菜单 |
 | `cli.py` | 新旧命令的兼容入口 |
 
-原有 `learn-from-english/scripts/learning_records.py` 路径保持不变，它现在是轻量兼容入口。
+`skills/learn-from-english/scripts/learning_records.py` 仍是轻量兼容入口，具体实现都在同一目录的 `learning_records_tool/` 里。
 
 ## 数据模型
 
@@ -123,7 +137,7 @@ exam-papers/<paper_id>.json
 ### 批量学习记录
 
 ```bash
-python3 learn-from-english/scripts/learning_records.py batch-upsert \
+python3 skills/learn-from-english/scripts/learning_records.py batch-upsert \
   --input new-records.json
 ```
 
@@ -132,7 +146,7 @@ python3 learn-from-english/scripts/learning_records.py batch-upsert \
 单条兼容命令仍可使用：
 
 ```bash
-python3 learn-from-english/scripts/learning_records.py upsert \
+python3 skills/learn-from-english/scripts/learning_records.py upsert \
   --category grammar \
   --key present-perfect-experience \
   --title "现在完成时表示经历" \
@@ -144,7 +158,7 @@ python3 learn-from-english/scripts/learning_records.py upsert \
 ### 评分与错题协调写入
 
 ```bash
-python3 learn-from-english/scripts/learning_records.py complete-review \
+python3 skills/learn-from-english/scripts/learning_records.py complete-review \
   --input review-result.json
 ```
 
@@ -155,7 +169,7 @@ python3 learn-from-english/scripts/learning_records.py complete-review \
 ### 合并重复记录
 
 ```bash
-python3 learn-from-english/scripts/learning_records.py merge \
+python3 skills/learn-from-english/scripts/learning_records.py merge \
   --target errors:existing-record \
   --source errors:duplicate-record \
   --title "优化后的标题" \
@@ -167,7 +181,7 @@ python3 learn-from-english/scripts/learning_records.py merge \
 ### 重新归类记录
 
 ```bash
-python3 learn-from-english/scripts/learning_records.py recategorize \
+python3 skills/learn-from-english/scripts/learning_records.py recategorize \
   --id usage:while-for-duration --category grammar
 ```
 
@@ -176,9 +190,9 @@ python3 learn-from-english/scripts/learning_records.py recategorize \
 ### 删除记录与笔记
 
 ```bash
-python3 learn-from-english/scripts/learning_records.py delete-record \
+python3 skills/learn-from-english/scripts/learning_records.py delete-record \
   --id errors:obsolete-pattern
-python3 learn-from-english/scripts/learning_records.py delete-note \
+python3 skills/learn-from-english/scripts/learning_records.py delete-note \
   --note learning-record-notes/errors/errors-obsolete-pattern.md
 ```
 
@@ -188,7 +202,7 @@ python3 learn-from-english/scripts/learning_records.py delete-note \
 
 ### 已掌握记录自动删除
 
-`mastered` 记录被抽查（`complete-review` / `review-round` 的 `review` 段）时，`RecordService.complete_review` 自己维护 `mastered_ten_streak`：本次 10 分 +1，否则清零；连击达到 `MASTERED_AUTO_DELETE_TEN_COUNT`（3）就把记录从 `mastered-learning-records/` 删除。**只删记录，笔记 md 原样保留**：之后仍可按笔记路径练习这个知识点，只是不再有记录可写（见 `practice-learning-records/references/note-path-entry.md` 的「记录已不在库中时」）。
+`mastered` 记录被抽查（`complete-review` / `review-round` 的 `review` 段）时，`RecordService.complete_review` 自己维护 `mastered_ten_streak`：本次 10 分 +1，否则清零；连击达到 `MASTERED_AUTO_DELETE_TEN_COUNT`（3）就把记录从 `mastered-learning-records/` 删除。**只删记录，笔记 md 原样保留**：之后仍可按笔记路径练习这个知识点，只是不再有记录可写（见 `skills/practice-learning-records/references/note-path-entry.md` 的「记录已不在库中时」）。
 
 - 计数存在 `mastered_ten_streak`，已列进 `RecordStore.MASTERED_FIELDS`：否则每次写入都被精简归档掉，连击永远数不到第 3 次。
 - 进 mastered 的那次 10 分不算连击，计数从 0 开始；掉出 mastered（分数 < 10）当场丢弃该字段并报 0，重新掌握后要重新连击。
@@ -199,17 +213,17 @@ python3 learn-from-english/scripts/learning_records.py delete-note \
 ### 菜单和选题
 
 ```bash
-python3 learn-from-english/scripts/learning_records.py menu --context initial
-python3 learn-from-english/scripts/learning_records.py menu \
+python3 skills/learn-from-english/scripts/learning_records.py menu --context initial
+python3 skills/learn-from-english/scripts/learning_records.py menu \
   --context review-complete --focus "present perfect"
 
-python3 learn-from-english/scripts/learning_records.py next-review \
+python3 skills/learn-from-english/scripts/learning_records.py next-review \
   --path errors-grammar --claim-owner <conversation-owner>
-python3 learn-from-english/scripts/learning_records.py next-review \
+python3 skills/learn-from-english/scripts/learning_records.py next-review \
   --mastered --random --claim-owner <conversation-owner>
-python3 learn-from-english/scripts/learning_records.py release-claim \
+python3 skills/learn-from-english/scripts/learning_records.py release-claim \
   --id <record-id> --claim-owner <owner> --claim-token <token>
-python3 learn-from-english/scripts/learning_records.py mastered-list
+python3 skills/learn-from-english/scripts/learning_records.py mastered-list
 ```
 
 菜单 option 以 `kind` 决定分派，并为 CLI 操作提供结构化 `action`；调用方不得从 label 或 ID 猜行为。`scenario-dialogue` 与 `focus-story` 都是只读展示项（`writes: false`）：前者输出多轮场景对话，后者输出围绕 `focus` 的单线叙事小故事，两者都不计分、不写 `errors`。有习题的练习项（`starter-practice`、`follow-up-learning`、`error-cluster-review`、`error-cluster-review-unclustered`）同样按 0 至 10 计分并输出得分行与判定表格，但得分只写 `learning-record-notes/` 的笔记：不调用 `complete-review`，不改分数、状态、复习次数与下次复习，因此笔记里不写 `分类 · 状态变化` 这一行（状态没变就不写）。`follow-up-directions` 是只读的导航父项，把 5 个练习方向作为 `children` 一次列全（不再按 focus 哈希抽 2 个），选中子项仍按 `follow-up-learning` 分派。`action.status` 固定映射为 `next-review --status <value>`，`action.random: true` 映射为 `--random`。综合复习项与练习方向项都可以带 `children`，顶层编号为 `1`，子项编号为 `1-1`。菜单还会报告 `available_count`、`claimed_count`、`busy` 和 `disabled`，避免把暂时都被领取的记录显示成可立即抽取。
@@ -225,14 +239,14 @@ python3 learn-from-english/scripts/learning_records.py mastered-list
 ### 考试试卷历史
 
 ```bash
-python3 learn-from-english/scripts/learning_records.py paper-create --input paper.json
-python3 learn-from-english/scripts/learning_records.py paper-list --status unanswered
-python3 learn-from-english/scripts/learning_records.py paper-list --status completed --random
-python3 learn-from-english/scripts/learning_records.py paper-get \
+python3 skills/learn-from-english/scripts/learning_records.py paper-create --input paper.json
+python3 skills/learn-from-english/scripts/learning_records.py paper-list --status unanswered
+python3 skills/learn-from-english/scripts/learning_records.py paper-list --status completed --random
+python3 skills/learn-from-english/scripts/learning_records.py paper-get \
   --paper-id <paper-id> --attempt-id <attempt-id>
-python3 learn-from-english/scripts/learning_records.py paper-submit --input answers.json
-python3 learn-from-english/scripts/learning_records.py paper-complete --input grading.json
-python3 learn-from-english/scripts/learning_records.py paper-menu
+python3 skills/learn-from-english/scripts/learning_records.py paper-submit --input answers.json
+python3 skills/learn-from-english/scripts/learning_records.py paper-complete --input grading.json
+python3 skills/learn-from-english/scripts/learning_records.py paper-menu
 ```
 
 `paper-menu` 返回未作答试卷树、进行中 attempt 树和随机重做入口，供两个英语技能统一插入 `Popular Menus`。`paper-complete` 在同一写锁下协调保存 completed attempt 和用户实际展示且已解释的错误；任一步失败时恢复试卷与学习记录文件。放弃失败的评分保存只丢弃待提交评分，不删除已经增量保存的答案。
@@ -244,13 +258,13 @@ python3 learn-from-english/scripts/learning_records.py paper-menu
 讲解写成文件级的 `## 讲解` 小节（紧跟 `## 基础信息`、在所有日期区块之前，一个知识点只有一份），同一知识点的复习继续追加到同一个文件：
 
 ```bash
-python3 take-english-study-notes/scripts/note.py append \
+python3 skills/take-english-study-notes/scripts/note.py append \
   --file learning-record-notes/errors/errors-back-west-spacing.md \
   --content-file - --check <<'EOF'
 # 2026-11-07 21:30 · 复习
 …本轮区块全文…
 EOF
-python3 take-english-study-notes/scripts/note.py replace \
+python3 skills/take-english-study-notes/scripts/note.py replace \
   --file learning-record-notes/errors/errors-back-west-spacing.md \
   --heading "# 2026-11-07 21:30 · 复习" \
   --content-file - <<'EOF'
@@ -263,31 +277,31 @@ EOF
 
 区块走标准输入，不落中间文件；确需文件时用 `mktemp` 生成唯一路径，**不要**用 `/tmp/note-block.md` 这类固定路径，否则并行会话会互相覆盖内容源。`append` 在 `learning-record-notes/.notes.lock` 上取排他锁，锁内完成“读现有文件 → 追加 `---` 分隔 → `os.replace` 原子替换”，因此多个会话同时写同一个笔记文件不会互相覆盖。判重按「标题 + 正文」：同标题同内容返回 `appended: false, duplicate: true`（不要重试）；同标题但内容不同不会丢内容，命令会把时间顺延到不冲突且保持升序的分钟并返回 `heading_adjusted: true` 与新的 `heading`。同一轮里隔天再练同一菜单项时，题组仍写进文件最新那个日期区块（不按今天的日期新建区块，区块标题保持本轮开始那天），日期标题不变；同一天存在多个区块、或同一区块里同一菜单项被选中第二次时，小节标题按该天的顺序自动编号（`## <选项原文> - 01`、` - 02`，单份不带后缀），一节一表、题号各从 1 起。每份带习题的菜单项小节（含 `## 本轮习题`）在自己的标题下先写三行表 `生成时间` / `本轮得分` / `题量与错题数`：`生成时间` 由写入脚本按实际落盘时刻自动盖章（可以晚于轮次标题时间，但不允许更早，后续重写原样保留），它是这一节真实发生时间的唯一来源。小节还会自动带上派生内容：标题行右侧挂一个隐藏锚点 `<a id="practice-<date>-<HHMM>-<8 hex>"></a>`（日期与时间取自该节的 `生成时间`；同一菜单项当天有多份小节时末尾再拼 ` - 01` / ` - 02` 序号；渲染时不可见，点击直接落在标题上），文件级同名小节的讲解内容之后放一行 `复习历史：` + 一块 `<!-- practice-index -->` … `<!-- /practice-index -->` 索引块，按时间倒序列出该菜单项全部习题小节的链接（新的在前）；`## 讲解` 的讲解内容之后另有一行 `复习历史：` + 一块 `<!-- round-index -->` … `<!-- /round-index -->` 复习目录，列出每个日期区块的 `## 本轮习题`（各自也在标题行右侧带 `round-` 锚点）。习题索引条目的时间取自该小节的 `生成时间`（`<日期> <HH:MM> · <复习|练习|套题>`），所以点开链接能看到这一节真正写在几点；`round-index` 里 `## 本轮习题` 的条目仍与日期区块标题同口径。同一天同一菜单项有多份时在末尾按时间先后补 ` - 01`、` - 02`。这些都在每次写入和 `check --all --fix` 时按真实小节重建，不要手写。`append-section` 用同一把锁把单个 `## <菜单项>` 小节塞进既有区块，区块其余内容一字不动，因此给已有区块补一节不需要整块重写；`append-part` 是它的小粒度版本：只往某个既有小节的末尾补一段（故意给同一个小节多补几道 `### <n>. <题型>` 题时用；同一菜单项再选一次应当用 `append-section` 新建带序号的同标题小节，不再并节；故事 / 对话原文的第二次生成走 `append-explain-part`，写进文件级讲解区并按 `故事原文 2`、`场景对话原文 2` 编号），不新建小节；`replace` 只用于修正本轮自己写错的区块，一次只允许改一个小节（批量迁移逐节加 `--rewrite-section`，返回 `modified_sections`），并在锁内自动保留新内容没有带上的既有小节（返回 `preserved_sections`），只有 `--drop-section` 显式列出的小节才允许真的删除。
 
-`take-english-study-notes/scripts/note.py` 是复习笔记的统一入口，写入与校验都在 `take-english-study-notes` 内完成（`note_store.py` 负责锁与原子替换，`check_note.py` 负责校验），不需要安装其他 skill 才能写。唯一跨 skill 依赖是只读的记录事实：追踪表比对通过 `learning_records.py record-tracking --id <id>` 取回期望值（按 `$LEARN_ENGLISH_CLI`、仓库内同级目录、安装位依次查找），取不到时返回 `tracking_skipped` 而不阻断写入。写入命令会自己完成三件事：撞上已有笔记时拒绝另建文件并给出应复用的路径；校验不过时自动执行可安全修复项再复检（`auto_fixed`）；把追踪表与规范记录逐字段比对，不一致时返回 `tracking_mismatch` 与 `tracking_expected`，其中记录直接拥有的 `累计复习次数` / `下次复习` 会按记录值自动回填（`basic_info_synced`），其余字段仍需调用方修正；已有笔记顶部停在旧值时用 `note.py sync --file <笔记>` 就地修复。CI 与本地体检都用 `note.py check --all`。`--check` 结果放进 `check` 字段，并用 `check_ok` / `note_status` 区分写入与合规：`valid` 通过，`invalid` 表示写入成功但校验未过（进程退出码 1），`unverified` 表示校验器不可用。笔记格式的唯一规则来源是 `take-english-study-notes/references/note-format.md`（追加与改写细则在 `note-format-append.md`，校验与迁移在 `note-format-validation.md`），版式以 `templates/review-note.md` 为准。一轮有作答的复习用 `learning_records.py review-round` 一次完成评分、写笔记、校验与后续菜单，不必逐条调用。日期区块里第一个二级标题就是该轮题组标题：没有菜单项标题的题组用兜底标题 `## 本轮习题`，题目自带菜单项标题时直接用那个标题，本轮信息表就挂在它的标题之下、第一题之前（`生成时间` / 本轮得分 / 题量与错题数；`分类 · 状态变化` 只在这轮真的改了记录状态时才插进 `生成时间` 之后，没改就整行不写）；同一区块里另有带习题的菜单项小节时，那些小节各写一张三行表（`生成时间` / `本轮得分` / `题量与错题数`），永远不带 `分类 · 状态变化`。有习题的菜单项一律 0 至 10 计分，得分只写笔记；`分类 · 状态变化` 只在这轮真的改了记录状态时出现，练习轮次和状态没动的轮次整行不写。
+`skills/take-english-study-notes/scripts/note.py` 是复习笔记的统一入口，写入与校验都在 `take-english-study-notes` 内完成（`note_store.py` 负责锁与原子替换，`check_note.py` 负责校验），不需要安装其他 skill 才能写。唯一跨 skill 依赖是只读的记录事实：追踪表比对通过 `learning_records.py record-tracking --id <id>` 取回期望值（按 `$LEARN_ENGLISH_CLI`、仓库内同级目录、安装位依次查找），取不到时返回 `tracking_skipped` 而不阻断写入。写入命令会自己完成三件事：撞上已有笔记时拒绝另建文件并给出应复用的路径；校验不过时自动执行可安全修复项再复检（`auto_fixed`）；把追踪表与规范记录逐字段比对，不一致时返回 `tracking_mismatch` 与 `tracking_expected`，其中记录直接拥有的 `累计复习次数` / `下次复习` 会按记录值自动回填（`basic_info_synced`），其余字段仍需调用方修正；已有笔记顶部停在旧值时用 `note.py sync --file <笔记>` 就地修复。CI 与本地体检都用 `note.py check --all`。`--check` 结果放进 `check` 字段，并用 `check_ok` / `note_status` 区分写入与合规：`valid` 通过，`invalid` 表示写入成功但校验未过（进程退出码 1），`unverified` 表示校验器不可用。笔记格式的唯一规则来源是 `skills/take-english-study-notes/references/note-format.md`（追加与改写细则在 `note-format-append.md`，校验与迁移在 `note-format-validation.md`），版式以 `templates/review-note.md` 为准。一轮有作答的复习用 `learning_records.py review-round` 一次完成评分、写笔记、校验与后续菜单，不必逐条调用。日期区块里第一个二级标题就是该轮题组标题：没有菜单项标题的题组用兜底标题 `## 本轮习题`，题目自带菜单项标题时直接用那个标题，本轮信息表就挂在它的标题之下、第一题之前（`生成时间` / 本轮得分 / 题量与错题数；`分类 · 状态变化` 只在这轮真的改了记录状态时才插进 `生成时间` 之后，没改就整行不写）；同一区块里另有带习题的菜单项小节时，那些小节各写一张三行表（`生成时间` / `本轮得分` / `题量与错题数`），永远不带 `分类 · 状态变化`。有习题的菜单项一律 0 至 10 计分，得分只写笔记；`分类 · 状态变化` 只在这轮真的改了记录状态时出现，练习轮次和状态没动的轮次整行不写。
 
 ### 查询和统计
 
 ```bash
-python3 learn-from-english/scripts/learning_records.py list --category grammar
-python3 learn-from-english/scripts/learning_records.py search \
+python3 skills/learn-from-english/scripts/learning_records.py list --category grammar
+python3 skills/learn-from-english/scripts/learning_records.py search \
   --query "present perfect"
-python3 learn-from-english/scripts/learning_records.py search \
+python3 skills/learn-from-english/scripts/learning_records.py search \
   --query "article" --status learning --status familiar
-python3 learn-from-english/scripts/learning_records.py summary \
+python3 skills/learn-from-english/scripts/learning_records.py summary \
   --include-familiar \
   --include-mastered
-python3 learn-from-english/scripts/learning_records.py history \
+python3 skills/learn-from-english/scripts/learning_records.py history \
   --id grammar:present-perfect-experience
-python3 learn-from-english/scripts/learning_records.py stats --period 30d
-python3 learn-from-english/scripts/learning_records.py error-clusters
-python3 learn-from-english/scripts/learning_records.py error-cluster-get \
+python3 skills/learn-from-english/scripts/learning_records.py stats --period 30d
+python3 skills/learn-from-english/scripts/learning_records.py error-clusters
+python3 skills/learn-from-english/scripts/learning_records.py error-cluster-get \
   --id <cluster-id>
-python3 learn-from-english/scripts/learning_records.py error-cluster-get \
+python3 skills/learn-from-english/scripts/learning_records.py error-cluster-get \
   --unclustered --limit 8
-python3 learn-from-english/scripts/learning_records.py familiar-list --brief
-python3 learn-from-english/scripts/learning_records.py snapshot --record "<record-id>"
-python3 learn-from-english/scripts/learning_records.py snapshot --notes
-python3 learn-from-english/scripts/take-english-study-notes/scripts/note.py sections \
+python3 skills/learn-from-english/scripts/learning_records.py familiar-list --brief
+python3 skills/learn-from-english/scripts/learning_records.py snapshot --record "<record-id>"
+python3 skills/learn-from-english/scripts/learning_records.py snapshot --notes
+python3 skills/take-english-study-notes/scripts/note.py sections \
   --file "learning-record-notes/<category>/<category>-<slug>.md" --section "## <section title>"
 ```
 
@@ -295,17 +309,17 @@ python3 learn-from-english/scripts/take-english-study-notes/scripts/note.py sect
 
 `error-clusters` 默认返回**精简**结果：`clusters`（id / label / count / record_ids）与 `options`（脚本生成的错题专题菜单项，含未归类入口）、`unclustered_count`、`tag_families`（最多 12 条）+ `tag_family_total`，不再内联全部记录（`errors` 记录上百条时输出从 230 KB 降到 17 KB 量级）。需要某一类的完整材料时用 `error-cluster-get` 取回精简字段（id / title / explanation / source / example / tags），它的 `--minimum-size` 必须与 `error-clusters` 一致，否则拿到的 cluster id 可能对不上；它不自动合并记录，也不改变多个规范记录的分数。`list` / `familiar-list` / `mastered-list` 加 `--brief` 可省略 `review_history` 与调度时间戳。
 
-`snapshot` 是一次拿齐“仓库现在到哪了”的只读入口：`git_head`、笔记文件清单、每个文件的**轮次区块与 `##` 小节标题索引**、`record_files`（记录 ID → 笔记文件，记录已改名也能定位）。结果缓存在 `.cache/snapshot.json`，默认 30 分钟有效（`--max-age` 可改，`--refresh` 强制重建），命中时带 `source: cache` 与 `age_seconds`；`live_git_head` 与 `head_drift` 给出一次实时 HEAD 比对，`head_drift: true` 表示工作树已被别的会话推进，只读展示可继续，写入前再 `--refresh`。笔记写入已独立到 `take-english-study-notes`，不再刷新这份快照；写前确认目标区块用 `take-english-study-notes/scripts/note.py sections`，需要新的仓库索引时再跑 `snapshot --refresh`。缓存只是加速层：读索引前会比对文件的 `size` 与 `mtime`，不一致就回退到真实解析，删掉缓存文件也永远安全。菜单 option 现在带 `writes`：`false` 的项（场景对话、小故事、学习进度、错题聚类、剖析当前题、历史试卷导航）只展示内容，不做仓库核对；校验器只在写入路径运行。
+`snapshot` 是一次拿齐“仓库现在到哪了”的只读入口：`git_head`、笔记文件清单、每个文件的**轮次区块与 `##` 小节标题索引**、`record_files`（记录 ID → 笔记文件，记录已改名也能定位）。结果缓存在 `.cache/snapshot.json`，默认 30 分钟有效（`--max-age` 可改，`--refresh` 强制重建），命中时带 `source: cache` 与 `age_seconds`；`live_git_head` 与 `head_drift` 给出一次实时 HEAD 比对，`head_drift: true` 表示工作树已被别的会话推进，只读展示可继续，写入前再 `--refresh`。笔记写入已独立到 `take-english-study-notes`，不再刷新这份快照；写前确认目标区块用 `skills/take-english-study-notes/scripts/note.py sections`，需要新的仓库索引时再跑 `snapshot --refresh`。缓存只是加速层：读索引前会比对文件的 `size` 与 `mtime`，不一致就回退到真实解析，删掉缓存文件也永远安全。菜单 option 现在带 `writes`：`false` 的项（场景对话、小故事、学习进度、错题聚类、剖析当前题、历史试卷导航）只展示内容，不做仓库核对；校验器只在写入路径运行。
 
 `sections` 是写笔记前的只读体检：返回该文件讲解区已有的 `##` 小节（`explain_sections`）与全部轮次标题、每个轮次下的 `##` 小节标题，`--heading` 只看一个轮次；带 `--section "## ..."` 时额外返回 `has_section`，据此决定 `append-explain-section`（讲解区新建）、`append-explain-part`（讲解区再补一段原文）、`append-section`（日期区块新建带习题的菜单项）、`append-part`（日期区块既有小节补一段）还是 `replace --rewrite-section`，不必拼好整段内容再被拒。它同样走缓存索引，文件被外部改动时自动回真实解析。正常的一轮复习不需要先跑它：`review-round` 会自己判断小节是否已存在；这条命令留给单写和排查用。
 
 ### 校验、修复和迁移
 
 ```bash
-python3 learn-from-english/scripts/learning_records.py validate
-python3 learn-from-english/scripts/learning_records.py repair --dry-run
-python3 learn-from-english/scripts/learning_records.py repair
-python3 learn-from-english/scripts/learning_records.py migrate-v2 --dry-run
+python3 skills/learn-from-english/scripts/learning_records.py validate
+python3 skills/learn-from-english/scripts/learning_records.py repair --dry-run
+python3 skills/learn-from-english/scripts/learning_records.py repair
+python3 skills/learn-from-english/scripts/learning_records.py migrate-v2 --dry-run
 ```
 
 `validate` 检查 Schema 版本、规范化 ID、字段类型、ISO 时区时间、状态关系、分数范围、标签重复、复习计数和时间先后关系。`repair` 只处理无歧义问题，并支持预览。
@@ -321,11 +335,11 @@ python3 learn-from-english/scripts/learning_records.py migrate-v2 --dry-run
 | `python` | `python3` | 调用下面两个脚本的解释器 |
 | `notesDir` | `learning-record-notes` | 笔记目录（相对仓库根） |
 | `categoriesFile` | `learning-record-notes/categories.json` | 分类清单唯一来源 |
-| `commands.writeNote` | `take-english-study-notes/scripts/note.py write` | 整篇写入，仓库唯一的笔记写入口 |
-| `commands.deleteNote` | `learn-from-english/scripts/learning_records.py delete-note` | 删笔记连同它的记录 |
+| `commands.writeNote` | `skills/take-english-study-notes/scripts/note.py write` | 整篇写入，仓库唯一的笔记写入口 |
+| `commands.deleteNote` | `skills/learn-from-english/scripts/learning_records.py delete-note` | 删笔记连同它的记录 |
 
 外部工具只在开发期按本机路径读这套数据，生产构建用构建期快照，不依赖本仓库存在。
-`contract.json` 不是说明文档：`learn-from-english/tests/test_rule_invariants.py` 里的
+`contract.json` 不是说明文档：`skills/learn-from-english/tests/test_rule_invariants.py` 里的
 `RepoContractTest` 会核对它声明的目录与命令真实存在、骨架字段与仓库实际一致，写歪了就测试失败。
 
 ## 目录结构
@@ -353,14 +367,14 @@ python3 learn-from-english/scripts/learning_records.py migrate-v2 --dry-run
 │   ├── README.md
 │   └── <category>/
 │       └── <category>-<slug>.md
-├── learn-from-english/
+├── skills/learn-from-english/
 │   ├── SKILL.md
 │   ├── agents/openai.yaml
 │   ├── scripts/
 │   │   ├── learning_records.py
 │   │   └── learning_records_tool/
 │   └── tests/
-├── practice-learning-records/
+├── skills/practice-learning-records/
 │   ├── SKILL.md
 │   ├── references/
 │   │   ├── exam-papers.md
@@ -368,7 +382,7 @@ python3 learn-from-english/scripts/learning_records.py migrate-v2 --dry-run
 │   │   ├── failure-recovery.md
 │   │   └── knowledge-recording.md
 │   └── agents/openai.yaml
-├── take-english-study-notes/
+├── skills/take-english-study-notes/
 │   ├── SKILL.md
 │   ├── references/
 │   │   ├── note-format.md
@@ -384,9 +398,9 @@ python3 learn-from-english/scripts/learning_records.py migrate-v2 --dry-run
 ## 测试
 
 ```bash
-python3 -m unittest discover -s learn-from-english/tests -v
-python3 learn-from-english/scripts/learning_records.py validate
-python3 -m compileall -q learn-from-english/scripts learn-from-english/tests
+python3 -m unittest discover -s skills/learn-from-english/tests -v
+python3 skills/learn-from-english/scripts/learning_records.py validate
+python3 -m compileall -q skills/learn-from-english/scripts skills/learn-from-english/tests
 git diff --check
 ```
 

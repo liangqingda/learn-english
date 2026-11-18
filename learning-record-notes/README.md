@@ -2,9 +2,9 @@
 
 每次英语讲解、每一轮有实际作答的复习、聚焦练习或完整套题，豆包都会在此目录写 Markdown 笔记，用于事后复盘；同一个知识点的讲解与之后的复习都写在同一个文件里。
 
-规则只有一处权威来源：**[`take-english-study-notes/references/note-format.md`](../take-english-study-notes/references/note-format.md)**（追加与改写细则见同目录 `note-format-append.md`，校验与迁移见 `note-format-validation.md`）。
-版式以 [`templates/review-note.md`](../take-english-study-notes/templates/review-note.md) 为准，合规性由
-`take-english-study-notes/scripts/check_note.py` 强制校验。本文件只列速查：
+规则只有一处权威来源：**[`skills/take-english-study-notes/references/note-format.md`](../skills/take-english-study-notes/references/note-format.md)**（追加与改写细则见同目录 `note-format-append.md`，校验与迁移见 `note-format-validation.md`）。
+版式以 [`templates/review-note.md`](../skills/take-english-study-notes/templates/review-note.md) 为准，合规性由
+`skills/take-english-study-notes/scripts/check_note.py` 强制校验。本文件只列速查：
 
 - 笔记按分类放进同名子目录：`<category>/<category>-<slug>.md`，目录名必须等于文件名前缀
   （`errors/errors-back-west-spacing.md`、套题 `paper/paper-<paper_id>.md`）。直接散落在本目录根下的
@@ -17,14 +17,14 @@
 - **分类清单只有一份**：[`categories.json`](categories.json)。它定义分类的键、中文标题、展示顺序和
   `hidden`（`paper` 这类不在看板展示的分类）。改标题、调列顺序、把某类从看板藏起来只改这个文件；
   `my-dashboard` 的英语页直接读它来排看板列。
-  **新增一个全新分类**还要同步 `take-english-study-notes/scripts/check_note.py` 里的分类集合与
+  **新增一个全新分类**还要同步 `skills/take-english-study-notes/scripts/check_note.py` 里的分类集合与
   `note-format.md` 的「各分类必写栏」——校验器用它拦自造前缀，每个分类的讲解栏也不同。
 - 文件顶部先放 `## 基础信息` 表格；文件级 `## 讲解` 小节每份笔记都必须有（一个知识点只有一份，固定在基础信息之后、所有日期区块之前，不带 `讲解时间` 等本轮字段）。历史记录补建笔记时正文可先写占位提示，但这一节不能省。
   `## 讲解` 只讲本文件那一层（`phrases` 讲短语、`grammar` 讲语法机制、`usage` 讲语气语域），栏目按分类自选，不必凑齐固定的几项。
 - 笔记按需生成：记录只有被首次讲解（`explain`）或被抽中复习时才落一份笔记；`batch-upsert` 只写规范记录、不建笔记，所以记录库里没有笔记文件的记录属正常状态，`note.py check --all` 会把它们列进 `missing_notes` 只做体检报告、不算校验错误。已经存在的每份笔记都必须有文件级 `## 讲解` 一节（缺小节时用 `explain --update` 插入），这是写入路径的责任，校验器不拦这一点。
 - 复习 / 练习 / 套题一轮一个 `# YYYY-MM-DD HH:MM · 复习|练习|套题` 区块，旧区块永不删除或改写，按时间升序排列。区块标题只标记**这一轮从哪天开始**：只有开启新一轮（`practice` 抽题、`review` 复习、套题）才建新区块；菜单里继续做的习题练习属于同一轮，隔几天再做也追加到文件里**最新那个区块**，不按今天的日期另建区块，只刷 `笔记更新时间`。
 - 得分与表格位置：区块内第一个二级标题就是该轮题组标题——题目没有菜单项标题时用兜底标题 `## 本轮习题`，题目自带菜单项标题（如「练习「…」的关键语法结构」）时直接用那个标题、这一轮不写 `## 本轮习题`；本轮信息表（生成时间 / 分类 · 状态变化 / 本轮得分 / 题量与错题数，其中 `分类 · 状态变化` 只在真的改了记录状态时才出现，没改就整行不写）紧跟在这个标题之下、第一题之前；同一区块里另有带习题的菜单项小节时，那些小节只在自己的标题下写三行表（`生成时间` / `本轮得分` / `题量与错题数`），再写第一题。有习题的菜单项一律按 0 至 10 计分，得分只写在这份笔记里；没有写入规范记录的练习、以及状态没变化的轮次，`分类 · 状态变化` 整行不写。跨天再练同一菜单项时仍进这个区块、同一「天组」，但按当天序号另建带编号的同标题小节（`## <选项原文> - 01`、` - 02`，一节一表、题号各从 1 起），不并入既有小节。
-- 写入只能走 `take-english-study-notes/scripts/note.py`：`explain` 创建含 `## 讲解` 的笔记、`append` 追加整轮区块、`append-section` 往既有区块里追加单个 `## ` 小节、`replace` 修正本轮区块（同一把锁内原子替换），
+- 写入只能走 `skills/take-english-study-notes/scripts/note.py`：`explain` 创建含 `## 讲解` 的笔记、`append` 追加整轮区块、`append-section` 往既有区块里追加单个 `## ` 小节、`replace` 修正本轮区块（同一把锁内原子替换），
   写入时会自动拒绝「同一记录另建文件」、自动修可安全修复项、自动比对追踪表；禁止用 `Write` 改写整个文件，也不要用固定路径的中转文件。
 - 笔记是可读副本，不是规范数据源：评分、状态与复习调度以 `learning-records/`、`mastered-learning-records/`、
   `exam-papers/` 为准，删除笔记不影响任何评分或复习计划。
@@ -32,7 +32,7 @@
 写入示例（区块走标准输入）：
 
 ```bash
-python3 take-english-study-notes/scripts/note.py append \
+python3 skills/take-english-study-notes/scripts/note.py append \
   --file learning-record-notes/<category>/<category>-<slug>.md \
   --content-file - --check <<'EOF'
 # <YYYY-MM-DD HH:MM> · 复习
@@ -40,7 +40,7 @@ python3 take-english-study-notes/scripts/note.py append \
 EOF
 ```
 
-全量体检：`python3 take-english-study-notes/scripts/note.py check --all [--fix]`。
+全量体检：`python3 skills/take-english-study-notes/scripts/note.py check --all [--fix]`。
 
 返回 `note_status: valid` 才算通过；`invalid` 表示写入成功但校验未过，用替换命令就地修正；`unverified` 表示校验器不可用，
 需要在回复里说明「本轮笔记未校验」。

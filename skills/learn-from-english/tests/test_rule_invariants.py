@@ -1,0 +1,712 @@
+"""Cross-cutting invariants: menu rules, doc/CLI drift, note template, transactions."""
+
+from __future__ import annotations
+
+import json
+import re
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+
+def _repo_root() -> Path:
+    """向上找 ``contract.json``：测试不跟着技能目录的深度走。"""
+    for parent in Path(__file__).resolve().parents:
+        if (parent / "contract.json").is_file():
+            return parent
+    raise RuntimeError("contract.json not found above the test file")
+
+
+REPO_ROOT = _repo_root()
+SCRIPTS_DIR = REPO_ROOT / "skills" / "learn-from-english" / "scripts"
+sys.path.insert(0, str(SCRIPTS_DIR))
+sys.path.insert(0, str(REPO_ROOT / "skills" / "take-english-study-notes" / "scripts"))
+
+import check_note  # noqa: E402
+import note  # noqa: E402
+from note_store import apply_practice_index  # noqa: E402
+
+from learning_records_tool.cli import build_parser  # noqa: E402
+from learning_records_tool.menu import build_menu  # noqa: E402
+from learning_records_tool.models import empty_database, normalize_key  # noqa: E402
+from learning_records_tool.service import RecordService  # noqa: E402
+from learning_records_tool.store import RecordStore  # noqa: E402
+
+
+def payload(category: str, key: str, title: str | None = None) -> dict[str, object]:
+    return {
+        "category": category,
+        "key": key,
+        "title": title or f"{category} {key}",
+        "explanation": f"Explanation for {key}",
+        "source": f"Source for {key}",
+        "example": f"Example for {key}",
+        "tags": ["core"],
+    }
+
+
+class MenuInvariantTest(unittest.TestCase):
+    def setUp(self) -> None:
+        self.temporary_directory = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temporary_directory.cleanup)
+        self.store = RecordStore(Path(self.temporary_directory.name))
+        self.store.initialize(empty_database())
+        self.service = RecordService(self.store)
+        for category in ("vocabulary", "phrases", "grammar", "usage", "errors"):
+            self.service.upsert(payload(category, f"{category}-item"))
+
+    def context_menu(self, context: str) -> dict[str, object]:
+        return build_menu(
+            self.service.records(),
+            context,
+            focus="help yourself",
+        )
+
+    def test_every_context_has_scenario_and_three_other_options(self) -> None:
+        for context in ("initial", "review-complete", "learn"):
+            menu = self.context_menu(context)
+            options = menu["options"]
+            self.assertEqual(menu["state"], "ready")
+            self.assertIn("scenario-dialogue", {option["kind"] for option in options})
+            self.assertIn("focus-story", {option["kind"] for option in options})
+            self.assertGreaterEqual(
+                sum(1 for option in options if option["group"] == "other"),
+                3,
+                f"{context} must offer at least three other options",
+            )
+            self.assertGreaterEqual(
+                sum(1 for option in options if option["group"] == "popular"),
+                1,
+                f"{context} must offer at least one popular option",
+            )
+            for option in options:
+                self.assertIn(option["group"], {"popular", "other"})
+                self.assertIn("kind", option)
+                self.assertTrue(option["label"].strip())
+
+    def test_sibling_icons_are_distinct(self) -> None:
+        for context in ("initial", "review-complete", "learn"):
+            options = self.context_menu(context)["options"]
+            for group in ("popular", "other"):
+                icons = [option["icon"] for option in options if option["group"] == group]
+                self.assertEqual(
+                    len(icons),
+                    len(set(icons)),
+                    f"{context}/{group} has duplicate sibling icons: {icons}",
+                )
+
+    def test_story_option_is_read_only_and_follows_the_scenario(self) -> None:
+        for context in ("initial", "review-complete", "learn"):
+            options = self.context_menu(context)["options"]
+            scenario_index = next(
+                index
+                for index, option in enumerate(options)
+                if option["kind"] == "scenario-dialogue"
+            )
+            story = options[scenario_index + 1]
+            self.assertEqual(story["kind"], "focus-story")
+            self.assertEqual(story["icon"], "📖")
+            self.assertEqual(story["group"], "other")
+            self.assertFalse(story["writes"])
+            self.assertIn("help yourself", story["label"])
+            self.assertNotIn("咖啡店", story["label"])
+
+    def test_follow_up_directions_group_exposes_every_direction(self) -> None:
+        for context in ("initial", "review-complete"):
+            options = self.context_menu(context)["options"]
+            parents = [
+                option for option in options if option["kind"] == "follow-up-directions"
+            ]
+            self.assertEqual(len(parents), 1, f"{context} must expose one direction group")
+            parent = parents[0]
+            self.assertEqual(parent["icon"], "🧭")
+            self.assertFalse(parent["writes"])
+            children = parent["children"]
+            self.assertEqual(len(children), 5)
+            self.assertEqual(
+                {child["icon"] for child in children}, {"🧩", "📚", "🔄", "✍️", "🎧"}
+            )
+            for child in children:
+                self.assertEqual(child["kind"], "follow-up-learning")
+                self.assertIn("help yourself", child["label"])
+                self.assertNotIn("咖啡店", child["label"])
+            self.assertEqual(
+                sum(option["kind"] == "follow-up-learning" for option in options),
+                0,
+                f"{context} must not keep loose follow-up options beside the group",
+            )
+
+    def test_learn_menu_puts_grammar_first_and_drops_it_when_explained(self) -> None:
+        menu = build_menu(self.service.records(), "learn", focus="help yourself")
+        first_other = next(
+            option for option in menu["options"] if option["group"] == "other"
+        )
+        self.assertEqual(first_other["icon"], "🧩")
+
+        explained = build_menu(
+            self.service.records(),
+            "learn",
+            focus="help yourself",
+            grammar_explained=True,
+        )
+        icons = [option["icon"] for option in explained["options"]]
+        self.assertNotIn("🧩", icons)
+
+
+class NoteTemplateTest(unittest.TestCase):
+    def test_validator_reads_the_same_template(self) -> None:
+        self.assertEqual(check_note.TEMPLATE["basic_rows"], check_note.BASIC_ROWS)
+        self.assertEqual(check_note.TEMPLATE["round_rows"], check_note.ROUND_ROWS)
+        self.assertEqual(
+            check_note.TEMPLATE["error_labels"], check_note.DEFAULT_DETAIL_LABELS
+        )
+        self.assertEqual(
+            check_note.TEMPLATE["knowledge_labels"], check_note.DEFAULT_KNOWLEDGE_LABELS
+        )
+        self.assertEqual(
+            check_note.TEMPLATE["unanswered_labels"], check_note.DEFAULT_UNANSWERED_LABELS
+        )
+        self.assertEqual(
+            check_note.TEMPLATE["summaries"],
+            (check_note.DEFAULT_SUMMARY, check_note.DEFAULT_ERROR_SUMMARY),
+        )
+        self.assertEqual(check_note.TEMPLATE["col_width"], 150)
+
+    def note_text(self) -> str:
+        basic = {
+            "记录 ID / 试卷 ID": "errors:out-west",
+            "目标知识点": "out west 不是 outwest",
+            "累计复习次数": "2",
+            "下次复习": "2026-11-20 12:00",
+            "笔记生成时间": "2026-11-07 12:05",
+            "笔记更新时间": "2026-11-07 12:05",
+        }
+        round_values = {
+            "生成时间": "2026-11-07 12:00",
+            "分类 · 状态变化": "errors · learning → familiar",
+            "本轮得分": "9 / 10",
+            "题量与错题数": "1 题 / 1 处错误",
+        }
+        def table(values: dict[str, str], order: list[str]) -> str:
+            rows = "\n".join(
+                f"<tr><td>{row}</td><td>{values.get(row, 'x')}</td></tr>" for row in order
+            )
+            return (
+                f"{check_note.DEFAULT_TABLE_TAG}\n"
+                '<colgroup><col width="150"><col></colgroup>\n'
+                f"{rows}\n"
+                "</table>\n"
+            )
+        return (
+            "## 基础信息\n\n"
+            + table(basic, check_note.TEMPLATE["basic_rows"])
+            + "\n"
+            "# 2026-11-07 12:00 · 复习\n"
+            "\n"
+            "## 本轮习题\n\n"
+            + table(round_values, check_note.TEMPLATE["round_rows"])
+            + "\n"
+            "### 1. 单项选择\n\n"
+            "**题目**：Pick one.\n\n"
+            "**我的答案**：B\n\n"
+            "**判定**：❌ 错误\n\n"
+            "<details>\n"
+            f"<summary>{check_note.DEFAULT_SUMMARY}</summary>\n\n"
+            "1. **本题知识点**：x\n"
+            "2. **规则与机制**：x\n"
+            "3. **英语的表达逻辑**：x\n"
+            "4. **可迁移表达**：x\n\n"
+            "</details>\n\n"
+            "<details>\n"
+            f"<summary>{check_note.DEFAULT_ERROR_SUMMARY}</summary>\n\n"
+            "1. **考点**：x\n"
+            "2. **为什么错**：x\n"
+            "3. **英语的表达逻辑**：x\n"
+            "4. **正确表达**：x\n\n"
+            "</details>\n"
+        )
+
+    def test_valid_note_passes_and_drift_is_reported(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "note.md"
+            path.write_text(apply_practice_index(self.note_text()), encoding="utf-8")
+            self.assertEqual(check_note.check(path), [])
+
+            path.write_text(
+                self.note_text().replace(
+                    f"<summary>{check_note.DEFAULT_ERROR_SUMMARY}</summary>",
+                    "<summary>展开错题讲解</summary>",
+                ),
+                encoding="utf-8",
+            )
+            issues = check_note.check(path)
+            self.assertTrue(any("summary" in issue["message"] for issue in issues))
+
+            path.write_text(
+                self.note_text().replace(
+                    f"<summary>{check_note.DEFAULT_SUMMARY}</summary>",
+                    "<summary>展开讲解</summary>",
+                ),
+                encoding="utf-8",
+            )
+            issues = check_note.check(path)
+            self.assertTrue(any("知识点讲解" in issue["message"] for issue in issues))
+
+
+class MenuItemNoteTest(unittest.TestCase):
+    """菜单项直接以三级标题追加在习题之后；错位与旧写法都必须被拦住。"""
+
+    def check_text(self, text: str) -> list[dict]:
+        # 写入命令会自动补隐藏锚点与文件级索引块，样例先跑同一套重建再校验
+        text = apply_practice_index(text)
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "note.md"
+            path.write_text(text, encoding="utf-8")
+            return check_note.check(path)
+
+    def base_note(self) -> str:
+        return NoteTemplateTest().note_text()
+
+    def with_explanation(self, section: str = "") -> str:
+        """把 `## 讲解`（以及讲解型小节）放在所有日期区块之前。"""
+        text = self.base_note()
+        marker = "\n# "
+        index = text.index(marker)
+        explain = (
+            "\n## 讲解\n\n**错误机制**：\n\n- 一条机制\n\n"
+            "**可迁移表达**：\n\n- `There is a price to pay.`（总要付出代价。）\n"
+        )
+        return text[:index] + explain + ("\n" + section if section else "") + text[index:]
+
+    def item(self, label: str = "看一套围绕「a price to pay」的完整场景对话") -> str:
+        return (
+            f"## {label}\n\n"
+            "**讲解要点**：\n\n"
+            "- 要点 x\n"
+            "  - 示例 y\n\n"
+            "<details>\n"
+            "<summary>场景对话原文</summary>\n\n"
+            "- **A**：x\n"
+            "- **B**：y\n"
+            "- **A**：z\n"
+            "- **B**：w\n"
+            "- **A**：v\n"
+            "- **B**：u\n\n"
+            "</details>\n"
+        )
+
+    def practice_points(self, label: str = "练习「a price to pay」的关键语法结构") -> str:
+        """讲解要点只写一次，留在文件级讲解区。"""
+        return f"## {label}\n\n**讲解要点**：\n\n- 要点 x\n  - 示例 y\n"
+
+    def practice_questions(self, label: str = "练习「a price to pay」的关键语法结构") -> str:
+        """菜单项下的练习与主习题共用同一套题目模板，题号在小节内从 1 重新开始。"""
+        return (
+            f"## {label}\n\n"
+            "### 1. 填空\n\n"
+            "**题目**：Fill in the blank.\n\n"
+            "**我的答案**：a price\n\n"
+            "**判定**：✅ 正确\n\n"
+            "<details>\n"
+            f"<summary>{check_note.DEFAULT_SUMMARY}</summary>\n\n"
+            "1. **本题知识点**：x\n"
+            "2. **规则与机制**：x\n"
+            "3. **英语的表达逻辑**：x\n"
+            "4. **可迁移表达**：x\n\n"
+            "</details>\n\n"
+            "### 2. 翻译\n\n"
+            "**题目**：Translate this.\n\n"
+            "**我的答案**：no idea\n\n"
+            "**判定**：❌ 错误\n\n"
+            "<details>\n"
+            f"<summary>{check_note.DEFAULT_SUMMARY}</summary>\n\n"
+            "1. **本题知识点**：x\n"
+            "2. **规则与机制**：x\n"
+            "3. **英语的表达逻辑**：x\n"
+            "4. **可迁移表达**：x\n\n"
+            "</details>\n\n"
+            "<details>\n"
+            f"<summary>{check_note.DEFAULT_ERROR_SUMMARY}</summary>\n\n"
+            "1. **考点**：x\n"
+            "2. **为什么错**：x\n"
+            "3. **英语的表达逻辑**：x\n"
+            "4. **正确表达**：x\n\n"
+            "</details>\n"
+        )
+
+    def test_paragraph_menu_item_is_rejected(self) -> None:
+        text = (
+            self.base_note()
+            + "\n## 看一套围绕「a price to pay」的完整场景对话\n\n"
+            "**讲解要点**：第一条规则；第二条规则；第三条规则全部揉在一段。\n"
+        )
+        issues = self.check_text(text)
+        self.assertTrue(any("有序列表、无序列表或表格" in issue["message"] for issue in issues))
+
+    def test_mixed_filename_prefix_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            notes = Path(directory) / "learning-record-notes"
+            notes.mkdir()
+            # 散落在笔记目录根下：先被「必须放进分类目录」拦下
+            path = notes / "misc-a-price-to-pay.md"
+            path.write_text(self.base_note(), encoding="utf-8")
+            issues = check_note.check(path)
+            self.assertTrue(any("必须放进分类目录" in issue["message"] for issue in issues))
+
+            for prefix in ("misc", "mixed"):
+                directory_path = notes / prefix
+                directory_path.mkdir()
+                path = directory_path / f"{prefix}-a-price-to-pay.md"
+                path.write_text(self.base_note(), encoding="utf-8")
+                issues = check_note.check(path)
+                self.assertTrue(
+                    any("自造前缀" in issue["message"] for issue in issues), issues
+                )
+                self.assertTrue(
+                    any("不能自造" in issue["message"] for issue in issues), issues
+                )
+
+            path = notes / "phrases" / "phrases-a-price-to-pay.md"
+            path.parent.mkdir()
+            path.write_text(
+                apply_practice_index(
+                    self.base_note().replace("errors:out-west", "phrases:a-price-to-pay")
+                ),
+                encoding="utf-8",
+            )
+            self.assertEqual(check_note.check(path), [])
+
+    def test_menu_item_after_questions_passes(self) -> None:
+        self.assertEqual(self.check_text(self.with_explanation(self.item())), [])
+
+    def test_wrapper_heading_is_rejected(self) -> None:
+        text = self.base_note() + "\n## 菜单与讲解\n\n" + self.item()
+        issues = self.check_text(text)
+        self.assertTrue(any("非模板二级标题" in issue["message"] for issue in issues))
+
+    def test_legacy_prefix_is_rejected(self) -> None:
+        text = self.base_note() + "\n" + self.item("1. 菜单：看一套围绕「a price to pay」的完整场景对话")
+        issues = self.check_text(text)
+        self.assertTrue(any("不要加编号" in issue["message"] for issue in issues))
+
+    def test_menu_item_before_questions_is_rejected(self) -> None:
+        text = self.base_note().replace("## 本轮习题\n\n", "## 本轮习题\n\n" + self.item() + "\n", 1)
+        issues = self.check_text(text)
+        self.assertTrue(any("没有任何 `### <n>. <题型>` 题目" in issue["message"] for issue in issues))
+
+    def test_practice_questions_under_menu_pass(self) -> None:
+        """讲解要点留在文件级，本轮习题写进日期区块的同名小节。"""
+        text = self.with_explanation(self.practice_points()) + "\n" + self.practice_questions()
+        self.assertEqual(self.check_text(text), [])
+
+    def test_third_level_menu_heading_is_rejected(self) -> None:
+        text = self.base_note() + "\n### 看一套围绕「a price to pay」的完整场景对话\n\n**讲解要点**：\n\n- x\n  - y\n"
+        issues = self.check_text(text)
+        self.assertTrue(any("菜单项标题必须与 `## 本轮习题` 同级" in issue["message"] for issue in issues))
+
+    def test_emoji_label_is_rejected(self) -> None:
+        text = self.base_note() + "\n" + self.item("🎭 看一套围绕「a price to pay」的完整场景对话")
+        issues = self.check_text(text)
+        self.assertTrue(any("去掉 emoji" in issue["message"] for issue in issues))
+
+    def test_point_without_child_example_is_rejected(self) -> None:
+        text = (
+            self.base_note()
+            + "\n## 看一套围绕「a price to pay」的完整场景对话\n\n"
+            "**讲解要点**：\n\n- 只有要点，没有示例\n\n"
+            "<details>\n<summary>场景对话原文</summary>\n\n- **A**：x\n\n</details>\n"
+        )
+        issues = self.check_text(text)
+        self.assertTrue(any("缩进子项" in issue["message"] for issue in issues))
+
+    def test_second_expression_field_is_rejected(self) -> None:
+        text = (
+            self.base_note()
+            + "\n## 看一套围绕「a price to pay」的完整场景对话\n\n"
+            "**讲解要点**：\n\n- 要点\n  - 示例\n\n"
+            "**可迁移表达**：\n\n- 又一组\n"
+        )
+        issues = self.check_text(text)
+        self.assertTrue(any("只写一组 `**讲解要点**：`" in issue["message"] for issue in issues))
+
+    def test_unclosed_details_block_is_rejected(self) -> None:
+        text = (
+            self.base_note()
+            + "\n## 看一套围绕「a price to pay」的完整场景对话\n\n"
+            "**讲解要点**：\n\n- 要点\n  - 示例\n\n"
+            "<details>\n<summary>场景对话原文</summary>\n\n- **A**：x\n"
+        )
+        issues = self.check_text(text)
+        self.assertTrue(any("折叠块必须成对闭合" in issue["message"] for issue in issues))
+
+    def test_scenario_section_without_dialogue_is_rejected(self) -> None:
+        text = (
+            self.base_note()
+            + "\n## 看一套围绕「a price to pay」的完整场景对话\n\n"
+            "**讲解要点**：\n\n- 要点\n  - 示例\n"
+        )
+        issues = self.check_text(text)
+        self.assertTrue(any("场景对话原文" in issue["message"] for issue in issues))
+
+
+    def story(self, sentence_count: int = 12, *, block: bool = True) -> str:
+        body = "\n".join(
+            f"Sentence {index} moves the story forward for the reader."
+            for index in range(1, sentence_count + 1)
+        )
+        story_block = (
+            "<details>\n<summary>故事原文</summary>\n\n"
+            f"{body}\n\n（第 1 段译文）\n\n"
+            "| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |\n"
+            "|---|---|---|\n"
+            "| 第 1 段 | 提醒代价 | 固定搭配 |\n\n"
+            "</details>\n\n"
+            if block
+            else ""
+        )
+        return (
+            "## 读一个围绕「a price to pay」的小故事\n\n"
+            "**讲解要点**：\n\n"
+            "- 目标表达的落点\n  - There is always a price to pay.（总要付出代价。）\n\n"
+            + story_block
+        )
+
+    def test_story_section_without_story_text_is_rejected(self) -> None:
+        text = self.base_note() + "\n" + self.story(block=False)
+        issues = self.check_text(text)
+        self.assertTrue(any("故事原文" in issue["message"] for issue in issues))
+
+    def test_short_story_is_rejected(self) -> None:
+        text = self.base_note() + "\n" + self.story(sentence_count=3)
+        issues = self.check_text(text)
+        self.assertTrue(any("8 句英文叙事" in issue["message"] for issue in issues))
+
+    def test_full_story_passes(self) -> None:
+        self.assertEqual(self.check_text(self.with_explanation(self.story())), [])
+
+
+class DocumentationDriftTest(unittest.TestCase):
+    def test_documented_commands_exist(self) -> None:
+        parser = build_parser()
+        commands = set(parser._subparsers._group_actions[0].choices.keys())
+        docs = [
+            REPO_ROOT / "AGENTS.md",
+            REPO_ROOT / "skills" / "learn-from-english" / "SKILL.md",
+            REPO_ROOT / "skills" / "practice-learning-records" / "SKILL.md",
+            *sorted((REPO_ROOT / "skills" / "practice-learning-records" / "references").glob("*.md")),
+            *sorted((REPO_ROOT / "skills" / "take-english-study-notes" / "references").glob("*.md")),
+        ]
+        for doc in docs:
+            text = doc.read_text(encoding="utf-8")
+            referenced = set(re.findall(r"learning_records\.py ([a-z][a-z-]+)", text))
+            referenced |= set(re.findall(r"learning_records\.py\s*\\?\s*\n?\s*([a-z][a-z-]+)", text))
+            missing = {command for command in referenced if command != "scripts"}
+            self.assertFalse(
+                missing - commands,
+                f"{doc.name} references unknown CLI commands: {sorted(missing - commands)}",
+            )
+
+    def test_learn_skill_uses_the_script_menu(self) -> None:
+        text = (REPO_ROOT / "skills" / "learn-from-english" / "SKILL.md").read_text(encoding="utf-8")
+        self.assertIn("--context learn", text)
+
+
+class RepoContractTest(unittest.TestCase):
+    """`contract.json` 是给外部工具（my-dashboard）的接口声明，必须和仓库实际骨架一致。"""
+
+    def contract(self) -> dict[str, object]:
+        path = REPO_ROOT / "contract.json"
+        self.assertTrue(path.is_file(), "仓库根缺少 contract.json")
+
+        return json.loads(path.read_text(encoding="utf-8"))
+
+    def test_version_and_skeleton(self) -> None:
+        contract = self.contract()
+        self.assertEqual(contract["contractVersion"], 1)
+        self.assertEqual(contract["python"], "python3")
+        self.assertEqual(contract["skillsDir"], "skills")
+        self.assertEqual(contract["notesDir"], "learning-record-notes")
+        self.assertEqual(
+            contract["categoriesFile"], "learning-record-notes/categories.json"
+        )
+        # 契约声明「能读到」的路径必须真的能读到，否则外部工具按它取数只会空手而归
+        for relative in (
+            contract["skillsDir"],
+            contract["notesDir"],
+            contract["categoriesFile"],
+        ):
+            self.assertTrue((REPO_ROOT / relative).exists(), str(relative))
+
+    def test_declared_commands_exist(self) -> None:
+        commands = self.contract()["commands"]
+        write_command = commands["writeNote"]
+        delete_command = commands["deleteNote"]
+
+        for command in (write_command, delete_command):
+            self.assertTrue(
+                (REPO_ROOT / command["script"]).is_file(), command["script"]
+            )
+
+        # 声明的是「脚本 + 子命令」，子命令表里找不到就等于外部工具调不动
+        note_commands = set(note.build_parser()._subparsers._group_actions[0].choices)
+        self.assertIn(write_command["args"][0], note_commands)
+
+        record_commands = set(build_parser()._subparsers._group_actions[0].choices)
+        self.assertIn(delete_command["args"][0], record_commands)
+
+
+class ServiceInvariantTest(unittest.TestCase):
+    def setUp(self) -> None:
+        self.temporary_directory = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temporary_directory.cleanup)
+        self.store = RecordStore(Path(self.temporary_directory.name))
+        self.store.initialize(empty_database())
+        self.service = RecordService(self.store)
+
+    def test_non_ascii_tags_are_rejected(self) -> None:
+        """标签只允许小写 ASCII 连字符词；大小写与空格会被自动归一，中文标签必须在写入前报错。"""
+        from learning_records_tool.models import RecordError
+
+        for tag in ("口语", "近义辨析"):
+            payload_with_bad_tag = {**payload("grammar", "tag-case"), "tags": [tag]}
+            with self.assertRaises(RecordError) as caught:
+                self.service.upsert(payload_with_bad_tag)
+            self.assertIn("lowercase ASCII hyphenated words", str(caught.exception))
+
+    def test_chinese_key_is_rejected_instead_of_persisted(self) -> None:
+        """中文主题必须意译成英文 key；直接传中文要在写入前报错，不能落成中文 ID。"""
+        self.assertEqual(normalize_key("情态动词后使用动词原形"), "")
+        self.assertEqual(normalize_key("After 不宜 vs later"), "after-vs-later")
+
+        from learning_records_tool.models import RecordError
+
+        with self.assertRaises(RecordError) as caught:
+            self.service.upsert(payload("grammar", "情态动词后使用动词原形"))
+        self.assertIn("ASCII only", str(caught.exception))
+
+    def test_key_is_persisted_and_repair_backfills_legacy_records(self) -> None:
+        self.service.upsert(payload("grammar", "present-perfect"))
+        database = json.loads(
+            self.store.category_path("grammar").read_text(encoding="utf-8")
+        )
+        record = database["records"]["grammar:present-perfect"]
+        self.assertEqual(record["key"], normalize_key("present-perfect"))
+
+        record.pop("key")
+        self.store.category_path("grammar").write_text(
+            json.dumps(database, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
+        dry = self.service.repair(dry_run=True)
+        self.assertTrue(
+            any(change["field"] == "key" for change in dry["changes"]),
+            dry,
+        )
+        self.service.repair(dry_run=False)
+        repaired = self.service.records()["grammar:present-perfect"]
+        self.assertEqual(repaired["key"], "present-perfect")
+
+    def test_error_clusters_report_unclustered_and_tag_families(self) -> None:
+        distinct = [
+            ("article before countable noun", "单数可数名词前需要限定词，这是英语计量的基本规则。", "article"),
+            ("verb tense backshift", "间接引语中的时态需要向过去推移一层，与主句时态呼应。", "tense"),
+            ("preposition choice", "介词搭配取决于惯用法，不能按中文语序直译。", "preposition"),
+        ]
+        for index, (title, explanation, tag) in enumerate(distinct):
+            self.service.upsert(
+                {
+                    "category": "errors",
+                    "key": f"error-{index}",
+                    "title": title,
+                    "explanation": explanation,
+                    "source": f"Totally different sentence number {index}.",
+                    "example": "",
+                    "tags": [tag],
+                }
+            )
+        result = self.service.error_pattern_clusters(minimum_size=2)
+        self.assertEqual(result["unclustered_count"], len(result["unclustered"]))
+        self.assertEqual(result["unclustered_count"], 3)
+        self.assertTrue(any(item["tag"] == "article" for item in result["tag_families"]))
+
+    def test_duplicate_candidates_are_reported(self) -> None:
+        from learning_records_tool.models import new_record
+
+        self.service.upsert(payload("phrases", "look-after", "look after someone"))
+
+        def add_twin(database: dict[str, object]) -> dict[str, object]:
+            record = new_record(
+                {
+                    "category": "phrases",
+                    "key": "look-after-carefully",
+                    "title": "look after someone carefully",
+                    "explanation": "look after someone carefully 表示细心照顾某人。",
+                    "source": "She looks after her sister carefully.",
+                    "example": "",
+                    "tags": ["care"],
+                }
+            )
+            database["records"][record["id"]] = record
+            return {"added": record["id"]}
+
+        self.store.transaction(add_twin)
+        result = self.service.duplicate_candidates(threshold=0.6)
+        self.assertGreaterEqual(result["candidate_count"], 1)
+        pair = result["pairs"][0]
+        self.assertIn("merge", result["merge_hint"])
+        self.assertNotEqual(pair["left"]["id"], pair["right"]["id"])
+
+    def test_interrupted_transaction_is_rolled_back_on_next_run(self) -> None:
+        self.service.upsert(payload("grammar", "journal-target"))
+        target = self.store.category_path("grammar")
+        original = target.read_bytes()
+
+        self.store.txn_dir.mkdir(parents=True, exist_ok=True)
+        backup = self.store.txn_dir / "backup-0.json"
+        backup.write_bytes(original)
+        journal = {
+            "revision": 1,
+            "entries": [{"target": str(target), "backup": str(backup), "mode": 0o644}],
+        }
+        self.store.txn_journal_path.write_text(
+            json.dumps(journal, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
+        target.write_text('{"schema_version": 2, "records": {}, "broken', encoding="utf-8")
+
+        self.service.upsert(payload("phrases", "after-recovery"))
+
+        self.assertEqual(target.read_bytes(), original)
+        self.assertFalse(self.store.txn_journal_path.exists())
+        self.assertFalse(self.store.txn_dir.exists())
+        self.assertTrue(self.store.txn_recovery_log_path.exists())
+
+    def test_new_write_never_clobbers_a_pending_journal(self) -> None:
+        self.service.upsert(payload("phrases", "journal-guard"))
+        database = self.store._load()
+        target = self.store.category_path("phrases")
+        backup = self.store.txn_dir / "backup-0.json"
+        self.store.txn_dir.mkdir(parents=True, exist_ok=True)
+        backup.write_bytes(target.read_bytes())
+        journal = {
+            "revision": 9,
+            "entries": [{"target": str(target), "backup": str(backup), "mode": 0o644}],
+        }
+        self.store.txn_journal_path.write_text(
+            json.dumps(journal, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
+        target.unlink()
+
+        # A write path that does not pre-recover (e.g. papers.py) must still
+        # recover the stale journal instead of overwriting it with new backups.
+        self.store._write(database, force_all=True)
+
+        self.assertTrue(target.exists())
+        self.assertFalse(self.store.txn_journal_path.exists())
+        self.assertIn(
+            "revision 9",
+            self.store.txn_recovery_log_path.read_text(encoding="utf-8"),
+        )
+
+
+if __name__ == "__main__":
+    unittest.main()
