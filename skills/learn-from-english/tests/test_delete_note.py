@@ -121,6 +121,32 @@ class NoteDeletionTest(unittest.TestCase):
         self.assertFalse(result["record"]["mastered"])
         self.assertNotIn("errors:demo", self.records.records())
 
+    def test_delete_note_can_keep_the_record(self) -> None:
+        """只删 Markdown：记录留在库里，之后还能继续复习这个知识点。"""
+        self.records.upsert(payload("errors", "demo"))
+        note = self.write_note("learning-record-notes/errors/errors-demo.md", note_text("errors:demo"))
+
+        result = self.deletions.delete(
+            "learning-record-notes/errors/errors-demo.md", keep_record=True
+        )
+
+        self.assertFalse(note.exists())
+        self.assertIsNone(result["record"])
+        self.assertTrue(result["record_kept"])
+        self.assertIsNone(result["record_error"])
+        self.assertIn("errors:demo", self.records.records())
+
+    def test_delete_note_with_keep_record_reports_when_there_was_no_record(self) -> None:
+        """没有记录 ID 的笔记勾了保留也只是删 md，`record_kept` 不冒充「保留了一条记录」。"""
+        self.write_note("learning-record-notes/errors/errors-plain.md", note_text(""))
+
+        result = self.deletions.delete(
+            "learning-record-notes/errors/errors-plain.md", keep_record=True
+        )
+
+        self.assertFalse(result["record_kept"])
+        self.assertIsNone(result["record_error"])
+
     def test_delete_note_points_a_mastered_record_at_the_mastered_file(self) -> None:
         self.records.upsert(payload("grammar", "demo"))
         for _ in range(3):
@@ -250,6 +276,22 @@ class DeleteCliTest(unittest.TestCase):
             "errors:cli",
             RecordService(RecordStore(self.root)).records(),
         )
+
+    def test_delete_note_keep_record_removes_only_the_note(self) -> None:
+        completed = self.run_cli(
+            "delete-note",
+            "--note",
+            "learning-record-notes/errors/errors-cli.md",
+            "--keep-record",
+        )
+
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        result = json.loads(completed.stdout)
+        self.assertTrue(result["note_deleted"])
+        self.assertTrue(result["record_kept"])
+        self.assertIsNone(result["record"])
+        self.assertFalse(self.note.exists())
+        self.assertIn("errors:cli", RecordService(RecordStore(self.root)).records())
 
     def test_delete_note_fails_loudly_on_an_unknown_note(self) -> None:
         completed = self.run_cli(

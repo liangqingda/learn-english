@@ -117,8 +117,10 @@ def handle_delete_record(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def handle_delete_note(args: argparse.Namespace) -> dict[str, Any]:
-    """删一篇笔记，连同它记录 ID 指到的那条记录。"""
-    result = note_deletion_service().delete(args.note)
+    """删一篇笔记，连同它记录 ID 指到的那条记录；``--keep-record`` 时只删笔记。"""
+    result = note_deletion_service().delete(
+        args.note, keep_record=args.keep_record
+    )
     if args.strict and result.get("record_error"):
         # 默认退出码 0：md 已经删了，记录失败只是要带给调用方的中间状态。
         # `--strict` 时把它当失败，供人工或别的脚本按退出码判断。
@@ -425,6 +427,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--strict",
         action="store_true",
         help="exit 1 when the note was deleted but its record could not be",
+    )
+    delete_note.add_argument(
+        "--keep-record",
+        action="store_true",
+        help="delete only the note file and keep the record it points at",
     )
     delete_note.set_defaults(handler=handle_delete_note)
 

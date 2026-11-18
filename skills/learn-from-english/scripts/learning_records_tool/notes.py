@@ -120,8 +120,13 @@ class NoteDeletionService:
             return None
         return category
 
-    def delete(self, note: str) -> dict[str, Any]:
-        """删掉笔记文件，再按记录 ID 删记录；记录那一半失败不掩盖笔记已删的事实。"""
+    def delete(self, note: str, keep_record: bool = False) -> dict[str, Any]:
+        """删掉笔记文件，再按记录 ID 删记录；记录那一半失败不掩盖笔记已删的事实。
+
+        ``keep_record`` 为真时只删 md，记录原样留在库里：那个知识点还能继续复习，
+        只是不再有这篇笔记做它的可读副本。这时不校验记录 ID 属于谁——保留是用户
+        明确要求的，ID 对不上也就谈不上「误删别人的知识点」。
+        """
         path = self.resolve(note)
         try:
             text = path.read_text(encoding="utf-8")
@@ -129,6 +134,9 @@ class NoteDeletionService:
             raise RecordError(f"cannot read note {note}: {exc}") from exc
         record_id = record_id_from_text(text)
         category = self._record_target(path, record_id)
+        # 只有「本来该删、因为 keep_record 才留着」的记录才算 kept：
+        # 试卷笔记、没有记录 ID 的笔记回 False，调用方才知道不是「保留了一条记录」
+        record_kept = keep_record and category is not None
         record: dict[str, Any] | None = None
         record_error: str | None = None
 
@@ -139,7 +147,10 @@ class NoteDeletionService:
             raise RecordError(f"cannot delete note file {note}: {exc}") from exc
         invalidate(self.repo_root)
 
-        if category is not None:
+        if keep_record:
+            # 记录按用户要求原样留着：不删、也不把「ID 与文件名对不上」报成错误
+            pass
+        elif category is not None:
             try:
                 deleted = self.records.delete_record(record_id, missing_ok=True)
             except RecordError as exc:
@@ -163,5 +174,6 @@ class NoteDeletionService:
             "note_deleted": True,
             "record_id": record_id,
             "record": record,
+            "record_kept": record_kept,
             "record_error": record_error,
         }
