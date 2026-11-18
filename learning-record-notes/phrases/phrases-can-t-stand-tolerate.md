@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-18 20:14</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-18 20:57</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-18 21:00</td></tr>
 </table>
 
 ## 讲解
@@ -103,7 +103,7 @@
   - I can't stand late-night music either.（我也受不了深夜的音乐）
 
 <details>
-<summary>故事原文</summary>
+<summary>故事原文 1</summary>
 
 Irene moved into a fourth-floor flat above a bike shop in early autumn. The building was old but quiet, and she slept well for the first two weeks. Then a new tenant arrived on the fifth floor with a saxophone and a habit of practicing after midnight. The first night she lay awake, listening to the same four notes repeat above her ceiling.
 
@@ -126,6 +126,34 @@ On Saturday the saxophone started at seven and stopped by nine. The fifth-floor 
 | she could not stand the noise any longer | 忍到极限、准备采取行动 | 换成 the noise annoyed her 只剩“有点烦”，丢掉“再也忍不了”的强度与行动理由 |
 | I can't stand late-night music either | 站到同一立场、拉近距离 | 换成 I don't like it 听起来像客套，共情和立场都弱了 |
 | I can't stand counting these lines | 强调“记录这件事本身”让人崩溃 | 换成 I hate writing this list 只说不喜欢，说不清为什么要把纸递给店主 |
+
+</details>
+
+<details>
+<summary>故事原文 2</summary>
+
+Priya took over the evening shift at a laundromat on Cannon Street last spring. The shop was small, warm, and quiet after eight, and she liked folding sheets while the street emptied. Then the owner installed a second-hand dryer that buzzed like a wasp every time a cycle ended. The buzzing lasted a full minute, and it came back every half hour.
+
+（去年春天，普里娅接手了坎农街一家自助洗衣店的晚班。八点以后店里又小又暖和，街上人少了，她喜欢一边叠床单一边看街道空下来。后来店主装了一台二手烘干机，每次程序结束都像黄蜂一样嗡嗡叫。那声音要持续整整一分钟，而且每半小时就来一次。）
+
+By the end of the second week, she could not stand the sound any longer. She started switching the machine off before the cycle ended, which left the sheets damp. Her manager noticed the damp sheets and asked what was going on. "I can't stand it when that dryer buzzes after every load," she said. He nodded and told her the shop could not afford a new machine that winter.
+
+（到第二个星期末，她再也受不了那个声音了。她开始在程序结束前就把机器关掉，结果床单都是潮的。经理发现床单是湿的，问她怎么回事。“那台烘干机每烘完一炉就嗡嗡叫，我真受不了，”她说。他点点头，说店里那年冬天买不起新机器。）
+
+So she made a small fix of her own: a folded towel pressed against the door latch, which cut the noise in half. Customers began to comment on how peaceful the shop felt. One regular, Mr. Adeyemi, told her he could not stand doing laundry in noisy places, and had been driving to a bigger shop across town. He started coming twice a week after that.
+
+（于是她自己做了个小改造：拿一块叠好的毛巾压住门扣，噪音一下减了一半。顾客开始说店里安静多了。一位常客阿德耶米先生告诉她，他受不了在吵闹的地方洗衣服，之前一直开车去镇上另一家更大的店。从那以后，他每周来两次。）
+
+In March the dryer finally broke for good. The owner replaced it with a quiet model and gave Priya a small raise. She still can't stand folding fitted sheets, but she has learned to say so out loud instead of switching machines off.
+
+（三月，那台烘干机彻底坏了。店主换了一台安静的机器，还给普里娅小幅加薪。她仍然受不了叠床笠，但她学会了直接说出来，而不是偷偷关机器。）
+
+| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |
+|---|---|---|
+| she could not stand the sound any longer | 忍到极限、开始自己想办法 | 换成 the sound annoyed her 只说明烦躁，说不清她为什么要在程序结束前关机器 |
+| I can't stand it when that dryer buzzes after every load | 把抱怨指向具体情境，而不是抽象地讨厌噪音 | 换成 I don't like the dryer 会让经理以为她不喜欢整台机器，而不是那种反复出现的声响 |
+| he could not stand doing laundry in noisy places | 说明自己为什么舍近求远，把习惯解释清楚 | 换成 he didn't like noisy shops 听起来只是偏好，不足以解释每周开车过城的成本 |
+| she still can't stand folding fitted sheets | 用轻松的自嘲收尾，承认仍有受不了的事 | 换成 she still hates folding sheets 语气更重也更绝对，失去“能接受、只是受不了”的分寸 |
 
 </details>
 
