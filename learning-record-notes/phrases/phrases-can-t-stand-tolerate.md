@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-18 20:14</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-18 20:27</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-18 20:29</td></tr>
 </table>
 
 ## 讲解
@@ -69,6 +69,45 @@
 - **Walter**：It's fine. Honestly, I **can't stand sitting** in this plastic chair for another hour.
 - **Maya**：Then let's walk to the other end. There's a quieter corner, and I **can't stand the draft** here either.
 - **Walter**：Lead the way.
+
+</details>
+
+## 读一个围绕「can't stand + 名词/动名词」的小故事
+
+**讲解要点**：
+- 故事里的 can't stand 分别接名词（the noise / late-night music）和动名词（counting these lines），宾语都是具体到可以点名的事物或行为
+  - She could not stand the noise from upstairs.（她受不了楼上传来的噪音）
+  - I can't stand counting these pages every night.（我受不了每天晚上数这些页数）
+- 说出“受不了”的具体对象，比笼统说 don't like 更容易带出行动：写纸条、找店主、当面谈
+  - He can't stand late-night music, so he talked to the tenant himself.（他受不了深夜音乐，所以亲自去找了那位租客）
+- 否定式 can't stand 常和 any longer / either 连用，把程度和立场说得更清楚
+  - I can't stand the noise any longer.（这噪音我再也受不了了）
+  - I can't stand late-night music either.（我也受不了深夜的音乐）
+
+<details>
+<summary>故事原文</summary>
+
+Irene moved into a fourth-floor flat above a bike shop in early autumn. The building was old but quiet, and she slept well for the first two weeks. Then a new tenant arrived on the fifth floor with a saxophone and a habit of practicing after midnight. The first night she lay awake, listening to the same four notes repeat above her ceiling.
+
+（初秋，艾琳搬进了一家自行车修理铺楼上四层的公寓。楼是旧楼，但很安静，头两个星期她睡得很踏实。后来五层搬来一位新租客，带着一把萨克斯，还养成了半夜练琴的习惯。第一晚她躺在床上醒着，听同一段四个音在天花板上反复出现。）
+
+By the third night, she could not stand the noise any longer. She wrote a short note and slid it under the door upstairs, then went down to the shop to calm herself. The owner, Mr. Okafor, laughed when he heard her story. "I can't stand late-night music either," he said, "but he plays better than the radio." Irene was too tired to argue, so she bought a pair of earplugs and went home.
+
+（到第三晚，她再也受不了那噪音了。她写了一张短纸条塞进楼上的门缝，然后下楼到修理铺让自己冷静一下。店主奥卡福先生听完她的讲述笑了。“我也受不了深夜的音乐，”他说，“不过他拉得比收音机好听。”艾琳累得不想争辩，买了一副耳塞就回家了。）
+
+Nothing changed for a week. She began to keep a list of every night the saxophone woke her, and the list grew until it filled two pages. "I can't stand counting these lines," she told Mr. Okafor. "I want quiet, not evidence." He nodded and offered to speak to the tenant himself, since they had known each other for years.
+
+（一个星期什么都没变。她开始记录萨克斯把她吵醒的每一个晚上，单子越写越长，最后写满了两页。“我受不了数这些行了，”她对奥卡福先生说，“我要的是安静，不是证据。”他点点头，说自己跟那位租客认识多年，愿意亲自去谈。）
+
+On Saturday the saxophone started at seven and stopped by nine. The fifth-floor tenant came downstairs with a plate of biscuits and an apology. He explained that the midnight sessions had been a bad habit from his old job, and that he was now practicing for a small concert in the winter. Irene found that she could stand the evening music, and even enjoy it, once she knew when it would end.
+
+（周六，萨克斯七点开始，九点前就停了。五层的租客端着一盘饼干下楼来道歉。他解释说半夜练琴是上一份工作留下的坏习惯，现在他是在为冬天的一场小型音乐会做准备。艾琳发现自己能接受傍晚的琴声，甚至有点喜欢，因为她知道它几点会结束。）
+
+| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |
+|---|---|---|
+| she could not stand the noise any longer | 忍到极限、准备采取行动 | 换成 the noise annoyed her 只剩“有点烦”，丢掉“再也忍不了”的强度与行动理由 |
+| I can't stand late-night music either | 站到同一立场、拉近距离 | 换成 I don't like it 听起来像客套，共情和立场都弱了 |
+| I can't stand counting these lines | 强调“记录这件事本身”让人崩溃 | 换成 I hate writing this list 只说不喜欢，说不清为什么要把纸递给店主 |
 
 </details>
 
