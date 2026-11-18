@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-18 20:14</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-18 21:06</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-18 21:16</td></tr>
 </table>
 
 ## 讲解
@@ -103,6 +103,32 @@
 - **Ms. Iyer**：So do I. Until then, I'll put a sign on the reserved seats and call maintenance about the fan.（我也是。在那之前，我会在那些占座的位子上贴张提示，再打电话让维修来看看风机。）
 - **Tomas**：Thank you. I **can't stand waiting** for a repair that never comes.（谢谢。我受不了等一场永远不来的维修。）
 - **Ms. Iyer**：You won't have to. I'll follow it up tomorrow morning myself.（你不会等太久的。明天早上我亲自去跟进。）
+
+</details>
+
+<details>
+<summary>场景对话原文 4</summary>
+
+- **Ruben**：Excuse me, we've been waiting since eight, and I **can't stand the announcements** every two minutes.
+  - 鲁本：打扰一下，我们从八点就等着了，我实在受不了每两分钟一次的广播。
+- **Tessa**：I understand. I **can't stand it when they repeat** the same number three times.
+  - 泰莎：我理解。他们把一个号码重复三遍，我也受不了。
+- **Ruben**：And my father **can't stand sitting** in a cold corridor for an hour.
+  - 鲁本：而且我爸受不了在冷飕飕的走廊里坐一个小时。
+- **Tessa**：I'll bring him a blanket. I **can't stand seeing** older patients shiver.
+  - 泰莎：我去给他拿条毯子。看到老年病人发抖，我受不了。
+- **Ruben**：Thank you. I **can't stand people leaving bags** on the seats either.
+  - 鲁本：谢谢。我也受不了有人把包放在座位上。
+- **Tessa**：Neither can I. I **can't help clearing** them up when nobody is watching.
+  - 泰莎：我也受不了。没人看着的时候我总忍不住去收拾它们。
+- **Ruben**：Could you check where we are on the list?
+  - 鲁本：您能帮我们看一下排到哪儿了吗？
+- **Tessa**：Of course. I **can't wait for** the new queuing screen to be installed next month.
+  - 泰莎：当然。我真盼着下个月新的叫号屏能装上。
+- **Ruben**：That would help. Honestly, I **can't stand waiting** without knowing how long.
+  - 鲁本：那会好很多。说实话，我最受不了不知道要等多久地干等。
+- **Tessa**：Fifteen minutes, maybe less. And I'll tell the doctor you're here.
+  - 泰莎：大概十五分钟，也许更短。我去告诉医生你们到了。
 
 </details>
 
