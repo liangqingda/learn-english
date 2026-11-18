@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-18 20:14</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-18 20:16</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-18 20:27</td></tr>
 </table>
 
 ## 讲解
@@ -40,6 +40,37 @@
 <!-- round-index -->
 - [2026-11-18 20:14 · 复习](#round-2026-11-18-2014)
 <!-- /round-index -->
+
+## 看一套围绕「can't stand + 名词/动名词」的完整场景对话
+
+**讲解要点**：
+- can't stand 的宾语通常取名词或动名词，对话里用 V-ing 承接具体行为、用名词承接具体事物
+  - I can't stand waiting at a gate for three hours.（我受不了在登机口等三个小时）
+  - I can't stand sitting in these plastic chairs.（我受不了坐这种塑料椅子）
+- 要把“某种情况”当宾语说，先用形式宾语 it，再接 when 从句；从句本身不能直接跟在 stand 后面
+  - I can't stand it when they repeat the same recording.（他们反复播同一段录音，我真受不了）
+  - I can't stand it when people ignore their screaming kids.（有人对尖叫的孩子不管不顾，我受不了）
+- 与 can't help / can't wait 的边界：一个表“忍不住”，一个表“迫不及待”，不能互相替换
+  - I can't help checking the departure board.（我忍不住一直看航班牌）
+  - My sister can't wait to hear from me.（我妹妹迫不及待想听到我的消息）
+
+<details>
+<summary>场景对话原文</summary>
+
+- **Maya**：Three hours at this gate and they still haven't called our flight. I **can't stand waiting** like this.
+- **Walter**：You're not alone. I **can't stand the noise** in this hall, either.
+- **Maya**：And that announcement — "passengers are kindly reminded…" — they've played it five times. I **can't stand it when** they repeat the same recording.
+- **Walter**：At least the staff are polite. I **can't stand rude agents**, though delays I can forgive.
+- **Maya**：Fair. Oh, my phone keeps buzzing. My sister **can't wait to hear** whether I make it home tonight.
+- **Walter**：I **can't help checking** the departure board every two minutes, even though nothing changes.
+- **Maya**：Same here. And that family with the toddler — I **can't stand children screaming**, but I **can't stand the parents ignoring it** even more.
+- **Walter**：Careful, that's my grandson's family.
+- **Maya**：Oh no. I **can't stand putting my foot in my mouth**. Sorry.
+- **Walter**：It's fine. Honestly, I **can't stand sitting** in this plastic chair for another hour.
+- **Maya**：Then let's walk to the other end. There's a quieter corner, and I **can't stand the draft** here either.
+- **Walter**：Lead the way.
+
+</details>
 
 # 2026-11-18 20:14 · 复习
 
