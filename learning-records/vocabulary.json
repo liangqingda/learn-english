@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 283,
+  "revision": 286,
   "category": "vocabulary",
   "records": {
     "vocabulary:a-little-bit": {
@@ -563,6 +563,31 @@
       "mastered_at": null,
       "review_history": [],
       "key": "night-owl"
+    },
+    "vocabulary:noisy-vs-noise": {
+      "id": "vocabulary:noisy-vs-noise",
+      "category": "vocabulary",
+      "key": "noisy-vs-noise",
+      "status": "learning",
+      "title": "noisy（形容词）与 noise（名词）的词性混用",
+      "explanation": "can't stand 后需要名词性成分：表达“噪音”用名词 noise，noisy 是形容词，不能独立作宾语。",
+      "source": "I can't stand the noisy.",
+      "example": "I can't stand the noise.",
+      "tags": [
+        "review-error",
+        "word-form"
+      ],
+      "first_learned_at": "2026-11-18T20:15:43+08:00",
+      "last_learned_at": "2026-11-18T20:15:43+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "vocabulary:plate-as-verb-arrange-food": {
       "id": "vocabulary:plate-as-verb-arrange-food",

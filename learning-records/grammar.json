@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 280,
+  "revision": 286,
   "category": "grammar",
   "records": {
     "grammar:a-bit-of-a-singular-countable": {
@@ -51,6 +51,31 @@
       "mastered_at": null,
       "review_history": [],
       "key": "alternative-question-a-or-b"
+    },
+    "grammar:article-with-transport-nouns": {
+      "id": "grammar:article-with-transport-nouns",
+      "category": "grammar",
+      "key": "article-with-transport-nouns",
+      "status": "learning",
+      "title": "交通方式表达中的定冠词（take the subway / the bus）",
+      "explanation": "take 后接单数可数交通工具名词时必须加定冠词 the；只有 by subway / by bus 这类介词短语才裸用名词。",
+      "source": "I can't stand taking subway every day.",
+      "example": "I can't stand taking the subway every day.",
+      "tags": [
+        "article",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-18T20:15:43+08:00",
+      "last_learned_at": "2026-11-18T20:15:43+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "grammar:can-i-get-you-offer-food-drink": {
       "id": "grammar:can-i-get-you-offer-food-drink",
