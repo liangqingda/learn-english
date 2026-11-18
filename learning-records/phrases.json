@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 288,
+  "revision": 289,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -1129,6 +1129,31 @@
       ],
       "first_learned_at": "2026-11-12T07:26:49+08:00",
       "last_learned_at": "2026-11-12T07:26:49+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:interrupt-vs-speak": {
+      "id": "phrases:interrupt-vs-speak",
+      "category": "phrases",
+      "key": "interrupt-vs-speak",
+      "status": "learning",
+      "title": "插嘴用 interrupt / cut in，不用 speak",
+      "explanation": "speak 只表示“说话、发声”，不表示抢别人的话轮；表达“插嘴、打断别人”用 interrupt someone 或 cut in (on someone)。中文“在别人说话时插嘴”要同时交代抢话轮的动作和发生的时间。",
+      "source": "I can't stand it when he speaks.",
+      "example": "I can't stand him interrupting people when they're speaking.",
+      "tags": [
+        "collocation",
+        "verb-choice"
+      ],
+      "first_learned_at": "2026-11-19T07:54:43+08:00",
+      "last_learned_at": "2026-11-19T07:54:43+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

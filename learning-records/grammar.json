@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 288,
+  "revision": 289,
   "category": "grammar",
   "records": {
     "grammar:a-bit-of-a-singular-countable": {
@@ -862,6 +862,32 @@
       "mastered_at": null,
       "review_history": [],
       "key": "present-perfect-for-duration"
+    },
+    "grammar:present-perfect-form-have-come": {
+      "id": "grammar:present-perfect-form-have-come",
+      "category": "grammar",
+      "key": "present-perfect-form-have-come",
+      "status": "learning",
+      "title": "现在完成时 hasn't come：形式与主谓一致",
+      "explanation": "说“还没来”用现在完成时 has/have + 过去分词，come 的过去分词仍是 come，写成 came 是过去式误用；主语 the subway 为单数，用 hasn't come，主语复数才用 haven't come。日常也常说 the subway is late。",
+      "source": "I can't stand it when the subway haven't came.",
+      "example": "I can't stand it when the subway hasn't come after ten minutes.",
+      "tags": [
+        "agreement",
+        "present-perfect",
+        "verb-form"
+      ],
+      "first_learned_at": "2026-11-19T07:54:43+08:00",
+      "last_learned_at": "2026-11-19T07:54:43+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "grammar:price-to-be-paid-passive-infinitive": {
       "id": "grammar:price-to-be-paid-passive-infinitive",
