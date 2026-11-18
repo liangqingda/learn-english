@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-19 07:38</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-19 07:39</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-19 07:41</td></tr>
 </table>
 
 ## 讲解
@@ -35,6 +35,27 @@
 - I can't stand the smell of smoke in the hallway.（我受不了走廊里的烟味。）
 - She can't stand being interrupted in the middle of a sentence.（她受不了话说到一半被打断。）
 - Can you stand working with that much background noise?（那种背景噪音下工作你受得了吗？）
+
+## 练习「can't stand + 名词/动名词」的关键语法结构
+
+**讲解要点**：
+- can't stand 的宾语只取名词或动名词，不取 to do
+  - I can't stand the noise from the hallway.（我受不了走廊里的噪音。）
+  - She can't stand sharing a desk with him.（她受不了和他共用一张桌子。）
+- 表达“每当发生某事就受不了”时用形式宾语 it + when，不能用 it that
+  - I can't stand it when the dryer buzzes after every load.（那台烘干机每烘完一炉就嗡嗡叫，我真受不了。）
+  - I can't stand it that he speaks loudly all the time.（他总大声说话，我受不了。）（陈述事实用 that，反复情境用 when）
+- 宾语是自己“被人怎样对待”时，动名词要写成 being + 过去分词
+  - He can't stand being told what to do.（他受不了被人指手画脚。）
+  - I can't stand being kept waiting at the desk.（我受不了被晾在台子前面干等。）
+- 改写时不要保留原句谓语，宾语越具体越自然
+  - I can't stand loud phone calls on the train.（我受不了火车上大声打电话。）
+  - I can't stand people taking calls at full volume.（我受不了有人开着外放大声接电话。）
+
+复习历史：
+<!-- practice-index -->
+- [2026-11-19 07:38 · 练习](#practice-2026-11-19-0738-f1490a83)
+<!-- /practice-index -->
 
 # 2026-11-19 07:38 · 练习
 
