@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 287,
+  "revision": 288,
   "category": "grammar",
   "records": {
     "grammar:a-bit-of-a-singular-countable": {
@@ -695,6 +695,32 @@
       "mastered_at": null,
       "review_history": [],
       "key": "participial-phrase-logical-subject"
+    },
+    "grammar:passive-gerund-being-done": {
+      "id": "grammar:passive-gerund-being-done",
+      "category": "grammar",
+      "key": "passive-gerund-being-done",
+      "status": "learning",
+      "title": "being + 过去分词：动名词的被动式",
+      "explanation": "当主语是自己“被人怎样对待”时，动名词要用 being + 过去分词（being kept waiting、being woken up），不能用主动 V-ing，也不能在 being 后接动词原形。主动式 waiting 只说自己在等，被动式才说明被别人晾着、被别人吵醒。",
+      "source": "She can't stand being keep waiting at the reception desk.",
+      "example": "She can't stand being kept waiting at the reception desk.",
+      "tags": [
+        "gerund",
+        "passive",
+        "verb-form"
+      ],
+      "first_learned_at": "2026-11-19T07:36:10+08:00",
+      "last_learned_at": "2026-11-19T07:36:10+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "grammar:past-perfect-before-past-reference": {
       "id": "grammar:past-perfect-before-past-reference",

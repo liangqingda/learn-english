@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 287,
+  "revision": 288,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -485,6 +485,31 @@
       "mastered_at": null,
       "review_history": [],
       "key": "be-home-to"
+    },
+    "phrases:call-a-meeting": {
+      "id": "phrases:call-a-meeting",
+      "category": "phrases",
+      "key": "call-a-meeting",
+      "status": "learning",
+      "title": "开会用 call / schedule a meeting，不用 get the meeting",
+      "explanation": "表示“召集、安排会议”时用 call a meeting 或 schedule a meeting；get the meeting 不是这个意思，也不能表示“把会议提前”。时间紧的情况说 call a meeting just as I'm about to leave work。",
+      "source": "I can't stand it that my boss get the meeting as soon as I am going to get off work.",
+      "example": "My boss keeps calling meetings just as I'm about to leave work.",
+      "tags": [
+        "collocation",
+        "work"
+      ],
+      "first_learned_at": "2026-11-19T07:36:10+08:00",
+      "last_learned_at": "2026-11-19T07:36:10+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "phrases:can-t-stand-tolerate": {
       "id": "phrases:can-t-stand-tolerate",
