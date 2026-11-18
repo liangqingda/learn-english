@@ -236,7 +236,7 @@ python3 skills/learn-from-english/scripts/learning_records.py review-round --inp
 两件事分开管，都必须走脚本，不得自己改 `learning-records/`、`mastered-learning-records/` 或直接删笔记文件：
 
 - `python3 skills/learn-from-english/scripts/learning_records.py delete-record --id "<category>:<key>"`：只删记录（learning 与 mastered 都认），笔记文件保持不动，返回 `id` / `category` / `status` / `file`。用户明确说“删掉这条知识点、但笔记留着”时用它。
-- `python3 skills/learn-from-english/scripts/learning_records.py delete-note --note "learning-record-notes/<category>/<category>-<slug>.md"`：删这篇笔记，并顺着笔记「基础信息」里的 `记录 ID` 一起删记录，是用户说“删掉某篇笔记／某条知识点”时的默认入口。路径必须在 `learning-record-notes/` 下、目录必须在 `categories.json` 的分类里、文件名必须以 `<category>-` 开头；先删 md，md 删不掉就整件事不做并把原因说出来；笔记里的记录 ID 与文件名对不上时只删笔记、保留记录并回传 `record_error`，不要顺着错 ID 删别人的知识点；试卷笔记（ID 不是 `<五类>:<key>` 形态）只删文件。要是用户只想删笔记、把这条记录留在复习库，加 `--keep-record`（`record_kept: true` 表示确实保留了一条）。
+- `python3 skills/learn-from-english/scripts/learning_records.py delete-note --note "learning-record-notes/<category>/<category>-<slug>.md"`：删这篇笔记，并顺着笔记「基础信息」里的 `记录 ID` 一起删记录，是用户说“删掉某篇笔记／某条知识点”时的默认入口。路径必须在 `learning-record-notes/` 下、目录必须在 `categories.json` 的分类里、文件名必须以 `<category>-` 开头；先删 md，md 删不掉就整件事不做并把原因说出来；笔记里的记录 ID 与文件名对不上时只删笔记、保留记录并回传 `record_error`，不要顺着错 ID 删别人的知识点；试卷笔记（ID 不是 `<五类>:<key>` 形态）只删文件。要是用户只想删笔记、把这条记录留在复习库，加 `--keep-record`（`record_kept: true` 表示确实保留了一条）；只想删记录、把笔记留作练习材料，加 `--keep-note`；两个不能一起写。
 
 **已掌握记录自动删除**：mastered 记录被抽查（`complete-review`，含 `review-round` 的 `review` 段）时，脚本自己维护 `mastered_ten_streak`：本次 10 分就 +1，不是 10 分就清零；连击达到 3 次时把记录从 `mastered-learning-records/` 删除——**只删记录，笔记 md 原样保留**（之后仍可按笔记路径练习这个知识点，见 `references/note-path-entry.md`，只是不再有记录可写）。进入 mastered 的那一次 10 分属于“入档分”，不计入连击，所以正常节奏是入档后再连做 3 轮满分才退出记录库。
 

@@ -117,9 +117,11 @@ def handle_delete_record(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def handle_delete_note(args: argparse.Namespace) -> dict[str, Any]:
-    """删一篇笔记，连同它记录 ID 指到的那条记录；``--keep-record`` 时只删笔记。"""
+    """删一篇笔记，连同它记录 ID 指到的那条记录；``--keep-record`` / ``--keep-note`` 各留一边。"""
     result = note_deletion_service().delete(
-        args.note, keep_record=args.keep_record
+        args.note,
+        keep_record=args.keep_record,
+        keep_note=args.keep_note,
     )
     if args.strict and result.get("record_error"):
         # 默认退出码 0：md 已经删了，记录失败只是要带给调用方的中间状态。
@@ -432,6 +434,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--keep-record",
         action="store_true",
         help="delete only the note file and keep the record it points at",
+    )
+    delete_note.add_argument(
+        "--keep-note",
+        action="store_true",
+        help="delete only the record the note points at and keep the note file",
     )
     delete_note.set_defaults(handler=handle_delete_note)
 

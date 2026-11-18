@@ -120,13 +120,27 @@ class NoteDeletionService:
             return None
         return category
 
-    def delete(self, note: str, keep_record: bool = False) -> dict[str, Any]:
+    def delete(
+        self,
+        note: str,
+        keep_record: bool = False,
+        keep_note: bool = False,
+    ) -> dict[str, Any]:
         """删掉笔记文件，再按记录 ID 删记录；记录那一半失败不掩盖笔记已删的事实。
 
-        ``keep_record`` 为真时只删 md，记录原样留在库里：那个知识点还能继续复习，
-        只是不再有这篇笔记做它的可读副本。这时不校验记录 ID 属于谁——保留是用户
-        明确要求的，ID 对不上也就谈不上「误删别人的知识点」。
+        两个 ``keep_*`` 开关各让一边留下，所以一共有三种删法：两边都删（默认）、
+        只删 md（``keep_record``）、只删记录（``keep_note``）。两个都写等于什么都不删，
+        直接拒绝，省得调用方以为「勾了两个就是删两边」。
+
+        ``keep_record`` 时不校验记录 ID 属于谁——保留是用户明确要求的，ID 对不上
+        也就谈不上「误删别人的知识点」。``keep_note`` 反过来：md 不动、只有记录该走，
+        所以找不到记录、记录 ID 不属于这篇笔记都报错，不让一次「只删记录」白按。
         """
+        if keep_record and keep_note:
+            raise RecordError(
+                "cannot keep both the note and its record: nothing to delete"
+            )
+
         path = self.resolve(note)
         try:
             text = path.read_text(encoding="utf-8")
@@ -139,6 +153,29 @@ class NoteDeletionService:
         record_kept = keep_record and category is not None
         record: dict[str, Any] | None = None
         record_error: str | None = None
+
+        if keep_note:
+            # 只删记录：md 不动，没有「删了一半」这种中间态，失败就直接抛出去
+            if category is None:
+                raise RecordError(
+                    f"note has no record to delete: {record_id or note}"
+                )
+            deleted = self.records.delete_record(record_id, missing_ok=True)
+            if deleted is None:
+                raise RecordError(f"record does not exist: {record_id}")
+            record = {
+                **deleted,
+                "mastered": deleted["status"] == "mastered",
+            }
+            invalidate(self.repo_root)
+            return {
+                "note": path.relative_to(self.repo_root).as_posix(),
+                "note_deleted": False,
+                "record_id": record_id,
+                "record": record,
+                "record_kept": record_kept,
+                "record_error": record_error,
+            }
 
         try:
             path.unlink()

@@ -147,6 +147,41 @@ class NoteDeletionTest(unittest.TestCase):
         self.assertFalse(result["record_kept"])
         self.assertIsNone(result["record_error"])
 
+    def test_delete_note_can_keep_the_note_and_delete_only_the_record(self) -> None:
+        """只删记录：md 原样留着，记录退出复习库。"""
+        self.records.upsert(payload("errors", "demo"))
+        note = self.write_note("learning-record-notes/errors/errors-demo.md", note_text("errors:demo"))
+
+        result = self.deletions.delete(
+            "learning-record-notes/errors/errors-demo.md", keep_note=True
+        )
+
+        self.assertTrue(note.exists())
+        self.assertFalse(result["note_deleted"])
+        self.assertEqual(result["record"]["file"], "learning-records/errors.json")
+        self.assertNotIn("errors:demo", self.records.records())
+
+    def test_delete_note_refuses_to_keep_both_sides(self) -> None:
+        with self.assertRaises(RecordError) as caught:
+            self.deletions.delete(
+                "learning-record-notes/errors/errors-demo.md",
+                keep_record=True,
+                keep_note=True,
+            )
+
+        self.assertIn("nothing to delete", str(caught.exception))
+
+    def test_delete_note_keep_note_refuses_when_the_note_has_no_record(self) -> None:
+        """只删记录时找不到记录就是失败：不能让一次「只删记录」白按。"""
+        note = self.write_note("learning-record-notes/errors/errors-plain.md", note_text(""))
+
+        with self.assertRaises(RecordError):
+            self.deletions.delete(
+                "learning-record-notes/errors/errors-plain.md", keep_note=True
+            )
+
+        self.assertTrue(note.exists())
+
     def test_delete_note_points_a_mastered_record_at_the_mastered_file(self) -> None:
         self.records.upsert(payload("grammar", "demo"))
         for _ in range(3):
@@ -292,6 +327,21 @@ class DeleteCliTest(unittest.TestCase):
         self.assertIsNone(result["record"])
         self.assertFalse(self.note.exists())
         self.assertIn("errors:cli", RecordService(RecordStore(self.root)).records())
+
+    def test_delete_note_keep_note_removes_only_the_record(self) -> None:
+        completed = self.run_cli(
+            "delete-note",
+            "--note",
+            "learning-record-notes/errors/errors-cli.md",
+            "--keep-note",
+        )
+
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        result = json.loads(completed.stdout)
+        self.assertFalse(result["note_deleted"])
+        self.assertEqual(result["record"]["file"], "learning-records/errors.json")
+        self.assertTrue(self.note.exists())
+        self.assertNotIn("errors:cli", RecordService(RecordStore(self.root)).records())
 
     def test_delete_note_fails_loudly_on_an_unknown_note(self) -> None:
         completed = self.run_cli(

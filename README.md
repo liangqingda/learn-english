@@ -197,7 +197,7 @@ python3 skills/learn-from-english/scripts/learning_records.py delete-note \
 ```
 
 `delete-record` 只删记录（未掌握、已掌握都认），笔记文件保持不动，返回 `id` / `category` / `status` / `file`（改动的那份分类 JSON）；同名笔记还在时额外回 `note_file`，提醒它已经成了指向空记录的孤儿。`delete-note` 删一篇笔记，并顺着笔记「基础信息」里的 `记录 ID` 把那条记录一并删掉：`--note` 取仓库相对路径 `learning-record-notes/<category>/<category>-<slug>.md`，目录不在笔记分类里、前缀与目录不一致、文件不存在都直接拒绝；md 本身删不掉（权限、占用）时报错退出，
-记录一条都不动。记录那一半只在「记录 ID 的分类等于笔记分类、且 key 与文件名对得上」时才删——ID 写错或过期时保留记录并返回 `record_error`，不顺着一个错 ID 删掉别的知识点；`paper` 分类的套题笔记只删笔记文件（试卷本身不在这里删）。两者都走记录库的同一套事务写入（锁、revision、未掌握 / 已掌握拆分、原子替换），返回值里的 `record.file` 指出这次改了哪份 JSON，供调用方提交；服务层照旧不执行 Git 提交。笔记分类只认 `learning-record-notes/categories.json`：清单缺失或为空时 `delete-note` 直接拒绝，不猜兜底分类。记录那一半失败时默认仍以 `note_deleted: true` 退出 0（md 已经删了，原因在 `record_error`），加 `--strict` 则让它以退出码 1 收场，供按退出码判断的调用方使用。加 `--keep-record` 时只删 md、记录原样留在库里（`record_kept: true` 表示确实保留了一条本来会被删掉的记录，没有记录 ID 的笔记为 `false`）：那个知识点之后仍可继续复习，只是不再有这篇笔记做它的可读副本。
+记录一条都不动。记录那一半只在「记录 ID 的分类等于笔记分类、且 key 与文件名对得上」时才删——ID 写错或过期时保留记录并返回 `record_error`，不顺着一个错 ID 删掉别的知识点；`paper` 分类的套题笔记只删笔记文件（试卷本身不在这里删）。两者都走记录库的同一套事务写入（锁、revision、未掌握 / 已掌握拆分、原子替换），返回值里的 `record.file` 指出这次改了哪份 JSON，供调用方提交；服务层照旧不执行 Git 提交。笔记分类只认 `learning-record-notes/categories.json`：清单缺失或为空时 `delete-note` 直接拒绝，不猜兜底分类。记录那一半失败时默认仍以 `note_deleted: true` 退出 0（md 已经删了，原因在 `record_error`），加 `--strict` 则让它以退出码 1 收场，供按退出码判断的调用方使用。两个 `--keep-*` 开关让一边留下，所以一共有三种删法：`--keep-record` 只删 md（记录原样留在库里，`record_kept: true` 表示确实保留了一条本来会被删掉的记录，没有记录 ID 的笔记为 `false`，那个知识点之后仍可继续复习、只是不再有笔记做它的可读副本）；`--keep-note` 只删记录（md 原样留着，记录 ID 不属于这篇笔记或库里已经没有这条记录都直接报错，不让一次「只删记录」白按）；两个一起写等于什么都不删，拒绝执行。
 
 
 ### 已掌握记录自动删除

@@ -108,7 +108,7 @@ python3 skills/learn-from-english/scripts/learning_records.py delete-note --note
 ```
 
 - `delete-record` 只删记录（learning 与 mastered 都认），笔记保持不动；返回 `id` / `category` / `status` / `file`（被改写的分类 JSON），同名笔记还在时另回 `note_file`。它同时清掉这条记录上未过期的复习领取凭据，凭据不会残留指向已删记录。用户要“记录删了、笔记留着”时用它。
-- `delete-note` 是默认入口：删笔记并顺着笔记「基础信息」里的 `记录 ID` 一起删记录。路径必须在 `learning-record-notes/` 下、目录必须在 `categories.json` 的分类里、文件名必须以 `<category>-` 开头，否则直接拒绝；先删 md，md 删不掉（权限、占用）就整件事不做并报错；记录 ID 与文件名对不上时只删笔记、保留记录并回传 `record_error`；试卷笔记（ID 不是 `<五类>:<key>` 形态）只删文件。用户要求“只删笔记、记录留着”时给它加 `--keep-record`：md 照删，记录原样留在库里、之后仍可继续复习，返回值里 `record_kept: true` 表示确实保留了一条本来会被删掉的记录（没有记录 ID 的笔记为 `false`）。
+- `delete-note` 是默认入口：删笔记并顺着笔记「基础信息」里的 `记录 ID` 一起删记录。路径必须在 `learning-record-notes/` 下、目录必须在 `categories.json` 的分类里、文件名必须以 `<category>-` 开头，否则直接拒绝；先删 md，md 删不掉（权限、占用）就整件事不做并报错；记录 ID 与文件名对不上时只删笔记、保留记录并回传 `record_error`；试卷笔记（ID 不是 `<五类>:<key>` 形态）只删文件。用户要求“只删笔记、记录留着”时给它加 `--keep-record`：md 照删，记录原样留在库里、之后仍可继续复习，返回值里 `record_kept: true` 表示确实保留了一条本来会被删掉的记录（没有记录 ID 的笔记为 `false`）；要求“只删记录、笔记留着”时加 `--keep-note`：md 不动，找不到这条记录或记录 ID 不属于这篇笔记都直接报错；两个一起写等于什么都不删，会被拒绝。
 - 两个命令都走记录库事务，不要用 `git restore`、手工回退分类文件或直接删 JSON 代替。删除是写操作：成功后才按仓库根目录 `AGENTS.md` 的提交约定提交。
 
 **已掌握记录自动删除**：mastered 记录被抽查时，连续第 3 次 10 分会删掉这条**记录**，笔记 md 保留（之后仍可按笔记路径练习，只是不再有记录可写）。完整口径（连击怎么数、`review-round` 为什么会返回 `note_skipped`、记录没了怎么按笔记路径练习）只在 `skills/practice-learning-records/SKILL.md` 的「删除记录与笔记」与 `references/note-path-entry.md` 维护；这里只需要认得 `deleted: true` 表示该知识点已退出复习库、笔记还在，并如实说明。
