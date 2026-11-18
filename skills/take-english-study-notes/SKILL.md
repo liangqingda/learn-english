@@ -120,6 +120,7 @@ python3 skills/take-english-study-notes/scripts/note.py check --all [--fix]
 | `inserted: true`（`explain --update` 在缺讲解的旧笔记里插入了这一节） | 按已补齐处理，接着写本轮区块；不要再用 `append` 或 `Write` 另加一份讲解 |
 | `heading_adjusted: true` | 按返回的 `heading` 继续，两轮内容都已保留，不要用原时间再追加一遍 |
 | `note_status: unverified` | 回复里明确写「本轮笔记未校验」 |
+| `note does not exist`（记录仍在，文件被 `delete-note --keep-record` 删掉或从未建过） | 不放弃落笔记：先 `explain --file <note> --content-file -` 写 `## 基础信息` 与 `## 讲解`，再按本轮需要补文件级讲解要点（`append-explain-section`），最后用 `append` / `append-section` 写本轮内容；重建后在回复里说明「这份笔记此前不存在或被删除，已重建」 |
 
 ## 与其他 skill 的边界
 

@@ -11,6 +11,11 @@
 - **笔记按需生成，不要求一条记录一份**：记录只有被首次讲解（`note.py explain`）或被抽中复习（`review-round` 的 `note` 段）
   时才落一份笔记文件；`batch-upsert` 只写规范记录、不建笔记。从没被讲解、也没被复习过的记录没有笔记文件属于正常状态，
   `check --all` 会把它们列进 `missing_notes` 只做体检报告、不算校验错误；需要补建时仍用 `note.py explain`。
+- **从零重建笔记的固定顺序**（记录仍在、笔记文件不存在时——被 `delete-note --keep-record` 删掉、或被别的会话清理掉——一律按这三步重建，不要跳步）：
+  1. `note.py explain` 写 `## 基础信息`（累计复习次数、下次复习由脚本按记录回填）与 `## 讲解`；
+  2. 本轮用到了带习题的菜单项、或要补场景对话 / 小故事时，用 `append-explain-section` / `append-explain-part` 写文件级小节；带习题菜单项的 `**讲解要点**` 只写一次，重建时最容易被漏掉，漏了只补这一节（`append-explain-section` 返回 `duplicate: true` 就停手）；
+  3. 最后用 `append` 开日期区块、`append-section` 写本轮习题小节。
+  直接对不存在的文件跑 `append` / `append-section` 会报 `note does not exist`，那不是“这轮不写笔记”，只是漏了第 1 步。
 - 讲解笔记由 `learn-from-english` 在首次讲解后写：本轮实质讲解的每条记录各写一份，用 `note.py explain` 创建。
   讲解是**文件级固定小节** `## 讲解`，紧跟 `## 基础信息` 表格之后、位于所有日期区块之前：一个知识点只有一次首次讲解，
   复习才会多轮，所以讲解不参与轮次编号；之后这条记录的每次复习继续用 `note.py append` 把新日期区块插到同一个文件最前

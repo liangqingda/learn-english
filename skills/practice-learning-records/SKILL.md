@@ -96,7 +96,7 @@ payload 只有四段，缺省段跳过：
 
 ## 练习计分
 
-`starter-practice`、`follow-up-learning`、`error-cluster-review`、`error-cluster-review-unclustered` 的题组照常按 0 至 10 计分，但得分只写进 `learning-record-notes/` 的笔记，不改 `learning-records/`、`mastered-learning-records/`；笔记锚点、`分类 · 状态变化` 的写与不写、错题入库与后续菜单见 `references/practice-scoring.md`。
+`starter-practice`、`follow-up-learning`、`error-cluster-review`、`error-cluster-review-unclustered` 的题组照常按 0 至 10 计分，但得分只写进 `learning-record-notes/` 的笔记，不改 `learning-records/`、`mastered-learning-records/`；笔记锚点、`分类 · 状态变化` 的写与不写、错题入库与后续菜单见 `references/practice-scoring.md`。记录仍在而笔记文件缺失（被 `delete-note --keep-record` 删掉或从未建过）时，按该文件「笔记锚点」的重建顺序先建文件再落本轮，`note does not exist` 不等于这轮不写笔记。
 
 ## 选择复习记录
 
