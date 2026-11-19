@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-19 07:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-19 08:02</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-19 08:06</td></tr>
 </table>
 
 ## 讲解
@@ -153,6 +153,22 @@ In April the neighbours switched to plastic crates and a quiet trolley. Ana stil
   - I can't wait to see the new machines arrive.（我迫不及待想看新机器到货。）
 - hate / dislike 只表示“不喜欢”，程度低于 stand，并且两种宾语形式都常见。
   - I hate waiting in queues, but I can put up with it for ten minutes.（我讨厌排队，但十分钟还能忍。）
+
+| 表达 | 核心含义 | 宾语形式 | 语气与场合 | 例句 |
+|---|---|---|---|---|
+| can't stand | 受不了（口语抱怨主力） | 名词；V-ing；it + when | 日常口语，直接但不粗鲁 | I can't stand the smell of smoke.（我受不了烟味。） |
+| can't bear | 难以忍受（情绪更强烈） | 名词；to do；V-ing | 书面强情绪，肯定句也常用 | She couldn't bear to watch the ending again.（她实在不忍心再看一遍结局。） |
+| put up with | 容忍、将就 | 名词；V-ing | 口语，强调长期忍受并带不满 | I put up with it because the rent is low.（房租便宜，我就将就着。） |
+| tolerate | 容忍（中性、正式） | 名词；V-ing | 规章、书面说明 | The policy does not tolerate smoking in shared areas.（该规定不容忍在公共区域吸烟。） |
+| can't help doing | 忍不住做 | 只用 V-ing | 口语，表控制不住 | I can't help checking the tracker.（我忍不住查物流。） |
+| can't wait to do | 迫不及待 | 只用 to do | 积极期待 | I can't wait to see the new machines.（我迫不及待想看新机器。） |
+| hate / dislike | 不喜欢 | to do 与 V-ing 都常见 | 中性程度，比 stand 弱 | I hate waiting in queues.（我讨厌排队。） |
+
+三点判断：
+
+1. **否定范围不同**：stand 几乎只出现在否定句和疑问句；bear 在肯定句里也自然，所以“忍住了、忍着”这类肯定陈述要用 bear 或 put up with。
+2. **忍的程度不同**：can't stand、can't bear 表示“根本受不了”；put up with、tolerate 表示“还能忍，只是不满”，put up with 强调长期将就，tolerate 语气正式中性。
+3. **三个 can't 结构各管一件事**：can't stand = 受不了，can't help doing = 忍不住，can't wait to do = 迫不及待；宾语形式固定，不能互换。
 
 # 2026-11-19 07:53 · 练习
 
