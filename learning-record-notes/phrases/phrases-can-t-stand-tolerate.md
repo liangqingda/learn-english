@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-19 07:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-19 07:59</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-19 08:02</td></tr>
 </table>
 
 ## 讲解
@@ -138,6 +138,21 @@ In April the neighbours switched to plastic crates and a quiet trolley. Ana stil
 | still can't stand the smell of the shutter grease | 结尾保留一点没解决的厌恶，人物更真实 | 换成 she likes everything now 太圆满，也让前面所有让步失去分量 |
 
 </details>
+
+## 对比「can't stand + 名词/动名词」和相近表达
+
+**讲解要点**：
+- can't stand 与 can't bear 都表“受不了”，但 stand 几乎只出现在否定与疑问句里，bear 可用于肯定句且情绪更重、更书面。
+  - I can't stand the smell of smoke.（我受不了烟味。）
+  - She couldn't bear to watch the ending again.（她实在不忍心再看一遍结局。）
+- put up with 与 tolerate 都是“容忍”，前者强调长期将就、带不满，后者正式中性，多用于规章与书面说明。
+  - I can't stand it, but I put up with it because the rent is low.（我受不了，但房租便宜，我就将就着。）
+  - The policy does not tolerate smoking in shared areas.（该规定不容忍在公共区域吸烟。）
+- 三个 can't 结构分工不同：can't stand 是“受不了”，can't help doing 是“忍不住”，can't wait to do 是“迫不及待”，不能互换。
+  - I can't help checking the tracker every day.（我忍不住每天查物流。）
+  - I can't wait to see the new machines arrive.（我迫不及待想看新机器到货。）
+- hate / dislike 只表示“不喜欢”，程度低于 stand，并且两种宾语形式都常见。
+  - I hate waiting in queues, but I can put up with it for ten minutes.（我讨厌排队，但十分钟还能忍。）
 
 # 2026-11-19 07:53 · 练习
 
