@@ -186,6 +186,38 @@ class NoteAppendTest(unittest.TestCase):
         self.assertIn("## 扩展练习 - 02", text)
         self.assertNotIn("\n## 扩展练习\n", text)
 
+    def test_append_section_inserts_newest_section_before_existing_menu_sections(self) -> None:
+        """新小节插在区块前言之后、既有菜单项小节之前（区块内新的在前）。"""
+        self.store.append(self.note, round_block("2026-11-07 21:00", body="第 1 轮"))
+        self.store.append_section(
+            self.note,
+            "# 2026-11-07 21:00 · 复习",
+            extra_section("## 旧小节", "旧内容").strip("\n"),
+        )
+        self.store.append_section(
+            self.note,
+            "# 2026-11-07 21:00 · 复习",
+            extra_section("## 新小节", "新内容").strip("\n"),
+        )
+        text = self.note.read_text(encoding="utf-8")
+        self.assertLess(text.index("# 2026-11-07 21:00"), text.index("新内容"))
+        self.assertLess(text.index("新内容"), text.index("旧内容"))
+
+    def test_repeated_menu_section_lands_above_the_older_copy(self) -> None:
+        """同一菜单项的新一份（` - 02`）排在旧一份（` - 01`）之上。"""
+        self.store.append(self.note, round_block("2026-11-07 09:00", body="第 1 轮"))
+        self.store.append_section(
+            self.note, "# 2026-11-07 09:00 · 复习", extra_section().strip("\n")
+        )
+        result = self.store.append_section(
+            self.note,
+            "# 2026-11-07 09:00 · 复习",
+            extra_section("## 扩展练习", "新内容").strip("\n"),
+        )
+        self.assertEqual(result["section"], "## 扩展练习 - 02")
+        text = self.note.read_text(encoding="utf-8")
+        self.assertLess(text.index("## 扩展练习 - 02"), text.index("## 扩展练习 - 01"))
+
     def test_append_numbers_sections_of_a_repeated_menu_item(self) -> None:
         """整块 append 里同名菜单小节也按当天顺序编号。"""
         self.store.append(

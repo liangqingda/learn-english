@@ -247,6 +247,56 @@ def _sections(text: str) -> list[tuple[str, str]]:
     return chunks
 
 
+def _split_block_sections(
+    block_lines: list[str],
+) -> tuple[list[str], list[str] | None, list[list[str]]]:
+    """把一个日期区块拆成 ``(前言行, 本轮习题小节块, 菜单项小节块列表)``。
+
+    前言是区块标题（及遗留表格）到第一个 ``## `` 标题之间的行；``## 本轮习题``
+    若存在必须留在区块最前，其余菜单项小节由调用方按落盘时间倒序排列（新的在前）。
+    """
+    starts = [index for index, line in enumerate(block_lines) if line.startswith("## ")]
+    if not starts:
+        return list(block_lines), None, []
+    preamble = list(block_lines[: starts[0]])
+    chunks: list[list[str]] = []
+    for position, start in enumerate(starts):
+        end = starts[position + 1] if position + 1 < len(starts) else len(block_lines)
+        chunks.append(list(block_lines[start:end]))
+    quiz_index = next(
+        (
+            index
+            for index, chunk in enumerate(chunks)
+            if _section_text(chunk[0].strip()) == f"## {QUIZ_SECTION}"
+        ),
+        None,
+    )
+    quiz_chunk = chunks[quiz_index] if quiz_index is not None else None
+    menu_chunks = [chunk for index, chunk in enumerate(chunks) if index != quiz_index]
+    return preamble, quiz_chunk, menu_chunks
+
+
+def _join_block_lines(
+    preamble: list[str], quiz_chunk: list[str] | None, chunks: list[list[str]]
+) -> list[str]:
+    """按前言 → 本轮习题小节 → 菜单项小节的顺序拼回区块行，小节之间空一行。"""
+    rebuilt: list[str] = []
+    preamble = [line for line in preamble]
+    while preamble and not preamble[-1].strip():
+        preamble.pop()
+    if preamble:
+        rebuilt.extend(preamble)
+    ordered = ([quiz_chunk] if quiz_chunk is not None else []) + chunks
+    for chunk in ordered:
+        body = [line for line in chunk]
+        while body and not body[-1].strip():
+            body.pop()
+        if rebuilt:
+            rebuilt.append("")
+        rebuilt.extend(body)
+    return rebuilt
+
+
 SECTION_SEQ_RE = re.compile(r"^(?P<base>## .+?) - (?P<seq>\d{2})$")
 
 
@@ -1374,8 +1424,8 @@ class NoteStore:
                 len(lines),
             )
             # 替换是整块覆盖，而同一个区块会被多个会话持续追加小节，
-            # 所以锁内把「旧有但新内容没带上」的小节原样保留在区块末尾，
-            # 只有调用方显式列出的小节才允许真的删掉。
+            # 所以锁内把「旧有但新内容没带上」的小节原样保留在替换内容之后，
+            # 区块内倒序由校验器 --fix 归一化；只有调用方显式列出的小节才允许真的删掉。
             existing_sections = _sections("\n".join(lines[start:end]))
             keep_stamps = {
                 section_heading: stamp
@@ -1514,15 +1564,23 @@ class NoteStore:
                 )
                 section = "\n".join(numbered_section).rstrip("\n") + "\n"
                 section_heading = numbered_section[0].strip()
+            # 区块内小节按落盘时间倒序：新小节插在 `## 本轮习题`（若有）之后、
+            # 既有菜单项小节之前，与文件级小节的「复习历史」索引顺序一致（新的在前）。
+            preamble, quiz_chunk, menu_chunks = _split_block_sections(lines[start:end])
+            new_chunk = [line.rstrip() for line in section.split("\n")]
+            while new_chunk and not new_chunk[0].strip():
+                new_chunk.pop(0)
+            while new_chunk and not new_chunk[-1].strip():
+                new_chunk.pop()
+            rebuilt = _join_block_lines(preamble, quiz_chunk, [new_chunk, *menu_chunks])
             block_end = end
             while end > start + 1 and not lines[end - 1].strip():
                 end -= 1
             tail = lines[block_end:]
-            before = lines[:end]
-            body = [""] + section.split("\n")
+            body = rebuilt
             if tail:
                 body = body + ["", DIVIDER, ""] + tail
-            composed = "\n".join(before + body).rstrip("\n") + "\n"
+            composed = "\n".join(lines[:start] + body).rstrip("\n") + "\n"
             composed = _bump_updated_at(composed, datetime.now())
             self._write(target, composed)
             blocks = _count_blocks(composed)

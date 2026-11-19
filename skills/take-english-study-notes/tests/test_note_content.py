@@ -884,6 +884,30 @@ class NoteContentValidationTest(unittest.TestCase):
         ]
         self.assertEqual(sorted(normalize(fixed)), sorted(normalize(moved)))
 
+    def test_block_sections_must_be_newest_first(self) -> None:
+        """同一区块内菜单项小节按落盘时间倒序：旧的在前会被拦下，`--fix` 重排到新的在前。"""
+        base_title = "## 练习「out west」的关键语法结构"
+        older = menu_practice_scored(stamp="2026-11-07 12:00").replace(
+            base_title, f"{base_title} - 01"
+        )
+        newer = menu_practice_scored(stamp="2026-11-07 21:00").replace(
+            base_title, f"{base_title} - 02"
+        )
+        text = note_text() + older + newer  # 旧的在前（违规）
+        self.assert_caught(text, "日期区块内的习题小节必须按落盘时间倒序排列")
+        fixed, fixes = check_note.apply_safe_fixes(text)
+        self.assertIn("把日期区块内的习题小节按落盘时间倒序重排（最新一节在最前）", fixes)
+        self.assertEqual(self.check(fixed), [])
+        older_at = fixed.index(f"{base_title} - 01")
+        newer_at = fixed.index(f"{base_title} - 02")
+        self.assertLess(newer_at, older_at)
+        normalize = lambda source: [
+            line.replace(" ", "")
+            for line in re.sub(r' <a id="[^"]*"></a>', "", source).splitlines()
+            if line.strip()
+        ]
+        self.assertEqual(sorted(normalize(fixed)), sorted(normalize(text)))
+
     def test_all_mode_walks_the_default_notes_directory(self) -> None:
         import io
         import os

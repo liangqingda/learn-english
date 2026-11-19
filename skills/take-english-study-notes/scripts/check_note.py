@@ -29,9 +29,12 @@ from note_store import (  # noqa: E402
     INLINE_ANCHOR_RE,
     ROUND_INDEX_END,
     ROUND_INDEX_START,
+    _join_block_lines,
+    _split_block_sections,
     apply_practice_index,
     day_labels,
     find_repo_root,
+    generated_at,
     generated_at_by_line,
     section_index_labels,
     practice_anchor_id,
@@ -475,7 +478,11 @@ def index_tail_is_clean(lines: list[str], end_line: int) -> bool:
 
 
 def day_menu_sections(lines: list[str]) -> dict[tuple[str, str], list[tuple[str, int | None, int]]]:
-    """同一天里每个菜单项小节的 (时间, 序号, 行号)：`(日期, base)` → 列表。"""
+    """同一天里每个菜单项小节的 (时间, 序号, 行号)：`(日期, base)` → 列表。
+
+    时间取小节表格里的 `生成时间`（与索引口径一致），缺省时回落到区块标题时间。
+    """
+    stamps = generated_at_by_line(lines)
     result: dict[tuple[str, str], list[tuple[str, int | None, int]]] = {}
     current_date: str | None = None
     current_stamp = ""
@@ -492,8 +499,48 @@ def day_menu_sections(lines: list[str]) -> dict[tuple[str, str], list[tuple[str,
         if title == QUIZ_SECTION:
             continue
         base, seq = split_section_seq(title)
-        result.setdefault((current_date, base), []).append((current_stamp, seq, index + 1))
+        stamp = stamps.get(index) or current_stamp
+        result.setdefault((current_date, base), []).append((stamp, seq, index + 1))
     return result
+
+
+def block_section_order(
+    lines: list[str],
+) -> list[tuple[int, list[tuple[str, int | None, int, str]]]]:
+    """每个日期区块 → 正文顺序的菜单项小节 ``[(生成时间, 序号, 行号, base)]``，跳过本轮习题。
+
+    时间取小节表格里的 `生成时间`（与 `practice_entries` 同口径），缺省时回落到区块标题时间。
+    """
+    stamps = generated_at_by_line(lines)
+    blocks: list[tuple[int, list[tuple[str, int | None, int, str]]]] = []
+    current_start: int | None = None
+    current_stamp = ""
+    current_entries: list[tuple[str, int | None, int, str]] = []
+
+    def flush() -> None:
+        if current_start is not None:
+            blocks.append((current_start, current_entries))
+
+    for index, line in enumerate(lines):
+        round_match = SECTION_RE.match(line)
+        if round_match:
+            flush()
+            current_start = index
+            current_stamp = f"{round_match.group(1)} {round_match.group(2)}"
+            current_entries = []
+            continue
+        section = SECTION2_RE.match(line)
+        if not section or current_start is None:
+            continue
+        title = section.group(1).strip()
+        if title == QUIZ_SECTION:
+            continue
+        base, seq = split_section_seq(title)
+        stamp = stamps.get(index) or current_stamp
+        current_entries.append((stamp, seq, index + 1, base))
+    flush()
+    return blocks
+
 LEGACY_MENU_HEADING_RE = re.compile(r"^### \d+\.\s+菜单：")
 LEGACY_MENU_ITEM_RE = re.compile(r"^\d+\.\s|^菜单：")
 MENU_EMOJI_RE = re.compile(
@@ -856,6 +903,18 @@ def check(path: Path) -> list[dict]:
                     line_no,
                     f"同一天同名习题小节的序号按时间从 01 连续递增：这一份应为 `## {expected}`",
                 )
+
+    # 2c-bis. 区块内菜单项小节按落盘时间倒序（新的在前），与文件级「复习历史」索引顺序一致
+    for _block_start, entries in block_section_order(lines):
+        for prior, current in zip(entries, entries[1:]):
+            prior_key = (prior[0], prior[1] or 0)
+            current_key = (current[0], current[1] or 0)
+            if prior_key < current_key:
+                add(
+                    current[2],
+                    "日期区块内的习题小节必须按落盘时间倒序排列：最新一节排在最前，旧小节依次在后（与复习历史索引一致）",
+                )
+                break
 
     # 2d. 习题锚点与文件级小节的索引（由写入命令自动维护，手写会与真实小节漂移）
     entries = practice_entries(lines)
@@ -1783,6 +1842,43 @@ def move_round_tables_under_quiz(lines: list[str]) -> tuple[list[str], bool]:
     return output, changed
 
 
+def reorder_block_sections(lines: list[str]) -> tuple[list[str], bool]:
+    """区块内菜单项小节按落盘时间倒序重排（新的在前）；`## 本轮习题` 固定留在最前。
+
+    只调换小节先后，题干、答案、判定与讲解一字不动；同一分钟落到两份时保持原有相对顺序。
+    """
+    first = next((index for index, line in enumerate(lines) if SECTION_RE.match(line)), None)
+    if first is None:
+        return lines, False
+    output: list[str] = list(lines[:first])
+    index = first
+    changed = False
+    while index < len(lines):
+        if not SECTION_RE.match(lines[index]):
+            output.append(lines[index])
+            index += 1
+            continue
+        block_end = next(
+            (i for i in range(index + 1, len(lines)) if lines[i].startswith("# ")), len(lines)
+        )
+        block = lines[index:block_end]
+        heading = SECTION_RE.match(block[0])
+        fallback = f"{heading.group(1)} {heading.group(2)}"
+        preamble, quiz_chunk, menu_chunks = _split_block_sections(block)
+
+        def chunk_key(chunk: list[str]) -> tuple[str, int]:
+            stamp = generated_at("\n".join(chunk)) or fallback
+            _base, seq = split_section_seq(heading_without_anchor(chunk[0]))
+            return (stamp, seq or 0)
+
+        ordered = sorted(menu_chunks, key=chunk_key, reverse=True)
+        if menu_chunks != ordered:
+            changed = True
+        output.extend(_join_block_lines(preamble, quiz_chunk, ordered))
+        index = block_end
+    return output, changed
+
+
 def apply_safe_fixes(text: str) -> tuple[str, list[str]]:
     """只修无争议项；任何会改变语义或版式取舍的问题都留给调用方。"""
     fixes: list[str] = []
@@ -2039,6 +2135,12 @@ def apply_safe_fixes(text: str) -> tuple[str, list[str]]:
     if moved_any:
         fixes.append(f"把日期标题下的轮次信息表移到 `## {QUIZ_SECTION}` 之下")
         lines = moved
+
+    # 区块内菜单项小节按落盘时间倒序：最新一节排在最前，与文件级「复习历史」索引一致
+    reordered, reorder_any = reorder_block_sections(lines)
+    if reorder_any:
+        fixes.append("把日期区块内的习题小节按落盘时间倒序重排（最新一节在最前）")
+        lines = reordered
 
     # `笔记更新时间` 必须反映最后一次写入：早于最后一个日期区块时抬到该区块时间
     newest_round = None
