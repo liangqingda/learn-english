@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 290,
+  "revision": 291,
   "category": "grammar",
   "records": {
     "grammar:a-bit-of-a-singular-countable": {
@@ -296,6 +296,32 @@
       "mastered_at": null,
       "review_history": [],
       "key": "could-you-polite-request"
+    },
+    "grammar:couldnt-stand-past-form": {
+      "id": "grammar:couldnt-stand-past-form",
+      "category": "grammar",
+      "key": "couldnt-stand-past-form",
+      "status": "learning",
+      "title": "过去时间用 couldn't stand",
+      "explanation": "叙述过去的感受时 can't stand 要退成 couldn't stand；情态动词 can / could 承担时态，否定缩写成 can't / couldn't，句子里的时间状语（when I was a child）必须与这个形式一致。",
+      "source": "When I was a child, I can't stand the taste of carrots.",
+      "example": "When I was a child, I couldn't stand the taste of carrots.",
+      "tags": [
+        "modal",
+        "tense",
+        "verb-form"
+      ],
+      "first_learned_at": "2026-11-20T07:06:25+08:00",
+      "last_learned_at": "2026-11-20T07:06:25+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "grammar:do-you-think-we-can": {
       "id": "grammar:do-you-think-we-can",

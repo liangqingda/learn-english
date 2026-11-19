@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 289,
+  "revision": 291,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -1854,6 +1854,31 @@
       ],
       "first_learned_at": "2026-11-10T07:51:35+08:00",
       "last_learned_at": "2026-11-10T07:51:35+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:two-hour-compound-modifier": {
+      "id": "phrases:two-hour-compound-modifier",
+      "category": "phrases",
+      "key": "two-hour-compound-modifier",
+      "status": "learning",
+      "title": "两小时的会：a two-hour meeting",
+      "explanation": "把“两个小时的”压成形容词修饰名词时写 two-hour（连字符、hour 不加 s），如 a two-hour meeting / a two-hour briefing；也可以改成从句 meetings that last two hours。只说 the meeting 会丢掉时长这层信息。",
+      "source": "Can you stand the meeting every day.",
+      "example": "Can you stand having two-hour meetings every day?",
+      "tags": [
+        "collocation",
+        "compound-modifier"
+      ],
+      "first_learned_at": "2026-11-20T07:06:25+08:00",
+      "last_learned_at": "2026-11-20T07:06:25+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

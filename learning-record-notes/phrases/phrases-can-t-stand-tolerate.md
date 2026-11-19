@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-19 07:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-19 20:49</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-20 07:06</td></tr>
 </table>
 
 ## 讲解
@@ -56,6 +56,7 @@
 
 复习历史：
 <!-- practice-index -->
+- [2026-11-20 07:06 · 练习](#practice-2026-11-20-0706-f1490a83-03)
 - [2026-11-19 20:48 · 练习 - 02](#practice-2026-11-19-2048-f1490a83-01)
 - [2026-11-19 07:53 · 练习 - 01](#practice-2026-11-19-0753-f1490a83-02)
 <!-- /practice-index -->
@@ -538,5 +539,197 @@ The upstairs neighbours practise the violin at midnight. I find it unbearable.
 2. **为什么错**：subway 是特指的那条线路，需要 the；in traffic 说的是马路上堵车，配地铁不成立；③ 里 the subway 是单数，用 hasn't come，且 have came 本身形式就错。
 3. **英语的表达逻辑**：英语把“交通方式”和“堵车情形”分开表达，前者用 take the + 交通工具，后者用 stuck in traffic。
 4. **正确表达**：I can't stand taking the subway when it's crowded.（我受不了人挤人的时候坐地铁。）；可迁移：I can't stand it when the subway is late again.（地铁又晚点，我受不了。）
+
+</details>
+
+## 练习「can't stand + 名词/动名词」的关键语法结构 - 03 <a id="practice-2026-11-20-0706-f1490a83-03"></a>
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>生成时间</td><td>2026-11-20 07:06</td></tr>
+<tr><td>本轮得分</td><td>2 / 10</td></tr>
+<tr><td>题量与错题数</td><td>6 题 / 5 处错误</td></tr>
+</table>
+
+### 1. 填空
+
+**题目**：用括号内动词的正确形式填空
+When I was a child, I ____（can not / stand）the taste of carrots, but now I like them.
+
+**我的答案**：can't stand
+
+**判定**：❌ 错误（主句是 when I was a child，时态要退到过去 couldn't stand）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：stand 的时态随时间状语变化。
+2. **规则与机制**：couldn't stand 是 can't stand 的过去形式，用于描述过去的感受；现在时的 can't stand 不能叙述童年经历。
+3. **英语的表达逻辑**：英语靠情态动词形式标记时间，can't → couldn't 同时承担“否定 + 过去”。
+4. **可迁移表达**：I couldn't stand the noise when I lived downtown.（我住市区时受不了那噪音。）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：过去时间状语与情态动词的时态一致。
+2. **为什么错**：答案沿用了现在时的 can't stand，与 When I was a child 冲突，句子变成“小时候我现在受不了”。
+3. **英语的表达逻辑**：英语主句谓语与时间状语必须时态呼应，情态动词同样存在 can / could 的对立。
+4. **正确表达**：When I was a child, I couldn't stand the taste of carrots, but now I like them.（我小时候受不了胡萝卜的味道，现在倒喜欢了。）；可迁移：She couldn't stand cigarette smoke before she quit.（戒烟前她受不了烟味。）
+
+</details>
+
+---
+
+### 2. 单项选择
+
+**题目**：选择最佳选项填空
+Nobody can stand ____ in the waiting room for two hours.
+
+A. to be kept waiting
+B. being kept waiting
+C. being keep waiting
+D. to keep waiting
+
+**我的答案**：C
+
+**判定**：❌ 错误（being 后要接过去分词 kept，keep 是原形；而且被动形式只能用 being + 过去分词）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：动名词被动式 being + 过去分词。
+2. **规则与机制**：being done 是 V-ing 的被动式，助动词 being 之后必须是过去分词，不能接动词原形。
+3. **英语的表达逻辑**：被动结构固定为 be + 过去分词，动名词化后是 being + 过去分词，两层形式一起变。
+4. **可迁移表达**：Nobody can stand being kept on hold that long.（没人受得了被搁在电话上那么久。）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：being + kept 的过去分词形式。
+2. **为什么错**：C 写了 being keep，把被动助动词后面接成了原形；A、D 用了 to do 的框架，也不符合 stand 的标准口径。
+3. **英语的表达逻辑**：被动语态的骨架是“助动词 + 过去分词”，任何一层都不能换成原形。
+4. **正确表达**：Nobody can stand being kept waiting in the waiting room for two hours.（没人受得了在候诊室被晾着等两个小时。）；可迁移：No one can stand being treated like a child.（没人受得了被当成小孩对待。）
+
+</details>
+
+---
+
+### 3. 改错
+
+**题目**：只改错处，句意不变
+Can you stand to wait here for an hour?
+
+**我的答案**：Can you stand being keep waiting here for an hour?
+
+**判定**：❌ 错误（原本只错 to do 一处，改写后变成了两处错：being 后接原形 keep，还多出了被动）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：疑问句里 stand 同样取动名词。
+2. **规则与机制**：Can you stand waiting here? 是最小改动；句子没有“被人晾着”的含义，不需要被动。
+3. **英语的表达逻辑**：被动只在主语是承受者时出现，这里主语是 you，等的人就是自己。
+4. **可迁移表达**：Can you stand waiting twenty minutes?（你能受得了等二十分钟吗？）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：疑问句的宾语形式；被动是否必要。
+2. **为什么错**：原句唯一的问题是 stand to wait，把 to wait 换成 waiting 即可；答案既保留了 being（多出被动），又写成 being keep（形式错误），错误从一处变成两处。
+3. **英语的表达逻辑**：改错题以最小改动为原则，先判断原句缺的是什么，不要顺手加语义。
+4. **正确表达**：Can you stand waiting here for an hour?（你能受得了在这儿等一个小时吗？）；可迁移：Can you stand sharing a room with him?（你能受得了和他住一间吗？）
+
+</details>
+
+---
+
+### 4. 改写
+
+**题目**：用 can't stand 改写，保持句意
+I don't like the way he takes calls at dinner.
+
+**我的答案**：I can't stand the way he takes calls at dinner.
+
+**判定**：✅ 正确（the way he takes calls 这个名词性成分直接作 stand 的宾语）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：stand + the way + 定语从句。
+2. **规则与机制**：the way someone does something 是英语里现成的名词短语，可直接作宾语，不必改成 it when 从句。
+3. **英语的表达逻辑**：英语常用 the way 把“某人做某事的方式”整体名词化。
+4. **可迁移表达**：I can't stand the way she answers the phone.（我受不了她接电话的方式。）
+
+</details>
+
+---
+
+### 5. 翻译
+
+**题目**：中译英
+你受得了每天开两个小时的会吗？
+
+**我的答案**：Can you stand the meeting every day?
+
+**判定**：⚠️ 部分正确（疑问句框架对，但“两个小时”这层信息丢了，the meeting 也没有落到“开会”这个动作上）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：复合形容词 two-hour 与“开会”的说法。
+2. **规则与机制**：两小时的会说 a two-hour meeting（two-hour 连字符、不加 s）；也可以说 meetings that last two hours。
+3. **英语的表达逻辑**：英语用连字符把数量词和名词粘成一个形容词，修饰后面的名词。
+4. **可迁移表达**：Can you stand a two-hour meeting every morning?（你能受得了每天早上开两个小时的会吗？）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：限定信息的落地；meeting 与“开会”动作的区分。
+2. **为什么错**：答案只剩“会议”这个名词，没了“两个小时”和“开”这两层，读者不知道难受的是时长还是会议本身；the meeting 指某一场会，也不等于每天开会这件事。
+3. **英语的表达逻辑**：英语倾向把数量信息压成复合形容词放在名词前，动作则用 have / hold / attend 承担。
+4. **正确表达**：Can you stand having two-hour meetings every day?（你受得了每天开两个小时的会吗？）；可迁移：Can you stand sitting in a two-hour briefing?（你能受得了开两个小时的吹风会吗？）
+
+</details>
+
+---
+
+### 6. 造句
+
+**题目**：描述办公室里让你受不了的三件事。用 can't stand 写 3 句话，其中至少一句写成疑问句，三句之间至少使用两种不同的宾语形式（不必说明是哪两种）。
+① I can't stand the smell of smoke from my colleagues.
+② Can you stand the meeting at six p.m. every day?
+③ I can't stand it when I get off work to get meeting.
+
+**我的答案**：① I can't stand the smell of smoke from my colleagues.
+② Can you stand the meeting at six p.m. every day?
+③ I can't stand it when I get off work to get meeting.
+
+**判定**：⚠️ 部分正确（① 名词宾语、② 疑问句都成立，③ 的“下班时被叫去开会”没说出来，get meeting 也不是“开会”）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：“开会”与“下班”的说法；it when 从句里的时间关系。
+2. **规则与机制**：开会用 call / have / hold a meeting；下班说 get off work 或 finish work；两件事同时发生用 just as I'm about to leave work。
+3. **英语的表达逻辑**：英语用并列或从句标记两件事的先后，不能靠 to do 表示“下班去开会”。
+4. **可迁移表达**：I can't stand it when my boss calls a meeting just as I'm leaving.（老板总在我快下班时叫开会，我受不了。）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：call a meeting 的搭配；时间关系的表达。
+2. **为什么错**：③ 用 get meeting 代替 call a meeting，且用 to get meeting 表示“下班去开会”，to do 在此表示目的，句意变成“我受不了下班以便开会”，逻辑不成立。
+3. **英语的表达逻辑**：英语用 when 从句或 as 从句承载“两件事撞在一起”，目的不定式只表示意图。
+4. **正确表达**：I can't stand it when my boss calls a meeting just as I'm about to leave.（老板总在我快下班时叫开会，我受不了。）；可迁移：I can't stand meetings that start at six p.m.（我受不了六点才开始的会。）
 
 </details>
