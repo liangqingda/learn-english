@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 291,
+  "revision": 293,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -1715,6 +1715,30 @@
       "review_history": [],
       "key": "set-the-table-arrange-place-settings"
     },
+    "phrases:smoke-from-not-of": {
+      "id": "phrases:smoke-from-not-of",
+      "category": "phrases",
+      "key": "smoke-from-not-of",
+      "status": "learning",
+      "title": "烟味来自某人用 the smoke from somebody",
+      "explanation": "某人制造的烟、气味用 from 表示来源：the smoke from your roommates；of 表示归属，the smoke of your roommates 读成“室友本身的烟”，不自然。",
+      "source": "Can you stand the smoke of your roommates?",
+      "example": "Can you stand the smoke from your roommates?",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-20T07:50:00+08:00",
+      "last_learned_at": "2026-11-20T07:52:47+08:00",
+      "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "phrases:steaming-forests-nature-writing": {
       "id": "phrases:steaming-forests-nature-writing",
       "category": "phrases",
@@ -1739,6 +1763,30 @@
       "mastered_at": null,
       "review_history": [],
       "key": "steaming-forests-nature-writing"
+    },
+    "phrases:takeout-boxes-vs-takeout": {
+      "id": "phrases:takeout-boxes-vs-takeout",
+      "category": "phrases",
+      "key": "takeout-boxes-vs-takeout",
+      "status": "learning",
+      "title": "外卖盒是 takeout boxes，“堆在门口”要落成 leave … by the door",
+      "explanation": "takeout 指外卖这件事或外卖餐，外卖的盒子要写 takeout boxes；中文“堆在门口”是一个持续留下的动作，用 leave / pile … by the door，不能只写 get the takeout；门口室内用 door，不用 gate（大门、闸口）。",
+      "source": "I can't stand it when he gets the takeout at the gate.",
+      "example": "I can't stand him leaving takeout boxes by the door.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-20T07:50:00+08:00",
+      "last_learned_at": "2026-11-20T07:52:47+08:00",
+      "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "phrases:talk-about": {
       "id": "phrases:talk-about",

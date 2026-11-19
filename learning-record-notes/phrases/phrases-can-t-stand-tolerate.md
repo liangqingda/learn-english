@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-19 07:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-20 07:06</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-20 07:52</td></tr>
 </table>
 
 ## 讲解
@@ -56,7 +56,8 @@
 
 复习历史：
 <!-- practice-index -->
-- [2026-11-20 07:06 · 练习](#practice-2026-11-20-0706-f1490a83-03)
+- [2026-11-20 07:52 · 练习 - 02](#practice-2026-11-20-0752-f1490a83-04)
+- [2026-11-20 07:06 · 练习 - 01](#practice-2026-11-20-0706-f1490a83-03)
 - [2026-11-19 20:48 · 练习 - 02](#practice-2026-11-19-2048-f1490a83-02)
 - [2026-11-19 07:53 · 练习 - 01](#practice-2026-11-19-0753-f1490a83-01)
 <!-- /practice-index -->
@@ -173,6 +174,186 @@ In April the neighbours switched to plastic crates and a quiet trolley. Ana stil
 3. **三个 can't 结构各管一件事**：can't stand = 受不了，can't help doing = 忍不住，can't wait to do = 迫不及待；宾语形式固定，不能互换。
 
 # 2026-11-19 07:53 · 练习
+
+## 练习「can't stand + 名词/动名词」的关键语法结构 - 04 <a id="practice-2026-11-20-0752-f1490a83-04"></a>
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>生成时间</td><td>2026-11-20 07:52</td></tr>
+<tr><td>本轮得分</td><td>5 / 10</td></tr>
+<tr><td>题量与错题数</td><td>6 题 / 4 处错误</td></tr>
+</table>
+
+### 1. 填空
+
+**题目**：填入所缺的词，只填一个词
+I can't stand it ____ people cough without covering their mouths.
+
+**我的答案**：when
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：it + when 从句做 stand 的宾语。
+2. **规则与机制**：stand 后面要承接一件完整的事情时，用形式宾语 it 占住宾语位置，真正的宾语由 when 从句后置，结构是 stand it when + 主语 + 谓语。
+3. **英语的表达逻辑**：it 在这里不指任何具体名词，只替一个从句占位；没有 it 就写成 stand when 从句，stand 会缺宾语而站不住。
+4. **可迁移表达**：I can't stand it when the wifi drops during a meeting.（开会时网断了，我真受不了。）
+
+</details>
+
+---
+
+### 2. 单项选择
+
+**题目**：选择正确的一项
+
+- A. I can't stand people to smoke here.
+- B. I can't stand people smoking here.
+- C. I can't stand people smoke here.
+- D. I can't stand people smoke to here.
+
+**我的答案**：B
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：stand 后接“名词 + 分词”的名词短语。
+2. **规则与机制**：动名词的复合结构是名词（或宾格代词）+ 现在分词，people smoking 整体是一个名词短语，做 stand 的宾语；stand 后面不能直接接一个带主谓的从句。
+3. **英语的表达逻辑**：C 里 people 和 smoke 各自成主谓，等于塞了一个从句给 stand，而 stand 在没有 it 兜底时不接受裸从句；A 把动名词换成不定式，D 在从句前又加了 to，都是形式混搭。
+4. **可迁移表达**：I can't stand kids screaming on the plane.（受不了小孩在飞机上尖叫。）
+
+</details>
+
+---
+
+### 3. 改错
+
+**题目**：只改错处，句意不变
+I can't stand the way he treats the staffs in this hotel.
+
+**我的答案**：I can't stand the way that he treats the staffs in this hotel.
+
+**判定**：❌ 错误（只补了 that，真正的错处 staffs 原样留着；插入的 that 本身可接受，不算错）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：the way (that) + 从句。
+2. **规则与机制**：the way 后面可以直接接从句，也可以加 that，两者都自然；因此改错题要把注意力放在词形上，逐个比对每个名词。
+3. **英语的表达逻辑**：只改一处时，先扫名词形式与时态，再考虑连词是否可省，可省的结构不是错处。
+4. **可迁移表达**：I can't stand the way she talks to customers.（受不了她对顾客说话那个样子。）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：staff 的数与形式。
+2. **为什么错**：staff 指全体员工时按集合名词处理，本题语境不能写 staffs（staffs 只在指几个不同机构的员工班子时才出现）；改错时把它留着，等于这一处错处没有动。
+3. **英语的表达逻辑**：英语里一批集合名词（staff、police、equipment、furniture）本身不数个数，要数人时换成 staff members、police officers，计数单位放在中心词上。
+4. **正确表达**：I can't stand the way he treats the staff in this hotel.（受不了他在这家酒店对待员工的那副样子。）；可迁移：The staff are always polite here.（这里的员工一向客气。）
+
+</details>
+
+---
+
+### 4. 改写
+
+**题目**：用 can't stand 改写，保持句意
+Her humming in the morning bothers me.
+
+**我的答案**：I can't stand the humming from her in the morning.
+
+**判定**：⚠️ 部分正确（stand + 动名词的形式对了，但动作的发出者被写成 from her，结构退化成名词短语）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：动名词的逻辑主语用物主代词。
+2. **规则与机制**：stand 后面接动名词时，动名词的动作发出者放在它前面，用物主代词或名词所有格：her humming、his leaving、my neighbour's playing。
+3. **英语的表达逻辑**：the humming 只是“那个哼唱声”，说话人不见了；her humming 才明确是“她在哼”，这正是受不了的对象；from her 表达的是来源，不是动作主体。
+4. **可迁移表达**：I can't stand his chewing right next to my ear.（受不了他在我耳边嚼东西。）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：物主代词 + 动名词。
+2. **为什么错**：写了 the humming from her，把动名词改成普通名词短语，主语关系靠介词补，既冗长也不自然。
+3. **英语的表达逻辑**：表达“某人做某事让我受不了”时，动名词前直接挂物主代词，形式最短也最清楚；介词短语适合表达时间、地点、来源，不适合替代动作主体。
+4. **正确表达**：I can't stand her humming in the morning.（受不了她早上一直哼歌。）
+
+</details>
+
+---
+
+### 5. 翻译
+
+**题目**：中译英
+我受不了他把外卖盒堆在门口。
+
+**我的答案**：I can't stand it when he gets the takeout at the gate.
+
+**判定**：⚠️ 部分正确（it when 框架搭对了，但“外卖盒”“堆在门口”两处意思丢了，gate 也不是室内门口）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：翻译时先定框架，再逐个落实名词与动作。
+2. **规则与机制**：it when 与名词、动名词两套框架都成立；选定框架后，中文里每个信息块（谁、做什么、什么东西、在哪儿）都要有对应的英文成分。
+3. **英语的表达逻辑**：中文“堆在门口”是一个持续留下的状态，英文用 leave / pile … by the door 这类动词才落得住；只写 get the takeout 就变成“他去拿外卖”，动作换了。
+4. **可迁移表达**：I can't stand it when people leave their bikes by the door.（受不了别人把自行车堆在门口。）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：外卖盒的名词形式与“堆在门口”的动词选择。
+2. **为什么错**：the takeout 指外卖这件事或那份餐，不是盒子；get 是取、买，表达不了“堆着不管”；gate 指大门、闸口，室内门口用 door。
+3. **英语的表达逻辑**：英语名词要落到具体物件（boxes），动词要落到具体动作（leave、pile），译完回头核对每个中文信息块是否都有对应成分。
+4. **正确表达**：I can't stand him leaving takeout boxes by the door.（受不了他把外卖盒堆在门口。）；也可写 I can't stand it when he leaves takeout boxes by the door.
+
+</details>
+
+---
+
+### 6. 造句
+
+**题目**：描述宿舍里让你受不了的三件事。用 can't stand 写 3 句话，句子之间至少使用两种不同的宾语形式（不必说明是哪两种）。
+
+**我的答案**：① I can't stand the way that my roommates speak to me.
+② Can you stand the smoke of your roommates?
+③ I can't stand it when my roommates speak loudly.
+
+**判定**：⚠️ 部分正确（the way 从句、名词短语、it when 三种形式都摆出来了，第二句的来源介词用错）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：同一表达在多种宾语形式之间切换。
+2. **规则与机制**：can't stand 的宾语可以是名词短语（the noise、the way + 从句）、动名词（their talking）、it + when 从句；疑问句只要把 can 提前，后面结构不变。
+3. **英语的表达逻辑**：同一件事换形式时语气略有差别：名词短语最概括，动名词指向具体动作，it when 适合描述反复发生的情形。
+4. **可迁移表达**：I can't stand the smell in this kitchen.（受不了这厨房的味道。）／I can't stand their talking after midnight.（受不了他们半夜还在说话。）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：来源 from 与所属 of 的分工。
+2. **为什么错**：写了 the smoke of your roommates，of 表示归属，读成“室友本人的烟”；这里要表达的是“室友制造出来的烟”，属于来源。
+3. **英语的表达逻辑**：from 指来源与出处（smoke from the kitchen、noise from next door），of 指所属与构成；判断标准是“这东西从谁那儿来”还是“这东西属于谁”。
+4. **正确表达**：Can you stand the smoke from your roommates?（你受得了室友的烟味吗？）
+
+</details>
+
+---
 
 ## 练习「can't stand + 名词/动名词」的关键语法结构 - 03 <a id="practice-2026-11-20-0706-f1490a83-03"></a>
 

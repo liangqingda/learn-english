@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 291,
+  "revision": 293,
   "category": "grammar",
   "records": {
     "grammar:a-bit-of-a-singular-countable": {
@@ -810,6 +810,30 @@
         }
       ],
       "key": "past-perfect-before-past-reference"
+    },
+    "grammar:possessive-gerund-as-stand-object": {
+      "id": "grammar:possessive-gerund-as-stand-object",
+      "category": "grammar",
+      "key": "possessive-gerund-as-stand-object",
+      "status": "learning",
+      "title": "动名词的逻辑主语用物主代词，不用 from + 代词",
+      "explanation": "stand 后面接动名词时，动作的发出者直接放在动名词前：her humming、his leaving。用 the humming from him 会把动名词退化成名词短语，丢掉“谁在做”这一层，也不自然。",
+      "source": "I can't stand the humming from her in the morning.",
+      "example": "I can't stand her humming in the morning.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-20T07:50:00+08:00",
+      "last_learned_at": "2026-11-20T07:52:47+08:00",
+      "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "grammar:prefer-x-rather-than-y": {
       "id": "grammar:prefer-x-rather-than-y",

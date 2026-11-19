@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 286,
+  "revision": 293,
   "category": "vocabulary",
   "records": {
     "vocabulary:a-little-bit": {
@@ -764,6 +764,30 @@
       "mastered_at": null,
       "review_history": [],
       "key": "slightly-somewhat-formal-degree"
+    },
+    "vocabulary:staff-uncountable-collective-noun": {
+      "id": "vocabulary:staff-uncountable-collective-noun",
+      "category": "vocabulary",
+      "key": "staff-uncountable-collective-noun",
+      "status": "learning",
+      "title": "staff 是不可数集合名词，不加 -s",
+      "explanation": "staff 指“全体员工”时按集合名词处理，本题语境不能写 staffs（staffs 只在指几个不同机构的员工班子时出现）；要数人用 staff members 或 employees。",
+      "source": "I can't stand the way that he treats the staffs in this hotel.",
+      "example": "I can't stand the way he treats the staff in this hotel.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-20T07:50:00+08:00",
+      "last_learned_at": "2026-11-20T07:52:47+08:00",
+      "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "vocabulary:stand-bear-put-up-with": {
       "id": "vocabulary:stand-bear-put-up-with",
