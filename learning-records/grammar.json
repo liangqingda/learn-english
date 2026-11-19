@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 289,
+  "revision": 290,
   "category": "grammar",
   "records": {
     "grammar:a-bit-of-a-singular-countable": {
@@ -127,6 +127,32 @@
       "mastered_at": null,
       "review_history": [],
       "key": "can-i-get-you-offer-food-drink"
+    },
+    "grammar:cannot-stand-noun-plus-finite-verb": {
+      "id": "grammar:cannot-stand-noun-plus-finite-verb",
+      "category": "grammar",
+      "key": "cannot-stand-noun-plus-finite-verb",
+      "status": "learning",
+      "title": "stand 后不能“名词 + 谓语动词”平铺",
+      "explanation": "stand 的宾语位置只能容纳名词性成分：要么 the photocopier jamming 这样的名词 + 分词，要么 it when the photocopier jams 这样的形式宾语从句；把完整主谓句 the photocopier jams every Monday 直接放在 stand 后，会让两个谓语挤在同一个句子里。",
+      "source": "I can't stand the photocopier jams every Monday.",
+      "example": "I can't stand it when the photocopier jams every Monday.",
+      "tags": [
+        "clause",
+        "gerund",
+        "syntax"
+      ],
+      "first_learned_at": "2026-11-19T20:49:08+08:00",
+      "last_learned_at": "2026-11-19T20:49:08+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "grammar:comma-appositive-renaming": {
       "id": "grammar:comma-appositive-renaming",
@@ -1158,6 +1184,31 @@
       ],
       "first_learned_at": "2026-11-09T07:50:18+08:00",
       "last_learned_at": "2026-11-09T07:50:18+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:when-clause-needs-finite-verb": {
+      "id": "grammar:when-clause-needs-finite-verb",
+      "category": "grammar",
+      "key": "when-clause-needs-finite-verb",
+      "status": "learning",
+      "title": "when 从句必须有带时态的谓语动词",
+      "explanation": "it when 引出的从句里需要一个真正的谓语动词（sneeze / sneezes / talk），不能只放 -ing 形式；V-ing 只能作名词或分词，用在从句里等于缺少谓语，句子不成立。",
+      "source": "I can't stand it when my roommates sneezing.",
+      "example": "I can't stand it when my roommates sneeze at midnight.",
+      "tags": [
+        "clause",
+        "verb-form"
+      ],
+      "first_learned_at": "2026-11-19T20:49:08+08:00",
+      "last_learned_at": "2026-11-19T20:49:08+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
