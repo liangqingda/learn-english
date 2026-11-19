@@ -7,6 +7,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from datetime import datetime
 from pathlib import Path
 
 
@@ -97,6 +98,76 @@ class NoteAppendTest(unittest.TestCase):
         self.assertEqual(text.count("## 扩展练习"), 1)
         self.assertIn("### 2. 翻译", text)
         self.assertLess(text.index("### 1. 翻译"), text.index("### 2. 翻译"))
+
+    def test_append_section_overwrites_caller_supplied_generated_time(self) -> None:
+        """首次落盘时调用方手写的 `生成时间` 被落盘时刻覆盖，不保留手写值。"""
+        self.store.append(self.note, round_block())
+        section = (
+            "## 扩展练习\n\n"
+            '<table style="border-collapse:collapse;width:auto">\n'
+            '<colgroup><col width="150"></colgroup>\n'
+            "<tr><td>生成时间</td><td>2026-11-07 08:10</td></tr>\n"
+            "<tr><td>本轮得分</td><td>3 / 10</td></tr>\n"
+            "<tr><td>题量与错题数</td><td>1 题 / 1 处错误</td></tr>\n"
+            "</table>\n\n"
+            "### 1. 翻译\n\n**题目**：她往西边出发了。\n\n"
+            "**我的答案**：She headed out west.\n\n**判定**：✅ 正确\n\n"
+            "<details>\n<summary>知识点讲解</summary>\n\n"
+            "1. **本题知识点**：out west\n2. **规则与机制**：分写\n"
+            "3. **英语的表达逻辑**：方向副词\n4. **可迁移表达**：head out west\n\n"
+            "</details>\n"
+        )
+        self.store.append_section(
+            self.note, "# 2026-11-07 21:00 · 复习", section
+        )
+        text = self.note.read_text(encoding="utf-8")
+        self.assertNotIn("2026-11-07 08:10", text)
+        now = datetime.now().strftime("%Y-%m-%d %H:%M")
+        self.assertIn(f"<tr><td>生成时间</td><td>{now}</td></tr>", text)
+
+    def test_replace_keeps_existing_generated_time(self) -> None:
+        """重写既有小节时保留原有首次落盘时间，不被新时刻覆盖。"""
+        self.store.append(self.note, round_block())
+        section = (
+            "## 扩展练习\n\n"
+            '<table style="border-collapse:collapse;width:auto">\n'
+            "<tr><td>本轮得分</td><td>6 / 10</td></tr>\n"
+            "<tr><td>题量与错题数</td><td>1 题 / 0 处错误</td></tr>\n"
+            "</table>\n\n"
+            "### 1. 翻译\n\n**题目**：她往西边出发了。\n\n"
+            "**我的答案**：She headed out west.\n\n**判定**：✅ 正确\n\n"
+            "<details>\n<summary>知识点讲解</summary>\n\n"
+            "1. **本题知识点**：out west\n2. **规则与机制**：分写\n"
+            "3. **英语的表达逻辑**：方向副词\n4. **可迁移表达**：head out west\n\n"
+            "</details>\n"
+        )
+        self.store.append_section(
+            self.note, "# 2026-11-07 21:00 · 复习", section
+        )
+        before = self.note.read_text(encoding="utf-8")
+        match = re.search(r"<tr><td>生成时间</td><td>([^<]+)</td></tr>", before)
+        self.assertIsNotNone(match)
+        original_stamp = match.group(1)
+        self.store.replace_block(
+            self.note,
+            "# 2026-11-07 21:00 · 复习",
+            "# 2026-11-07 21:00 · 复习\n\n"
+            "## 扩展练习\n\n"
+            '<table style="border-collapse:collapse;width:auto">\n'
+            "<tr><td>本轮得分</td><td>7 / 10</td></tr>\n"
+            "<tr><td>题量与错题数</td><td>1 题 / 0 处错误</td></tr>\n"
+            "</table>\n\n"
+            "### 1. 翻译\n\n**题目**：她往西边出发了。\n\n"
+            "**我的答案**：She headed out west.\n\n**判定**：✅ 正确\n\n"
+            "<details>\n<summary>知识点讲解</summary>\n\n"
+            "1. **本题知识点**：out west\n2. **规则与机制**：分写\n"
+            "3. **英语的表达逻辑**：方向副词\n4. **可迁移表达**：head out west\n\n"
+            "</details>\n",
+        )
+        text = self.note.read_text(encoding="utf-8")
+        self.assertIn(
+            f"<tr><td>生成时间</td><td>{original_stamp}</td></tr>", text
+        )
 
     def test_same_day_second_section_gets_a_sequence_suffix(self) -> None:
         """同一天再练同一菜单项：旧份补 ` - 01`，新份是 ` - 02`。"""

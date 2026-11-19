@@ -39,14 +39,16 @@ LOCK_FILE_NAME = ".notes.lock"
 # 写入器只强制「目录名 == 文件名前缀」，不再抄一份分类表。
 # slug 只允许小写 ASCII 字母、数字与连字符；中文主题要意译成英文短语（与 check_note 一致）。
 SLUG_FILE_RE = re.compile(r"^[a-z0-9][a-z0-9\-]*\.md$")
-HEADING_RE = re.compile(
-    r"^# (?P<date>\d{4}-\d{2}-\d{2}) (?P<time>\d{2}:\d{2}) · (?P<kind>复习|练习|套题)$"
-)
 DIVIDER = "---"
+# 24 小时制时间戳：小时 00–23、分钟 00–59，不写上午/下午。
+STAMP_PATTERN = r"\d{4}-\d{2}-\d{2} ([01]\d|2[0-3]):[0-5]\d"
+HEADING_RE = re.compile(
+    rf"^# (?P<date>\d{{4}}-\d{{2}}-\d{{2}}) (?P<time>([01]\d|2[0-3]):[0-5]\d) · (?P<kind>复习|练习|套题)$"
+)
 RECORD_ID_ROW_RE = re.compile(r"<tr><td>记录 ID / 试卷 ID</td><td>(.*?)</td></tr>")
 UPDATED_ROW_RE = re.compile(r"<tr><td>笔记更新时间</td><td>[^<]*</td></tr>")
 GENERATED_ROW_RE = re.compile(
-    r"<tr><td>笔记生成时间</td><td>(\d{4}-\d{2}-\d{2} \d{2}:\d{2})</td></tr>"
+    rf"<tr><td>笔记生成时间</td><td>({STAMP_PATTERN})</td></tr>"
 )
 # 记录级追踪行：累计复习次数与下次复习由规范记录决定，写入后自动回填，
 # 不能让笔记顶部长期停在首轮手抄的旧值（append/replace 只写日期区块）。
@@ -63,7 +65,7 @@ GENERATED_AT_FIELD = "生成时间"
 GENERATED_AT_ROW_RE = re.compile(
     r"<tr><td>\s*生成时间\s*</td><td>(?P<value>[^<]*)</td></tr>"
 )
-GENERATED_AT_STAMP_RE = re.compile(r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$")
+GENERATED_AT_STAMP_RE = re.compile(rf"^{STAMP_PATTERN}$")
 # 文件级「基础信息」折叠块：整份笔记唯一一份，只随第一个区块一起写入
 BASIC_HEAD_RE = re.compile(r"^## 基础信息\s*\n.*?(?=^# )", re.S | re.M)
 # 讲解是一个知识点唯一的一份说明，写成文件级小节，不参与轮次编号
@@ -357,7 +359,12 @@ def generated_at(text: str) -> str | None:
 
 
 def _stamp_one_table(text: str, stamp: str) -> str:
-    """给一节里的第一张表补一行 `生成时间`；已经有这一行时一字不动。"""
+    """给一节里的第一张表盖上 `生成时间`。
+
+    落到哪一份时间由调用方决定：首次落盘传落盘时刻，重写既有小节传
+    原有首次落盘时间（`overrides`）。表内已有这一行时，值一律以传入的
+    `stamp` 为准，不保留调用方手写或替换正文里带来的旧值。
+    """
     start = text.find("<table")
     if start == -1:
         return text
@@ -366,8 +373,10 @@ def _stamp_one_table(text: str, stamp: str) -> str:
     if end == -1:
         return text
     table = text[start : end + len(close)]
+    row = f"<tr><td>{GENERATED_AT_FIELD}</td><td>{stamp}</td></tr>"
     if GENERATED_AT_ROW_RE.search(table):
-        return text
+        table = GENERATED_AT_ROW_RE.sub(row, table, count=1)
+        return text[:start] + table + text[end + len(close) :]
     colgroup = table.find("</colgroup>")
     insert_at = table.find("\n", colgroup) + 1 if colgroup != -1 else table.find("\n") + 1
     if insert_at == 0:
@@ -800,7 +809,7 @@ def _bump_updated_at(text: str, when: datetime) -> str:
 
 
 HEADING_KIND_RE = re.compile(
-    r"^# \d{4}-\d{2}-\d{2} \d{2}:\d{2} · (?P<kind>复习|练习|套题)$"
+    rf"^# {STAMP_PATTERN} · (?P<kind>复习|练习|套题)$"
 )
 
 

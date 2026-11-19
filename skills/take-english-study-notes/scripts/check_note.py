@@ -320,11 +320,12 @@ COUNTS_RE = re.compile(
 )
 NUMBER_PREFIX_RE = re.compile(r"^\d+[.)、]\s*")
 REVIEW_COUNT_RE = re.compile(r"^(\d+|—)$")
-NEXT_REVIEW_RE = re.compile(r"^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}|—)$")
+STAMP_PATTERN = r"\d{4}-\d{2}-\d{2} ([01]\d|2[0-3]):[0-5]\d"
+NEXT_REVIEW_RE = re.compile(rf"^({STAMP_PATTERN}|—)$")
 SUBJECTIVE_RE = re.compile(r"^(—|写作 \d+/15 · 翻译 \d+/15)$")
-TIMESTAMP_RE = re.compile(r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$")
+TIMESTAMP_RE = re.compile(rf"^{STAMP_PATTERN}$")
 UPDATED_ROW_RE = re.compile(
-    r"(<tr><td>笔记更新时间</td><td>)(\d{4}-\d{2}-\d{2} \d{2}:\d{2})(</td></tr>)"
+    rf"(<tr><td>笔记更新时间</td><td>)({STAMP_PATTERN})(</td></tr>)"
 )
 # 记录 key / slug 只允许小写 ASCII 字母、数字与连字符：中文 key 会落成中文文件名，
 # 让笔记、快照索引和看板排序都出现非 ASCII 字符。中文主题一律意译成英文短语。
@@ -1809,7 +1810,7 @@ def apply_safe_fixes(text: str) -> tuple[str, list[str]]:
     for index, line in enumerate(lines):
         migrated.append(line)
         stamp = re.match(
-            r"<tr><td>笔记生成时间</td><td>(\d{4}-\d{2}-\d{2} \d{2}:\d{2})</td></tr>", line.strip()
+            rf"<tr><td>笔记生成时间</td><td>({STAMP_PATTERN})</td></tr>", line.strip()
         )
         if not stamp:
             continue
@@ -1854,7 +1855,7 @@ def apply_safe_fixes(text: str) -> tuple[str, list[str]]:
     legacy_explain = [
         k
         for k, line in enumerate(lines)
-        if re.match(r"^# \d{4}-\d{2}-\d{2} \d{2}:\d{2} · 讲解$", line.strip())
+        if re.match(rf"^# {STAMP_PATTERN} · 讲解$", line.strip())
     ]
     if legacy_explain and not any(
         SECTION2_RE.match(line) and SECTION2_RE.match(line).group(1).strip() == str(TEMPLATE["explain_section"])

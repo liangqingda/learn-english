@@ -56,7 +56,7 @@
 
 复习历史：
 <!-- practice-index -->
-- [2026-11-19 08:10 · 练习 - 02](#practice-2026-11-19-0810-f1490a83-01)
+- [2026-11-19 20:48 · 练习 - 02](#practice-2026-11-19-2048-f1490a83-01)
 - [2026-11-19 07:53 · 练习 - 01](#practice-2026-11-19-0753-f1490a83-02)
 <!-- /practice-index -->
 
@@ -173,11 +173,11 @@ In April the neighbours switched to plastic crates and a quiet trolley. Ana stil
 
 # 2026-11-19 07:53 · 练习
 
-## 练习「can't stand + 名词/动名词」的关键语法结构 - 01 <a id="practice-2026-11-19-0810-f1490a83-01"></a>
+## 练习「can't stand + 名词/动名词」的关键语法结构 - 01 <a id="practice-2026-11-19-2048-f1490a83-01"></a>
 
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
-<tr><td>生成时间</td><td>2026-11-19 08:10</td></tr>
+<tr><td>生成时间</td><td>2026-11-19 20:48</td></tr>
 <tr><td>本轮得分</td><td>3 / 10</td></tr>
 <tr><td>题量与错题数</td><td>6 题 / 5 处错误</td></tr>
 </table>
