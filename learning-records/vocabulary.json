@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 302,
+  "revision": 303,
   "category": "vocabulary",
   "records": {
     "vocabulary:a-little-bit": {
@@ -757,6 +757,30 @@
       "mastered_at": null,
       "review_history": [],
       "key": "range"
+    },
+    "vocabulary:refresh-tracking-page-not-logistics": {
+      "id": "vocabulary:refresh-tracking-page-not-logistics",
+      "category": "vocabulary",
+      "key": "refresh-tracking-page-not-logistics",
+      "status": "learning",
+      "title": "refresh 的宾语是页面或列表，不是物流业务",
+      "explanation": "logistics 指物流这套业务，不能“刷新”；refresh 后面接屏幕上的东西：page、feed、screen、list，所以刷物流要说 refresh the tracking page。",
+      "source": "I can't help refreshing the logistics.",
+      "example": "I can't help refreshing the tracking page.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-21T20:57:37+08:00",
+      "last_learned_at": "2026-11-21T20:57:37+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "vocabulary:review-core-meaning": {
       "id": "vocabulary:review-core-meaning",

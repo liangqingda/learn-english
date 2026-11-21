@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-19 07:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-21 20:06</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-21 20:57</td></tr>
 </table>
 
 ## 讲解
@@ -207,6 +207,11 @@ In April the neighbours switched to plastic crates and a quiet trolley. Ana stil
 2. **忍的程度不同**：can't stand、can't bear 表示“根本受不了”；put up with、tolerate 表示“还能忍，只是不满”，put up with 强调长期将就，tolerate 语气正式中性。
 3. **三个 can't 结构各管一件事**：can't stand = 受不了，can't help doing = 忍不住，can't wait to do = 迫不及待；宾语形式固定，不能互换。
 
+复习历史：
+<!-- practice-index -->
+- [2026-11-21 20:57 · 练习](#practice-2026-11-21-2057-402c14ff)
+<!-- /practice-index -->
+
 ## 扩展「can't stand + 名词/动名词」相关词汇和搭配
 
 **讲解要点**：
@@ -236,6 +241,211 @@ In April the neighbours switched to plastic crates and a quiet trolley. Ana stil
 <!-- /practice-index -->
 
 # 2026-11-19 07:53 · 练习
+
+## 对比「can't stand + 名词/动名词」和相近表达 <a id="practice-2026-11-21-2057-402c14ff"></a>
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>生成时间</td><td>2026-11-21 20:57</td></tr>
+<tr><td>本轮得分</td><td>4 / 10</td></tr>
+<tr><td>题量与错题数</td><td>6 题 / 6 处错误</td></tr>
+</table>
+
+### 1. 单项选择
+
+**题目**：选出最自然的一句
+
+- A. I stand the noise in this office.
+- B. I can bear the noise in this office.
+- C. I can't bear the noise in this office.
+- D. I can't bear to the noise in this office.
+
+**我的答案**：C
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：bear 在否定句里的用法与宾语形式。
+2. **规则与机制**：bear 表示“忍受”，否定形式 can't bear + 名词成立；B 语法上可以，但日常抱怨这个语境的自然度不如否定句；D 在名词前多加了 to，A 把 stand 用在肯定句里。
+3. **英语的表达逻辑**：stand 几乎只出现在否定和疑问里，肯定陈述要换 bear 或 put up with；bear 后面直接接名词或动名词，不加 to。
+4. **可迁移表达**：I can't bear the smell in this room.（受不了这屋里的味道。）
+
+</details>
+
+---
+
+### 2. 填空
+
+**题目**：用括号内词的正确形式填空
+I can't help ____（check）the tracking page three times a day.
+
+**我的答案**：checking
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：can't help doing 固定接动名词。
+2. **规则与机制**：can't help 表示“忍不住”，help 后面接动名词，整体是 can't help doing something，不能换成 to do。
+3. **英语的表达逻辑**：这里的 help 不是“帮忙”，而是“控制得住”，动名词说明那个控制不住的动作本身。
+4. **可迁移表达**：I can't help laughing when he does that voice.（他一那样说话我就忍不住笑。）
+
+</details>
+
+---
+
+### 3. 改错
+
+**题目**：只改错处，句意不变
+She can't wait meeting her old classmates again.
+
+**我的答案**：She can't to wait meeting her old classmates again.
+
+**判定**：❌ 错误（把 to 放到了 can't 与 wait 之间，meeting 也没动；正确改法是 can't wait to meet）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：can't wait to do 的结构。
+2. **规则与机制**：can't wait 后面固定接不定式 to do，表示“迫不及待”，不能接动名词；can't 后面也不能再插一个 to。
+3. **英语的表达逻辑**：情态动词后面直接跟动词原形，所以 can't 与 wait 之间不放 to；to 属于 wait 的搭配，位置紧跟 wait 之后。
+4. **可迁移表达**：I can't wait to try the new machine.（我迫不及待想试试新机器。）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：can't wait + to do 的位置与形式。
+2. **为什么错**：写成 can't to wait，等于在情态动词后面加了 to，又把该改的 meeting 留着；两处都没改对。
+3. **英语的表达逻辑**：先认定骨架 can't + wait + to + 动词原形，再逐个槽位对照原句：can't 后只能跟原形，wait 后才接 to，to 后要用原形 meet。
+4. **正确表达**：She can't wait to meet her old classmates again.（她迫不及待想再见到老同学。）
+
+</details>
+
+---
+
+### 4. 改写
+
+**题目**：用 put up with 改写，保持句意
+I really don't like queuing, but ten minutes is fine for me.
+
+**我的答案**：I can't put up with queuing, but ten minutes is fine for me.
+
+**判定**：⚠️ 部分正确（结构没问题，但加了 can't 就把“还能忍十分钟”翻成了“忍不了”，跟后半句自相矛盾）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：put up with 与 can't put up with 的分工。
+2. **规则与机制**：put up with 本身是“容忍、将就”，肯定形式说明还能忍；can't put up with 才是“忍不了”。改写时原句说“还能忍十分钟”，就该用肯定形式。
+3. **英语的表达逻辑**：英语靠否定词翻转整句立场，一样的意思换表达时，肯定否定的方向必须跟着原句走，否则句子前后半段会打架。
+4. **可迁移表达**：I can put up with queuing for ten minutes.（排队十分钟我还能忍。）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：改写时保住原句的肯定/否定立场。
+2. **为什么错**：看到 put up with 就顺手加 can't，忽略了 but ten minutes is fine 表达的是“有限度地还能忍”。
+3. **英语的表达逻辑**：改写先划出原句的立场（能忍 / 不能忍），再选形式；原句用 but 转折说明限度，说明主句是肯定容忍。
+4. **正确表达**：I can put up with queuing for ten minutes.（排队十分钟我还能忍。）
+
+</details>
+
+---
+
+### 5. 翻译
+
+**题目**：中译英
+这条规定不容忍在办公区吃东西。
+
+**我的答案**：The rule can't bear to eat at the office.
+
+**判定**：❌ 错误（规章语境要用 tolerate；而且 tolerate 后面接动名词，不是 to do，主语也不是“人”去忍受）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：tolerate 的语境与宾语形式。
+2. **规则与机制**：tolerate 表示“容许、不容忍”，主语可以是规定、政策这类非人成分，后面接名词或动名词：does not tolerate eating in the office area。
+3. **英语的表达逻辑**：bear 是“人承受不了某事”的感受词，主语必须是有感受的一方；规章不会“受不了”，它只会“不容许”，所以选 tolerate。
+4. **可迁移表达**：The library does not tolerate eating at the desks.（图书馆不容许在座位上吃东西。）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：表达选择与主语适配。
+2. **为什么错**：用了 can't bear to eat，把规章写成有情绪的人；to do 也不符合 tolerate 的搭配要求。
+3. **英语的表达逻辑**：先看主语是不是“人”：人受不了用 can't stand / can't bear，规章容许不容许用 tolerate / allow；再看动词锁定的宾语形式。
+4. **正确表达**：The rule does not tolerate eating in the office area.（这条规定不容忍在办公区吃东西。）
+
+</details>
+
+---
+
+### 6. 语境判断
+
+**题目**：三段场景各选一个最贴切的表达，按场景序号对应回答
+场景一：你在电话里对朋友说，隔壁装修敲了一个月，我实在忍不了了。
+场景二：你在通知里写，本实验室不容忍任何形式的违规操作。
+场景三：你在群里说，快递一天没动，我隔一会儿就想刷一下物流。
+备选：can't stand it any longer / tolerate / can't help doing
+
+**我的答案**：
+- ① I can't put up with the renovation next door for a month.
+- ② The lab can't bear any illegal operation.
+- ③ I can't help refreshing the logistics.
+
+**判定**：⚠️ 部分正确（① 语义方向对但没用 any longer 收住，② 规章选错了表达，③ 结构对、词义跑偏）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：按场景（私人抱怨 / 规章 / 控制不住）选表达。
+2. **规则与机制**：私人抱怨到极限用 can't stand it any longer；规章写 tolerate；控制不住的动作写 can't help doing。
+3. **英语的表达逻辑**：三个表达对应三种说话人身份——抱怨的人、立规矩的机构、管不住自己的自己；选词先定身份，再定宾语形式。
+4. **可迁移表达**：I can't stand it any longer.（我再也受不了了。）／We do not tolerate late submissions.（我们不接受迟交。）
+
+</details>
+
+<details>
+<summary>错题讲解 1</summary>
+
+1. **考点**：“实在忍不了了”的收尾。
+2. **为什么错**：写成 can't put up with … for a month，方向没错，但没把“再也”的终点说出来，for a month 又挂在句尾，读起来像“要忍一个月”。
+3. **英语的表达逻辑**：到极限的抱怨靠 any longer / anymore 收句；时长要放进去时写成 for a month 的位置也要紧挨动作：I can't put up with the renovation next door any longer.
+4. **正确表达**：I can't stand it any longer — the renovation next door has been going on for a month.（隔壁装修敲了一个月，我实在受不了了。）
+
+</details>
+
+<details>
+<summary>错题讲解 2</summary>
+
+1. **考点**：规章语境的表达。
+2. **为什么错**：写了 The lab can't bear any illegal operation，把机构写成有情绪的“人”，而且 operation 前面用 any 搭配也不自然。
+3. **英语的表达逻辑**：机构发通知用 tolerate / allow / permit，主语是规定本身；私人抱怨才用 stand / bear。
+4. **正确表达**：The lab does not tolerate any unsafe practice.（本实验室不容忍任何违规操作。）
+
+</details>
+
+<details>
+<summary>错题讲解 3</summary>
+
+1. **考点**：refresh 的宾语。
+2. **为什么错**：写成 refreshing the logistics，logistics 指物流这套业务，不能“刷新”；要刷的是物流页面或物流信息。
+3. **英语的表达逻辑**：refresh 的宾语是屏幕上的东西——page、feed、screen、list；抽象的业务名要落到具体载体上。
+4. **正确表达**：I can't help refreshing the tracking page.（我忍不住一直刷新物流页面。）
+
+</details>
+
+---
 
 ## 扩展「can't stand + 名词/动名词」相关词汇和搭配 <a id="practice-2026-11-21-2006-0be2fef5"></a>
 

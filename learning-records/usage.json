@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 302,
+  "revision": 303,
   "category": "usage",
   "records": {
     "usage:cannot-vs-cant": {
@@ -146,6 +146,30 @@
       "review_history": [],
       "key": "pretty-as-adverb-informal"
     },
+    "usage:put-up-with-keeps-tolerance": {
+      "id": "usage:put-up-with-keeps-tolerance",
+      "category": "usage",
+      "key": "put-up-with-keeps-tolerance",
+      "status": "learning",
+      "title": "put up with 是“还能忍”，can't put up with 才是“忍不了”",
+      "explanation": "put up with 本身表示容忍、将就，肯定形式说明还能忍；加 can't 才表示忍不了。改写时要跟着原句的肯定/否定立场走，否则前后半句会自相矛盾。",
+      "source": "I can't put up with queuing, but ten minutes is fine for me.",
+      "example": "I can put up with queuing for ten minutes.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-21T20:57:37+08:00",
+      "last_learned_at": "2026-11-21T20:57:37+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "usage:reassure-prepared-tone": {
       "id": "usage:reassure-prepared-tone",
       "category": "usage",
@@ -218,6 +242,30 @@
       ],
       "first_learned_at": "2026-11-21T20:06:46+08:00",
       "last_learned_at": "2026-11-21T20:06:46+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "usage:tolerate-for-rules-not-bear": {
+      "id": "usage:tolerate-for-rules-not-bear",
+      "category": "usage",
+      "key": "tolerate-for-rules-not-bear",
+      "status": "learning",
+      "title": "规章容许不容许用 tolerate，不用 can't bear",
+      "explanation": "bear 是“人承受不了某事”的感受词，主语必须有感受；规定、政策这类主体只表达容许或不容许，用 tolerate（后接名词或动名词），也可用 allow / permit。",
+      "source": "The rule can't bear to eat at the office.",
+      "example": "The rule does not tolerate eating in the office area.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-21T20:57:37+08:00",
+      "last_learned_at": "2026-11-21T20:57:37+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

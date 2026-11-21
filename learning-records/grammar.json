@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 302,
+  "revision": 303,
   "category": "grammar",
   "records": {
     "grammar:a-bit-of-a-singular-countable": {
@@ -168,6 +168,30 @@
       ],
       "first_learned_at": "2026-11-21T20:06:46+08:00",
       "last_learned_at": "2026-11-21T20:06:46+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:cant-wait-to-do-structure": {
+      "id": "grammar:cant-wait-to-do-structure",
+      "category": "grammar",
+      "key": "cant-wait-to-do-structure",
+      "status": "learning",
+      "title": "can't wait 后面固定接 to do",
+      "explanation": "can't wait 表示“迫不及待”，后面固定接不定式：can't wait to do；can't 作为情态动词后面直接跟原形 wait，中间不能再插一个 to，也不能把 to do 换成动名词。",
+      "source": "She can't to wait meeting her old classmates again.",
+      "example": "She can't wait to meet her old classmates again.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-21T20:57:37+08:00",
+      "last_learned_at": "2026-11-21T20:57:37+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
