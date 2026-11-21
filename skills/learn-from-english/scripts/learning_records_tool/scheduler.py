@@ -8,7 +8,8 @@ from typing import Any
 
 REQUIRED_MASTERY_TEN_COUNT = 3
 # 已掌握记录再被抽查时，连续这么多次 10 分就自动退出记录库：只删记录，
-# 笔记 md 保留，之后仍可按笔记路径练习。中间只要有一次不是 10 分就清零重数。
+# 笔记 md 保留，之后仍可按笔记路径练习。进入 mastered 的那次 10 分计入连击，
+# 中间只要有一次不是 10 分就清零重数。
 MASTERED_AUTO_DELETE_TEN_COUNT = 3
 
 

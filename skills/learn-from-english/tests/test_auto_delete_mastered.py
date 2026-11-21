@@ -1,4 +1,4 @@
-"""已掌握记录连续三次 10 分自动删除记录与笔记。"""
+"""已掌握记录连续三次 10 分自动删除记录与笔记（含入档那一次满分）。"""
 
 from __future__ import annotations
 
@@ -38,12 +38,15 @@ class MasteredAutoDeleteTest(unittest.TestCase):
         self.records = RecordService(self.store)
 
     def mark_mastered(self, identifier: str) -> None:
-        """累计第 3 次 10 分进入 mastered（与既有掌握口径一致）。"""
+        """累计第 3 次 10 分进入 mastered（与既有掌握口径一致）；入档分计入连击。"""
         category, key = identifier.split(":", 1)
         self.records.upsert(payload(category, key))
         for _ in range(3):
             self.records.complete_review(identifier, 10)
         self.assertEqual(self.records.records()[identifier]["status"], "mastered")
+        self.assertEqual(
+            self.records.records()[identifier]["mastered_ten_streak"], 1
+        )
 
     def write_note(self, category: str, key: str) -> Path:
         path = self.root / "learning-record-notes" / category / f"{category}-{key}.md"
@@ -57,15 +60,12 @@ class MasteredAutoDeleteTest(unittest.TestCase):
 
         first = self.records.complete_review("usage:polite-request", 10)
         second = self.records.complete_review("usage:polite-request", 10)
-        third = self.records.complete_review("usage:polite-request", 10)
 
         self.assertFalse(first["deleted"])
-        self.assertFalse(second["deleted"])
-        self.assertEqual(first["mastered_ten_streak"], 1)
-        self.assertEqual(second["mastered_ten_streak"], 2)
-        self.assertTrue(third["deleted"])
+        self.assertEqual(first["mastered_ten_streak"], 2)
+        self.assertTrue(second["deleted"])
         self.assertEqual(
-            third["deleted_record"],
+            second["deleted_record"],
             {
                 "id": "usage:polite-request",
                 "category": "usage",
@@ -77,15 +77,14 @@ class MasteredAutoDeleteTest(unittest.TestCase):
         )
         # 只删记录：笔记 md 原样保留，之后仍可按路径练习这个知识点
         self.assertTrue(note.exists())
-        self.assertNotIn("note", third)
-        self.assertNotIn("note_error", third)
+        self.assertNotIn("note", second)
+        self.assertNotIn("note_error", second)
         self.assertNotIn("usage:polite-request", self.records.records())
         self.assertEqual(self.records.summary()["totals"]["mastered"], 0)
 
     def test_a_lower_score_resets_the_streak(self) -> None:
         self.mark_mastered("usage:polite-request")
 
-        self.records.complete_review("usage:polite-request", 10)
         self.records.complete_review("usage:polite-request", 10)
         reset = self.records.complete_review("usage:polite-request", 9)
         self.assertEqual(reset["mastered_ten_streak"], 0)
@@ -104,17 +103,16 @@ class MasteredAutoDeleteTest(unittest.TestCase):
         self.records.upsert(payload("grammar", "another-point"))
 
         self.assertEqual(
-            self.records.records()["usage:polite-request"]["mastered_ten_streak"], 1
+            self.records.records()["usage:polite-request"]["mastered_ten_streak"], 2
         )
-        self.records.complete_review("usage:polite-request", 10)
         final = self.records.complete_review("usage:polite-request", 10)
         self.assertTrue(final["deleted"])
 
-    def test_the_entry_score_is_not_counted_as_the_first_streak(self) -> None:
+    def test_the_entry_score_counts_as_the_first_streak(self) -> None:
         self.mark_mastered("usage:polite-request")
 
         result = self.records.complete_review("usage:polite-request", 10)
-        self.assertEqual(result["mastered_ten_streak"], 1)
+        self.assertEqual(result["mastered_ten_streak"], 2)
         self.assertFalse(result["deleted"])
 
     def test_the_note_is_left_untouched_whether_it_exists_or_not(self) -> None:
@@ -123,7 +121,8 @@ class MasteredAutoDeleteTest(unittest.TestCase):
 
         existing = self.write_note("usage", "polite-request")
         before = existing.read_text(encoding="utf-8")
-        for _ in range(3):
+        result = None
+        for _ in range(2):
             result = self.records.complete_review("usage:polite-request", 10)
 
         self.assertTrue(result["deleted"])
@@ -140,7 +139,6 @@ class MasteredAutoDeleteTest(unittest.TestCase):
     def test_review_round_keeps_the_note_file_when_the_record_was_deleted(self) -> None:
         self.mark_mastered("usage:polite-request")
         note = self.write_note("usage", "polite-request")
-        self.records.complete_review("usage:polite-request", 10)
         self.records.complete_review("usage:polite-request", 10)
 
         result = finish_round(

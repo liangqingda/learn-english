@@ -11,7 +11,7 @@
 - 间隔复习：根据得分、连续高分和遗忘次数计算 `next_review_at`。
 - 掌握判定：复习中同一知识点累计 3 次达到 10 分后才进入 `mastered`。
 - 精简归档：知识点进入 `mastered` 后保留稳定 ID、语义 `key`、标题、讲解、代表例句、标签、掌握时间和连续满分的抽查计数 `mastered_ten_streak`；逐次评分历史与计数会被重置，失分回落时例句与标签仍然可用。
-- 掌握退出：`mastered` 记录被抽查时，连续第 3 次 10 分自动退出记录库——只删记录，笔记 md 保留（仍可按笔记路径练习，但不再有记录可写）；中间一次不到 10 分就清零重数，进入 mastered 的那次 10 分是入档分，不计入连击。
+- 掌握退出：`mastered` 记录被抽查时，连续第 3 次 10 分自动退出记录库——只删记录，笔记 md 保留（仍可按笔记路径练习，但不再有记录可写）；中间一次不到 10 分就清零重数，进入 mastered 的那次 10 分同样计入连击、记作第 1 次。
 - 集中菜单：脚本按对话上下文生成菜单树 —— `initial`、`review-complete`、`learn`（教学侧）三种上下文共用同一生成器，历史试卷入口默认合并进 `menu` 输出；Skill 只负责渲染与分派。
 - 数量就近展示：记录数量只标在对应菜单项末尾，不额外输出状态汇总开场。
 - 相关检索与聚类：搜索先按整句子串命中，整句不成立时自动退回按词检索（返回 `matched_tokens`，查询多带一个修饰词不会把结果归零）；`error-clusters` 按可复用模式聚类，并把无法成组的错题作为 `unclustered` 单独列出，同时给出 `tag_families`；`duplicates --threshold 0.85` 列出可合并的近义记录（体检时用 `--threshold 0.6` 放宽）。
@@ -206,7 +206,7 @@ python3 skills/learn-from-english/scripts/learning_records.py delete-note \
 `mastered` 记录被抽查（`complete-review` / `review-round` 的 `review` 段）时，`RecordService.complete_review` 自己维护 `mastered_ten_streak`：本次 10 分 +1，否则清零；连击达到 `MASTERED_AUTO_DELETE_TEN_COUNT`（3）就把记录从 `mastered-learning-records/` 删除。**只删记录，笔记 md 原样保留**：之后仍可按笔记路径练习这个知识点，只是不再有记录可写（见 `skills/practice-learning-records/references/note-path-entry.md` 的「记录已不在库中时」）。
 
 - 计数存在 `mastered_ten_streak`，已列进 `RecordStore.MASTERED_FIELDS`：否则每次写入都被精简归档掉，连击永远数不到第 3 次。
-- 进 mastered 的那次 10 分不算连击，计数从 0 开始；掉出 mastered（分数 < 10）当场丢弃该字段并报 0，重新掌握后要重新连击。
+- 进 mastered 的那次 10 分也计入连击，记为第 1 次；所以入档后再连做 2 轮满分（合计连续 3 次 10 分）就会退出记录库。掉出 mastered（分数 < 10）当场丢弃该字段并报 0，重新掌握后要重新连击。
 - 返回 `deleted: true`，带 `deleted_record`（`id` / `category` / `key` / `title` / `ten_streak` / `file`），没有 `note` 字段：自动删除不碰文件，所以也不会出现 `note_error`。
 - `review-round` 命中时跳过笔记写入（记录已不在库，追踪行无从取），返回 `note_skipped: {"reason": "record-auto-deleted", "record": ...}`；笔记文件留在原处，`delete-record` / 自动删除都不得顺手删它。
 - 该行为不区分分类：`errors` 分类里被复习到掌握的错误记录同样适用。

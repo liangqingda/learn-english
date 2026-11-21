@@ -607,11 +607,12 @@ class RecordService:
             ]
             # 已掌握记录再被抽查：连续 10 分够次数就自动退出记录库。
             # 计数跨归档保留在 mastered_ten_streak 里（见 RecordStore.MASTERED_FIELDS）；
+            # 进入 mastered 的那次 10 分同样计入连击（记作第 1 次），
             # 掉出 mastered（分数 < 10）当场清零，重新排期时不带着旧连击。
             auto_deleted: dict[str, Any] | None = None
             if record["status"] == "mastered":
                 streak = 0
-                if previous_status == "mastered" and float(score) == 10:
+                if float(score) == 10:
                     streak = int(record.get("mastered_ten_streak") or 0) + 1
                 record["mastered_ten_streak"] = streak
                 if streak >= MASTERED_AUTO_DELETE_TEN_COUNT:
