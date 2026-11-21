@@ -330,9 +330,10 @@ Her humming in the morning bothers me.
 
 **题目**：描述宿舍里让你受不了的三件事。用 can't stand 写 3 句话，句子之间至少使用两种不同的宾语形式（不必说明是哪两种）。
 
-**我的答案**：① I can't stand the way that my roommates speak to me.
-② Can you stand the smoke of your roommates?
-③ I can't stand it when my roommates speak loudly.
+**我的答案**：
+- ① I can't stand the way that my roommates speak to me.
+- ② Can you stand the smoke of your roommates?
+- ③ I can't stand it when my roommates speak loudly.
 
 **判定**：⚠️ 部分正确（the way 从句、名词短语、it when 三种形式都摆出来了，第二句的来源介词用错）
 
@@ -520,13 +521,11 @@ I don't like the way he takes calls at dinner.
 ### 6. 造句
 
 **题目**：描述办公室里让你受不了的三件事。用 can't stand 写 3 句话，其中至少一句写成疑问句，三句之间至少使用两种不同的宾语形式（不必说明是哪两种）。
-① I can't stand the smell of smoke from my colleagues.
-② Can you stand the meeting at six p.m. every day?
-③ I can't stand it when I get off work to get meeting.
 
-**我的答案**：① I can't stand the smell of smoke from my colleagues.
-② Can you stand the meeting at six p.m. every day?
-③ I can't stand it when I get off work to get meeting.
+**我的答案**：
+- ① I can't stand the smell of smoke from my colleagues.
+- ② Can you stand the meeting at six p.m. every day?
+- ③ I can't stand it when I get off work to get meeting.
 
 **判定**：⚠️ 部分正确（① 名词宾语、② 疑问句都成立，③ 的“下班时被叫去开会”没说出来，get meeting 也不是“开会”）
 
@@ -708,13 +707,11 @@ The photocopier jams every Monday. That drives me mad.
 ### 6. 造句
 
 **题目**：描述你室友让你受不了的三件事。用 can't stand 写 3 句话，句子之间至少使用两种不同的宾语形式（不必说明是哪两种）。
-① I can't stand sneezing from my roommates.
-② I can't stand the noise from my roommates.
-③ I can't stand it when my roommates sneezing.
 
-**我的答案**：① I can't stand sneezing from my roommates.
-② I can't stand the noise from my roommates.
-③ I can't stand it when my roommates sneezing.
+**我的答案**：
+- ① I can't stand sneezing from my roommates.
+- ② I can't stand the noise from my roommates.
+- ③ I can't stand it when my roommates sneezing.
 
 **判定**：⚠️ 部分正确（② 的名词宾语成立，① 把“喷嚏声”说成 sneezing from，③ 的 when 从句里没有谓语动词）
 
@@ -888,13 +885,11 @@ The upstairs neighbours practise the violin at midnight. I find it unbearable.
 ### 6. 造句
 
 **题目**：描述你通勤时受不了的三件事。用 can't stand 写 3 句话，句子之间至少使用两种不同的宾语形式（不必说明是哪两种）。
-① I can't stand taking subway in traffic.
-② I can't stand it when I take subway in traffic.
-③ I can't stand it when the subway haven't came.
 
-**我的答案**：① I can't stand taking subway in traffic.
-② I can't stand it when I take subway in traffic.
-③ I can't stand it when the subway haven't came.
+**我的答案**：
+- ① I can't stand taking subway in traffic.
+- ② I can't stand it when I take subway in traffic.
+- ③ I can't stand it when the subway haven't came.
 
 **判定**：⚠️ 部分正确（两句用了 it when、一句用了动名词，但“乘地铁”缺定冠词、in traffic 修饰对象错位、③ 时态与主谓不一致）
 

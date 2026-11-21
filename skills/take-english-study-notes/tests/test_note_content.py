@@ -34,6 +34,45 @@ def basic_block(values: dict[str, str]) -> str:
     )
 
 
+def sentence_making_note(*, stem: str, answer_block: str) -> str:
+    """一道造句题：题干与答案块按参数拼接，用于校验题干 / 答案分区与多句答案分行。"""
+    basic = {
+        "记录 ID / 试卷 ID": "errors:out-west",
+        "目标知识点": "out west 不是 outwest",
+        "累计复习次数": "1",
+        "下次复习": "2026-11-20 12:00",
+        "笔记生成时间": "2026-11-07 12:05",
+        "笔记更新时间": "2026-11-07 12:05",
+    }
+    table = (
+        '<table style="border-collapse:collapse;width:auto">\n'
+        '<colgroup><col width="150"><col></colgroup>\n'
+        "<tr><td>生成时间</td><td>2026-11-07 12:00</td></tr>\n"
+        "<tr><td>本轮得分</td><td>9 / 10</td></tr>\n"
+        "<tr><td>题量与错题数</td><td>1 题 / 0 处错误</td></tr>\n"
+        "</table>\n"
+    )
+    knowledge = (
+        "<details>\n<summary>知识点讲解</summary>\n\n"
+        "1. **本题知识点**：out west 作方向状语\n"
+        "2. **规则与机制**：方位短语保持分写\n"
+        "3. **英语的表达逻辑**：方向用副词短语表示\n"
+        "4. **可迁移表达**：head out west\n\n"
+        "</details>\n"
+    )
+    return (
+        basic_block(basic)
+        + "# 2026-11-07 12:00 · 复习\n\n"
+        + "## 本轮习题\n\n"
+        + table
+        + "\n### 1. 造句\n\n"
+        + f"**题目**：{stem}\n\n"
+        + answer_block
+        + "\n**判定**：✅ 正确\n\n"
+        + knowledge
+    )
+
+
 def note_with_explanation(**kwargs) -> str:
     """在第一个日期区块之前插一份 `## 讲解`，用于校验文件级菜单小节的位置。"""
     text = note_text(**kwargs)
@@ -721,6 +760,40 @@ class NoteContentValidationTest(unittest.TestCase):
 
     def test_answer_number_prefix_is_rejected(self) -> None:
         self.assert_caught(note_text(answer="1. B"), "去掉题号前缀")
+
+    def test_answer_leaked_into_stem_is_rejected(self) -> None:
+        """带圈序号的答案句写进题干区属于答案混入题目，必须被拦下。"""
+        stem = "描述办公室里让你受不了的三件事。用 can't stand 写 3 句话。\n① I can't stand the smoke."
+        answer = "**我的答案**：\n- ① I can't stand the smoke."
+        self.assert_caught(
+            sentence_making_note(stem=stem, answer_block=answer),
+            "题干区不得混入用户答案",
+        )
+
+    def test_multi_item_answer_must_be_list_items(self) -> None:
+        """多句答案裸换行拼接会被 Markdown 并成一段，必须逐条写成列表项。"""
+        answer = (
+            "**我的答案**：① I can't stand the smoke.\n"
+            "② Can you stand the noise?\n"
+            "③ I can't stand it when he shouts."
+        )
+        self.assert_caught(
+            sentence_making_note(stem="写 3 句话。", answer_block=answer),
+            "逐条写成列表项",
+        )
+
+    def test_multi_item_answer_as_list_passes(self) -> None:
+        """多句答案逐条写成列表项、题干不含答案句时校验通过。"""
+        answer = (
+            "**我的答案**：\n"
+            "- ① I can't stand the smoke.\n"
+            "- ② Can you stand the noise?\n"
+            "- ③ I can't stand it when he shouts."
+        )
+        self.assertEqual(
+            self.check(sentence_making_note(stem="写 3 句话。", answer_block=answer)),
+            [],
+        )
 
     def test_invalid_score_is_rejected(self) -> None:
         self.assert_caught(note_text(score="abc / 999"), "`本轮得分` 只能是")

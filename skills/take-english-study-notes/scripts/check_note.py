@@ -315,6 +315,11 @@ MERGED_SUBITEMS_RE = re.compile(r"\(a\)[^\n]*\(b\)")
 # 裸选项行：行首 A./B./C./D. 但没有 `- `/`* `/`+ ` 列表标记。相邻裸文本行会被
 # Markdown 合并成同一段，渲染时选项堆在一起，必须逐条写成 `- A. …` 列表项。
 BARE_CHOICE_RE = re.compile(r"^\s*[A-D]\.\s+\S")
+# 带圈序号行：造句等多句答案用 ①②③… 编号；出现在题干区即视为混入的用户答案。
+CIRCLED_LINE_RE = re.compile(r"^\s*[①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮]")
+# 答案区带序号枚举的条目（① / (1) / 1.）；多条时必须逐条写成列表项，软换行渲染后会并成一段。
+ANSWER_ENUM_RE = re.compile(r"^\s*(?:[①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮]|\(\d+\)|\d+[.)、])")
+LIST_ITEM_RE = re.compile(r"^\s*(?:[-*+]\s+)")
 TABLE_ROW_RE = re.compile(r"<tr>\s*<td>(.*?)</td>\s*<td>(.*?)</td>\s*</tr>")
 DATE_SUFFIX_RE = re.compile(r"-\d{4}-\d{2}-\d{2}\.md$")
 RECORD_CATEGORIES = ("vocabulary", "phrases", "grammar", "usage", "errors")
@@ -1533,26 +1538,57 @@ def check(path: Path) -> list[dict]:
                 if fields[:3] != ["题目", "我的答案", "判定"]:
                     add(base_line, "每道题必须依次包含 `**题目**：`、`**我的答案**：`、`**判定**：` 三个字段")
 
-                field_values: dict[str, str] = {}
+                # 字段值允许跨多行：答案标签行留空、内容写成下方列表项时，把后续列表行收进答案字段；
+                # 题干与判定仍只取标签行，折叠块开始后不再并入任何字段。
+                field_values: dict[str, list[str]] = {}
+                current_field: str | None = None
                 for line in block:
                     match = re.match(r"^\*\*(题目|我的答案|判定)\*\*：\s*(.*)$", line)
-                    if match and match.group(1) not in field_values:
-                        field_values[match.group(1)] = match.group(2).strip()
+                    if match:
+                        current_field = match.group(1)
+                        field_values.setdefault(current_field, []).append(match.group(2).strip())
+                    elif line.strip() == "<details>":
+                        current_field = None
+                    elif current_field == "我的答案" and line.strip():
+                        field_values[current_field].append(line.strip())
+                question_text = " ".join(field_values.get("题目", []))
+                answer_text = " ".join(field_values.get("我的答案", []))
                 # 题干区（`**题目**：` 之后、`**我的答案**：` 之前）里的选项必须是列表项；
                 # 裸 `A. …` 相邻行会被 Markdown 合并成一段，渲染堆在一行。
                 in_stem = False
+                in_answer = False
+                answer_lines: list[str] = []
                 for line in block:
                     field_match = FIELD_RE.match(line)
                     if field_match:
                         in_stem = field_match.group(1) == "题目"
+                        in_answer = field_match.group(1) == "我的答案"
+                        if in_answer:
+                            answer_lines.append(line)
                         continue
-                    if in_stem and BARE_CHOICE_RE.match(line):
-                        add(
-                            base_line,
-                            "选择题选项必须逐条写成列表项（`- A. …`），裸写 `A. …` 会被渲染挤成一行",
-                        )
-                question_text = field_values.get("题目", "")
-                answer_text = field_values.get("我的答案", "")
+                    if in_stem:
+                        if BARE_CHOICE_RE.match(line):
+                            add(
+                                base_line,
+                                "选择题选项必须逐条写成列表项（`- A. …`），裸写 `A. …` 会被渲染挤成一行",
+                            )
+                        if CIRCLED_LINE_RE.match(line):
+                            add(
+                                base_line,
+                                "题干区不得混入用户答案：带 ①②③ 编号的答案句只写进 `**我的答案**`",
+                            )
+                    elif in_answer and line.strip():
+                        answer_lines.append(line)
+                # 一题多句 / 多小题答案：带序号的条目必须逐条写成列表项；裸换行是软换行，
+                # 渲染后会并成同一段。至少两条枚举条目才要求列表化，单条答案不受影响。
+                enum_answer_lines = [line for line in answer_lines if ANSWER_ENUM_RE.match(line)]
+                if len(enum_answer_lines) >= 2:
+                    for line in answer_lines:
+                        if ANSWER_ENUM_RE.match(line) and not LIST_ITEM_RE.match(line):
+                            add(
+                                base_line,
+                                "多句 / 多小题答案必须逐条写成列表项（`- ① …`），一条一行；裸换行渲染后会并成一段",
+                            )
                 if not question_text:
                     add(base_line, "`**题目**：` 必须写出完整题干，不能为空")
                 if not answer_text:
