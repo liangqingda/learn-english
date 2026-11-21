@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-19 07:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-21 19:20</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-21 19:26</td></tr>
 </table>
 
 ## 讲解
@@ -84,7 +84,7 @@
   - I can't wait to sleep through the night again.（我迫不及待想一觉睡到天亮。）
 
 <details>
-<summary>场景对话原文</summary>
+<summary>场景对话原文 1</summary>
 
 - **Mei**：Morning! Did you catch the eight fifteen today?
   - 梅：早！你今天赶上八点十五那班了吗？
@@ -102,6 +102,40 @@
   - 梅：也对。要不要吃最后那个小面包？我昨天买多了。
 - **Dan**：Sure, thanks. I skipped breakfast this morning.
   - 丹：好啊，谢了。我今天早上没吃早饭。
+
+</details>
+
+<details>
+<summary>场景对话原文 2</summary>
+
+- **Marta**：You look like you've already had a whole morning.
+  - 玛塔：看你这脸色，一早上就过完了一整天似的。
+- **Dev**：Don't get me started. Someone booked the meeting room at nine and never turned up.
+  - 德夫：别提了。有人订了九点的会议室，人一直没出现。
+- **Marta**：The big one by the window?
+  - 玛塔：靠窗那个大的？
+- **Dev**：That's the one. I stood in the corridor for twenty minutes with a laptop bag and a cup of coffee.
+  - 德夫：就是那个。我拎着电脑包、端着一杯咖啡，在走廊站了二十分钟。
+- **Marta**：Ouch. Did you get it in the end?
+  - 玛塔：哎哟。最后用上了吗？
+- **Dev**：Half past nine. Then the printer jammed, so I had to call IT for the code again.
+  - 德夫：九点半才用上。然后打印机卡纸，我又得找 IT 要密码。
+- **Marta**：**I can't stand the way people take the last sheet and walk off.**
+  - 玛塔：有人把最后一张纸抽走就走人，我真受不了。
+- **Dev**：And the mugs. Every afternoon there's a stack of them in the sink.
+  - 德夫：还有杯子。每天下午水槽里都堆一堆。
+- **Marta**：**I really can't stand dirty mugs in the sink**, but I've stopped bringing it up.
+  - 玛塔：脏杯子堆在水槽里，我实在受不了，不过我已经懒得提了。
+- **Dev**：You're more patient than I am. I said something to Raj last week and it got strange.
+  - 德夫：你比我沉得住气。上周我跟拉杰提了一句，气氛就怪怪的。
+- **Marta**：Strange how?
+  - 玛塔：怎么个怪法？
+- **Dev**：He laughed and said the cleaner would sort it out. That was three weeks ago.
+  - 德夫：他笑了一下，说保洁会处理。那是三个星期前的事了。
+- **Marta**：Classic. Shall we split a pot of tea and forget about it for ten minutes?
+  - 玛塔：太典型了。要不要分一壶茶，先忘掉这些十分钟？
+- **Dev**：Yes. And if anyone knocks, we're in a meeting.
+  - 德夫：要。要是有人敲门，就说我们在开会。
 
 </details>
 
