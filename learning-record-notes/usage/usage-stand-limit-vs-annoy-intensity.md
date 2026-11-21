@@ -4,8 +4,8 @@
 <colgroup><col width="150"><col></colgroup>
 <tr><td>记录 ID / 试卷 ID</td><td>usage:stand-limit-vs-annoy-intensity</td></tr>
 <tr><td>目标知识点</td><td>“再也忍不下去”用 can't put up with … any longer，不用 drive me crazy</td></tr>
-<tr><td>累计复习次数</td><td>—</td></tr>
-<tr><td>下次复习</td><td>—</td></tr>
+<tr><td>累计复习次数</td><td>1</td></tr>
+<tr><td>下次复习</td><td>2026-11-24 22:03</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-21 22:02</td></tr>
 <tr><td>笔记更新时间</td><td>2026-11-21 22:03</td></tr>
 </table>
