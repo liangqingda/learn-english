@@ -483,18 +483,21 @@ class NoteContentValidationTest(unittest.TestCase):
 
     def test_round_section_with_exercises_only_passes(self) -> None:
         """带习题的菜单项在日期区块里只写习题，不重复讲解要点。"""
-        text = note_text() + (
-            "\n## 用 out west 做翻译练习\n\n"
-            "### 1. 翻译\n\n"
-            "**题目**：中译英：她往西边出发了。\n\n"
-            "**我的答案**：She headed out west.\n\n"
-            "**判定**：✅ 正确\n\n"
-            "<details>\n<summary>知识点讲解</summary>\n\n"
-            "1. **本题知识点**：out west 作方向状语\n"
-            "2. **规则与机制**：out 与 west 分写\n"
-            "3. **英语的表达逻辑**：方向副词短语\n"
-            "4. **可迁移表达**：head out west\n\n"
-            "</details>\n"
+        text = with_file_level_section(
+            note_text() + (
+                "\n## 用 out west 做翻译练习\n\n"
+                "### 1. 翻译\n\n"
+                "**题目**：中译英：她往西边出发了。\n\n"
+                "**我的答案**：She headed out west.\n\n"
+                "**判定**：✅ 正确\n\n"
+                "<details>\n<summary>知识点讲解</summary>\n\n"
+                "1. **本题知识点**：out west 作方向状语\n"
+                "2. **规则与机制**：out 与 west 分写\n"
+                "3. **英语的表达逻辑**：方向副词短语\n"
+                "4. **可迁移表达**：head out west\n\n"
+                "</details>\n"
+            ),
+            "## 用 out west 做翻译练习\n",
         )
         self.assertEqual(self.check(text), [])
 
@@ -506,10 +509,13 @@ class NoteContentValidationTest(unittest.TestCase):
         self.assert_caught(text, "标题必须带序号")
 
     def test_same_day_repeated_menu_section_with_sequence_passes(self) -> None:
-        text = with_second_round(
-            note_text() + menu_practice("## 练习「out west」的关键语法结构 - 01"),
-            "2026-11-07 21:00",
-            menu_practice("## 练习「out west」的关键语法结构 - 02"),
+        text = with_file_level_section(
+            with_second_round(
+                note_text() + menu_practice("## 练习「out west」的关键语法结构 - 01"),
+                "2026-11-07 21:00",
+                menu_practice("## 练习「out west」的关键语法结构 - 02"),
+            ),
+            "## 练习「out west」的关键语法结构\n",
         )
         self.assertEqual(self.check(text), [])
 
@@ -949,7 +955,14 @@ class NoteContentValidationTest(unittest.TestCase):
 
     def test_practice_block_is_counted_in_the_note(self) -> None:
         """练习轮次的得分写进笔记：本轮信息表带分，菜单项小节各带三行表。"""
-        self.assertEqual(self.check(practice_note_text()), [])
+        self.assertEqual(
+            self.check(
+                with_file_level_section(
+                    practice_note_text(), "## 练习「out west」的关键语法结构\n"
+                )
+            ),
+            [],
+        )
 
     def test_practice_block_needs_questions(self) -> None:
         text = practice_note_text().split("## 练习「out west」的关键语法结构")[0]
@@ -998,7 +1011,10 @@ class NoteContentValidationTest(unittest.TestCase):
         newer = menu_practice_scored(stamp="2026-11-07 21:00").replace(
             base_title, f"{base_title} - 02"
         )
-        text = note_text() + older + newer  # 旧的在前（违规）
+        text = with_file_level_section(
+            note_text() + older + newer, base_title + "\n"
+        )  # 旧的在前（违规）
+        text = apply_practice_index(text)
         self.assert_caught(text, "日期区块内的习题小节必须按落盘时间倒序排列")
         fixed, fixes = check_note.apply_safe_fixes(text)
         self.assertIn("把日期区块内的习题小节按落盘时间倒序重排（最新一节在最前）", fixes)
@@ -1143,7 +1159,10 @@ class NoteContentValidationTest(unittest.TestCase):
         self.assertEqual(matched[0]["line"], line_no)
 
     def test_scored_menu_section_passes(self) -> None:
-        text = with_menu_section(note_text(), menu_practice_scored())
+        text = with_file_level_section(
+            with_menu_section(note_text(), menu_practice_scored()),
+            "## 练习「out west」的关键语法结构\n",
+        )
         self.assertEqual(self.check(text), [])
 
     def test_menu_section_counts_must_match_its_questions(self) -> None:

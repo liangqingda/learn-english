@@ -667,7 +667,7 @@ def apply_practice_index(text: str) -> str:
                     anchor = (
                         round_anchor_id(date, time)
                         if base == f"## {QUIZ_SECTION}"
-                        else practice_anchor_id(date, time, base, seq)
+                        else practice_anchor_id(date, time, _heading_key(base), seq)
                     )
                     out[-1] = f'{title} <a id="{anchor}"></a>'
                 continue
@@ -812,6 +812,26 @@ def _explain_area_bounds(lines: list[str]) -> tuple[int, int]:
     if explain_start is None:
         return first_round, first_round
     return explain_start, first_round
+
+
+def _ensure_file_section(lines: list[str], base: str) -> list[str]:
+    """补上习题小节对应的文件级标题小节（讲解区骨架）。
+
+    一个带习题的菜单项即使这一轮没有讲解要点，讲解区（``## 讲解`` 之后、日期区块之前）
+    也应该有同名 ``## 小节``：小节内没有讲解正文，只由索引重建挂上 ``复习历史`` 索引。
+    讲解区里已有同名小节时原样返回；标题比对先剥行首装饰 emoji。
+    """
+    explain_start, area_end = _explain_area_bounds(lines)
+    if explain_start is None or area_end <= explain_start:
+        return lines
+    key = _heading_key(base)
+    for index in range(explain_start + 1, area_end):
+        if _heading_key(lines[index]) == key:
+            return lines
+    prefix = lines[:area_end]
+    while prefix and not prefix[-1].strip():
+        prefix.pop()
+    return prefix + ["", base, ""] + lines[area_end:]
 
 
 def _next_free_heading(heading: str, existing: list[str]) -> str:
@@ -1550,12 +1570,15 @@ class NoteStore:
                 )
         _check_round_sections(section)
         section_heading = first
+        incoming_base, incoming_seq = _section_base(section_heading)
         wanted = _normalize_text(heading).strip()
         with self._exclusive_lock():
             existing = _normalize_text(self._read(target))
             if not existing:
                 raise NoteError(f"note does not exist: {self.relative(target)}")
             lines = existing.split("\n")
+            # 讲解区补一个同名文件级骨架小节：没有讲解要点时小节内只保留复习历史索引。
+            lines = _ensure_file_section(lines, incoming_base)
             matches = [
                 index
                 for index, line in enumerate(lines)
@@ -1577,7 +1600,6 @@ class NoteStore:
                 len(lines),
             )
             block_lines = lines[start:end]
-            incoming_base, incoming_seq = _section_base(section_heading)
             for existing_heading, body in _sections("\n".join(block_lines)):
                 if _heading_key(_section_base(existing_heading)[0]) != _heading_key(incoming_base):
                     continue

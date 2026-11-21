@@ -73,6 +73,10 @@ class NoteAppendTest(unittest.TestCase):
         self.directory.cleanup()
 
     def test_append_part_adds_to_an_existing_section_only(self) -> None:
+        self.store.write_explanation(
+            self.note,
+            "## 基础信息\n\n<table>\n</table>\n\n## 讲解\n\n**错误机制**：\n\n- 讲解\n",
+        )
         self.store.append(self.note, round_block())
         self.store.append_section(
             self.note,
@@ -95,7 +99,8 @@ class NoteAppendTest(unittest.TestCase):
         )
         self.assertTrue(result["appended_part"])
         text = self.note.read_text(encoding="utf-8")
-        self.assertEqual(text.count("## 扩展练习"), 1)
+        # 一处讲解区骨架小节 + 一处日期区块习题小节
+        self.assertEqual(text.count("## 扩展练习"), 2)
         self.assertIn("### 2. 翻译", text)
         self.assertLess(text.index("### 1. 翻译"), text.index("### 2. 翻译"))
 
@@ -933,6 +938,23 @@ def block_text(heading: str, answer: str) -> str:
     return NOTE_HEAD + VALID_BLOCK.format(heading=heading, stamp=heading.split(" · ")[0], answer=answer)
 
 
+EXPLAIN_BLOCK = (
+    "## 讲解\n\n"
+    "**错误机制**：\n\n- 方位短语分写\n"
+    "  - `She headed out west.`（她往西边出发了。）\n\n"
+    "**使用场景**：\n\n- 招呼客人自取食物\n"
+)
+
+
+def block_text_with_explanation(heading: str, answer: str) -> str:
+    """在基础信息头之后再带一份合规的 `## 讲解`，用于后续 append-section 补文件级骨架小节。"""
+    return (
+        NOTE_HEAD
+        + EXPLAIN_BLOCK
+        + VALID_BLOCK.format(heading=heading, stamp=heading.split(" · ")[0], answer=answer)
+    )
+
+
 class NoteWriteEntireTest(unittest.TestCase):
     """整篇写入：校验通过才落盘，不过就回滚。"""
 
@@ -1075,7 +1097,7 @@ class NoteCliTest(unittest.TestCase):
         """新小节落盘时由写入器盖章 `生成时间`：调用方没写也一定有这一行。"""
         self.run_cli(
             ["append", "--file", "learning-record-notes/errors/errors-out-west.md", "--content-file", "-"],
-            block_text(heading="2026-11-09 09:00 · 复习", answer="west"),
+            block_text_with_explanation(heading="2026-11-09 09:00 · 复习", answer="west"),
         )
         section = extra_section("## 扩展练习", "第一题的题干").strip("\n") + "\n"
         added = self.run_cli(
@@ -1107,7 +1129,7 @@ class NoteCliTest(unittest.TestCase):
         """append-part 只在既有小节里补写题目：小节数不变，笔记仍然通过校验。"""
         self.run_cli(
             ["append", "--file", "learning-record-notes/errors/errors-out-west.md", "--content-file", "-"],
-            block_text(heading="2026-11-09 09:00 · 复习", answer="west"),
+            block_text_with_explanation(heading="2026-11-09 09:00 · 复习", answer="west"),
         )
         section = extra_section("## 扩展练习", "第一题的题干").strip("\n") + "\n"
         added = self.run_cli(
@@ -1155,7 +1177,8 @@ class NoteCliTest(unittest.TestCase):
         self.assertTrue(payload["appended_part"])
         self.assertTrue(payload["check"]["ok"])
         text = self.note.read_text(encoding="utf-8")
-        self.assertEqual(text.count("## 扩展练习"), 1)
+        # 一处讲解区骨架小节 + 一处日期区块习题小节
+        self.assertEqual(text.count("## 扩展练习"), 2)
         self.assertIn("### 2. 翻译", text)
 
     def test_cli_append_part_rejects_a_new_section_heading(self) -> None:

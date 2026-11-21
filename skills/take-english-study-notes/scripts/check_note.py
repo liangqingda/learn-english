@@ -705,7 +705,15 @@ def validate_menu_section(
             line_no,
             "菜单项只写一组 `**讲解要点**：`：把可迁移表达/示例写成对应要点的缩进子项，不要另起 `**可迁移表达**：`",
         )
-    if not mfields and (not in_round_block or not q_positions):
+    # 纯习题菜单项的文件级骨架小节：这一轮没有讲解要点，小节内只挂 `复习历史` 索引，
+    # 不要求 `**讲解要点**：`；只要正文里没有习题、讲解要点或对话/故事原文即可。
+    index_only_skeleton = (
+        not in_round_block
+        and not mfields
+        and not q_positions
+        and (INDEX_TITLE in section_text or "practice-index" in section_text)
+    )
+    if not mfields and (not in_round_block or not q_positions) and not index_only_skeleton:
         add(line_no, "每个菜单项必须有 `**讲解要点**：`，其下用列表逐条写要点")
     if not in_round_block and q_positions:
         add(
@@ -729,19 +737,20 @@ def validate_menu_section(
                 "日期区块只放习题：场景对话 / 小故事原文要写在文件级讲解区，"
                 "不要放在日期区块里",
             )
-    points = [
-        line
-        for line in intro
-        if STRUCTURED_LINE_RE.match(line.strip()) and not MENU_CHILD_RE.match(line)
-    ]
-    children = [line for line in intro if MENU_CHILD_RE.match(line)]
-    if mfields[:1] == ["讲解要点"] and not points:
-        add(line_no, "`**讲解要点**：` 必须用无序/有序列表逐条写要点，不要揉成一段文字")
-    if points and not children:
-        add(
-            line_no,
-            "每条讲解要点至少要有一个缩进子项写出对应的可迁移表达或示例（`  - 例句`）",
-        )
+    if not index_only_skeleton:
+        points = [
+            line
+            for line in intro
+            if STRUCTURED_LINE_RE.match(line.strip()) and not MENU_CHILD_RE.match(line)
+        ]
+        children = [line for line in intro if MENU_CHILD_RE.match(line)]
+        if mfields[:1] == ["讲解要点"] and not points:
+            add(line_no, "`**讲解要点**：` 必须用无序/有序列表逐条写要点，不要揉成一段文字")
+        if points and not children:
+            add(
+                line_no,
+                "每条讲解要点至少要有一个缩进子项写出对应的可迁移表达或示例（`  - 例句`）",
+            )
     if "场景对话" in title:
         dialogue_blocks = details_blocks(section_text, DIALOGUE_SUMMARY)
         if not dialogue_blocks:
@@ -1008,6 +1017,20 @@ def check(path: Path) -> list[dict]:
     for anchor_id, line_no in seen_ids.items():
         if sum(1 for line in lines if f'id="{anchor_id}"' in line) > 1:
             add(line_no, f"隐藏锚点重复：`{anchor_id}`；每份习题小节只能有一个锚点")
+
+    # 2d-补：每个习题小节在讲解区都要有同名文件级小节；没有讲解要点时小节内只挂复习历史索引
+    head_section_keys = {
+        section_key(match.group(1).strip())
+        for line in head
+        if (match := SECTION2_RE.match(line))
+    }
+    for key, items in entries.items():
+        if key not in head_section_keys:
+            add(
+                int(items[0][3]),
+                f"「{key}」已有习题小节，讲解区需要同名文件级小节；"
+                "没有讲解要点时小节内只保留复习历史索引",
+            )
 
     # 2e. `## 讲解` 下的复习历史目录：每个日期区块的 `## 本轮习题`
     rounds = round_entries(lines)
