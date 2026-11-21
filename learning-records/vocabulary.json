@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 304,
+  "revision": 307,
   "category": "vocabulary",
   "records": {
     "vocabulary:a-little-bit": {
@@ -758,6 +758,30 @@
       ],
       "key": "plate-as-verb-arrange-food"
     },
+    "vocabulary:property-management-office": {
+      "id": "vocabulary:property-management-office",
+      "category": "vocabulary",
+      "key": "property-management-office",
+      "status": "learning",
+      "title": "物业是 property management (office)，不能用 meet property",
+      "explanation": "property 指房产、财产，“物业”这套管理服务要说 property management 或 the property management office；去找它办事用 talk to / contact / complain to，meet 只表示会面。",
+      "source": "I intend to meet property.",
+      "example": "I'm going to talk to the property management office.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-21T22:03:05+08:00",
+      "last_learned_at": "2026-11-21T22:03:05+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "vocabulary:range": {
       "id": "vocabulary:range",
       "category": "vocabulary",
@@ -985,6 +1009,30 @@
       "mastered_at": null,
       "review_history": [],
       "key": "stand-bear-put-up-with"
+    },
+    "vocabulary:stand-past-participle-stood": {
+      "id": "vocabulary:stand-past-participle-stood",
+      "category": "vocabulary",
+      "key": "stand-past-participle-stood",
+      "status": "learning",
+      "title": "stand 的过去分词是 stood，不是 standed",
+      "explanation": "stand 是不规则动词（stand–stood–stood），完成时用 have stood；写成 standed 是把不规则动词当规则动词处理。",
+      "source": "I have standed it for two months.",
+      "example": "I've stood it for two months.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-21T22:03:05+08:00",
+      "last_learned_at": "2026-11-21T22:03:05+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "vocabulary:steaming-steam-adj": {
       "id": "vocabulary:steaming-steam-adj",

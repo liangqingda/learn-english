@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 304,
+  "revision": 307,
   "category": "grammar",
   "records": {
     "grammar:a-bit-of-a-singular-countable": {
@@ -1208,6 +1208,30 @@
       "first_learned_at": "2026-11-21T17:53:06+08:00",
       "last_learned_at": "2026-11-21T18:50:47+08:00",
       "learned_count": 2,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:sentence-missing-predicate": {
+      "id": "grammar:sentence-missing-predicate",
+      "category": "grammar",
+      "key": "sentence-missing-predicate",
+      "status": "learning",
+      "title": "英语句子必须有谓语：只剩名词短语加介词短语不成句",
+      "explanation": "一个句子只有主语和一个名词短语、介词短语而没有谓语动词时是残句；中文里作谓语的“响/持续”要落成 go on、last、keep going 这类动词。",
+      "source": "The upstairs neighbor's renovation noise from morning to evening.",
+      "example": "The drilling from the renovation upstairs goes on from morning till night.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-21T22:03:05+08:00",
+      "last_learned_at": "2026-11-21T22:03:05+08:00",
+      "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,
