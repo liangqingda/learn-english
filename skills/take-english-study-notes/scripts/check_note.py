@@ -1016,6 +1016,17 @@ def check(path: Path) -> list[dict]:
                 )
                 break
 
+    # 2c-ter. 正误对照一行只讲一个错点与一个改法：两个及以上 ✅ 会让错因归属不清
+    for index, line in enumerate(lines):
+        if line.lstrip().startswith("|"):
+            continue
+        if line.count("✅") >= 2:
+            add(
+                index + 1,
+                "一行 `❌ → ✅` 只能给一个改法：同一错点的多个正确写法各起一行；"
+                "错因写在 ❌ 那一侧，不要放在 ✅ 之后，也不要用 `／` 与错因串在同一行",
+            )
+
     # 2d. 习题锚点与文件级小节的索引（由写入命令自动维护，手写会与真实小节漂移）
     entries = practice_entries(lines)
     seen_ids: dict[str, int] = {}

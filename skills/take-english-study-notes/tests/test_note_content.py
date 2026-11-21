@@ -1246,6 +1246,33 @@ class NoteContentValidationTest(unittest.TestCase):
         )
         self.assert_caught(text, "只属于本轮表")
 
+    def test_error_pair_line_with_two_fixes_is_rejected(self) -> None:
+        """一条 ❌ → ✅ 塞两个正确写法会让错因归属不清，必须被拦下。"""
+        pair = (
+            "- ❌ I can't stand it no longer. → ✅ I can't stand it any longer.（我再也受不了了。）"
+            "／✅ I can no longer stand it.（我再也无法忍受了。）can't 与 no longer 叠成双重否定。\n"
+        )
+        text = note_with_explanation().replace("- 一条机制\n", "- 一条机制\n" + pair, 1)
+        issues = self.check(text)
+        self.assertTrue(
+            any("一行 `❌ → ✅` 只能给一个改法" in item["message"] for item in issues),
+            issues,
+        )
+
+    def test_error_pair_lines_split_one_fix_each_pass(self) -> None:
+        """同一错点的两个正确写法各起一行，且错因归到 ❌ 一侧时通过。"""
+        pair = (
+            "- 一个否定意义只由一个词承担，can't 与 no longer 同时出现就是双重否定。\n"
+            "  - ❌ I can't stand it no longer.\n"
+            "  - ✅ I can't stand it any longer.（我再也受不了了。）\n"
+            "  - ✅ I can no longer stand it.（我再也无法忍受了。）\n"
+        )
+        text = note_with_explanation().replace("- 一条机制\n", pair, 1)
+        issues = self.check(text)
+        self.assertFalse(
+            any("一行 `❌ → ✅` 只能给一个改法" in item["message"] for item in issues),
+            issues,
+        )
 
 
 class NoteEntryPointTest(unittest.TestCase):
