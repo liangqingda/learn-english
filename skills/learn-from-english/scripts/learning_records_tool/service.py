@@ -45,6 +45,23 @@ LEGACY_LOCATIONS = {
 REVIEW_CLAIM_TTL = timedelta(minutes=45)
 NEW_ITEM_REVIEW_INTERVAL = 4
 
+# 整句搜索（raw_needle 子串命中）找不到时退回按词检索：查询里多带一个词
+# （把 `can't stand` 写成 `cant stand doing`）不该让整条检索归零。
+SEARCH_STOPWORDS = frozenset(
+    {
+        "a", "an", "the", "to", "of", "in", "on", "at", "for", "and", "or", "but",
+        "is", "are", "was", "were", "be", "been", "being", "do", "does", "did",
+        "it", "this", "that", "with", "from", "not", "no", "can", "cannot",
+        "could", "would", "should", "will", "may", "might", "must", "i", "you", "he",
+        "she", "they", "we", "my", "your", "his", "her", "their", "our", "as", "if",
+        "when", "while", "than", "then", "so", "such", "sth", "sb", "someone",
+        "something",
+    }
+)
+TOKEN_SEARCH_RESULT_LIMIT = 15
+# 新建记录时给出的“疑似同知识点”提示阈值：低于它不提醒，高于它交给调用方核对。
+DEDUPE_ADVISORY_SIMILARITY = 0.55
+
 
 class RecordService:
     def __init__(self, store: RecordStore):
@@ -63,6 +80,46 @@ class RecordService:
         return SequenceMatcher(
             None, cls._normalized_similarity_text(left), cls._normalized_similarity_text(right)
         ).ratio()
+
+    @staticmethod
+    def _word_set(value: str | None) -> set[str]:
+        """把一段文本切成小写单词集合（撇号先压掉，`can't` 与 `cant` 视为同一词）。"""
+        return set(re.findall(r"[a-z0-9]+", re.sub(r"[\u2019']", "", (value or "").casefold())))
+
+    @staticmethod
+    def _search_tokens(query: str) -> list[str]:
+        tokens = re.findall(r"[a-z0-9]+", re.sub(r"[\u2019']", "", query.casefold()))
+        return [token for token in tokens if len(token) > 1 and token not in SEARCH_STOPWORDS]
+
+    @classmethod
+    def _possible_duplicates(
+        cls, records: dict[str, dict[str, Any]], candidate: dict[str, Any], *, limit: int = 3
+    ) -> list[dict[str, Any]]:
+        """同分类里标题足够像的既有记录：给调用方一个“可能是同一个知识点”的提示。
+
+        只在**新建**记录时报告，不自动合并：文本相似度判不出 `can't stand doing`
+        与 `can't stand + 名词/动名词` 这种同义不同措辞，硬合并会把两条独立知识点
+        揉成一条。提示交给调用方核对后自行决定复用既有 id 还是保留新 key。
+        """
+        rows = []
+        for existing in records.values():
+            if existing.get("category") != candidate.get("category"):
+                continue
+            if existing["id"] == candidate["id"]:
+                continue
+            title_similarity = cls._text_similarity(candidate.get("title"), existing.get("title"))
+            if title_similarity < DEDUPE_ADVISORY_SIMILARITY:
+                continue
+            rows.append((title_similarity, existing))
+        rows.sort(key=lambda item: (-item[0], item[1]["id"]))
+        return [
+            {
+                "id": existing["id"],
+                "title": existing["title"],
+                "title_similarity": round(similarity, 3),
+            }
+            for similarity, existing in rows[:limit]
+        ]
 
     @classmethod
     def _similar_match_reason(
@@ -267,18 +324,20 @@ class RecordService:
                         }
                     )
                     continue
+                possible = self._possible_duplicates(database["records"], candidate)
                 database["records"][candidate["id"]] = candidate
-                results.append(
-                    {
-                        "id": candidate["id"],
-                        "created": True,
-                        "encountered": False,
-                        "match_reason": None,
-                        "similarity": None,
-                        "status": candidate["status"],
-                        "learned_count": 1,
-                    }
-                )
+                entry = {
+                    "id": candidate["id"],
+                    "created": True,
+                    "encountered": False,
+                    "match_reason": None,
+                    "similarity": None,
+                    "status": candidate["status"],
+                    "learned_count": 1,
+                }
+                if possible:
+                    entry["possible_duplicates"] = possible
+                results.append(entry)
             return {"results": results, "count": len(results)}
 
         result = self.store.transaction(operation)
@@ -443,13 +502,17 @@ class RecordService:
                 "similarity": similarity,
                 "enriched_fields": enriched_fields,
             }
+        possible = RecordService._possible_duplicates(records, candidate)
         records[candidate["id"]] = candidate
-        return {
+        entry = {
             "id": candidate["id"],
             "created": True,
             "match_reason": None,
             "similarity": None,
         }
+        if possible:
+            entry["possible_duplicates"] = possible
+        return entry
 
     def merge_records(
         self,
@@ -749,7 +812,74 @@ class RecordService:
                     },
                 )
             )
-        return [item[2] for item in sorted(ranked_results)]
+        if ranked_results:
+            return [item[2] for item in sorted(ranked_results)]
+        return self._token_search(tokens=self._search_tokens(query), statuses=statuses)
+
+    def _token_search(
+        self, *, tokens: list[str], statuses: set[str] | None
+    ) -> list[dict[str, Any]]:
+        """整句没命中时按词兜底：按命中词覆盖比例打分排序，多余的修饰词不再一票否决。
+
+        只命中一个词也会返回（排在后面），所以把 `can't stand` 写成
+        `cant stand doing` 这类“多带一个词”的查询仍能找回目标记录。
+        """
+        if not tokens:
+            return []
+        field_weights = {
+            "title": 8,
+            "tags": 7,
+            "source": 5,
+            "example": 4,
+            "explanation": 3,
+        }
+        ranked_results = []
+        for record in self.records().values():
+            if statuses is not None and record["status"] not in statuses:
+                continue
+            values = {
+                "title": str(record.get("title", "")),
+                "tags": " ".join(record.get("tags", [])),
+                "source": str(record.get("source", "")),
+                "example": str(record.get("example", "")),
+                "explanation": str(record.get("explanation", "")),
+            }
+            words = {field: self._word_set(value) for field, value in values.items()}
+            matched_tokens: list[str] = []
+            score = 0.0
+            for field, word_set in words.items():
+                hits = [token for token in tokens if token in word_set]
+                if not hits:
+                    continue
+                score += field_weights[field] * len(hits) / len(tokens)
+                for token in hits:
+                    if token not in matched_tokens:
+                        matched_tokens.append(token)
+            if not matched_tokens:
+                continue
+            matched_fields = [
+                field for field, word_set in words.items() if set(matched_tokens) & word_set
+            ]
+            snippet_field = max(matched_fields, key=lambda field: field_weights[field])
+            snippet = values[snippet_field].strip()
+            if len(snippet) > 180:
+                snippet = snippet[:177].rstrip() + "..."
+            relevance = int(round(score * 10))
+            ranked_results.append(
+                (
+                    -relevance,
+                    -len(matched_tokens),
+                    record["id"],
+                    {
+                        **record,
+                        "matched_fields": matched_fields,
+                        "matched_tokens": matched_tokens,
+                        "snippet": snippet,
+                        "relevance": relevance,
+                    },
+                )
+            )
+        return [item[3] for item in sorted(ranked_results)][:TOKEN_SEARCH_RESULT_LIMIT]
 
     def error_pattern_clusters(self, *, minimum_size: int = 2) -> dict[str, Any]:
         clusters, unclustered, tag_families = self._error_groups(minimum_size)

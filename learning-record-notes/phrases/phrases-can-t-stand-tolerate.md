@@ -7,14 +7,15 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-19 07:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-21 11:06</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-21 11:33</td></tr>
 </table>
 
 ## 讲解
 
 **核心含义**：
-- can't / cannot stand 表示“受不了、忍不了”，后接名词或动名词（V-ing），一般不接 to do。
+- can't / cannot stand 表示“受不了、忍不了”，后接名词或动名词（V-ing），语义等于 can't tolerate / can't bear doing sth。
 - 常用于否定句与疑问句；肯定句里表达“忍受”更常用 bear 或 put up with。
+- Can you stand waiting twenty minutes? 的实际意思是「你能忍受等二十分钟吗」，不是「你能站着等二十分钟吗」——stand 这里是「忍受」，不是「站立」。
 
 **使用场景与语气**：
 - 口语与日常抱怨的主力表达，语气直接但不粗鲁，适合同事、邻居、家人这类需要把不满说清楚的场合。
@@ -28,18 +29,21 @@
 - it + when 从句（每当…就受不了）：I can't stand it when the dryer buzzes after every load.（每烘完一炉就嗡嗡叫，我真受不了。）
 - 被动动名词（被人怎样对待）：I can't stand being kept waiting.（我受不了被晾着等。）
 - 疑问形式：Can you stand being woken up at six?（你能受得了六点被吵醒吗？）
+- can't stand to do 少见但确有（I can't stand to see it. 我受不了看到这种事），标准与考试口径都取 V-ing；不能写成 to doing。
 
 **容易混淆**：
-- can't stand to do：不合习惯，改用 V-ing。
 - can't help doing 是“忍不住做”，can't wait to do 是“迫不及待”，都与“受不了”无关。
-- hate / dislike 可以接 to do，stand 不行。
+- hate / dislike 可以接 to do，stand 的常规宾语仍是 V-ing。
 - 逻辑主语不能写成主格：❌ I can't stand he leaving…；要写宾格 him 或所有格 his。
+- stand for 是短语动词，表示「代表」：What does UN stand for?（UN 代表什么）；用在否定里则是「不容忍」：I won't stand for it.（这种事我不容许）。
+- 姿势义的 stand 后面可以直接接现在分词：He stood waiting for the bus.（他站着等公交）这种读法里，时长或方式状语跟的是 waiting，不是 stand。
 
 **可迁移表达**：
 - I can't stand the smell of smoke in the hallway.（我受不了走廊里的烟味。）
 - She can't stand being interrupted while she's presenting.（她受不了做汇报时被人打断。）
 - I can't stand his chewing right next to my ear.（我受不了他在我耳边嚼东西。）
 - Can you stand sharing a desk with someone who eats at it?（你能受得了和别人共用一张办公桌、对方还在上面吃东西吗？）
+- Can you stand another ten minutes of this?（这段你还能再忍十分钟吗）
 
 ## 练习「can't stand + 名词/动名词」的关键语法结构
 

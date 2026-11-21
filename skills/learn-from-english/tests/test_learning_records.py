@@ -1213,6 +1213,37 @@ class LearningRecordsTest(unittest.TestCase):
         self.assertEqual(results[1]["status"], "familiar")
         self.assertTrue(results[1]["snippet"])
 
+    def test_token_search_falls_back_when_the_phrase_is_not_verbatim(self) -> None:
+        existing = distinct_payload(
+            "phrases", "can-t-stand-tolerate", "can't stand + 名词/动名词（受不了…）"
+        )
+        existing["explanation"] = "can't stand 后接名词或动名词，表示受不了，几乎只用于否定与疑问。"
+        existing["source"] = "I cannot stand the smell of smoke."
+        existing["example"] = "I can't stand people smoking next to me."
+        self.service.upsert(existing)
+
+        self.assertEqual(self.service.search("can't stand")[0]["id"], "phrases:can-t-stand-tolerate")
+
+        results = self.service.search("cant stand doing")
+        self.assertEqual(results[0]["id"], "phrases:can-t-stand-tolerate")
+        self.assertEqual(results[0]["matched_tokens"], ["cant", "stand"])
+
+    def test_new_record_reports_possible_duplicates_without_merging_them(self) -> None:
+        first = distinct_payload("phrases", "can-t-stand-tolerate", "can't stand + 名词/动名词")
+        first["explanation"] = "can't stand 后接名词或动名词，表示受不了。"
+        self.service.upsert(first)
+
+        second = distinct_payload("phrases", "cant-stand-doing", "can't stand doing sth")
+        second["explanation"] = "stand 在这里是忍受，不是站立，整体表示受不了做某事。"
+        result = self.service.upsert(second)
+
+        self.assertTrue(result["created"])
+        self.assertEqual(
+            [item["id"] for item in result["possible_duplicates"]],
+            ["phrases:can-t-stand-tolerate"],
+        )
+        self.assertEqual(len(self.service.records()), 2)
+
     def test_error_pattern_clusters_returns_related_groups_and_unclustered_items(self) -> None:
         first = distinct_payload(
             "errors", "missing-article-job", "missing article before a job title"
