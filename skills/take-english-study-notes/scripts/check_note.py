@@ -25,6 +25,7 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from note_store import (  # noqa: E402
+    DETAIL_TITLE_MAX,
     INDEX_TITLE,
     INLINE_ANCHOR_RE,
     ROUND_INDEX_END,
@@ -33,6 +34,8 @@ from note_store import (  # noqa: E402
     _split_block_sections,
     apply_practice_index,
     day_labels,
+    detail_summary_parts,
+    detail_summary_text,
     find_repo_root,
     generated_at,
     generated_at_by_line,
@@ -623,27 +626,23 @@ def story_sentences(section_text: str) -> int:
 def details_blocks(section_text: str, base: str) -> list[dict]:
     """按出现顺序取回 summary 为 `<base>`、`<base> 1`、`<base> 2`… 的折叠块。
 
-    同一小节只有一块时 summary 写 `<base>`，出现第二块起改成 `<base> 1`
-    / `<base> 2`；校验逐块进行，不能只看第一块。
+    同一小节只有一块时 summary 写 `<base> · 标题`，出现第二块起改成 `<base> 1 · 标题`
+    / `<base> 2 · 标题`；校验逐块进行，不能只看第一块。
     """
     blocks: list[dict] = []
     for match in DETAILS_SUMMARY_RE.finditer(section_text):
-        summary = match.group(1).strip()
-        suffix = summary[len(base) :].strip() if summary.startswith(base) else None
-        if suffix == "":
-            number = 0
-            numbered = False
-        elif suffix is not None and suffix.isdigit():
-            number = int(suffix)
-            numbered = True
-        else:
+        parts = detail_summary_parts(match.group(1))
+        if parts is None or parts[0] != base:
             continue
+        summary = match.group(1).strip()
+        number, title = parts[1], parts[2]
         close = section_text.find("</details>", match.end())
         end = close if close >= 0 else len(section_text)
         blocks.append(
             {
-                "number": number,
-                "numbered": numbered,
+                "number": number or 0,
+                "numbered": number is not None,
+                "title": title,
                 "summary": summary,
                 "body": section_text[match.end() : end],
                 "end": close + len("</details>") if close >= 0 else len(section_text),
@@ -653,14 +652,15 @@ def details_blocks(section_text: str, base: str) -> list[dict]:
 
 
 def check_detail_numbering(add, line_no: int, blocks: list[dict], base: str, label: str) -> None:
-    """一节只有一段原文时不编号；出现第二段起按 1、2、3… 连续编号。"""
+    """一节只有一段原文时不编号；出现第二段起按 1、2、3… 连续编号，标题照旧保留。"""
     if not blocks:
         return
     if len(blocks) == 1:
         if blocks[0]["numbered"]:
             add(
                 line_no,
-                f"这一节只有一段{label}，summary 写 `<summary>{base}</summary>`，不要编号："
+                f"这一节只有一段{label}，summary 写 "
+                f"`<summary>{detail_summary_text(base, None, '<标题>')}</summary>`，不要编号："
                 f"当前是 `{blocks[0]['summary']}`",
             )
         return
@@ -669,7 +669,26 @@ def check_detail_numbering(add, line_no: int, blocks: list[dict], base: str, lab
             add(
                 line_no,
                 f"{label}出现多段时必须按出现顺序编号：第 {expected} 段应写 "
-                f"`<summary>{base} {expected}</summary>`，当前是 `{block['summary']}`",
+                f"`<summary>{detail_summary_text(base, expected, block['title'] or '<标题>')}</summary>`，"
+                f"当前是 `{block['summary']}`",
+            )
+
+
+def check_detail_titles(add, line_no: int, blocks: list[dict], base: str, label: str) -> None:
+    """每段原文都要有自己的标题：summary 写成 `<base> [n] · <标题>`。"""
+    for block in blocks:
+        if not block["title"]:
+            add(
+                line_no,
+                f"{label}折叠块的 summary 必须带上标题：写 "
+                f"`<summary>{detail_summary_text(base, block['number'] or None, '<标题>')}</summary>`，"
+                f"当前是 `{block['summary']}`；标题与聊天里这一段的标题一致",
+            )
+        elif len(block["title"]) > DETAIL_TITLE_MAX:
+            add(
+                line_no,
+                f"{label}折叠块的标题太长（{len(block['title'])} 字）：`{block['summary']}`，"
+                f"控制在 {DETAIL_TITLE_MAX} 字以内",
             )
 
 
@@ -756,10 +775,11 @@ def validate_menu_section(
         if not dialogue_blocks:
             add(
                 line_no,
-                "场景对话小节必须保留完整对话原文：`<details><summary>场景对话原文</summary>` 不能省，"
+                "场景对话小节必须保留完整对话原文：`<details><summary>场景对话原文 · <标题></summary>` 不能省，"
                 "只写讲解要点不算完成",
             )
         check_detail_numbering(add, line_no, dialogue_blocks, DIALOGUE_SUMMARY, "场景对话原文")
+        check_detail_titles(add, line_no, dialogue_blocks, DIALOGUE_SUMMARY, "场景对话原文")
         for block in dialogue_blocks:
             turns = [
                 line
@@ -769,7 +789,7 @@ def validate_menu_section(
             if len(turns) < 4:
                 add(
                     line_no,
-                    f"{block['summary']} 至少要有 4 句台词（当前 {len(turns)} 句）：对话被截断或只写了开场白，"
+                    f"折叠块 `{block['summary']}` 至少要有 4 句台词（当前 {len(turns)} 句）：对话被截断或只写了开场白，"
                     "等于这一段没有交付",
                 )
     if "小故事" in title:
@@ -777,22 +797,23 @@ def validate_menu_section(
         if not story_blocks:
             add(
                 line_no,
-                "小故事小节必须保留完整故事原文：`<details><summary>故事原文</summary>` 不能省，"
+                "小故事小节必须保留完整故事原文：`<details><summary>故事原文 · <标题></summary>` 不能省，"
                 "只写讲解要点不算完成",
             )
         check_detail_numbering(add, line_no, story_blocks, STORY_SUMMARY, "故事原文")
+        check_detail_titles(add, line_no, story_blocks, STORY_SUMMARY, "故事原文")
         for block in story_blocks:
             sentence_count = count_story_sentences(block["body"])
             if sentence_count < 8:
                 add(
                     line_no,
-                    f"{block['summary']} 至少要有 8 句英文叙事（当前 {sentence_count} 句）："
+                    f"折叠块 `{block['summary']}` 至少要有 8 句英文叙事（当前 {sentence_count} 句）："
                     "故事被截断或只写了几句，等于这一段没有交付",
                 )
             if not story_block_has_table(block["body"]):
                 add(
                     line_no,
-                    f"{block['summary']} 折叠块内必须包含收尾三列表（`{STORY_TABLE_HEADER}`）："
+                    f"折叠块 `{block['summary']}` 内必须包含收尾三列表（`{STORY_TABLE_HEADER}`）："
                     "英文叙事与译文之后把表格写进同一个 `<details>` 块，放在块外等于这一段没有交付",
                 )
         if story_blocks:

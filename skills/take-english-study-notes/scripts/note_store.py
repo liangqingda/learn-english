@@ -734,6 +734,32 @@ def _strip_trailing_dividers(rounds: str) -> str:
 
 DETAIL_BASES = ("场景对话原文", "故事原文")
 DETAIL_SUMMARY_RE = re.compile(r"<summary>\s*([^<]+?)\s*</summary>")
+# 原文折叠块的 summary 写法：`<base>`、`<base> 2`、`<base> · 标题`、`<base> 2 · 标题`。
+# 标题是这一段原文自己的名字（如「五点十五分的卷帘门」），编号只在该节有多段原文时出现。
+DETAIL_SUMMARY_PARTS_RE = re.compile(
+    r"^(?P<base>场景对话原文|故事原文)"
+    r"(?:\s+(?P<number>\d+))?"
+    r"(?:\s*·\s*(?P<title>.*?))?"
+    r"\s*$"
+)
+DETAIL_TITLE_MAX = 24
+
+
+def detail_summary_parts(summary: str) -> tuple[str, int | None, str] | None:
+    """拆开原文折叠块的 summary，返回 ``(base, 编号或 None, 标题)``。
+
+    不是原文折叠块（既不是场景对话原文也不是故事原文）时返回 ``None``；
+    编号缺省时返回 ``None``，标题缺省时返回空字符串。
+    """
+    match = DETAIL_SUMMARY_PARTS_RE.match(summary.strip())
+    if not match:
+        return None
+    number = match.group("number")
+    return (
+        match.group("base"),
+        int(number) if number else None,
+        (match.group("title") or "").strip(),
+    )
 
 ROUND_BLOCK_EXPLAINED = (
     "日期区块只放习题：`{title}` 写的是讲解内容（讲解要点 / 场景对话原文 / 故事原文），"
@@ -765,18 +791,50 @@ def _check_round_sections(block: str) -> None:
             raise NoteError(ROUND_BLOCK_EMPTY.format(title=title))
 
 
+def detail_summary_text(base: str, number: int | None, title: str) -> str:
+    """按 ``<base> [n] [· 标题]`` 拼回 summary 正文（不含标签）。"""
+    head = f"{base} {number}" if number else base
+    return f"{head} · {title}" if title else head
+
+
+def _require_detail_titles(text: str) -> None:
+    """每段原文折叠块都必须带标题：`<base> [n] · <标题>`。
+
+    聊天里这一段的标题与折叠块 summary 用的是同一个标题，漏写标题会让笔记里多段原文
+    只剩编号、彼此无法区分，所以写入路径直接拒绝。
+    """
+    for match in DETAIL_SUMMARY_RE.finditer(text):
+        parts = detail_summary_parts(match.group(1))
+        if parts is None:
+            continue
+        base, number, title = parts
+        summary = match.group(1).strip()
+        if not title:
+            raise NoteError(
+                f"原文折叠块的 summary 必须带上标题：第 {base} 段应写 "
+                f"`<summary>{detail_summary_text(base, number, '<标题>')}</summary>`，"
+                f"当前是 `<summary>{summary}</summary>`"
+            )
+        if len(title) > DETAIL_TITLE_MAX:
+            raise NoteError(
+                f"原文折叠块的标题太长（{len(title)} 字）：`{summary}`；"
+                f"标题是这一段场景的名字，控制在 {DETAIL_TITLE_MAX} 字以内"
+            )
+
+
 def _normalize_detail_summaries(text: str) -> str:
     """同一小节里只剩一段原文时不编号，出现第二段起按 1、2、3… 编号。
 
-    旧的单段原文写的是 ``<summary>故事原文</summary>``，追加第二段时它要变成
-    ``故事原文 1``，否则校验器会把两段都判成编号错位。
+    旧的单段原文写的是 ``<summary>故事原文 · 标题</summary>``，追加第二段时它要变成
+    ``故事原文 1 · 标题``，否则校验器会把两段都判成编号错位；标题原样保留。
     """
     for base in DETAIL_BASES:
         while True:
             current = [
                 match
                 for match in DETAIL_SUMMARY_RE.finditer(text)
-                if re.fullmatch(rf"{re.escape(base)}(?:\s+\d+)?", match.group(1).strip())
+                if (parts := detail_summary_parts(match.group(1)))
+                and parts[0] == base
             ]
             if len(current) < 2:
                 break
@@ -784,14 +842,17 @@ def _normalize_detail_summaries(text: str) -> str:
                 (
                     (index, match)
                     for index, match in enumerate(current, 1)
-                    if match.group(1).strip() != f"{base} {index}"
+                    if detail_summary_parts(match.group(1))[1] != index
                 ),
                 None,
             )
             if wrong is None:
                 break
             index, match = wrong
-            replacement = f"<summary>{base} {index}</summary>"
+            _base, _number, title = detail_summary_parts(match.group(1))
+            replacement = (
+                f"<summary>{detail_summary_text(base, index, title)}</summary>"
+            )
             text = text[: match.start()] + replacement + text[match.end() :]
     return text
 
@@ -1785,6 +1846,7 @@ class NoteStore:
                 raise NoteError(
                     "a note section cannot contain a level-1 heading; date blocks own those"
                 )
+        _require_detail_titles(section)
         with self._exclusive_lock():
             existing = _normalize_text(self._read(target))
             if not existing:
@@ -1854,6 +1916,7 @@ class NoteStore:
             section_end -= 1
         original = "\n".join(lines[section_start:section_end])
         replacement = _normalize_text(section)
+        _require_detail_titles(replacement)
         dropped = []
         for base in DETAIL_BASES:
             kept = original.count(f"<summary>{base}")
@@ -1910,6 +1973,7 @@ class NoteStore:
         wanted = _normalize_text(section_heading).strip()
         if not wanted.startswith("## "):
             raise NoteError("section heading must start with '## '")
+        _require_detail_titles(part)
         target = self.resolve(path)
         with self._exclusive_lock():
             existing = _normalize_text(self._read(target))

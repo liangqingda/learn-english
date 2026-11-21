@@ -219,13 +219,22 @@ STORY_TABLE = (
 )
 
 
+DEFAULT_STORY_TITLE = "往西的那条路"
+
+
 def story_block(
-    summary: str, sentences: str = STORY_SENTENCES, *, table: bool = True
+    summary: str,
+    sentences: str = STORY_SENTENCES,
+    *,
+    table: bool = True,
+    title: str = DEFAULT_STORY_TITLE,
 ) -> str:
+    """一段故事原文折叠块：summary 按 `<base> [n] · <标题>` 拼。"""
     body = f"{sentences}\n\n她在一个寒冷的早晨往西走。\n\n"
     if table:
         body += STORY_TABLE + "\n"
-    return f"<details><summary>{summary}</summary>\n\n{body}</details>\n\n"
+    head = f"{summary} · {title}" if title else summary
+    return f"<details><summary>{head}</summary>\n\n{body}</details>\n\n"
 
 
 def story_section(*parts: str) -> str:
@@ -364,7 +373,7 @@ class NoteContentValidationTest(unittest.TestCase):
                 story_block("故事原文 2", "Only two sentences here. And another one."),
             ),
         )
-        self.assert_caught(text, "故事原文 2 至少要有 8 句英文叙事")
+        self.assert_caught(text, "折叠块 `故事原文 2 · 往西的那条路` 至少要有 8 句英文叙事")
 
     def test_story_numbering_must_be_consecutive(self) -> None:
         text = with_menu_section(
@@ -384,7 +393,7 @@ class NoteContentValidationTest(unittest.TestCase):
                 story_block("故事原文 2", table=False),
             ),
         )
-        self.assert_caught(text, "故事原文 2 折叠块内必须包含收尾三列表")
+        self.assert_caught(text, "折叠块 `故事原文 2 · 往西的那条路` 内必须包含收尾三列表")
 
     def test_story_table_outside_the_block_is_rejected(self) -> None:
         """收尾三列表必须折叠进故事原文块内，留在块外要被拦下。"""
@@ -416,6 +425,31 @@ class NoteContentValidationTest(unittest.TestCase):
         )
         self.assertEqual(self.check(text), [])
 
+    def test_story_block_without_title_is_rejected(self) -> None:
+        """每段原文都要有自己的标题：summary 只有 `故事原文` 时拦下。"""
+        text = with_file_level_section(
+            note_text(), story_section(story_block("故事原文", title=""))
+        )
+        self.assert_caught(text, "必须带上标题")
+
+    def test_story_block_with_an_over_long_title_is_rejected(self) -> None:
+        text = with_file_level_section(
+            note_text(),
+            story_section(story_block("故事原文", title="一个长到完全不像标题的故事主题描述文字整整超过二十四个字符")),
+        )
+        self.assert_caught(text, "标题太长")
+
+    def test_numbered_story_blocks_keep_their_own_titles(self) -> None:
+        """编号段各自带标题，校验逐段认标题而不是套用第一段的。"""
+        text = with_file_level_section(
+            note_text(),
+            story_section(
+                story_block("故事原文 1", title="先到的那班车"),
+                story_block("故事原文 2", title="后来那场雨"),
+            ),
+        )
+        self.assertEqual(self.check(text), [])
+
     def test_story_section_in_a_round_block_is_rejected(self) -> None:
         """小故事属于文件级讲解区：留在日期区块里必须被拦下。"""
         text = with_menu_section(
@@ -429,7 +463,7 @@ class NoteContentValidationTest(unittest.TestCase):
             "## 看一套围绕 out west 的完整场景对话\n\n"
             "**讲解要点**：\n- out west 表示往西边\n"
             "  - `She headed out west.`（她往西边出发。）\n\n"
-            "<details><summary>场景对话原文</summary>\n\n"
+            "<details><summary>场景对话原文 · 问路</summary>\n\n"
             "- **Ann**：Where are you going?（你去哪儿？）\n"
             "- **Ben**：Out west, past the river.（往西，过了河。）\n"
             "- **Ann**：How far?（多远？）\n"

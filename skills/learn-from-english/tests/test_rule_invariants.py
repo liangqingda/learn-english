@@ -286,7 +286,7 @@ class MenuItemNoteTest(unittest.TestCase):
             "- 要点 x\n"
             "  - 示例 y\n\n"
             "<details>\n"
-            "<summary>场景对话原文</summary>\n\n"
+            "<summary>场景对话原文 · 地铁闸机前</summary>\n\n"
             "- **A**：x\n"
             "- **B**：y\n"
             "- **A**：z\n"
@@ -435,7 +435,7 @@ class MenuItemNoteTest(unittest.TestCase):
             self.base_note()
             + "\n## 看一套围绕「a price to pay」的完整场景对话\n\n"
             "**讲解要点**：\n\n- 只有要点，没有示例\n\n"
-            "<details>\n<summary>场景对话原文</summary>\n\n- **A**：x\n\n</details>\n"
+            "<details>\n<summary>场景对话原文 · 地铁闸机前</summary>\n\n- **A**：x\n\n</details>\n"
         )
         issues = self.check_text(text)
         self.assertTrue(any("缩进子项" in issue["message"] for issue in issues))
@@ -455,7 +455,7 @@ class MenuItemNoteTest(unittest.TestCase):
             self.base_note()
             + "\n## 看一套围绕「a price to pay」的完整场景对话\n\n"
             "**讲解要点**：\n\n- 要点\n  - 示例\n\n"
-            "<details>\n<summary>场景对话原文</summary>\n\n- **A**：x\n"
+            "<details>\n<summary>场景对话原文 · 地铁闸机前</summary>\n\n- **A**：x\n"
         )
         issues = self.check_text(text)
         self.assertTrue(any("折叠块必须成对闭合" in issue["message"] for issue in issues))
@@ -476,7 +476,7 @@ class MenuItemNoteTest(unittest.TestCase):
             for index in range(1, sentence_count + 1)
         )
         story_block = (
-            "<details>\n<summary>故事原文</summary>\n\n"
+            "<details>\n<summary>故事原文 · 代价</summary>\n\n"
             f"{body}\n\n（第 1 段译文）\n\n"
             "| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |\n"
             "|---|---|---|\n"

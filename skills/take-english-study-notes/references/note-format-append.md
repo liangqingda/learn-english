@@ -43,19 +43,19 @@
        `note.py sections --file <笔记>` 的 `explain_sections` 列出讲解区已有标题，写之前先看它就知道这一项是否已记录过。
        讲解要点要改、要补，都用同一个命令加 `--rewrite` 就地整节替换该小节（别的小节与日期区块不动），
        不要新建同名小节绕过去。这条规则对三类文件级小节一视同仁：带习题菜单项的 `**讲解要点**`、
-       场景对话小节（要点 + `场景对话原文` 折叠块）、小故事小节（要点 + `故事原文` 折叠块，收尾三列表也在块内）。
+       场景对话小节（要点 + `场景对话原文 · <标题>` 折叠块）、小故事小节（要点 + `故事原文 · <标题>` 折叠块，收尾三列表也在块内）。
        `--rewrite` 是整节替换，原有的场景对话 / 故事原文必须一并带上，漏掉已有原文的重写会被直接拒绝；
        只是再多一段原文时仍用 `append-explain-part` 追加，不做整节重写。
      - `duplicate: true`（同标题小节已存在）：说明这一项已经记录过，**不要按新内容再记录第二次**（返回里带同样的 `hint`）；
        确需修正或补充讲解要点时，改用上面那条 `--rewrite`。
      - 同一个菜单项第二次出场景对话 / 小故事时，用 `append-explain-part` 往同一小节末尾追加一段原文：
-       命令会自动把第一段的 summary 改成 `<base> 1`，其余按顺序编号。
+       命令会自动把第一段的 summary 改成 `<base> 1 · <标题>`，其余按顺序编号，标题逐段保留；缺标题的折叠块会被写入命令直接拒绝。
      ```bash
      python3 skills/take-english-study-notes/scripts/note.py append-explain-part \
        --file learning-record-notes/<category>/<category>-<slug>.md \
        --section "## <文件级小节标题>" --content-file - --check <<'EOF'
      <details>
-     <summary>场景对话原文 2</summary>
+     <summary>场景对话原文 2 · 九点那间会议室</summary>
      …
      </details>
      EOF

@@ -267,7 +267,7 @@ class NoteAppendTest(unittest.TestCase):
                 self.note,
                 "# 2026-11-07 21:00 · 复习",
                 "## 扩展练习",
-                "<details><summary>故事原文 2</summary>\n\nOne line.\n\n</details>\n",
+                "<details><summary>故事原文 2 · 第二版</summary>\n\nOne line.\n\n</details>\n",
             )
         self.assertIn("日期区块只放习题", str(caught.exception))
 
@@ -287,7 +287,7 @@ class NoteAppendTest(unittest.TestCase):
         block = round_block() + (
             "\n## 读一个围绕 out west 的小故事\n\n"
             "**讲解要点**：\n- out west 表示往西\n\n"
-            "<details><summary>故事原文</summary>\n\nOne line.\n\n</details>\n"
+            "<details><summary>故事原文 · 往西的那条路</summary>\n\nOne line.\n\n</details>\n"
         )
         with self.assertRaises(NoteError) as caught:
             self.store.append(self.note, block)
@@ -332,17 +332,31 @@ class NoteAppendTest(unittest.TestCase):
         self.store.append_explain_section(
             self.note,
             "## 读一个围绕 out west 的小故事\n\n**讲解要点**：\n- 一条要点\n\n"
-            "<details>\n<summary>故事原文</summary>\n\nFirst version.\n\n</details>\n",
+            "<details>\n<summary>故事原文 · 第一版</summary>\n\nFirst version.\n\n</details>\n",
         )
         result = self.store.append_explain_part(
             self.note,
             "## 读一个围绕 out west 的小故事",
-            "<details>\n<summary>故事原文 2</summary>\n\nSecond version.\n\n</details>\n",
+            "<details>\n<summary>故事原文 2 · 第二版</summary>\n\nSecond version.\n\n</details>\n",
         )
         self.assertTrue(result["appended_part"])
         text = self.note.read_text(encoding="utf-8")
-        self.assertIn("<summary>故事原文 1</summary>", text)
-        self.assertIn("<summary>故事原文 2</summary>", text)
+        self.assertIn("<summary>故事原文 1 · 第一版</summary>", text)
+        self.assertIn("<summary>故事原文 2 · 第二版</summary>", text)
+
+    def test_explain_section_refuses_a_story_block_without_title(self) -> None:
+        """写入路径就拦住没有标题的原文折叠块，不等到校验器才发现。"""
+        self._note_with_explanation()
+        with self.assertRaises(NoteError) as caught:
+            self.store.append_explain_section(
+                self.note,
+                "## 读一个围绕 out west 的小故事\n\n**讲解要点**：\n- 一条要点\n  - 示例\n\n"
+                "<details><summary>故事原文</summary>\n\nOne line.\n\n</details>\n",
+            )
+        self.assertIn("必须带上标题", str(caught.exception))
+        self.assertFalse(
+            "读一个围绕 out west 的小故事" in self.note.read_text(encoding="utf-8")
+        )
 
     def test_explain_part_matches_a_plain_section_with_an_emoji_title(self) -> None:
         """旧笔记的小节标题没图标：同一菜单项带 emoji 的写法仍追加到那一节，不新建小节。"""
@@ -350,12 +364,12 @@ class NoteAppendTest(unittest.TestCase):
         self.store.append_explain_section(
             self.note,
             "## 读一个围绕 out west 的小故事\n\n**讲解要点**：\n- 一条要点\n\n"
-            "<details>\n<summary>故事原文</summary>\n\nFirst version.\n\n</details>\n",
+            "<details>\n<summary>故事原文 · 第一版</summary>\n\nFirst version.\n\n</details>\n",
         )
         result = self.store.append_explain_part(
             self.note,
             "## 📖 读一个围绕 out west 的小故事",
-            "<details>\n<summary>故事原文 2</summary>\n\nSecond version.\n\n</details>\n",
+            "<details>\n<summary>故事原文 2 · 第二版</summary>\n\nSecond version.\n\n</details>\n",
         )
         self.assertTrue(result["appended_part"])
         text = self.note.read_text(encoding="utf-8")
@@ -364,8 +378,8 @@ class NoteAppendTest(unittest.TestCase):
             if line.startswith("## ") and "读一个围绕 out west 的小故事" in line
         ]
         self.assertEqual(len(headings), 1)
-        self.assertIn("<summary>故事原文 1</summary>", text)
-        self.assertIn("<summary>故事原文 2</summary>", text)
+        self.assertIn("<summary>故事原文 1 · 第一版</summary>", text)
+        self.assertIn("<summary>故事原文 2 · 第二版</summary>", text)
 
     def test_explain_section_duplicate_is_detected_across_emoji(self) -> None:
         """带不带行首 emoji 是同一个菜单项：第二次写入必须返回 duplicate。"""
@@ -429,7 +443,7 @@ class NoteAppendTest(unittest.TestCase):
             story_heading
             + "\n\n**讲解要点**：\n- 旧的一条\n"
             "  - `There is a price to pay.`（总要付出代价。）\n\n"
-            "<details>\n<summary>故事原文</summary>\n\nLine one. Line two.\n\n"
+            "<details>\n<summary>故事原文 · 那条小路</summary>\n\nLine one. Line two.\n\n"
             "| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |\n"
             "|---|---|---|\n| 第 1 段 | 代价 | 固定搭配 |\n\n</details>\n\n",
         )
@@ -454,14 +468,14 @@ class NoteAppendTest(unittest.TestCase):
             self.note,
             heading
             + "\n\n**讲解要点**：\n- 一条要点\n  - `There is a price to pay.`（总要付出代价。）\n\n"
-            "<details>\n<summary>故事原文</summary>\n\nFirst story.\n"
+            "<details>\n<summary>故事原文 · 第一版</summary>\n\nFirst story.\n"
             + table
             + "</details>\n",
         )
         self.store.append_explain_part(
             self.note,
             heading,
-            "<details>\n<summary>故事原文 2</summary>\n\nSecond story.\n"
+            "<details>\n<summary>故事原文 2 · 第二版</summary>\n\nSecond story.\n"
             + table
             + "</details>\n",
         )
@@ -470,7 +484,7 @@ class NoteAppendTest(unittest.TestCase):
                 self.note,
                 heading
                 + "\n\n**讲解要点**：\n- 一条要点\n  - `There is a price to pay.`（总要付出代价。）\n\n"
-                "<details>\n<summary>故事原文</summary>\n\nFirst story.\n\n</details>\n"
+                "<details>\n<summary>故事原文 · 第一版</summary>\n\nFirst story.\n\n</details>\n"
                 + table,
                 rewrite=True,
             )
@@ -482,7 +496,7 @@ class NoteAppendTest(unittest.TestCase):
         self._note_with_explanation()
         story_heading = "## 读一个围绕 a price to pay 的小故事"
         story_source = (
-            "<details>\n<summary>故事原文</summary>\n\nLine one. Line two.\n\n"
+            "<details>\n<summary>故事原文 · 那条小路</summary>\n\nLine one. Line two.\n\n"
             "| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |\n"
             "|---|---|---|\n| 第 1 段 | 代价 | 固定搭配 |\n\n</details>\n\n"
         )
@@ -506,7 +520,7 @@ class NoteAppendTest(unittest.TestCase):
         text = self.note.read_text(encoding="utf-8")
         self.assertIn("补充的一条", text)
         self.assertEqual(text.count(story_heading), 1)
-        self.assertIn("<summary>故事原文</summary>", text)
+        self.assertIn("<summary>故事原文 · 那条小路</summary>", text)
 
     def test_sections_lists_file_level_explanation_sections(self) -> None:
         """`sections` 要能看到文件级讲解区，调用方才能在写入前判断是否已记录过。"""

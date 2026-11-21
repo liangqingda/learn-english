@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-19 07:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-21 20:57</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-21 21:13</td></tr>
 </table>
 
 ## 讲解
@@ -84,7 +84,7 @@
   - I can't wait to sleep through the night again.（我迫不及待想一觉睡到天亮。）
 
 <details>
-<summary>场景对话原文 1</summary>
+<summary>场景对话原文 1 · 早高峰的闸机口</summary>
 
 - **Mei**：Morning! Did you catch the eight fifteen today?
   - 梅：早！你今天赶上八点十五那班了吗？
@@ -106,7 +106,7 @@
 </details>
 
 <details>
-<summary>场景对话原文 2</summary>
+<summary>场景对话原文 2 · 九点那间会议室</summary>
 
 - **Marta**：You look like you've already had a whole morning.
   - 玛塔：看你这脸色，一早上就过完了一整天似的。
@@ -149,7 +149,7 @@
   - He could not stand being served by people who were still rattled.（他受不了被还在心慌的人招待。）
 
 <details>
-<summary>故事原文</summary>
+<summary>故事原文 · 五点十五分的卷帘门</summary>
 
 Ana started the five a.m. shift at a bakery on Riding Street last winter. The ovens were warm and the street was still dark, and she liked having the first hour to herself. Then the shop next door changed hands, and the new owners began unloading crates at five fifteen. The metal shutter came up with a screech that ran through the whole block.
 
