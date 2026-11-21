@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 300,
+  "revision": 301,
   "category": "grammar",
   "records": {
     "grammar:a-bit-of-a-singular-countable": {
@@ -1134,8 +1134,8 @@
         "review-error"
       ],
       "first_learned_at": "2026-11-21T17:53:06+08:00",
-      "last_learned_at": "2026-11-21T17:53:06+08:00",
-      "learned_count": 1,
+      "last_learned_at": "2026-11-21T18:50:47+08:00",
+      "learned_count": 2,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,

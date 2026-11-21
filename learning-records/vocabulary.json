@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 299,
+  "revision": 301,
   "category": "vocabulary",
   "records": {
     "vocabulary:a-little-bit": {
@@ -149,6 +149,32 @@
       "mastered_at": null,
       "review_history": [],
       "key": "back-east-in-the-east-eastward"
+    },
+    "vocabulary:bake-roast-toast-verb-choice": {
+      "id": "vocabulary:bake-roast-toast-verb-choice",
+      "category": "vocabulary",
+      "key": "bake-roast-toast-verb-choice",
+      "status": "learning",
+      "title": "“烤”按对象分：bake 烤面食糕点，roast 烤肉和蔬菜，toast 只烤面包片",
+      "explanation": "英语不给“烤”一个万能动词，而是按受热对象分工：bake 用于饼干、蛋糕、面包这类面食糕点，roast 用于整块或整只的肉与蔬菜（烤箱里整体加热），toast 只用于把面包片表面烤脆。饼干说 freshly baked cookies，烤鸡说 roast chicken，烤面包片才是 toast。用 toasted 修饰鸡肉或饼干，等于把食材和做法一起换了。",
+      "source": "Help yourselves to the biscuits just as toasted in the kitchen.",
+      "example": "Help yourselves to the freshly baked cookies in the kitchen.",
+      "tags": [
+        "cooking",
+        "review-error",
+        "verb-choice"
+      ],
+      "first_learned_at": "2026-11-21T18:50:47+08:00",
+      "last_learned_at": "2026-11-21T18:50:47+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "vocabulary:beverage-vs-drinks": {
       "id": "vocabulary:beverage-vs-drinks",

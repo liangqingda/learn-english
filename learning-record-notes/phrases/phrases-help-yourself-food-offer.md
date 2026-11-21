@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>2</td></tr>
 <tr><td>下次复习</td><td>2026-11-24 17:53</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-21 17:55</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-21 18:35</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-21 18:50</td></tr>
 </table>
 
 ## 讲解
@@ -53,7 +53,8 @@
 
 复习历史：
 <!-- practice-index -->
-- [2026-11-21 18:09 · 复习](#practice-2026-11-21-1809-7ba5e3ed)
+- [2026-11-21 18:50 · 复习 - 02](#practice-2026-11-21-1850-7ba5e3ed-02)
+- [2026-11-21 18:09 · 复习 - 01](#practice-2026-11-21-1809-7ba5e3ed-01)
 <!-- /practice-index -->
 
 # 2026-11-21 17:53 · 复习
@@ -239,7 +240,161 @@ Everybody can take whatever they want from the tray.
 
 </details>
 
-## 用「help yourself 请自取食物饮料」做翻译和改写练习 <a id="practice-2026-11-21-1809-7ba5e3ed"></a>
+## 用「help yourself 请自取食物饮料」做翻译和改写练习 - 02 <a id="practice-2026-11-21-1850-7ba5e3ed-02"></a>
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>生成时间</td><td>2026-11-21 18:50</td></tr>
+<tr><td>本轮得分</td><td>6 / 10</td></tr>
+<tr><td>题量与错题数</td><td>6 题 / 2 处错误</td></tr>
+</table>
+
+### 1. 翻译
+
+**题目**：中译英
+妈妈对刚放学的两个孩子说：“厨房里有刚烤好的饼干，自己拿。”
+
+**我的答案**：Help yourselves to the biscuits just as toasted in the kitchen.
+
+**判定**：⚠️ 部分正确（yourselves 与 to 都对，但 just as toasted 不成立，饼干在美式口语里多说 cookies）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：对两个孩子的招呼语，以及“刚烤好的”这类修饰成分的写法。
+2. **规则与机制**：两个孩子是复数，反身代词用 yourselves；“刚烤好的”用 freshly baked 直接放在名词前做定语，英语的定语必须能独立修饰名词，just as toasted 这种片段放不进去。
+3. **英语的表达逻辑**：英语把“刚做好”的时间信息压进形容词或介词短语（freshly baked、just out of the oven），而 just as + 过去分词表示“正如……那样”，说不了“刚烤好”。
+4. **可迁移表达**：Help yourselves to the freshly baked cookies.（刚烤好的饼干自己拿。）／The bread is still warm from the oven.（面包刚从烤箱拿出来，还热着。）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：bake 与 toast 的词义边界，“刚烤好”的表达方式。
+2. **为什么错**：饼干属于 baked goods，用 toasted 会落到“烤面包片”那层意思；just as toasted 把 as 当成时间连接，英语里这个结构表示“正如……那样”，不表示“刚做好”。
+3. **英语的表达逻辑**：英语靠形容词承担状态与时间信息，freshly baked 一个词就把“刚烤好”落地，不需要另起一个从句式片段。
+4. **正确表达**：Help yourselves to the freshly baked cookies in the kitchen.（厨房里刚烤好的饼干自己拿。）
+整句参考版本：Mom said, "The cookies are freshly baked — help yourselves, kids."
+
+</details>
+
+---
+
+### 2. 改写
+
+**题目**：改写成主人招待客人时更自然的一句话，句意不变
+You are welcome to take the wine from the sideboard.
+
+**我的答案**：Help yourself to the wine on the sideboard.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：把“你可以拿”改成招待惯用语，并选对位置介词。
+2. **规则与机制**：让对方自取用 help yourself to + 名词；酒摆在餐边柜表面，用 on the sideboard。
+3. **英语的表达逻辑**：on 管物体摆在表面，in 管装进柜子内部；招呼语只需 to 引出对象，不必再写 take。
+4. **可迁移表达**：Help yourself to the wine on the sideboard.（餐边柜上的酒自己倒。）／Help yourself to the beer in the cooler.（冰桶里的啤酒自己拿。）
+
+</details>
+
+---
+
+### 3. 翻译
+
+**题目**：中译英
+主人对一桌客人说：“别客气，烤鸡自己切。”
+
+**我的答案**：Help yourself to the toasted chicken.
+
+**判定**：⚠️ 部分正确（招待结构对，但一桌客人要用 yourselves，鸡肉该说 roast chicken）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：群体招呼语 + “烤鸡”的正确说法。
+2. **规则与机制**：一桌客人是复数，用 yourselves；整只或整块烤的鸡说 roast chicken / roasted chicken，toasted 只用于面包片、吐司那种表面烘烤。
+3. **英语的表达逻辑**：英语按对象把“烤”拆成三个动词：bake 烤面食糕点，roast 烤肉和蔬菜，toast 只烤面包片表面，用错等于换了食材。
+4. **可迁移表达**：Help yourselves to the roast chicken.（烤鸡自己拿。）／We had roast beef for dinner.（我们晚饭吃了烤牛肉。）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：复数受话的反身代词 + roast 与 toast 的分工。
+2. **为什么错**：客人是一桌人，help yourself 没有换成 yourselves；toasted 用在鸡肉上，这个词只管面包表面那一道烘烤工序。
+3. **英语的表达逻辑**：英语的“烤”按受热对象分工，roast 是烤箱里整体加热肉类，toast 是表面烤脆；人称的数同样必须写进反身代词。
+4. **正确表达**：Help yourselves to the roast chicken.（烤鸡你们自己拿。）
+
+</details>
+
+---
+
+### 4. 造句
+
+**题目**：用 help oneself 的第三人称过去式写一句
+他走进厨房，自己倒了杯牛奶。
+
+**我的答案**：He walked into the kitchen and helped himself to a cup of milk.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：第三人称过去时的 help oneself。
+2. **规则与机制**：主语 he 对应 himself；两个连续动作都用过去式，and 前后一致；a cup of milk 用容器量不可数名词。
+3. **英语的表达逻辑**：反身代词随主语的人称和数变，过去叙述里每个谓语都要带走过去式标记。
+4. **可迁移表达**：She helped herself to a glass of juice.（她自己倒了杯果汁。）／He helped himself to the last piece of cake.（他自己拿了最后一块蛋糕。）
+
+</details>
+
+---
+
+### 5. 翻译
+
+**题目**：中译英
+同事把点心放在桌上，说：“大家自己拿，别客气。”
+
+**我的答案**：Help yourselves to the snacks on the table.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：对一群同事的招呼语，以及位置表达。
+2. **规则与机制**：一群人用 yourselves；点心摆在桌面，用 on the table。
+3. **英语的表达逻辑**：招呼语的数跟着听者走，位置介词跟着物体与支撑面的关系走，两者都写在同一个短句里。
+4. **可迁移表达**：Help yourselves to the treats on the desk.（桌上的点心你们自己拿。）／Help yourself to the fruit on the table.（桌上的水果自己拿。）
+
+</details>
+
+---
+
+### 6. 改写
+
+**题目**：改写成主人端来茶时更自然的一句话，句意不变
+Please allow me to give you some tea.
+
+**我的答案**：Help yourself to the tea.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：把服务式说法改写成主人邀约。
+2. **规则与机制**：please allow me to give you 把主人写成了提供服务的一方，距离感强；主人端茶招待说 help yourself to some tea 更平常、更平等。
+3. **英语的表达逻辑**：英语的招待语把主动权交给客人（自己取），而不是由主人“给予”，所以用 help oneself 结构。
+4. **可迁移表达**：Help yourself to some tea.（茶自己倒。）／Help yourself to the tea while it's hot.（趁热自己倒茶喝。）
+
+</details>
+
+## 用「help yourself 请自取食物饮料」做翻译和改写练习 - 01 <a id="practice-2026-11-21-1809-7ba5e3ed-01"></a>
 
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
