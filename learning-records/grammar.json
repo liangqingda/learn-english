@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 299,
+  "revision": 300,
   "category": "grammar",
   "records": {
     "grammar:a-bit-of-a-singular-countable": {
@@ -740,6 +740,32 @@
       ],
       "first_learned_at": "2026-11-16T21:02:16+08:00",
       "last_learned_at": "2026-11-16T21:02:16+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:parallel-predicate-tense-person-agreement": {
+      "id": "grammar:parallel-predicate-tense-person-agreement",
+      "category": "grammar",
+      "key": "parallel-predicate-tense-person-agreement",
+      "status": "learning",
+      "title": "and 连接的并列谓语要各自满足时态与人称一致",
+      "explanation": "and 把两个动作并列起来时，每个谓语都要独立带时态和人称标记，两者必须保持一致：visits ... helps 或 visited ... helped。写成 visits ... help 等于第二个动词没有变位，主谓一致和时态都断了；叙述已经发生的事，把两个动词都改成过去式最省事。",
+      "source": "She visits her friend and help herself to a bowl of soup.",
+      "example": "She visited her friend and helped herself to a bowl of soup.",
+      "tags": [
+        "review-error",
+        "tense",
+        "verb-form"
+      ],
+      "first_learned_at": "2026-11-21T18:07:49+08:00",
+      "last_learned_at": "2026-11-21T18:07:49+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

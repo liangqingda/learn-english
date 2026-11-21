@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>2</td></tr>
 <tr><td>下次复习</td><td>2026-11-24 17:53</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-21 17:55</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-21 17:55</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-21 18:09</td></tr>
 </table>
 
 ## 讲解
@@ -55,7 +55,7 @@
 
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>
-<tr><td>生成时间</td><td>2026-11-21 17:54</td></tr>
+<tr><td>生成时间</td><td>2026-11-21 18:09</td></tr>
 <tr><td>本轮得分</td><td>6 / 10</td></tr>
 <tr><td>题量与错题数</td><td>6 题 / 4 处错误</td></tr>
 </table>
@@ -229,5 +229,151 @@ Everybody can take whatever they want from the tray.
 2. **为什么错**：客人是一群人，help yourself 没有换成 yourselves；东西放在托盘表面，用 in the tray 就变成“在托盘里面”，空间关系错了。
 3. **英语的表达逻辑**：英语把人称数量写进反身代词，把空间关系写进介词：表面接触一律用 on，只有装进容器内部才用 in。
 4. **正确表达**：Help yourselves to whatever you like on the tray.（托盘上的东西你们随便拿。）
+
+</details>
+
+## 用「help yourself 请自取食物饮料」做翻译和改写练习 <a id="practice-2026-11-21-1809-7ba5e3ed"></a>
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>生成时间</td><td>2026-11-21 18:09</td></tr>
+<tr><td>本轮得分</td><td>8 / 10</td></tr>
+<tr><td>题量与错题数</td><td>6 题 / 1 处错误</td></tr>
+</table>
+
+### 1. 翻译
+
+**题目**：中译英
+客人刚进门，指着厨房说：“啤酒在冰箱里，自己拿。”（对一位客人说）
+
+**我的答案**：Help yourself to the beers in the fridge.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：对单个客人用 help yourself，并用 to 引出自取对象。
+2. **规则与机制**：反身代词按受话人数变化，一个人用 yourself；to 是介词，后面接名词短语，the beers 把冰箱里那几瓶具体化。
+3. **英语的表达逻辑**：beer 既可作不可数（指液体），也可作可数（按瓶、罐计数）；指冰箱里那几瓶时 the beers 是日常说法。
+4. **可迁移表达**：Help yourself to the beer in the fridge.（冰箱里的啤酒自己拿。）／Help yourself to a beer.（自己拿瓶啤酒。）／Help yourself to the drinks in the fridge.（冰箱里的饮料自己拿。）
+
+</details>
+
+---
+
+### 2. 改写
+
+**题目**：改写成主人招待客人时更自然的一句话，句意不变
+You can take the fruit by yourself.
+
+**我的答案**：Help yourself to the fruit.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：把“自己拿”的说法换成英语招待惯用语。
+2. **规则与机制**：by yourself 强调“独自、没人陪”，与“不用客气、自己取用”是两回事；后者用 help yourself to + 名词。
+3. **英语的表达逻辑**：英语用不同短语区分“独自完成”和“给自己取用”，招呼客人取食物时选后者，语气才到位。
+4. **可迁移表达**：Feel free to help yourself to the fruit.（水果请随便拿。）／The fruit is all yours — help yourself.（水果都是你的，自己拿。）／Help yourself to some fruit.（水果自己拿点。）
+
+</details>
+
+---
+
+### 3. 翻译
+
+**题目**：中译英
+孩子们，桌上的点心随便吃。（对孩子说）
+
+**我的答案**：Children, help yourselves to the snacks on the table.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：对多个受话人用 yourselves。
+2. **规则与机制**：Children 是复数称呼，反身代词用 yourselves；to the snacks on the table 把取用对象落到具体位置。
+3. **英语的表达逻辑**：英语反身代词带数与人称标记，称呼是复数就必须用复数形式，否则人称的数对不上。
+4. **可迁移表达**：Kids, help yourselves to the cookies.（孩子们，饼干自己拿。）／Help yourselves to whatever is on the table.（桌上的东西随便吃。）
+
+</details>
+
+---
+
+### 4. 短写作
+
+**题目**：按提示写两句话，每句一句英文
+- ① 对一位客人，请他自取咖啡。
+- ② 对一群同事，请他们自取零食。
+
+**我的答案**：
+- ① Help yourself to the coffee.
+- ② Help yourselves to the snacks.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：同一招呼语在单人、多人两种受话场景下的切换。
+2. **规则与机制**：对一位客人用 help yourself，对一群同事用 help yourselves；两句都用 to 引出自取对象。
+3. **英语的表达逻辑**：招呼语只换反身代词的数，其余结构保持不变，这也是这条搭配最实用的迁移点。
+4. **可迁移表达**：Help yourself to some coffee.（咖啡自己倒。）／Help yourselves to the snacks.（零食你们自己拿。）／Help yourself to the coffee, Tom.（汤姆，咖啡自己倒。）
+
+</details>
+
+---
+
+### 5. 翻译
+
+**题目**：中译英
+她到朋友家做客，自己盛了一碗汤。
+
+**我的答案**：She visits her friend and help herself to a bowl of soup.
+
+**判定**：⚠️ 部分正确（help herself to a bowl of soup 搭配对，但 and 后面的谓语没跟上主语与时态）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：第三人称的自取表达，以及并列谓语的形式一致。
+2. **规则与机制**：help oneself 随主语变，she 对应 herself；and 连接两个动作时，前后谓语要保持同一时态、同一人称形式（visits ... helps 或 visited ... helped）。
+3. **英语的表达逻辑**：英语每个谓语都要独立带时态和人称标记，and 只负责连接，不会替第二个动词补形式；叙述已经发生的事，统一用过去式最省事。
+4. **可迁移表达**：She visited her friend and helped herself to a bowl of soup.（她到朋友家做客，自己盛了一碗汤。）／He always helps himself to the snacks in the office.（他总自己拿办公室的零食。）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：and 连接的并列谓语要各自满足时态与人称一致。
+2. **为什么错**：前一个谓语 visits 带了第三人称单数标记，and 后面的 help 却停在原形，两个并列动作一个变位、一个不变位；同时整件事是过去发生的，时态也没有统一。
+3. **英语的表达逻辑**：英语的时态和人称标记落在每个谓语上，并列结构只是把两件事摆在一起，不共享动词形式；要么都写现在时，要么都写过去时。
+4. **正确表达**：She visited her friend and helped herself to a bowl of soup.（她到朋友家做客，自己盛了一碗汤。）
+
+</details>
+
+---
+
+### 6. 改写
+
+**题目**：改写成主人对一群客人说的自然招呼语，句意不变
+Everybody can take whatever they want from the basket.
+
+**我的答案**：Help yourselves to everything in the basket.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：群体招呼语 + 容器内部用 in。
+2. **规则与机制**：客人是一群人，用 yourselves；东西装在篮子里，用 in the basket（篮子有容纳空间，与“托盘表面用 on”不同）。
+3. **英语的表达逻辑**：介词 on 管表面接触，in 管被容器包住；招呼语里的人称按听者人数变。
+4. **可迁移表达**：Help yourselves to whatever you like in the basket.（篮子里的东西你们随便拿。）／Help yourself to the apples in the bowl.（碗里的苹果自己拿。）
 
 </details>
