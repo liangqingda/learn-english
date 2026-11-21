@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 303,
+  "revision": 304,
   "category": "grammar",
   "records": {
     "grammar:a-bit-of-a-singular-countable": {
@@ -1340,6 +1340,30 @@
       "mastered_at": null,
       "review_history": [],
       "key": "the-smell-of-noun"
+    },
+    "grammar:third-person-singular-present-s": {
+      "id": "grammar:third-person-singular-present-s",
+      "category": "grammar",
+      "key": "third-person-singular-present-s",
+      "status": "learning",
+      "title": "一般现在时第三人称单数要加 -s",
+      "explanation": "一般现在时里主语是 it / he / she / 单个名词时，谓语动词要加 -s：it really gets on my nerves。填空时先定主语再看形式，别只看括号里的词形。",
+      "source": "My upstairs neighbour practises the trumpet till midnight — it really get on my nerves.",
+      "example": "It really gets on my nerves.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-21T21:18:09+08:00",
+      "last_learned_at": "2026-11-21T21:18:09+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "grammar:unless-means-if-not": {
       "id": "grammar:unless-means-if-not",

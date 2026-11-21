@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 302,
+  "revision": 306,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -224,6 +224,30 @@
       ],
       "first_learned_at": "2026-11-08T16:09:04+08:00",
       "last_learned_at": "2026-11-08T16:09:04+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:all-day-no-article": {
+      "id": "phrases:all-day-no-article",
+      "category": "phrases",
+      "key": "all-day-no-article",
+      "status": "learning",
+      "title": "all day 不带冠词",
+      "explanation": "all + 时间单位表示整个时段：all day / all night / all week，都不加 the；写成 all the day 是把“一整天”误当成特指的一天。",
+      "source": "It gets on my nerves that the neighbor next to me shakes her legs all the day.",
+      "example": "Her leg bouncing gets on my nerves all day.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-21T21:18:09+08:00",
+      "last_learned_at": "2026-11-21T21:18:09+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -548,6 +572,30 @@
         }
       ],
       "key": "can-t-stand-tolerate"
+    },
+    "phrases:cant-stand-the-sight-of": {
+      "id": "phrases:cant-stand-the-sight-of",
+      "category": "phrases",
+      "key": "cant-stand-the-sight-of",
+      "status": "learning",
+      "title": "can't stand the sight of sb",
+      "explanation": "“看到某人的样子就受不了”在英语里固化成名词短语 the sight of sb，直接做 stand 的宾语；不必拆成 can't bear it when I see sb，后者语法成立但不如固定搭配自然。",
+      "source": "I can't bear it when I see his face.",
+      "example": "I can't stand the sight of his fake smile.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-21T21:18:09+08:00",
+      "last_learned_at": "2026-11-21T21:18:09+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "phrases:clear-the-table-after-meal": {
       "id": "phrases:clear-the-table-after-meal",
@@ -1491,6 +1539,30 @@
       ],
       "first_learned_at": "2026-11-16T20:45:02+08:00",
       "last_learned_at": "2026-11-16T20:45:02+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:not-any-more-in-negative": {
+      "id": "phrases:not-any-more-in-negative",
+      "category": "phrases",
+      "key": "not-any-more-in-negative",
+      "status": "learning",
+      "title": "否定句里用 not … any more，不用 not … no more",
+      "explanation": "表示“不再”时否定句固定用 not … any more；no more 与否定词并存构成双重否定，现代英语不接受。改错时先定位这个错点，其余词一律不动。",
+      "source": "I can't put up with the smell of that paint no more.",
+      "example": "I can't take the smell of that paint any more.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-21T21:18:15+08:00",
+      "last_learned_at": "2026-11-21T21:18:15+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-19 07:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-21 21:13</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-21 21:18</td></tr>
 </table>
 
 ## 讲解
@@ -237,10 +237,217 @@ In April the neighbours switched to plastic crates and a quiet trolley. Ana stil
 
 复习历史：
 <!-- practice-index -->
-- [2026-11-21 20:06 · 练习](#practice-2026-11-21-2006-0be2fef5)
+- [2026-11-21 21:18 · 练习 - 02](#practice-2026-11-21-2118-0be2fef5-02)
+- [2026-11-21 20:06 · 练习 - 01](#practice-2026-11-21-2006-0be2fef5-01)
 <!-- /practice-index -->
 
 # 2026-11-19 07:53 · 练习
+
+## 扩展「can't stand + 名词/动名词」相关词汇和搭配 - 02 <a id="practice-2026-11-21-2118-0be2fef5-02"></a>
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>生成时间</td><td>2026-11-21 21:18</td></tr>
+<tr><td>本轮得分</td><td>6 / 10</td></tr>
+<tr><td>题量与错题数</td><td>6 题 / 6 处错误</td></tr>
+</table>
+
+### 1. 单项选择
+
+**题目**：选择最佳选项填空
+I ____ the sight of that poster; it has been hanging there for six years.
+
+- A. don't stand
+- B. can't stand
+- C. can't stand it
+- D. can't standing
+
+**我的答案**：B
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：can't stand the sight of + 名词 这个固定搭配。
+2. **规则与机制**：the sight of something 表示“一看到某物就……”，此处 the sight of 后面已经带了宾语，不再需要形式宾语 it。
+3. **英语的表达逻辑**：stand 只出现在否定和疑问里；C 的 it 会和 the sight of 的宾语撞车。
+4. **可迁移表达**：I can't stand the sight of that cracked mug.
+
+</details>
+
+---
+
+### 2. 填空
+
+**题目**：用括号内词的正确形式填空
+My upstairs neighbour practises the trumpet till midnight — it really ____（get）on my nerves.
+
+**我的答案**：get
+
+**判定**：❌ 错误（主语 it 是第三人称单数，要写 gets）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：一般现在时的主谓一致。
+2. **规则与机制**：一般现在时里主语是第三人称单数（it、he、she、单数名词），谓语动词要加 -s。
+3. **英语的表达逻辑**：抱怨习惯性的事情用一般现在时，主语 it 时谓语必须写 gets。
+4. **可迁移表达**：The lift's humming really gets on my nerves.
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：第三人称单数主语的动词形式。
+2. **为什么错**：填了原形 get，没查主语 it。
+3. **英语的表达逻辑**：先定主语再看形式——it / he / she / 单数名词 + 一般现在时，动词加 -s。
+4. **正确表达**：It really gets on my nerves.
+
+</details>
+
+---
+
+### 3. 改错
+
+**题目**：改错（只改错处，句意不变）
+I can't take the smell of that paint no more.
+
+**我的答案**：I can't put up with the smell of that paint no more.
+
+**判定**：❌ 错误（换掉了动词却没改真正的错处；否定句要用 any more，不能用 no more）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：否定句里的 any more。
+2. **规则与机制**：表示“不再”时否定句用 not … any more；no more 与 not 并存会构成双重否定，现代英语不接受。
+3. **英语的表达逻辑**：否定词已经在 can't 上，句尾交给 any more。
+4. **可迁移表达**：I can't take this noise any more.
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：否定句 + any more 的搭配。
+2. **为什么错**：改错题只要求改错处，却把 can't take 换成了 can't put up with，no more 原封不动。
+3. **英语的表达逻辑**：先定位唯一错点（can't 与 no more 双重否定），改完错点其余词一律不动。
+4. **正确表达**：I can't take the smell of that paint any more.
+
+</details>
+
+---
+
+### 4. 改写
+
+**题目**：用 can't stomach 改写，保持句意
+I can't tolerate the smell of stale coffee in his car.
+
+**我的答案**：I can't stomach the smell of stale coffee in his car.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：can't stomach 的搭配。
+2. **规则与机制**：stomach 作动词是“受得住、咽得下”，can't stomach 直接接名词。
+3. **英语的表达逻辑**：tolerate 偏中性书面，can't stomach 带身体反应的味道；改写只换动词，宾语结构不动。
+4. **可迁移表达**：I can't stomach the smell of instant noodles in the office.
+
+</details>
+
+---
+
+### 5. 翻译
+
+**题目**：中译英
+她受不了别人当着她的面抽烟。
+
+**我的答案**：She can't stand it when others smoke in front of her.
+
+**判定**：⚠️ 部分正确（句子成立、句意也对，但用 it when 从句绕开了本轮考点——can't stand + 名词 + 动名词）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：can't stand + 名词 + 动名词 的紧凑结构。
+2. **规则与机制**：“别人当着她的面抽烟”可以整体做成宾语 people smoking in front of her，直接接在 can't stand 后面，不必借形式主语 it 和 when 从句。
+3. **英语的表达逻辑**：it when 从句强调“每次……的时候”，动名词短语把动作压成名词性成分，句子更短，是“受不了某种行为”的首选。
+4. **可迁移表达**：She can't stand people smoking in front of her.
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：宾语形式的选择。
+2. **为什么错**：it when others smoke 语法没错，但把“别人抽烟这件事”拆成时间从句，本轮要练的 people smoking 结构没出现。
+3. **英语的表达逻辑**：看到“受不了 + 某人做某事”，先试“人 + 分词”的名词短语，只有强调“每次发生时”才用 it when 从句。
+4. **正确表达**：She can't stand people smoking in front of her.
+
+</details>
+
+---
+
+### 6. 语境判断
+
+**题目**：三段场景各选一个最贴切的表达，按场景序号对应回答
+场景一：咖啡机每次研磨都尖叫着响上十几秒，声音吵得我快疯了。
+场景二：邻座那位一直在抖腿，一天下来，这些小动作让人烦得难受。
+场景三：我一看到他那张假笑的脸，就完全受不了。
+备选：drive me up the wall / get on my nerves / can't stand the sight of
+
+**我的答案**：
+- ① That coffee machine drives me crazy.
+- ② It gets on my nerves that the neighbor next to me shakes her legs all the day.
+- ③ I can't bear it when I see his face.
+
+**判定**：⚠️ 部分正确（① 用同强度的 drives me crazy 可接受；② all the day 与 shakes her legs 两处不自然；③ 未落到 can't stand the sight of）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：三档烦躁表达的对象与搭配。
+2. **规则与机制**：drive sb up the wall / drive sb crazy 强度最高；get on sb's nerves 接持续的小动作；can't stand the sight of sb 固定接“某人的样子”。
+3. **英语的表达逻辑**：逼疯人的大事用 drive…up the wall，磨人的小事用 get on my nerves，看脸的反感用 the sight of。
+4. **可迁移表达**：The drilling next door drives me up the wall. / His humming gets on my nerves.
+
+</details>
+
+<details>
+<summary>错题讲解 1</summary>
+
+1. **考点**：“一整天”的时间状语。
+2. **为什么错**：写成 all the day，英语固定说 all day（或 all day long），不加 the。
+3. **英语的表达逻辑**：all + 时间单位 表示整个时段，all day / all night / all week 都不带冠词。
+4. **正确表达**：Her leg bouncing gets on my nerves all day.
+
+</details>
+
+<details>
+<summary>错题讲解 2</summary>
+
+1. **考点**：抖腿的动作搭配。
+2. **为什么错**：shakes her legs 是“摇晃双腿”，像跳舞或晃身体；抖腿习惯动作说 bounce / jiggle one's leg，且一条腿用单数。
+3. **英语的表达逻辑**：身体小动作要用固定动词——bounce one's leg、tap one's foot、click a pen。
+4. **正确表达**：The person next to me keeps bouncing his leg, and it gets on my nerves.
+
+</details>
+
+<details>
+<summary>错题讲解 3</summary>
+
+1. **考点**：can't stand the sight of 的固定搭配。
+2. **为什么错**：写成 I can't bear it when I see his face，语法成立、意思接近，但把固定搭配拆成“bear it when + 从句”，考点没落地。
+3. **英语的表达逻辑**：“看到某人的样子就受不了”已固化成名词短语 the sight of sb，直接做 stand 的宾语。
+4. **正确表达**：I can't stand the sight of his fake smile.
+
+</details>
+
+---
 
 ## 对比「can't stand + 名词/动名词」和相近表达 <a id="practice-2026-11-21-2057-402c14ff"></a>
 
@@ -447,7 +654,7 @@ I really don't like queuing, but ten minutes is fine for me.
 
 ---
 
-## 扩展「can't stand + 名词/动名词」相关词汇和搭配 <a id="practice-2026-11-21-2006-0be2fef5"></a>
+## 扩展「can't stand + 名词/动名词」相关词汇和搭配 - 01 <a id="practice-2026-11-21-2006-0be2fef5-01"></a>
 
 <table style="border-collapse:collapse;width:auto">
 <colgroup><col width="150"><col></colgroup>

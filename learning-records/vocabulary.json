@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 303,
+  "revision": 304,
   "category": "vocabulary",
   "records": {
     "vocabulary:a-little-bit": {
@@ -227,6 +227,30 @@
       "mastered_at": null,
       "review_history": [],
       "key": "boat-small-watercraft"
+    },
+    "vocabulary:bounce-ones-leg-not-shake-legs": {
+      "id": "vocabulary:bounce-ones-leg-not-shake-legs",
+      "category": "vocabulary",
+      "key": "bounce-ones-leg-not-shake-legs",
+      "status": "learning",
+      "title": "抖腿说 bounce / jiggle one's leg",
+      "explanation": "shakes her legs 是“摇晃双腿”，像跳舞或晃身体；抖腿的习惯动作说 bounce one's leg 或 jiggle one's leg，一条腿用单数。同类固定动词还有 tap one's foot、click a pen。",
+      "source": "It gets on my nerves that the neighbor next to me shakes her legs all the day.",
+      "example": "The person next to me keeps bouncing his leg, and it gets on my nerves.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-21T21:18:09+08:00",
+      "last_learned_at": "2026-11-21T21:18:09+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "vocabulary:breeze-light-wind": {
       "id": "vocabulary:breeze-light-wind",
