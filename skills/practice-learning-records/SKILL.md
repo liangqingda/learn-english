@@ -1,6 +1,6 @@
 ---
 name: practice-learning-records
-description: 从规范学习记录中选择到期或低分知识点开展复习，按回答记录 0 至 10 分，并在一次协调写操作中保存评分、状态变化和实际错题；有习题的练习项（`starter-practice`、`follow-up-learning`、两个错题聚类练习）也按 0 至 10 计分，但得分只写进 `learning-record-notes/` 的笔记、不写规范记录；也支持复习已标熟或已掌握知识点、查看历史统计、基于已掌握知识点生成/持久化/续答/重做/评分四六级与 IELTS 风格等考试套题，以及按用户给出的复习笔记相对路径直接学习该笔记对应的知识点。当用户消息去除首尾空白后仅为中文“你好”或“复习”，仅为单独的英文单词 review、hi 或 practice（忽略大小写），或仅为一条复习笔记的相对路径（形如 `learning-record-notes/<category>/<category>-<slug>.md`）时必须使用；其中 practice 跳过菜单、直接从综合复习范围随机抽一条记录出题；在本 Skill 打开的复习或套题流程中，用户回复最近菜单中的数字或答案时也使用。除 review、hi、practice 之外的英文输入（含 hello 等单词）一律由 learn-from-english 讲解，本 Skill 不拦截其它英文触发词。
+description: 从规范学习记录中选择到期或低分知识点开展复习，按回答记录 0 至 10 分，并在一次协调写操作中保存评分、状态变化和实际错题；有习题的练习项（`starter-practice`、`follow-up-learning`、两个错题聚类练习）也按 0 至 10 计分，但得分只写进 `learning-record-notes/` 的笔记、不写规范记录；也支持复习已标熟或已掌握知识点、查看历史统计、基于已掌握知识点生成/持久化/续答/重做/评分四六级与 IELTS 风格等考试套题，以及按用户给出的复习笔记相对路径或知识点记录 ID 直接学习那一个知识点。当用户消息去除首尾空白后仅为中文“你好”或“复习”，仅为单独的英文单词 review、hi 或 practice（忽略大小写），或仅为一条复习笔记的相对路径（形如 `learning-record-notes/<category>/<category>-<slug>.md`），或仅为一条知识点记录 ID（形如 `phrases:not-any-more-in-negative`）时必须使用；其中 practice 跳过菜单、直接从综合复习范围随机抽一条记录出题，笔记路径与记录 ID 都跳过菜单、直接对那一个知识点出题；在本 Skill 打开的复习或套题流程中，用户回复最近菜单中的数字或答案时也使用。除 review、hi、practice、笔记路径与记录 ID 之外的英文输入（含 hello 等单词）一律由 learn-from-english 讲解，本 Skill 不拦截其它英文触发词。
 ---
 
 # 复习英语学习记录
@@ -19,7 +19,7 @@ description: 从规范学习记录中选择到期或低分知识点开展复习�
 | 某个写操作失败，要决定重试还是放弃 | `references/failure-recovery.md` |
 | 用户回复最近菜单里的数字、要按 option `kind` 分派 | `references/menu-dispatch.md` |
 | 一轮练习（`starter-practice` / `follow-up-learning` / 错题聚类练习）计分并只写笔记 | `references/practice-scoring.md` |
-| 用户整条消息只是一条复习笔记的相对路径 | `references/note-path-entry.md` |
+| 用户整条消息只是一条复习笔记的相对路径，或一条知识点记录 ID | `references/note-path-entry.md`（共用步骤）、`references/record-id-entry.md`（记录 ID 的定位差异） |
 
 只走普通复习、练习计分、写笔记和给菜单的轮次不读这些文件。
 
@@ -53,6 +53,10 @@ python3 skills/learn-from-english/scripts/learning_records.py next-review --path
 ## 从笔记相对路径学习知识点
 
 用户消息（去掉首尾空白、可带反引号或引号）整条只是一条复习笔记的相对路径时，直接以该笔记对应的知识点开一轮学习：不弹初始菜单、不领取 claim、不把这条路径当成文件操作。定位记录、出题、评分与补写占位讲解的步骤见 `references/note-path-entry.md`。
+
+## 从知识点记录 ID 学习知识点
+
+用户消息（去掉首尾空白、可带反引号或引号）整条只是一条 `<category>:<key>` 形态的记录 ID（形如 `phrases:not-any-more-in-negative`）时，同样直接对那条记录开一轮学习：不弹初始菜单、不领取 claim、不把它当成查询命令去回答。定位记录、推算它对应的笔记文件、记录缺失时的出口见 `references/record-id-entry.md`，出题、评分、写笔记与补写讲解一律按 `references/note-path-entry.md` 的共用步骤执行。
 
 ## 会话效率
 
