@@ -1,8 +1,10 @@
 {
-  "contractVersion": 1,
+  "contractVersion": 2,
   "python": "python3",
   "skillsDir": "skills",
   "notesDir": "learning-record-notes",
+  "recordsDir": "learning-records",
+  "masteredRecordsDir": "mastered-learning-records",
   "categoriesFile": "learning-record-notes/categories.json",
   "commands": {
     "writeNote": {
@@ -12,6 +14,10 @@
     "deleteNote": {
       "script": "skills/learn-from-english/scripts/learning_records.py",
       "args": ["delete-note"]
+    },
+    "deleteRecord": {
+      "script": "skills/learn-from-english/scripts/learning_records.py",
+      "args": ["delete-record"]
     }
   }
 }

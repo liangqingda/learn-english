@@ -327,17 +327,20 @@ python3 skills/learn-from-english/scripts/learning_records.py migrate-v2 --dry-r
 
 ## 外部工具契约（`contract.json`）
 
-仓库根的 `contract.json` 声明外部工具（目前是 `my-dashboard` 的英语页）依赖的那几件事。
+仓库根的 `contract.json` 声明外部工具（目前是 `my-dashboard` 的英语页与复习库页）依赖的那几件事。
 表里任何一项变了都要同时把 `contractVersion` +1，外部工具才不会拿着旧口径继续读：
 
 | 字段 | 值 | 含义 |
 | --- | --- | --- |
-| `contractVersion` | `1` | 契约版本；其余字段任一变化都要 +1 |
-| `python` | `python3` | 调用下面两个脚本的解释器 |
+| `contractVersion` | `2` | 契约版本；其余字段任一变化都要 +1 |
+| `python` | `python3` | 调用下面三个脚本命令的解释器 |
 | `notesDir` | `learning-record-notes` | 笔记目录（相对仓库根） |
+| `recordsDir` | `learning-records` | 学习中的记录目录（仅读） |
+| `masteredRecordsDir` | `mastered-learning-records` | 已掌握的记录目录（仅读） |
 | `categoriesFile` | `learning-record-notes/categories.json` | 分类清单唯一来源 |
 | `commands.writeNote` | `skills/take-english-study-notes/scripts/note.py write` | 整篇写入，仓库唯一的笔记写入口 |
 | `commands.deleteNote` | `skills/learn-from-english/scripts/learning_records.py delete-note` | 删笔记连同它的记录 |
+| `commands.deleteRecord` | `skills/learn-from-english/scripts/learning_records.py delete-record` | 只删记录，笔记文件不动 |
 
 外部工具只在开发期按本机路径读这套数据，生产构建用构建期快照，不依赖本仓库存在。
 `contract.json` 不是说明文档：`skills/learn-from-english/tests/test_rule_invariants.py` 里的

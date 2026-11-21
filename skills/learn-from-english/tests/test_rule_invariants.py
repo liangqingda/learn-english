@@ -543,10 +543,12 @@ class RepoContractTest(unittest.TestCase):
 
     def test_version_and_skeleton(self) -> None:
         contract = self.contract()
-        self.assertEqual(contract["contractVersion"], 1)
+        self.assertEqual(contract["contractVersion"], 2)
         self.assertEqual(contract["python"], "python3")
         self.assertEqual(contract["skillsDir"], "skills")
         self.assertEqual(contract["notesDir"], "learning-record-notes")
+        self.assertEqual(contract["recordsDir"], "learning-records")
+        self.assertEqual(contract["masteredRecordsDir"], "mastered-learning-records")
         self.assertEqual(
             contract["categoriesFile"], "learning-record-notes/categories.json"
         )
@@ -554,6 +556,8 @@ class RepoContractTest(unittest.TestCase):
         for relative in (
             contract["skillsDir"],
             contract["notesDir"],
+            contract["recordsDir"],
+            contract["masteredRecordsDir"],
             contract["categoriesFile"],
         ):
             self.assertTrue((REPO_ROOT / relative).exists(), str(relative))
@@ -562,8 +566,9 @@ class RepoContractTest(unittest.TestCase):
         commands = self.contract()["commands"]
         write_command = commands["writeNote"]
         delete_command = commands["deleteNote"]
+        delete_record_command = commands["deleteRecord"]
 
-        for command in (write_command, delete_command):
+        for command in (write_command, delete_command, delete_record_command):
             self.assertTrue(
                 (REPO_ROOT / command["script"]).is_file(), command["script"]
             )
@@ -574,6 +579,7 @@ class RepoContractTest(unittest.TestCase):
 
         record_commands = set(build_parser()._subparsers._group_actions[0].choices)
         self.assertIn(delete_command["args"][0], record_commands)
+        self.assertIn(delete_record_command["args"][0], record_commands)
 
 
 class ServiceInvariantTest(unittest.TestCase):
