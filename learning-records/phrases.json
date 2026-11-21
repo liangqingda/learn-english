@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 297,
+  "revision": 299,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -1048,10 +1048,10 @@
       "last_learned_at": "2026-07-31T14:01:53+08:00",
       "learned_count": 1,
       "mastery_score": 6.0,
-      "review_count": 1,
+      "review_count": 2,
       "high_score_streak": 0,
-      "last_reviewed_at": "2026-08-04T13:04:40+08:00",
-      "next_review_at": "2026-08-07T13:04:40+08:00",
+      "last_reviewed_at": "2026-11-21T17:53:06+08:00",
+      "next_review_at": "2026-11-24T17:53:06+08:00",
       "lapse_count": 0,
       "mastered_at": null,
       "review_history": [
@@ -1060,9 +1060,41 @@
           "reviewed_at": "2026-08-04T13:04:40+08:00",
           "previous_status": "learning",
           "new_status": "learning"
+        },
+        {
+          "score": 6.0,
+          "reviewed_at": "2026-11-21T17:53:06+08:00",
+          "previous_status": "learning",
+          "new_status": "learning"
         }
       ],
       "key": "help-yourself-food-offer"
+    },
+    "phrases:help-yourself-to-plus-noun": {
+      "id": "phrases:help-yourself-to-plus-noun",
+      "category": "phrases",
+      "key": "help-yourself-to-plus-noun",
+      "status": "learning",
+      "title": "help yourself to 后面接名词，不接动词",
+      "explanation": "help yourself to 里的 to 是介词，后面只能跟名词、代词或动名词；写成 to eat some fruit 等于把它当成不定式标记，而前面并没有能带不定式的动词，结构就断了。把动词去掉，让名词直接做 to 的宾语即可。",
+      "source": "Our host said, \"Please help yourself to eat some fruit.\"",
+      "example": "Our host said, \"Please help yourself to some fruit.\"",
+      "tags": [
+        "collocation",
+        "preposition",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-21T17:53:06+08:00",
+      "last_learned_at": "2026-11-21T17:53:06+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "phrases:hidden-world": {
       "id": "phrases:hidden-world",
@@ -1483,6 +1515,32 @@
       ],
       "first_learned_at": "2026-11-16T20:45:02+08:00",
       "last_learned_at": "2026-11-16T20:45:02+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:on-the-tray-not-in-the-tray": {
+      "id": "phrases:on-the-tray-not-in-the-tray",
+      "category": "phrases",
+      "key": "on-the-tray-not-in-the-tray",
+      "status": "learning",
+      "title": "东西放在托盘表面用 on the tray，不用 in the tray",
+      "explanation": "英语用介词区分“表面接触”和“容器内部”：东西摆在托盘表面用 on the tray；in the tray 指在托盘里面（例如托盘里盛着汤汁）。招待客人拿托盘上的东西时用 on。",
+      "source": "Help yourself to everything in the tray.",
+      "example": "Help yourselves to whatever you like on the tray.",
+      "tags": [
+        "place",
+        "preposition",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-21T17:53:06+08:00",
+      "last_learned_at": "2026-11-21T17:53:06+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

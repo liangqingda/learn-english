@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 298,
+  "revision": 299,
   "category": "vocabulary",
   "records": {
     "vocabulary:a-little-bit": {
@@ -149,6 +149,32 @@
       "mastered_at": null,
       "review_history": [],
       "key": "back-east-in-the-east-eastward"
+    },
+    "vocabulary:beverage-vs-drinks": {
+      "id": "vocabulary:beverage-vs-drinks",
+      "category": "vocabulary",
+      "key": "beverage-vs-drinks",
+      "status": "learning",
+      "title": "口语招待用 drinks，beverage 偏正式且需按数量变复数",
+      "explanation": "beverage 是正式书面词，多见于菜单、包装和酒店文案；日常招呼客人说 drinks。冰箱里那几瓶饮料是可数复数，泛指时用 drinks，写成 the beverage 会把数量写成“那一份”。",
+      "source": "Help yourself to the beverage in the fridge.",
+      "example": "Help yourself to the drinks in the fridge.",
+      "tags": [
+        "countability",
+        "register",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-21T17:53:06+08:00",
+      "last_learned_at": "2026-11-21T17:53:06+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "vocabulary:boat-small-watercraft": {
       "id": "vocabulary:boat-small-watercraft",

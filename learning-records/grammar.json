@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 298,
+  "revision": 299,
   "category": "grammar",
   "records": {
     "grammar:a-bit-of-a-singular-countable": {
@@ -1092,6 +1092,32 @@
       "mastered_at": null,
       "review_history": [],
       "key": "range-from-to"
+    },
+    "grammar:reflexive-pronoun-plural-form": {
+      "id": "grammar:reflexive-pronoun-plural-form",
+      "category": "grammar",
+      "key": "reflexive-pronoun-plural-form",
+      "status": "learning",
+      "title": "复数受话对象用 yourselves，不用 yourself",
+      "explanation": "help yourself 里的反身代词要跟着受话对象的人数和人称变化：对一个人用 yourself，对一群人用 yourselves。称呼是 Boys、Kids、everyone 这类指向多人的时候，动作回到“你们自己”身上，形式必须换成 yourselves，否则人称的数没有跟上。",
+      "source": "Boys, the sandwiches are on the counter. Help yourself and take as many as you want.",
+      "example": "Boys, the sandwiches are on the counter. Help yourselves and take as many as you want.",
+      "tags": [
+        "agreement",
+        "reflexive-pronoun",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-21T17:53:06+08:00",
+      "last_learned_at": "2026-11-21T17:53:06+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "grammar:shouldnt-negative-expectation": {
       "id": "grammar:shouldnt-negative-expectation",
