@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 283,
+  "revision": 302,
   "category": "usage",
   "records": {
     "usage:cannot-vs-cant": {
@@ -203,6 +203,30 @@
         }
       ],
       "key": "shall-we-suggestion-friendly"
+    },
+    "usage:stand-limit-vs-annoy-intensity": {
+      "id": "usage:stand-limit-vs-annoy-intensity",
+      "category": "usage",
+      "key": "stand-limit-vs-annoy-intensity",
+      "status": "learning",
+      "title": "“再也忍不下去”用 can't put up with … any longer，不用 drive me crazy",
+      "explanation": "drive me crazy 只表示“烦得要命”，人还在忍；中文“再也……不”是到了极限、决定不再忍，要靠否定 + any longer / anymore 落地，动词选 put up with 或 stand。",
+      "source": "The decoration noise drives me crazy.",
+      "example": "I can't put up with the renovation noise any longer.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-21T20:06:46+08:00",
+      "last_learned_at": "2026-11-21T20:06:46+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     }
   }
 }

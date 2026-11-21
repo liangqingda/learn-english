@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 299,
+  "revision": 302,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -1418,6 +1418,30 @@
       ],
       "first_learned_at": "2026-11-12T07:27:41+08:00",
       "last_learned_at": "2026-11-12T07:27:41+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:modifier-order-source-before-time": {
+      "id": "phrases:modifier-order-source-before-time",
+      "category": "phrases",
+      "key": "modifier-order-source-before-time",
+      "status": "learning",
+      "title": "名词后的修饰语按来源在前、时间在后，时间用 at midnight",
+      "explanation": "修饰名词的介词短语要紧挨名词，顺序按来源 + 时间：the noise from my neighbours at midnight；时间点用 at midnight，不用 in the midnight，后者也不是自然说法。",
+      "source": "The noise in the midnight from neighbors drives me crazy.",
+      "example": "The noise from my neighbours at midnight drives me crazy.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-21T20:06:46+08:00",
+      "last_learned_at": "2026-11-21T20:06:46+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

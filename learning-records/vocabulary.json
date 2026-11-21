@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 301,
+  "revision": 302,
   "category": "vocabulary",
   "records": {
     "vocabulary:a-little-bit": {
@@ -312,6 +312,30 @@
       "mastered_at": null,
       "review_history": [],
       "key": "cover-deal-with"
+    },
+    "vocabulary:decoration-vs-renovation": {
+      "id": "vocabulary:decoration-vs-renovation",
+      "category": "vocabulary",
+      "key": "decoration-vs-renovation",
+      "status": "learning",
+      "title": "装修施工是 renovation，不是 decoration",
+      "explanation": "decoration 指装饰、布置（挂画、选色、摆件）；敲打拆改的整套施工是 renovation 或 building work，装修噪音说 renovation noise / construction noise。",
+      "source": "The decoration noise drives me crazy.",
+      "example": "The renovation noise drives me crazy.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-21T20:06:46+08:00",
+      "last_learned_at": "2026-11-21T20:06:46+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "vocabulary:distinct-adj": {
       "id": "vocabulary:distinct-adj",

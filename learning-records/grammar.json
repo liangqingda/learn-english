@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 301,
+  "revision": 302,
   "category": "grammar",
   "records": {
     "grammar:a-bit-of-a-singular-countable": {
@@ -144,6 +144,30 @@
       ],
       "first_learned_at": "2026-11-19T20:49:08+08:00",
       "last_learned_at": "2026-11-19T20:49:08+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:cant-bear-does-not-take-clause": {
+      "id": "grammar:cant-bear-does-not-take-clause",
+      "category": "grammar",
+      "key": "cant-bear-does-not-take-clause",
+      "status": "learning",
+      "title": "can't bear 后面接名词或动名词，不接主谓从句",
+      "explanation": "can't bear 表示承受不了某物或某事，后面跟名词或动名词；要接一件事用 it when / it that 那套框架，不能把主谓从句直接塞在 bear 后面。",
+      "source": "I can't bear I'm so smart.",
+      "example": "I can't bear the way he boasts.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-21T20:06:46+08:00",
+      "last_learned_at": "2026-11-21T20:06:46+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -558,6 +582,30 @@
       ],
       "first_learned_at": "2026-11-07T21:22:36+08:00",
       "last_learned_at": "2026-11-07T21:22:36+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:it-at-all-no-trailing-clause": {
+      "id": "grammar:it-at-all-no-trailing-clause",
+      "category": "grammar",
+      "key": "it-at-all-no-trailing-clause",
+      "status": "learning",
+      "title": "can't stand it at all 是完整句子，后面不能再挂从句",
+      "explanation": "at all 是句末强调，出现它就说明句子已经说完；要带具体的事，先用 it when 框架：I can't stand it when + 主语 + 谓语，at all 放到最后。",
+      "source": "I can't stand it at all the dog outside barks all the time.",
+      "example": "I can't stand it when the dog outside barks all the time.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-21T20:06:46+08:00",
+      "last_learned_at": "2026-11-21T20:06:46+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

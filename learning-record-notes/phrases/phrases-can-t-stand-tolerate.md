@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-19 07:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-21 19:57</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-21 20:06</td></tr>
 </table>
 
 ## 讲解
@@ -230,7 +230,213 @@ In April the neighbours switched to plastic crates and a quiet trolley. Ana stil
 | get on my nerves | 持续的小烦扰，不必到极限 | 事做主语 | His humming gets on my nerves.（他哼歌让我心烦。） |
 | drive me crazy | 程度最强，常带夸张 | 事做主语 | That alarm drives me crazy.（那个闹钟快把我逼疯。） |
 
+复习历史：
+<!-- practice-index -->
+- [2026-11-21 20:06 · 练习](#practice-2026-11-21-2006-0be2fef5)
+<!-- /practice-index -->
+
 # 2026-11-19 07:53 · 练习
+
+## 扩展「can't stand + 名词/动名词」相关词汇和搭配 <a id="practice-2026-11-21-2006-0be2fef5"></a>
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>生成时间</td><td>2026-11-21 20:06</td></tr>
+<tr><td>本轮得分</td><td>6 / 10</td></tr>
+<tr><td>题量与错题数</td><td>6 题 / 6 处错误</td></tr>
+</table>
+
+### 1. 填空
+
+**题目**：填入最贴切的表达，只填一个表达
+I've been patient for months, but I ____ these delays any longer.
+
+**我的答案**：can't put up with
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：can't put up with + 名词。
+2. **规则与机制**：put up with 表示“勉强忍受”，配上 any longer（再也……不）就把“忍到极限”这层意思落实，正好对应 I've been patient for months 铺垫的长期忍耐。
+3. **英语的表达逻辑**：any longer 是这条表达的固定伙伴词，否定加上它就等于“到此为止”，比单说 can't put up with 更有收尾感。
+4. **可迁移表达**：I can't put up with the noise any longer.（这噪音我再也忍不下去了。）
+
+</details>
+
+---
+
+### 2. 单项选择
+
+**题目**：选出搭配不成立的一项
+
+- A. That dripping tap is driving me crazy.
+- B. His humming gets on my nerves.
+- C. I can't bear to see animals in cages.
+- D. The noise is getting on my nerves me.
+
+**我的答案**：C
+
+**判定**：❌ 错误（C 的 can't bear to see 完全成立；真正不成立的是 D，get on my nerves 后面又挂了一个 me，宾语重复）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：get on somebody's nerves 的宾语位置。
+2. **规则与机制**：这条短语是“事 + get on + 物主代词 + nerves”，宾语已经嵌在 my nerves 里，句子末尾不能再补一个 me。
+3. **英语的表达逻辑**：英语短语动词有的把宾语固定在中间，有的放在后面；get on my nerves 属于前者，再加宾语就变成两个宾语叠在一起。
+4. **可迁移表达**：That noise gets on my nerves.（那噪音让我心烦。）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：四个选项的搭配合法性逐条核对。
+2. **为什么错**：把 can't bear to see 当成错误搭配，而它恰好是 can't bear 的标准用法之一；同时漏掉了 D 末尾多余的 me。
+3. **英语的表达逻辑**：判断“哪一项不成立”时，要逐项扫两条：动词后的形式（to do / doing）合不合法，短语动词的宾语有没有重复或缺失；只看句子读起来顺不顺，容易漏掉多余的代词。
+4. **正确表达**：The noise is getting on my nerves.（那噪音让我心烦。）；也可写 The noise is driving me crazy.（那噪音快把我逼疯了。）
+
+</details>
+
+---
+
+### 3. 改错
+
+**题目**：只改错处，句意不变
+I can't put up with to wait in line for an hour every morning.
+
+**我的答案**：I can't put up with waiting in line for an hour every morning.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：put up with 后面接动名词。
+2. **规则与机制**：put up with 的 with 是介词，介词后面只能接名词、代词或动名词，不能接 to do。
+3. **英语的表达逻辑**：英语里凡是以介词收尾的短语动词，后面一律用 -ing 形式；to do 的不定式只跟特定的动词搭配。
+4. **可迁移表达**：I can't put up with waiting for the bus in the rain.（受不了在雨里等公交。）
+
+</details>
+
+---
+
+### 4. 改写
+
+**题目**：用 get on my nerves 改写，保持句意
+The way she taps her pen annoys me a lot.
+
+**我的答案**：The way she taps her pen gets on my nerves.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：annoy 与 get on somebody's nerves 的对应。
+2. **规则与机制**：改写时把“事”提到主语位置，annoy 换成 get on my nerves，时态随原句的一般现在时取 gets。
+3. **英语的表达逻辑**：get on my nerves 自带“持续、反复”的意味，正好对应 the way she taps her pen 这种重复动作；换成一次性事件就不合适。
+4. **可迁移表达**：The way he clears his throat gets on my nerves.（他清嗓子那个样子让我心烦。）
+
+</details>
+
+---
+
+### 5. 翻译
+
+**题目**：中译英
+这些装修噪音我再也忍不下去了。
+
+**我的答案**：The decoration noise drives me crazy.
+
+**判定**：⚠️ 部分正确（drives me crazy 本身成立，但“再也忍不下去”这层意思丢了，装修也说成了装饰）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：装修施工用 renovation / construction work，不用 decoration。
+2. **规则与机制**：decorate 指装饰、布置（挂画、刷漆选色），施工敲打、拆改的整套工程是 renovation 或 building work；装修产生的噪音要说 renovation noise 或 construction noise。
+3. **英语的表达逻辑**：英语把“装修过程”和“装饰效果”分成两个词，中文一个“装修”要按语境拆开；译错词，读者会以为在说装饰风格。
+4. **可迁移表达**：The renovation next door has been going on for weeks.（隔壁的装修已经干了好几周。）
+
+</details>
+
+<details>
+<summary>错题讲解 1</summary>
+
+1. **考点**：drives me crazy 与 can't put up with … any longer 的分工。
+2. **为什么错**：“再也忍不下去”是到了极限、不再忍，drives me crazy 只表示“烦得要命”，强度和“不再忍”的收尾意味都没有。
+3. **英语的表达逻辑**：中文“再也……不”这类结构要靠否定 + any longer / anymore 落地；换成纯程度词，句子就从“决定不再忍”变成“还在忍着只是很烦”。
+4. **正确表达**：I can't put up with the renovation noise any longer.（这些装修噪音我再也忍不下去了。）
+
+</details>
+
+<details>
+<summary>错题讲解 2</summary>
+
+1. **考点**：装修的用词。
+2. **为什么错**：写成 decoration noise，把“装饰”当成“装修施工”，词义范围不对。
+3. **英语的表达逻辑**：先定这件事的实质——是施工还是美化，再选词：renovation / construction work 对施工，decoration 对装饰布置。
+4. **正确表达**：I can't put up with the renovation noise any longer.（这些装修噪音我再也忍不下去了。）
+
+</details>
+
+---
+
+### 6. 造句
+
+**题目**：写 3 句抱怨，分别用到 can't bear、drive me crazy、can't stand it at all，每句都要说清具体是什么事。
+
+**我的答案**：
+- ① I can't bear I'm so smart.
+- ② The noise in the midnight from neighbors drives me crazy.
+- ③ I can't stand it at all the dog outside barks all the time.
+
+**判定**：⚠️ 部分正确（三个表达都摆上了，① ③ 的后接结构不成立，② 的状语顺序乱）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：三个表达各自能接什么。
+2. **规则与机制**：can't bear 接名词或动名词；drive somebody crazy 用“事”做主语；can't stand it at all 是完整句子，后面不能再挂从句。
+3. **英语的表达逻辑**：每个表达都有自己的“容量”——can't bear 装的是东西或动作，drive me crazy 装的是主语，stand it at all 已经收尾；塞进多余成分，句子就散架。
+4. **可迁移表达**：I can't bear the smell of burnt rice.（受不了米饭烧焦的味道。）／That alarm drives me crazy.（那个闹钟快把我逼疯。）／I can't stand it at all.（我一点都受不了。）
+
+</details>
+
+<details>
+<summary>错题讲解 1</summary>
+
+1. **考点**：can't bear 后面接什么。
+2. **为什么错**：写了 I can't bear I'm so smart，把主谓从句直接塞给 can't bear，这里既缺连接词，也不是这条表达允许的形式。
+3. **英语的表达逻辑**：can't bear 表示“承受不了某物或某事”，后面跟名词或动名词；要接从句得换成 it that / it when 那套框架，而 bear 更常用动名词。
+4. **正确表达**：I can't bear the way he boasts.（受不了他自夸那副样子。）
+
+</details>
+
+<details>
+<summary>错题讲解 2</summary>
+
+1. **考点**：时间与来源状语的位置。
+2. **为什么错**：写了 the noise in the midnight from neighbors，把时间状语插在名词和时间之间，读完不知道“半夜”修饰谁；而且 in the midnight 本身不自然。
+3. **英语的表达逻辑**：修饰名词的介词短语应紧挨名词，时间用 at midnight / in the middle of the night；多个修饰语按“来源 + 时间”顺序排在名词后：the noise from my neighbours at midnight。
+4. **正确表达**：The noise from my neighbours at midnight drives me crazy.（邻居半夜的噪音快把我逼疯了。）
+
+</details>
+
+<details>
+<summary>错题讲解 3</summary>
+
+1. **考点**：can't stand it at all 是完整句子。
+2. **为什么错**：写成 I can't stand it at all the dog outside barks all the time，把 at all 后面当成还能接从句的位置，句子出现两个谓语。
+3. **英语的表达逻辑**：at all 是句末强调，出现它就说明句子已经说完；要带具体的事，先回到 it when 框架：I can't stand it when + 主语 + 谓语，at all 放到最后。
+4. **正确表达**：I can't stand it when the dog outside barks all the time.（外面那条狗一直叫，我真受不了。）
+
+</details>
+
+---
 
 ## 练习「can't stand + 名词/动名词」的关键语法结构 - 05 <a id="practice-2026-11-21-1711-f1490a83-05"></a>
 
