@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-19 07:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-21 11:33</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-21 17:11</td></tr>
 </table>
 
 ## 讲解
@@ -63,6 +63,7 @@
 
 复习历史：
 <!-- practice-index -->
+- [2026-11-21 17:11 · 练习](#practice-2026-11-21-1711-f1490a83-05)
 - [2026-11-20 07:52 · 练习 - 02](#practice-2026-11-20-0752-f1490a83-04)
 - [2026-11-20 07:06 · 练习 - 01](#practice-2026-11-20-0706-f1490a83-03)
 - [2026-11-19 20:48 · 练习 - 02](#practice-2026-11-19-2048-f1490a83-02)
@@ -181,6 +182,197 @@ In April the neighbours switched to plastic crates and a quiet trolley. Ana stil
 3. **三个 can't 结构各管一件事**：can't stand = 受不了，can't help doing = 忍不住，can't wait to do = 迫不及待；宾语形式固定，不能互换。
 
 # 2026-11-19 07:53 · 练习
+
+## 练习「can't stand + 名词/动名词」的关键语法结构 - 05 <a id="practice-2026-11-21-1711-f1490a83-05"></a>
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>生成时间</td><td>2026-11-21 17:11</td></tr>
+<tr><td>本轮得分</td><td>6 / 10</td></tr>
+<tr><td>题量与错题数</td><td>6 题 / 5 处错误</td></tr>
+</table>
+
+### 1. 填空
+
+**题目**：用括号内词的正确形式填空
+I can't stand ____（constant）interruptions when I'm trying to write.
+
+**我的答案**：the constant
+
+**判定**：✅ 正确（形容词形式对；多加的 the 在有 when 从句限定的语境里也成立，只是题干没给）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：形容词修饰名词，stand 的宾语是名词短语。
+2. **规则与机制**：stand 后面可以接一个名词短语，形容词放在名词前做定语：constant interruptions；括号里的 constant 是形容词，直接前置即可。
+3. **英语的表达逻辑**：英语形容词不变形、不随名词数变化，位置固定在名词前；把它当动词或加 -s 都会让整个短语失效。
+4. **可迁移表达**：I can't stand the constant dripping from that tap.（受不了那个龙头一直滴水。）
+
+</details>
+
+---
+
+### 2. 单项选择
+
+**题目**：选出语法不成立的一项
+
+- A. I can't stand the noise from the flat above.
+- B. I can't stand him playing the drums at midnight.
+- C. I can't stand it when people cut in line.
+- D. I can't stand the way is he talks to waiters.
+
+**我的答案**：D
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：the way 后面从句的词序。
+2. **规则与机制**：the way (that) + 主语 + 谓语，从句用陈述语序；D 把 is 提到了 he 前面，等于把从句写成了疑问句。
+3. **英语的表达逻辑**：英语只有主句疑问才把助动词前置，从句一律保持陈述语序；the way 后面接的就是一个从句。
+4. **可迁移表达**：I can't stand the way he answers the phone.（受不了他接电话那个腔调。）
+
+</details>
+
+---
+
+### 3. 改错
+
+**题目**：只改错处，句意不变
+I very much can't stand the smell of fish in the office kitchen.
+
+**我的答案**：I can't stand the smell of fish in the office kitchen.
+
+**判定**：✅ 正确（删掉 very much 就回到自然表达；如果要把程度保住，换成 really 更贴）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：程度副词修饰否定情态。
+2. **规则与机制**：very much 通常修饰动词的肯定用法（I like it very much），放在否定情态 can't 前面不成立；要强调否定用 really、absolutely 或 at all。
+3. **英语的表达逻辑**：英语的程度词按搭配分工，very much 依附动词，really 依附整个否定判断，位置和语气都由搭配决定。
+4. **可迁移表达**：I really can't stand that smell.（我实在受不了那股味。）／I can't stand it at all.（我一点都受不了。）
+
+</details>
+
+---
+
+### 4. 改写
+
+**题目**：用 can't stand 把两句合并成一句，保持句意
+My neighbours slam the door every night. That drives me crazy.
+
+**我的答案**：I can't stand it when my neighbors slam the door.
+
+**判定**：⚠️ 部分正确（it when 框架合并对了，但 every night 这层“天天如此”的信息丢了）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：用 it + when 从句合并两句。
+2. **规则与机制**：第二句里的 That 指前面整件事，合并时用形式宾语 it + when 从句把这件事后置：stand it when + 主语 + 谓语。
+3. **英语的表达逻辑**：合并要保住原句的时间与频率成分，否则从句从“天天发生”缩成“发生过一次”，语气跟着变。
+4. **可迁移表达**：I can't stand it when the neighbours slam the door every night.（受不了邻居每天晚上摔门。）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+1. **考点**：合并时保留频率状语。
+2. **为什么错**：合并只搬了主句动作，every night 被丢掉，受不了的对象从“每晚都摔”变成“摔过一次”。
+3. **英语的表达逻辑**：频率、时间、地点这类状语是句子信息的一部分，合并两个句子时随从句一起搬过去；it when 从句本身完全可以带 every night。
+4. **正确表达**：I can't stand it when my neighbours slam the door every night.（受不了邻居每天晚上摔门。）
+
+</details>
+
+---
+
+### 5. 翻译
+
+**题目**：中译英
+我实在受不了他每次开会都迟到。
+
+**我的答案**：I can't stand it when he lates.
+
+**判定**：⚠️ 部分正确（it when 框架对，late 当动词用错了，“实在”和“每次”也没落下来）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：迟到要用 be late / show up late，late 是形容词。
+2. **规则与机制**：late 在英语里是形容词或副词，不是动词；表达“迟到”写 be late、arrive late、show up late，从句里必须有 be 动词或实义动词。
+3. **英语的表达逻辑**：英语的词性分工固定，形容词要靠 be 动词才能做谓语；把 late 直接加 -s 当动词，句子就没有合法谓语。
+4. **可迁移表达**：He is late for every meeting.（他每次开会都迟到。）／She showed up late again.（她又迟到了。）
+
+</details>
+
+<details>
+<summary>错题讲解 1</summary>
+
+1. **考点**：late 的词性。
+2. **为什么错**：写了 he lates，把形容词 late 当动词并加了三单 -s；英语里没有 late 这个动词。
+3. **英语的表达逻辑**：形容词描述状态，要靠 be 动词承担时态和人称；需要动词时换成 be late，或改用 arrive / show up 这类实义动词加副词 late。
+4. **正确表达**：I can't stand it when he is late for every meeting.（受不了他每次开会都迟到。）
+
+</details>
+
+<details>
+<summary>错题讲解 2</summary>
+
+1. **考点**：程度与频率的表达。
+2. **为什么错**：“实在”没有译出，否定强度与原句不符；“每次”也漏了，从句变成“他迟到”这种一次性事件。
+3. **英语的表达逻辑**：中文的程度副词落在英文的 really / absolutely 上，频率落在 every time、every meeting 这类状语上；译完逐块核对，才不会只搬骨架。
+4. **正确表达**：I really can't stand it when he is late for every meeting.（我实在受不了他每次开会都迟到。）
+
+</details>
+
+---
+
+### 6. 造句
+
+**题目**：写 3 件你受不了的事：其中 1 句回忆过去（描述从前的状况），另外 2 句说现在，三句都必须用 can't stand 的相应形式。
+
+**我的答案**：
+- ① I couldn't stand the poor live six years ago.
+- ② I can't stand the rich live currently.
+- ③ I can't stand it when my roommates snneze.
+
+**判定**：⚠️ 部分正确（过去与现在两种形式都用了，① ② 的宾语结构不成立，③ 拼写有误）
+
+<details>
+<summary>知识点讲解</summary>
+
+1. **本题知识点**：can't stand 的时态与宾语形式。
+2. **规则与机制**：过去用 couldn't stand，现在用 can't stand；宾语只能是名词短语、动名词或 it + when 从句，不能直接塞一个主谓结构。
+3. **英语的表达逻辑**：can't stand 是及物结构，宾语位置上要么是“东西”，要么是“一件事”；把“the poor live”这种主谓拼在一起，等于让 stand 同时接名词和谓语，结构塌掉。
+4. **可迁移表达**：I couldn't stand the noise back then.（那时我受不了那噪音。）／I can't stand living on the fifth floor.（受不了住五楼。）
+
+</details>
+
+<details>
+<summary>错题讲解 1</summary>
+
+1. **考点**：the + 形容词只能做名词短语。
+2. **为什么错**：写了 the poor live、the rich live，把 the poor / the rich 当成“他们”再接谓语 live，stand 后面就出现了一个没有连接词的主谓结构。
+3. **英语的表达逻辑**：the + 形容词确实能指一类人（the poor 穷人、the rich 富人），但它只是名词短语，需要另配谓语或放进从句；stand 后面要么用名词短语，要么用 it when 从句把整件事兜住。
+4. **正确表达**：I couldn't stand the noise where I lived six years ago.（六年前我受不了住处的噪音。）；也可写 I can't stand it when rich people show off.（受不了有钱人炫耀。）
+
+</details>
+
+<details>
+<summary>错题讲解 2</summary>
+
+1. **考点**：sneeze 的拼写。
+2. **为什么错**：写成 snneze，多了一个 n，这个词在英语里不存在。
+3. **英语的表达逻辑**：sneeze 是一个音节一个辅音簇 sn- 开头，拼写里只有一个 n；不确定时按读音拆成 s-n-ee-ze 核对。
+4. **正确表达**：I can't stand it when my roommates sneeze without covering their mouths.（受不了室友打喷嚏不捂嘴。）
+
+</details>
+
+---
 
 ## 练习「can't stand + 名词/动名词」的关键语法结构 - 04 <a id="practice-2026-11-20-0752-f1490a83-04"></a>
 

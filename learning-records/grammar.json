@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 296,
+  "revision": 298,
   "category": "grammar",
   "records": {
     "grammar:a-bit-of-a-singular-countable": {
@@ -1167,6 +1167,30 @@
       "mastered_at": null,
       "review_history": [],
       "key": "surprising-surprised"
+    },
+    "grammar:the-plus-adjective-is-noun-phrase-only": {
+      "id": "grammar:the-plus-adjective-is-noun-phrase-only",
+      "category": "grammar",
+      "key": "the-plus-adjective-is-noun-phrase-only",
+      "status": "learning",
+      "title": "the + 形容词只能做名词短语，不能再接谓语",
+      "explanation": "the poor、the rich 能指一类人，但它们本身只是名词短语，不能直接加谓语构成主谓结构塞进 stand 后面；要表达“某人过着……的生活”，用名词短语（the poor living conditions）或 it when 从句把整件事兜住。",
+      "source": "I couldn't stand the poor live six years ago.",
+      "example": "I couldn't stand the living conditions six years ago.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-21T17:12:06+08:00",
+      "last_learned_at": "2026-11-21T17:12:06+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "grammar:the-smell-of-noun": {
       "id": "grammar:the-smell-of-noun",

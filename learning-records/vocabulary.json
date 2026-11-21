@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 293,
+  "revision": 298,
   "category": "vocabulary",
   "records": {
     "vocabulary:a-little-bit": {
@@ -513,6 +513,30 @@
       "review_history": [],
       "key": "hidden-adjective"
     },
+    "vocabulary:late-is-adjective-not-verb": {
+      "id": "vocabulary:late-is-adjective-not-verb",
+      "category": "vocabulary",
+      "key": "late-is-adjective-not-verb",
+      "status": "learning",
+      "title": "late 是形容词，不能说 he lates",
+      "explanation": "late 是形容词或副词，不是动词；表达“迟到”要用 be late、arrive late、show up late，从句里必须有 be 动词或实义动词承担时态与人称。",
+      "source": "I can't stand it when he lates.",
+      "example": "I can't stand it when he is late for every meeting.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-21T17:12:06+08:00",
+      "last_learned_at": "2026-11-21T17:12:06+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "vocabulary:mind-numbing": {
       "id": "vocabulary:mind-numbing",
       "category": "vocabulary",
@@ -764,6 +788,30 @@
       "mastered_at": null,
       "review_history": [],
       "key": "slightly-somewhat-formal-degree"
+    },
+    "vocabulary:sneeze-spelling": {
+      "id": "vocabulary:sneeze-spelling",
+      "category": "vocabulary",
+      "key": "sneeze-spelling",
+      "status": "learning",
+      "title": "sneeze 的正确拼写",
+      "explanation": "打喷嚏是 sneeze，拼写 s-n-ee-ze，只有一个 n；写成 snneze 这个词在英语里不存在。",
+      "source": "I can't stand it when my roommates snneze.",
+      "example": "I can't stand it when my roommates sneeze without covering their mouths.",
+      "tags": [
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-21T17:12:06+08:00",
+      "last_learned_at": "2026-11-21T17:12:06+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "vocabulary:staff-uncountable-collective-noun": {
       "id": "vocabulary:staff-uncountable-collective-noun",
