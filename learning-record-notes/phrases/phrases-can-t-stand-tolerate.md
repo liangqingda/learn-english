@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-19 07:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-20 07:52</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-21 11:06</td></tr>
 </table>
 
 ## 讲解
@@ -17,25 +17,28 @@
 - 常用于否定句与疑问句；肯定句里表达“忍受”更常用 bear 或 put up with。
 
 **使用场景与语气**：
-- 口语与日常抱怨的主力表达，语气直接但不粗鲁，适合同事、邻居、客服这类需要把不满说清楚的场合。
-- 抱怨的对象越具体越自然：the noise、waiting in queues、people smoking next to me。
+- 口语与日常抱怨的主力表达，语气直接但不粗鲁，适合同事、邻居、家人这类需要把不满说清楚的场合。
+- 抱怨的对象越具体越自然：the noise、waiting in queues、him leaving takeout boxes by the door。
 
 **结构与搭配**：
-- stand + 名词：I can't stand the noise.
-- stand + 动名词：I can't stand waiting in queues.
-- 名词 + 分词（谁在做某事）：I can't stand people smoking next to me.
-- it + when 从句（每当…就受不了）：I can't stand it when the dryer buzzes after every load.
-- 被动动名词（被人怎样对待）：I can't stand being kept waiting.
-- 疑问形式：Can you stand being woken up at six?
+- stand + 名词：I can't stand the noise.（我受不了那噪音。）
+- stand + 动名词：I can't stand waiting in queues.（我受不了排队。）
+- 抱怨“某人做某事”：stand + 宾格代词/名词 + 现在分词：I can't stand him leaving takeout boxes by the door.（我受不了他把外卖盒堆在门口。）
+- 同一位置换成物主代词 + 动名词（his leaving）语法同样成立，语气更正式、偏书面；口语里代词取宾格 him 最自然。
+- it + when 从句（每当…就受不了）：I can't stand it when the dryer buzzes after every load.（每烘完一炉就嗡嗡叫，我真受不了。）
+- 被动动名词（被人怎样对待）：I can't stand being kept waiting.（我受不了被晾着等。）
+- 疑问形式：Can you stand being woken up at six?（你能受得了六点被吵醒吗？）
 
 **容易混淆**：
 - can't stand to do：不合习惯，改用 V-ing。
 - can't help doing 是“忍不住做”，can't wait to do 是“迫不及待”，都与“受不了”无关。
 - hate / dislike 可以接 to do，stand 不行。
+- 逻辑主语不能写成主格：❌ I can't stand he leaving…；要写宾格 him 或所有格 his。
 
 **可迁移表达**：
 - I can't stand the smell of smoke in the hallway.（我受不了走廊里的烟味。）
 - She can't stand being interrupted while she's presenting.（她受不了做汇报时被人打断。）
+- I can't stand his chewing right next to my ear.（我受不了他在我耳边嚼东西。）
 - Can you stand sharing a desk with someone who eats at it?（你能受得了和别人共用一张办公桌、对方还在上面吃东西吗？）
 
 ## 练习「can't stand + 名词/动名词」的关键语法结构

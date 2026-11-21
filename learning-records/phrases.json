@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 293,
+  "revision": 294,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -516,17 +516,19 @@
       "category": "phrases",
       "status": "learning",
       "title": "can't stand + 名词/动名词（受不了…）",
-      "explanation": "cannot/can't stand 表示“无法忍受”，后接名词或动名词（V-ing），一般不用 to do；主要用于否定与疑问语境。",
+      "explanation": "cannot/can't stand 表示“无法忍受”，后接名词或动名词（V-ing），一般不接 to do；主要用于否定与疑问语境。抱怨“某人做某事”时用 can't stand + 宾格代词/名词 + V-ing（I can't stand him leaving takeout boxes by the door.）；传统语法书把物主代词 + 动名词（his leaving）列为规范、语气偏正式书面，现代美式口语更常用宾格代词 + 现在分词，代词必须取宾格 him / them，不能写主格 he。宾语位置也不能直接塞一个带谓语的主谓结构。",
       "source": "I cannot stand the smell of smoke.",
       "example": "I can't stand people smoking next to me in restaurants.",
       "tags": [
         "collocation",
         "gerund",
-        "negation"
+        "negation",
+        "object-gerund",
+        "register"
       ],
       "first_learned_at": "2026-10-29T07:50:36+08:00",
-      "last_learned_at": "2026-10-29T07:50:36+08:00",
-      "learned_count": 1,
+      "last_learned_at": "2026-11-21T11:05:56+08:00",
+      "learned_count": 2,
       "mastery_score": 7.0,
       "review_count": 1,
       "high_score_streak": 0,
@@ -1770,15 +1772,18 @@
       "key": "takeout-boxes-vs-takeout",
       "status": "learning",
       "title": "外卖盒是 takeout boxes，“堆在门口”要落成 leave … by the door",
-      "explanation": "takeout 指外卖这件事或外卖餐，外卖的盒子要写 takeout boxes；中文“堆在门口”是一个持续留下的动作，用 leave / pile … by the door，不能只写 get the takeout；门口室内用 door，不用 gate（大门、闸口）。",
+      "explanation": "takeout 指外卖这件事或那份外卖餐，外卖盒要写 takeout boxes（也可说 takeout containers）；美式英语用 takeout，英式英语用 takeaway。中文“堆在门口”是持续留下的动作，用 leave / pile … by the door；by the door 指门边那一片位置，at the door 多指有人站到门口或门口那一刻，堆东西用 by the door 更自然；室内门口用 door，不用 gate（大门、闸口）。",
       "source": "I can't stand it when he gets the takeout at the gate.",
       "example": "I can't stand him leaving takeout boxes by the door.",
       "tags": [
-        "review-error"
+        "collocation",
+        "regional-variation",
+        "review-error",
+        "word-choice"
       ],
       "first_learned_at": "2026-11-20T07:50:00+08:00",
-      "last_learned_at": "2026-11-20T07:52:47+08:00",
-      "learned_count": 2,
+      "last_learned_at": "2026-11-21T11:05:56+08:00",
+      "learned_count": 3,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,
