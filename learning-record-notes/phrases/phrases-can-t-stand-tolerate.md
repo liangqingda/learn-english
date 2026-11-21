@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-19 07:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-21 17:11</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-21 19:20</td></tr>
 </table>
 
 ## 讲解
@@ -76,7 +76,7 @@
 - 宾语越具体越自然：抱怨“受不了某件事”时，先把对象钉成一个名词短语，再决定要不要加时间条件。
   - I can't stand the updates.（我受不了那些更新。）
   - I can't stand losing half a conversation.（我受不了通话断掉一半。）
-- 同一段对话里交替使用名词、动名词、名词 + 分词、it when 四种宾语，抱怨就不会重复成同一句。
+- 名词、动名词、名词 + 分词、it when 四种宾语形式都成立，但不必在同一段对话里轮流出现；对话按日常节奏自然展开，不同形式放在例句里展示即可。
   - I can't stand being woken up by a phone.（我受不了被手机吵醒。）
   - I can't stand it when the settings ignore the schedule.（设置不按时间表走，我受不了。）
 - 和 can't help doing、can't wait to do 放在一起时，三个 can't 结构分工不同：受不了 / 忍不住 / 迫不及待。
@@ -86,30 +86,22 @@
 <details>
 <summary>场景对话原文</summary>
 
-- **Lena**：I've had this phone for two years, and I **can't stand the updates**.
-  - 莉娜：这部手机我用了两年，那些更新我实在受不了。
-- **Owen**：I **can't stand the way the app installs them** at night either.
-  - 欧文：我也受不了这个软件总在半夜装更新的方式。
-- **Lena**：Two nights ago it woke me up at three. I **can't stand being woken up by a phone**.
-  - 莉娜：两天前它三点把我吵醒了。被手机吵醒这件事我受不了。
-- **Owen**：That's the automatic update window. I **can't stand it when the settings ignore the schedule**.
-  - 欧文：那是自动更新时段。设置不按时间表走，我受不了。
-- **Lena**：And the battery. I **can't stand waiting** forty minutes for it to charge.
-  - 莉娜：还有电池。要充四十分钟，我等得受不了。
-- **Owen**：We can replace the battery today. I **can't stand these old chargers** myself.
-  - 欧文：今天就能给你换电池。这些旧充电器我自己也受不了。
-- **Lena**：It also keeps dropping calls in my flat. I **can't stand losing half a conversation**.
-  - 莉娜：它在我家还老掉线。通话断掉一半，我受不了。
-- **Owen**：That's usually the building, not the phone. I **can't stand selling people a new phone** when the signal is the problem.
-  - 欧文：这通常是楼的问题，不是手机。信号才是原因的时候，我受不了给人推销新手机。
-- **Lena**：I appreciate that. I **can't stand being pushed to buy** things I don't need.
-  - 莉娜：这话我爱听。被人推着买不需要的东西，我受不了。
-- **Owen**：I'll test it first. Though I **can't help wondering** about that update schedule.
-  - 欧文：我先测一遍。不过我忍不住想弄清那个更新日程。
-- **Lena**：Please do. And I **can't wait to sleep through the night** again.
-  - 莉娜：麻烦你了。还有，我迫不及待想再一觉睡到天亮。
-- **Owen**：Give me an hour. I **can't stand leaving a phone half fixed**.
-  - 欧文：给我一个小时。我不喜欢把手机修到一半就放下。
+- **Mei**：Morning! Did you catch the eight fifteen today?
+  - 梅：早！你今天赶上八点十五那班了吗？
+- **Dan**：Barely. The line at the subway station wrapped around the block again.
+  - 丹：勉强赶上。地铁站的队伍又绕了半条街。
+- **Mei**：Yeah, it took me twenty minutes just to get through the gates.
+  - 梅：是啊，我光过闸机就排了二十分钟。
+- **Dan**：I know. I **can't stand it when people push past you without saying sorry**.
+  - 丹：可不是嘛。有人连句道歉都不说就往前挤，我真受不了。
+- **Mei**：Right? And someone kept playing videos out loud on the train.
+  - 梅：就是说啊，还有人在地铁上开外放刷视频。
+- **Dan**：I don't mind that one so much — my earphones block most of it.
+  - 丹：那个我倒不太在意，耳机基本能挡住。
+- **Mei**：Fair enough. Want the last bun? I bought too many yesterday.
+  - 梅：也对。要不要吃最后那个小面包？我昨天买多了。
+- **Dan**：Sure, thanks. I skipped breakfast this morning.
+  - 丹：好啊，谢了。我今天早上没吃早饭。
 
 </details>
 
