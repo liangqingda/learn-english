@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-19 07:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-21 21:18</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-21 21:30</td></tr>
 </table>
 
 ## 讲解
@@ -149,7 +149,7 @@
   - He could not stand being served by people who were still rattled.（他受不了被还在心慌的人招待。）
 
 <details>
-<summary>故事原文 · 五点十五分的卷帘门</summary>
+<summary>故事原文 1 · 五点十五分的卷帘门</summary>
 
 Ana started the five a.m. shift at a bakery on Riding Street last winter. The ovens were warm and the street was still dark, and she liked having the first hour to herself. Then the shop next door changed hands, and the new owners began unloading crates at five fifteen. The metal shutter came up with a screech that ran through the whole block.
 
@@ -173,6 +173,34 @@ In April the neighbours switched to plastic crates and a quiet trolley. Ana stil
 | I can't stand it when that shutter goes up | 把抱怨对准每天那个时刻，而不是讨厌整条街 | 换成 I don't like the shop next door 会让经理以为她在评价邻居，而不是那个时点上的干扰 |
 | could not stand being served by people who were still rattled | 说明自己为什么宁愿换店，也点出服务状态 | 换成 he didn't like the staff 变成对人不对事，丢了“被心慌的人招待”这层被动关系 |
 | still can't stand the smell of the shutter grease | 结尾保留一点没解决的厌恶，人物更真实 | 换成 she likes everything now 太圆满，也让前面所有让步失去分量 |
+
+</details>
+
+<details>
+<summary>故事原文 2 · 夜班冰柜的低鸣</summary>
+
+Priya took the night shift at a corner shop on the ground floor of a 1977 block. The shop stayed open until two, and from eleven the freezer compressor ran without a break. Customers came in wet from the rain, bought milk and cigarettes, and left. Nobody switched the compressor off, because nobody could find the switch.
+
+（普里娅在一栋 1977 年的老楼底层的小卖部上夜班。店开到凌晨两点，而从十一点起，冰柜压缩机就不停地转。顾客冒着雨进来，买牛奶和香烟，然后离开。没人去关那台压缩机，因为没人找得到开关。）
+
+Hal, the owner, said the technician had checked the unit twice and found nothing wrong. By the third hour of every shift Priya **can't stand the hum**. She started writing prices on a notepad instead of raising her voice, and one customer thought she had lost her voice. She **can't stand having to repeat** the price of a bag of ice three times.
+
+（店主哈尔说，技师来查过两次，没查出问题。每个班次到第三个小时，普里娅就受不了那嗡嗡声。她开始在便签本上写价格，不再提高嗓门，有个顾客还以为她嗓子坏了。她受不了同一袋冰的价钱要说三遍。）
+
+In February the landlord replaced the front door, and the same hum started bouncing off the new glass. The pitch climbed around four in the morning, and Priya said, "**I can't stand it when it goes up like that**." Hal bought her earplugs; with the earplugs in she missed the doorbell twice, and a delivery driver left with the wrong crate.
+
+（二月，房东换了前门，同样的嗡嗡声开始在新玻璃上反弹。凌晨四点左右音调会往上爬，普里娅说：“它那样往上飙的时候我真受不了。”哈尔给她买了耳塞；戴上耳塞她两次没听见门铃，一个送货司机拿错箱子走了。）
+
+In March Hal moved the freezer to the back wall and put rubber mats under it. The hum is still there, quieter, and Priya has stopped writing notes. She still **can't stand the rattle of the ice machine** at dawn, but she says one noise per shop is something she can live with.
+
+（三月，哈尔把冰柜挪到后墙，下面垫了橡胶垫。嗡嗡声还在，只是小了些，普里娅也不再写便签了。她仍然受不了天亮时制冰机的哗啦声，但她说一家店有一个噪音，她还能过得去。）
+
+| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |
+|---|---|---|
+| can't stand the hum | 点明真正折磨她的是那个声音本身，而不是夜班 | 换成 I don't like the night shift 会把问题归到排班，老板就会去调班而不是修理冰柜 |
+| can't stand having to repeat | 抱怨的是“重复三遍”这个动作，不是顾客 | 换成 I can't stand the customers 变成对人不满，也说不清她为什么改用便签 |
+| I can't stand it when it goes up like that | 把厌恶锁定在音调变化的那一刻，语气是当场发作 | 换成 it is noisy 只是描述环境，丢掉了“就这个时刻”的指向 |
+| still can't stand the rattle of the ice machine | 结尾留一处没解决的厌恶，人物不虚假 | 换成 she likes everything now 太圆满，前面的耳塞、垫子都失去分量 |
 
 </details>
 
