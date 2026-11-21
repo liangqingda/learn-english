@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-24 22:03</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-21 22:02</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-21 22:03</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-21 22:08</td></tr>
 </table>
 
 ## 讲解
@@ -37,10 +37,19 @@
 | can't put up with … any longer | 忍了很久、到顶 | 有终点，强调长期将就 | I can't put up with these delays any longer.（这些延误我再也忍不下去了。） |
 
 🚫 **常见误用**：
-- ❌ I can stand it any longer. → ✅ I can't stand it any longer.（我再也受不了了。）any longer 必须与否定结构同现。
-- ❌ I can't stand it no longer. → ✅ I can't stand it any longer.（我再也受不了了。）／I can no longer stand it.（我再也无法忍受了。）can't 与 no longer 叠成双重否定。
-- ❌ I can't put up with it.（想说“再也受不了了”） → ✅ I can't put up with it any longer.（这我再也受不了了。）少了终点标记就只剩“忍不了”。
-- ❌ I have standed it. → ✅ I have stood it for two months.（这我已经忍了两个月。）stand 是不规则动词。
+- any longer / any more 必须与否定结构同现；肯定结构里要表达“不再”，得靠 no longer（如 I can no longer stand it），不能只留 any longer。
+  - ❌ I can stand it any longer.
+  - ✅ I can't stand it any longer.（我再也受不了了。）
+- 一个否定意义只由一个词承担，can't 与 no longer 同时出现就是双重否定。
+  - ❌ I can't stand it no longer.
+  - ✅ I can't stand it any longer.（我再也受不了了。）
+  - ✅ I can no longer stand it.（我再也无法忍受了。no longer 自带否定，前面不再出现 not、can't。）
+- 只写 can't put up with 而漏掉 any longer，意思退成“忍不了”，“到今天为止”的终点丢失。
+  - ❌ I can't put up with it.（想说“再也受不了了”）
+  - ✅ I can't put up with it any longer.（这我再也受不了了。）
+- stand 是不规则动词，过去式和过去分词都是 stood，不能加 -ed。
+  - ❌ I have standed it.
+  - ✅ I have stood it for two months.（这我已经忍了两个月。）
 
 🧱 **可迁移表达**：
 - I've had enough of this noise.（这噪音我受够了。）

@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>0</td></tr>
 <tr><td>下次复习</td><td>—</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-21 11:19</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-21 11:20</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-21 22:08</td></tr>
 </table>
 
 ## 讲解
@@ -29,7 +29,7 @@
 
 **常见误用**：
 - ❌ I waited for twenty minutes the bus. → ✅ I waited twenty minutes for the bus.（我等了二十分钟公交）
-- ❌ I stood twenty minutes waiting. → ✅ I stood waiting for twenty minutes.（他站着等了二十分钟）stand 自己不能直接带时长。
+- ❌ I stood twenty minutes waiting.（stand 自己不能直接带时长） → ✅ I stood waiting for twenty minutes.（他站着等了二十分钟）
 - 把 for 插在 stand 后面会改变时长归属的动词，还会碰上 stand for 这个短语动词（代表 / 不容忍）。
 
 **可迁移句型**：
