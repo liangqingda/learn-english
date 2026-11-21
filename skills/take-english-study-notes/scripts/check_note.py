@@ -383,6 +383,34 @@ def heading_without_anchor(line: str) -> str:
     return INLINE_ANCHOR_RE.sub("", line.rstrip()).strip()
 
 
+# 装饰性 emoji 的字符类：小节标题、讲解栏目标签前的图标不参与结构比对。
+# 校验前统一剥掉，`## 🎭 场景对话` 与 `## 场景对话` 才算同一个小节；
+# 正文里的 emoji（判定标记 ✅/⚠️/❌、正误对照）不在行首装饰位，不受影响。
+LEAD_EMOJI_RE = re.compile(
+    "[\U0001F000-\U0001FAFF\u2600-\u27BF\u2B00-\u2BFF\u2190-\u21FF\uFE0F\u200D]+"
+)
+
+
+def strip_leading_emoji(text: str) -> str:
+    """剥掉行首的装饰性 emoji 与其后的空格：`## 🎭 场景对话` → `## 场景对话`。"""
+    prefix = ""
+    body = text
+    if body.startswith("## "):
+        prefix, body = "## ", body[3:]
+    body = body.lstrip()
+    while True:
+        match = LEAD_EMOJI_RE.match(body)
+        if not match:
+            break
+        body = body[match.end() :].lstrip()
+    return prefix + body
+
+
+def section_key(title: str) -> str:
+    """小节标题的结构比对键：去掉行首装饰性 emoji，保留 `## ` 前缀与 ` - NN` 后缀。"""
+    return strip_leading_emoji(title.strip())
+
+
 INDEX_START = "<!-- practice-index -->"
 INDEX_END = "<!-- /practice-index -->"
 INDEX_ITEM_RE = re.compile(r"^- \[(?P<label>[^\]]+)\]\(#(?P<id>[^)]+)\)$")
@@ -410,15 +438,20 @@ def practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str, str, st
         if title == QUIZ_SECTION:
             continue
         base, seq = split_section_seq(title)
+        key = section_key(base)
+        # 固定标题（`## 讲解` / `## 基础信息` / `## 本轮习题`）不是菜单项小节：不挂习题锚点
+        if key in (QUIZ_SECTION, DEFAULT_EXPLAIN_SECTION, BASIC_SECTION):
+            continue
         anchor_match = INLINE_ANCHOR_RE.search(line.rstrip())
         anchor = anchor_match.group("id") if anchor_match else ""
         stamp = stamps.get(index) or f"{date} {time}"
-        expected = practice_anchor_id(stamp[:10], stamp[11:], f"## {base}", seq)
-        occurrences.setdefault(base, []).append(
+        # 锚点按归一化键算：同一菜单项只在标题 emoji 上有差别时，锚点保持不变
+        expected = practice_anchor_id(stamp[:10], stamp[11:], f"## {key}", seq)
+        occurrences.setdefault(key, []).append(
             (stamp, kind, seq, anchor, expected, str(index + 1))
         )
     grouped: dict[str, list[tuple[str, str, str, str]]] = {}
-    for base, items in occurrences.items():
+    for key, items in occurrences.items():
         ordered = sorted(items, key=lambda item: (item[0], item[2] or 0))
         labels = section_index_labels([(stamp, kind) for stamp, kind, _seq, _a, _e, _l in ordered])
         entries = [
@@ -426,7 +459,7 @@ def practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str, str, st
             for position, item in enumerate(ordered)
         ]
         entries.reverse()
-        grouped[base] = entries
+        grouped[key] = entries
     return grouped
 
 
@@ -492,8 +525,8 @@ def index_tail_is_clean(lines: list[str], end_line: int) -> bool:
     return cursor >= len(lines) or lines[cursor].startswith("# ") or lines[cursor].startswith("## ")
 
 
-def day_menu_sections(lines: list[str]) -> dict[tuple[str, str], list[tuple[str, int | None, int]]]:
-    """同一天里每个菜单项小节的 (时间, 序号, 行号)：`(日期, base)` → 列表。
+def day_menu_sections(lines: list[str]) -> dict[tuple[str, str], list[tuple[str, int | None, int, str]]]:
+    """同一天里每个菜单项小节的 (时间, 序号, 行号, 该节标题)：`(日期, 归一化标题)` → 列表。
 
     时间取小节表格里的 `生成时间`（与索引口径一致），缺省时回落到区块标题时间。
     """
@@ -515,7 +548,10 @@ def day_menu_sections(lines: list[str]) -> dict[tuple[str, str], list[tuple[str,
             continue
         base, seq = split_section_seq(title)
         stamp = stamps.get(index) or current_stamp
-        result.setdefault((current_date, base), []).append((stamp, seq, index + 1))
+        # 键按「去掉行首 emoji」归一化，值里保留各小节自己的标题文本（`- 01` 补号要用原样标题）
+        result.setdefault((current_date, section_key(base)), []).append(
+            (stamp, seq, index + 1, base)
+        )
     return result
 
 
@@ -558,9 +594,6 @@ def block_section_order(
 
 LEGACY_MENU_HEADING_RE = re.compile(r"^### \d+\.\s+菜单：")
 LEGACY_MENU_ITEM_RE = re.compile(r"^\d+\.\s|^菜单：")
-MENU_EMOJI_RE = re.compile(
-    "^[\U0001F000-\U0001FAFF\u2600-\u27BF\u2B00-\u2BFF\u2190-\u21FF\uFE0F\u200D]"
-)
 STORY_SUMMARY = "故事原文"
 DIALOGUE_SUMMARY = "场景对话原文"
 STORY_SENTENCE_RE = re.compile(r"[A-Za-z][^.!?]*[.!?]")
@@ -656,7 +689,12 @@ def validate_menu_section(
     lines = section_text.split("\n")
     q_positions = [k for k, line in enumerate(lines) if QUESTION_RE.match(line)]
     intro = lines[1:(q_positions[0] if q_positions else len(lines))]
-    mfields = [m.group(1) for line in intro if (m := MENU_FIELD_RE.match(line))]
+    # `**讲解要点**：` 允许带行首 emoji（`📌 **讲解要点**：`），比对前先剥掉
+    mfields = [
+        m.group(1)
+        for line in intro
+        if (m := MENU_FIELD_RE.match(strip_leading_emoji(line.strip())))
+    ]
     if mfields and mfields[0] != "讲解要点":
         add(
             line_no,
@@ -862,6 +900,23 @@ def check(path: Path) -> list[dict]:
 
     note_category = filename_category(path)
 
+    # 固定二级标题不参与装饰：`## 📖 讲解` 只会被当成菜单小节，这里给出对准的提示
+    fixed_sections = {
+        f"## {BASIC_SECTION}",
+        f"## {DEFAULT_EXPLAIN_SECTION}",
+        f"## {QUIZ_SECTION}",
+    }
+    for index, line in enumerate(lines):
+        if not line.startswith("## "):
+            continue
+        bare = heading_without_anchor(line)
+        plain = section_key(bare)
+        if plain in fixed_sections and plain != bare:
+            add(
+                index + 1,
+                f"固定标题不要加图标：应写成 `{plain}`；图标只用在讲解栏目、菜单项小节标题与正文要点上",
+            )
+
     # 1. 一级标题只允许日期区块：记录 ID 与知识点写在追踪表格里
     for i, line in enumerate(lines):
         if re.match(r"^# ", line) and not SECTION_RE.match(line):
@@ -897,16 +952,16 @@ def check(path: Path) -> list[dict]:
             )
 
     # 2c. 同一天同一菜单项的习题小节：只有一份时不带序号，第二份起按时间升序 ` - 01`、` - 02`
-    for (_date, base), entries in day_menu_sections(lines).items():
+    for (_date, _key), entries in day_menu_sections(lines).items():
         ordered = sorted(entries, key=lambda item: item[0])
         if len(ordered) == 1:
             if ordered[0][1] is not None:
                 add(
                     ordered[0][2],
-                    f"同一菜单项当天只有一份习题时不要加序号后缀：`## {base}`",
+                    f"同一菜单项当天只有一份习题时不要加序号后缀：`## {ordered[0][3]}`",
                 )
             continue
-        for position, (_stamp, seq, line_no) in enumerate(ordered, start=1):
+        for position, (_stamp, seq, line_no, base) in enumerate(ordered, start=1):
             expected = f"{base} - {position:02d}"
             if seq is None:
                 add(
@@ -1025,7 +1080,8 @@ def check(path: Path) -> list[dict]:
             continue
         block = index_block(lines, index + 1)
         expected = [
-            (label, expected_id) for label, _anchor, expected_id, _line in entries.get(base, [])
+            (label, expected_id)
+            for label, _anchor, expected_id, _line in entries.get(section_key(base), [])
         ]
         if not expected:
             if block is not None:
@@ -1221,7 +1277,8 @@ def check(path: Path) -> list[dict]:
         label_lines = []
         empty_labels = []
         for index, line in enumerate(explain_body):
-            match = re.match(r"^\*\*([^*]+)\*\*：\s*(.*)$", line.strip())
+            # 栏目标签允许带行首 emoji（`📌 **核心含义**：`），比对前先剥掉
+            match = re.match(r"^\*\*([^*]+)\*\*：\s*(.*)$", strip_leading_emoji(line.strip()))
             if not match:
                 continue
             label_lines.append(match.group(1))
@@ -1263,7 +1320,7 @@ def check(path: Path) -> list[dict]:
         label_positions = [
             (index, match.group(1), match.group(2).strip())
             for index, line in enumerate(explain_body)
-            if (match := re.match(r"^\*\*([^*]+)\*\*：\s*(.*)$", line.strip()))
+            if (match := re.match(r"^\*\*([^*]+)\*\*：\s*(.*)$", strip_leading_emoji(line.strip())))
         ]
         for position, (index, label, inline) in enumerate(label_positions):
             if inline:
@@ -1494,16 +1551,19 @@ def check(path: Path) -> list[dict]:
             if gidx == 0 or g_title == QUIZ_SECTION:
                 continue
             line_no = start + g_start
-            if g_title in ("", "—"):
+            # 标题允许用行首 emoji 做分区标识（`## 🎭 …`）：只在剥掉图标后的正文上查编号 / 前缀
+            plain_title = strip_leading_emoji(g_title)
+            if plain_title in (QUIZ_SECTION, DEFAULT_EXPLAIN_SECTION, BASIC_SECTION):
+                # 固定标题被加了图标：上面已经报「固定标题不要加图标」，这里不再按菜单小节重复报一遍
+                continue
+            if plain_title in ("", "—"):
                 add(line_no, "菜单项必须写出用户实际选中的选项原文")
-            elif g_title == "菜单与讲解":
+            elif plain_title == "菜单与讲解":
                 add(line_no, "不允许出现非模板二级标题：`## 菜单与讲解`；菜单项标题直接写选项原文")
-            elif LEGACY_MENU_ITEM_RE.match(g_title):
+            elif LEGACY_MENU_ITEM_RE.match(plain_title):
                 add(line_no, "菜单标题直接写选项原文：不要加编号，也不要写 `菜单：` 前缀")
-            elif g_title in QUESTION_TYPES:
+            elif plain_title in QUESTION_TYPES:
                 add(line_no, f"题目必须写成 `### <n>. <题型>`：`{g_title}` 缺少题号")
-            elif MENU_EMOJI_RE.match(g_title):
-                add(line_no, "菜单标题只写选项原文：去掉 emoji")
             if quiz_index is not None and gidx < quiz_index:
                 add(line_no, "菜单项必须放在 `## 本轮习题` 之后：某道习题出现在菜单项之后")
 
@@ -2252,9 +2312,9 @@ def apply_safe_fixes(text: str) -> tuple[str, list[str]]:
     # 同一天同一菜单项的习题小节：单份去后缀，多份按时间升序补 01、02…
     seq_entries = day_menu_sections(output)
     seq_changed = False
-    for (_date, base), entries in seq_entries.items():
+    for (_date, _key), entries in seq_entries.items():
         ordered = sorted(entries, key=lambda item: item[0])
-        for position, (_stamp, seq, line_no) in enumerate(ordered, start=1):
+        for position, (_stamp, seq, line_no, base) in enumerate(ordered, start=1):
             wanted_title = (
                 f"## {base}" if len(ordered) == 1 else f"## {base} - {position:02d}"
             )

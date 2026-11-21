@@ -339,6 +339,59 @@ class NoteAppendTest(unittest.TestCase):
         self.assertIn("<summary>故事原文 1</summary>", text)
         self.assertIn("<summary>故事原文 2</summary>", text)
 
+    def test_explain_part_matches_a_plain_section_with_an_emoji_title(self) -> None:
+        """旧笔记的小节标题没图标：同一菜单项带 emoji 的写法仍追加到那一节，不新建小节。"""
+        self._note_with_explanation()
+        self.store.append_explain_section(
+            self.note,
+            "## 读一个围绕 out west 的小故事\n\n**讲解要点**：\n- 一条要点\n\n"
+            "<details>\n<summary>故事原文</summary>\n\nFirst version.\n\n</details>\n",
+        )
+        result = self.store.append_explain_part(
+            self.note,
+            "## 📖 读一个围绕 out west 的小故事",
+            "<details>\n<summary>故事原文 2</summary>\n\nSecond version.\n\n</details>\n",
+        )
+        self.assertTrue(result["appended_part"])
+        text = self.note.read_text(encoding="utf-8")
+        headings = [
+            line for line in text.split("\n")
+            if line.startswith("## ") and "读一个围绕 out west 的小故事" in line
+        ]
+        self.assertEqual(len(headings), 1)
+        self.assertIn("<summary>故事原文 1</summary>", text)
+        self.assertIn("<summary>故事原文 2</summary>", text)
+
+    def test_explain_section_duplicate_is_detected_across_emoji(self) -> None:
+        """带不带行首 emoji 是同一个菜单项：第二次写入必须返回 duplicate。"""
+        self._note_with_explanation()
+        self.store.append_explain_section(
+            self.note, "## 对比 out west 和 in the west\n\n**讲解要点**：\n- 一条要点\n"
+        )
+        before = self.note.read_bytes()
+        result = self.store.append_explain_section(
+            self.note, "## 🔄 对比 out west 和 in the west\n\n**讲解要点**：\n- 一条要点\n"
+        )
+        self.assertTrue(result["duplicate"])
+        self.assertEqual(self.note.read_bytes(), before)
+
+    def test_same_day_sections_number_across_emoji_variants(self) -> None:
+        """标题只差行首图标时仍算同一个菜单项：同一天第二份照样补 ` - 02`。"""
+        self.store.append(self.note, round_block("2026-11-07 09:00", body="第 1 轮"))
+        self.store.append_section(
+            self.note, "# 2026-11-07 09:00 · 复习", extra_section().strip("\n")
+        )
+        result = self.store.append_section(
+            self.note,
+            "# 2026-11-07 09:00 · 复习",
+            extra_section("## 🧩 扩展练习").strip("\n"),
+        )
+        self.assertTrue(result["section"].endswith("扩展练习 - 02"))
+        text = self.note.read_text(encoding="utf-8")
+        # 旧份补号时沿用自己原来的标题写法，不被新份的图标改写
+        self.assertIn("## 扩展练习 - 01", text)
+        self.assertIn("## 🧩 扩展练习 - 02", text)
+
     def test_append_explain_section_rewrite_replaces_only_that_section(self) -> None:
         """`--rewrite` 用来修正首轮写错的讲解小节，其它小节与日期区块不能动。"""
         self._note_with_explanation()

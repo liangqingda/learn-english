@@ -405,10 +405,30 @@ class MenuItemNoteTest(unittest.TestCase):
         issues = self.check_text(text)
         self.assertTrue(any("菜单项标题必须与 `## 本轮习题` 同级" in issue["message"] for issue in issues))
 
-    def test_emoji_label_is_rejected(self) -> None:
-        text = self.base_note() + "\n" + self.item("🎭 看一套围绕「a price to pay」的完整场景对话")
+    def test_emoji_label_is_allowed(self) -> None:
+        """标题行首的装饰 emoji 只做分区标识，不参与结构比对：不再报“去掉 emoji”。"""
+        text = self.with_explanation(self.item("🎭 看一套围绕「a price to pay」的完整场景对话"))
+        self.assertEqual(self.check_text(text), [])
+
+    def test_emoji_prefix_on_explanation_labels_is_allowed(self) -> None:
+        """讲解栏目标签可以带行首图标（`📌 **错误机制**：`），标签文字本身仍是必写栏。"""
+        text = self.with_explanation().replace("**错误机制**：", "📌 **错误机制**：")
+        self.assertEqual(self.check_text(text), [])
+
+    def test_emoji_prefix_on_explanation_points_is_allowed(self) -> None:
+        """`**讲解要点**：` 同样允许行首图标（`💡 **讲解要点**：`）。"""
+        text = self.with_explanation(
+            self.item("🎭 看一套围绕「a price to pay」的完整场景对话").replace(
+                "**讲解要点**：", "💡 **讲解要点**："
+            )
+        )
+        self.assertEqual(self.check_text(text), [])
+
+    def test_emoji_on_fixed_heading_is_still_rejected(self) -> None:
+        """固定标题不参与装饰：`## 📖 讲解` 直接提示固定标题不要加图标。"""
+        text = self.with_explanation() + "\n## 📖 讲解\n\n- 一段文字\n"
         issues = self.check_text(text)
-        self.assertTrue(any("去掉 emoji" in issue["message"] for issue in issues))
+        self.assertTrue(any("固定标题不要加图标" in issue["message"] for issue in issues), issues)
 
     def test_point_without_child_example_is_rejected(self) -> None:
         text = (

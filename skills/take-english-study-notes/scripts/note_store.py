@@ -305,6 +305,32 @@ def _section_text(line: str) -> str:
     return _split_inline_anchor(line.rstrip())[0].strip()
 
 
+# 标题行首的装饰性 emoji（`## 🎭 场景对话`）：只在比对时剥掉，落盘保留调用方写的原样。
+LEAD_EMOJI_RE = re.compile(
+    "[\U0001F000-\U0001FAFF\u2600-\u27BF\u2B00-\u2BFF\u2190-\u21FF\uFE0F\u200D]+"
+)
+
+
+def _strip_leading_emoji(text: str) -> str:
+    """剥掉行首装饰性 emoji 与其后的空格，`## 🎭 场景对话` → `## 场景对话`。"""
+    prefix = ""
+    body = text
+    if body.startswith("## "):
+        prefix, body = "## ", body[3:]
+    body = body.lstrip()
+    while True:
+        match = LEAD_EMOJI_RE.match(body)
+        if not match:
+            break
+        body = body[match.end() :].lstrip()
+    return prefix + body
+
+
+def _heading_key(title: str) -> str:
+    """标题的结构比对键：去掉行尾锚点与行首 emoji，保留 `## ` 前缀与 ` - NN` 后缀。"""
+    return _strip_leading_emoji(_split_inline_anchor(title.strip())[0].strip())
+
+
 def _section_base(title: str) -> tuple[str, int | None]:
     """拆分小节标题的序号后缀：`## 练习… - 02` → (`## 练习…`, 2)。"""
     text = _split_inline_anchor(title.strip())[0]
@@ -314,12 +340,13 @@ def _section_base(title: str) -> tuple[str, int | None]:
     return match.group("base").strip(), int(match.group("seq"))
 
 
-def _day_menu_sections(lines: list[str], date: str) -> dict[str, list[tuple[int, int | None]]]:
-    """同一天所有区块里的菜单项小节：base 标题 → [(行号, 序号)]。
+def _day_menu_sections(lines: list[str], date: str) -> dict[str, list[tuple[int, int | None, str]]]:
+    """同一天所有区块里的菜单项小节：归一化标题 → [(行号, 序号, 该节自己的标题)]。
 
     同日多次练同一个菜单时，标题靠 ` - 01`、` - 02` 区分；单份不带后缀。
+    键剥掉行首装饰 emoji，值里保留各节原样标题：补号改写旧标题时沿用旧标题自己的写法。
     """
-    result: dict[str, list[tuple[int, int | None]]] = {}
+    result: dict[str, list[tuple[int, int | None, str]]] = {}
     current: str | None = None
     for index, line in enumerate(lines):
         stripped = line.strip()
@@ -330,7 +357,7 @@ def _day_menu_sections(lines: list[str], date: str) -> dict[str, list[tuple[int,
         if current != date or not stripped.startswith("## "):
             continue
         base, seq = _section_base(stripped)
-        result.setdefault(base, []).append((index, seq))
+        result.setdefault(_heading_key(base), []).append((index, seq, base))
     return result
 
 
@@ -351,20 +378,23 @@ def _number_day_sections(
         base, seq = _section_base(stripped)
         if base == f"## {QUIZ_SECTION}" or seq is not None:
             continue
-        taken = day.get(base, [])
+        key = _heading_key(base)
+        taken = day.get(key, [])
         if not taken:
-            day[base] = [(index, None)]
+            day[key] = [(index, None, base)]
             continue
         if len(taken) == 1 and taken[0][1] is None:
-            position = taken[0][0]
-            day_lines[position] = f"{base} - 01"
-            renamed.append({"from": base, "to": f"{base} - 01", "line": str(position + 1)})
-            taken = [(position, 1)]
+            position, _seq, existing_base = taken[0]
+            day_lines[position] = f"{existing_base} - 01"
+            renamed.append(
+                {"from": existing_base, "to": f"{existing_base} - 01", "line": str(position + 1)}
+            )
+            taken = [(position, 1, existing_base)]
         number = max(item[1] or 1 for item in taken) + 1
         title = f"{base} - {number:02d}"
         new_block[index] = title
         renamed.append({"from": base, "to": title, "line": f"block:{index + 1}"})
-        day[base] = taken + [(index, number)]
+        day[key] = taken + [(index, number, base)]
     return new_block, day_lines, renamed
 
 
@@ -449,7 +479,7 @@ def fill_generated_at(
     filled: list[str] = []
     for part in parts:
         heading = part.split("\n", 1)[0].strip() if part.startswith("## ") else ""
-        filled.append(_stamp_one_table(part, overrides.get(heading, stamp)))
+        filled.append(_stamp_one_table(part, overrides.get(_heading_key(heading), stamp)))
     return "".join(filled)
 
 
@@ -514,20 +544,21 @@ def practice_entries(lines: list[str]) -> dict[str, list[tuple[str, str]]]:
         if date is None or not stripped.startswith("## "):
             continue
         base, seq = _section_base(stripped)
-        if base == f"## {QUIZ_SECTION}":
+        key = _heading_key(base)
+        if key in (f"## {QUIZ_SECTION}", f"## {EXPLAIN_SECTION}", "## 基础信息"):
             continue
         stamp = stamps.get(index) or f"{date} {time}"
-        occurrences.setdefault(base, []).append((stamp, kind, seq))
+        occurrences.setdefault(key, []).append((stamp, kind, seq))
     grouped: dict[str, list[tuple[str, str]]] = {}
-    for base, items in occurrences.items():
+    for key, items in occurrences.items():
         ordered = sorted(items, key=lambda item: (item[0], item[2] or 0))
         labels = section_index_labels([(stamp, kind) for stamp, kind, _seq in ordered])
         entries = [
-            (labels[position], practice_anchor_id(item[0][:10], item[0][11:], base, item[2]))
+            (labels[position], practice_anchor_id(item[0][:10], item[0][11:], key, item[2]))
             for position, item in enumerate(ordered)
         ]
         entries.reverse()
-        grouped[base] = entries
+        grouped[key] = entries
     return grouped
 
 
@@ -648,10 +679,10 @@ def apply_practice_index(text: str) -> str:
                     *[f"- [{label}](#{anchor})" for label, anchor in rounds],
                     ROUND_INDEX_END,
                 ]
-            elif base not in (f"## {EXPLAIN_SECTION}", "## 基础信息") and base in entries:
+            elif _heading_key(base) not in (f"## {EXPLAIN_SECTION}", "## 基础信息") and _heading_key(base) in entries:
                 pending = [
                     INDEX_START,
-                    *[f"- [{label}](#{anchor})" for label, anchor in entries[base]],
+                    *[f"- [{label}](#{anchor})" for label, anchor in entries[_heading_key(base)]],
                     INDEX_END,
                 ]
             continue
@@ -1407,7 +1438,11 @@ class NoteStore:
             if not existing:
                 raise NoteError(f"note does not exist: {self.relative(target)}")
             lines = existing.split("\n")
-            matches = [index for index, line in enumerate(lines) if line.strip() == wanted]
+            matches = [
+                index
+                for index, line in enumerate(lines)
+                if _heading_key(line) == _heading_key(wanted)
+            ]
             if not matches:
                 raise NoteError(f"heading not found in note: {wanted}")
             if len(matches) > 1:
@@ -1428,17 +1463,18 @@ class NoteStore:
             # 区块内倒序由校验器 --fix 归一化；只有调用方显式列出的小节才允许真的删掉。
             existing_sections = _sections("\n".join(lines[start:end]))
             keep_stamps = {
-                section_heading: stamp
+                _heading_key(section_heading): stamp
                 for section_heading, body in existing_sections
                 if (stamp := generated_at(body))
             }
             block = fill_generated_at(block, _now_stamp(), keep_stamps)
-            replacement_sections = {heading for heading, _ in _sections(block)}
+            replacement_sections = {_heading_key(heading) for heading, _ in _sections(block)}
+            drop_keys = {_heading_key(title) for title in allow_drop}
             preserved = [
                 (section_heading, body)
                 for section_heading, body in existing_sections
-                if section_heading not in replacement_sections
-                and section_heading not in allow_drop
+                if _heading_key(section_heading) not in replacement_sections
+                and _heading_key(section_heading) not in drop_keys
             ]
             tail = lines[end:]
             before = lines[:start]
@@ -1520,7 +1556,11 @@ class NoteStore:
             if not existing:
                 raise NoteError(f"note does not exist: {self.relative(target)}")
             lines = existing.split("\n")
-            matches = [index for index, line in enumerate(lines) if line.strip() == wanted]
+            matches = [
+                index
+                for index, line in enumerate(lines)
+                if _heading_key(line) == _heading_key(wanted)
+            ]
             if not matches:
                 raise NoteError(f"heading not found in note: {wanted}")
             if len(matches) > 1:
@@ -1539,7 +1579,7 @@ class NoteStore:
             block_lines = lines[start:end]
             incoming_base, incoming_seq = _section_base(section_heading)
             for existing_heading, body in _sections("\n".join(block_lines)):
-                if _section_base(existing_heading)[0] != incoming_base:
+                if _heading_key(_section_base(existing_heading)[0]) != _heading_key(incoming_base):
                     continue
                 if _comparable(_without_generated_at(body)) == _comparable(
                     _without_generated_at(section)
@@ -1637,7 +1677,11 @@ class NoteStore:
             if not existing:
                 raise NoteError(f"note does not exist: {self.relative(target)}")
             lines = existing.split("\n")
-            matches = [index for index, line in enumerate(lines) if line.strip() == wanted_block]
+            matches = [
+                index
+                for index, line in enumerate(lines)
+                if _heading_key(line) == _heading_key(wanted_block)
+            ]
             if not matches:
                 raise NoteError(f"heading not found in note: {wanted_block}")
             if len(matches) > 1:
@@ -1657,7 +1701,7 @@ class NoteStore:
                 (
                     index
                     for index in range(start + 1, end)
-                    if _section_text(lines[index]) == wanted_section
+                    if _heading_key(_section_text(lines[index])) == _heading_key(wanted_section)
                 ),
                 None,
             )
@@ -1731,7 +1775,7 @@ class NoteStore:
                     "then file-level menu sections go after it"
                 )
             for index in range(explain_start + 1, area_end):
-                if lines[index].strip() == first:
+                if _heading_key(lines[index]) == _heading_key(first):
                     if rewrite:
                         return self._rewrite_explain_section(
                             target, lines, index, area_end, section, first
@@ -1855,7 +1899,7 @@ class NoteStore:
                 (
                     index
                     for index in range(explain_start + 1, area_end)
-                    if _section_text(lines[index]) == wanted
+                    if _heading_key(_section_text(lines[index])) == _heading_key(wanted)
                 ),
                 None,
             )
