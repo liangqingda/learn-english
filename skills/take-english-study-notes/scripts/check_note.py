@@ -312,6 +312,9 @@ DETAIL_ITEM_RE = re.compile(
 )
 MERGED_CHOICES_RE = re.compile(r"^\s*(?:[-*]\s+)?[A-D]\.\s.*[A-D]\.\s")
 MERGED_SUBITEMS_RE = re.compile(r"\(a\)[^\n]*\(b\)")
+# 裸选项行：行首 A./B./C./D. 但没有 `- `/`* `/`+ ` 列表标记。相邻裸文本行会被
+# Markdown 合并成同一段，渲染时选项堆在一起，必须逐条写成 `- A. …` 列表项。
+BARE_CHOICE_RE = re.compile(r"^\s*[A-D]\.\s+\S")
 TABLE_ROW_RE = re.compile(r"<tr>\s*<td>(.*?)</td>\s*<td>(.*?)</td>\s*</tr>")
 DATE_SUFFIX_RE = re.compile(r"-\d{4}-\d{2}-\d{2}\.md$")
 RECORD_CATEGORIES = ("vocabulary", "phrases", "grammar", "usage", "errors")
@@ -1535,6 +1538,19 @@ def check(path: Path) -> list[dict]:
                     match = re.match(r"^\*\*(题目|我的答案|判定)\*\*：\s*(.*)$", line)
                     if match and match.group(1) not in field_values:
                         field_values[match.group(1)] = match.group(2).strip()
+                # 题干区（`**题目**：` 之后、`**我的答案**：` 之前）里的选项必须是列表项；
+                # 裸 `A. …` 相邻行会被 Markdown 合并成一段，渲染堆在一行。
+                in_stem = False
+                for line in block:
+                    field_match = FIELD_RE.match(line)
+                    if field_match:
+                        in_stem = field_match.group(1) == "题目"
+                        continue
+                    if in_stem and BARE_CHOICE_RE.match(line):
+                        add(
+                            base_line,
+                            "选择题选项必须逐条写成列表项（`- A. …`），裸写 `A. …` 会被渲染挤成一行",
+                        )
                 question_text = field_values.get("题目", "")
                 answer_text = field_values.get("我的答案", "")
                 if not question_text:

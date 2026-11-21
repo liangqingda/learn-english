@@ -764,6 +764,13 @@ class NoteContentValidationTest(unittest.TestCase):
         )
         self.assert_caught(text, "选项必须在同一行只放一个")
 
+    def test_bare_choice_lines_are_rejected(self) -> None:
+        text = note_text().replace(
+            "- A. out west\n- B. outwest\n",
+            "A. out west\nB. outwest\n",
+        )
+        self.assert_caught(text, "裸写 `A. …`")
+
     def test_dated_filename_is_rejected(self) -> None:
         self.assert_caught(
             note_text(), "文件名不得带日期", name="errors-out-west-2026-11-06.md"

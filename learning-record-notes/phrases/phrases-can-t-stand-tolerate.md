@@ -403,10 +403,10 @@ When I was a child, I ____（can not / stand）the taste of carrots, but now I l
 **题目**：选择最佳选项填空
 Nobody can stand ____ in the waiting room for two hours.
 
-A. to be kept waiting
-B. being kept waiting
-C. being keep waiting
-D. to keep waiting
+- A. to be kept waiting
+- B. being kept waiting
+- C. being keep waiting
+- D. to keep waiting
 
 **我的答案**：C
 
@@ -593,8 +593,8 @@ I can't stand ____（people / talk）over the phone in the quiet carriage.
 ### 2. 语境判断
 
 **题目**：两句中哪一句更适合写进正式的投诉邮件
-A. I can't stand the noise from your flat.
-B. I am unable to tolerate the noise from your flat.
+- A. I can't stand the noise from your flat.
+- B. I am unable to tolerate the noise from your flat.
 
 **我的答案**：B
 
@@ -750,10 +750,10 @@ The photocopier jams every Monday. That drives me mad.
 ### 1. 单项选择
 
 **题目**：选择正确的一项
-A. I can't stand to wait in long queues.
-B. I can't stand waiting in long queues.
-C. I can't stand wait in long queues.
-D. I can't stand to waiting in long queues.
+- A. I can't stand to wait in long queues.
+- B. I can't stand waiting in long queues.
+- C. I can't stand wait in long queues.
+- D. I can't stand to waiting in long queues.
 
 **我的答案**：B
 
