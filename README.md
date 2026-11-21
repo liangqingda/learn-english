@@ -206,6 +206,7 @@ python3 skills/learn-from-english/scripts/learning_records.py delete-note \
 `mastered` 记录被抽查（`complete-review` / `review-round` 的 `review` 段）时，`RecordService.complete_review` 自己维护 `mastered_ten_streak`：本次 10 分 +1，否则清零；连击达到 `MASTERED_AUTO_DELETE_TEN_COUNT`（3）就把记录从 `mastered-learning-records/` 删除。**只删记录，笔记 md 原样保留**：之后仍可按笔记路径练习这个知识点，只是不再有记录可写（见 `skills/practice-learning-records/references/note-path-entry.md` 的「记录已不在库中时」）。
 
 - 计数存在 `mastered_ten_streak`，已列进 `RecordStore.MASTERED_FIELDS`：否则每次写入都被精简归档掉，连击永远数不到第 3 次。
+- 存量迁移：旧口径入档时计数记 0，新口径记 1。`learning_records.py backfill-mastered-streak` 把库里计数仍为 0 的 mastered 记录一次补成 1，只补 0、重复执行不再累加，先跑 `--dry-run` 预览条数。
 - 进 mastered 的那次 10 分也计入连击，记为第 1 次；所以入档后再连做 2 轮满分（合计连续 3 次 10 分）就会退出记录库。掉出 mastered（分数 < 10）当场丢弃该字段并报 0，重新掌握后要重新连击。
 - 返回 `deleted: true`，带 `deleted_record`（`id` / `category` / `key` / `title` / `ten_streak` / `file`），没有 `note` 字段：自动删除不碰文件，所以也不会出现 `note_error`。
 - `review-round` 命中时跳过笔记写入（记录已不在库，追踪行无从取），返回 `note_skipped: {"reason": "record-auto-deleted", "record": ...}`；笔记文件留在原处，`delete-record` / 自动删除都不得顺手删它。
@@ -321,9 +322,10 @@ python3 skills/learn-from-english/scripts/learning_records.py validate
 python3 skills/learn-from-english/scripts/learning_records.py repair --dry-run
 python3 skills/learn-from-english/scripts/learning_records.py repair
 python3 skills/learn-from-english/scripts/learning_records.py migrate-v2 --dry-run
+python3 skills/learn-from-english/scripts/learning_records.py backfill-mastered-streak --dry-run
 ```
 
-`validate` 检查 Schema 版本、规范化 ID、字段类型、ISO 时区时间、状态关系、分数范围、标签重复、复习计数和时间先后关系。`repair` 只处理无歧义问题，并支持预览。
+`validate` 检查 Schema 版本、规范化 ID、字段类型、ISO 时区时间、状态关系、分数范围、标签重复、复习计数和时间先后关系。`repair` 只处理无歧义问题，并支持预览。`backfill-mastered-streak` 是一次性迁移：把旧口径下进 mastered 时计数为 0 的记录补成 1（入档那次 10 分记作第 1 次连击），只补 0、重复执行不再累加；计数本来就非 0 的旧记录不在这条命令范围内。
 
 ## 外部工具契约（`contract.json`）
 

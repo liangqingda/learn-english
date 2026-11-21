@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import sys
 import tempfile
 import unittest
@@ -53,6 +54,16 @@ class MasteredAutoDeleteTest(unittest.TestCase):
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text("## 基础信息\n\n## 讲解\n", encoding="utf-8")
         return path
+
+    def set_streak_in_mastered_file(self, category: str, identifier: str, streak: int) -> None:
+        """把已掌握文件里的连击计数改成旧口径的值，模拟迁移前的存量数据。"""
+        path = self.store.mastered_category_path(category)
+        document = json.loads(path.read_text(encoding="utf-8"))
+        records = document if isinstance(document, list) else document["records"]
+        for record in records:
+            if record["id"] == identifier:
+                record["mastered_ten_streak"] = streak
+        path.write_text(json.dumps(document, ensure_ascii=False, indent=2), encoding="utf-8")
 
     def test_three_consecutive_tens_delete_the_record_but_keep_the_note(self) -> None:
         self.mark_mastered("usage:polite-request")
@@ -114,6 +125,57 @@ class MasteredAutoDeleteTest(unittest.TestCase):
         result = self.records.complete_review("usage:polite-request", 10)
         self.assertEqual(result["mastered_ten_streak"], 2)
         self.assertFalse(result["deleted"])
+
+    def test_backfill_credits_the_entry_ten_to_legacy_zero_streak_records(self) -> None:
+        self.mark_mastered("usage:polite-request")
+        self.set_streak_in_mastered_file("usage", "usage:polite-request", 0)
+
+        dry = self.records.backfill_mastered_streak(dry_run=True)
+        self.assertEqual(dry["change_count"], 1)
+        self.assertEqual(
+            self.records.records()["usage:polite-request"]["mastered_ten_streak"], 0
+        )
+
+        applied = self.records.backfill_mastered_streak(dry_run=False)
+        self.assertEqual(applied["change_count"], 1)
+        self.assertEqual(
+            applied["changes"],
+            [
+                {
+                    "id": "usage:polite-request",
+                    "category": "usage",
+                    "file": "mastered-learning-records/usage.json",
+                    "mastered_ten_streak": 1,
+                }
+            ],
+        )
+        self.assertEqual(
+            self.records.records()["usage:polite-request"]["mastered_ten_streak"], 1
+        )
+
+        # 幂等：补过的记录计数是 1，再跑一次不会再加
+        again = self.records.backfill_mastered_streak(dry_run=False)
+        self.assertEqual(again["change_count"], 0)
+        self.assertEqual(
+            self.records.records()["usage:polite-request"]["mastered_ten_streak"], 1
+        )
+
+    def test_backfill_leaves_a_legacy_nonzero_streak_untouched(self) -> None:
+        self.mark_mastered("usage:polite-request")
+        self.set_streak_in_mastered_file("usage", "usage:polite-request", 2)
+
+        result = self.records.backfill_mastered_streak(dry_run=False)
+        self.assertEqual(result["change_count"], 0)
+        self.assertEqual(
+            self.records.records()["usage:polite-request"]["mastered_ten_streak"], 2
+        )
+
+    def test_backfill_never_touches_records_outside_mastered(self) -> None:
+        self.records.upsert(payload("usage", "fresh"))
+
+        result = self.records.backfill_mastered_streak(dry_run=False)
+        self.assertEqual(result["change_count"], 0)
+        self.assertNotIn("mastered_ten_streak", self.records.records()["usage:fresh"])
 
     def test_the_note_is_left_untouched_whether_it_exists_or_not(self) -> None:
         """删记录不看笔记：没有笔记就什么都不动，有笔记也不动它。"""

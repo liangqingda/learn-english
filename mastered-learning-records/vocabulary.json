@@ -7,7 +7,7 @@
     "example": "",
     "tags": [],
     "mastered_at": "2026-07-30T17:40:27+08:00",
-    "mastered_ten_streak": 0
+    "mastered_ten_streak": 1
   },
   {
     "id": "vocabulary:pour-liquid",
@@ -17,7 +17,7 @@
     "example": "",
     "tags": [],
     "mastered_at": "2026-08-01T21:15:03+08:00",
-    "mastered_ten_streak": 0
+    "mastered_ten_streak": 1
   },
   {
     "id": "vocabulary:restaurant-spelling",
@@ -27,7 +27,7 @@
     "example": "",
     "tags": [],
     "mastered_at": "2026-07-31T07:53:34+08:00",
-    "mastered_ten_streak": 0
+    "mastered_ten_streak": 1
   },
   {
     "id": "vocabulary:shenzhen-spelling",
@@ -37,6 +37,6 @@
     "example": "",
     "tags": [],
     "mastered_at": "2026-07-30T16:15:02+08:00",
-    "mastered_ten_streak": 0
+    "mastered_ten_streak": 1
   }
 ]

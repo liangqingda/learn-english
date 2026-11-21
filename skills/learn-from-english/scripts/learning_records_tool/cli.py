@@ -662,6 +662,14 @@ def build_parser() -> argparse.ArgumentParser:
     repair = subparsers.add_parser("repair", help="repair unambiguous record issues")
     repair.add_argument("--dry-run", action="store_true")
     repair.set_defaults(handler=lambda args: service().repair(dry_run=args.dry_run))
+    backfill_streak = subparsers.add_parser(
+        "backfill-mastered-streak",
+        help="credit the entry 10 to legacy mastered records (idempotent)",
+    )
+    backfill_streak.add_argument("--dry-run", action="store_true")
+    backfill_streak.set_defaults(
+        handler=lambda args: service().backfill_mastered_streak(dry_run=args.dry_run)
+    )
     migrate = subparsers.add_parser("migrate-v2", help="migrate legacy record directories")
     migrate.add_argument("--dry-run", action="store_true")
     migrate.set_defaults(handler=lambda args: service().migrate_legacy(dry_run=args.dry_run))

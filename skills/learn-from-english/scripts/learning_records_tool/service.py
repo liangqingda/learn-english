@@ -1582,6 +1582,43 @@ class RecordService:
             changes = self.store.transaction_unvalidated(apply_repairs)
         return {"dry_run": dry_run, "change_count": len(changes), "changes": changes}
 
+    def backfill_mastered_streak(self, *, dry_run: bool) -> dict[str, Any]:
+        """把旧口径下进 mastered 的记录的入档 10 分补进连击。
+
+        旧口径进入 mastered 那一刻把 ``mastered_ten_streak`` 记成 0，入档分不算；
+        新口径把入档那次 10 分记作第 1 次。计数为 0 的旧记录补成 1 就能精确复原，
+        而且补过之后计数不再是 0，重复执行不会再加，命令天然幂等。
+        计数本来就非 0 的旧记录分辨不出「该补 1」还是「已经补过」，不在这条命令的范围内。
+        """
+        database = self.store.read_unvalidated()
+
+        def credit_entry_ten(target: dict[str, Any]) -> list[dict[str, Any]]:
+            changes = []
+            for record in target["records"].values():
+                if record["status"] != "mastered":
+                    continue
+                if int(record.get("mastered_ten_streak") or 0) != 0:
+                    continue
+                record["mastered_ten_streak"] = 1
+                changes.append(
+                    {
+                        "id": record["id"],
+                        "category": record["category"],
+                        "file": f"mastered-learning-records/{record['category']}.json",
+                        "mastered_ten_streak": 1,
+                    }
+                )
+            return changes
+
+        changes = credit_entry_ten(database)
+        if changes and not dry_run:
+            changes = self.store.transaction_unvalidated(credit_entry_ten)
+        return {
+            "dry_run": dry_run,
+            "change_count": len(changes),
+            "changes": changes,
+        }
+
     @staticmethod
     def _looks_like_current_layout_document(document: Any) -> bool:
         if isinstance(document, list):
