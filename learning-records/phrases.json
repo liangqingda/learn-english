@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 294,
+  "revision": 295,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -545,6 +545,32 @@
         }
       ],
       "key": "can-t-stand-tolerate"
+    },
+    "phrases:cant-stand-doing": {
+      "id": "phrases:cant-stand-doing",
+      "category": "phrases",
+      "key": "cant-stand-doing",
+      "status": "learning",
+      "title": "can't stand doing sth：受不了做某事",
+      "explanation": "can't stand + 名词 / 动名词表示极度厌烦、无法忍受，此处 stand 不是「站立」，语义等于 tolerate / bear。这个结构几乎只出现在否定和疑问里（can't stand / can you stand ...?），肯定陈述 I can stand waiting 语感很勉强，通常改说 I don't mind waiting 或 I can wait。",
+      "source": "Can you stand waiting twenty minutes?",
+      "example": "I can't stand waiting in long lines.",
+      "tags": [
+        "fixed-pattern",
+        "spoken",
+        "tolerance"
+      ],
+      "first_learned_at": "2026-11-21T11:18:55+08:00",
+      "last_learned_at": "2026-11-21T11:18:55+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "phrases:clear-the-table-after-meal": {
       "id": "phrases:clear-the-table-after-meal",

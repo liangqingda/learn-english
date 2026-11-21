@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 293,
+  "revision": 296,
   "category": "grammar",
   "records": {
     "grammar:a-bit-of-a-singular-countable": {
@@ -364,6 +364,32 @@
       "first_learned_at": "2026-11-12T07:26:10+08:00",
       "last_learned_at": "2026-11-12T07:26:10+08:00",
       "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:duration-object-without-for": {
+      "id": "grammar:duration-object-without-for",
+      "category": "grammar",
+      "key": "duration-object-without-for",
+      "status": "learning",
+      "title": "时长短语直接跟在动词后：wait twenty minutes 省略 for",
+      "explanation": "表示「持续多久」的时长短语可以直接跟在 wait / sleep / stay / last / work / live 这类本身可被时间度量的动词后面，作状语性补语，介词 for 可省：wait twenty minutes、sleep eight hours、stay three days。加上 for 同样正确，只是把时长显式标成介词短语，意思不变。stand / read / sit / watch / talk 这类普通动作动词通常没有这一格，时长要用 for 引出：stand for twenty minutes、read for an hour。还要注意 for 的位置会改变时长归属的动词：Can you stand for twenty minutes 说的是「站」多久，而 stand for 本身又是短语动词，表示「代表」或用于否定表示「不容忍」。",
+      "source": "Can you stand waiting twenty minutes?",
+      "example": "I waited twenty minutes for the bus.",
+      "tags": [
+        "duration",
+        "measure-phrase",
+        "preposition-omission"
+      ],
+      "first_learned_at": "2026-11-21T11:18:55+08:00",
+      "last_learned_at": "2026-11-21T11:20:46+08:00",
+      "learned_count": 2,
       "mastery_score": 0.0,
       "review_count": 0,
       "high_score_streak": 0,
