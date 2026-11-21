@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-19 07:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-21 19:26</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-21 19:57</td></tr>
 </table>
 
 ## 讲解
@@ -206,6 +206,29 @@ In April the neighbours switched to plastic crates and a quiet trolley. Ana stil
 1. **否定范围不同**：stand 几乎只出现在否定句和疑问句；bear 在肯定句里也自然，所以“忍住了、忍着”这类肯定陈述要用 bear 或 put up with。
 2. **忍的程度不同**：can't stand、can't bear 表示“根本受不了”；put up with、tolerate 表示“还能忍，只是不满”，put up with 强调长期将就，tolerate 语气正式中性。
 3. **三个 can't 结构各管一件事**：can't stand = 受不了，can't help doing = 忍不住，can't wait to do = 迫不及待；宾语形式固定，不能互换。
+
+## 扩展「can't stand + 名词/动名词」相关词汇和搭配
+
+**讲解要点**：
+- 先分清「忍不了」和「被烦到」：不说自己能不能承受时，用 get on my nerves / drive me crazy；说“我受够了、再也忍不下去”才用 can't put up with。
+  - The way he chews gets on my nerves.（他嚼东西那个样子让我心烦。）
+  - That dripping tap is driving me crazy.（那个滴水的水龙头快把我逼疯了。）
+- can't bear 比 can't stand 更书面、情感更重，后面接动名词或 to do 都成立。
+  - I can't bear seeing animals in cages.（我不忍心看动物被关在笼子里。）
+  - She can't bear to be late.（她受不了自己迟到。）
+- can't put up with 强调“忍了很久、到顶了”，后面接名词或动名词，不接 to do。
+  - I can't put up with these delays any longer.（这些延误我再也忍不下去了。）
+- 程度词有固定位置：absolutely / really 放在 can't 前面，at all 放句尾。
+  - I absolutely can't stand that smell.（那股味我绝对受不了。）
+  - I can't stand it at all.（我一点都受不了。）
+
+| 表达 | 强度与语气 | 常见搭配 | 例句 |
+|---|---|---|---|
+| can't stand | 口语最常用，立场直接 | 名词 / 动名词 / it when 从句 | I can't stand the noise from the hall.（受不了走廊里的噪音。） |
+| can't bear | 偏书面，情感最重 | 动名词 / to do | She can't bear to be late.（她受不了自己迟到。） |
+| can't put up with | 强调忍了很久、到极限 | 名词 / 动名词 | I can't put up with these delays any longer.（这些延误我再也忍不下去了。） |
+| get on my nerves | 持续的小烦扰，不必到极限 | 事做主语 | His humming gets on my nerves.（他哼歌让我心烦。） |
+| drive me crazy | 程度最强，常带夸张 | 事做主语 | That alarm drives me crazy.（那个闹钟快把我逼疯。） |
 
 # 2026-11-19 07:53 · 练习
 
