@@ -317,8 +317,15 @@ MERGED_SUBITEMS_RE = re.compile(r"\(a\)[^\n]*\(b\)")
 BARE_CHOICE_RE = re.compile(r"^\s*[A-D]\.\s+\S")
 # 带圈序号行：造句等多句答案用 ①②③… 编号；出现在题干区即视为混入的用户答案。
 CIRCLED_LINE_RE = re.compile(r"^\s*[①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮]")
-# 答案区带序号枚举的条目（① / (1) / 1.）；多条时必须逐条写成列表项，软换行渲染后会并成一段。
-ANSWER_ENUM_RE = re.compile(r"^\s*(?:[①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮]|\(\d+\)|\d+[.)、])")
+# 答案区带序号枚举的条目（① / (1) / 1. / (a) / a. / a)）；多条时必须逐条写成列表项，
+# 软换行渲染后会并成一段。大写 A./B./C./D. 是选择题选项答案，保持裸字母，不按多句枚举处理。
+ANSWER_ENUM_RE = re.compile(
+    r"^\s*(?:"
+    r"[①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮]"
+    r"|\(\d+\)|\d+[.)、]"
+    r"|\(\s*[a-d]\s*\)|[a-d][.)]"
+    r")"
+)
 LIST_ITEM_RE = re.compile(r"^\s*(?:[-*+]\s+)")
 TABLE_ROW_RE = re.compile(r"<tr>\s*<td>(.*?)</td>\s*<td>(.*?)</td>\s*</tr>")
 DATE_SUFFIX_RE = re.compile(r"-\d{4}-\d{2}-\d{2}\.md$")

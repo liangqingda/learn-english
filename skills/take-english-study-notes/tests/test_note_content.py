@@ -795,6 +795,31 @@ class NoteContentValidationTest(unittest.TestCase):
             [],
         )
 
+    def test_letter_enumerated_answer_must_be_list_items(self) -> None:
+        """a./b./c. 与 (a)/(b) 编号的多句答案同样必须逐条写成列表项。"""
+        answer = (
+            "**我的答案**：a. I can't stand the smoke.\n"
+            "b. Can you stand the noise?\n"
+            "(c) I can't stand it when he shouts."
+        )
+        self.assert_caught(
+            sentence_making_note(stem="分三点回答。", answer_block=answer),
+            "逐条写成列表项",
+        )
+
+    def test_letter_enumerated_answer_as_list_passes(self) -> None:
+        """字母编号答案写成列表项时校验通过；裸字母选择题答案不受影响。"""
+        answer = (
+            "**我的答案**：\n"
+            "- a. I can't stand the smoke.\n"
+            "- b. Can you stand the noise?\n"
+            "- (c) I can't stand it when he shouts."
+        )
+        self.assertEqual(
+            self.check(sentence_making_note(stem="分三点回答。", answer_block=answer)),
+            [],
+        )
+
     def test_invalid_score_is_rejected(self) -> None:
         self.assert_caught(note_text(score="abc / 999"), "`本轮得分` 只能是")
 
