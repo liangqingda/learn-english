@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 312,
+  "revision": 313,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -1195,6 +1195,34 @@
       "mastered_at": null,
       "review_history": [],
       "key": "hidden-world"
+    },
+    "phrases:hit-sb-hard-emotional-impact": {
+      "id": "phrases:hit-sb-hard-emotional-impact",
+      "category": "phrases",
+      "key": "hit-sb-hard-emotional-impact",
+      "status": "learning",
+      "title": "hit someone hard：这件事给某人很大冲击",
+      "explanation": "hit sb hard 指某件事、某条消息或某种处境对人造成强烈冲击或打击，主语通常是事件、消息或处境，不是人；hard 是副词，修饰 hit 的程度。它和物理意义上的“打”无关，hit me pretty hard 就是“这事对我打击挺大”。程度可用 pretty / really / quite 修饰。",
+      "source": "hit me pretty hard",
+      "example": "The pay cut hit him harder than he expected.",
+      "tags": [
+        "adverb",
+        "collocation",
+        "emotional-impact",
+        "idiom",
+        "metaphor"
+      ],
+      "first_learned_at": "2026-11-23T07:23:13+08:00",
+      "last_learned_at": "2026-11-23T07:23:13+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "phrases:home-cooked": {
       "id": "phrases:home-cooked",
