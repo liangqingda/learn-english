@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-19 07:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-21 21:30</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-22 09:53</td></tr>
 </table>
 
 ## 讲解
@@ -35,7 +35,9 @@
 - can't help doing 是“忍不住做”，can't wait to do 是“迫不及待”，都与“受不了”无关。
 - hate / dislike 可以接 to do，stand 的常规宾语仍是 V-ing。
 - 逻辑主语不能写成主格：❌ I can't stand he leaving…；要写宾格 him 或所有格 his。
-- stand for 是短语动词，表示「代表」：What does UN stand for?（UN 代表什么）；用在否定里则是「不容忍」：I won't stand for it.（这种事我不容许）。
+- stand for 是短语动词，表示「代表」；用在否定里则是「不容忍」。
+  - What does UN stand for?（UN 代表什么）
+  - I won't stand for it.（这种事我不容许）
 - 姿势义的 stand 后面可以直接接现在分词：He stood waiting for the bus.（他站着等公交）这种读法里，时长或方式状语跟的是 waiting，不是 stand。
 
 **可迁移表达**：

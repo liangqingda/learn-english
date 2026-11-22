@@ -770,6 +770,8 @@ def validate_menu_section(
                 line_no,
                 "每条讲解要点至少要有一个缩进子项写出对应的可迁移表达或示例（`  - 例句`）",
             )
+        if not in_round_block:
+            check_inline_demo_glosses(add, line_no, lines[1:])
     if "场景对话" in title:
         dialogue_blocks = details_blocks(section_text, DIALOGUE_SUMMARY)
         if not dialogue_blocks:
@@ -848,6 +850,37 @@ MENU_CHILD_RE = re.compile(r"^(?:\s{2,}|\t)(?:[-*] |\d+\. )")
 NOTE_DIR_NAME = "learning-record-notes"
 NOTE_CATEGORIES = ("vocabulary", "phrases", "grammar", "usage", "errors", "paper")
 STRUCTURED_LINE_RE = re.compile(r"^(?:[-*] |\d+\. )")
+# 紧跟在英文 demo 之后的全角括号译文：括号前一个非空白字符是英文字母 / 数字 / 句末标点 / 引号 / 闭括号
+INLINE_DEMO_GLOSS_RE = re.compile(r"[A-Za-z0-9?.!\"'’)\]]\s*（[^）]*）")
+# 正误对照行（❌ / ✅ / →）按「一行一个错点一个改法」单独管理，不按内嵌例句拦
+CONTRAST_MARK_RE = re.compile(r"[❌✅→]")
+
+
+def check_inline_demo_glosses(add, base_line_no: int, body: list[str]) -> None:
+    """顶层要点行内嵌两条例句 / 译法时拦下：例句下沉为缩进子项，一句一行。"""
+    in_details = False
+    for offset, line in enumerate(body):
+        stripped = line.strip()
+        if stripped.startswith("<details"):
+            in_details = True
+        if in_details:
+            if "</details>" in stripped:
+                in_details = False
+            continue
+        if stripped.startswith(("<tr", "|", "<table", "<colgroup", "</table", "<td")):
+            continue
+        if not STRUCTURED_LINE_RE.match(stripped):
+            continue
+        if MENU_CHILD_RE.match(line):
+            continue
+        if CONTRAST_MARK_RE.search(line):
+            continue
+        if len(INLINE_DEMO_GLOSS_RE.findall(line)) >= 2:
+            add(
+                base_line_no + offset + 1,
+                "这条要点行内嵌了多条例句 / 译法：规则与词表留在要点行，"
+                "每条例句下沉为缩进子项，一句一行（`  - I waited twenty minutes.（译文）`）",
+            )
 
 
 def filename_category(path: Path) -> str | None:
@@ -1370,6 +1403,7 @@ def check(path: Path) -> list[dict]:
             )
         if not structured:
             add(h_explain + 1, "讲解必须拆成有序列表、无序列表或表格逐条记录：不要把多条结论揉成一整段文字")
+        check_inline_demo_glosses(add, h_explain + 1, explain_body)
         # 标签行内直接写一句话（如 `**英文原文**：You are what you eat.`）也算有内容；
         # 只有标签后留空、内容放到下一行时才要求下面必须是列表或表格
         label_positions = [

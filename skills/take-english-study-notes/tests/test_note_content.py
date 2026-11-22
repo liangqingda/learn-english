@@ -1259,6 +1259,37 @@ class NoteContentValidationTest(unittest.TestCase):
             issues,
         )
 
+    def test_inline_stacked_demos_in_explanation_are_rejected(self) -> None:
+        """讲解要点行内嵌两条例句 / 译法必须被拦下：例句下沉为缩进子项，一句一行。"""
+        stacked = (
+            "- 常可省 for 的动词：wait / sleep。"
+            "I waited twenty minutes.（我等了二十分钟）"
+            "She slept eight hours.（她睡了八小时）\n"
+        )
+        text = note_with_explanation().replace("- 一条机制\n", stacked, 1)
+        self.assert_caught(text, "内嵌了多条例句")
+
+    def test_inline_stacked_demos_in_menu_section_are_rejected(self) -> None:
+        """文件级菜单小节的讲解要点同样不允许把多条例句串在一行。"""
+        section = (
+            "## 对比 out west 和 in the west\n\n"
+            "**讲解要点**：\n"
+            "- 两条规则：Let's get takeout.（我们点外卖吧）"
+            "He leaves the boxes by the door.（他把盒子留在门边。）\n"
+        )
+        self.assert_caught(with_file_level_section(note_text(), section), "内嵌了多条例句")
+
+    def test_demos_as_indented_sub_bullets_pass(self) -> None:
+        """例句逐条写成缩进子项、一句一行时校验通过。"""
+        section = (
+            "## 对比 out west 和 in the west\n\n"
+            "**讲解要点**：\n"
+            "- 常可省 for 的动词：wait / sleep\n"
+            "  - I waited twenty minutes.（我等了二十分钟）\n"
+            "  - She slept eight hours.（她睡了八小时）\n"
+        )
+        self.assertEqual(self.check(with_file_level_section(note_text(), section)), [])
+
     def test_error_pair_lines_split_one_fix_each_pass(self) -> None:
         """同一错点的两个正确写法各起一行，且错因归到 ❌ 一侧时通过。"""
         pair = (

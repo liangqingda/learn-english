@@ -7,15 +7,19 @@
 <tr><td>累计复习次数</td><td>0</td></tr>
 <tr><td>下次复习</td><td>—</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-21 11:19</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-21 22:08</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-22 09:53</td></tr>
 </table>
 
 ## 讲解
 
 **语法机制**：
 - 表示「持续多久」的时长短语（measure phrase）可以直接跟在本身能被时间度量的动词后面，作状语性补语，介词 for 可省。
-- 常可省 for 的动词：wait / sleep / stay / last / work / live。I waited twenty minutes.（我等了二十分钟）She slept eight hours.（她睡了八小时）
-- stand / read / sit / watch / talk 这类普通动作动词通常没有这一格，时长要用 for 引出：stand for twenty minutes（站二十分钟）、read for an hour（读一小时）。
+- 常可省 for 的动词：wait / sleep / stay / last / work / live。
+  - I waited twenty minutes.（我等了二十分钟）
+  - She slept eight hours.（她睡了八小时）
+- stand / read / sit / watch / talk 这类普通动作动词通常没有这一格，时长要用 for 引出。
+  - stand for twenty minutes（站二十分钟）
+  - read for an hour（读一小时）
 
 **结构拆解**：
 - Can you stand [waiting twenty minutes]? → stand 带一个动名词补语，twenty minutes 是 waiting 的时长补语。（你能忍受等二十分钟吗）
