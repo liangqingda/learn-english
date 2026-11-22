@@ -54,10 +54,10 @@ def sentence_making_note(*, stem: str, answer_block: str) -> str:
     )
     knowledge = (
         "<details>\n<summary>知识点讲解</summary>\n\n"
-        "1. **本题知识点**：out west 作方向状语\n"
-        "2. **规则与机制**：方位短语保持分写\n"
-        "3. **英语的表达逻辑**：方向用副词短语表示\n"
-        "4. **可迁移表达**：head out west\n\n"
+        "- **本题知识点**：out west 作方向状语\n"
+        "- **规则与机制**：方位短语保持分写\n"
+        "- **英语的表达逻辑**：方向用副词短语表示\n"
+        "- **可迁移表达**：head out west\n\n"
         "</details>\n"
     )
     return (
@@ -131,10 +131,10 @@ def note_text(
         "**判定**：✅ 正确\n\n"
         "<details>\n"
         "<summary>知识点讲解</summary>\n\n"
-        f"1. **本题知识点**：{knowledge}\n"
-        "2. **规则与机制**：方位短语保持分写\n"
-        "3. **英语的表达逻辑**：方向用副词短语表示\n"
-        "4. **可迁移表达**：head out west\n\n"
+        f"- **本题知识点**：{knowledge}\n"
+        "- **规则与机制**：方位短语保持分写\n"
+        "- **英语的表达逻辑**：方向用副词短语表示\n"
+        "- **可迁移表达**：head out west\n\n"
         "</details>\n"
     )
 
@@ -163,10 +163,10 @@ def paper_note_text(*, second_reference: str | None = "第 1 题", second_detail
     )
     knowledge = (
         "<details>\n<summary>知识点讲解</summary>\n\n"
-        "1. **本题知识点**：Passage 1 的主旨句在首段末句\n"
-        "2. **规则与机制**：主题句常带转折连词\n"
-        "3. **英语的表达逻辑**：先让步后转折\n"
-        "4. **可迁移表达**：While …, the study argues …\n\n"
+        "- **本题知识点**：Passage 1 的主旨句在首段末句\n"
+        "- **规则与机制**：主题句常带转折连词\n"
+        "- **英语的表达逻辑**：先让步后转折\n"
+        "- **可迁移表达**：While …, the study argues …\n\n"
         "</details>\n"
     )
     second_tail = (
@@ -268,10 +268,10 @@ def second_round(stamp: str, section: str = "") -> str:
         "**我的答案**：B\n\n"
         "**判定**：✅ 正确\n\n"
         "<details>\n<summary>知识点讲解</summary>\n\n"
-        "1. **本题知识点**：x\n"
-        "2. **规则与机制**：x\n"
-        "3. **英语的表达逻辑**：x\n"
-        "4. **可迁移表达**：x\n\n"
+        "- **本题知识点**：x\n"
+        "- **规则与机制**：x\n"
+        "- **英语的表达逻辑**：x\n"
+        "- **可迁移表达**：x\n\n"
         "</details>\n"
         + section
     )
@@ -302,10 +302,10 @@ def menu_practice(title: str = "## 练习「out west」的关键语法结构") -
         "**我的答案**：She headed out west.\n\n"
         "**判定**：✅ 正确\n\n"
         "<details>\n<summary>知识点讲解</summary>\n\n"
-        "1. **本题知识点**：out west 作方向状语\n"
-        "2. **规则与机制**：out 与 west 分写\n"
-        "3. **英语的表达逻辑**：方向副词短语\n"
-        "4. **可迁移表达**：head out west\n\n"
+        "- **本题知识点**：out west 作方向状语\n"
+        "- **规则与机制**：out 与 west 分写\n"
+        "- **英语的表达逻辑**：方向副词短语\n"
+        "- **可迁移表达**：head out west\n\n"
         "</details>\n"
     )
 
@@ -525,10 +525,10 @@ class NoteContentValidationTest(unittest.TestCase):
                 "**我的答案**：She headed out west.\n\n"
                 "**判定**：✅ 正确\n\n"
                 "<details>\n<summary>知识点讲解</summary>\n\n"
-                "1. **本题知识点**：out west 作方向状语\n"
-                "2. **规则与机制**：out 与 west 分写\n"
-                "3. **英语的表达逻辑**：方向副词短语\n"
-                "4. **可迁移表达**：head out west\n\n"
+                "- **本题知识点**：out west 作方向状语\n"
+                "- **规则与机制**：out 与 west 分写\n"
+                "- **英语的表达逻辑**：方向副词短语\n"
+                "- **可迁移表达**：head out west\n\n"
                 "</details>\n"
             ),
             "## 用 out west 做翻译练习\n",
@@ -838,30 +838,43 @@ class NoteContentValidationTest(unittest.TestCase):
     def test_chained_examples_in_detail_block_are_rejected(self) -> None:
         """折叠块例句步骤用 ／、/ 或 ；可迁移 同行串接多条例句时必须被拦下。"""
         chained = (
-            "4. **可迁移表达**：I can't stand the smoke.（受不了烟味。）"
+            "- **可迁移表达**：I can't stand the smoke.（受不了烟味。）"
             "／I can't stand the noise.（受不了噪音。）"
         )
-        self.assert_caught(note_text().replace("4. **可迁移表达**：head out west", chained), "逐条写成缩进子项")
+        self.assert_caught(note_text().replace("- **可迁移表达**：head out west", chained), "逐条写成缩进子项")
         chained_error = (
-            "4. **正确表达**：The guests love the terrace.（客人们喜欢露台。）"
+            "- **正确表达**：The guests love the terrace.（客人们喜欢露台。）"
             "；可迁移：They served coffee there.（他们在那儿供应咖啡。）"
         )
         text = note_text().replace(
             "<summary>知识点讲解</summary>", "<summary>错题讲解</summary>"
-        ).replace("4. **可迁移表达**：head out west", chained_error)
+        ).replace("- **可迁移表达**：head out west", chained_error)
         self.assert_caught(text, "逐条写成缩进子项")
 
     def test_example_sub_items_in_detail_block_pass(self) -> None:
         """折叠块例句逐条写成缩进子项、标签行留空时校验通过。"""
         sub_items = (
-            "4. **可迁移表达**：\n"
+            "- **可迁移表达**：\n"
             "  - I can't stand the smoke.（受不了烟味。）\n"
             "  - I can't stand the noise.（受不了噪音。）"
         )
         self.assertEqual(
-            self.check(note_text().replace("4. **可迁移表达**：head out west", sub_items)),
+            self.check(note_text().replace("- **可迁移表达**：head out west", sub_items)),
             [],
         )
+
+    def test_ordered_steps_in_detail_block_are_rejected(self) -> None:
+        """折叠块四步必须是无序列表；用 1. 2. 3. 4. 有序编号必须被拦下。"""
+        numbered = {
+            "本题知识点": "1.",
+            "规则与机制": "2.",
+            "英语的表达逻辑": "3.",
+            "可迁移表达": "4.",
+        }
+        ordered = note_text()
+        for label, prefix in numbered.items():
+            ordered = ordered.replace(f"- **{label}**：", f"{prefix} **{label}**：")
+        self.assert_caught(ordered, "四个无序列表步骤")
 
     def test_letter_enumerated_answer_must_be_list_items(self) -> None:
         """a./b./c. 与 (a)/(b) 编号的多句答案同样必须逐条写成列表项。"""
@@ -988,8 +1001,8 @@ class NoteContentValidationTest(unittest.TestCase):
     def test_paper_question_with_own_block_must_not_also_reference(self) -> None:
         self.assert_caught(
             paper_note_text(second_details=True).replace(
-                "<summary>知识点讲解</summary>\n\n1. **本题知识点**：Passage 1 的主旨句在首段末句",
-                "<summary>知识点讲解</summary>\n\n**知识点**：同第 1 题\n\n1. **本题知识点**：Passage 1 的主旨句在首段末句",
+                "<summary>知识点讲解</summary>\n\n- **本题知识点**：Passage 1 的主旨句在首段末句",
+                "<summary>知识点讲解</summary>\n\n**知识点**：同第 1 题\n\n- **本题知识点**：Passage 1 的主旨句在首段末句",
             ),
             "不要再写",
             "paper-cet4-20261107t220000-abcdef12.md",

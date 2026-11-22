@@ -299,10 +299,10 @@ I ____ the sight of that poster; it has been hanging there for six years.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：can't stand the sight of + 名词 这个固定搭配。
-2. **规则与机制**：the sight of something 表示“一看到某物就……”，此处 the sight of 后面已经带了宾语，不再需要形式宾语 it。
-3. **英语的表达逻辑**：stand 只出现在否定和疑问里；C 的 it 会和 the sight of 的宾语撞车。
-4. **可迁移表达**：I can't stand the sight of that cracked mug.
+- **本题知识点**：can't stand the sight of + 名词 这个固定搭配。
+- **规则与机制**：the sight of something 表示“一看到某物就……”，此处 the sight of 后面已经带了宾语，不再需要形式宾语 it。
+- **英语的表达逻辑**：stand 只出现在否定和疑问里；C 的 it 会和 the sight of 的宾语撞车。
+- **可迁移表达**：I can't stand the sight of that cracked mug.
 
 </details>
 
@@ -320,20 +320,20 @@ My upstairs neighbour practises the trumpet till midnight — it really ____（g
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：一般现在时的主谓一致。
-2. **规则与机制**：一般现在时里主语是第三人称单数（it、he、she、单数名词），谓语动词要加 -s。
-3. **英语的表达逻辑**：抱怨习惯性的事情用一般现在时，主语 it 时谓语必须写 gets。
-4. **可迁移表达**：The lift's humming really gets on my nerves.
+- **本题知识点**：一般现在时的主谓一致。
+- **规则与机制**：一般现在时里主语是第三人称单数（it、he、she、单数名词），谓语动词要加 -s。
+- **英语的表达逻辑**：抱怨习惯性的事情用一般现在时，主语 it 时谓语必须写 gets。
+- **可迁移表达**：The lift's humming really gets on my nerves.
 
 </details>
 
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：第三人称单数主语的动词形式。
-2. **为什么错**：填了原形 get，没查主语 it。
-3. **英语的表达逻辑**：先定主语再看形式——it / he / she / 单数名词 + 一般现在时，动词加 -s。
-4. **正确表达**：It really gets on my nerves.
+- **考点**：第三人称单数主语的动词形式。
+- **为什么错**：填了原形 get，没查主语 it。
+- **英语的表达逻辑**：先定主语再看形式——it / he / she / 单数名词 + 一般现在时，动词加 -s。
+- **正确表达**：It really gets on my nerves.
 
 </details>
 
@@ -351,20 +351,20 @@ I can't take the smell of that paint no more.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：否定句里的 any more。
-2. **规则与机制**：表示“不再”时否定句用 not … any more；no more 与 not 并存会构成双重否定，现代英语不接受。
-3. **英语的表达逻辑**：否定词已经在 can't 上，句尾交给 any more。
-4. **可迁移表达**：I can't take this noise any more.
+- **本题知识点**：否定句里的 any more。
+- **规则与机制**：表示“不再”时否定句用 not … any more；no more 与 not 并存会构成双重否定，现代英语不接受。
+- **英语的表达逻辑**：否定词已经在 can't 上，句尾交给 any more。
+- **可迁移表达**：I can't take this noise any more.
 
 </details>
 
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：否定句 + any more 的搭配。
-2. **为什么错**：改错题只要求改错处，却把 can't take 换成了 can't put up with，no more 原封不动。
-3. **英语的表达逻辑**：先定位唯一错点（can't 与 no more 双重否定），改完错点其余词一律不动。
-4. **正确表达**：I can't take the smell of that paint any more.
+- **考点**：否定句 + any more 的搭配。
+- **为什么错**：改错题只要求改错处，却把 can't take 换成了 can't put up with，no more 原封不动。
+- **英语的表达逻辑**：先定位唯一错点（can't 与 no more 双重否定），改完错点其余词一律不动。
+- **正确表达**：I can't take the smell of that paint any more.
 
 </details>
 
@@ -382,10 +382,10 @@ I can't tolerate the smell of stale coffee in his car.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：can't stomach 的搭配。
-2. **规则与机制**：stomach 作动词是“受得住、咽得下”，can't stomach 直接接名词。
-3. **英语的表达逻辑**：tolerate 偏中性书面，can't stomach 带身体反应的味道；改写只换动词，宾语结构不动。
-4. **可迁移表达**：I can't stomach the smell of instant noodles in the office.
+- **本题知识点**：can't stomach 的搭配。
+- **规则与机制**：stomach 作动词是“受得住、咽得下”，can't stomach 直接接名词。
+- **英语的表达逻辑**：tolerate 偏中性书面，can't stomach 带身体反应的味道；改写只换动词，宾语结构不动。
+- **可迁移表达**：I can't stomach the smell of instant noodles in the office.
 
 </details>
 
@@ -403,20 +403,20 @@ I can't tolerate the smell of stale coffee in his car.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：can't stand + 名词 + 动名词 的紧凑结构。
-2. **规则与机制**：“别人当着她的面抽烟”可以整体做成宾语 people smoking in front of her，直接接在 can't stand 后面，不必借形式主语 it 和 when 从句。
-3. **英语的表达逻辑**：it when 从句强调“每次……的时候”，动名词短语把动作压成名词性成分，句子更短，是“受不了某种行为”的首选。
-4. **可迁移表达**：She can't stand people smoking in front of her.
+- **本题知识点**：can't stand + 名词 + 动名词 的紧凑结构。
+- **规则与机制**：“别人当着她的面抽烟”可以整体做成宾语 people smoking in front of her，直接接在 can't stand 后面，不必借形式主语 it 和 when 从句。
+- **英语的表达逻辑**：it when 从句强调“每次……的时候”，动名词短语把动作压成名词性成分，句子更短，是“受不了某种行为”的首选。
+- **可迁移表达**：She can't stand people smoking in front of her.
 
 </details>
 
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：宾语形式的选择。
-2. **为什么错**：it when others smoke 语法没错，但把“别人抽烟这件事”拆成时间从句，本轮要练的 people smoking 结构没出现。
-3. **英语的表达逻辑**：看到“受不了 + 某人做某事”，先试“人 + 分词”的名词短语，只有强调“每次发生时”才用 it when 从句。
-4. **正确表达**：She can't stand people smoking in front of her.
+- **考点**：宾语形式的选择。
+- **为什么错**：it when others smoke 语法没错，但把“别人抽烟这件事”拆成时间从句，本轮要练的 people smoking 结构没出现。
+- **英语的表达逻辑**：看到“受不了 + 某人做某事”，先试“人 + 分词”的名词短语，只有强调“每次发生时”才用 it when 从句。
+- **正确表达**：She can't stand people smoking in front of her.
 
 </details>
 
@@ -440,10 +440,10 @@ I can't tolerate the smell of stale coffee in his car.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：三档烦躁表达的对象与搭配。
-2. **规则与机制**：drive sb up the wall / drive sb crazy 强度最高；get on sb's nerves 接持续的小动作；can't stand the sight of sb 固定接“某人的样子”。
-3. **英语的表达逻辑**：逼疯人的大事用 drive…up the wall，磨人的小事用 get on my nerves，看脸的反感用 the sight of。
-4. **可迁移表达**：
+- **本题知识点**：三档烦躁表达的对象与搭配。
+- **规则与机制**：drive sb up the wall / drive sb crazy 强度最高；get on sb's nerves 接持续的小动作；can't stand the sight of sb 固定接“某人的样子”。
+- **英语的表达逻辑**：逼疯人的大事用 drive…up the wall，磨人的小事用 get on my nerves，看脸的反感用 the sight of。
+- **可迁移表达**：
   - The drilling next door drives me up the wall.
   - His humming gets on my nerves.
 
@@ -452,30 +452,30 @@ I can't tolerate the smell of stale coffee in his car.
 <details>
 <summary>错题讲解 1</summary>
 
-1. **考点**：“一整天”的时间状语。
-2. **为什么错**：写成 all the day，英语固定说 all day（或 all day long），不加 the。
-3. **英语的表达逻辑**：all + 时间单位 表示整个时段，all day / all night / all week 都不带冠词。
-4. **正确表达**：Her leg bouncing gets on my nerves all day.
+- **考点**：“一整天”的时间状语。
+- **为什么错**：写成 all the day，英语固定说 all day（或 all day long），不加 the。
+- **英语的表达逻辑**：all + 时间单位 表示整个时段，all day / all night / all week 都不带冠词。
+- **正确表达**：Her leg bouncing gets on my nerves all day.
 
 </details>
 
 <details>
 <summary>错题讲解 2</summary>
 
-1. **考点**：抖腿的动作搭配。
-2. **为什么错**：shakes her legs 是“摇晃双腿”，像跳舞或晃身体；抖腿习惯动作说 bounce / jiggle one's leg，且一条腿用单数。
-3. **英语的表达逻辑**：身体小动作要用固定动词——bounce one's leg、tap one's foot、click a pen。
-4. **正确表达**：The person next to me keeps bouncing his leg, and it gets on my nerves.
+- **考点**：抖腿的动作搭配。
+- **为什么错**：shakes her legs 是“摇晃双腿”，像跳舞或晃身体；抖腿习惯动作说 bounce / jiggle one's leg，且一条腿用单数。
+- **英语的表达逻辑**：身体小动作要用固定动词——bounce one's leg、tap one's foot、click a pen。
+- **正确表达**：The person next to me keeps bouncing his leg, and it gets on my nerves.
 
 </details>
 
 <details>
 <summary>错题讲解 3</summary>
 
-1. **考点**：can't stand the sight of 的固定搭配。
-2. **为什么错**：写成 I can't bear it when I see his face，语法成立、意思接近，但把固定搭配拆成“bear it when + 从句”，考点没落地。
-3. **英语的表达逻辑**：“看到某人的样子就受不了”已固化成名词短语 the sight of sb，直接做 stand 的宾语。
-4. **正确表达**：I can't stand the sight of his fake smile.
+- **考点**：can't stand the sight of 的固定搭配。
+- **为什么错**：写成 I can't bear it when I see his face，语法成立、意思接近，但把固定搭配拆成“bear it when + 从句”，考点没落地。
+- **英语的表达逻辑**：“看到某人的样子就受不了”已固化成名词短语 the sight of sb，直接做 stand 的宾语。
+- **正确表达**：I can't stand the sight of his fake smile.
 
 </details>
 
@@ -506,10 +506,10 @@ I can't tolerate the smell of stale coffee in his car.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：bear 在否定句里的用法与宾语形式。
-2. **规则与机制**：bear 表示“忍受”，否定形式 can't bear + 名词成立；B 语法上可以，但日常抱怨这个语境的自然度不如否定句；D 在名词前多加了 to，A 把 stand 用在肯定句里。
-3. **英语的表达逻辑**：stand 几乎只出现在否定和疑问里，肯定陈述要换 bear 或 put up with；bear 后面直接接名词或动名词，不加 to。
-4. **可迁移表达**：I can't bear the smell in this room.（受不了这屋里的味道。）
+- **本题知识点**：bear 在否定句里的用法与宾语形式。
+- **规则与机制**：bear 表示“忍受”，否定形式 can't bear + 名词成立；B 语法上可以，但日常抱怨这个语境的自然度不如否定句；D 在名词前多加了 to，A 把 stand 用在肯定句里。
+- **英语的表达逻辑**：stand 几乎只出现在否定和疑问里，肯定陈述要换 bear 或 put up with；bear 后面直接接名词或动名词，不加 to。
+- **可迁移表达**：I can't bear the smell in this room.（受不了这屋里的味道。）
 
 </details>
 
@@ -527,10 +527,10 @@ I can't help ____（check）the tracking page three times a day.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：can't help doing 固定接动名词。
-2. **规则与机制**：can't help 表示“忍不住”，help 后面接动名词，整体是 can't help doing something，不能换成 to do。
-3. **英语的表达逻辑**：这里的 help 不是“帮忙”，而是“控制得住”，动名词说明那个控制不住的动作本身。
-4. **可迁移表达**：I can't help laughing when he does that voice.（他一那样说话我就忍不住笑。）
+- **本题知识点**：can't help doing 固定接动名词。
+- **规则与机制**：can't help 表示“忍不住”，help 后面接动名词，整体是 can't help doing something，不能换成 to do。
+- **英语的表达逻辑**：这里的 help 不是“帮忙”，而是“控制得住”，动名词说明那个控制不住的动作本身。
+- **可迁移表达**：I can't help laughing when he does that voice.（他一那样说话我就忍不住笑。）
 
 </details>
 
@@ -548,20 +548,20 @@ She can't wait meeting her old classmates again.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：can't wait to do 的结构。
-2. **规则与机制**：can't wait 后面固定接不定式 to do，表示“迫不及待”，不能接动名词；can't 后面也不能再插一个 to。
-3. **英语的表达逻辑**：情态动词后面直接跟动词原形，所以 can't 与 wait 之间不放 to；to 属于 wait 的搭配，位置紧跟 wait 之后。
-4. **可迁移表达**：I can't wait to try the new machine.（我迫不及待想试试新机器。）
+- **本题知识点**：can't wait to do 的结构。
+- **规则与机制**：can't wait 后面固定接不定式 to do，表示“迫不及待”，不能接动名词；can't 后面也不能再插一个 to。
+- **英语的表达逻辑**：情态动词后面直接跟动词原形，所以 can't 与 wait 之间不放 to；to 属于 wait 的搭配，位置紧跟 wait 之后。
+- **可迁移表达**：I can't wait to try the new machine.（我迫不及待想试试新机器。）
 
 </details>
 
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：can't wait + to do 的位置与形式。
-2. **为什么错**：写成 can't to wait，等于在情态动词后面加了 to，又把该改的 meeting 留着；两处都没改对。
-3. **英语的表达逻辑**：先认定骨架 can't + wait + to + 动词原形，再逐个槽位对照原句：can't 后只能跟原形，wait 后才接 to，to 后要用原形 meet。
-4. **正确表达**：She can't wait to meet her old classmates again.（她迫不及待想再见到老同学。）
+- **考点**：can't wait + to do 的位置与形式。
+- **为什么错**：写成 can't to wait，等于在情态动词后面加了 to，又把该改的 meeting 留着；两处都没改对。
+- **英语的表达逻辑**：先认定骨架 can't + wait + to + 动词原形，再逐个槽位对照原句：can't 后只能跟原形，wait 后才接 to，to 后要用原形 meet。
+- **正确表达**：She can't wait to meet her old classmates again.（她迫不及待想再见到老同学。）
 
 </details>
 
@@ -579,20 +579,20 @@ I really don't like queuing, but ten minutes is fine for me.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：put up with 与 can't put up with 的分工。
-2. **规则与机制**：put up with 本身是“容忍、将就”，肯定形式说明还能忍；can't put up with 才是“忍不了”。改写时原句说“还能忍十分钟”，就该用肯定形式。
-3. **英语的表达逻辑**：英语靠否定词翻转整句立场，一样的意思换表达时，肯定否定的方向必须跟着原句走，否则句子前后半段会打架。
-4. **可迁移表达**：I can put up with queuing for ten minutes.（排队十分钟我还能忍。）
+- **本题知识点**：put up with 与 can't put up with 的分工。
+- **规则与机制**：put up with 本身是“容忍、将就”，肯定形式说明还能忍；can't put up with 才是“忍不了”。改写时原句说“还能忍十分钟”，就该用肯定形式。
+- **英语的表达逻辑**：英语靠否定词翻转整句立场，一样的意思换表达时，肯定否定的方向必须跟着原句走，否则句子前后半段会打架。
+- **可迁移表达**：I can put up with queuing for ten minutes.（排队十分钟我还能忍。）
 
 </details>
 
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：改写时保住原句的肯定/否定立场。
-2. **为什么错**：看到 put up with 就顺手加 can't，忽略了 but ten minutes is fine 表达的是“有限度地还能忍”。
-3. **英语的表达逻辑**：改写先划出原句的立场（能忍 / 不能忍），再选形式；原句用 but 转折说明限度，说明主句是肯定容忍。
-4. **正确表达**：I can put up with queuing for ten minutes.（排队十分钟我还能忍。）
+- **考点**：改写时保住原句的肯定/否定立场。
+- **为什么错**：看到 put up with 就顺手加 can't，忽略了 but ten minutes is fine 表达的是“有限度地还能忍”。
+- **英语的表达逻辑**：改写先划出原句的立场（能忍 / 不能忍），再选形式；原句用 but 转折说明限度，说明主句是肯定容忍。
+- **正确表达**：I can put up with queuing for ten minutes.（排队十分钟我还能忍。）
 
 </details>
 
@@ -610,20 +610,20 @@ I really don't like queuing, but ten minutes is fine for me.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：tolerate 的语境与宾语形式。
-2. **规则与机制**：tolerate 表示“容许、不容忍”，主语可以是规定、政策这类非人成分，后面接名词或动名词：does not tolerate eating in the office area。
-3. **英语的表达逻辑**：bear 是“人承受不了某事”的感受词，主语必须是有感受的一方；规章不会“受不了”，它只会“不容许”，所以选 tolerate。
-4. **可迁移表达**：The library does not tolerate eating at the desks.（图书馆不容许在座位上吃东西。）
+- **本题知识点**：tolerate 的语境与宾语形式。
+- **规则与机制**：tolerate 表示“容许、不容忍”，主语可以是规定、政策这类非人成分，后面接名词或动名词：does not tolerate eating in the office area。
+- **英语的表达逻辑**：bear 是“人承受不了某事”的感受词，主语必须是有感受的一方；规章不会“受不了”，它只会“不容许”，所以选 tolerate。
+- **可迁移表达**：The library does not tolerate eating at the desks.（图书馆不容许在座位上吃东西。）
 
 </details>
 
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：表达选择与主语适配。
-2. **为什么错**：用了 can't bear to eat，把规章写成有情绪的人；to do 也不符合 tolerate 的搭配要求。
-3. **英语的表达逻辑**：先看主语是不是“人”：人受不了用 can't stand / can't bear，规章容许不容许用 tolerate / allow；再看动词锁定的宾语形式。
-4. **正确表达**：The rule does not tolerate eating in the office area.（这条规定不容忍在办公区吃东西。）
+- **考点**：表达选择与主语适配。
+- **为什么错**：用了 can't bear to eat，把规章写成有情绪的人；to do 也不符合 tolerate 的搭配要求。
+- **英语的表达逻辑**：先看主语是不是“人”：人受不了用 can't stand / can't bear，规章容许不容许用 tolerate / allow；再看动词锁定的宾语形式。
+- **正确表达**：The rule does not tolerate eating in the office area.（这条规定不容忍在办公区吃东西。）
 
 </details>
 
@@ -647,10 +647,10 @@ I really don't like queuing, but ten minutes is fine for me.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：按场景（私人抱怨 / 规章 / 控制不住）选表达。
-2. **规则与机制**：私人抱怨到极限用 can't stand it any longer；规章写 tolerate；控制不住的动作写 can't help doing。
-3. **英语的表达逻辑**：三个表达对应三种说话人身份——抱怨的人、立规矩的机构、管不住自己的自己；选词先定身份，再定宾语形式。
-4. **可迁移表达**：
+- **本题知识点**：按场景（私人抱怨 / 规章 / 控制不住）选表达。
+- **规则与机制**：私人抱怨到极限用 can't stand it any longer；规章写 tolerate；控制不住的动作写 can't help doing。
+- **英语的表达逻辑**：三个表达对应三种说话人身份——抱怨的人、立规矩的机构、管不住自己的自己；选词先定身份，再定宾语形式。
+- **可迁移表达**：
   - I can't stand it any longer.（我再也受不了了。）
   - We do not tolerate late submissions.（我们不接受迟交。）
 
@@ -659,30 +659,30 @@ I really don't like queuing, but ten minutes is fine for me.
 <details>
 <summary>错题讲解 1</summary>
 
-1. **考点**：“实在忍不了了”的收尾。
-2. **为什么错**：写成 can't put up with … for a month，方向没错，但没把“再也”的终点说出来，for a month 又挂在句尾，读起来像“要忍一个月”。
-3. **英语的表达逻辑**：到极限的抱怨靠 any longer / anymore 收句；时长要放进去时写成 for a month 的位置也要紧挨动作：I can't put up with the renovation next door any longer.
-4. **正确表达**：I can't stand it any longer — the renovation next door has been going on for a month.（隔壁装修敲了一个月，我实在受不了了。）
+- **考点**：“实在忍不了了”的收尾。
+- **为什么错**：写成 can't put up with … for a month，方向没错，但没把“再也”的终点说出来，for a month 又挂在句尾，读起来像“要忍一个月”。
+- **英语的表达逻辑**：到极限的抱怨靠 any longer / anymore 收句；时长要放进去时写成 for a month 的位置也要紧挨动作：I can't put up with the renovation next door any longer.
+- **正确表达**：I can't stand it any longer — the renovation next door has been going on for a month.（隔壁装修敲了一个月，我实在受不了了。）
 
 </details>
 
 <details>
 <summary>错题讲解 2</summary>
 
-1. **考点**：规章语境的表达。
-2. **为什么错**：写了 The lab can't bear any illegal operation，把机构写成有情绪的“人”，而且 operation 前面用 any 搭配也不自然。
-3. **英语的表达逻辑**：机构发通知用 tolerate / allow / permit，主语是规定本身；私人抱怨才用 stand / bear。
-4. **正确表达**：The lab does not tolerate any unsafe practice.（本实验室不容忍任何违规操作。）
+- **考点**：规章语境的表达。
+- **为什么错**：写了 The lab can't bear any illegal operation，把机构写成有情绪的“人”，而且 operation 前面用 any 搭配也不自然。
+- **英语的表达逻辑**：机构发通知用 tolerate / allow / permit，主语是规定本身；私人抱怨才用 stand / bear。
+- **正确表达**：The lab does not tolerate any unsafe practice.（本实验室不容忍任何违规操作。）
 
 </details>
 
 <details>
 <summary>错题讲解 3</summary>
 
-1. **考点**：refresh 的宾语。
-2. **为什么错**：写成 refreshing the logistics，logistics 指物流这套业务，不能“刷新”；要刷的是物流页面或物流信息。
-3. **英语的表达逻辑**：refresh 的宾语是屏幕上的东西——page、feed、screen、list；抽象的业务名要落到具体载体上。
-4. **正确表达**：I can't help refreshing the tracking page.（我忍不住一直刷新物流页面。）
+- **考点**：refresh 的宾语。
+- **为什么错**：写成 refreshing the logistics，logistics 指物流这套业务，不能“刷新”；要刷的是物流页面或物流信息。
+- **英语的表达逻辑**：refresh 的宾语是屏幕上的东西——page、feed、screen、list；抽象的业务名要落到具体载体上。
+- **正确表达**：I can't help refreshing the tracking page.（我忍不住一直刷新物流页面。）
 
 </details>
 
@@ -709,10 +709,10 @@ I've been patient for months, but I ____ these delays any longer.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：can't put up with + 名词。
-2. **规则与机制**：put up with 表示“勉强忍受”，配上 any longer（再也……不）就把“忍到极限”这层意思落实，正好对应 I've been patient for months 铺垫的长期忍耐。
-3. **英语的表达逻辑**：any longer 是这条表达的固定伙伴词，否定加上它就等于“到此为止”，比单说 can't put up with 更有收尾感。
-4. **可迁移表达**：I can't put up with the noise any longer.（这噪音我再也忍不下去了。）
+- **本题知识点**：can't put up with + 名词。
+- **规则与机制**：put up with 表示“勉强忍受”，配上 any longer（再也……不）就把“忍到极限”这层意思落实，正好对应 I've been patient for months 铺垫的长期忍耐。
+- **英语的表达逻辑**：any longer 是这条表达的固定伙伴词，否定加上它就等于“到此为止”，比单说 can't put up with 更有收尾感。
+- **可迁移表达**：I can't put up with the noise any longer.（这噪音我再也忍不下去了。）
 
 </details>
 
@@ -734,20 +734,20 @@ I've been patient for months, but I ____ these delays any longer.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：get on somebody's nerves 的宾语位置。
-2. **规则与机制**：这条短语是“事 + get on + 物主代词 + nerves”，宾语已经嵌在 my nerves 里，句子末尾不能再补一个 me。
-3. **英语的表达逻辑**：英语短语动词有的把宾语固定在中间，有的放在后面；get on my nerves 属于前者，再加宾语就变成两个宾语叠在一起。
-4. **可迁移表达**：That noise gets on my nerves.（那噪音让我心烦。）
+- **本题知识点**：get on somebody's nerves 的宾语位置。
+- **规则与机制**：这条短语是“事 + get on + 物主代词 + nerves”，宾语已经嵌在 my nerves 里，句子末尾不能再补一个 me。
+- **英语的表达逻辑**：英语短语动词有的把宾语固定在中间，有的放在后面；get on my nerves 属于前者，再加宾语就变成两个宾语叠在一起。
+- **可迁移表达**：That noise gets on my nerves.（那噪音让我心烦。）
 
 </details>
 
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：四个选项的搭配合法性逐条核对。
-2. **为什么错**：把 can't bear to see 当成错误搭配，而它恰好是 can't bear 的标准用法之一；同时漏掉了 D 末尾多余的 me。
-3. **英语的表达逻辑**：判断“哪一项不成立”时，要逐项扫两条：动词后的形式（to do / doing）合不合法，短语动词的宾语有没有重复或缺失；只看句子读起来顺不顺，容易漏掉多余的代词。
-4. **正确表达**：The noise is getting on my nerves.（那噪音让我心烦。）；也可写 The noise is driving me crazy.（那噪音快把我逼疯了。）
+- **考点**：四个选项的搭配合法性逐条核对。
+- **为什么错**：把 can't bear to see 当成错误搭配，而它恰好是 can't bear 的标准用法之一；同时漏掉了 D 末尾多余的 me。
+- **英语的表达逻辑**：判断“哪一项不成立”时，要逐项扫两条：动词后的形式（to do / doing）合不合法，短语动词的宾语有没有重复或缺失；只看句子读起来顺不顺，容易漏掉多余的代词。
+- **正确表达**：The noise is getting on my nerves.（那噪音让我心烦。）；也可写 The noise is driving me crazy.（那噪音快把我逼疯了。）
 
 </details>
 
@@ -765,10 +765,10 @@ I can't put up with to wait in line for an hour every morning.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：put up with 后面接动名词。
-2. **规则与机制**：put up with 的 with 是介词，介词后面只能接名词、代词或动名词，不能接 to do。
-3. **英语的表达逻辑**：英语里凡是以介词收尾的短语动词，后面一律用 -ing 形式；to do 的不定式只跟特定的动词搭配。
-4. **可迁移表达**：I can't put up with waiting for the bus in the rain.（受不了在雨里等公交。）
+- **本题知识点**：put up with 后面接动名词。
+- **规则与机制**：put up with 的 with 是介词，介词后面只能接名词、代词或动名词，不能接 to do。
+- **英语的表达逻辑**：英语里凡是以介词收尾的短语动词，后面一律用 -ing 形式；to do 的不定式只跟特定的动词搭配。
+- **可迁移表达**：I can't put up with waiting for the bus in the rain.（受不了在雨里等公交。）
 
 </details>
 
@@ -786,10 +786,10 @@ The way she taps her pen annoys me a lot.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：annoy 与 get on somebody's nerves 的对应。
-2. **规则与机制**：改写时把“事”提到主语位置，annoy 换成 get on my nerves，时态随原句的一般现在时取 gets。
-3. **英语的表达逻辑**：get on my nerves 自带“持续、反复”的意味，正好对应 the way she taps her pen 这种重复动作；换成一次性事件就不合适。
-4. **可迁移表达**：The way he clears his throat gets on my nerves.（他清嗓子那个样子让我心烦。）
+- **本题知识点**：annoy 与 get on somebody's nerves 的对应。
+- **规则与机制**：改写时把“事”提到主语位置，annoy 换成 get on my nerves，时态随原句的一般现在时取 gets。
+- **英语的表达逻辑**：get on my nerves 自带“持续、反复”的意味，正好对应 the way she taps her pen 这种重复动作；换成一次性事件就不合适。
+- **可迁移表达**：The way he clears his throat gets on my nerves.（他清嗓子那个样子让我心烦。）
 
 </details>
 
@@ -807,30 +807,30 @@ The way she taps her pen annoys me a lot.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：装修施工用 renovation / construction work，不用 decoration。
-2. **规则与机制**：decorate 指装饰、布置（挂画、刷漆选色），施工敲打、拆改的整套工程是 renovation 或 building work；装修产生的噪音要说 renovation noise 或 construction noise。
-3. **英语的表达逻辑**：英语把“装修过程”和“装饰效果”分成两个词，中文一个“装修”要按语境拆开；译错词，读者会以为在说装饰风格。
-4. **可迁移表达**：The renovation next door has been going on for weeks.（隔壁的装修已经干了好几周。）
+- **本题知识点**：装修施工用 renovation / construction work，不用 decoration。
+- **规则与机制**：decorate 指装饰、布置（挂画、刷漆选色），施工敲打、拆改的整套工程是 renovation 或 building work；装修产生的噪音要说 renovation noise 或 construction noise。
+- **英语的表达逻辑**：英语把“装修过程”和“装饰效果”分成两个词，中文一个“装修”要按语境拆开；译错词，读者会以为在说装饰风格。
+- **可迁移表达**：The renovation next door has been going on for weeks.（隔壁的装修已经干了好几周。）
 
 </details>
 
 <details>
 <summary>错题讲解 1</summary>
 
-1. **考点**：drives me crazy 与 can't put up with … any longer 的分工。
-2. **为什么错**：“再也忍不下去”是到了极限、不再忍，drives me crazy 只表示“烦得要命”，强度和“不再忍”的收尾意味都没有。
-3. **英语的表达逻辑**：中文“再也……不”这类结构要靠否定 + any longer / anymore 落地；换成纯程度词，句子就从“决定不再忍”变成“还在忍着只是很烦”。
-4. **正确表达**：I can't put up with the renovation noise any longer.（这些装修噪音我再也忍不下去了。）
+- **考点**：drives me crazy 与 can't put up with … any longer 的分工。
+- **为什么错**：“再也忍不下去”是到了极限、不再忍，drives me crazy 只表示“烦得要命”，强度和“不再忍”的收尾意味都没有。
+- **英语的表达逻辑**：中文“再也……不”这类结构要靠否定 + any longer / anymore 落地；换成纯程度词，句子就从“决定不再忍”变成“还在忍着只是很烦”。
+- **正确表达**：I can't put up with the renovation noise any longer.（这些装修噪音我再也忍不下去了。）
 
 </details>
 
 <details>
 <summary>错题讲解 2</summary>
 
-1. **考点**：装修的用词。
-2. **为什么错**：写成 decoration noise，把“装饰”当成“装修施工”，词义范围不对。
-3. **英语的表达逻辑**：先定这件事的实质——是施工还是美化，再选词：renovation / construction work 对施工，decoration 对装饰布置。
-4. **正确表达**：I can't put up with the renovation noise any longer.（这些装修噪音我再也忍不下去了。）
+- **考点**：装修的用词。
+- **为什么错**：写成 decoration noise，把“装饰”当成“装修施工”，词义范围不对。
+- **英语的表达逻辑**：先定这件事的实质——是施工还是美化，再选词：renovation / construction work 对施工，decoration 对装饰布置。
+- **正确表达**：I can't put up with the renovation noise any longer.（这些装修噪音我再也忍不下去了。）
 
 </details>
 
@@ -850,10 +850,10 @@ The way she taps her pen annoys me a lot.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：三个表达各自能接什么。
-2. **规则与机制**：can't bear 接名词或动名词；drive somebody crazy 用“事”做主语；can't stand it at all 是完整句子，后面不能再挂从句。
-3. **英语的表达逻辑**：每个表达都有自己的“容量”——can't bear 装的是东西或动作，drive me crazy 装的是主语，stand it at all 已经收尾；塞进多余成分，句子就散架。
-4. **可迁移表达**：
+- **本题知识点**：三个表达各自能接什么。
+- **规则与机制**：can't bear 接名词或动名词；drive somebody crazy 用“事”做主语；can't stand it at all 是完整句子，后面不能再挂从句。
+- **英语的表达逻辑**：每个表达都有自己的“容量”——can't bear 装的是东西或动作，drive me crazy 装的是主语，stand it at all 已经收尾；塞进多余成分，句子就散架。
+- **可迁移表达**：
   - I can't bear the smell of burnt rice.（受不了米饭烧焦的味道。）
   - That alarm drives me crazy.（那个闹钟快把我逼疯。）
   - I can't stand it at all.（我一点都受不了。）
@@ -863,30 +863,30 @@ The way she taps her pen annoys me a lot.
 <details>
 <summary>错题讲解 1</summary>
 
-1. **考点**：can't bear 后面接什么。
-2. **为什么错**：写了 I can't bear I'm so smart，把主谓从句直接塞给 can't bear，这里既缺连接词，也不是这条表达允许的形式。
-3. **英语的表达逻辑**：can't bear 表示“承受不了某物或某事”，后面跟名词或动名词；要接从句得换成 it that / it when 那套框架，而 bear 更常用动名词。
-4. **正确表达**：I can't bear the way he boasts.（受不了他自夸那副样子。）
+- **考点**：can't bear 后面接什么。
+- **为什么错**：写了 I can't bear I'm so smart，把主谓从句直接塞给 can't bear，这里既缺连接词，也不是这条表达允许的形式。
+- **英语的表达逻辑**：can't bear 表示“承受不了某物或某事”，后面跟名词或动名词；要接从句得换成 it that / it when 那套框架，而 bear 更常用动名词。
+- **正确表达**：I can't bear the way he boasts.（受不了他自夸那副样子。）
 
 </details>
 
 <details>
 <summary>错题讲解 2</summary>
 
-1. **考点**：时间与来源状语的位置。
-2. **为什么错**：写了 the noise in the midnight from neighbors，把时间状语插在名词和时间之间，读完不知道“半夜”修饰谁；而且 in the midnight 本身不自然。
-3. **英语的表达逻辑**：修饰名词的介词短语应紧挨名词，时间用 at midnight / in the middle of the night；多个修饰语按“来源 + 时间”顺序排在名词后：the noise from my neighbours at midnight。
-4. **正确表达**：The noise from my neighbours at midnight drives me crazy.（邻居半夜的噪音快把我逼疯了。）
+- **考点**：时间与来源状语的位置。
+- **为什么错**：写了 the noise in the midnight from neighbors，把时间状语插在名词和时间之间，读完不知道“半夜”修饰谁；而且 in the midnight 本身不自然。
+- **英语的表达逻辑**：修饰名词的介词短语应紧挨名词，时间用 at midnight / in the middle of the night；多个修饰语按“来源 + 时间”顺序排在名词后：the noise from my neighbours at midnight。
+- **正确表达**：The noise from my neighbours at midnight drives me crazy.（邻居半夜的噪音快把我逼疯了。）
 
 </details>
 
 <details>
 <summary>错题讲解 3</summary>
 
-1. **考点**：can't stand it at all 是完整句子。
-2. **为什么错**：写成 I can't stand it at all the dog outside barks all the time，把 at all 后面当成还能接从句的位置，句子出现两个谓语。
-3. **英语的表达逻辑**：at all 是句末强调，出现它就说明句子已经说完；要带具体的事，先回到 it when 框架：I can't stand it when + 主语 + 谓语，at all 放到最后。
-4. **正确表达**：I can't stand it when the dog outside barks all the time.（外面那条狗一直叫，我真受不了。）
+- **考点**：can't stand it at all 是完整句子。
+- **为什么错**：写成 I can't stand it at all the dog outside barks all the time，把 at all 后面当成还能接从句的位置，句子出现两个谓语。
+- **英语的表达逻辑**：at all 是句末强调，出现它就说明句子已经说完；要带具体的事，先回到 it when 框架：I can't stand it when + 主语 + 谓语，at all 放到最后。
+- **正确表达**：I can't stand it when the dog outside barks all the time.（外面那条狗一直叫，我真受不了。）
 
 </details>
 
@@ -913,10 +913,10 @@ I can't stand ____（constant）interruptions when I'm trying to write.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：形容词修饰名词，stand 的宾语是名词短语。
-2. **规则与机制**：stand 后面可以接一个名词短语，形容词放在名词前做定语：constant interruptions；括号里的 constant 是形容词，直接前置即可。
-3. **英语的表达逻辑**：英语形容词不变形、不随名词数变化，位置固定在名词前；把它当动词或加 -s 都会让整个短语失效。
-4. **可迁移表达**：I can't stand the constant dripping from that tap.（受不了那个龙头一直滴水。）
+- **本题知识点**：形容词修饰名词，stand 的宾语是名词短语。
+- **规则与机制**：stand 后面可以接一个名词短语，形容词放在名词前做定语：constant interruptions；括号里的 constant 是形容词，直接前置即可。
+- **英语的表达逻辑**：英语形容词不变形、不随名词数变化，位置固定在名词前；把它当动词或加 -s 都会让整个短语失效。
+- **可迁移表达**：I can't stand the constant dripping from that tap.（受不了那个龙头一直滴水。）
 
 </details>
 
@@ -938,10 +938,10 @@ I can't stand ____（constant）interruptions when I'm trying to write.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：the way 后面从句的词序。
-2. **规则与机制**：the way (that) + 主语 + 谓语，从句用陈述语序；D 把 is 提到了 he 前面，等于把从句写成了疑问句。
-3. **英语的表达逻辑**：英语只有主句疑问才把助动词前置，从句一律保持陈述语序；the way 后面接的就是一个从句。
-4. **可迁移表达**：I can't stand the way he answers the phone.（受不了他接电话那个腔调。）
+- **本题知识点**：the way 后面从句的词序。
+- **规则与机制**：the way (that) + 主语 + 谓语，从句用陈述语序；D 把 is 提到了 he 前面，等于把从句写成了疑问句。
+- **英语的表达逻辑**：英语只有主句疑问才把助动词前置，从句一律保持陈述语序；the way 后面接的就是一个从句。
+- **可迁移表达**：I can't stand the way he answers the phone.（受不了他接电话那个腔调。）
 
 </details>
 
@@ -959,10 +959,10 @@ I very much can't stand the smell of fish in the office kitchen.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：程度副词修饰否定情态。
-2. **规则与机制**：very much 通常修饰动词的肯定用法（I like it very much），放在否定情态 can't 前面不成立；要强调否定用 really、absolutely 或 at all。
-3. **英语的表达逻辑**：英语的程度词按搭配分工，very much 依附动词，really 依附整个否定判断，位置和语气都由搭配决定。
-4. **可迁移表达**：
+- **本题知识点**：程度副词修饰否定情态。
+- **规则与机制**：very much 通常修饰动词的肯定用法（I like it very much），放在否定情态 can't 前面不成立；要强调否定用 really、absolutely 或 at all。
+- **英语的表达逻辑**：英语的程度词按搭配分工，very much 依附动词，really 依附整个否定判断，位置和语气都由搭配决定。
+- **可迁移表达**：
   - I really can't stand that smell.（我实在受不了那股味。）
   - I can't stand it at all.（我一点都受不了。）
 
@@ -982,20 +982,20 @@ My neighbours slam the door every night. That drives me crazy.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：用 it + when 从句合并两句。
-2. **规则与机制**：第二句里的 That 指前面整件事，合并时用形式宾语 it + when 从句把这件事后置：stand it when + 主语 + 谓语。
-3. **英语的表达逻辑**：合并要保住原句的时间与频率成分，否则从句从“天天发生”缩成“发生过一次”，语气跟着变。
-4. **可迁移表达**：I can't stand it when the neighbours slam the door every night.（受不了邻居每天晚上摔门。）
+- **本题知识点**：用 it + when 从句合并两句。
+- **规则与机制**：第二句里的 That 指前面整件事，合并时用形式宾语 it + when 从句把这件事后置：stand it when + 主语 + 谓语。
+- **英语的表达逻辑**：合并要保住原句的时间与频率成分，否则从句从“天天发生”缩成“发生过一次”，语气跟着变。
+- **可迁移表达**：I can't stand it when the neighbours slam the door every night.（受不了邻居每天晚上摔门。）
 
 </details>
 
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：合并时保留频率状语。
-2. **为什么错**：合并只搬了主句动作，every night 被丢掉，受不了的对象从“每晚都摔”变成“摔过一次”。
-3. **英语的表达逻辑**：频率、时间、地点这类状语是句子信息的一部分，合并两个句子时随从句一起搬过去；it when 从句本身完全可以带 every night。
-4. **正确表达**：I can't stand it when my neighbours slam the door every night.（受不了邻居每天晚上摔门。）
+- **考点**：合并时保留频率状语。
+- **为什么错**：合并只搬了主句动作，every night 被丢掉，受不了的对象从“每晚都摔”变成“摔过一次”。
+- **英语的表达逻辑**：频率、时间、地点这类状语是句子信息的一部分，合并两个句子时随从句一起搬过去；it when 从句本身完全可以带 every night。
+- **正确表达**：I can't stand it when my neighbours slam the door every night.（受不了邻居每天晚上摔门。）
 
 </details>
 
@@ -1013,10 +1013,10 @@ My neighbours slam the door every night. That drives me crazy.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：迟到要用 be late / show up late，late 是形容词。
-2. **规则与机制**：late 在英语里是形容词或副词，不是动词；表达“迟到”写 be late、arrive late、show up late，从句里必须有 be 动词或实义动词。
-3. **英语的表达逻辑**：英语的词性分工固定，形容词要靠 be 动词才能做谓语；把 late 直接加 -s 当动词，句子就没有合法谓语。
-4. **可迁移表达**：
+- **本题知识点**：迟到要用 be late / show up late，late 是形容词。
+- **规则与机制**：late 在英语里是形容词或副词，不是动词；表达“迟到”写 be late、arrive late、show up late，从句里必须有 be 动词或实义动词。
+- **英语的表达逻辑**：英语的词性分工固定，形容词要靠 be 动词才能做谓语；把 late 直接加 -s 当动词，句子就没有合法谓语。
+- **可迁移表达**：
   - He is late for every meeting.（他每次开会都迟到。）
   - She showed up late again.（她又迟到了。）
 
@@ -1025,20 +1025,20 @@ My neighbours slam the door every night. That drives me crazy.
 <details>
 <summary>错题讲解 1</summary>
 
-1. **考点**：late 的词性。
-2. **为什么错**：写了 he lates，把形容词 late 当动词并加了三单 -s；英语里没有 late 这个动词。
-3. **英语的表达逻辑**：形容词描述状态，要靠 be 动词承担时态和人称；需要动词时换成 be late，或改用 arrive / show up 这类实义动词加副词 late。
-4. **正确表达**：I can't stand it when he is late for every meeting.（受不了他每次开会都迟到。）
+- **考点**：late 的词性。
+- **为什么错**：写了 he lates，把形容词 late 当动词并加了三单 -s；英语里没有 late 这个动词。
+- **英语的表达逻辑**：形容词描述状态，要靠 be 动词承担时态和人称；需要动词时换成 be late，或改用 arrive / show up 这类实义动词加副词 late。
+- **正确表达**：I can't stand it when he is late for every meeting.（受不了他每次开会都迟到。）
 
 </details>
 
 <details>
 <summary>错题讲解 2</summary>
 
-1. **考点**：程度与频率的表达。
-2. **为什么错**：“实在”没有译出，否定强度与原句不符；“每次”也漏了，从句变成“他迟到”这种一次性事件。
-3. **英语的表达逻辑**：中文的程度副词落在英文的 really / absolutely 上，频率落在 every time、every meeting 这类状语上；译完逐块核对，才不会只搬骨架。
-4. **正确表达**：I really can't stand it when he is late for every meeting.（我实在受不了他每次开会都迟到。）
+- **考点**：程度与频率的表达。
+- **为什么错**：“实在”没有译出，否定强度与原句不符；“每次”也漏了，从句变成“他迟到”这种一次性事件。
+- **英语的表达逻辑**：中文的程度副词落在英文的 really / absolutely 上，频率落在 every time、every meeting 这类状语上；译完逐块核对，才不会只搬骨架。
+- **正确表达**：I really can't stand it when he is late for every meeting.（我实在受不了他每次开会都迟到。）
 
 </details>
 
@@ -1058,10 +1058,10 @@ My neighbours slam the door every night. That drives me crazy.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：can't stand 的时态与宾语形式。
-2. **规则与机制**：过去用 couldn't stand，现在用 can't stand；宾语只能是名词短语、动名词或 it + when 从句，不能直接塞一个主谓结构。
-3. **英语的表达逻辑**：can't stand 是及物结构，宾语位置上要么是“东西”，要么是“一件事”；把“the poor live”这种主谓拼在一起，等于让 stand 同时接名词和谓语，结构塌掉。
-4. **可迁移表达**：
+- **本题知识点**：can't stand 的时态与宾语形式。
+- **规则与机制**：过去用 couldn't stand，现在用 can't stand；宾语只能是名词短语、动名词或 it + when 从句，不能直接塞一个主谓结构。
+- **英语的表达逻辑**：can't stand 是及物结构，宾语位置上要么是“东西”，要么是“一件事”；把“the poor live”这种主谓拼在一起，等于让 stand 同时接名词和谓语，结构塌掉。
+- **可迁移表达**：
   - I couldn't stand the noise back then.（那时我受不了那噪音。）
   - I can't stand living on the fifth floor.（受不了住五楼。）
 
@@ -1070,20 +1070,20 @@ My neighbours slam the door every night. That drives me crazy.
 <details>
 <summary>错题讲解 1</summary>
 
-1. **考点**：the + 形容词只能做名词短语。
-2. **为什么错**：写了 the poor live、the rich live，把 the poor / the rich 当成“他们”再接谓语 live，stand 后面就出现了一个没有连接词的主谓结构。
-3. **英语的表达逻辑**：the + 形容词确实能指一类人（the poor 穷人、the rich 富人），但它只是名词短语，需要另配谓语或放进从句；stand 后面要么用名词短语，要么用 it when 从句把整件事兜住。
-4. **正确表达**：I couldn't stand the noise where I lived six years ago.（六年前我受不了住处的噪音。）；也可写 I can't stand it when rich people show off.（受不了有钱人炫耀。）
+- **考点**：the + 形容词只能做名词短语。
+- **为什么错**：写了 the poor live、the rich live，把 the poor / the rich 当成“他们”再接谓语 live，stand 后面就出现了一个没有连接词的主谓结构。
+- **英语的表达逻辑**：the + 形容词确实能指一类人（the poor 穷人、the rich 富人），但它只是名词短语，需要另配谓语或放进从句；stand 后面要么用名词短语，要么用 it when 从句把整件事兜住。
+- **正确表达**：I couldn't stand the noise where I lived six years ago.（六年前我受不了住处的噪音。）；也可写 I can't stand it when rich people show off.（受不了有钱人炫耀。）
 
 </details>
 
 <details>
 <summary>错题讲解 2</summary>
 
-1. **考点**：sneeze 的拼写。
-2. **为什么错**：写成 snneze，多了一个 n，这个词在英语里不存在。
-3. **英语的表达逻辑**：sneeze 是一个音节一个辅音簇 sn- 开头，拼写里只有一个 n；不确定时按读音拆成 s-n-ee-ze 核对。
-4. **正确表达**：I can't stand it when my roommates sneeze without covering their mouths.（受不了室友打喷嚏不捂嘴。）
+- **考点**：sneeze 的拼写。
+- **为什么错**：写成 snneze，多了一个 n，这个词在英语里不存在。
+- **英语的表达逻辑**：sneeze 是一个音节一个辅音簇 sn- 开头，拼写里只有一个 n；不确定时按读音拆成 s-n-ee-ze 核对。
+- **正确表达**：I can't stand it when my roommates sneeze without covering their mouths.（受不了室友打喷嚏不捂嘴。）
 
 </details>
 
@@ -1110,10 +1110,10 @@ I can't stand it ____ people cough without covering their mouths.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：it + when 从句做 stand 的宾语。
-2. **规则与机制**：stand 后面要承接一件完整的事情时，用形式宾语 it 占住宾语位置，真正的宾语由 when 从句后置，结构是 stand it when + 主语 + 谓语。
-3. **英语的表达逻辑**：it 在这里不指任何具体名词，只替一个从句占位；没有 it 就写成 stand when 从句，stand 会缺宾语而站不住。
-4. **可迁移表达**：I can't stand it when the wifi drops during a meeting.（开会时网断了，我真受不了。）
+- **本题知识点**：it + when 从句做 stand 的宾语。
+- **规则与机制**：stand 后面要承接一件完整的事情时，用形式宾语 it 占住宾语位置，真正的宾语由 when 从句后置，结构是 stand it when + 主语 + 谓语。
+- **英语的表达逻辑**：it 在这里不指任何具体名词，只替一个从句占位；没有 it 就写成 stand when 从句，stand 会缺宾语而站不住。
+- **可迁移表达**：I can't stand it when the wifi drops during a meeting.（开会时网断了，我真受不了。）
 
 </details>
 
@@ -1135,10 +1135,10 @@ I can't stand it ____ people cough without covering their mouths.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：stand 后接“名词 + 分词”的名词短语。
-2. **规则与机制**：动名词的复合结构是名词（或宾格代词）+ 现在分词，people smoking 整体是一个名词短语，做 stand 的宾语；stand 后面不能直接接一个带主谓的从句。
-3. **英语的表达逻辑**：C 里 people 和 smoke 各自成主谓，等于塞了一个从句给 stand，而 stand 在没有 it 兜底时不接受裸从句；A 把动名词换成不定式，D 在从句前又加了 to，都是形式混搭。
-4. **可迁移表达**：I can't stand kids screaming on the plane.（受不了小孩在飞机上尖叫。）
+- **本题知识点**：stand 后接“名词 + 分词”的名词短语。
+- **规则与机制**：动名词的复合结构是名词（或宾格代词）+ 现在分词，people smoking 整体是一个名词短语，做 stand 的宾语；stand 后面不能直接接一个带主谓的从句。
+- **英语的表达逻辑**：C 里 people 和 smoke 各自成主谓，等于塞了一个从句给 stand，而 stand 在没有 it 兜底时不接受裸从句；A 把动名词换成不定式，D 在从句前又加了 to，都是形式混搭。
+- **可迁移表达**：I can't stand kids screaming on the plane.（受不了小孩在飞机上尖叫。）
 
 </details>
 
@@ -1156,20 +1156,20 @@ I can't stand the way he treats the staffs in this hotel.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：the way (that) + 从句。
-2. **规则与机制**：the way 后面可以直接接从句，也可以加 that，两者都自然；因此改错题要把注意力放在词形上，逐个比对每个名词。
-3. **英语的表达逻辑**：只改一处时，先扫名词形式与时态，再考虑连词是否可省，可省的结构不是错处。
-4. **可迁移表达**：I can't stand the way she talks to customers.（受不了她对顾客说话那个样子。）
+- **本题知识点**：the way (that) + 从句。
+- **规则与机制**：the way 后面可以直接接从句，也可以加 that，两者都自然；因此改错题要把注意力放在词形上，逐个比对每个名词。
+- **英语的表达逻辑**：只改一处时，先扫名词形式与时态，再考虑连词是否可省，可省的结构不是错处。
+- **可迁移表达**：I can't stand the way she talks to customers.（受不了她对顾客说话那个样子。）
 
 </details>
 
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：staff 的数与形式。
-2. **为什么错**：staff 指全体员工时按集合名词处理，本题语境不能写 staffs（staffs 只在指几个不同机构的员工班子时才出现）；改错时把它留着，等于这一处错处没有动。
-3. **英语的表达逻辑**：英语里一批集合名词（staff、police、equipment、furniture）本身不数个数，要数人时换成 staff members、police officers，计数单位放在中心词上。
-4. **正确表达**：
+- **考点**：staff 的数与形式。
+- **为什么错**：staff 指全体员工时按集合名词处理，本题语境不能写 staffs（staffs 只在指几个不同机构的员工班子时才出现）；改错时把它留着，等于这一处错处没有动。
+- **英语的表达逻辑**：英语里一批集合名词（staff、police、equipment、furniture）本身不数个数，要数人时换成 staff members、police officers，计数单位放在中心词上。
+- **正确表达**：
   - I can't stand the way he treats the staff in this hotel.（受不了他在这家酒店对待员工的那副样子。）
   - The staff are always polite here.（这里的员工一向客气。）
 
@@ -1189,20 +1189,20 @@ Her humming in the morning bothers me.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：动名词的逻辑主语用物主代词。
-2. **规则与机制**：stand 后面接动名词时，动名词的动作发出者放在它前面，用物主代词或名词所有格：her humming、his leaving、my neighbour's playing。
-3. **英语的表达逻辑**：the humming 只是“那个哼唱声”，说话人不见了；her humming 才明确是“她在哼”，这正是受不了的对象；from her 表达的是来源，不是动作主体。
-4. **可迁移表达**：I can't stand his chewing right next to my ear.（受不了他在我耳边嚼东西。）
+- **本题知识点**：动名词的逻辑主语用物主代词。
+- **规则与机制**：stand 后面接动名词时，动名词的动作发出者放在它前面，用物主代词或名词所有格：her humming、his leaving、my neighbour's playing。
+- **英语的表达逻辑**：the humming 只是“那个哼唱声”，说话人不见了；her humming 才明确是“她在哼”，这正是受不了的对象；from her 表达的是来源，不是动作主体。
+- **可迁移表达**：I can't stand his chewing right next to my ear.（受不了他在我耳边嚼东西。）
 
 </details>
 
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：物主代词 + 动名词。
-2. **为什么错**：写了 the humming from her，把动名词改成普通名词短语，主语关系靠介词补，既冗长也不自然。
-3. **英语的表达逻辑**：表达“某人做某事让我受不了”时，动名词前直接挂物主代词，形式最短也最清楚；介词短语适合表达时间、地点、来源，不适合替代动作主体。
-4. **正确表达**：I can't stand her humming in the morning.（受不了她早上一直哼歌。）
+- **考点**：物主代词 + 动名词。
+- **为什么错**：写了 the humming from her，把动名词改成普通名词短语，主语关系靠介词补，既冗长也不自然。
+- **英语的表达逻辑**：表达“某人做某事让我受不了”时，动名词前直接挂物主代词，形式最短也最清楚；介词短语适合表达时间、地点、来源，不适合替代动作主体。
+- **正确表达**：I can't stand her humming in the morning.（受不了她早上一直哼歌。）
 
 </details>
 
@@ -1220,20 +1220,20 @@ Her humming in the morning bothers me.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：翻译时先定框架，再逐个落实名词与动作。
-2. **规则与机制**：it when 与名词、动名词两套框架都成立；选定框架后，中文里每个信息块（谁、做什么、什么东西、在哪儿）都要有对应的英文成分。
-3. **英语的表达逻辑**：中文“堆在门口”是一个持续留下的状态，英文用 leave / pile … by the door 这类动词才落得住；只写 get the takeout 就变成“他去拿外卖”，动作换了。
-4. **可迁移表达**：I can't stand it when people leave their bikes by the door.（受不了别人把自行车堆在门口。）
+- **本题知识点**：翻译时先定框架，再逐个落实名词与动作。
+- **规则与机制**：it when 与名词、动名词两套框架都成立；选定框架后，中文里每个信息块（谁、做什么、什么东西、在哪儿）都要有对应的英文成分。
+- **英语的表达逻辑**：中文“堆在门口”是一个持续留下的状态，英文用 leave / pile … by the door 这类动词才落得住；只写 get the takeout 就变成“他去拿外卖”，动作换了。
+- **可迁移表达**：I can't stand it when people leave their bikes by the door.（受不了别人把自行车堆在门口。）
 
 </details>
 
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：外卖盒的名词形式与“堆在门口”的动词选择。
-2. **为什么错**：the takeout 指外卖这件事或那份餐，不是盒子；get 是取、买，表达不了“堆着不管”；gate 指大门、闸口，室内门口用 door。
-3. **英语的表达逻辑**：英语名词要落到具体物件（boxes），动词要落到具体动作（leave、pile），译完回头核对每个中文信息块是否都有对应成分。
-4. **正确表达**：I can't stand him leaving takeout boxes by the door.（受不了他把外卖盒堆在门口。）；也可写 I can't stand it when he leaves takeout boxes by the door.
+- **考点**：外卖盒的名词形式与“堆在门口”的动词选择。
+- **为什么错**：the takeout 指外卖这件事或那份餐，不是盒子；get 是取、买，表达不了“堆着不管”；gate 指大门、闸口，室内门口用 door。
+- **英语的表达逻辑**：英语名词要落到具体物件（boxes），动词要落到具体动作（leave、pile），译完回头核对每个中文信息块是否都有对应成分。
+- **正确表达**：I can't stand him leaving takeout boxes by the door.（受不了他把外卖盒堆在门口。）；也可写 I can't stand it when he leaves takeout boxes by the door.
 
 </details>
 
@@ -1253,10 +1253,10 @@ Her humming in the morning bothers me.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：同一表达在多种宾语形式之间切换。
-2. **规则与机制**：can't stand 的宾语可以是名词短语（the noise、the way + 从句）、动名词（their talking）、it + when 从句；疑问句只要把 can 提前，后面结构不变。
-3. **英语的表达逻辑**：同一件事换形式时语气略有差别：名词短语最概括，动名词指向具体动作，it when 适合描述反复发生的情形。
-4. **可迁移表达**：
+- **本题知识点**：同一表达在多种宾语形式之间切换。
+- **规则与机制**：can't stand 的宾语可以是名词短语（the noise、the way + 从句）、动名词（their talking）、it + when 从句；疑问句只要把 can 提前，后面结构不变。
+- **英语的表达逻辑**：同一件事换形式时语气略有差别：名词短语最概括，动名词指向具体动作，it when 适合描述反复发生的情形。
+- **可迁移表达**：
   - I can't stand the smell in this kitchen.（受不了这厨房的味道。）
   - I can't stand their talking after midnight.（受不了他们半夜还在说话。）
 
@@ -1265,10 +1265,10 @@ Her humming in the morning bothers me.
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：来源 from 与所属 of 的分工。
-2. **为什么错**：写了 the smoke of your roommates，of 表示归属，读成“室友本人的烟”；这里要表达的是“室友制造出来的烟”，属于来源。
-3. **英语的表达逻辑**：from 指来源与出处（smoke from the kitchen、noise from next door），of 指所属与构成；判断标准是“这东西从谁那儿来”还是“这东西属于谁”。
-4. **正确表达**：Can you stand the smoke from your roommates?（你受得了室友的烟味吗？）
+- **考点**：来源 from 与所属 of 的分工。
+- **为什么错**：写了 the smoke of your roommates，of 表示归属，读成“室友本人的烟”；这里要表达的是“室友制造出来的烟”，属于来源。
+- **英语的表达逻辑**：from 指来源与出处（smoke from the kitchen、noise from next door），of 指所属与构成；判断标准是“这东西从谁那儿来”还是“这东西属于谁”。
+- **正确表达**：Can you stand the smoke from your roommates?（你受得了室友的烟味吗？）
 
 </details>
 
@@ -1295,20 +1295,20 @@ When I was a child, I ____（can not / stand）the taste of carrots, but now I l
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：stand 的时态随时间状语变化。
-2. **规则与机制**：couldn't stand 是 can't stand 的过去形式，用于描述过去的感受；现在时的 can't stand 不能叙述童年经历。
-3. **英语的表达逻辑**：英语靠情态动词形式标记时间，can't → couldn't 同时承担“否定 + 过去”。
-4. **可迁移表达**：I couldn't stand the noise when I lived downtown.（我住市区时受不了那噪音。）
+- **本题知识点**：stand 的时态随时间状语变化。
+- **规则与机制**：couldn't stand 是 can't stand 的过去形式，用于描述过去的感受；现在时的 can't stand 不能叙述童年经历。
+- **英语的表达逻辑**：英语靠情态动词形式标记时间，can't → couldn't 同时承担“否定 + 过去”。
+- **可迁移表达**：I couldn't stand the noise when I lived downtown.（我住市区时受不了那噪音。）
 
 </details>
 
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：过去时间状语与情态动词的时态一致。
-2. **为什么错**：答案沿用了现在时的 can't stand，与 When I was a child 冲突，句子变成“小时候我现在受不了”。
-3. **英语的表达逻辑**：英语主句谓语与时间状语必须时态呼应，情态动词同样存在 can / could 的对立。
-4. **正确表达**：
+- **考点**：过去时间状语与情态动词的时态一致。
+- **为什么错**：答案沿用了现在时的 can't stand，与 When I was a child 冲突，句子变成“小时候我现在受不了”。
+- **英语的表达逻辑**：英语主句谓语与时间状语必须时态呼应，情态动词同样存在 can / could 的对立。
+- **正确表达**：
   - When I was a child, I couldn't stand the taste of carrots, but now I like them.（我小时候受不了胡萝卜的味道，现在倒喜欢了。）
   - She couldn't stand cigarette smoke before she quit.（戒烟前她受不了烟味。）
 
@@ -1333,20 +1333,20 @@ Nobody can stand ____ in the waiting room for two hours.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：动名词被动式 being + 过去分词。
-2. **规则与机制**：being done 是 V-ing 的被动式，助动词 being 之后必须是过去分词，不能接动词原形。
-3. **英语的表达逻辑**：被动结构固定为 be + 过去分词，动名词化后是 being + 过去分词，两层形式一起变。
-4. **可迁移表达**：Nobody can stand being kept on hold that long.（没人受得了被搁在电话上那么久。）
+- **本题知识点**：动名词被动式 being + 过去分词。
+- **规则与机制**：being done 是 V-ing 的被动式，助动词 being 之后必须是过去分词，不能接动词原形。
+- **英语的表达逻辑**：被动结构固定为 be + 过去分词，动名词化后是 being + 过去分词，两层形式一起变。
+- **可迁移表达**：Nobody can stand being kept on hold that long.（没人受得了被搁在电话上那么久。）
 
 </details>
 
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：being + kept 的过去分词形式。
-2. **为什么错**：C 写了 being keep，把被动助动词后面接成了原形；A、D 用了 to do 的框架，也不符合 stand 的标准口径。
-3. **英语的表达逻辑**：被动语态的骨架是“助动词 + 过去分词”，任何一层都不能换成原形。
-4. **正确表达**：
+- **考点**：being + kept 的过去分词形式。
+- **为什么错**：C 写了 being keep，把被动助动词后面接成了原形；A、D 用了 to do 的框架，也不符合 stand 的标准口径。
+- **英语的表达逻辑**：被动语态的骨架是“助动词 + 过去分词”，任何一层都不能换成原形。
+- **正确表达**：
   - Nobody can stand being kept waiting in the waiting room for two hours.（没人受得了在候诊室被晾着等两个小时。）
   - No one can stand being treated like a child.（没人受得了被当成小孩对待。）
 
@@ -1366,20 +1366,20 @@ Can you stand to wait here for an hour?
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：疑问句里 stand 同样取动名词。
-2. **规则与机制**：Can you stand waiting here? 是最小改动；句子没有“被人晾着”的含义，不需要被动。
-3. **英语的表达逻辑**：被动只在主语是承受者时出现，这里主语是 you，等的人就是自己。
-4. **可迁移表达**：Can you stand waiting twenty minutes?（你能受得了等二十分钟吗？）
+- **本题知识点**：疑问句里 stand 同样取动名词。
+- **规则与机制**：Can you stand waiting here? 是最小改动；句子没有“被人晾着”的含义，不需要被动。
+- **英语的表达逻辑**：被动只在主语是承受者时出现，这里主语是 you，等的人就是自己。
+- **可迁移表达**：Can you stand waiting twenty minutes?（你能受得了等二十分钟吗？）
 
 </details>
 
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：疑问句的宾语形式；被动是否必要。
-2. **为什么错**：原句唯一的问题是 stand to wait，把 to wait 换成 waiting 即可；答案既保留了 being（多出被动），又写成 being keep（形式错误），错误从一处变成两处。
-3. **英语的表达逻辑**：改错题以最小改动为原则，先判断原句缺的是什么，不要顺手加语义。
-4. **正确表达**：
+- **考点**：疑问句的宾语形式；被动是否必要。
+- **为什么错**：原句唯一的问题是 stand to wait，把 to wait 换成 waiting 即可；答案既保留了 being（多出被动），又写成 being keep（形式错误），错误从一处变成两处。
+- **英语的表达逻辑**：改错题以最小改动为原则，先判断原句缺的是什么，不要顺手加语义。
+- **正确表达**：
   - Can you stand waiting here for an hour?（你能受得了在这儿等一个小时吗？）
   - Can you stand sharing a room with him?（你能受得了和他住一间吗？）
 
@@ -1399,10 +1399,10 @@ I don't like the way he takes calls at dinner.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：stand + the way + 定语从句。
-2. **规则与机制**：the way someone does something 是英语里现成的名词短语，可直接作宾语，不必改成 it when 从句。
-3. **英语的表达逻辑**：英语常用 the way 把“某人做某事的方式”整体名词化。
-4. **可迁移表达**：I can't stand the way she answers the phone.（我受不了她接电话的方式。）
+- **本题知识点**：stand + the way + 定语从句。
+- **规则与机制**：the way someone does something 是英语里现成的名词短语，可直接作宾语，不必改成 it when 从句。
+- **英语的表达逻辑**：英语常用 the way 把“某人做某事的方式”整体名词化。
+- **可迁移表达**：I can't stand the way she answers the phone.（我受不了她接电话的方式。）
 
 </details>
 
@@ -1420,20 +1420,20 @@ I don't like the way he takes calls at dinner.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：复合形容词 two-hour 与“开会”的说法。
-2. **规则与机制**：两小时的会说 a two-hour meeting（two-hour 连字符、不加 s）；也可以说 meetings that last two hours。
-3. **英语的表达逻辑**：英语用连字符把数量词和名词粘成一个形容词，修饰后面的名词。
-4. **可迁移表达**：Can you stand a two-hour meeting every morning?（你能受得了每天早上开两个小时的会吗？）
+- **本题知识点**：复合形容词 two-hour 与“开会”的说法。
+- **规则与机制**：两小时的会说 a two-hour meeting（two-hour 连字符、不加 s）；也可以说 meetings that last two hours。
+- **英语的表达逻辑**：英语用连字符把数量词和名词粘成一个形容词，修饰后面的名词。
+- **可迁移表达**：Can you stand a two-hour meeting every morning?（你能受得了每天早上开两个小时的会吗？）
 
 </details>
 
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：限定信息的落地；meeting 与“开会”动作的区分。
-2. **为什么错**：答案只剩“会议”这个名词，没了“两个小时”和“开”这两层，读者不知道难受的是时长还是会议本身；the meeting 指某一场会，也不等于每天开会这件事。
-3. **英语的表达逻辑**：英语倾向把数量信息压成复合形容词放在名词前，动作则用 have / hold / attend 承担。
-4. **正确表达**：
+- **考点**：限定信息的落地；meeting 与“开会”动作的区分。
+- **为什么错**：答案只剩“会议”这个名词，没了“两个小时”和“开”这两层，读者不知道难受的是时长还是会议本身；the meeting 指某一场会，也不等于每天开会这件事。
+- **英语的表达逻辑**：英语倾向把数量信息压成复合形容词放在名词前，动作则用 have / hold / attend 承担。
+- **正确表达**：
   - Can you stand having two-hour meetings every day?（你受得了每天开两个小时的会吗？）
   - Can you stand sitting in a two-hour briefing?（你能受得了开两个小时的吹风会吗？）
 
@@ -1455,20 +1455,20 @@ I don't like the way he takes calls at dinner.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：“开会”与“下班”的说法；it when 从句里的时间关系。
-2. **规则与机制**：开会用 call / have / hold a meeting；下班说 get off work 或 finish work；两件事同时发生用 just as I'm about to leave work。
-3. **英语的表达逻辑**：英语用并列或从句标记两件事的先后，不能靠 to do 表示“下班去开会”。
-4. **可迁移表达**：I can't stand it when my boss calls a meeting just as I'm leaving.（老板总在我快下班时叫开会，我受不了。）
+- **本题知识点**：“开会”与“下班”的说法；it when 从句里的时间关系。
+- **规则与机制**：开会用 call / have / hold a meeting；下班说 get off work 或 finish work；两件事同时发生用 just as I'm about to leave work。
+- **英语的表达逻辑**：英语用并列或从句标记两件事的先后，不能靠 to do 表示“下班去开会”。
+- **可迁移表达**：I can't stand it when my boss calls a meeting just as I'm leaving.（老板总在我快下班时叫开会，我受不了。）
 
 </details>
 
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：call a meeting 的搭配；时间关系的表达。
-2. **为什么错**：③ 用 get meeting 代替 call a meeting，且用 to get meeting 表示“下班去开会”，to do 在此表示目的，句意变成“我受不了下班以便开会”，逻辑不成立。
-3. **英语的表达逻辑**：英语用 when 从句或 as 从句承载“两件事撞在一起”，目的不定式只表示意图。
-4. **正确表达**：
+- **考点**：call a meeting 的搭配；时间关系的表达。
+- **为什么错**：③ 用 get meeting 代替 call a meeting，且用 to get meeting 表示“下班去开会”，to do 在此表示目的，句意变成“我受不了下班以便开会”，逻辑不成立。
+- **英语的表达逻辑**：英语用 when 从句或 as 从句承载“两件事撞在一起”，目的不定式只表示意图。
+- **正确表达**：
   - I can't stand it when my boss calls a meeting just as I'm about to leave.（老板总在我快下班时叫开会，我受不了。）
   - I can't stand meetings that start at six p.m.（我受不了六点才开始的会。）
 
@@ -1495,20 +1495,20 @@ I can't stand ____（people / talk）over the phone in the quiet carriage.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：stand + 名词 + 分词。
-2. **规则与机制**：people talking over the phone 把“谁 + 做什么”压成一个名词短语，直接作 stand 的宾语。
-3. **英语的表达逻辑**：名词短语作宾语时不必再补 it 与连词，句子更短；从句留到要强调“每当”条件时。
-4. **可迁移表达**：I can't stand people shouting into their phones on the bus.（我受不了有人在公交上对着手机大喊。）
+- **本题知识点**：stand + 名词 + 分词。
+- **规则与机制**：people talking over the phone 把“谁 + 做什么”压成一个名词短语，直接作 stand 的宾语。
+- **英语的表达逻辑**：名词短语作宾语时不必再补 it 与连词，句子更短；从句留到要强调“每当”条件时。
+- **可迁移表达**：I can't stand people shouting into their phones on the bus.（我受不了有人在公交上对着手机大喊。）
 
 </details>
 
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：名词 + 分词 与 it when 从句的选择。
-2. **为什么错**：括号里给的是“名词 + 动词”的组合，答案要落到 people talking；改成 it when 从句虽然通顺，却没用到这空考查的结构，还把一个空格填成了带引导词的长句。
-3. **英语的表达逻辑**：it when 从句自带主语“我”，名词短语则把事件本身当宾语，两者句法位置不同。
-4. **正确表达**：
+- **考点**：名词 + 分词 与 it when 从句的选择。
+- **为什么错**：括号里给的是“名词 + 动词”的组合，答案要落到 people talking；改成 it when 从句虽然通顺，却没用到这空考查的结构，还把一个空格填成了带引导词的长句。
+- **英语的表达逻辑**：it when 从句自带主语“我”，名词短语则把事件本身当宾语，两者句法位置不同。
+- **正确表达**：
   - I can't stand people talking over the phone in the quiet carriage.（我受不了有人在静音车厢打电话。）
   - I can't stand people playing videos without headphones.（我受不了有人不戴耳机放视频。）
 
@@ -1529,10 +1529,10 @@ I can't stand ____（people / talk）over the phone in the quiet carriage.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：can't stand 与 tolerate 的语域差异。
-2. **规则与机制**：can't stand 是口语抱怨，tolerate 中性正式，适合规章、投诉信、书面沟通。
-3. **英语的表达逻辑**：英语用词汇选择标记关系距离，同一意思在书面沟通里换成更中性的词。
-4. **可迁移表达**：We are unable to tolerate noise after eleven p.m.（我们无法容忍晚上十一点以后的噪音。）
+- **本题知识点**：can't stand 与 tolerate 的语域差异。
+- **规则与机制**：can't stand 是口语抱怨，tolerate 中性正式，适合规章、投诉信、书面沟通。
+- **英语的表达逻辑**：英语用词汇选择标记关系距离，同一意思在书面沟通里换成更中性的词。
+- **可迁移表达**：We are unable to tolerate noise after eleven p.m.（我们无法容忍晚上十一点以后的噪音。）
 
 </details>
 
@@ -1550,20 +1550,20 @@ I can't stand to be kept waiting at the counter.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：动名词被动式 being + 过去分词。
-2. **规则与机制**：自己是“被人怎样对待”的一方时，动名词用 being kept waiting，而不是主动的 waiting。
-3. **英语的表达逻辑**：被动语态标记“承受者”，动名词层面同样保留这层关系。
-4. **可迁移表达**：She can't stand being asked the same question twice.（她受不了同一个问题被问两遍。）
+- **本题知识点**：动名词被动式 being + 过去分词。
+- **规则与机制**：自己是“被人怎样对待”的一方时，动名词用 being kept waiting，而不是主动的 waiting。
+- **英语的表达逻辑**：被动语态标记“承受者”，动名词层面同样保留这层关系。
+- **可迁移表达**：She can't stand being asked the same question twice.（她受不了同一个问题被问两遍。）
 
 </details>
 
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：stand 后该用被动动名词，而不是 to be + 过去分词。
-2. **为什么错**：原句 to be kept waiting 同时错了两处——这一结构取动名词而不是 to do，被动又需要 being + 过去分词；答案只删掉 to 段，句子合法但意思从“被晾着”变成“自己在柜台等”。
-3. **英语的表达逻辑**：英语用 being + 过去分词同时承载“动名词”与“被动”，两个信息缺一不可。
-4. **正确表达**：
+- **考点**：stand 后该用被动动名词，而不是 to be + 过去分词。
+- **为什么错**：原句 to be kept waiting 同时错了两处——这一结构取动名词而不是 to do，被动又需要 being + 过去分词；答案只删掉 to 段，句子合法但意思从“被晾着”变成“自己在柜台等”。
+- **英语的表达逻辑**：英语用 being + 过去分词同时承载“动名词”与“被动”，两个信息缺一不可。
+- **正确表达**：
   - I can't stand being kept waiting at the counter.（我受不了在柜台被晾着等。）
   - I can't stand being put on hold for ten minutes.（我受不了被搁在电话上等十分钟。）
 
@@ -1583,20 +1583,20 @@ The photocopier jams every Monday. That drives me mad.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：stand 后面不能“名词 + 谓语动词”平铺。
-2. **规则与机制**：要么用名词短语 the photocopier jamming，要么用 it when the photocopier jams；两种都不能让 jams 裸露在名词后。
-3. **英语的表达逻辑**：英语一个宾语位置只能容纳一个名词性成分，谓语动词必须由从句或分词形式承载。
-4. **可迁移表达**：I can't stand it when the printer runs out of paper.（打印机没纸的时候我受不了。）
+- **本题知识点**：stand 后面不能“名词 + 谓语动词”平铺。
+- **规则与机制**：要么用名词短语 the photocopier jamming，要么用 it when the photocopier jams；两种都不能让 jams 裸露在名词后。
+- **英语的表达逻辑**：英语一个宾语位置只能容纳一个名词性成分，谓语动词必须由从句或分词形式承载。
+- **可迁移表达**：I can't stand it when the printer runs out of paper.（打印机没纸的时候我受不了。）
 
 </details>
 
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：主谓结构不能直接充当 stand 的宾语。
-2. **为什么错**：the photocopier jams every Monday 是一个完整句子，没有连词也没有分词化，直接放在 stand 后等于两个谓语挤在一起。
-3. **英语的表达逻辑**：要保留“每当发生”的意思，就把整句降级成 when 从句；要把事件本身当宾语，就把谓语变成 jamming。
-4. **正确表达**：
+- **考点**：主谓结构不能直接充当 stand 的宾语。
+- **为什么错**：the photocopier jams every Monday 是一个完整句子，没有连词也没有分词化，直接放在 stand 后等于两个谓语挤在一起。
+- **英语的表达逻辑**：要保留“每当发生”的意思，就把整句降级成 when 从句；要把事件本身当宾语，就把谓语变成 jamming。
+- **正确表达**：
   - I can't stand it when the photocopier jams every Monday.（复印机每周一卡纸，我受不了。）
   - I can't stand it when the lift stops on every floor.（电梯每层都停，我受不了。）
 
@@ -1616,20 +1616,20 @@ The photocopier jams every Monday. That drives me mad.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：it when 从句里补全地点信息。
-2. **规则与机制**：it when people make loud phone calls in front of him 把“谁 + 做什么 + 在哪”一起交代。
-3. **英语的表达逻辑**：英语靠介词短语承载“在某人面前”，漏掉就只剩“有人打电话”。
-4. **可迁移表达**：I can't stand it when people take calls in front of me at dinner.（吃饭时有人在我面前接电话，我受不了。）
+- **本题知识点**：it when 从句里补全地点信息。
+- **规则与机制**：it when people make loud phone calls in front of him 把“谁 + 做什么 + 在哪”一起交代。
+- **英语的表达逻辑**：英语靠介词短语承载“在某人面前”，漏掉就只剩“有人打电话”。
+- **可迁移表达**：I can't stand it when people take calls in front of me at dinner.（吃饭时有人在我面前接电话，我受不了。）
 
 </details>
 
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：中文状语“在他面前”的落地；副词位置。
-2. **为什么错**：原句有三层信息——受不了、别人打电话、在他面前；答案只剩前两层，读者不知道这为什么让他难受；loudly 放在句末容易被读成修饰整句。
-3. **英语的表达逻辑**：英语倾向把地点、对象这类信息放成介词短语，副词靠近它所修饰的动词或宾语。
-4. **正确表达**：
+- **考点**：中文状语“在他面前”的落地；副词位置。
+- **为什么错**：原句有三层信息——受不了、别人打电话、在他面前；答案只剩前两层，读者不知道这为什么让他难受；loudly 放在句末容易被读成修饰整句。
+- **英语的表达逻辑**：英语倾向把地点、对象这类信息放成介词短语，副词靠近它所修饰的动词或宾语。
+- **正确表达**：
   - He can't stand it when people make loud phone calls in front of him.（他受不了别人在他面前大声打电话。）
   - He can't stand people talking loudly in front of him.（他受不了有人在他面前大声说话。）
 
@@ -1651,20 +1651,20 @@ The photocopier jams every Monday. That drives me mad.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：事件名词化；“喷嚏声”的说法。
-2. **规则与机制**：说“受不了他们打喷嚏”用 their sneezing 或 the sneezing；说声音用 the sound of their sneezing。
-3. **英语的表达逻辑**：英语用名词所有格或 of 短语标记“谁的声音”，动名词前不能随意加 from。
-4. **可迁移表达**：I can't stand my roommates' late-night phone calls.（我受不了室友半夜打电话。）
+- **本题知识点**：事件名词化；“喷嚏声”的说法。
+- **规则与机制**：说“受不了他们打喷嚏”用 their sneezing 或 the sneezing；说声音用 the sound of their sneezing。
+- **英语的表达逻辑**：英语用名词所有格或 of 短语标记“谁的声音”，动名词前不能随意加 from。
+- **可迁移表达**：I can't stand my roommates' late-night phone calls.（我受不了室友半夜打电话。）
 
 </details>
 
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：动名词的主语标记；when 从句必须有谓语。
-2. **为什么错**：① 的 sneezing from my roommates 把“声音来源”写成 from，英语要说 their sneezing；③ 的 when 从句里只有 sneezing 这个 -ing 形式，缺谓语 sneeze，从句不成立。
-3. **英语的表达逻辑**：名词化时“谁做的”用所有格前置；从句必须有一个带时态的谓语动词。
-4. **正确表达**：
+- **考点**：动名词的主语标记；when 从句必须有谓语。
+- **为什么错**：① 的 sneezing from my roommates 把“声音来源”写成 from，英语要说 their sneezing；③ 的 when 从句里只有 sneezing 这个 -ing 形式，缺谓语 sneeze，从句不成立。
+- **英语的表达逻辑**：名词化时“谁做的”用所有格前置；从句必须有一个带时态的谓语动词。
+- **正确表达**：
   - I can't stand it when my roommates sneeze at midnight.（室友半夜打喷嚏，我受不了。）
   - I can't stand my roommates' sneezing in the morning.（我受不了室友早上的喷嚏声。）
 
@@ -1694,10 +1694,10 @@ The photocopier jams every Monday. That drives me mad.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：stand 表示“受不了”时的宾语形式。
-2. **规则与机制**：stand 习惯接名词或 V-ing；can't stand to do 只在英式口语里零星出现，标准与考试口径取动名词。
-3. **英语的表达逻辑**：stand 抱怨的是反复发生的事，动名词正好承载“经常性”，所以是默认选择。
-4. **可迁移表达**：
+- **本题知识点**：stand 表示“受不了”时的宾语形式。
+- **规则与机制**：stand 习惯接名词或 V-ing；can't stand to do 只在英式口语里零星出现，标准与考试口径取动名词。
+- **英语的表达逻辑**：stand 抱怨的是反复发生的事，动名词正好承载“经常性”，所以是默认选择。
+- **可迁移表达**：
   - I can't stand queuing at the post office.（我受不了在邮局排队。）
   - She can't stand waiting for latecomers.（她受不了等迟到的人。）
 
@@ -1717,20 +1717,20 @@ The caller can't stand ____（keep）on hold for forty minutes.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：动名词的被动式 being + 过去分词。
-2. **规则与机制**：主语自己是“被人怎样对待”时，V-ing 需要换成 being + 过去分词。
-3. **英语的表达逻辑**：英语用被动语态区分“执行者”与“承受者”，动名词层面同样保留这层关系。
-4. **可迁移表达**：He can't stand being told what to do.（他受不了被人指手画脚。）
+- **本题知识点**：动名词的被动式 being + 过去分词。
+- **规则与机制**：主语自己是“被人怎样对待”时，V-ing 需要换成 being + 过去分词。
+- **英语的表达逻辑**：英语用被动语态区分“执行者”与“承受者”，动名词层面同样保留这层关系。
+- **可迁移表达**：He can't stand being told what to do.（他受不了被人指手画脚。）
 
 </details>
 
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：动名词被动式 being kept on hold。
-2. **为什么错**：keeping 是主动动名词，等于说 the caller keeps on hold，主宾关系反了；being + 原形也不成立。
-3. **英语的表达逻辑**：被动动名词先由 being 承担被动意义，再由过去分词说明动作，两步缺一不可。
-4. **正确表达**：
+- **考点**：动名词被动式 being kept on hold。
+- **为什么错**：keeping 是主动动名词，等于说 the caller keeps on hold，主宾关系反了；being + 原形也不成立。
+- **英语的表达逻辑**：被动动名词先由 being 承担被动意义，再由过去分词说明动作，两步缺一不可。
+- **正确表达**：
   - The caller can't stand being kept on hold for forty minutes.（打电话的人受不了被晾在通话上等四十分钟。）
   - I can't stand being kept waiting in the rain.（我受不了被晾在雨里等。）
 
@@ -1750,10 +1750,10 @@ I can't stand when my colleague talks over me at every meeting.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：can't stand it when + 从句。
-2. **规则与机制**：stand 不能直接接 when 从句，需要 it 占住宾语位置，再由 when 引出事件。
-3. **英语的表达逻辑**：英语不允许从句悬空充当 stand 的宾语，形式宾语 it 是通用补位手段。
-4. **可迁移表达**：I can't stand it when he chews gum next to me.（他坐在我旁边嚼口香糖，我受不了。）
+- **本题知识点**：can't stand it when + 从句。
+- **规则与机制**：stand 不能直接接 when 从句，需要 it 占住宾语位置，再由 when 引出事件。
+- **英语的表达逻辑**：英语不允许从句悬空充当 stand 的宾语，形式宾语 it 是通用补位手段。
+- **可迁移表达**：I can't stand it when he chews gum next to me.（他坐在我旁边嚼口香糖，我受不了。）
 
 </details>
 
@@ -1771,20 +1771,20 @@ The upstairs neighbours practise the violin at midnight. I find it unbearable.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：名词 + 分词作 stand 的宾语。
-2. **规则与机制**：the neighbours practising the violin 把“谁 + 做什么”压成一个名词短语，作 stand 的宾语。
-3. **英语的表达逻辑**：英语更倾向于把事件压成名词短语作宾语，从句留到需要强调时间条件时。
-4. **可迁移表达**：I can't stand the neighbours practising scales every evening.（我受不了邻居每天傍晚练音阶。）
+- **本题知识点**：名词 + 分词作 stand 的宾语。
+- **规则与机制**：the neighbours practising the violin 把“谁 + 做什么”压成一个名词短语，作 stand 的宾语。
+- **英语的表达逻辑**：英语更倾向于把事件压成名词短语作宾语，从句留到需要强调时间条件时。
+- **可迁移表达**：I can't stand the neighbours practising scales every evening.（我受不了邻居每天傍晚练音阶。）
 
 </details>
 
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：stand + 名词 + 分词 与 it when 从句的选择。
-2. **为什么错**：it when 只框住“每当发生”的条件，主语仍是“我”；题目要求把事件本身当作受不了的对象，用名词短语更贴切，也更简洁。
-3. **英语的表达逻辑**：it when 从句偏“条件触发的烦躁”，名词短语偏“对某件事本身的厌恶”。
-4. **正确表达**：
+- **考点**：stand + 名词 + 分词 与 it when 从句的选择。
+- **为什么错**：it when 只框住“每当发生”的条件，主语仍是“我”；题目要求把事件本身当作受不了的对象，用名词短语更贴切，也更简洁。
+- **英语的表达逻辑**：it when 从句偏“条件触发的烦躁”，名词短语偏“对某件事本身的厌恶”。
+- **正确表达**：
   - I can't stand the upstairs neighbours practising the violin at midnight.（我受不了楼上邻居半夜练小提琴。）
   - I can't stand people talking on the phone in the quiet carriage.（我受不了有人在静音车厢打电话。）
 
@@ -1804,20 +1804,20 @@ The upstairs neighbours practise the violin at midnight. I find it unbearable.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：“插嘴”用 interrupt / cut in，配 stand + 名词 + 分词 或 it when 从句。
-2. **规则与机制**：him interrupting people 是 名词 + 分词；也可说 it when he interrupts people。
-3. **英语的表达逻辑**：英语用具体动词承载动作性质，speak 只说明发声，不说明抢夺话轮。
-4. **可迁移表达**：I can't stand him cutting in while I'm on the phone.（我打电话时他插嘴，我受不了。）
+- **本题知识点**：“插嘴”用 interrupt / cut in，配 stand + 名词 + 分词 或 it when 从句。
+- **规则与机制**：him interrupting people 是 名词 + 分词；也可说 it when he interrupts people。
+- **英语的表达逻辑**：英语用具体动词承载动作性质，speak 只说明发声，不说明抢夺话轮。
+- **可迁移表达**：I can't stand him cutting in while I'm on the phone.（我打电话时他插嘴，我受不了。）
 
 </details>
 
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：interrupt / cut in 与 speak 的区别；句子的信息完整度。
-2. **为什么错**：原句有两层信息——“插嘴”和“在别人说话时”，答案只剩 speak，两层都丢了；改说 it when 从句时也要把 interrupt 放进去。
-3. **英语的表达逻辑**：英语要求宾语把“谁做什么”交代清楚，泛动词 speak 会让句子只剩发声层面的意思。
-4. **正确表达**：
+- **考点**：interrupt / cut in 与 speak 的区别；句子的信息完整度。
+- **为什么错**：原句有两层信息——“插嘴”和“在别人说话时”，答案只剩 speak，两层都丢了；改说 it when 从句时也要把 interrupt 放进去。
+- **英语的表达逻辑**：英语要求宾语把“谁做什么”交代清楚，泛动词 speak 会让句子只剩发声层面的意思。
+- **正确表达**：
   - I can't stand him interrupting people when they're speaking.（我受不了他总在别人说话时插嘴。）
   - I can't stand people cutting in during meetings.（我受不了有人在会上插嘴。）
 
@@ -1839,20 +1839,20 @@ The upstairs neighbours practise the violin at midnight. I find it unbearable.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：交通方式名词的冠词；“地铁还没来”的说法。
-2. **规则与机制**：乘地铁固定说 take the subway / by subway；地铁晚点说 the subway hasn't come 或 the train is late。
-3. **英语的表达逻辑**：英语用 the 标记双方都知道的那条线路，“还没来”是当下没到，用现在完成时 hasn't come 或一般现在时 is late。
-4. **可迁移表达**：I can't stand waiting for the subway in the rain.（我受不了下雨天等地铁。）
+- **本题知识点**：交通方式名词的冠词；“地铁还没来”的说法。
+- **规则与机制**：乘地铁固定说 take the subway / by subway；地铁晚点说 the subway hasn't come 或 the train is late。
+- **英语的表达逻辑**：英语用 the 标记双方都知道的那条线路，“还没来”是当下没到，用现在完成时 hasn't come 或一般现在时 is late。
+- **可迁移表达**：I can't stand waiting for the subway in the rain.（我受不了下雨天等地铁。）
 
 </details>
 
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：take the subway 的冠词；in traffic 只用于道路堵车；现在完成时的形式与主谓一致。
-2. **为什么错**：subway 是特指的那条线路，需要 the；in traffic 说的是马路上堵车，配地铁不成立；③ 里 the subway 是单数，用 hasn't come，且 have came 本身形式就错。
-3. **英语的表达逻辑**：英语把“交通方式”和“堵车情形”分开表达，前者用 take the + 交通工具，后者用 stuck in traffic。
-4. **正确表达**：
+- **考点**：take the subway 的冠词；in traffic 只用于道路堵车；现在完成时的形式与主谓一致。
+- **为什么错**：subway 是特指的那条线路，需要 the；in traffic 说的是马路上堵车，配地铁不成立；③ 里 the subway 是单数，用 hasn't come，且 have came 本身形式就错。
+- **英语的表达逻辑**：英语把“交通方式”和“堵车情形”分开表达，前者用 take the + 交通工具，后者用 stuck in traffic。
+- **正确表达**：
   - I can't stand taking the subway when it's crowded.（我受不了人挤人的时候坐地铁。）
   - I can't stand it when the subway is late again.（地铁又晚点，我受不了。）
 

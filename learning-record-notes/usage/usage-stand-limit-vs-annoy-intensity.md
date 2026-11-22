@@ -90,20 +90,20 @@ The drilling next door is driving me crazy.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：drive sb crazy 与 can't … any longer 的分工。
-2. **规则与机制**：drive sb crazy 只标记情绪强度，不改变处境；can't stand / put up with … any longer 才标出“到极限、不再接受”的终点。
-3. **英语的表达逻辑**：中文把“快把我逼疯了”和“我再也受不了了”当同一件事说，英语却分成“还在忍的情绪”和“决定停止的立场”，选哪个词直接说明说话人有没有下一步行动。
-4. **可迁移表达**：The drilling drives me crazy, but I can put up with it for another week.（电钻声快把我逼疯了，不过我还能再忍一周。）
+- **本题知识点**：drive sb crazy 与 can't … any longer 的分工。
+- **规则与机制**：drive sb crazy 只标记情绪强度，不改变处境；can't stand / put up with … any longer 才标出“到极限、不再接受”的终点。
+- **英语的表达逻辑**：中文把“快把我逼疯了”和“我再也受不了了”当同一件事说，英语却分成“还在忍的情绪”和“决定停止的立场”，选哪个词直接说明说话人有没有下一步行动。
+- **可迁移表达**：The drilling drives me crazy, but I can put up with it for another week.（电钻声快把我逼疯了，不过我还能再忍一周。）
 
 </details>
 
 <details>
 <summary>错题讲解</summary>
 
-1. **考点**：drive sb crazy 的语义边界。
-2. **为什么错**：选了“已经决定不再忍”，把强烈烦躁等同于行动决定；drive sb crazy 完全不包含“去找邻居理论”这层。
-3. **英语的表达逻辑**：情绪词只描述感受，立场要另补否定 + any longer；两者之间没有自动连接。
-4. **正确表达**：The drilling next door is driving me crazy.（隔壁的电钻声快把我逼疯了。）
+- **考点**：drive sb crazy 的语义边界。
+- **为什么错**：选了“已经决定不再忍”，把强烈烦躁等同于行动决定；drive sb crazy 完全不包含“去找邻居理论”这层。
+- **英语的表达逻辑**：情绪词只描述感受，立场要另补否定 + any longer；两者之间没有自动连接。
+- **正确表达**：The drilling next door is driving me crazy.（隔壁的电钻声快把我逼疯了。）
 
 </details>
 
@@ -121,10 +121,10 @@ I can't stand his endless complaints no longer.
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：否定句里的副词取 any longer / any more。
-2. **规则与机制**：“不再”在否定句里写成 not … any longer / any more；no longer 本身已含否定，不能与 can't 并存。
-3. **英语的表达逻辑**：一个否定意义在英语句子里只由一个词承担——要么 can't，要么 no longer；两个同时出现就成了双重否定。
-4. **可迁移表达**：She can't stand the noise any longer.（这噪音她再也受不了了。）
+- **本题知识点**：否定句里的副词取 any longer / any more。
+- **规则与机制**：“不再”在否定句里写成 not … any longer / any more；no longer 本身已含否定，不能与 can't 并存。
+- **英语的表达逻辑**：一个否定意义在英语句子里只由一个词承担——要么 can't，要么 no longer；两个同时出现就成了双重否定。
+- **可迁移表达**：She can't stand the noise any longer.（这噪音她再也受不了了。）
 
 </details>
 
@@ -143,10 +143,10 @@ Tom 对室友凌晨两点放音乐已经忍到极限，他跟朋友说：
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：can't stand + 名词 + any more 的完整骨架。
-2. **规则与机制**：到极限的抱怨由三件东西组成——否定情态（can't）、表示容忍的动词短语（stand / put up with）、句尾的终点标记（any more / any longer）。
-3. **英语的表达逻辑**：中文“再也……不”的“再”和“不”分散在英文的句中和句尾，拆成两个槽位分别落，少任何一个都不成立。
-4. **可迁移表达**：I can't stand his music any more.（他的音乐我再也受不了了。）
+- **本题知识点**：can't stand + 名词 + any more 的完整骨架。
+- **规则与机制**：到极限的抱怨由三件东西组成——否定情态（can't）、表示容忍的动词短语（stand / put up with）、句尾的终点标记（any more / any longer）。
+- **英语的表达逻辑**：中文“再也……不”的“再”和“不”分散在英文的句中和句尾，拆成两个槽位分别落，少任何一个都不成立。
+- **可迁移表达**：I can't stand his music any more.（他的音乐我再也受不了了。）
 
 </details>
 
@@ -168,10 +168,10 @@ Tom 对室友凌晨两点放音乐已经忍到极限，他跟朋友说：
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：同义表达的强度分档。
-2. **规则与机制**：annoy a little 是最轻档；be used to it 表示已经适应；have had enough / not … any more 才是“到极限、不再接受”。
-3. **英语的表达逻辑**：英语用固定短语标记强度阶梯，have had enough 与 I'm not taking it any more 和 can't put up with … any longer 落在同一档，都在说“到此为止”。
-4. **可迁移表达**：I've had enough of his excuses.（他的借口我受够了。）
+- **本题知识点**：同义表达的强度分档。
+- **规则与机制**：annoy a little 是最轻档；be used to it 表示已经适应；have had enough / not … any more 才是“到极限、不再接受”。
+- **英语的表达逻辑**：英语用固定短语标记强度阶梯，have had enough 与 I'm not taking it any more 和 can't put up with … any longer 落在同一档，都在说“到此为止”。
+- **可迁移表达**：I've had enough of his excuses.（他的借口我受够了。）
 
 </details>
 
@@ -189,10 +189,10 @@ The constant noise from the renovation has been bothering me for three months, a
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：把“还在忍”改写成“不再忍”的三种动作同时发生。
-2. **规则与机制**：原句的 still put up with 是肯定形式，改写要同时改变三处——情态加 not、still 删掉、句尾补 any longer。
-3. **英语的表达逻辑**：改写不是换词，是换立场；立场一翻，修饰这个词的 still 也必须跟着消失，否则两句互相打架。
-4. **可迁移表达**：I put up with it for three months, but I can't put up with it any longer.（我忍了三个月，但现在再也忍不下去了。）
+- **本题知识点**：把“还在忍”改写成“不再忍”的三种动作同时发生。
+- **规则与机制**：原句的 still put up with 是肯定形式，改写要同时改变三处——情态加 not、still 删掉、句尾补 any longer。
+- **英语的表达逻辑**：改写不是换词，是换立场；立场一翻，修饰这个词的 still 也必须跟着消失，否则两句互相打架。
+- **可迁移表达**：I put up with it for three months, but I can't put up with it any longer.（我忍了三个月，但现在再也忍不下去了。）
 
 </details>
 
@@ -210,49 +210,49 @@ The constant noise from the renovation has been bothering me for three months, a
 <details>
 <summary>知识点讲解</summary>
 
-1. **本题知识点**：把四层中文信息（噪音持续、忍了两个月、到极限、要找物业）分别落成英文成分。
-2. **规则与机制**：“到极限、不再忍”必须由 can't put up with … any longer 整体承担；只写 can't put up with 就退成“忍不了”，时间终点丢失。
-3. **英语的表达逻辑**：英语一个句子只能有一个主要谓语，所以“从早响到晚”要由动词承担（goes on / lasts），不能只剩一个名词短语；四层信息按顺序各占一个成分。
-4. **可迁移表达**：The drilling from the renovation upstairs goes on all day, and I've stood it for two months.（楼上装修的电钻声响一整天，我已经忍了两个月。）
+- **本题知识点**：把四层中文信息（噪音持续、忍了两个月、到极限、要找物业）分别落成英文成分。
+- **规则与机制**：“到极限、不再忍”必须由 can't put up with … any longer 整体承担；只写 can't put up with 就退成“忍不了”，时间终点丢失。
+- **英语的表达逻辑**：英语一个句子只能有一个主要谓语，所以“从早响到晚”要由动词承担（goes on / lasts），不能只剩一个名词短语；四层信息按顺序各占一个成分。
+- **可迁移表达**：The drilling from the renovation upstairs goes on all day, and I've stood it for two months.（楼上装修的电钻声响一整天，我已经忍了两个月。）
 
 </details>
 
 <details>
 <summary>错题讲解 1</summary>
 
-1. **考点**：stand 的过去分词。
-2. **为什么错**：写成 standed，把 stand 当成规则动词加 -ed；stand–stood–stood 是不规则变化。
-3. **英语的表达逻辑**：完成时由 have 加过去分词构成，不规则动词的分词形式要单独记；记住 stood 才能让 have stood 站住。
-4. **正确表达**：I've stood it for two months.（这我已经忍了两个月。）
+- **考点**：stand 的过去分词。
+- **为什么错**：写成 standed，把 stand 当成规则动词加 -ed；stand–stood–stood 是不规则变化。
+- **英语的表达逻辑**：完成时由 have 加过去分词构成，不规则动词的分词形式要单独记；记住 stood 才能让 have stood 站住。
+- **正确表达**：I've stood it for two months.（这我已经忍了两个月。）
 
 </details>
 
 <details>
 <summary>错题讲解 2</summary>
 
-1. **考点**：句子必须有谓语动词。
-2. **为什么错**：The upstairs neighbor's renovation noise from morning to evening 只有名词短语加介词短语，没有谓语，读起来像标题而不是句子。
-3. **英语的表达逻辑**：英语句子由主语和谓语两个核心组成；中文“从早响到晚”的“响”是动词，英文必须落成 go on / last / keep going。
-4. **正确表达**：The drilling from the renovation upstairs goes on from morning till night.（楼上装修的电钻声从早响到晚。）
+- **考点**：句子必须有谓语动词。
+- **为什么错**：The upstairs neighbor's renovation noise from morning to evening 只有名词短语加介词短语，没有谓语，读起来像标题而不是句子。
+- **英语的表达逻辑**：英语句子由主语和谓语两个核心组成；中文“从早响到晚”的“响”是动词，英文必须落成 go on / last / keep going。
+- **正确表达**：The drilling from the renovation upstairs goes on from morning till night.（楼上装修的电钻声从早响到晚。）
 
 </details>
 
 <details>
 <summary>错题讲解 3</summary>
 
-1. **考点**：“再也受不了”的终点标记。
-2. **为什么错**：写了 I can't put up with it.，只说了“忍不了”，any longer 缺席，句子里没有“到今天为止、不再忍”的时间终点，和前面的“忍了两个月”接不上。
-3. **英语的表达逻辑**：中文“再也……不”的收尾意味由 any longer / any more 承担，它和否定情态是一对固定伙伴，缺一个就只剩强度。
-4. **正确表达**：I can't put up with it any longer.（这我再也受不了了。）
+- **考点**：“再也受不了”的终点标记。
+- **为什么错**：写了 I can't put up with it.，只说了“忍不了”，any longer 缺席，句子里没有“到今天为止、不再忍”的时间终点，和前面的“忍了两个月”接不上。
+- **英语的表达逻辑**：中文“再也……不”的收尾意味由 any longer / any more 承担，它和否定情态是一对固定伙伴，缺一个就只剩强度。
+- **正确表达**：I can't put up with it any longer.（这我再也受不了了。）
 
 </details>
 
 <details>
 <summary>错题讲解 4</summary>
 
-1. **考点**：物业的说法与动词搭配。
-2. **为什么错**：写成 meet property，把 property（房产、财产）当成“物业公司”，meet 又是“见面、会面”，整句读成“打算见一处房产”。
-3. **英语的表达逻辑**：中文简称“物业”在英语里要还原成机构名 property management / the property management office；去找它办事用 talk to / contact / complain to，而不是 meet。
-4. **正确表达**：I'm going to talk to the property management office.（我打算去找物业。）
+- **考点**：物业的说法与动词搭配。
+- **为什么错**：写成 meet property，把 property（房产、财产）当成“物业公司”，meet 又是“见面、会面”，整句读成“打算见一处房产”。
+- **英语的表达逻辑**：中文简称“物业”在英语里要还原成机构名 property management / the property management office；去找它办事用 talk to / contact / complain to，而不是 meet。
+- **正确表达**：I'm going to talk to the property management office.（我打算去找物业。）
 
 </details>

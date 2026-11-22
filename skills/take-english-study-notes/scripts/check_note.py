@@ -316,7 +316,7 @@ QUESTION_RE = re.compile(r"^### (\d+)\. " r"(\S.*?)\s*$")
 FIELD_RE = re.compile(r"^\*\*(题目|我的答案|判定)\*\*：")
 VERDICT_RE = re.compile(r"^(\*\*判定\*\*：)(✅|⚠️|❌) ?(.*)$")
 DETAIL_ITEM_RE = re.compile(
-    r"^(\d)\. \*\*(本题知识点|规则与机制|考点|为什么错|为什么答不出|英语的表达逻辑|正确表达|可迁移表达)\*\*：(.*)$"
+    r"^[-*+]\s+\*\*(本题知识点|规则与机制|考点|为什么错|为什么答不出|英语的表达逻辑|正确表达|可迁移表达)\*\*：(.*)$"
 )
 MERGED_CHOICES_RE = re.compile(r"^\s*(?:[-*]\s+)?[A-D]\.\s.*[A-D]\.\s")
 MERGED_SUBITEMS_RE = re.compile(r"\(a\)[^\n]*\(b\)")
@@ -1860,13 +1860,12 @@ def check(path: Path) -> list[dict]:
                         elif steps and LIST_ITEM_RE.match(line):
                             steps[-1]["sub_items"].append(line)
                     items = [s["match"] for s in steps]
-                    order = [int(m.group(1)) for m in items]
-                    labels = [m.group(2) for m in items]
+                    labels = [m.group(1) for m in items]
                     empty_labels = [
-                        m.group(2)
+                        m.group(1)
                         for s in steps
                         for m in [s["match"]]
-                        if not m.group(3).strip() and not s["sub_items"]
+                        if not m.group(2).strip() and not s["sub_items"]
                     ]
                     if empty_labels:
                         add(
@@ -1875,16 +1874,16 @@ def check(path: Path) -> list[dict]:
                         )
                     for step in steps:
                         step_match = step["match"]
-                        step_label = step_match.group(2)
-                        inline_text = step_match.group(3).strip()
+                        step_label = step_match.group(1)
+                        inline_text = step_match.group(2).strip()
                         if step_label in EXAMPLE_STEP_LABELS and CHAINED_EXAMPLE_RE.search(inline_text):
                             add(
                                 base_line,
                                 f"`{step_label}` 里多条例句必须逐条写成缩进子项（`  - …`），"
                                 "不要用 `／`、`/` 或 `；` 同行串接",
                             )
-                    if order != [1, 2, 3, 4]:
-                        add(base_line, "讲解折叠块必须严格为 1→4 四步")
+                    if len(steps) != 4:
+                        add(base_line, "讲解折叠块必须严格为四个无序列表步骤")
                     if summary == knowledge_summary:
                         expected_labels = knowledge_labels
                         hint = "知识点讲解四步标签必须为："
