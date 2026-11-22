@@ -609,9 +609,9 @@ DETAILS_SUMMARY_RE = re.compile(r"<summary>\s*([^<]+?)\s*</summary>")
 STORY_TABLE_CELLS = ("故事里的位置", "当时想表达什么", "为什么不换别的表达")
 STORY_TABLE_HEADER = "| " + " | ".join(STORY_TABLE_CELLS) + " |"
 
-# 译文弱化标记：故事译文段用 <p class="note-translation">…</p>，对话译文子项用
-# <span class="note-translation">…</span>；视觉样式由看板统一提供，笔记不写行内 style。
-TRANSLATION_CLASS = "note-translation"
+# 译文弱化标记：故事译文段用 <p class="noteTranslation">…</p>，对话译文子项用
+# <span class="noteTranslation">…</span>；视觉样式由看板统一提供，笔记不写行内 style。
+TRANSLATION_CLASS = "noteTranslation"
 STORY_TRANSLATION_P_RE = re.compile(
     rf'^<p class="{TRANSLATION_CLASS}">.*</p>\s*$'
 )
@@ -625,7 +625,7 @@ DETAIL_TITLE_LINE_RE = re.compile(r"^\*\*.+\*\*\s*$")
 
 
 def check_story_translation_markup(add, line_no: int, block: dict) -> None:
-    """故事块里的裸中文译文段必须独立成段并打 note-translation 标记。"""
+    """故事块里的裸中文译文段必须独立成段并打 noteTranslation 标记。"""
     for raw in block["body"].split("\n"):
         line = raw.strip()
         if not line or line.startswith("|") or DETAIL_TITLE_LINE_RE.match(line):
@@ -641,7 +641,7 @@ def check_story_translation_markup(add, line_no: int, block: dict) -> None:
 
 
 def check_dialogue_translation_markup(add, line_no: int, block: dict) -> None:
-    """对话块里的缩进译文子项必须用 note-translation span 包裹。"""
+    """对话块里的缩进译文子项必须用 noteTranslation span 包裹。"""
     for raw in block["body"].split("\n"):
         match = DIALOGUE_SUB_BULLET_RE.match(raw)
         if not match:

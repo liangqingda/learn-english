@@ -36,8 +36,8 @@ python3 skills/take-english-study-notes/scripts/note.py check learning-record-no
 标题内容本身（是否贴合场景、两段是否重名）校验器判断不了，只能靠生成时按规则写。
 
 校验器对**译文分段与弱化标记**也是硬性规则：故事原文块里的中文译文段必须写成独立
-`<p class="note-translation">…</p>`，场景对话块里的译文子项必须用
-`<span class="note-translation">…</span>` 包裹；裸中文段落 / 未包裹的译文子项会被拦下。
+`<p class="noteTranslation">…</p>`，场景对话块里的译文子项必须用
+`<span class="noteTranslation">…</span>` 包裹；裸中文段落 / 未包裹的译文子项会被拦下。
 译文是否自然、意译是否到位校验器判断不了，只能靠「译文质量」三步自查。
 
 校验器对**例句的反引号**只拦一种写反：反引号片段后面紧跟中文全角括号译文（骨架被反引号包住、紧跟（译文）），

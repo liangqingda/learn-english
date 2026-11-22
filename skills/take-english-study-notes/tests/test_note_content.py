@@ -230,7 +230,7 @@ def story_block(
     title: str = DEFAULT_STORY_TITLE,
 ) -> str:
     """一段故事原文折叠块：summary 按 `<base> [n] · <标题>` 拼。"""
-    body = f"{sentences}\n\n<p class=\"note-translation\">她在一个寒冷的早晨往西走。</p>\n\n"
+    body = f"{sentences}\n\n<p class=\"noteTranslation\">她在一个寒冷的早晨往西走。</p>\n\n"
     if table:
         body += STORY_TABLE + "\n"
     head = f"{summary} · {title}" if title else summary
