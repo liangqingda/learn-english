@@ -80,7 +80,7 @@ def note_with_explanation(**kwargs) -> str:
     index = text.index(marker)
     explain = (
         "\n## 讲解\n\n**错误机制**：\n\n- 一条机制\n\n"
-        "**可迁移表达**：\n\n- `She headed out west.`（她往西边出发。）\n"
+        "**可迁移表达**：\n\n- She headed out west.（她往西边出发。）\n"
     )
     return text[:index] + explain + text[index:]
 
@@ -242,7 +242,7 @@ def story_section(*parts: str) -> str:
         "## 读一个围绕 out west 的小故事\n\n"
         "**讲解要点**：\n"
         "- out west 表示“往西边、在西边”\n"
-        "  - `She headed out west.`（她往西边出发。）\n\n"
+        "  - She headed out west.（她往西边出发。）\n\n"
         + "".join(parts)
     )
 
@@ -346,7 +346,7 @@ def with_file_level_section(base: str, section: str) -> str:
     if "## 讲解" not in head:
         head += (
             "\n## 讲解\n\n**错误机制**：\n\n- 一条机制\n\n"
-            "**可迁移表达**：\n\n- `She headed out west.`（她往西边出发。）\n"
+            "**可迁移表达**：\n\n- She headed out west.（她往西边出发。）\n"
         )
     return head + "\n" + section + rest
 
@@ -462,7 +462,7 @@ class NoteContentValidationTest(unittest.TestCase):
             note_text(),
             "## 看一套围绕 out west 的完整场景对话\n\n"
             "**讲解要点**：\n- out west 表示往西边\n"
-            "  - `She headed out west.`（她往西边出发。）\n\n"
+            "  - She headed out west.（她往西边出发。）\n\n"
             "<details><summary>场景对话原文 · 问路</summary>\n\n"
             "- **Ann**：Where are you going?（你去哪儿？）\n"
             "- **Ben**：Out west, past the river.（往西，过了河。）\n"
@@ -477,7 +477,7 @@ class NoteContentValidationTest(unittest.TestCase):
         text = note_text() + (
             "\n## 用 out west 做翻译练习\n\n"
             "**讲解要点**：\n- 方位短语保持分写\n"
-            "  - `She headed out west.`（她往西边出发。）\n"
+            "  - She headed out west.（她往西边出发。）\n"
         )
         self.assert_caught(text, "日期区块只放习题")
 
@@ -494,7 +494,7 @@ class NoteContentValidationTest(unittest.TestCase):
         text = note_with_explanation().replace(
             "\n# 2026-11-07 12:00 · 复习",
             "\n## 对比 out west 和 in the west\n\n**讲解要点**：\n- 方位短语保持分写\n"
-            "  - `She headed out west.`（她往西边出发。）\n"
+            "  - She headed out west.（她往西边出发。）\n"
             "\n# 2026-11-07 12:00 · 复习",
         )
         self.assertEqual(self.check(text), [])
@@ -571,7 +571,7 @@ class NoteContentValidationTest(unittest.TestCase):
             note_text() + menu_practice("## 练习「out west」的关键语法结构 - 01"),
             "## 练习「out west」的关键语法结构\n\n"
             "**讲解要点**：\n\n- 方向副词短语\n"
-            "  - `She headed out west.`（她往西边出发。）\n",
+            "  - She headed out west.（她往西边出发。）\n",
         )
         text = apply_practice_index(
             with_second_round(
@@ -598,7 +598,7 @@ class NoteContentValidationTest(unittest.TestCase):
             note_text() + menu_practice_scored(stamp="2026-11-07 13:10"),
             "## 练习「out west」的关键语法结构\n\n"
             "**讲解要点**：\n\n- 方向副词短语\n"
-            "  - `She headed out west.`（她往西边出发。）\n",
+            "  - She headed out west.（她往西边出发。）\n",
         )
         text = apply_practice_index(text)
         self.assertEqual(self.check_raw(text), [])
@@ -629,7 +629,7 @@ class NoteContentValidationTest(unittest.TestCase):
                 note_with_explanation() + menu_practice(),
                 "## 练习「out west」的关键语法结构\n\n"
                 "**讲解要点**：\n\n- 方向副词短语\n"
-                "  - `She headed out west.`（她往西边出发。）\n",
+                "  - She headed out west.（她往西边出发。）\n",
             )
         )
         self.assertEqual(self.check_raw(text), [])
@@ -644,7 +644,7 @@ class NoteContentValidationTest(unittest.TestCase):
                 note_with_explanation() + menu_practice(),
                 "## 练习「out west」的关键语法结构\n\n"
                 "**讲解要点**：\n\n- 方向副词短语\n"
-                "  - `She headed out west.`（她往西边出发。）\n",
+                "  - She headed out west.（她往西边出发。）\n",
             )
         )
         self.assertEqual(self.check_raw(text), [])
@@ -670,7 +670,7 @@ class NoteContentValidationTest(unittest.TestCase):
                 note_with_explanation() + menu_practice(),
                 "## 练习「out west」的关键语法结构\n\n"
                 "**讲解要点**：\n\n- 方向副词短语\n"
-                "  - `She headed out west.`（她往西边出发。）\n",
+                "  - She headed out west.（她往西边出发。）\n",
             )
         )
         text = text.replace(
@@ -730,7 +730,7 @@ class NoteContentValidationTest(unittest.TestCase):
                 note_text() + menu_practice(),
                 "## 练习「out west」的关键语法结构\n\n"
                 "**讲解要点**：\n\n- 方向副词短语\n"
-                "  - `She headed out west.`（她往西边出发。）\n",
+                "  - She headed out west.（她往西边出发。）\n",
             )
         )
         text = re.sub(r'\s*<a id="[^"]+"></a>', "", text, count=1)
@@ -743,7 +743,7 @@ class NoteContentValidationTest(unittest.TestCase):
                 note_text() + menu_practice(),
                 "## 练习「out west」的关键语法结构\n\n"
                 "**讲解要点**：\n\n- 方向副词短语\n"
-                "  - `She headed out west.`（她往西边出发。）\n",
+                "  - She headed out west.（她往西边出发。）\n",
             )
         )
         text = text.replace(
@@ -760,7 +760,7 @@ class NoteContentValidationTest(unittest.TestCase):
                 note_text() + menu_practice(),
                 "## 练习「out west」的关键语法结构\n\n"
                 "**讲解要点**：\n\n- 方向副词短语\n"
-                "  - `She headed out west.`（她往西边出发。）\n",
+                "  - She headed out west.（她往西边出发。）\n",
             )
         )
         text = text.replace(
@@ -776,7 +776,7 @@ class NoteContentValidationTest(unittest.TestCase):
             note_text(),
             "## 练习「out west」的关键语法结构\n\n"
             "**讲解要点**：\n\n- 方向副词短语\n"
-            "  - `She headed out west.`（她往西边出发。）\n"
+            "  - She headed out west.（她往西边出发。）\n"
             "\n<!-- practice-index -->\n"
             "- [2026-11-07 12:00 · 复习](#practice-2026-11-07-1200-00000000)\n"
             "<!-- /practice-index -->\n",
@@ -1330,6 +1330,31 @@ class NoteContentValidationTest(unittest.TestCase):
             "  - She slept eight hours.（她睡了八小时）\n"
         )
         self.assertEqual(self.check(with_file_level_section(note_text(), section)), [])
+
+    def test_backticked_example_with_gloss_is_rejected(self) -> None:
+        """反引号只标骨架：整句例句被反引号包住、后面又跟中文译文时拦下。"""
+        line = "- `She headed out west.`（她往西边出发。）\n"
+        text = note_with_explanation().replace("- 一条机制\n", "- 一条机制\n" + line, 1)
+        self.assert_caught(text, "不要套反引号")
+
+    def test_backticked_example_in_menu_section_is_rejected(self) -> None:
+        """文件级菜单小节的讲解要点同样不允许把整句例句包进反引号。"""
+        section = (
+            "## 对比 out west 和 in the west\n\n"
+            "**讲解要点**：\n"
+            "- 方向短语作状语\n"
+            "  - `She went out west.`（她往西边去了。）\n"
+        )
+        self.assert_caught(with_file_level_section(note_text(), section), "不要套反引号")
+
+    def test_backticked_skeleton_with_plain_example_passes(self) -> None:
+        """骨架用反引号、例句纯文本并附译文时通过。"""
+        body = (
+            "- 固定结构：`be responsible for + 名词`，负责的对象跟在 for 后面。\n"
+            "  - The head chef is responsible for the weekly menu.（主厨负责每周菜单。）\n"
+        )
+        text = note_with_explanation().replace("- 一条机制\n", "- 一条机制\n" + body, 1)
+        self.assertEqual(self.check(text), [])
 
     def test_error_pair_lines_split_one_fix_each_pass(self) -> None:
         """同一错点的两个正确写法各起一行，且错因归到 ❌ 一侧时通过。"""

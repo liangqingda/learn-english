@@ -777,6 +777,7 @@ def validate_menu_section(
             )
         if not in_round_block:
             check_inline_demo_glosses(add, line_no, lines[1:])
+            check_backticked_examples(add, line_no, lines[1:])
     if "场景对话" in title:
         dialogue_blocks = details_blocks(section_text, DIALOGUE_SUMMARY)
         if not dialogue_blocks:
@@ -859,6 +860,20 @@ STRUCTURED_LINE_RE = re.compile(r"^(?:[-*] |\d+\. )")
 INLINE_DEMO_GLOSS_RE = re.compile(r"[A-Za-z0-9?.!\"'’)\]]\s*（[^）]*）")
 # 正误对照行（❌ / ✅ / →）按「一行一个错点一个改法」单独管理，不按内嵌例句拦
 CONTRAST_MARK_RE = re.compile(r"[❌✅→]")
+# 反引号包住的片段后面紧跟中文全角括号译文：反引号只标骨架，带译文的完整例句必须写成纯文本
+BACKTICKED_GLOSS_RE = re.compile(r"`[^`]+`\s*（")
+
+
+def check_backticked_examples(add, base_line_no: int, body: list[str]) -> None:
+    """反引号里放的是不带译文的骨架；带中文译文的一律是完整例句，保持纯文本。"""
+    for offset, line in enumerate(body):
+        if BACKTICKED_GLOSS_RE.search(line):
+            add(
+                base_line_no + offset + 1,
+                "带中文译文的内容不要套反引号：反引号只标可套用的骨架（`serve someone something`、"
+                "`be responsible for + 名词`），完整句子写成纯文本 "
+                "（The waiter served the tea to the guests.（服务员把茶端给了客人））",
+            )
 
 
 def check_inline_demo_glosses(add, base_line_no: int, body: list[str]) -> None:
@@ -1409,6 +1424,7 @@ def check(path: Path) -> list[dict]:
         if not structured:
             add(h_explain + 1, "讲解必须拆成有序列表、无序列表或表格逐条记录：不要把多条结论揉成一整段文字")
         check_inline_demo_glosses(add, h_explain + 1, explain_body)
+        check_backticked_examples(add, h_explain + 1, explain_body)
         # 标签行内直接写一句话（如 `**英文原文**：You are what you eat.`）也算有内容；
         # 只有标签后留空、内容放到下一行时才要求下面必须是列表或表格
         label_positions = [

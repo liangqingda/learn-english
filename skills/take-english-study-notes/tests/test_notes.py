@@ -279,7 +279,7 @@ class NoteAppendTest(unittest.TestCase):
                 self.note,
                 "# 2026-11-07 21:00 · 复习",
                 "## 对比 out west 和 in the west\n\n**讲解要点**：\n- 一条要点\n"
-                "  - `She headed out west.`（她往西边出发。）\n",
+                "  - She headed out west.（她往西边出发。）\n",
             )
         self.assertIn("日期区块只放习题", str(caught.exception))
 
@@ -305,7 +305,7 @@ class NoteAppendTest(unittest.TestCase):
         self.store.append(self.note, round_block())
         result = self.store.append_explain_section(
             self.note,
-            "## 对比 out west 和 in the west\n\n**讲解要点**：\n- 一条要点\n  - `She went out west.`（她往西边去了。）\n",
+            "## 对比 out west 和 in the west\n\n**讲解要点**：\n- 一条要点\n  - She went out west.（她往西边去了。）\n",
         )
         self.assertTrue(result["appended_section"])
         text = self.note.read_text(encoding="utf-8")
@@ -442,7 +442,7 @@ class NoteAppendTest(unittest.TestCase):
             self.note,
             story_heading
             + "\n\n**讲解要点**：\n- 旧的一条\n"
-            "  - `There is a price to pay.`（总要付出代价。）\n\n"
+            "  - There is a price to pay.（总要付出代价。）\n\n"
             "<details>\n<summary>故事原文 · 那条小路</summary>\n\nLine one. Line two.\n\n"
             "| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |\n"
             "|---|---|---|\n| 第 1 段 | 代价 | 固定搭配 |\n\n</details>\n\n",
@@ -467,7 +467,7 @@ class NoteAppendTest(unittest.TestCase):
         self.store.append_explain_section(
             self.note,
             heading
-            + "\n\n**讲解要点**：\n- 一条要点\n  - `There is a price to pay.`（总要付出代价。）\n\n"
+            + "\n\n**讲解要点**：\n- 一条要点\n  - There is a price to pay.（总要付出代价。）\n\n"
             "<details>\n<summary>故事原文 · 第一版</summary>\n\nFirst story.\n"
             + table
             + "</details>\n",
@@ -483,7 +483,7 @@ class NoteAppendTest(unittest.TestCase):
             self.store.append_explain_section(
                 self.note,
                 heading
-                + "\n\n**讲解要点**：\n- 一条要点\n  - `There is a price to pay.`（总要付出代价。）\n\n"
+                + "\n\n**讲解要点**：\n- 一条要点\n  - There is a price to pay.（总要付出代价。）\n\n"
                 "<details>\n<summary>故事原文 · 第一版</summary>\n\nFirst story.\n\n</details>\n"
                 + table,
                 rewrite=True,
@@ -504,15 +504,15 @@ class NoteAppendTest(unittest.TestCase):
             self.note,
             story_heading
             + "\n\n**讲解要点**：\n- 旧的一条\n"
-            "  - `There is a price to pay.`（总要付出代价。）\n\n"
+            "  - There is a price to pay.（总要付出代价。）\n\n"
             + story_source,
         )
         result = self.store.append_explain_section(
             self.note,
             story_heading
             + "\n\n**讲解要点**：\n- 旧的一条\n"
-            "  - `There is a price to pay.`（总要付出代价。）\n"
-            "- 补充的一条\n  - `You pay the price for it.`（你为此付出代价。）\n\n"
+            "  - There is a price to pay.（总要付出代价。）\n"
+            "- 补充的一条\n  - You pay the price for it.（你为此付出代价。）\n\n"
             + story_source,
             rewrite=True,
         )
@@ -955,7 +955,7 @@ def block_text(heading: str, answer: str) -> str:
 EXPLAIN_BLOCK = (
     "## 讲解\n\n"
     "**错误机制**：\n\n- 方位短语分写\n"
-    "  - `She headed out west.`（她往西边出发了。）\n\n"
+    "  - She headed out west.（她往西边出发了。）\n\n"
     "**使用场景**：\n\n- 招呼客人自取食物\n"
 )
 
