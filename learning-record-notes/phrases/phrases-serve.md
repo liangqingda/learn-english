@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>5</td></tr>
 <tr><td>下次复习</td><td>2026-11-25 11:53</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-22 11:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-22 13:21</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-22 13:25</td></tr>
 </table>
 
 ## 讲解
@@ -64,6 +64,46 @@
 <!-- practice-index -->
 - [2026-11-22 13:20 · 复习](#practice-2026-11-22-1320-55a32b90)
 <!-- /practice-index -->
+
+## 🎭 看一套围绕「serve 端上、供应（食物与饮料）」的完整场景对话
+
+💡 **讲解要点**：
+- 餐饮语境里 serve 的接受者用 to 引出，双宾结构同样成立，语域中性、服务场合通用。
+  - We serve tea and coffee to every guest.（我们给每位客人供应茶和咖啡）
+- 供应时段用 `serve + 食物 + from … to …`，时间起止直接挂在 serve 后面，不加额外介词。
+  - The hotel serves breakfast from seven to ten.（酒店七点到十点供应早餐）
+
+<details>
+<summary>场景对话原文 · 早餐时段的实习生</summary>
+
+- **Dan**：The doors open at seven. Is everything ready on the buffet?
+  - 丹：七点开门，自助台那边都准备好了吗？
+- **Mia**：Almost. The bread is still in the kitchen.
+  - 米娅：差不多了，面包还在厨房里。
+- **Dan**：Then bring it out now and put it on the long table by the window.
+  - 丹：那现在端出来，放到窗边那张长桌上。
+- **Mia**：Got it. And what about the tea and coffee?
+  - 米娅：好。那茶和咖啡呢？
+- **Dan**：We **serve** them **to** every guest at their table, not at the buffet.
+  - 丹：茶和咖啡是我们端到客人桌上去的，不放自助台。
+- **Mia**：So I **serve** the tea **to** them after they sit down?
+  - 米娅：那就是等客人坐下以后，把茶端给他们？
+- **Dan**：Exactly. One cup first, then ask if they want a refill.
+  - 丹：对。先上一杯，再问要不要续。
+- **Mia**：What if someone asks for something we don't have?
+  - 米娅：要是客人点我们没有的东西呢？
+- **Dan**：Say so politely, and offer the closest thing we do serve.
+  - 丹：客气地说明，然后推荐我们确实供应的最接近的替代品。
+- **Guest**：Excuse me, is the hot milk out yet?
+  - 客人：打扰一下，热牛奶上了吗？
+- **Mia**：Not yet, but I'll **serve** it **to** you in a moment.
+  - 米娅：还没，不过我马上给您端过来。
+- **Guest**：Thanks. Could I have some toast as well?
+  - 客人：谢谢。还能再来点吐司吗？
+- **Mia**：Of course. I'll bring both over to your table.
+  - 米娅：当然，我把两样都送到您桌上。
+
+</details>
 
 # 2026-11-22 11:53 · 复习
 
