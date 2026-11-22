@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>5</td></tr>
 <tr><td>下次复习</td><td>2026-11-25 11:53</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-22 11:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-22 16:00</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-22 17:44</td></tr>
 </table>
 
 ## 讲解
@@ -198,6 +198,26 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 | she had `served` nearly three hundred plates | 统计当天端出的总量 | 换成 provided 只表示「提供」，丢掉了从厨房送到桌上的动作感 |
 
 </details>
+
+## 🔄 对比「serve 端上、供应（食物与饮料）」和相近表达
+
+💡 **讲解要点**：
+- serve 语域中性偏正式，宾语只能是食物、饮料或客人；抽象服务与非餐饮物品要换动词。
+  - The hotel provides free airport pickup.（酒店提供免费接机）
+  - The staff handed out leaflets at the gate.（工作人员在门口分发传单）
+- dish up 偏口语，指把饭菜盛好端上桌，适合家庭日常，不适合正式宴会通知。
+  - Dinner's dished up! Come and sit down.（饭好了，快来坐）
+- hand out 指分发物品（传单、药、毯子），是一次性派发，不涉及餐桌与进食。
+  - The nurse handed out the medicine to each patient.（护士把药分给每位病人）
+- present 强调郑重呈现或递呈，多用于奖杯、甜点、方案，不是日常供餐。
+  - The chef presented the dessert on a silver plate.（主厨用银盘呈上甜点）
+
+| 动词 | 语域 | 典型宾语 | 能否接「吃/喝」的对象 |
+|---|---|---|---|
+| serve | 中性偏正式 | 食物、饮料、客人 | ✅ 能 |
+| dish up | 口语、随意 | 饭菜 | ✅ 能 |
+| hand out | 中性 | 传单、药品、物资 | ❌ 不能 |
+| present | 正式 | 奖杯、甜点、方案 | ❌ 不能 |
 
 # 2026-11-22 11:53 · 复习
 
