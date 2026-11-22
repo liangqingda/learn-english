@@ -835,6 +835,34 @@ class NoteContentValidationTest(unittest.TestCase):
             [],
         )
 
+    def test_chained_examples_in_detail_block_are_rejected(self) -> None:
+        """折叠块例句步骤用 ／、/ 或 ；可迁移 同行串接多条例句时必须被拦下。"""
+        chained = (
+            "4. **可迁移表达**：I can't stand the smoke.（受不了烟味。）"
+            "／I can't stand the noise.（受不了噪音。）"
+        )
+        self.assert_caught(note_text().replace("4. **可迁移表达**：head out west", chained), "逐条写成缩进子项")
+        chained_error = (
+            "4. **正确表达**：The guests love the terrace.（客人们喜欢露台。）"
+            "；可迁移：They served coffee there.（他们在那儿供应咖啡。）"
+        )
+        text = note_text().replace(
+            "<summary>知识点讲解</summary>", "<summary>错题讲解</summary>"
+        ).replace("4. **可迁移表达**：head out west", chained_error)
+        self.assert_caught(text, "逐条写成缩进子项")
+
+    def test_example_sub_items_in_detail_block_pass(self) -> None:
+        """折叠块例句逐条写成缩进子项、标签行留空时校验通过。"""
+        sub_items = (
+            "4. **可迁移表达**：\n"
+            "  - I can't stand the smoke.（受不了烟味。）\n"
+            "  - I can't stand the noise.（受不了噪音。）"
+        )
+        self.assertEqual(
+            self.check(note_text().replace("4. **可迁移表达**：head out west", sub_items)),
+            [],
+        )
+
     def test_letter_enumerated_answer_must_be_list_items(self) -> None:
         """a./b./c. 与 (a)/(b) 编号的多句答案同样必须逐条写成列表项。"""
         answer = (

@@ -443,7 +443,9 @@ I can't tolerate the smell of stale coffee in his car.
 1. **本题知识点**：三档烦躁表达的对象与搭配。
 2. **规则与机制**：drive sb up the wall / drive sb crazy 强度最高；get on sb's nerves 接持续的小动作；can't stand the sight of sb 固定接“某人的样子”。
 3. **英语的表达逻辑**：逼疯人的大事用 drive…up the wall，磨人的小事用 get on my nerves，看脸的反感用 the sight of。
-4. **可迁移表达**：The drilling next door drives me up the wall. / His humming gets on my nerves.
+4. **可迁移表达**：
+  - The drilling next door drives me up the wall.
+  - His humming gets on my nerves.
 
 </details>
 
@@ -648,7 +650,9 @@ I really don't like queuing, but ten minutes is fine for me.
 1. **本题知识点**：按场景（私人抱怨 / 规章 / 控制不住）选表达。
 2. **规则与机制**：私人抱怨到极限用 can't stand it any longer；规章写 tolerate；控制不住的动作写 can't help doing。
 3. **英语的表达逻辑**：三个表达对应三种说话人身份——抱怨的人、立规矩的机构、管不住自己的自己；选词先定身份，再定宾语形式。
-4. **可迁移表达**：I can't stand it any longer.（我再也受不了了。）／We do not tolerate late submissions.（我们不接受迟交。）
+4. **可迁移表达**：
+  - I can't stand it any longer.（我再也受不了了。）
+  - We do not tolerate late submissions.（我们不接受迟交。）
 
 </details>
 
@@ -849,7 +853,10 @@ The way she taps her pen annoys me a lot.
 1. **本题知识点**：三个表达各自能接什么。
 2. **规则与机制**：can't bear 接名词或动名词；drive somebody crazy 用“事”做主语；can't stand it at all 是完整句子，后面不能再挂从句。
 3. **英语的表达逻辑**：每个表达都有自己的“容量”——can't bear 装的是东西或动作，drive me crazy 装的是主语，stand it at all 已经收尾；塞进多余成分，句子就散架。
-4. **可迁移表达**：I can't bear the smell of burnt rice.（受不了米饭烧焦的味道。）／That alarm drives me crazy.（那个闹钟快把我逼疯。）／I can't stand it at all.（我一点都受不了。）
+4. **可迁移表达**：
+  - I can't bear the smell of burnt rice.（受不了米饭烧焦的味道。）
+  - That alarm drives me crazy.（那个闹钟快把我逼疯。）
+  - I can't stand it at all.（我一点都受不了。）
 
 </details>
 
@@ -955,7 +962,9 @@ I very much can't stand the smell of fish in the office kitchen.
 1. **本题知识点**：程度副词修饰否定情态。
 2. **规则与机制**：very much 通常修饰动词的肯定用法（I like it very much），放在否定情态 can't 前面不成立；要强调否定用 really、absolutely 或 at all。
 3. **英语的表达逻辑**：英语的程度词按搭配分工，very much 依附动词，really 依附整个否定判断，位置和语气都由搭配决定。
-4. **可迁移表达**：I really can't stand that smell.（我实在受不了那股味。）／I can't stand it at all.（我一点都受不了。）
+4. **可迁移表达**：
+  - I really can't stand that smell.（我实在受不了那股味。）
+  - I can't stand it at all.（我一点都受不了。）
 
 </details>
 
@@ -1007,7 +1016,9 @@ My neighbours slam the door every night. That drives me crazy.
 1. **本题知识点**：迟到要用 be late / show up late，late 是形容词。
 2. **规则与机制**：late 在英语里是形容词或副词，不是动词；表达“迟到”写 be late、arrive late、show up late，从句里必须有 be 动词或实义动词。
 3. **英语的表达逻辑**：英语的词性分工固定，形容词要靠 be 动词才能做谓语；把 late 直接加 -s 当动词，句子就没有合法谓语。
-4. **可迁移表达**：He is late for every meeting.（他每次开会都迟到。）／She showed up late again.（她又迟到了。）
+4. **可迁移表达**：
+  - He is late for every meeting.（他每次开会都迟到。）
+  - She showed up late again.（她又迟到了。）
 
 </details>
 
@@ -1050,7 +1061,9 @@ My neighbours slam the door every night. That drives me crazy.
 1. **本题知识点**：can't stand 的时态与宾语形式。
 2. **规则与机制**：过去用 couldn't stand，现在用 can't stand；宾语只能是名词短语、动名词或 it + when 从句，不能直接塞一个主谓结构。
 3. **英语的表达逻辑**：can't stand 是及物结构，宾语位置上要么是“东西”，要么是“一件事”；把“the poor live”这种主谓拼在一起，等于让 stand 同时接名词和谓语，结构塌掉。
-4. **可迁移表达**：I couldn't stand the noise back then.（那时我受不了那噪音。）／I can't stand living on the fifth floor.（受不了住五楼。）
+4. **可迁移表达**：
+  - I couldn't stand the noise back then.（那时我受不了那噪音。）
+  - I can't stand living on the fifth floor.（受不了住五楼。）
 
 </details>
 
@@ -1156,7 +1169,9 @@ I can't stand the way he treats the staffs in this hotel.
 1. **考点**：staff 的数与形式。
 2. **为什么错**：staff 指全体员工时按集合名词处理，本题语境不能写 staffs（staffs 只在指几个不同机构的员工班子时才出现）；改错时把它留着，等于这一处错处没有动。
 3. **英语的表达逻辑**：英语里一批集合名词（staff、police、equipment、furniture）本身不数个数，要数人时换成 staff members、police officers，计数单位放在中心词上。
-4. **正确表达**：I can't stand the way he treats the staff in this hotel.（受不了他在这家酒店对待员工的那副样子。）；可迁移：The staff are always polite here.（这里的员工一向客气。）
+4. **正确表达**：
+  - I can't stand the way he treats the staff in this hotel.（受不了他在这家酒店对待员工的那副样子。）
+  - The staff are always polite here.（这里的员工一向客气。）
 
 </details>
 
@@ -1241,7 +1256,9 @@ Her humming in the morning bothers me.
 1. **本题知识点**：同一表达在多种宾语形式之间切换。
 2. **规则与机制**：can't stand 的宾语可以是名词短语（the noise、the way + 从句）、动名词（their talking）、it + when 从句；疑问句只要把 can 提前，后面结构不变。
 3. **英语的表达逻辑**：同一件事换形式时语气略有差别：名词短语最概括，动名词指向具体动作，it when 适合描述反复发生的情形。
-4. **可迁移表达**：I can't stand the smell in this kitchen.（受不了这厨房的味道。）／I can't stand their talking after midnight.（受不了他们半夜还在说话。）
+4. **可迁移表达**：
+  - I can't stand the smell in this kitchen.（受不了这厨房的味道。）
+  - I can't stand their talking after midnight.（受不了他们半夜还在说话。）
 
 </details>
 
@@ -1291,7 +1308,9 @@ When I was a child, I ____（can not / stand）the taste of carrots, but now I l
 1. **考点**：过去时间状语与情态动词的时态一致。
 2. **为什么错**：答案沿用了现在时的 can't stand，与 When I was a child 冲突，句子变成“小时候我现在受不了”。
 3. **英语的表达逻辑**：英语主句谓语与时间状语必须时态呼应，情态动词同样存在 can / could 的对立。
-4. **正确表达**：When I was a child, I couldn't stand the taste of carrots, but now I like them.（我小时候受不了胡萝卜的味道，现在倒喜欢了。）；可迁移：She couldn't stand cigarette smoke before she quit.（戒烟前她受不了烟味。）
+4. **正确表达**：
+  - When I was a child, I couldn't stand the taste of carrots, but now I like them.（我小时候受不了胡萝卜的味道，现在倒喜欢了。）
+  - She couldn't stand cigarette smoke before she quit.（戒烟前她受不了烟味。）
 
 </details>
 
@@ -1327,7 +1346,9 @@ Nobody can stand ____ in the waiting room for two hours.
 1. **考点**：being + kept 的过去分词形式。
 2. **为什么错**：C 写了 being keep，把被动助动词后面接成了原形；A、D 用了 to do 的框架，也不符合 stand 的标准口径。
 3. **英语的表达逻辑**：被动语态的骨架是“助动词 + 过去分词”，任何一层都不能换成原形。
-4. **正确表达**：Nobody can stand being kept waiting in the waiting room for two hours.（没人受得了在候诊室被晾着等两个小时。）；可迁移：No one can stand being treated like a child.（没人受得了被当成小孩对待。）
+4. **正确表达**：
+  - Nobody can stand being kept waiting in the waiting room for two hours.（没人受得了在候诊室被晾着等两个小时。）
+  - No one can stand being treated like a child.（没人受得了被当成小孩对待。）
 
 </details>
 
@@ -1358,7 +1379,9 @@ Can you stand to wait here for an hour?
 1. **考点**：疑问句的宾语形式；被动是否必要。
 2. **为什么错**：原句唯一的问题是 stand to wait，把 to wait 换成 waiting 即可；答案既保留了 being（多出被动），又写成 being keep（形式错误），错误从一处变成两处。
 3. **英语的表达逻辑**：改错题以最小改动为原则，先判断原句缺的是什么，不要顺手加语义。
-4. **正确表达**：Can you stand waiting here for an hour?（你能受得了在这儿等一个小时吗？）；可迁移：Can you stand sharing a room with him?（你能受得了和他住一间吗？）
+4. **正确表达**：
+  - Can you stand waiting here for an hour?（你能受得了在这儿等一个小时吗？）
+  - Can you stand sharing a room with him?（你能受得了和他住一间吗？）
 
 </details>
 
@@ -1410,7 +1433,9 @@ I don't like the way he takes calls at dinner.
 1. **考点**：限定信息的落地；meeting 与“开会”动作的区分。
 2. **为什么错**：答案只剩“会议”这个名词，没了“两个小时”和“开”这两层，读者不知道难受的是时长还是会议本身；the meeting 指某一场会，也不等于每天开会这件事。
 3. **英语的表达逻辑**：英语倾向把数量信息压成复合形容词放在名词前，动作则用 have / hold / attend 承担。
-4. **正确表达**：Can you stand having two-hour meetings every day?（你受得了每天开两个小时的会吗？）；可迁移：Can you stand sitting in a two-hour briefing?（你能受得了开两个小时的吹风会吗？）
+4. **正确表达**：
+  - Can you stand having two-hour meetings every day?（你受得了每天开两个小时的会吗？）
+  - Can you stand sitting in a two-hour briefing?（你能受得了开两个小时的吹风会吗？）
 
 </details>
 
@@ -1443,7 +1468,9 @@ I don't like the way he takes calls at dinner.
 1. **考点**：call a meeting 的搭配；时间关系的表达。
 2. **为什么错**：③ 用 get meeting 代替 call a meeting，且用 to get meeting 表示“下班去开会”，to do 在此表示目的，句意变成“我受不了下班以便开会”，逻辑不成立。
 3. **英语的表达逻辑**：英语用 when 从句或 as 从句承载“两件事撞在一起”，目的不定式只表示意图。
-4. **正确表达**：I can't stand it when my boss calls a meeting just as I'm about to leave.（老板总在我快下班时叫开会，我受不了。）；可迁移：I can't stand meetings that start at six p.m.（我受不了六点才开始的会。）
+4. **正确表达**：
+  - I can't stand it when my boss calls a meeting just as I'm about to leave.（老板总在我快下班时叫开会，我受不了。）
+  - I can't stand meetings that start at six p.m.（我受不了六点才开始的会。）
 
 </details>
 
@@ -1481,7 +1508,9 @@ I can't stand ____（people / talk）over the phone in the quiet carriage.
 1. **考点**：名词 + 分词 与 it when 从句的选择。
 2. **为什么错**：括号里给的是“名词 + 动词”的组合，答案要落到 people talking；改成 it when 从句虽然通顺，却没用到这空考查的结构，还把一个空格填成了带引导词的长句。
 3. **英语的表达逻辑**：it when 从句自带主语“我”，名词短语则把事件本身当宾语，两者句法位置不同。
-4. **正确表达**：I can't stand people talking over the phone in the quiet carriage.（我受不了有人在静音车厢打电话。）；可迁移：I can't stand people playing videos without headphones.（我受不了有人不戴耳机放视频。）
+4. **正确表达**：
+  - I can't stand people talking over the phone in the quiet carriage.（我受不了有人在静音车厢打电话。）
+  - I can't stand people playing videos without headphones.（我受不了有人不戴耳机放视频。）
 
 </details>
 
@@ -1534,7 +1563,9 @@ I can't stand to be kept waiting at the counter.
 1. **考点**：stand 后该用被动动名词，而不是 to be + 过去分词。
 2. **为什么错**：原句 to be kept waiting 同时错了两处——这一结构取动名词而不是 to do，被动又需要 being + 过去分词；答案只删掉 to 段，句子合法但意思从“被晾着”变成“自己在柜台等”。
 3. **英语的表达逻辑**：英语用 being + 过去分词同时承载“动名词”与“被动”，两个信息缺一不可。
-4. **正确表达**：I can't stand being kept waiting at the counter.（我受不了在柜台被晾着等。）；可迁移：I can't stand being put on hold for ten minutes.（我受不了被搁在电话上等十分钟。）
+4. **正确表达**：
+  - I can't stand being kept waiting at the counter.（我受不了在柜台被晾着等。）
+  - I can't stand being put on hold for ten minutes.（我受不了被搁在电话上等十分钟。）
 
 </details>
 
@@ -1565,7 +1596,9 @@ The photocopier jams every Monday. That drives me mad.
 1. **考点**：主谓结构不能直接充当 stand 的宾语。
 2. **为什么错**：the photocopier jams every Monday 是一个完整句子，没有连词也没有分词化，直接放在 stand 后等于两个谓语挤在一起。
 3. **英语的表达逻辑**：要保留“每当发生”的意思，就把整句降级成 when 从句；要把事件本身当宾语，就把谓语变成 jamming。
-4. **正确表达**：I can't stand it when the photocopier jams every Monday.（复印机每周一卡纸，我受不了。）；可迁移：I can't stand it when the lift stops on every floor.（电梯每层都停，我受不了。）
+4. **正确表达**：
+  - I can't stand it when the photocopier jams every Monday.（复印机每周一卡纸，我受不了。）
+  - I can't stand it when the lift stops on every floor.（电梯每层都停，我受不了。）
 
 </details>
 
@@ -1596,7 +1629,9 @@ The photocopier jams every Monday. That drives me mad.
 1. **考点**：中文状语“在他面前”的落地；副词位置。
 2. **为什么错**：原句有三层信息——受不了、别人打电话、在他面前；答案只剩前两层，读者不知道这为什么让他难受；loudly 放在句末容易被读成修饰整句。
 3. **英语的表达逻辑**：英语倾向把地点、对象这类信息放成介词短语，副词靠近它所修饰的动词或宾语。
-4. **正确表达**：He can't stand it when people make loud phone calls in front of him.（他受不了别人在他面前大声打电话。）；可迁移：He can't stand people talking loudly in front of him.（他受不了有人在他面前大声说话。）
+4. **正确表达**：
+  - He can't stand it when people make loud phone calls in front of him.（他受不了别人在他面前大声打电话。）
+  - He can't stand people talking loudly in front of him.（他受不了有人在他面前大声说话。）
 
 </details>
 
@@ -1629,7 +1664,9 @@ The photocopier jams every Monday. That drives me mad.
 1. **考点**：动名词的主语标记；when 从句必须有谓语。
 2. **为什么错**：① 的 sneezing from my roommates 把“声音来源”写成 from，英语要说 their sneezing；③ 的 when 从句里只有 sneezing 这个 -ing 形式，缺谓语 sneeze，从句不成立。
 3. **英语的表达逻辑**：名词化时“谁做的”用所有格前置；从句必须有一个带时态的谓语动词。
-4. **正确表达**：I can't stand it when my roommates sneeze at midnight.（室友半夜打喷嚏，我受不了。）；可迁移：I can't stand my roommates' sneezing in the morning.（我受不了室友早上的喷嚏声。）
+4. **正确表达**：
+  - I can't stand it when my roommates sneeze at midnight.（室友半夜打喷嚏，我受不了。）
+  - I can't stand my roommates' sneezing in the morning.（我受不了室友早上的喷嚏声。）
 
 </details>
 
@@ -1660,7 +1697,9 @@ The photocopier jams every Monday. That drives me mad.
 1. **本题知识点**：stand 表示“受不了”时的宾语形式。
 2. **规则与机制**：stand 习惯接名词或 V-ing；can't stand to do 只在英式口语里零星出现，标准与考试口径取动名词。
 3. **英语的表达逻辑**：stand 抱怨的是反复发生的事，动名词正好承载“经常性”，所以是默认选择。
-4. **可迁移表达**：I can't stand queuing at the post office.（我受不了在邮局排队。）；She can't stand waiting for latecomers.（她受不了等迟到的人。）
+4. **可迁移表达**：
+  - I can't stand queuing at the post office.（我受不了在邮局排队。）
+  - She can't stand waiting for latecomers.（她受不了等迟到的人。）
 
 </details>
 
@@ -1691,7 +1730,9 @@ The caller can't stand ____（keep）on hold for forty minutes.
 1. **考点**：动名词被动式 being kept on hold。
 2. **为什么错**：keeping 是主动动名词，等于说 the caller keeps on hold，主宾关系反了；being + 原形也不成立。
 3. **英语的表达逻辑**：被动动名词先由 being 承担被动意义，再由过去分词说明动作，两步缺一不可。
-4. **正确表达**：The caller can't stand being kept on hold for forty minutes.（打电话的人受不了被晾在通话上等四十分钟。）；可迁移：I can't stand being kept waiting in the rain.（我受不了被晾在雨里等。）
+4. **正确表达**：
+  - The caller can't stand being kept on hold for forty minutes.（打电话的人受不了被晾在通话上等四十分钟。）
+  - I can't stand being kept waiting in the rain.（我受不了被晾在雨里等。）
 
 </details>
 
@@ -1743,7 +1784,9 @@ The upstairs neighbours practise the violin at midnight. I find it unbearable.
 1. **考点**：stand + 名词 + 分词 与 it when 从句的选择。
 2. **为什么错**：it when 只框住“每当发生”的条件，主语仍是“我”；题目要求把事件本身当作受不了的对象，用名词短语更贴切，也更简洁。
 3. **英语的表达逻辑**：it when 从句偏“条件触发的烦躁”，名词短语偏“对某件事本身的厌恶”。
-4. **正确表达**：I can't stand the upstairs neighbours practising the violin at midnight.（我受不了楼上邻居半夜练小提琴。）；可迁移：I can't stand people talking on the phone in the quiet carriage.（我受不了有人在静音车厢打电话。）
+4. **正确表达**：
+  - I can't stand the upstairs neighbours practising the violin at midnight.（我受不了楼上邻居半夜练小提琴。）
+  - I can't stand people talking on the phone in the quiet carriage.（我受不了有人在静音车厢打电话。）
 
 </details>
 
@@ -1774,7 +1817,9 @@ The upstairs neighbours practise the violin at midnight. I find it unbearable.
 1. **考点**：interrupt / cut in 与 speak 的区别；句子的信息完整度。
 2. **为什么错**：原句有两层信息——“插嘴”和“在别人说话时”，答案只剩 speak，两层都丢了；改说 it when 从句时也要把 interrupt 放进去。
 3. **英语的表达逻辑**：英语要求宾语把“谁做什么”交代清楚，泛动词 speak 会让句子只剩发声层面的意思。
-4. **正确表达**：I can't stand him interrupting people when they're speaking.（我受不了他总在别人说话时插嘴。）；可迁移：I can't stand people cutting in during meetings.（我受不了有人在会上插嘴。）
+4. **正确表达**：
+  - I can't stand him interrupting people when they're speaking.（我受不了他总在别人说话时插嘴。）
+  - I can't stand people cutting in during meetings.（我受不了有人在会上插嘴。）
 
 </details>
 
@@ -1807,6 +1852,8 @@ The upstairs neighbours practise the violin at midnight. I find it unbearable.
 1. **考点**：take the subway 的冠词；in traffic 只用于道路堵车；现在完成时的形式与主谓一致。
 2. **为什么错**：subway 是特指的那条线路，需要 the；in traffic 说的是马路上堵车，配地铁不成立；③ 里 the subway 是单数，用 hasn't come，且 have came 本身形式就错。
 3. **英语的表达逻辑**：英语把“交通方式”和“堵车情形”分开表达，前者用 take the + 交通工具，后者用 stuck in traffic。
-4. **正确表达**：I can't stand taking the subway when it's crowded.（我受不了人挤人的时候坐地铁。）；可迁移：I can't stand it when the subway is late again.（地铁又晚点，我受不了。）
+4. **正确表达**：
+  - I can't stand taking the subway when it's crowded.（我受不了人挤人的时候坐地铁。）
+  - I can't stand it when the subway is late again.（地铁又晚点，我受不了。）
 
 </details>

@@ -225,6 +225,11 @@ DEFAULT_ERROR_SUMMARY = "错题讲解"
 DEFAULT_DETAIL_LABELS = ("考点", "为什么错", "英语的表达逻辑", "正确表达")
 DEFAULT_UNANSWERED_LABELS = ("考点", "为什么答不出", "英语的表达逻辑", "正确表达")
 DEFAULT_KNOWLEDGE_LABELS = ("本题知识点", "规则与机制", "英语的表达逻辑", "可迁移表达")
+# 折叠块里承载例句的步骤：多条例句必须逐条写成缩进子项，不允许在标签行内用分隔符串接。
+EXAMPLE_STEP_LABELS = ("可迁移表达", "正确表达")
+CHAINED_EXAMPLE_RE = re.compile(
+    r"／| / |；\s*可迁移\s*:?|;\s*可迁移\s*:?|；(?=\s*[A-Za-z])"
+)
 
 
 def parse_meta(text: str) -> dict[str, list[str]]:
@@ -1847,15 +1852,37 @@ def check(path: Path) -> list[dict]:
                 error_labels = list(TEMPLATE["unanswered_labels"]) if is_unanswered else list(TEMPLATE["error_labels"])
                 for detail_block in blocks:
                     summary = block_summary(detail_block)
-                    items = [m for line in detail_block if (m := DETAIL_ITEM_RE.match(line))]
+                    steps: list[dict] = []
+                    for line in detail_block:
+                        step_match = DETAIL_ITEM_RE.match(line)
+                        if step_match:
+                            steps.append({"match": step_match, "sub_items": []})
+                        elif steps and LIST_ITEM_RE.match(line):
+                            steps[-1]["sub_items"].append(line)
+                    items = [s["match"] for s in steps]
                     order = [int(m.group(1)) for m in items]
                     labels = [m.group(2) for m in items]
-                    empty_labels = [m.group(2) for m in items if not m.group(3).strip()]
+                    empty_labels = [
+                        m.group(2)
+                        for s in steps
+                        for m in [s["match"]]
+                        if not m.group(3).strip() and not s["sub_items"]
+                    ]
                     if empty_labels:
                         add(
                             base_line,
                             "讲解折叠块的步骤不能只写标签：`" + "`/`".join(empty_labels) + "` 后面必须写出内容",
                         )
+                    for step in steps:
+                        step_match = step["match"]
+                        step_label = step_match.group(2)
+                        inline_text = step_match.group(3).strip()
+                        if step_label in EXAMPLE_STEP_LABELS and CHAINED_EXAMPLE_RE.search(inline_text):
+                            add(
+                                base_line,
+                                f"`{step_label}` 里多条例句必须逐条写成缩进子项（`  - …`），"
+                                "不要用 `／`、`/` 或 `；` 同行串接",
+                            )
                     if order != [1, 2, 3, 4]:
                         add(base_line, "讲解折叠块必须严格为 1→4 四步")
                     if summary == knowledge_summary:
