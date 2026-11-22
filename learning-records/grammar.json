@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 309,
+  "revision": 310,
   "category": "grammar",
   "records": {
     "grammar:a-bit-of-a-singular-countable": {
@@ -361,6 +361,32 @@
       ],
       "first_learned_at": "2026-11-20T07:06:25+08:00",
       "last_learned_at": "2026-11-20T07:06:25+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:definite-article-specific-plural": {
+      "id": "grammar:definite-article-specific-plural",
+      "category": "grammar",
+      "key": "definite-article-specific-plural",
+      "status": "learning",
+      "title": "特指复数名词要用定冠词 the",
+      "explanation": "复数名词指前文已经确定的群体时用 the（the adults），零冠词 adults 表示任意一些成年人。中文里的「大人们」与前文的孩子们对照，属于双方都知道的特定对象，需要 the。",
+      "source": "The waiter served hot soup to the children, and then served adults.",
+      "example": "The waiter served the hot soup to the children first, and then served the adults.",
+      "tags": [
+        "articles",
+        "reference",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-22T13:21:33+08:00",
+      "last_learned_at": "2026-11-22T13:21:33+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
@@ -872,6 +898,32 @@
       "review_history": [],
       "key": "participial-phrase-logical-subject"
     },
+    "grammar:passive-auxiliary-be-agreement": {
+      "id": "grammar:passive-auxiliary-be-agreement",
+      "category": "grammar",
+      "key": "passive-auxiliary-be-agreement",
+      "status": "learning",
+      "title": "被动语态里 be 的限定形式（be served → is served）",
+      "explanation": "被动结构是 be + 过去分词，be 必须按主语的人称、数和时态变形；主语 the welcome drink 是单数、every evening 表示常态，应为 is served。只写原形 be served 会让句子缺少真正的限定谓语。",
+      "source": "In this hotel, the welcome drink be served in the lobby every evening.",
+      "example": "In this hotel, the welcome drink is served in the lobby every evening.",
+      "tags": [
+        "passive-voice",
+        "review-error",
+        "verb-form"
+      ],
+      "first_learned_at": "2026-11-22T13:21:33+08:00",
+      "last_learned_at": "2026-11-22T13:21:33+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
     "grammar:passive-gerund-being-done": {
       "id": "grammar:passive-gerund-being-done",
       "category": "grammar",
@@ -934,6 +986,32 @@
         }
       ],
       "key": "past-perfect-before-past-reference"
+    },
+    "grammar:plural-subject-base-form": {
+      "id": "grammar:plural-subject-base-form",
+      "category": "grammar",
+      "key": "plural-subject-base-form",
+      "status": "learning",
+      "title": "复数主语的一般现在时用动词原形",
+      "explanation": "主语是复数时，一般现在时谓语用原形，不加 -s；The flight attendants 是复数，谓语应为 serve。写成 served 则把常规流程误解成已发生的过去事件，时态由语境决定，不由主语的数决定。",
+      "source": "The flight attendants served each passenger a small warm towel before takeoff.",
+      "example": "The flight attendants serve each passenger a small warm towel before takeoff.",
+      "tags": [
+        "present-simple",
+        "review-error",
+        "subject-verb-agreement"
+      ],
+      "first_learned_at": "2026-11-22T13:21:33+08:00",
+      "last_learned_at": "2026-11-22T13:21:33+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "grammar:possessive-gerund-as-stand-object": {
       "id": "grammar:possessive-gerund-as-stand-object",

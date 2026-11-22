@@ -4,10 +4,10 @@
 <colgroup><col width="150"><col></colgroup>
 <tr><td>记录 ID / 试卷 ID</td><td>phrases:serve</td></tr>
 <tr><td>目标知识点</td><td>serve：端上、供应（食物与饮料）</td></tr>
-<tr><td>累计复习次数</td><td>4</td></tr>
-<tr><td>下次复习</td><td>2026-11-13 21:01</td></tr>
+<tr><td>累计复习次数</td><td>5</td></tr>
+<tr><td>下次复习</td><td>2026-11-25 11:53</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-22 11:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-22 13:14</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-22 13:21</td></tr>
 </table>
 
 ## 讲解
@@ -59,6 +59,11 @@
   - Dinner is served at seven.（晚餐七点开席）
 - 时态跟随叙事时间：过去叙事一律用 served，不因主语单数保留 -s。
   - Last night the waiter served the guests the soup.（昨晚服务员给客人上了汤）
+
+复习历史：
+<!-- practice-index -->
+- [2026-11-22 13:20 · 复习](#practice-2026-11-22-1320-55a32b90)
+<!-- /practice-index -->
 
 # 2026-11-22 11:53 · 复习
 
@@ -254,5 +259,159 @@
 - **正确表达**：
   - The guests love to have breakfast on the terrace.（客人们喜欢在露台上用早餐）
   - They served coffee on the hotel terrace.（他们在酒店露台上供应咖啡）
+
+</details>
+
+## 🧩 练习「serve 端上、供应（食物与饮料）」的关键语法结构 <a id="practice-2026-11-22-1320-55a32b90"></a>
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>生成时间</td><td>2026-11-22 13:20</td></tr>
+<tr><td>本轮得分</td><td>6 / 10</td></tr>
+<tr><td>题量与错题数</td><td>6 题 / 3 处错误</td></tr>
+</table>
+
+### 1. 单项选择
+
+**题目**：The waiter served the guests first. 这句话是什么意思？
+- A. The waiter gave the guests their food before anyone else.
+- B. The waiter cleaned the guests' table before anyone else.
+- C. The waiter paid the bill for the guests.
+- D. The waiter chose seats for the guests.
+
+**我的答案**：A
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+- **本题知识点**：serve 以人作宾语时，表示为客人服务、招待客人。
+- **规则与机制**：`serve + 人` 里的人是服务的对象，动作内容是招待，具体端什么并不出现在句子里；要说明端上的物品，就要用双宾或 `serve sth to sb`。
+- **英语的表达逻辑**：英语允许同一个动词按宾语类型切换语义场：宾语是食物就落在供应上，宾语是人就落在招待上。
+- **可迁移表达**：The waiter served the guests first.（服务员先招待了客人）
+
+</details>
+
+### 2. 填空
+
+**题目**：The flight attendants ____ each passenger a small warm towel before takeoff. 用 serve 的适当形式填空。
+
+**我的答案**：served
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+- **本题知识点**：双宾结构里的主谓一致与一般现在时。
+- **规则与机制**：The flight attendants 是复数主语，一般现在时谓语用原形 serve；双宾 `serve + 人 + 物` 保持不变。
+- **英语的表达逻辑**：英语的 -s 只加在第三人称单数主语上，复数主语一律用原形，时态由语境而不是词形单独决定。
+- **可迁移表达**：The flight attendants serve each passenger a warm towel.（乘务员给每位乘客一条热毛巾）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+- **考点**：复数主语的一般现在时形式，以及双宾结构的语序。
+- **为什么错**：把复数主语当作需要变形的主语，写成过去式 served；句子的语境是每次起飞前的常规流程，不是已经发生的过去事件。
+- **英语的表达逻辑**：主谓一致决定单复数形式，时间状语与叙事语境决定时态，两者不能互相替代。
+- **正确表达**：The flight attendants serve each passenger a small warm towel before takeoff.（乘务员在起飞前给每位乘客一条热毛巾）
+  - 可迁移：These cafés serve breakfast all day.（这些咖啡店全天供应早餐）
+
+</details>
+
+### 3. 改错
+
+**题目**：Last night the new waiter serves the guests the soup very slowly. 改错（只改错处，句意不变）。
+
+**我的答案**：Last night the new waiter served the guests the soup very slowly.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+- **本题知识点**：过去叙事中的谓语时态。
+- **规则与机制**：Last night 把事件固定在过去，谓语用过去式 served；第三人称单数的 -s 只在一般现在时出现。
+- **英语的表达逻辑**：英语用时间状语和谓语形态共同标定事件时间，过去时间状语要求谓语同步变成过去式。
+- **可迁移表达**：Last night the new waiter served the guests the soup very slowly.（昨晚新来的服务员给客人上汤很慢）
+
+</details>
+
+### 4. 改写
+
+**题目**：The host served the guests a traditional dessert. 改写这句话：把直接宾语提到前面，并用 to 引出接受者，句意不变。
+
+**我的答案**：The host served a traditional dessert to the guests.
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+- **本题知识点**：双宾结构转 `serve sth to sb` 结构。
+- **规则与机制**：直接宾语 a traditional dessert 提前后，间接宾语 the guests 由 to 引出；serve 属于 to 组动词，不用 for。
+- **英语的表达逻辑**：英语用 to 标记接受者、用 for 标记受益者，动词归属于哪一组决定了转换时的介词。
+- **可迁移表达**：The host served a traditional dessert to the guests.（主人把一道传统甜点端给了客人）
+
+</details>
+
+### 5. 填空
+
+**题目**：In this hotel, the welcome drink ____ (serve) in the lobby every evening. 用括号内动词的正确形式填空。
+
+**我的答案**：be served
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+- **本题知识点**：一般现在时的被动语态。
+- **规则与机制**：被动结构是 `be + 过去分词`，be 要按主语和时态变形：主语 the welcome drink 是单数，every evening 表示常态，所以是 is served。
+- **英语的表达逻辑**：英语的被动语态把动作承受者放主语位置，be 只承担时态与数，动词意义由过去分词承担。
+- **可迁移表达**：The welcome drink is served in the lobby every evening.（迎宾饮品每晚在大厅供应）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+- **考点**：被动语态中 be 的限定形式。
+- **为什么错**：只写出动词原形 be，没有让 be 承担第三人称单数的现在时形式，句子缺少真正的谓语。
+- **英语的表达逻辑**：被动语态的 be 是助动词，必须在数和时态上与主语一致，不能用不定式或原形顶替。
+- **正确表达**：In this hotel, the welcome drink is served in the lobby every evening.（这家酒店每晚在大厅供应迎宾饮品）
+  - 可迁移：Lunch is served from twelve to two.（午餐十二点到两点供应）
+
+</details>
+
+### 6. 翻译
+
+**题目**：服务员先把热汤端给了孩子们，然后才去招呼大人们。中译英。
+
+**我的答案**：The waiter served hot soup to the children, and then served adults.
+
+**判定**：⚠️ 部分正确（句式和并列顺序正确，adults 前缺定冠词）
+
+<details>
+<summary>知识点讲解</summary>
+
+- **本题知识点**：`serve sth to sb` 结构与并列句，以及定冠词特指前文提到的人群。
+- **规则与机制**：第二次出现、且指前文已经明确的群体时，复数名词前用 the：the adults；不限定的大人可以写 some adults。
+- **英语的表达逻辑**：英语用冠词区分「任意的大人」与「当时在场的那几位大人」，上下文已经锁定的对象要用 the。
+- **可迁移表达**：The waiter served the soup to the children first, and then to the adults.（服务员先把汤端给孩子们，然后才端给大人们）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+- **考点**：特指复数名词的定冠词。
+- **为什么错**：用零冠词 adults，读起来像「招呼任意一些成年人」，丢掉了中文里「大人们」所指的、与孩子们对照的那一群特定对象。
+- **英语的表达逻辑**：冠词承担指称功能，the 标记说话人和听话人共同知道的对象，零冠词表示泛指。
+- **正确表达**：The waiter served the hot soup to the children first, and then served the adults.（服务员先把热汤端给孩子们，然后才去招呼大人们）
+  - 可迁移：She gave the small cakes to the children and the coffee to the adults.（她把小蛋糕给了孩子们，把咖啡给了大人们）
 
 </details>
