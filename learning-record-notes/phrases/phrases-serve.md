@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>5</td></tr>
 <tr><td>下次复习</td><td>2026-11-25 11:53</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-22 11:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-22 20:32</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-22 20:35</td></tr>
 </table>
 
 ## 讲解
@@ -230,21 +230,49 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 
 - serve 的常规宾语只有三类：三餐、饮料与具体食物、客人；三餐名词前不加冠词，也不加 a。
   - The hotel serves breakfast from seven to ten.（酒店七点到十点供应早餐）
-  - They serve customers in five languages.（他们用五种语言接待客人）
-- serve 的抽象义项同样是 serve，只把宾语换成用途、期限、通知：`serve a purpose` 有用途、`serve time` 服刑、`serve notice` 送达通知。
+- serve 的抽象义项同样是 serve，只把宾语换成用途、期限、通知。
   - The old shed still serves a purpose as a tool store.（那间旧棚子还当工具间用，仍有用途）
-  - He served two years for the theft.（他因那起盗窃服了两年刑）
 - 表示充当某个角色用 `serve as + 名词`，动词后面直接接角色名词，不再叠一个 to do 结构。
   - She served as the head waiter for three years.（她当了三年领班服务员）
 - 派生词分四路：`server` 是服务员或服务器、`service` 是服务或服役、`serving` 是一份食物的量、`served` 只作过去式或过去分词。
   - This serving is too large for one child.（这一份对小孩来说太多了）
-- 名词搭配把「服务」压成复合名词而不是动宾结构：`room service` 客房送餐、`food service` 餐饮服务、`service charge` 服务费、`self-service` 自助（形容词，只修饰名词）。
+- 名词搭配把「服务」压成复合名词而不是动宾结构，复合名词不可数，不加 a。
   - Room service is available until midnight.（客房送餐服务到午夜）
-  - The service charge is already included.（服务费已经含在内）
 - 口语 `serve sb right` 是「某人活该」，带明显评价语气，只用于熟人玩笑或抱怨，不进正式书面。
   - It serves him right for lying.（他撒谎，活该）
 - service 也能作动词，但意思是保养、维修，不是端上食物。
   - The garage services electric cars too.（这家修理厂也保养电动车）
+
+🔗 **动宾搭配：宾语决定义项**
+
+| 结构 | 含义 | 例句 |
+|---|---|---|
+| `serve breakfast / lunch / dinner` | 供应三餐，名词前不加 a | The hotel serves breakfast from seven to ten.（酒店七点到十点供应早餐） |
+| `serve drinks` | 供应饮料 | They serve drinks on the terrace after six.（六点以后他们在露台供应饮料） |
+| `serve customers` | 接待顾客 | The shop serves customers in four languages.（这家店用四种语言接待顾客） |
+| `serve a purpose` | 有用途、起作用 | The old shed still serves a purpose as a tool store.（那间旧棚子还当工具间用，仍有用途） |
+| `serve time` | 服刑 | He served two years for the theft.（他因那起盗窃服了两年刑） |
+| `serve notice` | 送达正式通知 | The landlord served notice on the tenants last week.（房东上周给房客送达了通知） |
+| `serve as + 名词` | 充当、担任某个角色 | She served as the head waiter for three years.（她当了三年领班服务员） |
+| `serve sb right` | 某人活该（口语评价） | It serves him right for lying.（他撒谎，活该） |
+
+📚 **派生词与复合名词**
+
+| 词 | 词性 · 含义 | 注意 |
+|---|---|---|
+| `server` | 服务员；服务器 | 指人时比 waiter 中性，也指网络服务器 |
+| `service` | 名词：服务、服役；动词：保养、维修 | 作动词时是修车、保养设备，不是端菜 |
+| `serving` | 名词：一份（食物的量） | This serving is too large for one child.（这一份对小孩来说太多了） |
+| `room service` | 客房送餐服务 | 不可数，不加 a |
+| `food service` | 餐饮服务业 | 行业统称 |
+| `service charge` | 服务费 | 常与 include 连用 |
+| `self-service` | 自助（形容词） | 只修饰名词：a self-service counter（自助柜台） |
+
+⚠️ **三处高频错**
+
+- ❌ He serves as a manager to run the branch. → ✅ He serves as the manager of the branch.（`serve as` 直接接角色名词，不叠 to do）
+- ❌ The hotel offers a room service. → ✅ The hotel offers room service.（复合名词不可数，不加 a）
+- ❌ The garage serves my car every spring. → ✅ The garage services my car every spring.（保养、维修用 service 作动词）
 
 # 2026-11-22 11:53 · 复习
 
