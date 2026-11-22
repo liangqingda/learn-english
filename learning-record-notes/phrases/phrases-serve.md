@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>5</td></tr>
 <tr><td>下次复习</td><td>2026-11-25 11:53</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-22 11:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-22 14:15</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-22 15:56</td></tr>
 </table>
 
 ## 讲解
@@ -146,8 +146,6 @@
 
 <details>
 <summary>故事原文 · 海边小馆重开张</summary>
-
-**海边小馆重开张**
 
 On the first morning of June, Rosa unlocked the blue door of the little diner by the harbor. She had closed it for a whole winter to repair the old kitchen. Now the tables were clean, the chairs were new, and the whole street smelled of salt and coffee.
 
