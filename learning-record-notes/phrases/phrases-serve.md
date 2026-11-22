@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>5</td></tr>
 <tr><td>下次复习</td><td>2026-11-25 11:53</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-22 11:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-22 13:25</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-22 13:47</td></tr>
 </table>
 
 ## 讲解
@@ -74,7 +74,7 @@
   - The hotel serves breakfast from seven to ten.（酒店七点到十点供应早餐）
 
 <details>
-<summary>场景对话原文 · 早餐时段的实习生</summary>
+<summary>场景对话原文 1 · 早餐时段的实习生</summary>
 
 - **Dan**：The doors open at seven. Is everything ready on the buffet?
   - 丹：七点开门，自助台那边都准备好了吗？
@@ -102,6 +102,36 @@
   - 客人：谢谢。还能再来点吐司吗？
 - **Mia**：Of course. I'll bring both over to your table.
   - 米娅：当然，我把两样都送到您桌上。
+
+</details>
+
+<details>
+<summary>场景对话原文 2 · 航班上的特殊餐食</summary>
+
+- **Lena**：Good evening, sir. We'll start serving meals in about twenty minutes.
+  - 莉娜：晚上好，先生。我们大约二十分钟后开始供餐。
+- **Fowler**：Do you have the vegetarian meal I requested?
+  - 福勒：我订的素食餐有吗？
+- **Lena**：Let me check the list. I'm afraid there's only one special meal on board, and it was already **served to** the passenger in 12C.
+  - 莉娜：我查一下名单。很抱歉，机上只有一份特殊餐，已经端给 12C 的乘客了。
+- **Fowler**：So there's nothing left for me?
+  - 福勒：那我这边就什么都没有了？
+- **Lena**：We still **serve** the standard dinner, and I can bring you the pasta without the meat sauce.
+  - 莉娜：我们还会供应标准晚餐，我可以给您端一份不加肉酱的意面。
+- **Fowler**：That works. And could I have a glass of water first?
+  - 福勒：行。能先给我来杯水吗？
+- **Lena**：Of course. I'll **serve** it **to** you right away.
+  - 莉娜：当然，我马上给您端过来。
+- **Fowler**：Thanks. What about drinks for the rest of the cabin?
+  - 福勒：谢谢。其他乘客的饮料怎么安排？
+- **Lena**：We **serve** drinks after the meals, row by row, so nobody has to wait too long.
+  - 莉娜：餐后我们按排供应饮料，这样谁都不用等太久。
+- **Fowler**：Here's my tray. The pasta looks good.
+  - 福勒：我的餐盘来了。这意面看着不错。
+- **Lena**：I **served** it without the meat sauce, as we discussed. Enjoy your meal.
+  - 莉娜：按刚才说的，我端来的是不加肉酱的那份。请慢用。
+- **Fowler**：Thank you. You've been very helpful.
+  - 福勒：谢谢，你帮了大忙。
 
 </details>
 
