@@ -192,7 +192,7 @@ python3 skills/learn-from-english/scripts/learning_records.py delete-note --note
 
 ### 💬 一句话理解
 
-用自然中文说明英语在当前语境中的意思。存在歧义时，先给最可能的解释，再说明其他可能性。译文按说话人意图意译，不逐词对译：语气词按语用功能译，短语搭配按整体译，时长 / 地点状语归到所修饰的动作上；对话台词与故事段落的完整清单见 `skills/take-english-study-notes/references/note-format.md`「译文质量」。
+用自然中文说明英语在当前语境中的意思。存在歧义时，先给最可能的解释，再说明其他可能性。译文按说话人的交际功能意译，不逐词对译：先定这句在干什么，再找中文场景里的自然说法；对话台词与故事段落的三步自查清单见 `skills/take-english-study-notes/references/note-format.md`「译文质量」。
 
 ### 🔍 拆开来看
 
