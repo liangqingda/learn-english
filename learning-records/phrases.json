@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 313,
+  "revision": 314,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -1691,6 +1691,34 @@
       ],
       "first_learned_at": "2026-11-21T17:53:06+08:00",
       "last_learned_at": "2026-11-21T17:53:06+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:on-top-of-all-that": {
+      "id": "phrases:on-top-of-all-that",
+      "category": "phrases",
+      "key": "on-top-of-all-that",
+      "status": "learning",
+      "title": "on top of all that：除了这一切之外，还多一件（偏负面堆叠）",
+      "explanation": "on top of all that 是句首衔接用语，意思是「在刚说过的这一切之外，还多一件」，把新情况叠到已经够多的一堆事上。它属于 on top of + 指代成分 的固定框架：all that / all this / everything (else) / it all / that 都能填进指代位，整体作句子状语，通常放在句首并加逗号，也可以接在 and 之后引出最后一件。语气偏口语到中性，最常用来追加麻烦、代价、坏消息，形成「已经够糟，还来一件」的递进；追加正面消息也说得通（On top of that, they paid for the flight），但远不如负面语境常见。字面义（叠在上面）与引申义（再加上）几乎完全重合，因此母语者不会把它理解成空间位置。",
+      "source": "用户输入 \"on top of all that\"",
+      "example": "The car broke down, the hotel lost our booking, and on top of all that, it started to rain.",
+      "tags": [
+        "discourse-marker",
+        "linker",
+        "negative-stacking",
+        "spoken-english",
+        "stacking-metaphor"
+      ],
+      "first_learned_at": "2026-11-23T07:46:05+08:00",
+      "last_learned_at": "2026-11-23T07:46:05+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
