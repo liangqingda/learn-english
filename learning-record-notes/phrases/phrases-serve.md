@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>5</td></tr>
 <tr><td>下次复习</td><td>2026-11-25 11:53</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-22 11:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-22 15:56</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-22 16:00</td></tr>
 </table>
 
 ## 讲解
@@ -145,7 +145,7 @@
   - They serve breakfast from seven to eleven.（他们七点到十一点供应早餐）
 
 <details>
-<summary>故事原文 · 海边小馆重开张</summary>
+<summary>故事原文 1 · 海边小馆重开张</summary>
 
 On the first morning of June, Rosa unlocked the blue door of the little diner by the harbor. She had closed it for a whole winter to repair the old kitchen. Now the tables were clean, the chairs were new, and the whole street smelled of salt and coffee.
 
@@ -168,6 +168,34 @@ By nine the diner was full. Someone asked whether they served breakfast all day.
 | Tom `served` the fishermen their coffee | 汤姆把咖啡端给渔民，动作已完成 | 换成 serve coffee for the fishermen 就变成「替他们准备咖啡」，方向感消失 |
 | Tom `served` a bowl of hot soup `to` the little girl | 热汤递到小女孩手里，接受者要突出 | 用双宾也行，但把 to 留在句末更强调汤最终送到谁那里 |
 | they `serve` breakfast from seven to eleven | 说明常态营业时段 | 写成 serve breakfast for seven to eleven 会让人误以为「为七点到十一点准备」，时间关系错位 |
+
+</details>
+
+<details>
+<summary>故事原文 2 · 婚宴当天的传菜员</summary>
+
+The wedding started at noon, and by then the catering team had already been in the kitchen for six hours. Nina was the newest helper, and her job was simple and terrifying: take every plate out of the kitchen and hand it to the right table.
+
+<p class="noteTranslation">婚礼中午开始，那会儿宴会团队已经在厨房里忙了六个钟头。尼娜是资历最浅的帮工，她的活儿简单又吓人：把每一盘菜端出厨房，送到该去的桌上。</p>
+
+For the first course the head cook shouted the order over the noise. Nina `served` the soup `to` the older guests first, because they sat closest to the door, and then she `served` the children their small bowls. Nobody complained, and the head cook nodded once.
+
+<p class="noteTranslation">上第一道菜时，主厨在嘈杂声里喊了顺序。尼娜先把汤端给几位年长的客人，因为他们坐得离门口最近，然后才给孩子们端上小碗。没人抱怨，主厨点了点头。</p>
+
+The dinner plates were heavier. She carried two at a time, and the strap of her apron kept slipping. Halfway through, an aunt asked whether the venue `serves` any vegetarian dishes, and Nina went back to the chef for a proper answer.
+
+<p class="noteTranslation">晚餐的盘子沉得多。她一趟端两个，围裙带子老是滑下来。上到一半，一位阿姨问酒店有没有供应素菜，尼娜专门跑回厨房问了主厨才敢回答。</p>
+
+By ten the hall was quiet and the chairs were stacked against the wall. Nina sat on the kitchen steps with a cup of tea and watched the last plates dry. The head cook told her she had `served` nearly three hundred plates that day, and not one of them had landed on the wrong table.
+
+<p class="noteTranslation">到十点，宴会厅安静下来，椅子都堆到了墙边。尼娜坐在厨房台阶上捧着一杯茶，看最后一批盘子晾干。主厨告诉她，她那天端了将近三百个盘子，一个都没送错桌。</p>
+
+| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |
+|---|---|---|
+| Nina `served` the soup `to` the older guests | 汤端到年长客人手里，动作已完成 | 换成 served soup for the older guests 就变成「替他们备汤」，方向感消失 |
+| she `served` the children their small bowls | 双宾更紧凑，重点在「给他们上小份」 | 改成 for the children 会把动作读成代劳，丢掉端到手上的意思 |
+| the venue `serves` any vegetarian dishes | 询问酒店是否常年供应素菜 | 写成 serves for vegetarian dishes 结构不成立，serve 的宾语只能是食物或客人 |
+| she had `served` nearly three hundred plates | 统计当天端出的总量 | 换成 provided 只表示「提供」，丢掉了从厨房送到桌上的动作感 |
 
 </details>
 
