@@ -932,6 +932,26 @@ class NoteContentValidationTest(unittest.TestCase):
         )
         self.assert_caught(text, "一行串了多个独立要点")
 
+    def test_mixed_point_in_detail_step_is_rejected(self) -> None:
+        """要点步骤把第一条留在标签行、其余缩进成子项必须被拦下：标签行留空、要点全算子项。"""
+        mixed = "- **规则与机制**：第一条要点\n  - 第二条要点"
+        text = note_text().replace(
+            "- **规则与机制**：方位短语保持分写", mixed
+        )
+        self.assert_caught(text, "第一条要点留在标签行")
+
+    def test_all_sub_points_in_detail_step_pass(self) -> None:
+        """多个要点全部写成缩进子项、标签行留空时校验通过。"""
+        all_sub = (
+            "- **规则与机制**：\n"
+            "  - 第一条要点\n"
+            "  - 第二条要点\n"
+        )
+        text = note_text().replace(
+            "- **规则与机制**：方位短语保持分写", all_sub
+        )
+        self.assertEqual(self.check(text), [])
+
     def test_extra_demo_under_correct_answer_is_rejected(self) -> None:
         """正确表达下面挂缩进例句必须被拦下，换场景例句应放到同级举一反三步骤。"""
         error_block = (

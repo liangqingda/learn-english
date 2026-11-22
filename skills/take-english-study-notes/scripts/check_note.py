@@ -1966,6 +1966,13 @@ def check(path: Path) -> list[dict]:
                                 f"`{step_label}` 一行串了多个独立要点：每条要点拆成两个空格缩进的子项（`  - …`），"
                                 "一条一点，不要用 `；` 同行串接",
                             )
+                        if step_label in POINT_STEP_LABELS and inline_text and step["sub_items"]:
+                            add(
+                                base_line,
+                                f"`{step_label}` 不要把第一条要点留在标签行、其余写成缩进子项："
+                                "多个要点时标签行留空，每条要点都写成两个空格缩进的子项（`  - …`）；"
+                                "只有一条要点时才写在标签行上",
+                            )
                         if step_label == "举一反三":
                             if inline_text:
                                 add(

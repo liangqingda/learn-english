@@ -251,7 +251,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>知识点讲解</summary>
 
 - **本题知识点**：serve 表示餐厅、酒店等供应某类食物或饮料。
-- **规则与机制**：serve 的主语是供餐方，宾语是食物或饮料，常见结构为 `serve + 食物 + 时间状语`。
+- **规则与机制**：
+  - serve 的主语是供餐方，宾语是食物或饮料，常见结构为 `serve + 食物 + 时间状语`。
   - 也可以写成被动 `Breakfast is served from seven to ten`，意思是「七点到十点供应早餐」。
 - **英语的表达逻辑**：英语把这个动作看成供餐方提供食物，重心落在供应行为本身，而不是客人拿到食物，所以被动句的主语是 breakfast。
 - **举一反三**：
@@ -272,7 +273,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>知识点讲解</summary>
 
 - **本题知识点**：`serve sth for sb` 里 for 的含义。
-- **规则与机制**：`for + 人` 表示「为某人准备、为某人安排」，服务的对象是受益者。
+- **规则与机制**：
+  - `for + 人` 表示「为某人准备、为某人安排」，服务的对象是受益者。
   - 把食物端给某个人要用 `to + 人` 或双宾 `serve sb sth`。
 - **英语的表达逻辑**：英语用不同介词区分受益与方向：for 标记受益者，to 标记接受者，所以 `served dinner for the children` 是替孩子们备好晚饭，端到他们手里要说 `served dinner to the children`。
 - **举一反三**：
@@ -285,7 +287,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>错题讲解</summary>
 
 - **考点**：for 与 to 在 serve 结构里的分工。
-- **为什么错**：把 `for the children` 理解成端到孩子手里，又用「端到桌子上」解释整句。
+- **为什么错**：
+  - 把 `for the children` 理解成端到孩子手里，又用「端到桌子上」解释整句。
   - for 既不表示方向，也不表示摆盘位置，它只说明这顿饭是为谁准备的。
 - **英语的表达逻辑**：介词决定名词在动作里的角色，for 是受益者，to 是接受者，方向由 to 承担。
 - **正确表达**：The cook served dinner for the children before the adults arrived.（厨师在大人到之前先给孩子们备好了晚饭）
@@ -306,9 +309,11 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <details>
 <summary>知识点讲解</summary>
 
-- **本题知识点**：serve 后面不能接 service。
+- **本题知识点**：
+  - serve 后面不能接 service。
   - 服务作名词时用 provide、offer 或 give。
-- **规则与机制**：serve 的宾语是食物、饮料或客人，service 是抽象名词，不能作 serve 的宾语。
+- **规则与机制**：
+  - serve 的宾语是食物、饮料或客人，service 是抽象名词，不能作 serve 的宾语。
   - 提供服务说 `provide / offer / give (good) service`。
 - **英语的表达逻辑**：英语避免同源词空转（serve service），让不同动词承担不同动作：serve 管端上与供应，provide 与 offer 管提供。
 - **举一反三**：
@@ -329,9 +334,11 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>知识点讲解</summary>
 
 - **本题知识点**：`serve sth to sb` 结构，以及过去叙事中的动词时态。
-- **规则与机制**：结构是 `serve + 物 + to + 人`。
+- **规则与机制**：
+  - 结构是 `serve + 物 + to + 人`。
   - at the end of the trip 指向已经结束的行程，动作已经发生，动词用过去式 served。
-- **英语的表达逻辑**：to 标记接受者，说明东西递到了谁手里。
+- **英语的表达逻辑**：
+  - to 标记接受者，说明东西递到了谁手里。
   - 时态跟随叙事时间，而不是跟随句子里的单复数。
 - **举一反三**：
   - The host served a cup of tea to each guest.（主人给每位客人端上一杯茶）
@@ -377,9 +384,11 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>知识点讲解</summary>
 
 - **本题知识点**：表示「负责某事」用 `be responsible for + 名词或动名词`。
-- **规则与机制**：serve 只能表示端上、供应、为客人服务，不能承担「负责」的义项。
+- **规则与机制**：
+  - serve 只能表示端上、供应、为客人服务，不能承担「负责」的义项。
   - `be served for` 在英语里没有对应含义，负责一项工作说 `be responsible for doing sth`。
-- **英语的表达逻辑**：英语给「负责」分配了独立的形容词 responsible，后面固定跟 for，再接具体事务。
+- **英语的表达逻辑**：
+  - 英语给「负责」分配了独立的形容词 responsible，后面固定跟 for，再接具体事务。
   - serve 的语义场里没有这一层。
 - **举一反三**：
   - The head chef is responsible for planning the weekly menu.（主厨负责制定每周菜单）
@@ -392,7 +401,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 
 - **考点**：负责某事的固定表达。
 - **为什么错**：把 be served for 里的 serve 换成了主动的 serves，仍然用 serve 承担负责这一义项，结构问题没有解决。
-- **英语的表达逻辑**：先确定动词义项，再选结构。
+- **英语的表达逻辑**：
+  - 先确定动词义项，再选结构。
   - serve 没有负责的含义，换成 responsible 才能接 for + 动名词。
 - **正确表达**：The head chef is responsible for planning the weekly menu.（主厨负责制定每周菜单）
 - **举一反三**：
@@ -414,9 +424,11 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <details>
 <summary>知识点讲解</summary>
 
-- **本题知识点**：serve breakfast from … to … 表达供餐时间。
+- **本题知识点**：
+  - serve breakfast from … to … 表达供餐时间。
   - terrace 表示露台。
-- **规则与机制**：`serve + 食物 + from 时间 to 时间` 表示供应时间段。
+- **规则与机制**：
+  - `serve + 食物 + from 时间 to 时间` 表示供应时间段。
   - terrace 是双 r 结构，结尾是 -race。
 - **英语的表达逻辑**：英语用 from … to … 直接把供餐起止时间挂在 serve 后面，不需要额外的时间介词。
 - **举一反三**：
@@ -507,7 +519,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>知识点讲解</summary>
 
 - **本题知识点**：分发印刷品用 hand out，serve 不承担分发义项。
-- **规则与机制**：`hand out + 物品 + to + 人` 表示一次性派发。
+- **规则与机制**：
+  - `hand out + 物品 + to + 人` 表示一次性派发。
   - serve 的宾语限定在食物、饮料和客人。
 - **英语的表达逻辑**：英语按「物品是否进入进食流程」分配动词：进入的用 serve，不进食物流程的用 hand out。
 - **举一反三**：
@@ -520,7 +533,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>错题讲解</summary>
 
 - **考点**：serve 的宾语限制。
-- **为什么错**：只把过去式 served 改成 serves，动词仍是 serve，宾语还是 leaflets。
+- **为什么错**：
+  - 只把过去式 served 改成 serves，动词仍是 serve，宾语还是 leaflets。
   - 时态也跟着错了，因为原句 at the main gate 是已发生的一次派发。
 - **英语的表达逻辑**：改错要先判断动词义项是否成立，义项不成立时换动词而不是改形态。
 - **正确表达**：The staff handed out leaflets to visitors at the main gate.（工作人员在大门口给来访者分发传单）
@@ -542,7 +556,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>知识点讲解</summary>
 
 - **本题知识点**：serve 的接受者用 to，dish up 的 for 不能照抄过来。
-- **规则与机制**：`serve sth to sb` 中 to 标记接受者。
+- **规则与机制**：
+  - `serve sth to sb` 中 to 标记接受者。
   - dish up 常与 for 连用，表示「为某人把菜盛出来」，转换成 serve 时 for 要换成 to。
 - **英语的表达逻辑**：换动词往往要一起换介词框架，介词不是可随意搬运的成分。
 - **举一反三**：
@@ -556,7 +571,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 
 - **考点**：serve 的介词结构。
 - **为什么错**：保留了 dish up 的 for，句子读成「替我们把意面盛出来」，端给我们的方向感消失。
-- **英语的表达逻辑**：for 标记受益，to 标记接受。
+- **英语的表达逻辑**：
+  - for 标记受益，to 标记接受。
   - serve 的动作方向指向接受者，因此用 to。
 - **正确表达**：The waiter served the pasta to us.（服务员把意面端给了我们）
 - **举一反三**：
@@ -577,7 +593,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>知识点讲解</summary>
 
 - **本题知识点**：serve 结构里的介词，以及 meal / food 与 dish 的区别。
-- **规则与机制**：`serve hot meals to sb` 中接受者用 to。
+- **规则与机制**：
+  - `serve hot meals to sb` 中接受者用 to。
   - dish 指具体的一道菜或盛菜的盘子，泛指一顿饭用 meal 或 food。
 - **英语的表达逻辑**：英语区分「一道菜」与「一顿饭」，泛称热饭用 hot meals，不用 hot dish。
 - **举一反三**：
@@ -590,7 +607,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>错题讲解</summary>
 
 - **考点**：serve 的接受者介词与 meal 的用词。
-- **为什么错**：用 for 引出接受者，方向感变成「替工人准备」。
+- **为什么错**：
+  - 用 for 引出接受者，方向感变成「替工人准备」。
   - 把一顿热饭写成 hot dish，让人以为只供应一道菜。
 - **英语的表达逻辑**：介词决定名词在动作里的角色，名词则决定「一道菜」还是「一顿饭」的量级。
 - **正确表达**：The small shop serves hot meals to the workers nearby every day.（这家小店每天给附近的工人供应热饭）
@@ -614,7 +632,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>知识点讲解</summary>
 
 - **本题知识点**：hand out 与 dish up 各自的宾语范围。
-- **规则与机制**：`hand out + 要发放的物品`。
+- **规则与机制**：
+  - `hand out + 要发放的物品`。
   - `dish up + 饭菜`，宾语是吃的东西本身，不能再用 dishes 这种盛器名词回指。
 - **英语的表达逻辑**：动词的宾语要落在动作真正作用的对象上：派发作用于试卷，盛菜作用于饭菜，不能落回容器。
 - **举一反三**：
@@ -661,7 +680,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>知识点讲解</summary>
 
 - **本题知识点**：serve 以人作宾语时，表示为客人服务、招待客人。
-- **规则与机制**：`serve + 人` 里的人是服务的对象，动作内容是招待，具体端什么并不出现在句子里。
+- **规则与机制**：
+  - `serve + 人` 里的人是服务的对象，动作内容是招待，具体端什么并不出现在句子里。
   - 要说明端上的物品，就要用双宾或 `serve sth to sb`。
 - **英语的表达逻辑**：英语允许同一个动词按宾语类型切换语义场：宾语是食物就落在供应上，宾语是人就落在招待上。
 - **举一反三**：
@@ -682,7 +702,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>知识点讲解</summary>
 
 - **本题知识点**：双宾结构里的主谓一致与一般现在时。
-- **规则与机制**：The flight attendants 是复数主语，一般现在时谓语用原形 serve。
+- **规则与机制**：
+  - The flight attendants 是复数主语，一般现在时谓语用原形 serve。
   - 双宾 `serve + 人 + 物` 保持不变。
 - **英语的表达逻辑**：英语的 -s 只加在第三人称单数主语上，复数主语一律用原形，时态由语境而不是词形单独决定。
 - **举一反三**：
@@ -695,7 +716,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>错题讲解</summary>
 
 - **考点**：复数主语的一般现在时形式，以及双宾结构的语序。
-- **为什么错**：把复数主语当作需要变形的主语，写成过去式 served。
+- **为什么错**：
+  - 把复数主语当作需要变形的主语，写成过去式 served。
   - 句子的语境是每次起飞前的常规流程，不是已经发生的过去事件。
 - **英语的表达逻辑**：主谓一致决定单复数形式，时间状语与叙事语境决定时态，两者不能互相替代。
 - **正确表达**：The flight attendants serve each passenger a small warm towel before takeoff.（乘务员在起飞前给每位乘客一条热毛巾）
@@ -717,7 +739,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>知识点讲解</summary>
 
 - **本题知识点**：过去叙事中的谓语时态。
-- **规则与机制**：Last night 把事件固定在过去，谓语用过去式 served。
+- **规则与机制**：
+  - Last night 把事件固定在过去，谓语用过去式 served。
   - 第三人称单数的 -s 只在一般现在时出现。
 - **英语的表达逻辑**：英语用时间状语和谓语形态共同标定事件时间，过去时间状语要求谓语同步变成过去式。
 - **举一反三**：
@@ -738,7 +761,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>知识点讲解</summary>
 
 - **本题知识点**：双宾结构转 `serve sth to sb` 结构。
-- **规则与机制**：直接宾语 a traditional dessert 提前后，间接宾语 the guests 由 to 引出。
+- **规则与机制**：
+  - 直接宾语 a traditional dessert 提前后，间接宾语 the guests 由 to 引出。
   - serve 属于 to 组动词，不用 for。
 - **英语的表达逻辑**：英语用 to 标记接受者、用 for 标记受益者，动词归属于哪一组决定了转换时的介词。
 - **举一反三**：
@@ -792,7 +816,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>知识点讲解</summary>
 
 - **本题知识点**：`serve sth to sb` 结构与并列句，以及定冠词特指前文提到的人群。
-- **规则与机制**：第二次出现、且指前文已经明确的群体时，复数名词前用 the：the adults。
+- **规则与机制**：
+  - 第二次出现、且指前文已经明确的群体时，复数名词前用 the：the adults。
   - 不限定的大人可以写 some adults。
 - **英语的表达逻辑**：英语用冠词区分「任意的大人」与「当时在场的那几位大人」，上下文已经锁定的对象要用 the。
 - **举一反三**：
