@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 308,
+  "revision": 309,
   "category": "grammar",
   "records": {
     "grammar:a-bit-of-a-singular-countable": {
@@ -1266,6 +1266,32 @@
       "mastered_at": null,
       "review_history": [],
       "key": "shouldnt-negative-expectation"
+    },
+    "grammar:simple-past-in-past-narration": {
+      "id": "grammar:simple-past-in-past-narration",
+      "category": "grammar",
+      "key": "simple-past-in-past-narration",
+      "status": "learning",
+      "title": "过去叙事句里的动词时态（serves → served）",
+      "explanation": "叙事时间落在过去（at the end of the trip 是已结束的行程）时，主句谓语要用过去式，不能因为主语是第三人称单数就保留一般现在时的 -s。",
+      "source": "serves \\ for（第 4 题填空作答：serves a small bag of local tea for each visitor）",
+      "example": "The tour guide served a small bag of local tea to each visitor at the end of the trip.",
+      "tags": [
+        "past-narrative",
+        "review-error",
+        "tense"
+      ],
+      "first_learned_at": "2026-11-22T11:53:24+08:00",
+      "last_learned_at": "2026-11-22T11:53:24+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "grammar:since-then-perfect-tense": {
       "id": "grammar:since-then-perfect-tense",

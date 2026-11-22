@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 308,
+  "revision": 309,
   "category": "vocabulary",
   "records": {
     "vocabulary:a-little-bit": {
@@ -1100,6 +1100,32 @@
       ],
       "first_learned_at": "2026-11-08T16:21:04+08:00",
       "last_learned_at": "2026-11-08T16:21:04+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "vocabulary:terrace": {
+      "id": "vocabulary:terrace",
+      "category": "vocabulary",
+      "key": "terrace",
+      "status": "learning",
+      "title": "terrace 的拼写（tennace → terrace）",
+      "explanation": "terrace 表示露台，双 r 结构、结尾 -ace，读作 /ˈterəs/；拼写要按音节记 ter-race，漏掉第二个 r 就变成错误词形 tennace。",
+      "source": "The guests love to have breakfast at the tennace.",
+      "example": "The guests love to have breakfast on the terrace.",
+      "tags": [
+        "place-word",
+        "review-error",
+        "spelling"
+      ],
+      "first_learned_at": "2026-11-22T11:53:24+08:00",
+      "last_learned_at": "2026-11-22T11:53:24+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,
