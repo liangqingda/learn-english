@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-19 07:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-22 10:33</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-22 10:46</td></tr>
 </table>
 
 ## 讲解
@@ -137,7 +137,7 @@
 - **Marta**：Classic. Shall we split a pot of tea and forget about it for ten minutes?
   - 玛塔：果然又是这套。咱俩合点一壶茶，先别想这些，歇十分钟？
 - **Dev**：Yes. And if anyone knocks, we're in a meeting.
-  - 德夫：要。要是有人敲门，就说我们在开会。
+  - 德夫：好啊。要是有人敲门，就说我们在开会。
 
 </details>
 
