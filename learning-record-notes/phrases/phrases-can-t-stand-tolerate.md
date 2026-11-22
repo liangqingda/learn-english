@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>1</td></tr>
 <tr><td>下次复习</td><td>2026-11-21 20:15</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-19 07:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-22 09:53</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-22 10:33</td></tr>
 </table>
 
 ## 讲解
@@ -91,7 +91,7 @@
 - **Mei**：Morning! Did you catch the eight fifteen today?
   - 梅：早！你今天赶上八点十五那班了吗？
 - **Dan**：Barely. The line at the subway station wrapped around the block again.
-  - 丹：勉强赶上。地铁站的队伍又绕了半条街。
+  - 丹：勉强赶上。地铁站的队伍又绕着街区排了一整圈。
 - **Mei**：Yeah, it took me twenty minutes just to get through the gates.
   - 梅：是啊，我光过闸机就排了二十分钟。
 - **Dan**：I know. I **can't stand it when people push past you without saying sorry**.
@@ -135,7 +135,7 @@
 - **Dev**：He laughed and said the cleaner would sort it out. That was three weeks ago.
   - 德夫：他笑了一下，说保洁会处理。那是三个星期前的事了。
 - **Marta**：Classic. Shall we split a pot of tea and forget about it for ten minutes?
-  - 玛塔：太典型了。要不要分一壶茶，先忘掉这些十分钟？
+  - 玛塔：果然又是这套。咱俩合点一壶茶，先别想这些，歇十分钟？
 - **Dev**：Yes. And if anyone knocks, we're in a meeting.
   - 德夫：要。要是有人敲门，就说我们在开会。
 
