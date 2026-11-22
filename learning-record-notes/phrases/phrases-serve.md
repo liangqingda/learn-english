@@ -84,9 +84,9 @@
   - <span class="noteTranslation">丹：那现在端出来，放到窗边那张长桌上。</span>
 - **Mia**：Got it. And what about the tea and coffee?
   - <span class="noteTranslation">米娅：好。那茶和咖啡呢？</span>
-- **Dan**：We **serve** them **to** every guest at their table, not at the buffet.
+- **Dan**：We `serve` them `to` every guest at their table, not at the buffet.
   - <span class="noteTranslation">丹：茶和咖啡是我们端到客人桌上去的，不放自助台。</span>
-- **Mia**：So I **serve** the tea **to** them after they sit down?
+- **Mia**：So I `serve` the tea `to` them after they sit down?
   - <span class="noteTranslation">米娅：那就是等客人坐下以后，把茶端给他们？</span>
 - **Dan**：Exactly. One cup first, then ask if they want a refill.
   - <span class="noteTranslation">丹：对。先上一杯，再问要不要续。</span>
@@ -96,7 +96,7 @@
   - <span class="noteTranslation">丹：客气地说明，然后推荐我们确实供应的最接近的替代品。</span>
 - **Guest**：Excuse me, is the hot milk out yet?
   - <span class="noteTranslation">客人：打扰一下，热牛奶上了吗？</span>
-- **Mia**：Not yet, but I'll **serve** it **to** you in a moment.
+- **Mia**：Not yet, but I'll `serve` it `to` you in a moment.
   - <span class="noteTranslation">米娅：还没，不过我马上给您端过来。</span>
 - **Guest**：Thanks. Could I have some toast as well?
   - <span class="noteTranslation">客人：谢谢。还能再来点吐司吗？</span>
@@ -112,23 +112,23 @@
   - <span class="noteTranslation">莉娜：晚上好，先生。我们大约二十分钟后开始供餐。</span>
 - **Fowler**：Do you have the vegetarian meal I requested?
   - <span class="noteTranslation">福勒：我订的素食餐有吗？</span>
-- **Lena**：Let me check the list. I'm afraid there's only one special meal on board, and it was already **served to** the passenger in 12C.
+- **Lena**：Let me check the list. I'm afraid there's only one special meal on board, and it was already `served to` the passenger in 12C.
   - <span class="noteTranslation">莉娜：我查一下名单。很抱歉，机上只有一份特殊餐，已经端给 12C 的乘客了。</span>
 - **Fowler**：So there's nothing left for me?
   - <span class="noteTranslation">福勒：那我这边就什么都没有了？</span>
-- **Lena**：We still **serve** the standard dinner, and I can bring you the pasta without the meat sauce.
+- **Lena**：We still `serve` the standard dinner, and I can bring you the pasta without the meat sauce.
   - <span class="noteTranslation">莉娜：我们还会供应标准晚餐，我可以给您端一份不加肉酱的意面。</span>
 - **Fowler**：That works. And could I have a glass of water first?
   - <span class="noteTranslation">福勒：行。能先给我来杯水吗？</span>
-- **Lena**：Of course. I'll **serve** it **to** you right away.
+- **Lena**：Of course. I'll `serve` it `to` you right away.
   - <span class="noteTranslation">莉娜：当然，我马上给您端过来。</span>
 - **Fowler**：Thanks. What about drinks for the rest of the cabin?
   - <span class="noteTranslation">福勒：谢谢。其他乘客的饮料怎么安排？</span>
-- **Lena**：We **serve** drinks after the meals, row by row, so nobody has to wait too long.
+- **Lena**：We `serve` drinks after the meals, row by row, so nobody has to wait too long.
   - <span class="noteTranslation">莉娜：餐后我们按排供应饮料，这样谁都不用等太久。</span>
 - **Fowler**：Here's my tray. The pasta looks good.
   - <span class="noteTranslation">福勒：我的餐盘来了。这意面看着不错。</span>
-- **Lena**：I **served** it without the meat sauce, as we discussed. Enjoy your meal.
+- **Lena**：I `served` it without the meat sauce, as we discussed. Enjoy your meal.
   - <span class="noteTranslation">莉娜：按刚才说的，我端来的是不加肉酱的那份。请慢用。</span>
 - **Fowler**：Thank you. You've been very helpful.
   - <span class="noteTranslation">福勒：谢谢，你帮了大忙。</span>
@@ -157,19 +157,19 @@ Her son, Tom, was nervous. He had never worked in the diner before, and he kept 
 
 <p class="noteTranslation">儿子汤姆有点紧张。他从没在小馆里干过活，一直问哪个盘子该放哪儿。罗莎只告诉他一条最要紧的规矩：谁先坐下就先招待谁，每一盘菜都得送到对的人手上。</p>
 
-At half past seven the first guests arrived: two fishermen and a young family. Tom **served** the fishermen their coffee, and then **served** a bowl of hot soup **to** the little girl, who was cold from the wind. Rosa watched from the kitchen and said nothing.
+At half past seven the first guests arrived: two fishermen and a young family. Tom `served` the fishermen their coffee, and then `served` a bowl of hot soup `to` the little girl, who was cold from the wind. Rosa watched from the kitchen and said nothing.
 
 <p class="noteTranslation">七点半，头一批客人进门了：两个渔民和一家人。汤姆先给渔民端上咖啡，又给那个被风吹得发冷的小女孩端了一碗热汤。罗莎在厨房里看着，一句话也没说。</p>
 
-By nine the diner was full. Someone asked whether they served breakfast all day. Rosa answered from behind the counter that they **serve** breakfast from seven to eleven, and lunch after that. When the last plate was cleared, Tom finally smiled.
+By nine the diner was full. Someone asked whether they served breakfast all day. Rosa answered from behind the counter that they `serve` breakfast from seven to eleven, and lunch after that. When the last plate was cleared, Tom finally smiled.
 
 <p class="noteTranslation">到九点，小馆已经坐满了。有人问他们是不是全天都供应早餐。罗莎在柜台后面回答，他们七点到十一点供应早餐，之后是午餐。等最后一只盘子收走，汤姆终于笑了。</p>
 
 | 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |
 |---|---|---|
-| Tom **served** the fishermen their coffee | 汤姆把咖啡端给渔民，动作已完成 | 换成 serve coffee for the fishermen 就变成「替他们准备咖啡」，方向感消失 |
-| Tom **served** a bowl of hot soup **to** the little girl | 热汤递到小女孩手里，接受者要突出 | 用双宾也行，但把 to 留在句末更强调汤最终送到谁那里 |
-| they **serve** breakfast from seven to eleven | 说明常态营业时段 | 写成 serve breakfast for seven to eleven 会让人误以为「为七点到十一点准备」，时间关系错位 |
+| Tom `served` the fishermen their coffee | 汤姆把咖啡端给渔民，动作已完成 | 换成 serve coffee for the fishermen 就变成「替他们准备咖啡」，方向感消失 |
+| Tom `served` a bowl of hot soup `to` the little girl | 热汤递到小女孩手里，接受者要突出 | 用双宾也行，但把 to 留在句末更强调汤最终送到谁那里 |
+| they `serve` breakfast from seven to eleven | 说明常态营业时段 | 写成 serve breakfast for seven to eleven 会让人误以为「为七点到十一点准备」，时间关系错位 |
 
 </details>
 

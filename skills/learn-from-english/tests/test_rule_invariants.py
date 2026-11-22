@@ -275,7 +275,7 @@ class MenuItemNoteTest(unittest.TestCase):
         index = text.index(marker)
         explain = (
             "\n## 讲解\n\n**错误机制**：\n\n- 一条机制\n\n"
-            "**可迁移表达**：\n\n- `There is a price to pay.`（总要付出代价。）\n"
+            "**可迁移表达**：\n\n- There is a price to pay.（总要付出代价。）\n"
         )
         return text[:index] + explain + ("\n" + section if section else "") + text[index:]
 
@@ -477,7 +477,7 @@ class MenuItemNoteTest(unittest.TestCase):
         )
         story_block = (
             "<details>\n<summary>故事原文 · 代价</summary>\n\n"
-            f"{body}\n\n（第 1 段译文）\n\n"
+            f"{body}\n\n<p class=\"noteTranslation\">第 1 段译文</p>\n\n"
             "| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |\n"
             "|---|---|---|\n"
             "| 第 1 段 | 提醒代价 | 固定搭配 |\n\n"
