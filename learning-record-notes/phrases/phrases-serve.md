@@ -72,8 +72,7 @@
 1. **本题知识点**：serve 表示餐厅、酒店等供应某类食物或饮料。
 2. **规则与机制**：serve 的主语是供餐方，宾语是食物或饮料，常见结构为 `serve + 食物 + 时间状语`；也可以写成被动 `Breakfast is served from seven to ten`，意思是「七点到十点供应早餐」。
 3. **英语的表达逻辑**：英语把这个动作看成供餐方提供食物，重心落在供应行为本身，而不是客人拿到食物，所以被动句的主语是 breakfast。
-4. **可迁移表达**：The café serves soup and sandwiches all day.（这家咖啡店全天供应汤和三明治）
-   - Dinner is served from six to nine.（晚餐六点到九点供应）
+4. **可迁移表达**：The café serves soup and sandwiches all day.（这家咖啡店全天供应汤和三明治）／Dinner is served from six to nine.（晚餐六点到九点供应）
 
 </details>
 
@@ -91,8 +90,7 @@
 1. **本题知识点**：`serve sth for sb` 里 for 的含义。
 2. **规则与机制**：`for + 人` 表示「为某人准备、为某人安排」，服务的对象是受益者；把食物端给某个人要用 `to + 人` 或双宾 `serve sb sth`。
 3. **英语的表达逻辑**：英语用不同介词区分受益与方向：for 标记受益者，to 标记接受者，所以 `served dinner for the children` 是替孩子们备好晚饭，端到他们手里要说 `served dinner to the children`。
-4. **可迁移表达**：She cooked a special meal for the guests.（她为客人做了一顿特别的饭）
-   - She served the special meal to the guests.（她把那顿特别的饭端给了客人）
+4. **可迁移表达**：She cooked a special meal for the guests.（她为客人做了一顿特别的饭）／She served the special meal to the guests.（她把那顿特别的饭端给了客人）
 
 </details>
 
@@ -120,8 +118,7 @@
 1. **本题知识点**：serve 后面不能接 service；服务作名词时用 provide、offer 或 give。
 2. **规则与机制**：serve 的宾语是食物、饮料或客人，service 是抽象名词，不能作 serve 的宾语；提供服务说 `provide / offer / give (good) service`。
 3. **英语的表达逻辑**：英语避免同源词空转（serve service），让不同动词承担不同动作：serve 管端上与供应，provide 与 offer 管提供。
-4. **可迁移表达**：The hotel provides excellent service.（这家酒店提供优质服务）
-   - They offer free Wi-Fi to all guests.（他们向所有客人提供免费无线网络）
+4. **可迁移表达**：The hotel provides excellent service.（这家酒店提供优质服务）／They offer free Wi-Fi to all guests.（他们向所有客人提供免费无线网络）
 
 </details>
 
@@ -139,8 +136,7 @@
 1. **本题知识点**：`serve sth to sb` 结构，以及过去叙事中的动词时态。
 2. **规则与机制**：结构是 `serve + 物 + to + 人`；at the end of the trip 指向已经结束的行程，动作已经发生，动词用过去式 served。
 3. **英语的表达逻辑**：to 标记接受者，说明东西递到了谁手里；时态跟随叙事时间，而不是跟随句子里的单复数。
-4. **可迁移表达**：The host served a cup of tea to each guest.（主人给每位客人端上一杯茶）
-   - Last night the waiter served the dessert to the children.（昨晚服务员把甜点端给了孩子们）
+4. **可迁移表达**：The host served a cup of tea to each guest.（主人给每位客人端上一杯茶）／Last night the waiter served the dessert to the children.（昨晚服务员把甜点端给了孩子们）
 
 </details>
 
@@ -178,8 +174,7 @@
 1. **本题知识点**：表示「负责某事」用 `be responsible for + 名词或动名词`。
 2. **规则与机制**：serve 只能表示端上、供应、为客人服务，不能承担「负责」的义项；`be served for` 在英语里没有对应含义，负责一项工作说 `be responsible for doing sth`。
 3. **英语的表达逻辑**：英语给「负责」分配了独立的形容词 responsible，后面固定跟 for，再接具体事务；serve 的语义场里没有这一层。
-4. **可迁移表达**：The head chef is responsible for planning the weekly menu.（主厨负责制定每周菜单）
-   - She is responsible for training new staff.（她负责培训新员工）
+4. **可迁移表达**：The head chef is responsible for planning the weekly menu.（主厨负责制定每周菜单）／She is responsible for training new staff.（她负责培训新员工）
 
 </details>
 
@@ -209,8 +204,7 @@
 1. **本题知识点**：serve breakfast from … to … 表达供餐时间；terrace 表示露台。
 2. **规则与机制**：`serve + 食物 + from 时间 to 时间` 表示供应时间段；terrace 是双 r 结构，结尾是 -race。
 3. **英语的表达逻辑**：英语用 from … to … 直接把供餐起止时间挂在 serve 后面，不需要额外的时间介词。
-4. **可迁移表达**：This restaurant serves hot soup and sandwiches all day.（这家餐厅全天供应热汤和三明治）
-   - We had dinner on the terrace.（我们在露台上吃了晚饭）
+4. **可迁移表达**：This restaurant serves hot soup and sandwiches all day.（这家餐厅全天供应热汤和三明治）／We had dinner on the terrace.（我们在露台上吃了晚饭）
 
 </details>
 
