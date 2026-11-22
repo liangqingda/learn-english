@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>5</td></tr>
 <tr><td>下次复习</td><td>2026-11-25 11:53</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-22 11:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-22 17:57</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-22 20:32</td></tr>
 </table>
 
 ## 讲解
@@ -223,6 +223,28 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <!-- practice-index -->
 - [2026-11-22 17:57 · 复习](#practice-2026-11-22-1757-dca3cb92)
 <!-- /practice-index -->
+
+## 📚 扩展「serve 端上、供应（食物与饮料）」相关词汇和搭配
+
+💡 **讲解要点**：
+
+- serve 的常规宾语只有三类：三餐、饮料与具体食物、客人；三餐名词前不加冠词，也不加 a。
+  - The hotel serves breakfast from seven to ten.（酒店七点到十点供应早餐）
+  - They serve customers in five languages.（他们用五种语言接待客人）
+- serve 的抽象义项同样是 serve，只把宾语换成用途、期限、通知：`serve a purpose` 有用途、`serve time` 服刑、`serve notice` 送达通知。
+  - The old shed still serves a purpose as a tool store.（那间旧棚子还当工具间用，仍有用途）
+  - He served two years for the theft.（他因那起盗窃服了两年刑）
+- 表示充当某个角色用 `serve as + 名词`，动词后面直接接角色名词，不再叠一个 to do 结构。
+  - She served as the head waiter for three years.（她当了三年领班服务员）
+- 派生词分四路：`server` 是服务员或服务器、`service` 是服务或服役、`serving` 是一份食物的量、`served` 只作过去式或过去分词。
+  - This serving is too large for one child.（这一份对小孩来说太多了）
+- 名词搭配把「服务」压成复合名词而不是动宾结构：`room service` 客房送餐、`food service` 餐饮服务、`service charge` 服务费、`self-service` 自助（形容词，只修饰名词）。
+  - Room service is available until midnight.（客房送餐服务到午夜）
+  - The service charge is already included.（服务费已经含在内）
+- 口语 `serve sb right` 是「某人活该」，带明显评价语气，只用于熟人玩笑或抱怨，不进正式书面。
+  - It serves him right for lying.（他撒谎，活该）
+- service 也能作动词，但意思是保养、维修，不是端上食物。
+  - The garage services electric cars too.（这家修理厂也保养电动车）
 
 # 2026-11-22 11:53 · 复习
 
