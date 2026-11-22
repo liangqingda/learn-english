@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>4</td></tr>
 <tr><td>下次复习</td><td>2026-11-13 21:01</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-22 11:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-22 11:54</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-22 13:14</td></tr>
 </table>
 
 ## 讲解
@@ -42,6 +42,23 @@
 <!-- round-index -->
 - [2026-11-22 11:53 · 复习](#round-2026-11-22-1153)
 <!-- /round-index -->
+
+## 🧩 练习「serve 端上、供应（食物与饮料）」的关键语法结构
+
+💡 **讲解要点**：
+- serve 的核心句式有三种：`serve + 食物`、`serve + 人 + 食物`、`serve + 食物 + to + 人`。
+  - The hotel serves breakfast.（这家酒店供应早餐）
+  - The waiter served me a cup of tea.（服务员给我端了一杯茶）
+  - The waiter served a cup of tea to me.（服务员给我端了一杯茶）
+- 双宾转 to 结构时直接宾语提前，接受者前加 to；serve 与 give、hand、show、offer 同属 to 组动词。
+  - She gave the keys to the manager.（她把钥匙交给了经理）
+  - He handed the receipt to the customer.（他把收据递给了顾客）
+- for 组动词（buy、cook、make）表示「为某人做」，换成 to 会改变语义；serve 不属于这一组。
+  - She cooked a meal for the guests.（她给客人做了一顿饭）
+- 食物作主语时用被动 be served，主动语态的主语只能是供餐方。
+  - Dinner is served at seven.（晚餐七点开席）
+- 时态跟随叙事时间：过去叙事一律用 served，不因主语单数保留 -s。
+  - Last night the waiter served the guests the soup.（昨晚服务员给客人上了汤）
 
 # 2026-11-22 11:53 · 复习
 
