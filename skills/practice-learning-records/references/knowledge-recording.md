@@ -28,7 +28,7 @@ python3 skills/learn-from-english/scripts/learning_records.py batch-upsert --inp
 
 记录边界：
 
-- 记录 `go ahead with`、`move on to`、`continue along` 这类新搭配，或一个新语法/用法差异。
+- 记录新的稳定搭配、新语法点或新用法差异（搭配示例：动词+介词类短语，如 `go ahead with`、`move on to`；示例不穷举，同类新短语按同一标准入库）。
 - 不记录只是重复当前复习记录的规则、普通例句改写、临时练习题、完整示例对话台词、发音提示或用户尚未提交答案的题目。
 - 若一次扩展讲到多个紧密相关的新知识点，合并为一次 `batch-upsert` 批量写入；每条记录使用稳定语义 `key`，选择 `vocabulary`、`phrases`、`grammar` 或 `usage`，不要为了普通新知识点使用 `errors`。
 - `source` 与 `example` 的取句边界：`source` 用本轮讲解里自己讲的那句原句（讲解中真正说明搭配或语法机制的那个句子），`example` 用一句正确、可迁移的代表句。不要拿练习题干、更不要拿用户的作答当 `source` 或 `example` —— 题目和用户答案只属于本轮练习与错题记录（错题记录按判型可能落在 `vocabulary` / `phrases` / `grammar` / `usage`，见 `AGENTS.md`），写进讲解记录会把讲解变成贴着用户答案转述，讲不清搭配本身。`tags` 默认 `["follow-up-learning"]`。

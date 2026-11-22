@@ -74,10 +74,10 @@ description: 当用户发送英文单词、短语、句子、段落、对话、�
 
 先搜后写要真的搜得着，因此下面四条是硬约束：
 
-- 搜索词取**核心表达**，不要带修饰词：讲 `can't stand` 就搜 `can't stand`，不要搜 `cant stand doing sth`。整句没逐字命中时 `search` 会自动按词兜底（返回里 `matched_tokens` 标明命中了哪几个词），但结果会变长变散，核心表达仍是首选查询。
-- 同一表达的旧 `key` 可能有两种写法（`can-t-stand-tolerate` 与 `cant-stand-doing`），搜到任意一种都算命中，直接复用那条记录的 `id`，不要为「另一种写法」新建记录。
+- 搜索词取**核心表达**，不带修饰词：用表达本身做查询，不把搭配成分、句式或例句骨架带进关键词。整句没逐字命中时 `search` 会自动按词兜底（返回里 `matched_tokens` 标明命中了哪几个词），但结果会变长变散，核心表达仍是首选查询。（示例：讲 `can't stand` 搜 `can't stand`，而不是 `cant stand doing sth`。）
+- 同一表达的历史 `key` 可能因撇号、连字符写法不同而有多种 slug 形式；搜到任意一种都算命中，直接复用那条记录的 `id`，不要为「另一种写法」新建记录。（示例：`can't stand` 家族历史上出现过 `can-t-stand-tolerate` 与 `cant-stand-doing` 两种 slug。）
 - `batch-upsert` 的结果里出现 `possible_duplicates` 时，说明同分类已有标题很像的记录：先核对是不是同一个知识点；是就改用既有 `id` 重新提交，确认不是才保留新 `key`，并在回复里说明为什么不合并。不处理这条提示就继续写，等于又造一份重复笔记。
-- `key` 里的撇号一律压掉（`can't` → `cant`），不要把撇号拆成独立字母段写成 `can-t-stand`；两种写法会让同一表达在检索里变成两条。
+- `key` 里的撇号一律压掉，不要把撇号拆成独立连字符字母段；两种 slug 写法会让同一表达在检索里变成两条。（示例：`can't` → `cant`，而不是 `can-t-stand`。）
 
 已经写重的两条记录用 `merge --target <保留的 id> --source <被并入的 id>` 合并（同分类、保留复习历史与状态），合并后按 `delete-note --note <被并入的笔记> --keep-record` 删掉那份多余笔记，不要手工 `rm`。
 
