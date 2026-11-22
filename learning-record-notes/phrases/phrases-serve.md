@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>5</td></tr>
 <tr><td>下次复习</td><td>2026-11-25 11:53</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-22 11:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-22 20:35</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-22 20:48</td></tr>
 </table>
 
 ## 讲解
@@ -274,6 +274,11 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 - ❌ The hotel offers a room service. → ✅ The hotel offers room service.（复合名词不可数，不加 a）
 - ❌ The garage serves my car every spring. → ✅ The garage services my car every spring.（保养、维修用 service 作动词）
 
+复习历史：
+<!-- practice-index -->
+- [2026-11-22 20:47 · 复习](#practice-2026-11-22-2047-ab5825b9)
+<!-- /practice-index -->
+
 # 2026-11-22 11:53 · 复习
 
 ## 本轮习题 <a id="round-2026-11-22-1153"></a>
@@ -497,6 +502,241 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 - **举一反三**：
   - They served coffee on the hotel terrace.（他们在酒店露台上供应咖啡）
   - We sat and had tea on the terrace.（我们坐在露台上喝茶）
+
+</details>
+
+
+## 📚 扩展「serve 端上、供应（食物与饮料）」相关词汇和搭配 <a id="practice-2026-11-22-2047-ab5825b9"></a>
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>生成时间</td><td>2026-11-22 20:47</td></tr>
+<tr><td>本轮得分</td><td>5 / 10</td></tr>
+<tr><td>题量与错题数</td><td>6 题 / 6 处错误</td></tr>
+</table>
+
+### 1. 单项选择
+
+**题目**：The old kitchen still ____ a useful purpose: we keep all the tools in it.
+- A. serves
+- B. services
+- C. servings
+- D. served
+
+**我的答案**：A
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+- **本题知识点**：`serve a purpose` 表示「有用途、起作用」。
+- **规则与机制**：serve 在这里接抽象名词 purpose，句式仍是 serve + 宾语，一般现在时第三人称单数加 -s。
+- **英语的表达逻辑**：serve 的核心义是「对某人或某物有用处」，对象从食物换成用途后句式不变。
+- **举一反三**：
+  - Kind words can serve a purpose too.（好话也能起一点作用）
+  - This second key serves a purpose as a spare.（第二把钥匙是备用的，也有它的用处）
+
+</details>
+
+### 2. 填空
+
+**题目**：用 serve、service、serving、server 的正确形式填空。
+1. The garage ____ electric cars as well as petrol ones.
+2. This ____ is too big for one child.
+
+**我的答案**：
+- serves
+- service
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+- **本题知识点**：serve、service、serving 三个同族词的分工。
+- **规则与机制**：
+  - service 作动词是保养、维修设备
+  - serve 作动词才是端上、供应、接待
+  - serving 作名词是一份食物的量
+- **英语的表达逻辑**：同一词根靠词尾变化承担不同的语法岗位，动作与实体各用各的形式。
+- **举一反三**：
+  - The garage services bikes as well as cars.（这家修理厂也保养自行车）
+  - A small serving of rice is enough for her.（一小份米饭对她来说就够了）
+
+</details>
+
+<details>
+<summary>错题讲解 1</summary>
+
+- **考点**：service 作动词表示保养、维修。
+- **为什么错**：把汽车保养写成 serve，而 serve 的宾语只限食物、饮料、客人或用途，修车不在其中。
+- **英语的表达逻辑**：service 作动词专指维护保养，与端菜属于两个语义场。
+- **正确表达**：The garage services electric cars as well as petrol ones.（这家修理厂也保养电动车，不光保养汽油车）
+- **举一反三**：
+  - She services the coffee machine every month.（她每个月保养一次咖啡机）
+  - The shop services printers on site.（这家店上门保养打印机）
+
+</details>
+
+<details>
+<summary>错题讲解 2</summary>
+
+- **考点**：serving 作名词表示一份的量。
+- **为什么错**：填了 service 当份量用，而 service 指服务或服役，不能指盘里的量。
+- **英语的表达逻辑**：动名词转化来的 serving 自带「一次盛出来的量」，计量份量正好用它。
+- **正确表达**：This serving is too big for one child.（这一份对小孩来说太多了）
+- **举一反三**：
+  - The pasta serving was smaller than the photo.（那份意面比照片上小）
+  - Two servings of soup came with the set meal.（套餐带两份汤）
+
+</details>
+
+### 3. 语境判断
+
+**题目**：It serves him right. 这句话最接近哪个意思？
+- A. 他活该
+- B. 他受到了应有的服务
+- C. 他的工作很到位
+- D. 他该被提拔了
+
+**我的答案**：A
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+- **本题知识点**：`serve sb right` 是「某人活该」的口语说法。
+- **规则与机制**：固定结构是 serve + 人 + right，主语多为 it 或 that，评价对方遭遇的事是自找的。
+- **英语的表达逻辑**：right 表示「应得」，serve 在这里是「给予应得的结果」，整句带评判语气。
+- **举一反三**：
+  - It serves her right for cheating on the test.（她考试作弊，活该）
+  - It serves them right for ignoring the warning.（他们无视警告，活该）
+
+</details>
+
+### 4. 改错
+
+**题目**：The restaurant offers a room service for guests who arrive late. 改错（只改错处，句意不变）。
+
+**我的答案**：The restaurant provides a room service for guests who arrive late.
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+- **本题知识点**：`room service` 是不可数复合名词，前面不加 a。
+- **规则与机制**：room service 指一整套客房送餐业务，属不可数概念，具体送来的一次餐才说 a room-service order。
+- **英语的表达逻辑**：可数与不可数在这里区分「一整项服务」与「服务里的一次具体事物」。
+- **举一反三**：
+  - Room service starts at six in the morning.（客房送餐服务早上六点开始）
+  - They ordered room service twice during the stay.（他们住宿期间点了两次客房送餐）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+- **考点**：不可数复合名词的冠词。
+- **为什么错**：只把 offers 换成 provides，a room service 原样保留，冠词问题没有动。
+- **英语的表达逻辑**：改错先查冠词、介词这类小词站不站得住，动词同义替换解决不了冠词错误。
+- **正确表达**：The restaurant provides room service for guests who arrive late.（这家餐厅为到店晚的客人提供客房送餐）
+- **举一反三**：
+  - The hotel provides room service round the clock.（这家酒店全天提供客房送餐）
+  - Free room service comes with the suite.（套房含免费客房送餐）
+
+</details>
+
+### 5. 翻译
+
+**题目**：服务费已经含在房价里，客房送餐服务一直提供到午夜。中译英。
+
+**我的答案**：The service fee has included in price, the room service until midnight.
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+- **本题知识点**：`service charge` 与 `be included in` 的固定说法。
+- **规则与机制**：
+  - 服务费是 service charge，常与 include 连用
+  - fee 多指学费、会费、手续费这类专项费用
+  - 费用被包含用 be included in + 费用名
+- **英语的表达逻辑**：受事作主语时用被动，描述时段要给分句一个动词，不能用名词短语顶替谓语。
+- **举一反三**：
+  - Breakfast is included in the room rate.（早餐含在房价里）
+  - The shuttle runs until midnight.（接驳车运行到午夜）
+
+</details>
+
+<details>
+<summary>错题讲解 1</summary>
+
+- **考点**：服务费的固定说法。
+- **为什么错**：写成 service fee，而账单上加收的服务费固定叫 service charge。
+- **英语的表达逻辑**：英语按收费性质命名同一笔钱，附加费叫 charge，专业服务费才叫 fee。
+- **正确表达**：The service charge is included in the room rate.（服务费含在房价里）
+- **举一反三**：
+  - A ten percent service charge is added to the bill.（账单加收百分之十的服务费）
+  - No service charge applies to takeaway orders.（外卖订单不收服务费）
+
+</details>
+
+<details>
+<summary>错题讲解 2</summary>
+
+- **考点**：include 的被动形式与分句谓语。
+- **为什么错**：
+  - has included 是主动完成时，费用不会自己去包含
+  - 分句 the room service until midnight 只有名词短语，没有谓语，不成句
+- **英语的表达逻辑**：受事作主语时用 be + 过去分词，描述服务时段要用 run until、is available until 这类动词结构。
+- **正确表达**：The service charge is included in the room rate, and room service runs until midnight.（服务费含在房价里，客房送餐服务到午夜）
+- **举一反三**：
+  - The tax is included in the price you see.（你看到的价格已含税）
+  - The kitchen stays open until eleven.（厨房营业到十一点）
+
+</details>
+
+### 6. 造句
+
+**题目**：用英文写两句：一句说明「这家小馆的老板还兼任收银员」，一句说明「他因逃税服过两年刑」。
+
+**我的答案**：
+- The pub's boss serve as cashier.
+- He served two years for tax evasion.
+
+**判定**：⚠️ 部分正确（第二句准确，第一句主谓不一致且缺冠词）
+
+<details>
+<summary>知识点讲解</summary>
+
+- **本题知识点**：`serve as + 角色名词` 的完整结构。
+- **规则与机制**：
+  - serve as 后面直接接角色名词，不叠 to do
+  - 角色是可数名词时要带限定词
+  - 主语为第三人称单数时动词加 -s
+- **英语的表达逻辑**：限定词把角色具体化，动词屈折标记主谓一致，两处都是句子骨架。
+- **举一反三**：
+  - Her brother serves as the cashier on weekends.（她弟弟周末当收银员）
+  - He served as a cook before the war.（战前他当过厨师）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+- **考点**：主谓一致与角色名词的限定词。
+- **为什么错**：
+  - 主语 The pub's boss 是单数，动词却写成 serve
+  - cashier 是单数可数名词，前面没有限定词
+- **英语的表达逻辑**：第三人称单数主语配 -s，单数可数名词配 a 或 the，这是英语句子的最低门槛。
+- **正确表达**：The pub's boss serves as the cashier.（这家小馆的老板兼任收银员）
+- **举一反三**：
+  - The owner serves as the cashier at lunchtime.（老板午饭时段兼收银）
+  - She serves as the manager of the shop.（她担任这家店的经理）
 
 </details>
 

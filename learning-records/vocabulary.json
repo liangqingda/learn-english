@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 311,
+  "revision": 312,
   "category": "vocabulary",
   "records": {
     "vocabulary:a-little-bit": {
@@ -905,6 +905,84 @@
       "mastered_at": null,
       "review_history": [],
       "key": "searing"
+    },
+    "vocabulary:service-as-verb-maintenance": {
+      "id": "vocabulary:service-as-verb-maintenance",
+      "category": "vocabulary",
+      "key": "service-as-verb-maintenance",
+      "status": "learning",
+      "title": "service 作动词表示保养、维修",
+      "explanation": "service 作动词专指维护保养设备（service a car / service the coffee machine），不是端上食物；端上、供应用 serve。两者宾语不同：serve 接食物、饮料、客人、用途，service 接机器、车辆。",
+      "source": "The garage serves electric cars as well as petrol ones.",
+      "example": "The garage services electric cars as well as petrol ones.",
+      "tags": [
+        "review-error",
+        "serve-family",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-11-22T20:48:56+08:00",
+      "last_learned_at": "2026-11-22T20:48:56+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "vocabulary:service-charge-vs-service-fee": {
+      "id": "vocabulary:service-charge-vs-service-fee",
+      "category": "vocabulary",
+      "key": "service-charge-vs-service-fee",
+      "status": "learning",
+      "title": "账单上的服务费是 service charge",
+      "explanation": "加在账单或房价上的服务费固定叫 service charge；fee 指学费、会费、手续费这类另行收取的专项费用，不用于餐饮服务费。",
+      "source": "The service fee has included in price.",
+      "example": "The service charge is included in the room rate.",
+      "tags": [
+        "billing",
+        "review-error",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-11-22T20:48:56+08:00",
+      "last_learned_at": "2026-11-22T20:48:56+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "vocabulary:serving-as-portion-noun": {
+      "id": "vocabulary:serving-as-portion-noun",
+      "category": "vocabulary",
+      "key": "serving-as-portion-noun",
+      "status": "learning",
+      "title": "serving 作名词表示一份的量",
+      "explanation": "serving 由动名词转化而来，指一次盛出来的食物量（a small serving of rice）；service 只表示服务、服役，不能用来计量盘里的份量。",
+      "source": "This service is too big for one child.",
+      "example": "This serving is too big for one child.",
+      "tags": [
+        "review-error",
+        "serve-family",
+        "word-form"
+      ],
+      "first_learned_at": "2026-11-22T20:48:56+08:00",
+      "last_learned_at": "2026-11-22T20:48:56+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "vocabulary:slice-cut-into-thin-pieces": {
       "id": "vocabulary:slice-cut-into-thin-pieces",

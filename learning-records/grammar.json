@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 310,
+  "revision": 312,
   "category": "grammar",
   "records": {
     "grammar:a-bit-of-a-singular-countable": {
@@ -615,6 +615,32 @@
         }
       ],
       "key": "ill-volunteer-to-do-something"
+    },
+    "grammar:include-passive-be-included": {
+      "id": "grammar:include-passive-be-included",
+      "category": "grammar",
+      "key": "include-passive-be-included",
+      "status": "learning",
+      "title": "费用被包含用 be included in，不用主动完成时",
+      "explanation": "费用作主语时是受事，要用 be included in + 费用名（The service charge is included in the room rate）；写成 has included 是主动语态，等于费用自己去包含别的东西。描述服务时段的分句还必须补谓语，如 runs until、is available until。",
+      "source": "The service fee has included in price, the room service until midnight.",
+      "example": "The service charge is included in the room rate, and room service runs until midnight.",
+      "tags": [
+        "passive",
+        "review-error",
+        "tense"
+      ],
+      "first_learned_at": "2026-11-22T20:48:56+08:00",
+      "last_learned_at": "2026-11-22T20:48:56+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "grammar:infinitive-postmodifier-active-form-passive-meaning": {
       "id": "grammar:infinitive-postmodifier-active-form-passive-meaning",
@@ -1386,6 +1412,32 @@
       ],
       "first_learned_at": "2026-11-08T16:21:04+08:00",
       "last_learned_at": "2026-11-08T16:21:04+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "grammar:singular-subject-third-person-s": {
+      "id": "grammar:singular-subject-third-person-s",
+      "category": "grammar",
+      "key": "singular-subject-third-person-s",
+      "status": "learning",
+      "title": "第三人称单数主语动词加 -s",
+      "explanation": "主语是单数名词或单数名词短语（The pub's boss、The owner）时，一般现在时动词要加 -s；同时单数可数名词作表语或宾语时要带限定词（the cashier）。",
+      "source": "The pub's boss serve as cashier.",
+      "example": "The pub's boss serves as the cashier.",
+      "tags": [
+        "article",
+        "review-error",
+        "subject-verb-agreement"
+      ],
+      "first_learned_at": "2026-11-22T20:48:56+08:00",
+      "last_learned_at": "2026-11-22T20:48:56+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

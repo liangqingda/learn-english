@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 311,
+  "revision": 312,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -1795,6 +1795,32 @@
       "mastered_at": null,
       "review_history": [],
       "key": "review-common-collocations"
+    },
+    "phrases:room-service-uncountable": {
+      "id": "phrases:room-service-uncountable",
+      "category": "phrases",
+      "key": "room-service-uncountable",
+      "status": "learning",
+      "title": "room service 不可数，不加 a",
+      "explanation": "room service 指整套客房送餐业务，是复合名词且不可数，前面不加 a；要指某一次送来的餐，用 a room-service order 这类可数说法。同类还有 food service、room service charge。",
+      "source": "The restaurant provides a room service for guests who arrive late.",
+      "example": "The restaurant provides room service for guests who arrive late.",
+      "tags": [
+        "article",
+        "compound-noun",
+        "review-error"
+      ],
+      "first_learned_at": "2026-11-22T20:48:56+08:00",
+      "last_learned_at": "2026-11-22T20:48:56+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "phrases:serve": {
       "id": "phrases:serve",
