@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>5</td></tr>
 <tr><td>下次复习</td><td>2026-11-25 11:53</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-22 11:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-22 13:47</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-22 13:48</td></tr>
 </table>
 
 ## 讲解
@@ -132,6 +132,40 @@
   - 莉娜：按刚才说的，我端来的是不加肉酱的那份。请慢用。
 - **Fowler**：Thank you. You've been very helpful.
   - 福勒：谢谢，你帮了大忙。
+
+</details>
+
+## 📖 读一个围绕「serve 端上、供应（食物与饮料）」的小故事
+
+💡 **讲解要点**：
+- 双宾与 to 结构在同一段叙事里可以交替使用，前者更紧凑，后者把食物推到句末更醒目。
+  - Tom served the fishermen their coffee.（汤姆给渔民们端上了咖啡）
+  - Tom served a bowl of hot soup to the little girl.（汤姆给小女孩端了一碗热汤）
+- 供应时段与供应对象可以同时出现在一个句子里，`from … to …` 修饰的是供应时间。
+  - They serve breakfast from seven to eleven.（他们七点到十一点供应早餐）
+
+<details>
+<summary>故事原文 · 海边小馆重开张</summary>
+
+**海边小馆重开张**
+
+On the first morning of June, Rosa unlocked the blue door of the little diner by the harbor. She had closed it for a whole winter to repair the old kitchen. Now the tables were clean, the chairs were new, and the whole street smelled of salt and coffee.
+六月的头一个清晨，罗莎打开了港口边那家小馆的蓝色店门。为了修那间旧厨房，她整整关了一冬天。如今桌子擦干净了，椅子也换了新的，整条街都飘着海盐和咖啡的味道。
+
+Her son, Tom, was nervous. He had never worked in the diner before, and he kept asking which plate went where. Rosa told him the only rule that mattered: whoever sits at a table first should be served first, and every plate must go to the right person.
+儿子汤姆有点紧张。他从没在小馆里干过活，一直问哪个盘子该放哪儿。罗莎只告诉他一条最要紧的规矩：谁先坐下就先招待谁，每一盘菜都得送到对的人手上。
+
+At half past seven the first guests arrived: two fishermen and a young family. Tom **served** the fishermen their coffee, and then **served** a bowl of hot soup **to** the little girl, who was cold from the wind. Rosa watched from the kitchen and said nothing.
+七点半，头一批客人进门了：两个渔民和一家人。汤姆先给渔民端上咖啡，又给那个被风吹得发冷的小女孩端了一碗热汤。罗莎在厨房里看着，一句话也没说。
+
+By nine the diner was full. Someone asked whether they served breakfast all day. Rosa answered from behind the counter that they **serve** breakfast from seven to eleven, and lunch after that. When the last plate was cleared, Tom finally smiled.
+到九点，小馆已经坐满了。有人问他们是不是全天都供应早餐。罗莎在柜台后面回答，他们七点到十一点供应早餐，之后是午餐。等最后一只盘子收走，汤姆终于笑了。
+
+| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |
+|---|---|---|
+| Tom **served** the fishermen their coffee | 汤姆把咖啡端给渔民，动作已完成 | 换成 serve coffee for the fishermen 就变成「替他们准备咖啡」，方向感消失 |
+| Tom **served** a bowl of hot soup **to** the little girl | 热汤递到小女孩手里，接受者要突出 | 用双宾也行，但把 to 留在句末更强调汤最终送到谁那里 |
+| they **serve** breakfast from seven to eleven | 说明常态营业时段 | 写成 serve breakfast for seven to eleven 会让人误以为「为七点到十一点准备」，时间关系错位 |
 
 </details>
 
