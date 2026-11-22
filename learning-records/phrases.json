@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 309,
+  "revision": 311,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -823,6 +823,32 @@
         }
       ],
       "key": "dish-up"
+    },
+    "phrases:dish-up-object": {
+      "id": "phrases:dish-up-object",
+      "category": "phrases",
+      "key": "dish-up-object",
+      "status": "learning",
+      "title": "dish up 的宾语是饭菜，不是盘子",
+      "explanation": "dish up 表示把饭菜盛出来端上桌，宾语必须是吃的东西（dish up the pasta / the soup）；写成 dish up the dishes 时宾语回到容器上，动作对象错位，读起来像「把盘子端上桌」。",
+      "source": "I'll dish up the dishes.",
+      "example": "I'll dish up the pasta in five minutes.",
+      "tags": [
+        "collocation",
+        "review-error",
+        "verb-object"
+      ],
+      "first_learned_at": "2026-11-22T17:57:21+08:00",
+      "last_learned_at": "2026-11-22T17:57:21+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "phrases:drive-sales": {
       "id": "phrases:drive-sales",

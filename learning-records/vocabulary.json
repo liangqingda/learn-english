@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 309,
+  "revision": 311,
   "category": "vocabulary",
   "records": {
     "vocabulary:a-little-bit": {
@@ -351,6 +351,32 @@
       ],
       "first_learned_at": "2026-11-21T20:06:46+08:00",
       "last_learned_at": "2026-11-21T20:06:46+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "vocabulary:dish-vs-meal": {
+      "id": "vocabulary:dish-vs-meal",
+      "category": "vocabulary",
+      "key": "dish-vs-meal",
+      "status": "learning",
+      "title": "dish 与 meal 的区别（一道菜 vs 一顿饭）",
+      "explanation": "dish 指具体的一道菜或盛菜的盘碟，meal 指一顿饭；泛指供应热饭要说 hot meals，写成 hot dish 会让人以为只供应一道菜。",
+      "source": "The small shop serves hot dish for the workers nearby.",
+      "example": "The small shop serves hot meals to the workers nearby every day.",
+      "tags": [
+        "food",
+        "review-error",
+        "word-choice"
+      ],
+      "first_learned_at": "2026-11-22T17:57:21+08:00",
+      "last_learned_at": "2026-11-22T17:57:21+08:00",
       "learned_count": 1,
       "mastery_score": 0.0,
       "review_count": 0,

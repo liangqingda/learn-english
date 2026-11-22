@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>5</td></tr>
 <tr><td>下次复习</td><td>2026-11-25 11:53</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-22 11:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-22 17:44</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-22 17:57</td></tr>
 </table>
 
 ## 讲解
@@ -219,6 +219,11 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 | hand out | 中性 | 传单、药品、物资 | ❌ 不能 |
 | present | 正式 | 奖杯、甜点、方案 | ❌ 不能 |
 
+复习历史：
+<!-- practice-index -->
+- [2026-11-22 17:57 · 复习](#practice-2026-11-22-1757-dca3cb92)
+<!-- /practice-index -->
+
 # 2026-11-22 11:53 · 复习
 
 ## 本轮习题 <a id="round-2026-11-22-1153"></a>
@@ -413,6 +418,177 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 - **正确表达**：
   - The guests love to have breakfast on the terrace.（客人们喜欢在露台上用早餐）
   - They served coffee on the hotel terrace.（他们在酒店露台上供应咖啡）
+
+</details>
+
+## 🔄 对比「serve 端上、供应（食物与饮料）」和相近表达 <a id="practice-2026-11-22-1757-dca3cb92"></a>
+
+<table style="border-collapse:collapse;width:auto">
+<colgroup><col width="150"><col></colgroup>
+<tr><td>生成时间</td><td>2026-11-22 17:57</td></tr>
+<tr><td>本轮得分</td><td>6 / 10</td></tr>
+<tr><td>题量与错题数</td><td>6 题 / 4 处错误</td></tr>
+</table>
+
+### 1. 单项选择
+
+**题目**：The hotel ____ free airport pickup for all guests arriving before midnight.
+- A. serves
+- B. provides
+- C. dishes up
+- D. hands out
+
+**我的答案**：B
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+- **本题知识点**：serve 不能接抽象服务类宾语，提供服务用 provide。
+- **规则与机制**：`provide + 服务/设施` 是固定搭配，serve 的宾语只能是食物、饮料或客人。
+- **英语的表达逻辑**：英语把「提供某种服务」交给 provide 这类抽象动词，把「端上/供应饮食」留给 serve，语义场不重叠。
+- **可迁移表达**：The hotel provides free airport pickup.（酒店提供免费接机）
+
+</details>
+
+### 2. 语境判断
+
+**题目**：Dinner's dished up! Come and sit down. 这句话最适合下面哪个场合？
+- A. 五星酒店的正式晚宴通知
+- B. 家庭日常晚饭
+- C. 商务宴请的开席致辞
+- D. 医院病号餐配送
+
+**我的答案**：B
+
+**判定**：✅ 正确
+
+<details>
+<summary>知识点讲解</summary>
+
+- **本题知识点**：dish up 的语域是口语、随意。
+- **规则与机制**：dish up 指把饭菜盛好端上桌，句式短、语气轻快，多出现在家庭饭桌或朋友聚会的口头通知里。
+- **英语的表达逻辑**：英语用不同的动词标记正式程度，正式宴会通知会用 serve，家庭场景才用 dish up。
+- **可迁移表达**：Dinner's dished up! Come and sit down.（饭好了，快来坐）
+
+</details>
+
+### 3. 改错
+
+**题目**：The staff served leaflets to visitors at the main gate. 改错（只改错处，句意不变）。
+
+**我的答案**：The staff serves leaflets to visitors at the main gate.
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+- **本题知识点**：分发印刷品用 hand out，serve 不承担分发义项。
+- **规则与机制**：`hand out + 物品 + to + 人` 表示一次性派发；serve 的宾语限定在食物、饮料和客人。
+- **英语的表达逻辑**：英语按「物品是否进入进食流程」分配动词：进入的用 serve，不进食物流程的用 hand out。
+- **可迁移表达**：The staff handed out leaflets at the gate.（工作人员在门口分发传单）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+- **考点**：serve 的宾语限制。
+- **为什么错**：只把过去式 served 改成 serves，动词仍是 serve，宾语还是 leaflets；时态也跟着错了，因为原句 at the main gate 是已发生的一次派发。
+- **英语的表达逻辑**：改错要先判断动词义项是否成立，义项不成立时换动词而不是改形态。
+- **正确表达**：The staff handed out leaflets to visitors at the main gate.（工作人员在大门口给来访者分发传单）
+  - The nurse handed out the medicine to each patient.（护士把药分给每位病人）
+
+</details>
+
+### 4. 改写
+
+**题目**：The waiter dished up the pasta for us. 改写这句话，使语域适合酒店正式场合，句意不变。
+
+**我的答案**：The waiter served the pasta for us.
+
+**判定**：⚠️ 部分正确（动词换成 serve 到位，介词仍用 for）
+
+<details>
+<summary>知识点讲解</summary>
+
+- **本题知识点**：serve 的接受者用 to，dish up 的 for 不能照抄过来。
+- **规则与机制**：`serve sth to sb` 中 to 标记接受者；dish up 常与 for 连用，表示「为某人把菜盛出来」，转换成 serve 时 for 要换成 to。
+- **英语的表达逻辑**：换动词往往要一起换介词框架，介词不是可随意搬运的成分。
+- **可迁移表达**：The waiter served the pasta to us.（服务员把意面端给了我们）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+- **考点**：serve 的介词结构。
+- **为什么错**：保留了 dish up 的 for，句子读成「替我们把意面盛出来」，端给我们的方向感消失。
+- **英语的表达逻辑**：for 标记受益，to 标记接受；serve 的动作方向指向接受者，因此用 to。
+- **正确表达**：The waiter served the pasta to us.（服务员把意面端给了我们）
+  - The waiter served the pasta to the guests.（服务员把意面端给了客人）
+
+</details>
+
+### 5. 翻译
+
+**题目**：这家小店每天给附近的工人供应热饭。中译英。
+
+**我的答案**：The small shop serves hot dish for the workers nearby.
+
+**判定**：❌ 错误
+
+<details>
+<summary>知识点讲解</summary>
+
+- **本题知识点**：serve 结构里的介词，以及 meal / food 与 dish 的区别。
+- **规则与机制**：`serve hot meals to sb` 中接受者用 to；dish 指具体的一道菜或盛菜的盘子，泛指一顿饭用 meal 或 food。
+- **英语的表达逻辑**：英语区分「一道菜」与「一顿饭」，泛称热饭用 hot meals，不用 hot dish。
+- **可迁移表达**：The small shop serves hot meals to the workers nearby.（这家小店给附近的工人供应热饭）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+- **考点**：serve 的接受者介词与 meal 的用词。
+- **为什么错**：用 for 引出接受者，方向感变成「替工人准备」；把一顿热饭写成 hot dish，让人以为只供应一道菜。
+- **英语的表达逻辑**：介词决定名词在动作里的角色，名词则决定「一道菜」还是「一顿饭」的量级。
+- **正确表达**：The small shop serves hot meals to the workers nearby every day.（这家小店每天给附近的工人供应热饭）
+  - They serve free meals to the volunteers.（他们给志愿者供应免费餐食）
+
+</details>
+
+### 6. 造句
+
+**题目**：用 hand out 和 dish up 各写一句完整英文句子：一句描述分发物品的场景，一句描述把饭菜端上桌的场景。
+
+**我的答案**：
+- I handed out test papers at the summer test last year.
+- I'll dish up the dishes.
+
+**判定**：⚠️ 部分正确（hand out 用得准确，dish up 的宾语重复）
+
+<details>
+<summary>知识点讲解</summary>
+
+- **本题知识点**：hand out 与 dish up 各自的宾语范围。
+- **规则与机制**：`hand out + 要发放的物品`；`dish up + 饭菜`，宾语是吃的东西本身，不能再用 dishes 这种盛器名词回指。
+- **英语的表达逻辑**：动词的宾语要落在动作真正作用的对象上：派发作用于试卷，盛菜作用于饭菜，不能落回容器。
+- **可迁移表达**：I'll dish up the pasta in five minutes.（我五分钟内把意面盛好端上桌）
+
+</details>
+
+<details>
+<summary>错题讲解</summary>
+
+- **考点**：dish up 的宾语选择。
+- **为什么错**：写成 dish up the dishes，宾语回到了盘子这个容器上，读起来像「把盘子端上桌」，动作对象错位。
+- **英语的表达逻辑**：dish up 的语义核心是把食物盛出来端上桌，宾语必须是饭菜。
+- **正确表达**：I'll dish up the pasta.（我把意面盛出来端上桌）
+  - She dished up the soup for the children.（她给孩子们把汤盛好端上桌）
 
 </details>
 
