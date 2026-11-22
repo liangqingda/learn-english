@@ -57,7 +57,7 @@ def extra_section(
         "- **本题知识点**：out west 是方位短语\n"
         "- **规则与机制**：out 与 west 分写\n"
         "- **英语的表达逻辑**：副词短语表方向\n"
-        "- **举一反三**：head out west\n"
+        "- **举一反三**：\n  - head out west\n"
         "  - 示例二\n\n"
         "</details>\n"
     )
@@ -95,7 +95,7 @@ class NoteAppendTest(unittest.TestCase):
             "- **本题知识点**：out west 作方向状语\n"
             "- **规则与机制**：out 与 west 分写\n"
             "- **英语的表达逻辑**：方向副词短语\n"
-            "- **举一反三**：head out west\n"
+            "- **举一反三**：\n  - head out west\n"
         "  - 示例二\n\n"
             "</details>\n",
         )
@@ -121,7 +121,7 @@ class NoteAppendTest(unittest.TestCase):
             "**我的答案**：She headed out west.\n\n**判定**：✅ 正确\n\n"
             "<details>\n<summary>知识点讲解</summary>\n\n"
             "- **本题知识点**：out west\n- **规则与机制**：分写\n"
-            "- **英语的表达逻辑**：方向副词\n- **举一反三**：head out west\n"
+            "- **英语的表达逻辑**：方向副词\n- **举一反三**：\n  - head out west\n"
             "  - 示例二\n\n"
             "</details>\n"
         )
@@ -146,7 +146,7 @@ class NoteAppendTest(unittest.TestCase):
             "**我的答案**：She headed out west.\n\n**判定**：✅ 正确\n\n"
             "<details>\n<summary>知识点讲解</summary>\n\n"
             "- **本题知识点**：out west\n- **规则与机制**：分写\n"
-            "- **英语的表达逻辑**：方向副词\n- **举一反三**：head out west\n"
+            "- **英语的表达逻辑**：方向副词\n- **举一反三**：\n  - head out west\n"
             "  - 示例二\n\n"
             "</details>\n"
         )
@@ -170,7 +170,7 @@ class NoteAppendTest(unittest.TestCase):
             "**我的答案**：She headed out west.\n\n**判定**：✅ 正确\n\n"
             "<details>\n<summary>知识点讲解</summary>\n\n"
             "- **本题知识点**：out west\n- **规则与机制**：分写\n"
-            "- **英语的表达逻辑**：方向副词\n- **举一反三**：head out west\n"
+            "- **英语的表达逻辑**：方向副词\n- **举一反三**：\n  - head out west\n"
             "  - 示例二\n\n"
             "</details>\n",
         )
@@ -947,7 +947,8 @@ VALID_BLOCK = """# {heading}
 - **本题知识点**：out west 是固定搭配
 - **规则与机制**：方位副词连用，不合并成一个词
 - **英语的表达逻辑**：英语用两个独立方位词表示方向
-- **举一反三**：They headed out east.
+- **举一反三**：
+  - They headed out east.
   - They walked out north this morning.
 </details>
 """
@@ -1174,7 +1175,7 @@ class NoteCliTest(unittest.TestCase):
             "- **本题知识点**：out west 是方位短语\n"
             "- **规则与机制**：out 与 west 分写\n"
             "- **英语的表达逻辑**：副词短语表方向\n"
-            "- **举一反三**：drive out west\n"
+            "- **举一反三**：\n  - drive out west\n"
             "  - 示例二\n\n"
             "</details>\n"
         )

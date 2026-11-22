@@ -465,7 +465,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 - **本题知识点**：serve 不能接抽象服务类宾语，提供服务用 provide。
 - **规则与机制**：`provide + 服务/设施` 是固定搭配，serve 的宾语只能是食物、饮料或客人。
 - **英语的表达逻辑**：英语把「提供某种服务」交给 provide 这类抽象动词，把「端上/供应饮食」留给 serve，语义场不重叠。
-- **举一反三**：The hotel provides free airport pickup.（酒店提供免费接机）
+- **举一反三**：
+  - The hotel provides free airport pickup.（酒店提供免费接机）
   - The airline offers complimentary water to every passenger.（航空公司给每位乘客提供免费饮用水）
 
 </details>
@@ -488,7 +489,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 - **本题知识点**：dish up 的语域是口语、随意。
 - **规则与机制**：dish up 指把饭菜盛好端上桌，句式短、语气轻快，多出现在家庭饭桌或朋友聚会的口头通知里。
 - **英语的表达逻辑**：英语用不同的动词标记正式程度，正式宴会通知会用 serve，家庭场景才用 dish up。
-- **举一反三**：Dinner's dished up! Come and sit down.（饭好了，快来坐）
+- **举一反三**：
+  - Dinner's dished up! Come and sit down.（饭好了，快来坐）
   - Mum dished up the stew and called us to the table.（妈妈把炖菜盛好，叫我们上桌）
 
 </details>
@@ -508,7 +510,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 - **规则与机制**：`hand out + 物品 + to + 人` 表示一次性派发。
   - serve 的宾语限定在食物、饮料和客人。
 - **英语的表达逻辑**：英语按「物品是否进入进食流程」分配动词：进入的用 serve，不进食物流程的用 hand out。
-- **举一反三**：The staff handed out leaflets at the gate.（工作人员在门口分发传单）
+- **举一反三**：
+  - The staff handed out leaflets at the gate.（工作人员在门口分发传单）
   - The volunteer handed out blankets to the homeless.（志愿者把毯子分发给无家可归的人）
 
 </details>
@@ -542,7 +545,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 - **规则与机制**：`serve sth to sb` 中 to 标记接受者。
   - dish up 常与 for 连用，表示「为某人把菜盛出来」，转换成 serve 时 for 要换成 to。
 - **英语的表达逻辑**：换动词往往要一起换介词框架，介词不是可随意搬运的成分。
-- **举一反三**：The waiter served the pasta to us.（服务员把意面端给了我们）
+- **举一反三**：
+  - The waiter served the pasta to us.（服务员把意面端给了我们）
   - The host served the dessert to the visitors.（主人把甜点端给了来访者）
 
 </details>
@@ -576,7 +580,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 - **规则与机制**：`serve hot meals to sb` 中接受者用 to。
   - dish 指具体的一道菜或盛菜的盘子，泛指一顿饭用 meal 或 food。
 - **英语的表达逻辑**：英语区分「一道菜」与「一顿饭」，泛称热饭用 hot meals，不用 hot dish。
-- **举一反三**：The small shop serves hot meals to the workers nearby.（这家小店给附近的工人供应热饭）
+- **举一反三**：
+  - The small shop serves hot meals to the workers nearby.（这家小店给附近的工人供应热饭）
   - The canteen serves lunch to all students.（食堂给所有学生供应午餐）
 
 </details>
@@ -612,7 +617,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 - **规则与机制**：`hand out + 要发放的物品`。
   - `dish up + 饭菜`，宾语是吃的东西本身，不能再用 dishes 这种盛器名词回指。
 - **英语的表达逻辑**：动词的宾语要落在动作真正作用的对象上：派发作用于试卷，盛菜作用于饭菜，不能落回容器。
-- **举一反三**：I'll dish up the pasta in five minutes.（我五分钟内把意面盛好端上桌）
+- **举一反三**：
+  - I'll dish up the pasta in five minutes.（我五分钟内把意面盛好端上桌）
   - She dished up the rice and vegetables for the kids.（她给孩子们盛好米饭和菜）
 
 </details>
@@ -658,7 +664,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 - **规则与机制**：`serve + 人` 里的人是服务的对象，动作内容是招待，具体端什么并不出现在句子里。
   - 要说明端上的物品，就要用双宾或 `serve sth to sb`。
 - **英语的表达逻辑**：英语允许同一个动词按宾语类型切换语义场：宾语是食物就落在供应上，宾语是人就落在招待上。
-- **举一反三**：The waiter served the guests first.（服务员先招待了客人）
+- **举一反三**：
+  - The waiter served the guests first.（服务员先招待了客人）
   - The clerk served the next customer with a smile.（店员笑着招待下一位顾客）
 
 </details>
@@ -678,7 +685,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 - **规则与机制**：The flight attendants 是复数主语，一般现在时谓语用原形 serve。
   - 双宾 `serve + 人 + 物` 保持不变。
 - **英语的表达逻辑**：英语的 -s 只加在第三人称单数主语上，复数主语一律用原形，时态由语境而不是词形单独决定。
-- **举一反三**：The flight attendants serve each passenger a warm towel.（乘务员给每位乘客一条热毛巾）
+- **举一反三**：
+  - The flight attendants serve each passenger a warm towel.（乘务员给每位乘客一条热毛巾）
   - The hosts serve their visitors fresh juice.（主人给客人端上鲜榨果汁）
 
 </details>
@@ -712,7 +720,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 - **规则与机制**：Last night 把事件固定在过去，谓语用过去式 served。
   - 第三人称单数的 -s 只在一般现在时出现。
 - **英语的表达逻辑**：英语用时间状语和谓语形态共同标定事件时间，过去时间状语要求谓语同步变成过去式。
-- **举一反三**：Last night the new waiter served the guests the soup very slowly.（昨晚新来的服务员给客人上汤很慢）
+- **举一反三**：
+  - Last night the new waiter served the guests the soup very slowly.（昨晚新来的服务员给客人上汤很慢）
   - Yesterday the barista served us two cups of coffee.（昨天咖啡师给我们端了两杯咖啡）
 
 </details>
@@ -732,7 +741,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 - **规则与机制**：直接宾语 a traditional dessert 提前后，间接宾语 the guests 由 to 引出。
   - serve 属于 to 组动词，不用 for。
 - **英语的表达逻辑**：英语用 to 标记接受者、用 for 标记受益者，动词归属于哪一组决定了转换时的介词。
-- **举一反三**：The host served a traditional dessert to the guests.（主人把一道传统甜点端给了客人）
+- **举一反三**：
+  - The host served a traditional dessert to the guests.（主人把一道传统甜点端给了客人）
   - She handed the keys to the receptionist.（她把钥匙递给了接待员）
 
 </details>
@@ -751,7 +761,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 - **本题知识点**：一般现在时的被动语态。
 - **规则与机制**：被动结构是 `be + 过去分词`，be 要按主语和时态变形：主语 the welcome drink 是单数，every evening 表示常态，所以是 is served。
 - **英语的表达逻辑**：英语的被动语态把动作承受者放主语位置，be 只承担时态与数，动词意义由过去分词承担。
-- **举一反三**：The welcome drink is served in the lobby every evening.（迎宾饮品每晚在大厅供应）
+- **举一反三**：
+  - The welcome drink is served in the lobby every evening.（迎宾饮品每晚在大厅供应）
   - Breakfast is served in the dining hall.（早餐在餐厅供应）
 
 </details>
@@ -784,7 +795,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 - **规则与机制**：第二次出现、且指前文已经明确的群体时，复数名词前用 the：the adults。
   - 不限定的大人可以写 some adults。
 - **英语的表达逻辑**：英语用冠词区分「任意的大人」与「当时在场的那几位大人」，上下文已经锁定的对象要用 the。
-- **举一反三**：The waiter served the soup to the children first, and then to the adults.（服务员先把汤端给孩子们，然后才端给大人们）
+- **举一反三**：
+  - The waiter served the soup to the children first, and then to the adults.（服务员先把汤端给孩子们，然后才端给大人们）
   - She gave the small cakes to the girls and the coffee to the boys.（她把小蛋糕给女孩们，咖啡给男孩们）
 
 </details>

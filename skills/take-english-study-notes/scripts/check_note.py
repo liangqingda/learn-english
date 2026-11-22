@@ -1967,7 +1967,13 @@ def check(path: Path) -> list[dict]:
                                 "一条一点，不要用 `；` 同行串接",
                             )
                         if step_label == "举一反三":
-                            demo_count = (1 if inline_text else 0) + len(step["sub_items"])
+                            if inline_text:
+                                add(
+                                    base_line,
+                                    "`举一反三` 的例句全部写成两个空格缩进的子项（`  - …`），标签行留空，"
+                                    "不要把例句跟在标签同行",
+                                )
+                            demo_count = len(step["sub_items"])
                             if demo_count < MIN_DEMO_COUNT:
                                 add(
                                     base_line,

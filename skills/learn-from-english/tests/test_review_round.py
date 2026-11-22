@@ -83,7 +83,8 @@ BODY = """## 本轮习题
 - **本题知识点**：out west 是固定搭配
 - **规则与机制**：方位副词连用，不合并成一个词
 - **英语的表达逻辑**：英语用两个独立方位词表示方向
-- **举一反三**：They headed out east.
+- **举一反三**：
+  - They headed out east.
   - They walked out north this morning.
 </details>
 """

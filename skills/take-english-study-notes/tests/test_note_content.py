@@ -57,7 +57,7 @@ def sentence_making_note(*, stem: str, answer_block: str) -> str:
         "- **本题知识点**：out west 作方向状语\n"
         "- **规则与机制**：方位短语保持分写\n"
         "- **英语的表达逻辑**：方向用副词短语表示\n"
-        "- **举一反三**：head out west\n"
+        "- **举一反三**：\n  - head out west\n"
         "  - 示例二\n\n"
         "</details>\n"
     )
@@ -135,7 +135,7 @@ def note_text(
         f"- **本题知识点**：{knowledge}\n"
         "- **规则与机制**：方位短语保持分写\n"
         "- **英语的表达逻辑**：方向用副词短语表示\n"
-        "- **举一反三**：head out west\n"
+        "- **举一反三**：\n  - head out west\n"
         "  - 示例二\n\n"
         "</details>\n"
     )
@@ -168,7 +168,7 @@ def paper_note_text(*, second_reference: str | None = "第 1 题", second_detail
         "- **本题知识点**：Passage 1 的主旨句在首段末句\n"
         "- **规则与机制**：主题句常带转折连词\n"
         "- **英语的表达逻辑**：先让步后转折\n"
-        "- **举一反三**：While …, the study argues …\n"
+        "- **举一反三**：\n  - While …, the study argues …\n"
         "  - 示例二\n\n"
         "</details>\n"
     )
@@ -274,7 +274,7 @@ def second_round(stamp: str, section: str = "") -> str:
         "- **本题知识点**：x\n"
         "- **规则与机制**：x\n"
         "- **英语的表达逻辑**：x\n"
-        "- **举一反三**：x\n"
+        "- **举一反三**：\n  - x\n"
         "  - 示例二\n\n"
         "</details>\n"
         + section
@@ -309,7 +309,7 @@ def menu_practice(title: str = "## 练习「out west」的关键语法结构") -
         "- **本题知识点**：out west 作方向状语\n"
         "- **规则与机制**：out 与 west 分写\n"
         "- **英语的表达逻辑**：方向副词短语\n"
-        "- **举一反三**：head out west\n"
+        "- **举一反三**：\n  - head out west\n"
         "  - 示例二\n\n"
         "</details>\n"
     )
@@ -561,7 +561,7 @@ class NoteContentValidationTest(unittest.TestCase):
                 "- **本题知识点**：out west 作方向状语\n"
                 "- **规则与机制**：out 与 west 分写\n"
                 "- **英语的表达逻辑**：方向副词短语\n"
-                "- **举一反三**：head out west\n"
+                "- **举一反三**：\n  - head out west\n"
         "  - 示例二\n\n"
                 "</details>\n"
             ),
@@ -875,14 +875,21 @@ class NoteContentValidationTest(unittest.TestCase):
             "- **举一反三**：I can't stand the smoke.（受不了烟味。）"
             "／I can't stand the noise.（受不了噪音。）"
         )
-        self.assert_caught(note_text().replace("- **举一反三**：head out west", chained), "逐条写成缩进子项")
+        self.assert_caught(
+            note_text().replace(
+                "- **举一反三**：\n  - head out west\n  - 示例二", chained
+            ),
+            "逐条写成缩进子项",
+        )
         chained_error = (
             "- **正确表达**：The guests love the terrace.（客人们喜欢露台。）"
             "；可迁移：They served coffee there.（他们在那儿供应咖啡。）"
         )
         text = note_text().replace(
             "<summary>知识点讲解</summary>", "<summary>错题讲解</summary>"
-        ).replace("- **举一反三**：head out west", chained_error)
+        ).replace(
+            "- **举一反三**：\n  - head out west\n  - 示例二", chained_error
+        )
         self.assert_caught(text, "逐条写成缩进子项")
 
     def test_example_sub_items_in_detail_block_pass(self) -> None:
@@ -893,17 +900,29 @@ class NoteContentValidationTest(unittest.TestCase):
             "  - I can't stand the noise.（受不了噪音。）"
         )
         self.assertEqual(
-            self.check(note_text().replace("- **举一反三**：head out west", sub_items)),
+            self.check(
+                note_text().replace(
+                    "- **举一反三**：\n  - head out west\n  - 示例二", sub_items
+                )
+            ),
             [],
         )
 
     def test_single_demo_in_yifanyu_is_rejected(self) -> None:
         """举一反三只有一条换场景例句时必须被拦下，至少给出两条。"""
-        single = "- **举一反三**：head out west"
+        single = "- **举一反三**：\n  - head out west"
         text = note_text().replace(
-            "- **举一反三**：head out west\n  - 示例二", single
+            "- **举一反三**：\n  - head out west\n  - 示例二", single
         )
         self.assert_caught(text, "至少给出 2 条换场景例句")
+
+    def test_inline_demo_in_yifanyu_is_rejected(self) -> None:
+        """举一反三例句跟在标签同行必须被拦下：标签行留空，例句写成缩进子项。"""
+        inline = "- **举一反三**：head out west\n  - 示例二"
+        text = note_text().replace(
+            "- **举一反三**：\n  - head out west\n  - 示例二", inline
+        )
+        self.assert_caught(text, "标签行留空")
 
     def test_chained_point_in_detail_step_is_rejected(self) -> None:
         """规则与机制 / 为什么错等要点步骤一行用 ；串多个要点时必须被拦下拆子项。"""
