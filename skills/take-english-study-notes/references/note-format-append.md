@@ -153,7 +153,7 @@
    python3 skills/take-english-study-notes/scripts/note.py check "$DRAFT"    # 约 0.1s
    ```
    仍不要用固定路径的临时文件（如 `/tmp/note-block.md`），必须走 `mktemp`。
-2. 预校验要在写入前清零的装配错误：`- 1.` / `- 2.` 这类缩进编号、`**<栏目>**：` 或四步标签只写标签不带内容、
+2. 预校验要在写入前清零的装配错误：`- 1.` / `- 2.` 这类缩进编号、`**<栏目>**：` 或折叠块步骤标签只写标签不带内容、
    题与小节之间缺 `---`、`<details>` 与 `</details>` 不成对、`题量与错题数` 与实际题数 / `错题讲解` 块数不符。
 3. 草稿 `ok: true` 后再把同一份内容交给 `append` / `replace` / `review-round` 的 `note` 段：`review-round` 的 `body`
    直接复用草稿正文，不要重新生成一遍。

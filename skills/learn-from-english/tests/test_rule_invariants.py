@@ -216,14 +216,18 @@ class NoteTemplateTest(unittest.TestCase):
             "- **本题知识点**：x\n"
             "- **规则与机制**：x\n"
             "- **英语的表达逻辑**：x\n"
-            "- **可迁移表达**：x\n\n"
+            "- **举一反三**：x\n"
+            "  - 示例二\n\n"
             "</details>\n\n"
             "<details>\n"
             f"<summary>{check_note.DEFAULT_ERROR_SUMMARY}</summary>\n\n"
             "- **考点**：x\n"
             "- **为什么错**：x\n"
             "- **英语的表达逻辑**：x\n"
-            "- **正确表达**：x\n\n"
+            "- **正确表达**：x\n"
+            "- **举一反三**：\n"
+            "  - 示例一\n"
+            "  - 示例二\n\n"
             "</details>\n"
         )
 
@@ -275,7 +279,7 @@ class MenuItemNoteTest(unittest.TestCase):
         index = text.index(marker)
         explain = (
             "\n## 讲解\n\n**错误机制**：\n\n- 一条机制\n\n"
-            "**可迁移表达**：\n\n- There is a price to pay.（总要付出代价。）\n"
+            "**举一反三**：\n\n- There is a price to pay.（总要付出代价。）\n"
         )
         return text[:index] + explain + ("\n" + section if section else "") + text[index:]
 
@@ -313,7 +317,8 @@ class MenuItemNoteTest(unittest.TestCase):
             "- **本题知识点**：x\n"
             "- **规则与机制**：x\n"
             "- **英语的表达逻辑**：x\n"
-            "- **可迁移表达**：x\n\n"
+            "- **举一反三**：x\n"
+            "  - 示例二\n\n"
             "</details>\n\n"
             "### 2. 翻译\n\n"
             "**题目**：Translate this.\n\n"
@@ -324,14 +329,18 @@ class MenuItemNoteTest(unittest.TestCase):
             "- **本题知识点**：x\n"
             "- **规则与机制**：x\n"
             "- **英语的表达逻辑**：x\n"
-            "- **可迁移表达**：x\n\n"
+            "- **举一反三**：x\n"
+            "  - 示例二\n\n"
             "</details>\n\n"
             "<details>\n"
             f"<summary>{check_note.DEFAULT_ERROR_SUMMARY}</summary>\n\n"
             "- **考点**：x\n"
             "- **为什么错**：x\n"
             "- **英语的表达逻辑**：x\n"
-            "- **正确表达**：x\n\n"
+            "- **正确表达**：x\n"
+            "- **举一反三**：\n"
+            "  - 示例一\n"
+            "  - 示例二\n\n"
             "</details>\n"
         )
 
@@ -445,7 +454,7 @@ class MenuItemNoteTest(unittest.TestCase):
             self.base_note()
             + "\n## 看一套围绕「a price to pay」的完整场景对话\n\n"
             "**讲解要点**：\n\n- 要点\n  - 示例\n\n"
-            "**可迁移表达**：\n\n- 又一组\n"
+            "**举一反三**：\n\n- 又一组\n"
         )
         issues = self.check_text(text)
         self.assertTrue(any("只写一组 `**讲解要点**：`" in issue["message"] for issue in issues))

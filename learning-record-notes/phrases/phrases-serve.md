@@ -33,7 +33,7 @@
 - ❌ The head chef is served for planning the menu. → ✅ The head chef is responsible for planning the menu.（负责某事的动词是 responsible，不是 serve）
 - ❌ The waiter served tea for the guests.（把端给写成受益）→ ✅ The waiter served tea to the guests.（端给某人用 to）
 
-🧱 **可迁移表达**：
+🧱 **举一反三**：
 - The hotel serves breakfast from seven to ten.（这家酒店七点到十点供应早餐）
 - The waiter served the hot soup to the guests.（服务员把热汤端给了客人）
 - They provide excellent service all evening.（他们整晚提供优质服务）
@@ -251,9 +251,10 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>知识点讲解</summary>
 
 - **本题知识点**：serve 表示餐厅、酒店等供应某类食物或饮料。
-- **规则与机制**：serve 的主语是供餐方，宾语是食物或饮料，常见结构为 `serve + 食物 + 时间状语`；也可以写成被动 `Breakfast is served from seven to ten`，意思是「七点到十点供应早餐」。
+- **规则与机制**：serve 的主语是供餐方，宾语是食物或饮料，常见结构为 `serve + 食物 + 时间状语`。
+  - 也可以写成被动 `Breakfast is served from seven to ten`，意思是「七点到十点供应早餐」。
 - **英语的表达逻辑**：英语把这个动作看成供餐方提供食物，重心落在供应行为本身，而不是客人拿到食物，所以被动句的主语是 breakfast。
-- **可迁移表达**：
+- **举一反三**：
   - The café serves soup and sandwiches all day.（这家咖啡店全天供应汤和三明治）
   - Dinner is served from six to nine.（晚餐六点到九点供应）
 
@@ -271,9 +272,10 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>知识点讲解</summary>
 
 - **本题知识点**：`serve sth for sb` 里 for 的含义。
-- **规则与机制**：`for + 人` 表示「为某人准备、为某人安排」，服务的对象是受益者；把食物端给某个人要用 `to + 人` 或双宾 `serve sb sth`。
+- **规则与机制**：`for + 人` 表示「为某人准备、为某人安排」，服务的对象是受益者。
+  - 把食物端给某个人要用 `to + 人` 或双宾 `serve sb sth`。
 - **英语的表达逻辑**：英语用不同介词区分受益与方向：for 标记受益者，to 标记接受者，所以 `served dinner for the children` 是替孩子们备好晚饭，端到他们手里要说 `served dinner to the children`。
-- **可迁移表达**：
+- **举一反三**：
   - She cooked a special meal for the guests.（她为客人做了一顿特别的饭）
   - She served the special meal to the guests.（她把那顿特别的饭端给了客人）
 
@@ -283,11 +285,13 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>错题讲解</summary>
 
 - **考点**：for 与 to 在 serve 结构里的分工。
-- **为什么错**：把 `for the children` 理解成端到孩子手里，又用「端到桌子上」解释整句；for 既不表示方向，也不表示摆盘位置，它只说明这顿饭是为谁准备的。
+- **为什么错**：把 `for the children` 理解成端到孩子手里，又用「端到桌子上」解释整句。
+  - for 既不表示方向，也不表示摆盘位置，它只说明这顿饭是为谁准备的。
 - **英语的表达逻辑**：介词决定名词在动作里的角色，for 是受益者，to 是接受者，方向由 to 承担。
-- **正确表达**：
-  - The cook served dinner for the children before the adults arrived.（厨师在大人到之前先给孩子们备好了晚饭）
+- **正确表达**：The cook served dinner for the children before the adults arrived.（厨师在大人到之前先给孩子们备好了晚饭）
+- **举一反三**：
   - The waiter served the soup to the guests.（服务员把汤端给了客人）
+  - The hostess served the tea to the visitors.（女主人把茶端给了来访者）
 
 </details>
 
@@ -302,10 +306,12 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <details>
 <summary>知识点讲解</summary>
 
-- **本题知识点**：serve 后面不能接 service；服务作名词时用 provide、offer 或 give。
-- **规则与机制**：serve 的宾语是食物、饮料或客人，service 是抽象名词，不能作 serve 的宾语；提供服务说 `provide / offer / give (good) service`。
+- **本题知识点**：serve 后面不能接 service。
+  - 服务作名词时用 provide、offer 或 give。
+- **规则与机制**：serve 的宾语是食物、饮料或客人，service 是抽象名词，不能作 serve 的宾语。
+  - 提供服务说 `provide / offer / give (good) service`。
 - **英语的表达逻辑**：英语避免同源词空转（serve service），让不同动词承担不同动作：serve 管端上与供应，provide 与 offer 管提供。
-- **可迁移表达**：
+- **举一反三**：
   - The hotel provides excellent service.（这家酒店提供优质服务）
   - They offer free Wi-Fi to all guests.（他们向所有客人提供免费无线网络）
 
@@ -323,9 +329,11 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>知识点讲解</summary>
 
 - **本题知识点**：`serve sth to sb` 结构，以及过去叙事中的动词时态。
-- **规则与机制**：结构是 `serve + 物 + to + 人`；at the end of the trip 指向已经结束的行程，动作已经发生，动词用过去式 served。
-- **英语的表达逻辑**：to 标记接受者，说明东西递到了谁手里；时态跟随叙事时间，而不是跟随句子里的单复数。
-- **可迁移表达**：
+- **规则与机制**：结构是 `serve + 物 + to + 人`。
+  - at the end of the trip 指向已经结束的行程，动作已经发生，动词用过去式 served。
+- **英语的表达逻辑**：to 标记接受者，说明东西递到了谁手里。
+  - 时态跟随叙事时间，而不是跟随句子里的单复数。
+- **举一反三**：
   - The host served a cup of tea to each guest.（主人给每位客人端上一杯茶）
   - Last night the waiter served the dessert to the children.（昨晚服务员把甜点端给了孩子们）
 
@@ -337,9 +345,10 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 - **考点**：serve 结构中表示接受者的介词。
 - **为什么错**：用 for 代替 to，把接受者写成了受益者，句子于是变成「为每位游客准备了茶叶」，而不是「端给每位游客」。
 - **英语的表达逻辑**：受益用 for，方向用 to，同一个动词靠介词切换语义关系。
-- **正确表达**：
-  - The tour guide served a small bag of local tea to each visitor.（导游给每位游客端上一小袋当地茶叶）
+- **正确表达**：The tour guide served a small bag of local tea to each visitor.（导游给每位游客端上一小袋当地茶叶）
+- **举一反三**：
   - She served the hot soup to her guests.（她把热汤端给了客人）
+  - The attendant served the towel to each passenger.（乘务员给每位乘客递上毛巾）
 
 </details>
 
@@ -349,9 +358,10 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 - **考点**：过去叙事句中的动词时态。
 - **为什么错**：用了第三人称单数的 serves，与 at the end of the trip 这种已完成的过去语境冲突。
 - **英语的表达逻辑**：叙事时间一旦落在过去，主句谓语就要用过去式，不因为主语是单数而保留一般现在时的 -s。
-- **正确表达**：
-  - The tour guide served a small bag of local tea to each visitor at the end of the trip.（行程结束时，导游给每位游客端上一小袋当地茶叶）
+- **正确表达**：The tour guide served a small bag of local tea to each visitor at the end of the trip.（行程结束时，导游给每位游客端上一小袋当地茶叶）
+- **举一反三**：
   - The manager served the guests personally last night.（昨晚经理亲自为客人上菜）
+  - Last weekend the chef served us a special dessert.（上周末主厨给我们上了一道特色甜点）
 
 </details>
 
@@ -367,9 +377,11 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>知识点讲解</summary>
 
 - **本题知识点**：表示「负责某事」用 `be responsible for + 名词或动名词`。
-- **规则与机制**：serve 只能表示端上、供应、为客人服务，不能承担「负责」的义项；`be served for` 在英语里没有对应含义，负责一项工作说 `be responsible for doing sth`。
-- **英语的表达逻辑**：英语给「负责」分配了独立的形容词 responsible，后面固定跟 for，再接具体事务；serve 的语义场里没有这一层。
-- **可迁移表达**：
+- **规则与机制**：serve 只能表示端上、供应、为客人服务，不能承担「负责」的义项。
+  - `be served for` 在英语里没有对应含义，负责一项工作说 `be responsible for doing sth`。
+- **英语的表达逻辑**：英语给「负责」分配了独立的形容词 responsible，后面固定跟 for，再接具体事务。
+  - serve 的语义场里没有这一层。
+- **举一反三**：
   - The head chef is responsible for planning the weekly menu.（主厨负责制定每周菜单）
   - She is responsible for training new staff.（她负责培训新员工）
 
@@ -380,10 +392,12 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 
 - **考点**：负责某事的固定表达。
 - **为什么错**：把 be served for 里的 serve 换成了主动的 serves，仍然用 serve 承担负责这一义项，结构问题没有解决。
-- **英语的表达逻辑**：先确定动词义项，再选结构；serve 没有负责的含义，换成 responsible 才能接 for + 动名词。
-- **正确表达**：
-  - The head chef is responsible for planning the weekly menu.（主厨负责制定每周菜单）
+- **英语的表达逻辑**：先确定动词义项，再选结构。
+  - serve 没有负责的含义，换成 responsible 才能接 for + 动名词。
+- **正确表达**：The head chef is responsible for planning the weekly menu.（主厨负责制定每周菜单）
+- **举一反三**：
   - Who is responsible for the breakfast area?（早餐区由谁负责？）
+  - She is responsible for training the new waiters.（她负责培训新服务员）
 
 </details>
 
@@ -400,10 +414,12 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <details>
 <summary>知识点讲解</summary>
 
-- **本题知识点**：serve breakfast from … to … 表达供餐时间；terrace 表示露台。
-- **规则与机制**：`serve + 食物 + from 时间 to 时间` 表示供应时间段；terrace 是双 r 结构，结尾是 -race。
+- **本题知识点**：serve breakfast from … to … 表达供餐时间。
+  - terrace 表示露台。
+- **规则与机制**：`serve + 食物 + from 时间 to 时间` 表示供应时间段。
+  - terrace 是双 r 结构，结尾是 -race。
 - **英语的表达逻辑**：英语用 from … to … 直接把供餐起止时间挂在 serve 后面，不需要额外的时间介词。
-- **可迁移表达**：
+- **举一反三**：
   - This restaurant serves hot soup and sandwiches all day.（这家餐厅全天供应热汤和三明治）
   - We had dinner on the terrace.（我们在露台上吃了晚饭）
 
@@ -415,9 +431,10 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 - **考点**：terrace 的拼写。
 - **为什么错**：把 terrace 写成了 tennace，漏掉了第二个音节的 r，词形整体错位。
 - **英语的表达逻辑**：terrace 来自法语 terrasse，拼写保留双 r 与结尾的 -ace，读作 /ˈterəs/，拼写要按音节抓 ter-race。
-- **正确表达**：
-  - The guests love to have breakfast on the terrace.（客人们喜欢在露台上用早餐）
+- **正确表达**：The guests love to have breakfast on the terrace.（客人们喜欢在露台上用早餐）
+- **举一反三**：
   - They served coffee on the hotel terrace.（他们在酒店露台上供应咖啡）
+  - We sat and had tea on the terrace.（我们坐在露台上喝茶）
 
 </details>
 
@@ -448,7 +465,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 - **本题知识点**：serve 不能接抽象服务类宾语，提供服务用 provide。
 - **规则与机制**：`provide + 服务/设施` 是固定搭配，serve 的宾语只能是食物、饮料或客人。
 - **英语的表达逻辑**：英语把「提供某种服务」交给 provide 这类抽象动词，把「端上/供应饮食」留给 serve，语义场不重叠。
-- **可迁移表达**：The hotel provides free airport pickup.（酒店提供免费接机）
+- **举一反三**：The hotel provides free airport pickup.（酒店提供免费接机）
+  - The airline offers complimentary water to every passenger.（航空公司给每位乘客提供免费饮用水）
 
 </details>
 
@@ -470,7 +488,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 - **本题知识点**：dish up 的语域是口语、随意。
 - **规则与机制**：dish up 指把饭菜盛好端上桌，句式短、语气轻快，多出现在家庭饭桌或朋友聚会的口头通知里。
 - **英语的表达逻辑**：英语用不同的动词标记正式程度，正式宴会通知会用 serve，家庭场景才用 dish up。
-- **可迁移表达**：Dinner's dished up! Come and sit down.（饭好了，快来坐）
+- **举一反三**：Dinner's dished up! Come and sit down.（饭好了，快来坐）
+  - Mum dished up the stew and called us to the table.（妈妈把炖菜盛好，叫我们上桌）
 
 </details>
 
@@ -486,9 +505,11 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>知识点讲解</summary>
 
 - **本题知识点**：分发印刷品用 hand out，serve 不承担分发义项。
-- **规则与机制**：`hand out + 物品 + to + 人` 表示一次性派发；serve 的宾语限定在食物、饮料和客人。
+- **规则与机制**：`hand out + 物品 + to + 人` 表示一次性派发。
+  - serve 的宾语限定在食物、饮料和客人。
 - **英语的表达逻辑**：英语按「物品是否进入进食流程」分配动词：进入的用 serve，不进食物流程的用 hand out。
-- **可迁移表达**：The staff handed out leaflets at the gate.（工作人员在门口分发传单）
+- **举一反三**：The staff handed out leaflets at the gate.（工作人员在门口分发传单）
+  - The volunteer handed out blankets to the homeless.（志愿者把毯子分发给无家可归的人）
 
 </details>
 
@@ -496,10 +517,13 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>错题讲解</summary>
 
 - **考点**：serve 的宾语限制。
-- **为什么错**：只把过去式 served 改成 serves，动词仍是 serve，宾语还是 leaflets；时态也跟着错了，因为原句 at the main gate 是已发生的一次派发。
+- **为什么错**：只把过去式 served 改成 serves，动词仍是 serve，宾语还是 leaflets。
+  - 时态也跟着错了，因为原句 at the main gate 是已发生的一次派发。
 - **英语的表达逻辑**：改错要先判断动词义项是否成立，义项不成立时换动词而不是改形态。
 - **正确表达**：The staff handed out leaflets to visitors at the main gate.（工作人员在大门口给来访者分发传单）
+- **举一反三**：
   - The nurse handed out the medicine to each patient.（护士把药分给每位病人）
+  - Volunteers handed out masks to every shopper.（志愿者给每位购物者分发口罩）
 
 </details>
 
@@ -515,9 +539,11 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>知识点讲解</summary>
 
 - **本题知识点**：serve 的接受者用 to，dish up 的 for 不能照抄过来。
-- **规则与机制**：`serve sth to sb` 中 to 标记接受者；dish up 常与 for 连用，表示「为某人把菜盛出来」，转换成 serve 时 for 要换成 to。
+- **规则与机制**：`serve sth to sb` 中 to 标记接受者。
+  - dish up 常与 for 连用，表示「为某人把菜盛出来」，转换成 serve 时 for 要换成 to。
 - **英语的表达逻辑**：换动词往往要一起换介词框架，介词不是可随意搬运的成分。
-- **可迁移表达**：The waiter served the pasta to us.（服务员把意面端给了我们）
+- **举一反三**：The waiter served the pasta to us.（服务员把意面端给了我们）
+  - The host served the dessert to the visitors.（主人把甜点端给了来访者）
 
 </details>
 
@@ -526,9 +552,12 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 
 - **考点**：serve 的介词结构。
 - **为什么错**：保留了 dish up 的 for，句子读成「替我们把意面盛出来」，端给我们的方向感消失。
-- **英语的表达逻辑**：for 标记受益，to 标记接受；serve 的动作方向指向接受者，因此用 to。
+- **英语的表达逻辑**：for 标记受益，to 标记接受。
+  - serve 的动作方向指向接受者，因此用 to。
 - **正确表达**：The waiter served the pasta to us.（服务员把意面端给了我们）
+- **举一反三**：
   - The waiter served the pasta to the guests.（服务员把意面端给了客人）
+  - The waitress served the tea to the elderly couple.（女服务员把茶端给那对老年夫妇）
 
 </details>
 
@@ -544,9 +573,11 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>知识点讲解</summary>
 
 - **本题知识点**：serve 结构里的介词，以及 meal / food 与 dish 的区别。
-- **规则与机制**：`serve hot meals to sb` 中接受者用 to；dish 指具体的一道菜或盛菜的盘子，泛指一顿饭用 meal 或 food。
+- **规则与机制**：`serve hot meals to sb` 中接受者用 to。
+  - dish 指具体的一道菜或盛菜的盘子，泛指一顿饭用 meal 或 food。
 - **英语的表达逻辑**：英语区分「一道菜」与「一顿饭」，泛称热饭用 hot meals，不用 hot dish。
-- **可迁移表达**：The small shop serves hot meals to the workers nearby.（这家小店给附近的工人供应热饭）
+- **举一反三**：The small shop serves hot meals to the workers nearby.（这家小店给附近的工人供应热饭）
+  - The canteen serves lunch to all students.（食堂给所有学生供应午餐）
 
 </details>
 
@@ -554,10 +585,13 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>错题讲解</summary>
 
 - **考点**：serve 的接受者介词与 meal 的用词。
-- **为什么错**：用 for 引出接受者，方向感变成「替工人准备」；把一顿热饭写成 hot dish，让人以为只供应一道菜。
+- **为什么错**：用 for 引出接受者，方向感变成「替工人准备」。
+  - 把一顿热饭写成 hot dish，让人以为只供应一道菜。
 - **英语的表达逻辑**：介词决定名词在动作里的角色，名词则决定「一道菜」还是「一顿饭」的量级。
 - **正确表达**：The small shop serves hot meals to the workers nearby every day.（这家小店每天给附近的工人供应热饭）
+- **举一反三**：
   - They serve free meals to the volunteers.（他们给志愿者供应免费餐食）
+  - The shelter serves warm food to everyone in need.（收容所给每个有需要的人供应热食）
 
 </details>
 
@@ -575,9 +609,11 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>知识点讲解</summary>
 
 - **本题知识点**：hand out 与 dish up 各自的宾语范围。
-- **规则与机制**：`hand out + 要发放的物品`；`dish up + 饭菜`，宾语是吃的东西本身，不能再用 dishes 这种盛器名词回指。
+- **规则与机制**：`hand out + 要发放的物品`。
+  - `dish up + 饭菜`，宾语是吃的东西本身，不能再用 dishes 这种盛器名词回指。
 - **英语的表达逻辑**：动词的宾语要落在动作真正作用的对象上：派发作用于试卷，盛菜作用于饭菜，不能落回容器。
-- **可迁移表达**：I'll dish up the pasta in five minutes.（我五分钟内把意面盛好端上桌）
+- **举一反三**：I'll dish up the pasta in five minutes.（我五分钟内把意面盛好端上桌）
+  - She dished up the rice and vegetables for the kids.（她给孩子们盛好米饭和菜）
 
 </details>
 
@@ -588,7 +624,9 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 - **为什么错**：写成 dish up the dishes，宾语回到了盘子这个容器上，读起来像「把盘子端上桌」，动作对象错位。
 - **英语的表达逻辑**：dish up 的语义核心是把食物盛出来端上桌，宾语必须是饭菜。
 - **正确表达**：I'll dish up the pasta.（我把意面盛出来端上桌）
+- **举一反三**：
   - She dished up the soup for the children.（她给孩子们把汤盛好端上桌）
+  - He dished up the rice for the guests.（他给客人盛好米饭端上桌）
 
 </details>
 
@@ -617,9 +655,11 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>知识点讲解</summary>
 
 - **本题知识点**：serve 以人作宾语时，表示为客人服务、招待客人。
-- **规则与机制**：`serve + 人` 里的人是服务的对象，动作内容是招待，具体端什么并不出现在句子里；要说明端上的物品，就要用双宾或 `serve sth to sb`。
+- **规则与机制**：`serve + 人` 里的人是服务的对象，动作内容是招待，具体端什么并不出现在句子里。
+  - 要说明端上的物品，就要用双宾或 `serve sth to sb`。
 - **英语的表达逻辑**：英语允许同一个动词按宾语类型切换语义场：宾语是食物就落在供应上，宾语是人就落在招待上。
-- **可迁移表达**：The waiter served the guests first.（服务员先招待了客人）
+- **举一反三**：The waiter served the guests first.（服务员先招待了客人）
+  - The clerk served the next customer with a smile.（店员笑着招待下一位顾客）
 
 </details>
 
@@ -635,9 +675,11 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>知识点讲解</summary>
 
 - **本题知识点**：双宾结构里的主谓一致与一般现在时。
-- **规则与机制**：The flight attendants 是复数主语，一般现在时谓语用原形 serve；双宾 `serve + 人 + 物` 保持不变。
+- **规则与机制**：The flight attendants 是复数主语，一般现在时谓语用原形 serve。
+  - 双宾 `serve + 人 + 物` 保持不变。
 - **英语的表达逻辑**：英语的 -s 只加在第三人称单数主语上，复数主语一律用原形，时态由语境而不是词形单独决定。
-- **可迁移表达**：The flight attendants serve each passenger a warm towel.（乘务员给每位乘客一条热毛巾）
+- **举一反三**：The flight attendants serve each passenger a warm towel.（乘务员给每位乘客一条热毛巾）
+  - The hosts serve their visitors fresh juice.（主人给客人端上鲜榨果汁）
 
 </details>
 
@@ -645,10 +687,13 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>错题讲解</summary>
 
 - **考点**：复数主语的一般现在时形式，以及双宾结构的语序。
-- **为什么错**：把复数主语当作需要变形的主语，写成过去式 served；句子的语境是每次起飞前的常规流程，不是已经发生的过去事件。
+- **为什么错**：把复数主语当作需要变形的主语，写成过去式 served。
+  - 句子的语境是每次起飞前的常规流程，不是已经发生的过去事件。
 - **英语的表达逻辑**：主谓一致决定单复数形式，时间状语与叙事语境决定时态，两者不能互相替代。
 - **正确表达**：The flight attendants serve each passenger a small warm towel before takeoff.（乘务员在起飞前给每位乘客一条热毛巾）
-  - 可迁移：These cafés serve breakfast all day.（这些咖啡店全天供应早餐）
+- **举一反三**：
+  - These cafés serve breakfast all day.（这些咖啡店全天供应早餐）
+  - The bellboys serve each guest a welcome drink.（行李员给每位客人端上迎宾饮品）
 
 </details>
 
@@ -664,9 +709,11 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>知识点讲解</summary>
 
 - **本题知识点**：过去叙事中的谓语时态。
-- **规则与机制**：Last night 把事件固定在过去，谓语用过去式 served；第三人称单数的 -s 只在一般现在时出现。
+- **规则与机制**：Last night 把事件固定在过去，谓语用过去式 served。
+  - 第三人称单数的 -s 只在一般现在时出现。
 - **英语的表达逻辑**：英语用时间状语和谓语形态共同标定事件时间，过去时间状语要求谓语同步变成过去式。
-- **可迁移表达**：Last night the new waiter served the guests the soup very slowly.（昨晚新来的服务员给客人上汤很慢）
+- **举一反三**：Last night the new waiter served the guests the soup very slowly.（昨晚新来的服务员给客人上汤很慢）
+  - Yesterday the barista served us two cups of coffee.（昨天咖啡师给我们端了两杯咖啡）
 
 </details>
 
@@ -682,9 +729,11 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>知识点讲解</summary>
 
 - **本题知识点**：双宾结构转 `serve sth to sb` 结构。
-- **规则与机制**：直接宾语 a traditional dessert 提前后，间接宾语 the guests 由 to 引出；serve 属于 to 组动词，不用 for。
+- **规则与机制**：直接宾语 a traditional dessert 提前后，间接宾语 the guests 由 to 引出。
+  - serve 属于 to 组动词，不用 for。
 - **英语的表达逻辑**：英语用 to 标记接受者、用 for 标记受益者，动词归属于哪一组决定了转换时的介词。
-- **可迁移表达**：The host served a traditional dessert to the guests.（主人把一道传统甜点端给了客人）
+- **举一反三**：The host served a traditional dessert to the guests.（主人把一道传统甜点端给了客人）
+  - She handed the keys to the receptionist.（她把钥匙递给了接待员）
 
 </details>
 
@@ -702,7 +751,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 - **本题知识点**：一般现在时的被动语态。
 - **规则与机制**：被动结构是 `be + 过去分词`，be 要按主语和时态变形：主语 the welcome drink 是单数，every evening 表示常态，所以是 is served。
 - **英语的表达逻辑**：英语的被动语态把动作承受者放主语位置，be 只承担时态与数，动词意义由过去分词承担。
-- **可迁移表达**：The welcome drink is served in the lobby every evening.（迎宾饮品每晚在大厅供应）
+- **举一反三**：The welcome drink is served in the lobby every evening.（迎宾饮品每晚在大厅供应）
+  - Breakfast is served in the dining hall.（早餐在餐厅供应）
 
 </details>
 
@@ -713,7 +763,9 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 - **为什么错**：只写出动词原形 be，没有让 be 承担第三人称单数的现在时形式，句子缺少真正的谓语。
 - **英语的表达逻辑**：被动语态的 be 是助动词，必须在数和时态上与主语一致，不能用不定式或原形顶替。
 - **正确表达**：In this hotel, the welcome drink is served in the lobby every evening.（这家酒店每晚在大厅供应迎宾饮品）
-  - 可迁移：Lunch is served from twelve to two.（午餐十二点到两点供应）
+- **举一反三**：
+  - Lunch is served from twelve to two.（午餐十二点到两点供应）
+  - Dinner is served in the garden tonight.（今晚在花园供应晚餐）
 
 </details>
 
@@ -729,9 +781,11 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 <summary>知识点讲解</summary>
 
 - **本题知识点**：`serve sth to sb` 结构与并列句，以及定冠词特指前文提到的人群。
-- **规则与机制**：第二次出现、且指前文已经明确的群体时，复数名词前用 the：the adults；不限定的大人可以写 some adults。
+- **规则与机制**：第二次出现、且指前文已经明确的群体时，复数名词前用 the：the adults。
+  - 不限定的大人可以写 some adults。
 - **英语的表达逻辑**：英语用冠词区分「任意的大人」与「当时在场的那几位大人」，上下文已经锁定的对象要用 the。
-- **可迁移表达**：The waiter served the soup to the children first, and then to the adults.（服务员先把汤端给孩子们，然后才端给大人们）
+- **举一反三**：The waiter served the soup to the children first, and then to the adults.（服务员先把汤端给孩子们，然后才端给大人们）
+  - She gave the small cakes to the girls and the coffee to the boys.（她把小蛋糕给女孩们，咖啡给男孩们）
 
 </details>
 
@@ -742,6 +796,8 @@ By ten the hall was quiet and the chairs were stacked against the wall. Nina sat
 - **为什么错**：用零冠词 adults，读起来像「招呼任意一些成年人」，丢掉了中文里「大人们」所指的、与孩子们对照的那一群特定对象。
 - **英语的表达逻辑**：冠词承担指称功能，the 标记说话人和听话人共同知道的对象，零冠词表示泛指。
 - **正确表达**：The waiter served the hot soup to the children first, and then served the adults.（服务员先把热汤端给孩子们，然后才去招呼大人们）
-  - 可迁移：She gave the small cakes to the children and the coffee to the adults.（她把小蛋糕给了孩子们，把咖啡给了大人们）
+- **举一反三**：
+  - She gave the small cakes to the children and the coffee to the adults.（她把小蛋糕给了孩子们，把咖啡给了大人们）
+  - He passed the bread to the girls and the butter to the boys.（他把面包递给女孩们，把黄油递给男孩们）
 
 </details>

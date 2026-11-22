@@ -222,11 +222,15 @@ DEFAULT_COL_WIDTH = 150
 DEFAULT_KINDS = ("复习", "练习", "套题")
 DEFAULT_SUMMARY = "知识点讲解"
 DEFAULT_ERROR_SUMMARY = "错题讲解"
-DEFAULT_DETAIL_LABELS = ("考点", "为什么错", "英语的表达逻辑", "正确表达")
-DEFAULT_UNANSWERED_LABELS = ("考点", "为什么答不出", "英语的表达逻辑", "正确表达")
-DEFAULT_KNOWLEDGE_LABELS = ("本题知识点", "规则与机制", "英语的表达逻辑", "可迁移表达")
+DEFAULT_DETAIL_LABELS = ("考点", "为什么错", "英语的表达逻辑", "正确表达", "举一反三")
+DEFAULT_UNANSWERED_LABELS = ("考点", "为什么答不出", "英语的表达逻辑", "正确表达", "举一反三")
+DEFAULT_KNOWLEDGE_LABELS = ("本题知识点", "规则与机制", "英语的表达逻辑", "举一反三")
 # 折叠块里承载例句的步骤：多条例句必须逐条写成缩进子项，不允许在标签行内用分隔符串接。
-EXAMPLE_STEP_LABELS = ("可迁移表达", "正确表达")
+EXAMPLE_STEP_LABELS = ("举一反三", "正确表达")
+# 承载规则 / 错因要点的步骤：一行内用分号串起多个独立要点时，必须拆成缩进子项，一条一点。
+POINT_STEP_LABELS = ("本题知识点", "规则与机制", "考点", "为什么错", "为什么答不出", "英语的表达逻辑")
+# 举一反三步骤至少给出的换场景例句数。
+MIN_DEMO_COUNT = 2
 CHAINED_EXAMPLE_RE = re.compile(
     r"／| / |；\s*可迁移\s*:?|;\s*可迁移\s*:?|；(?=\s*[A-Za-z])"
 )
@@ -278,7 +282,7 @@ def load_template(path: Path | None = None) -> dict[str, object]:
         if kinds_match
         else DEFAULT_KINDS
     )
-    # 折叠块标题与四步标签一律以 meta 声明为准；meta 缺失时退回常量，不从正文猜
+    # 折叠块标题与步骤标签一律以 meta 声明为准；meta 缺失时退回常量，不从正文猜
     knowledge_summary = (meta.get("knowledge-summary") or [DEFAULT_SUMMARY])[0]
     error_summary = (meta.get("error-summary") or [DEFAULT_ERROR_SUMMARY])[0]
     summaries = (knowledge_summary, error_summary)
@@ -316,7 +320,7 @@ QUESTION_RE = re.compile(r"^### (\d+)\. " r"(\S.*?)\s*$")
 FIELD_RE = re.compile(r"^\*\*(题目|我的答案|判定)\*\*：")
 VERDICT_RE = re.compile(r"^(\*\*判定\*\*：)(✅|⚠️|❌) ?(.*)$")
 DETAIL_ITEM_RE = re.compile(
-    r"^[-*+]\s+\*\*(本题知识点|规则与机制|考点|为什么错|为什么答不出|英语的表达逻辑|正确表达|可迁移表达)\*\*：(.*)$"
+    r"^[-*+]\s+\*\*(本题知识点|规则与机制|考点|为什么错|为什么答不出|英语的表达逻辑|正确表达|举一反三)\*\*：(.*)$"
 )
 MERGED_CHOICES_RE = re.compile(r"^\s*(?:[-*]\s+)?[A-D]\.\s.*[A-D]\.\s")
 MERGED_SUBITEMS_RE = re.compile(r"\(a\)[^\n]*\(b\)")
@@ -769,12 +773,12 @@ def validate_menu_section(
     if mfields and mfields[0] != "讲解要点":
         add(
             line_no,
-            "每个菜单项的第一组字段必须是 `**讲解要点**：`，不要先写 `**可迁移表达**：`",
+            "每个菜单项的第一组字段必须是 `**讲解要点**：`，不要先写 `**举一反三**：`",
         )
-    if "可迁移表达" in mfields:
+    if "举一反三" in mfields:
         add(
             line_no,
-            "菜单项只写一组 `**讲解要点**：`：把可迁移表达/示例写成对应要点的缩进子项，不要另起 `**可迁移表达**：`",
+            "菜单项只写一组 `**讲解要点**：`：把举一反三例句/示例写成对应要点的缩进子项，不要另起 `**举一反三**：`",
         )
     # 纯习题菜单项的文件级骨架小节：这一轮没有讲解要点，小节内只挂 `复习历史` 索引，
     # 不要求 `**讲解要点**：`；只要正文里没有习题、讲解要点或对话/故事原文即可。
@@ -820,7 +824,7 @@ def validate_menu_section(
         if points and not children:
             add(
                 line_no,
-                "每条讲解要点至少要有一个缩进子项写出对应的可迁移表达或示例（`  - 例句`）",
+                "每条讲解要点至少要有一个缩进子项写出对应的举一反三例句或示例（`  - 例句`）",
             )
         if not in_round_block:
             check_inline_demo_glosses(add, line_no, lines[1:])
@@ -900,7 +904,7 @@ def validate_menu_section(
         )
 
 
-MENU_FIELD_RE = re.compile(r"^\*\*(讲解要点|可迁移表达)\*\*：")
+MENU_FIELD_RE = re.compile(r"^\*\*(讲解要点|举一反三)\*\*：")
 MENU_CHILD_RE = re.compile(r"^(?:\s{2,}|\t)(?:[-*] |\d+\. )")
 NOTE_DIR_NAME = "learning-record-notes"
 NOTE_CATEGORIES = ("vocabulary", "phrases", "grammar", "usage", "errors", "paper")
@@ -1917,6 +1921,15 @@ def check(path: Path) -> list[dict]:
                 error_labels = list(TEMPLATE["unanswered_labels"]) if is_unanswered else list(TEMPLATE["error_labels"])
                 for detail_block in blocks:
                     summary = block_summary(detail_block)
+                    if summary == knowledge_summary:
+                        expected_labels = knowledge_labels
+                        hint = "知识点讲解步骤标签必须为："
+                    elif is_unanswered:
+                        expected_labels = error_labels
+                        hint = "未作答/未完成题的步骤标签必须为："
+                    else:
+                        expected_labels = error_labels
+                        hint = "错题讲解步骤标签必须与模板一致："
                     steps: list[dict] = []
                     for line in detail_block:
                         step_match = DETAIL_ITEM_RE.match(line)
@@ -1947,17 +1960,31 @@ def check(path: Path) -> list[dict]:
                                 f"`{step_label}` 里多条例句必须逐条写成缩进子项（`  - …`），"
                                 "不要用 `／`、`/` 或 `；` 同行串接",
                             )
-                    if len(steps) != 4:
-                        add(base_line, "讲解折叠块必须严格为四个无序列表步骤")
-                    if summary == knowledge_summary:
-                        expected_labels = knowledge_labels
-                        hint = "知识点讲解四步标签必须为："
-                    elif is_unanswered:
-                        expected_labels = error_labels
-                        hint = "未作答/未完成题的四步标签必须为："
-                    else:
-                        expected_labels = error_labels
-                        hint = "错题讲解四步标签必须与模板一致："
+                        if step_label in POINT_STEP_LABELS and "；" in inline_text:
+                            add(
+                                base_line,
+                                f"`{step_label}` 一行串了多个独立要点：每条要点拆成两个空格缩进的子项（`  - …`），"
+                                "一条一点，不要用 `；` 同行串接",
+                            )
+                        if step_label == "举一反三":
+                            demo_count = (1 if inline_text else 0) + len(step["sub_items"])
+                            if demo_count < MIN_DEMO_COUNT:
+                                add(
+                                    base_line,
+                                    f"`举一反三` 至少给出 {MIN_DEMO_COUNT} 条换场景例句，逐条写成缩进子项（`  - …`），"
+                                    "一句一行",
+                                )
+                        if step_label == "正确表达" and step["sub_items"]:
+                            add(
+                                base_line,
+                                "`正确表达` 只放本题纠正后的代表句；额外换场景例句放到同级 `举一反三` 步骤，"
+                                "不要缩进挂在 `正确表达` 下面",
+                            )
+                    if len(steps) != len(expected_labels):
+                        add(
+                            base_line,
+                            f"讲解折叠块必须严格为 {len(expected_labels)} 个无序列表步骤",
+                        )
                     if labels != expected_labels:
                         add(base_line, hint + " / ".join(str(label) for label in expected_labels))
 

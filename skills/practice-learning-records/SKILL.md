@@ -14,7 +14,7 @@ description: 从规范学习记录中选择到期或低分知识点开展复习�
 | 触发情况 | 读取 |
 |---|---|
 | 生成、持久化、续答、重做或评分四六级 / IELTS 风格套题 | `references/exam-papers.md` |
-| 用户要求讲某道题，或要按四步模板补讲错题 / 未作答题 | `references/error-explanation.md` |
+| 用户要求讲某道题，或要按五步模板补讲错题 / 未作答题 | `references/error-explanation.md` |
 | 讲解或练习引入了新的稳定知识点，要按 `batch-upsert` 入库 | `references/knowledge-recording.md` |
 | 某个写操作失败，要决定重试还是放弃 | `references/failure-recovery.md` |
 | 用户回复最近菜单里的数字、要按 option `kind` 分派 | `references/menu-dispatch.md` |
@@ -260,7 +260,7 @@ python3 skills/learn-from-english/scripts/learning_records.py review-round --inp
 
 以下内容一律不写进聊天，因为它们已经落在 `learning-record-notes/` 的笔记里：
 
-- 小结、总结、逐条解析、逐题的考点、错误机制、英语表达逻辑、正确表达（`references/error-explanation.md` 的四步模板只用于笔记的 `错题讲解` 折叠块）；
+- 小结、总结、逐条解析、逐题的考点、错误机制、英语表达逻辑、正确表达（`references/error-explanation.md` 的五步模板只用于笔记的 `错题讲解` 折叠块）；
 - 状态变化说明、下次复习时间、最关键建议、本轮写入的文件与字段等过程说明；
 - 自检与校验过程（`note_status`、`auto_fixed`、`tracking_mismatch`）；
 - 追问式收尾与下一步建议（后续动作只由第 3 部分的菜单承担）。

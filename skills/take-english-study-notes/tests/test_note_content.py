@@ -57,7 +57,8 @@ def sentence_making_note(*, stem: str, answer_block: str) -> str:
         "- **本题知识点**：out west 作方向状语\n"
         "- **规则与机制**：方位短语保持分写\n"
         "- **英语的表达逻辑**：方向用副词短语表示\n"
-        "- **可迁移表达**：head out west\n\n"
+        "- **举一反三**：head out west\n"
+        "  - 示例二\n\n"
         "</details>\n"
     )
     return (
@@ -80,7 +81,7 @@ def note_with_explanation(**kwargs) -> str:
     index = text.index(marker)
     explain = (
         "\n## 讲解\n\n**错误机制**：\n\n- 一条机制\n\n"
-        "**可迁移表达**：\n\n- She headed out west.（她往西边出发。）\n"
+        "**举一反三**：\n\n- She headed out west.（她往西边出发。）\n"
     )
     return text[:index] + explain + text[index:]
 
@@ -134,7 +135,8 @@ def note_text(
         f"- **本题知识点**：{knowledge}\n"
         "- **规则与机制**：方位短语保持分写\n"
         "- **英语的表达逻辑**：方向用副词短语表示\n"
-        "- **可迁移表达**：head out west\n\n"
+        "- **举一反三**：head out west\n"
+        "  - 示例二\n\n"
         "</details>\n"
     )
 
@@ -166,7 +168,8 @@ def paper_note_text(*, second_reference: str | None = "第 1 题", second_detail
         "- **本题知识点**：Passage 1 的主旨句在首段末句\n"
         "- **规则与机制**：主题句常带转折连词\n"
         "- **英语的表达逻辑**：先让步后转折\n"
-        "- **可迁移表达**：While …, the study argues …\n\n"
+        "- **举一反三**：While …, the study argues …\n"
+        "  - 示例二\n\n"
         "</details>\n"
     )
     second_tail = (
@@ -271,7 +274,8 @@ def second_round(stamp: str, section: str = "") -> str:
         "- **本题知识点**：x\n"
         "- **规则与机制**：x\n"
         "- **英语的表达逻辑**：x\n"
-        "- **可迁移表达**：x\n\n"
+        "- **举一反三**：x\n"
+        "  - 示例二\n\n"
         "</details>\n"
         + section
     )
@@ -305,7 +309,8 @@ def menu_practice(title: str = "## 练习「out west」的关键语法结构") -
         "- **本题知识点**：out west 作方向状语\n"
         "- **规则与机制**：out 与 west 分写\n"
         "- **英语的表达逻辑**：方向副词短语\n"
-        "- **可迁移表达**：head out west\n\n"
+        "- **举一反三**：head out west\n"
+        "  - 示例二\n\n"
         "</details>\n"
     )
 
@@ -346,7 +351,7 @@ def with_file_level_section(base: str, section: str) -> str:
     if "## 讲解" not in head:
         head += (
             "\n## 讲解\n\n**错误机制**：\n\n- 一条机制\n\n"
-            "**可迁移表达**：\n\n- She headed out west.（她往西边出发。）\n"
+            "**举一反三**：\n\n- She headed out west.（她往西边出发。）\n"
         )
     return head + "\n" + section + rest
 
@@ -556,7 +561,8 @@ class NoteContentValidationTest(unittest.TestCase):
                 "- **本题知识点**：out west 作方向状语\n"
                 "- **规则与机制**：out 与 west 分写\n"
                 "- **英语的表达逻辑**：方向副词短语\n"
-                "- **可迁移表达**：head out west\n\n"
+                "- **举一反三**：head out west\n"
+        "  - 示例二\n\n"
                 "</details>\n"
             ),
             "## 用 out west 做翻译练习\n",
@@ -866,30 +872,87 @@ class NoteContentValidationTest(unittest.TestCase):
     def test_chained_examples_in_detail_block_are_rejected(self) -> None:
         """折叠块例句步骤用 ／、/ 或 ；可迁移 同行串接多条例句时必须被拦下。"""
         chained = (
-            "- **可迁移表达**：I can't stand the smoke.（受不了烟味。）"
+            "- **举一反三**：I can't stand the smoke.（受不了烟味。）"
             "／I can't stand the noise.（受不了噪音。）"
         )
-        self.assert_caught(note_text().replace("- **可迁移表达**：head out west", chained), "逐条写成缩进子项")
+        self.assert_caught(note_text().replace("- **举一反三**：head out west", chained), "逐条写成缩进子项")
         chained_error = (
             "- **正确表达**：The guests love the terrace.（客人们喜欢露台。）"
             "；可迁移：They served coffee there.（他们在那儿供应咖啡。）"
         )
         text = note_text().replace(
             "<summary>知识点讲解</summary>", "<summary>错题讲解</summary>"
-        ).replace("- **可迁移表达**：head out west", chained_error)
+        ).replace("- **举一反三**：head out west", chained_error)
         self.assert_caught(text, "逐条写成缩进子项")
 
     def test_example_sub_items_in_detail_block_pass(self) -> None:
         """折叠块例句逐条写成缩进子项、标签行留空时校验通过。"""
         sub_items = (
-            "- **可迁移表达**：\n"
+            "- **举一反三**：\n"
             "  - I can't stand the smoke.（受不了烟味。）\n"
             "  - I can't stand the noise.（受不了噪音。）"
         )
         self.assertEqual(
-            self.check(note_text().replace("- **可迁移表达**：head out west", sub_items)),
+            self.check(note_text().replace("- **举一反三**：head out west", sub_items)),
             [],
         )
+
+    def test_single_demo_in_yifanyu_is_rejected(self) -> None:
+        """举一反三只有一条换场景例句时必须被拦下，至少给出两条。"""
+        single = "- **举一反三**：head out west"
+        text = note_text().replace(
+            "- **举一反三**：head out west\n  - 示例二", single
+        )
+        self.assert_caught(text, "至少给出 2 条换场景例句")
+
+    def test_chained_point_in_detail_step_is_rejected(self) -> None:
+        """规则与机制 / 为什么错等要点步骤一行用 ；串多个要点时必须被拦下拆子项。"""
+        chained = "- **规则与机制**：方位短语保持分写；复数主语谓语用原形。"
+        text = note_text().replace(
+            "- **规则与机制**：方位短语保持分写", chained
+        )
+        self.assert_caught(text, "一行串了多个独立要点")
+
+    def test_extra_demo_under_correct_answer_is_rejected(self) -> None:
+        """正确表达下面挂缩进例句必须被拦下，换场景例句应放到同级举一反三步骤。"""
+        error_block = (
+            "<details>\n<summary>错题讲解</summary>\n\n"
+            "- **考点**：serve 的介词结构\n"
+            "- **为什么错**：保留了 dish up 的 for，方向感消失\n"
+            "- **英语的表达逻辑**：for 标记受益，to 标记接受\n"
+            "- **正确表达**：The waiter served the pasta to us.（服务员把意面端给了我们）\n"
+            "  - The waiter served the pasta to the guests.（服务员把意面端给了客人）\n"
+            "- **举一反三**：\n"
+            "  - The waitress served the tea to the elderly couple.（女服务员把茶端给那对老年夫妇）\n"
+            "  - The host served the dessert to the visitors.（主人把甜点端给了来访者）\n\n"
+            "</details>\n"
+        )
+        text = (
+            note_text(counts="1 题 / 1 处错误")
+            .replace("**判定**：✅ 正确", "**判定**：⚠️ 部分正确")
+        )
+        text = text.replace("</details>\n", "</details>\n" + error_block)
+        self.assert_caught(text, "额外换场景例句放到同级")
+
+    def test_error_block_with_correct_answer_and_two_demos_passes(self) -> None:
+        """错题块五步：考点 / 为什么错 / 英语的表达逻辑 / 正确表达 / 举一反三（两条）校验通过。"""
+        error_block = (
+            "<details>\n<summary>错题讲解</summary>\n\n"
+            "- **考点**：serve 的介词结构\n"
+            "- **为什么错**：保留了 dish up 的 for，方向感消失\n"
+            "- **英语的表达逻辑**：for 标记受益，to 标记接受\n"
+            "- **正确表达**：The waiter served the pasta to us.（服务员把意面端给了我们）\n"
+            "- **举一反三**：\n"
+            "  - The waiter served the pasta to the guests.（服务员把意面端给了客人）\n"
+            "  - The host served the dessert to the visitors.（主人把甜点端给了来访者）\n\n"
+            "</details>\n"
+        )
+        text = (
+            note_text(counts="1 题 / 1 处错误")
+            .replace("**判定**：✅ 正确", "**判定**：⚠️ 部分正确")
+        )
+        text = text.replace("</details>\n", "</details>\n" + error_block)
+        self.assertEqual(self.check(text), [])
 
     def test_ordered_steps_in_detail_block_are_rejected(self) -> None:
         """折叠块四步必须是无序列表；用 1. 2. 3. 4. 有序编号必须被拦下。"""
@@ -897,12 +960,12 @@ class NoteContentValidationTest(unittest.TestCase):
             "本题知识点": "1.",
             "规则与机制": "2.",
             "英语的表达逻辑": "3.",
-            "可迁移表达": "4.",
+            "举一反三": "4.",
         }
         ordered = note_text()
         for label, prefix in numbered.items():
             ordered = ordered.replace(f"- **{label}**：", f"{prefix} **{label}**：")
-        self.assert_caught(ordered, "四个无序列表步骤")
+        self.assert_caught(ordered, "个无序列表步骤")
 
     def test_letter_enumerated_answer_must_be_list_items(self) -> None:
         """a./b./c. 与 (a)/(b) 编号的多句答案同样必须逐条写成列表项。"""
