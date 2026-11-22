@@ -230,7 +230,7 @@ def story_block(
     title: str = DEFAULT_STORY_TITLE,
 ) -> str:
     """一段故事原文折叠块：summary 按 `<base> [n] · <标题>` 拼。"""
-    body = f"{sentences}\n\n她在一个寒冷的早晨往西走。\n\n"
+    body = f"{sentences}\n\n<p class=\"note-translation\">她在一个寒冷的早晨往西走。</p>\n\n"
     if table:
         body += STORY_TABLE + "\n"
     head = f"{summary} · {title}" if title else summary
@@ -471,6 +471,34 @@ class NoteContentValidationTest(unittest.TestCase):
             "</details>\n",
         )
         self.assert_caught(text, "日期区块只放习题")
+
+    def test_story_translation_must_be_wrapped_in_translation_paragraph(self) -> None:
+        bare_body = f"{STORY_SENTENCES}\n\n她在一个寒冷的早晨往西走。\n\n" + STORY_TABLE
+        block = f"<details><summary>故事原文 · 往西的那条路</summary>\n\n{bare_body}</details>\n\n"
+        text = with_menu_section(note_text(), story_section(block))
+        self.assert_caught(text, "中文译文必须独立成段并打弱化标记")
+
+    def test_dialogue_translation_sub_bullet_must_be_wrapped_in_span(self) -> None:
+        block = (
+            "<details><summary>场景对话原文 · 问路</summary>\n\n"
+            "- **Ann**：Where are you going?\n"
+            "  - 安：你去哪儿？\n"
+            "- **Ben**：Out west, past the river.\n"
+            "  - 本：往西，过了河。\n"
+            "- **Ann**：How far?\n"
+            "  - 安：多远？\n"
+            "- **Ben**：Two days on foot.\n"
+            "  - 本：走路两天。\n\n"
+            "</details>\n"
+        )
+        section = (
+            "## 看一套围绕 out west 的完整场景对话\n\n"
+            "**讲解要点**：\n- out west 表示往西边\n"
+            "  - She headed out west.（她往西边出发。）\n\n"
+            + block
+        )
+        text = with_menu_section(note_text(), section)
+        self.assert_caught(text, "译文子项必须用")
 
     def test_round_section_with_explanation_points_is_rejected(self) -> None:
         """日期区块里的同名小节只写习题：重复写讲解要点必须被拦下。"""

@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>5</td></tr>
 <tr><td>下次复习</td><td>2026-11-25 11:53</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-22 11:53</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-22 13:48</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-22 14:06</td></tr>
 </table>
 
 ## 讲解
@@ -77,31 +77,31 @@
 <summary>场景对话原文 1 · 早餐时段的实习生</summary>
 
 - **Dan**：The doors open at seven. Is everything ready on the buffet?
-  - 丹：七点开门，自助台那边都准备好了吗？
+  - <span class="note-translation">丹：七点开门，自助台那边都准备好了吗？</span>
 - **Mia**：Almost. The bread is still in the kitchen.
-  - 米娅：差不多了，面包还在厨房里。
+  - <span class="note-translation">米娅：差不多了，面包还在厨房里。</span>
 - **Dan**：Then bring it out now and put it on the long table by the window.
-  - 丹：那现在端出来，放到窗边那张长桌上。
+  - <span class="note-translation">丹：那现在端出来，放到窗边那张长桌上。</span>
 - **Mia**：Got it. And what about the tea and coffee?
-  - 米娅：好。那茶和咖啡呢？
+  - <span class="note-translation">米娅：好。那茶和咖啡呢？</span>
 - **Dan**：We **serve** them **to** every guest at their table, not at the buffet.
-  - 丹：茶和咖啡是我们端到客人桌上去的，不放自助台。
+  - <span class="note-translation">丹：茶和咖啡是我们端到客人桌上去的，不放自助台。</span>
 - **Mia**：So I **serve** the tea **to** them after they sit down?
-  - 米娅：那就是等客人坐下以后，把茶端给他们？
+  - <span class="note-translation">米娅：那就是等客人坐下以后，把茶端给他们？</span>
 - **Dan**：Exactly. One cup first, then ask if they want a refill.
-  - 丹：对。先上一杯，再问要不要续。
+  - <span class="note-translation">丹：对。先上一杯，再问要不要续。</span>
 - **Mia**：What if someone asks for something we don't have?
-  - 米娅：要是客人点我们没有的东西呢？
+  - <span class="note-translation">米娅：要是客人点我们没有的东西呢？</span>
 - **Dan**：Say so politely, and offer the closest thing we do serve.
-  - 丹：客气地说明，然后推荐我们确实供应的最接近的替代品。
+  - <span class="note-translation">丹：客气地说明，然后推荐我们确实供应的最接近的替代品。</span>
 - **Guest**：Excuse me, is the hot milk out yet?
-  - 客人：打扰一下，热牛奶上了吗？
+  - <span class="note-translation">客人：打扰一下，热牛奶上了吗？</span>
 - **Mia**：Not yet, but I'll **serve** it **to** you in a moment.
-  - 米娅：还没，不过我马上给您端过来。
+  - <span class="note-translation">米娅：还没，不过我马上给您端过来。</span>
 - **Guest**：Thanks. Could I have some toast as well?
-  - 客人：谢谢。还能再来点吐司吗？
+  - <span class="note-translation">客人：谢谢。还能再来点吐司吗？</span>
 - **Mia**：Of course. I'll bring both over to your table.
-  - 米娅：当然，我把两样都送到您桌上。
+  - <span class="note-translation">米娅：当然，我把两样都送到您桌上。</span>
 
 </details>
 
@@ -109,29 +109,29 @@
 <summary>场景对话原文 2 · 航班上的特殊餐食</summary>
 
 - **Lena**：Good evening, sir. We'll start serving meals in about twenty minutes.
-  - 莉娜：晚上好，先生。我们大约二十分钟后开始供餐。
+  - <span class="note-translation">莉娜：晚上好，先生。我们大约二十分钟后开始供餐。</span>
 - **Fowler**：Do you have the vegetarian meal I requested?
-  - 福勒：我订的素食餐有吗？
+  - <span class="note-translation">福勒：我订的素食餐有吗？</span>
 - **Lena**：Let me check the list. I'm afraid there's only one special meal on board, and it was already **served to** the passenger in 12C.
-  - 莉娜：我查一下名单。很抱歉，机上只有一份特殊餐，已经端给 12C 的乘客了。
+  - <span class="note-translation">莉娜：我查一下名单。很抱歉，机上只有一份特殊餐，已经端给 12C 的乘客了。</span>
 - **Fowler**：So there's nothing left for me?
-  - 福勒：那我这边就什么都没有了？
+  - <span class="note-translation">福勒：那我这边就什么都没有了？</span>
 - **Lena**：We still **serve** the standard dinner, and I can bring you the pasta without the meat sauce.
-  - 莉娜：我们还会供应标准晚餐，我可以给您端一份不加肉酱的意面。
+  - <span class="note-translation">莉娜：我们还会供应标准晚餐，我可以给您端一份不加肉酱的意面。</span>
 - **Fowler**：That works. And could I have a glass of water first?
-  - 福勒：行。能先给我来杯水吗？
+  - <span class="note-translation">福勒：行。能先给我来杯水吗？</span>
 - **Lena**：Of course. I'll **serve** it **to** you right away.
-  - 莉娜：当然，我马上给您端过来。
+  - <span class="note-translation">莉娜：当然，我马上给您端过来。</span>
 - **Fowler**：Thanks. What about drinks for the rest of the cabin?
-  - 福勒：谢谢。其他乘客的饮料怎么安排？
+  - <span class="note-translation">福勒：谢谢。其他乘客的饮料怎么安排？</span>
 - **Lena**：We **serve** drinks after the meals, row by row, so nobody has to wait too long.
-  - 莉娜：餐后我们按排供应饮料，这样谁都不用等太久。
+  - <span class="note-translation">莉娜：餐后我们按排供应饮料，这样谁都不用等太久。</span>
 - **Fowler**：Here's my tray. The pasta looks good.
-  - 福勒：我的餐盘来了。这意面看着不错。
+  - <span class="note-translation">福勒：我的餐盘来了。这意面看着不错。</span>
 - **Lena**：I **served** it without the meat sauce, as we discussed. Enjoy your meal.
-  - 莉娜：按刚才说的，我端来的是不加肉酱的那份。请慢用。
+  - <span class="note-translation">莉娜：按刚才说的，我端来的是不加肉酱的那份。请慢用。</span>
 - **Fowler**：Thank you. You've been very helpful.
-  - 福勒：谢谢，你帮了大忙。
+  - <span class="note-translation">福勒：谢谢，你帮了大忙。</span>
 
 </details>
 
@@ -150,16 +150,20 @@
 **海边小馆重开张**
 
 On the first morning of June, Rosa unlocked the blue door of the little diner by the harbor. She had closed it for a whole winter to repair the old kitchen. Now the tables were clean, the chairs were new, and the whole street smelled of salt and coffee.
-六月的头一个清晨，罗莎打开了港口边那家小馆的蓝色店门。为了修那间旧厨房，她整整关了一冬天。如今桌子擦干净了，椅子也换了新的，整条街都飘着海盐和咖啡的味道。
+
+<p class="note-translation">六月的头一个清晨，罗莎打开了港口边那家小馆的蓝色店门。为了修那间旧厨房，她整整关了一冬天。如今桌子擦干净了，椅子也换了新的，整条街都飘着海盐和咖啡的味道。</p>
 
 Her son, Tom, was nervous. He had never worked in the diner before, and he kept asking which plate went where. Rosa told him the only rule that mattered: whoever sits at a table first should be served first, and every plate must go to the right person.
-儿子汤姆有点紧张。他从没在小馆里干过活，一直问哪个盘子该放哪儿。罗莎只告诉他一条最要紧的规矩：谁先坐下就先招待谁，每一盘菜都得送到对的人手上。
+
+<p class="note-translation">儿子汤姆有点紧张。他从没在小馆里干过活，一直问哪个盘子该放哪儿。罗莎只告诉他一条最要紧的规矩：谁先坐下就先招待谁，每一盘菜都得送到对的人手上。</p>
 
 At half past seven the first guests arrived: two fishermen and a young family. Tom **served** the fishermen their coffee, and then **served** a bowl of hot soup **to** the little girl, who was cold from the wind. Rosa watched from the kitchen and said nothing.
-七点半，头一批客人进门了：两个渔民和一家人。汤姆先给渔民端上咖啡，又给那个被风吹得发冷的小女孩端了一碗热汤。罗莎在厨房里看着，一句话也没说。
+
+<p class="note-translation">七点半，头一批客人进门了：两个渔民和一家人。汤姆先给渔民端上咖啡，又给那个被风吹得发冷的小女孩端了一碗热汤。罗莎在厨房里看着，一句话也没说。</p>
 
 By nine the diner was full. Someone asked whether they served breakfast all day. Rosa answered from behind the counter that they **serve** breakfast from seven to eleven, and lunch after that. When the last plate was cleared, Tom finally smiled.
-到九点，小馆已经坐满了。有人问他们是不是全天都供应早餐。罗莎在柜台后面回答，他们七点到十一点供应早餐，之后是午餐。等最后一只盘子收走，汤姆终于笑了。
+
+<p class="note-translation">到九点，小馆已经坐满了。有人问他们是不是全天都供应早餐。罗莎在柜台后面回答，他们七点到十一点供应早餐，之后是午餐。等最后一只盘子收走，汤姆终于笑了。</p>
 
 | 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |
 |---|---|---|

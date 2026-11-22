@@ -609,6 +609,53 @@ DETAILS_SUMMARY_RE = re.compile(r"<summary>\s*([^<]+?)\s*</summary>")
 STORY_TABLE_CELLS = ("故事里的位置", "当时想表达什么", "为什么不换别的表达")
 STORY_TABLE_HEADER = "| " + " | ".join(STORY_TABLE_CELLS) + " |"
 
+# 译文弱化标记：故事译文段用 <p class="note-translation">…</p>，对话译文子项用
+# <span class="note-translation">…</span>；视觉样式由看板统一提供，笔记不写行内 style。
+TRANSLATION_CLASS = "note-translation"
+STORY_TRANSLATION_P_RE = re.compile(
+    rf'^<p class="{TRANSLATION_CLASS}">.*</p>\s*$'
+)
+DIALOGUE_TRANSLATION_SPAN_RE = re.compile(
+    rf'^<span class="{TRANSLATION_CLASS}">.*</span>\s*$'
+)
+CJK_RE = re.compile(r"[一-鿿]")
+LATIN_RE = re.compile(r"[A-Za-z]")
+DIALOGUE_SUB_BULLET_RE = re.compile(r"^(\s+)-\s+(.*)$")
+DETAIL_TITLE_LINE_RE = re.compile(r"^\*\*.+\*\*\s*$")
+
+
+def check_story_translation_markup(add, line_no: int, block: dict) -> None:
+    """故事块里的裸中文译文段必须独立成段并打 note-translation 标记。"""
+    for raw in block["body"].split("\n"):
+        line = raw.strip()
+        if not line or line.startswith("|") or DETAIL_TITLE_LINE_RE.match(line):
+            continue
+        if not CJK_RE.search(line) or LATIN_RE.search(line):
+            continue
+        if not STORY_TRANSLATION_P_RE.match(line):
+            add(
+                line_no,
+                f"折叠块 `{block['summary']}` 的中文译文必须独立成段并打弱化标记：写成 "
+                f"`<p class=\"{TRANSLATION_CLASS}\">…</p>`，与英文段之间空一行；当前裸中文行：`{line}`",
+            )
+
+
+def check_dialogue_translation_markup(add, line_no: int, block: dict) -> None:
+    """对话块里的缩进译文子项必须用 note-translation span 包裹。"""
+    for raw in block["body"].split("\n"):
+        match = DIALOGUE_SUB_BULLET_RE.match(raw)
+        if not match:
+            continue
+        content = match.group(2).strip()
+        if not CJK_RE.search(content):
+            continue
+        if not DIALOGUE_TRANSLATION_SPAN_RE.match(content):
+            add(
+                line_no,
+                f"折叠块 `{block['summary']}` 的译文子项必须用 "
+                f"`<span class=\"{TRANSLATION_CLASS}\">…</span>` 包裹；当前子项：`{content}`",
+            )
+
 
 def count_story_sentences(block_text: str) -> int:
     """数出英文叙事句数。
@@ -800,6 +847,7 @@ def validate_menu_section(
                     f"折叠块 `{block['summary']}` 至少要有 4 句台词（当前 {len(turns)} 句）：对话被截断或只写了开场白，"
                     "等于这一段没有交付",
                 )
+            check_dialogue_translation_markup(add, line_no, block)
     if "小故事" in title:
         story_blocks = details_blocks(section_text, STORY_SUMMARY)
         if not story_blocks:
@@ -824,6 +872,7 @@ def validate_menu_section(
                     f"折叠块 `{block['summary']}` 内必须包含收尾三列表（`{STORY_TABLE_HEADER}`）："
                     "英文叙事与译文之后把表格写进同一个 `<details>` 块，放在块外等于这一段没有交付",
                 )
+            check_story_translation_markup(add, line_no, block)
         if story_blocks:
             inside_tables = sum(
                 block["body"].count(STORY_TABLE_HEADER) for block in story_blocks
