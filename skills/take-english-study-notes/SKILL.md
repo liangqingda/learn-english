@@ -104,7 +104,7 @@ python3 skills/take-english-study-notes/scripts/note.py check --all [--fix]
 
 ## 校验
 
-`check --all` 用 `$LEARN_ENGLISH_REPO_ROOT`（缺省取本脚本所在仓库根）定位 `learning-record-notes/`，跳过 `README.md`；CI 每次 push 跑这一条。
+`check --all` 用 `$LEARN_ENGLISH_REPO_ROOT`（缺省取本脚本所在仓库根）定位 `learning-record-notes/`，跳过 `README.md`；改动后本地跑这一条。
 
 - `ok: true` 才算通过；`invalid` 表示写入成功但校验未过（进程退出码 1），用 `replace` 就地修正本轮区块。
 - `--all` 另返回 `missing_notes`：还没有笔记文件的记录，含 `count`、`by_category` 与按分类轮流取样的前 50 条 `records`。

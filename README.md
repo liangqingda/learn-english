@@ -279,7 +279,7 @@ EOF
 
 区块走标准输入，不落中间文件；确需文件时用 `mktemp` 生成唯一路径，**不要**用 `/tmp/note-block.md` 这类固定路径，否则并行会话会互相覆盖内容源。`append` 在 `learning-record-notes/.notes.lock` 上取排他锁，锁内完成“读现有文件 → 追加 `---` 分隔 → `os.replace` 原子替换”，因此多个会话同时写同一个笔记文件不会互相覆盖。判重按「标题 + 正文」：同标题同内容返回 `appended: false, duplicate: true`（不要重试）；同标题但内容不同不会丢内容，命令会把时间顺延到不冲突且保持升序的分钟并返回 `heading_adjusted: true` 与新的 `heading`。同一轮里隔天再练同一菜单项时，题组仍写进文件最新那个日期区块（不按今天的日期新建区块，区块标题保持本轮开始那天），日期标题不变；同一天存在多个区块、或同一区块里同一菜单项被选中第二次时，小节标题按该天的顺序自动编号（`## <选项原文> - 01`、` - 02`，单份不带后缀），一节一表、题号各从 1 起。每份带习题的菜单项小节（含 `## 本轮习题`）在自己的标题下先写三行表 `生成时间` / `本轮得分` / `题量与错题数`：`生成时间` 由写入脚本按实际落盘时刻自动盖章（可以晚于轮次标题时间，但不允许更早，后续重写原样保留），它是这一节真实发生时间的唯一来源。小节还会自动带上派生内容：标题行右侧挂一个隐藏锚点 `<a id="practice-<date>-<HHMM>-<8 hex>"></a>`（日期与时间取自该节的 `生成时间`；同一菜单项当天有多份小节时末尾再拼 ` - 01` / ` - 02` 序号；渲染时不可见，点击直接落在标题上），文件级同名小节的讲解内容之后放一行 `复习历史：` + 一块 `<!-- practice-index -->` … `<!-- /practice-index -->` 索引块，按时间倒序列出该菜单项全部习题小节的链接（新的在前）；`## 讲解` 的讲解内容之后另有一行 `复习历史：` + 一块 `<!-- round-index -->` … `<!-- /round-index -->` 复习目录，列出每个日期区块的 `## 本轮习题`（各自也在标题行右侧带 `round-` 锚点）。习题索引条目的时间取自该小节的 `生成时间`（`<日期> <HH:MM> · <复习|练习|套题>`），所以点开链接能看到这一节真正写在几点；`round-index` 里 `## 本轮习题` 的条目仍与日期区块标题同口径。同一天同一菜单项有多份时在末尾按时间先后补 ` - 01`、` - 02`。这些都在每次写入和 `check --all --fix` 时按真实小节重建，不要手写。`append-section` 用同一把锁把单个 `## <菜单项>` 小节插到既有区块最前（`## 本轮习题` 之后、既有小节之前，区块内小节按落盘时间倒序、新的在前），区块其余内容一字不动，因此给已有区块补一节不需要整块重写；`append-part` 是它的小粒度版本：只往某个既有小节的末尾补一段（故意给同一个小节多补几道 `### <n>. <题型>` 题时用；同一菜单项再选一次应当用 `append-section` 新建带序号的同标题小节，不再并节；故事 / 对话原文的第二次生成走 `append-explain-part`，写进文件级讲解区并按 `故事原文 2 · <标题>`、`场景对话原文 2 · <标题>` 编号（每段原文都必须带标题，缺标题会被写入命令拒绝），不新建小节；`replace` 只用于修正本轮自己写错的区块，一次只允许改一个小节（批量迁移逐节加 `--rewrite-section`，返回 `modified_sections`），并在锁内自动保留新内容没有带上的既有小节（返回 `preserved_sections`），只有 `--drop-section` 显式列出的小节才允许真的删除。
 
-`skills/take-english-study-notes/scripts/note.py` 是复习笔记的统一入口，写入与校验都在 `take-english-study-notes` 内完成（`note_store.py` 负责锁与原子替换，`check_note.py` 负责校验），不需要安装其他 skill 才能写。唯一跨 skill 依赖是只读的记录事实：追踪表比对通过 `learning_records.py record-tracking --id <id>` 取回期望值（按 `$LEARN_ENGLISH_CLI`、仓库内同级目录、安装位依次查找），取不到时返回 `tracking_skipped` 而不阻断写入。写入命令会自己完成三件事：撞上已有笔记时拒绝另建文件并给出应复用的路径；校验不过时自动执行可安全修复项再复检（`auto_fixed`）；把追踪表与规范记录逐字段比对，不一致时返回 `tracking_mismatch` 与 `tracking_expected`，其中记录直接拥有的 `累计复习次数` / `下次复习` 会按记录值自动回填（`basic_info_synced`），其余字段仍需调用方修正；已有笔记顶部停在旧值时用 `note.py sync --file <笔记>` 就地修复。CI 与本地体检都用 `note.py check --all`。`--check` 结果放进 `check` 字段，并用 `check_ok` / `note_status` 区分写入与合规：`valid` 通过，`invalid` 表示写入成功但校验未过（进程退出码 1），`unverified` 表示校验器不可用。笔记格式的唯一规则来源是 `skills/take-english-study-notes/references/note-format.md`（追加与改写细则在 `note-format-append.md`，校验与迁移在 `note-format-validation.md`），版式以 `templates/review-note.md` 为准。一轮有作答的复习用 `learning_records.py review-round` 一次完成评分、写笔记、校验与后续菜单，不必逐条调用。日期区块里第一个二级标题就是该轮题组标题：没有菜单项标题的题组用兜底标题 `## 本轮习题`，题目自带菜单项标题时直接用那个标题，本轮信息表就挂在它的标题之下、第一题之前（`生成时间` / 本轮得分 / 题量与错题数；`分类 · 状态变化` 只在这轮真的改了记录状态时才插进 `生成时间` 之后，没改就整行不写）；同一区块里另有带习题的菜单项小节时，那些小节各写一张三行表（`生成时间` / `本轮得分` / `题量与错题数`），永远不带 `分类 · 状态变化`。有习题的菜单项一律 0 至 10 计分，得分只写笔记；`分类 · 状态变化` 只在这轮真的改了记录状态时出现，练习轮次和状态没动的轮次整行不写。
+`skills/take-english-study-notes/scripts/note.py` 是复习笔记的统一入口，写入与校验都在 `take-english-study-notes` 内完成（`note_store.py` 负责锁与原子替换，`check_note.py` 负责校验），不需要安装其他 skill 才能写。唯一跨 skill 依赖是只读的记录事实：追踪表比对通过 `learning_records.py record-tracking --id <id>` 取回期望值（按 `$LEARN_ENGLISH_CLI`、仓库内同级目录、安装位依次查找），取不到时返回 `tracking_skipped` 而不阻断写入。写入命令会自己完成三件事：撞上已有笔记时拒绝另建文件并给出应复用的路径；校验不过时自动执行可安全修复项再复检（`auto_fixed`）；把追踪表与规范记录逐字段比对，不一致时返回 `tracking_mismatch` 与 `tracking_expected`，其中记录直接拥有的 `累计复习次数` / `下次复习` 会按记录值自动回填（`basic_info_synced`），其余字段仍需调用方修正；已有笔记顶部停在旧值时用 `note.py sync --file <笔记>` 就地修复。本地体检用 `note.py check --all`。`--check` 结果放进 `check` 字段，并用 `check_ok` / `note_status` 区分写入与合规：`valid` 通过，`invalid` 表示写入成功但校验未过（进程退出码 1），`unverified` 表示校验器不可用。笔记格式的唯一规则来源是 `skills/take-english-study-notes/references/note-format.md`（追加与改写细则在 `note-format-append.md`，校验与迁移在 `note-format-validation.md`），版式以 `templates/review-note.md` 为准。一轮有作答的复习用 `learning_records.py review-round` 一次完成评分、写笔记、校验与后续菜单，不必逐条调用。日期区块里第一个二级标题就是该轮题组标题：没有菜单项标题的题组用兜底标题 `## 本轮习题`，题目自带菜单项标题时直接用那个标题，本轮信息表就挂在它的标题之下、第一题之前（`生成时间` / 本轮得分 / 题量与错题数；`分类 · 状态变化` 只在这轮真的改了记录状态时才插进 `生成时间` 之后，没改就整行不写）；同一区块里另有带习题的菜单项小节时，那些小节各写一张三行表（`生成时间` / `本轮得分` / `题量与错题数`），永远不带 `分类 · 状态变化`。有习题的菜单项一律 0 至 10 计分，得分只写笔记；`分类 · 状态变化` 只在这轮真的改了记录状态时出现，练习轮次和状态没动的轮次整行不写。
 
 ### 查询和统计
 
@@ -388,17 +388,16 @@ python3 skills/learn-from-english/scripts/learning_records.py backfill-mastered-
 │   │   ├── failure-recovery.md
 │   │   └── knowledge-recording.md
 │   └── agents/openai.yaml
-├── skills/take-english-study-notes/
-│   ├── SKILL.md
-│   ├── references/
-│   │   ├── note-format.md
-│   │   ├── note-format-append.md
-│   │   └── note-format-validation.md
-│   ├── templates/review-note.md
-│   ├── scripts/check_note.py
-│   ├── scripts/note.py
-│   └── agents/openai.yaml
-└── .github/workflows/check.yml
+└── skills/take-english-study-notes/
+    ├── SKILL.md
+    ├── references/
+    │   ├── note-format.md
+    │   ├── note-format-append.md
+    │   └── note-format-validation.md
+    ├── templates/review-note.md
+    ├── scripts/check_note.py
+    ├── scripts/note.py
+    └── agents/openai.yaml
 ```
 
 ## 测试
@@ -410,4 +409,4 @@ python3 -m compileall -q skills/learn-from-english/scripts skills/learn-from-eng
 git diff --check
 ```
 
-测试覆盖批量校验与协调回滚、重复学习、评分与错题写入、状态转换、评分历史、间隔调度、上下文化菜单、旧数据迁移、校验修复、故障注入、CLI 兼容、`contract.json` 与实际骨架一致和服务层不介入 Git。GitHub Actions 会在推送和 Pull Request 上自动执行测试、数据校验与编译检查。
+测试覆盖批量校验与协调回滚、重复学习、评分与错题写入、状态转换、评分历史、间隔调度、上下文化菜单、旧数据迁移、校验修复、故障注入、CLI 兼容、`contract.json` 与实际骨架一致和服务层不介入 Git。这些检查只在本地按上面的命令手动跑，仓库不带远端自动校验。

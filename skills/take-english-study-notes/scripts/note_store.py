@@ -1161,7 +1161,7 @@ class NoteStore:
     @staticmethod
     def _lock_handle(handle: Any) -> Any:
         # POSIX 分支有并发用例覆盖；Windows 分支只在无 fcntl 的平台走到，
-        # 无法在 CI（Ubuntu / macOS）里验证，改动该分支时需手工确认。
+        # 本机（macOS）验不到这条分支，改动时需手工确认。
         try:
             import fcntl
         except ImportError:  # pragma: no cover - Windows only

@@ -946,7 +946,7 @@ class RecordService:
         next_text = "—"
         if next_review_at:
             # 记录里的时间戳自带写入时的时区偏移，按原偏移排版即可；再转一次本机时区会让同一份
-            # 记录在别的机器（例如 UTC 的 CI）上显示成另一个时间。
+            # 记录在时区不同的机器上显示成另一个时间。
             next_text = datetime.fromisoformat(next_review_at).strftime("%Y-%m-%d %H:%M")
         key = record.get("key") or (identifier.split(":", 1)[1] if ":" in identifier else None)
         return {
