@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>—</td></tr>
 <tr><td>下次复习</td><td>—</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-23 07:45</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-24 07:50</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-24 07:52</td></tr>
 </table>
 
 ## 讲解
@@ -114,5 +114,40 @@
   - <span class="noteTranslation">艾米：你真是救星，晚饭我请。</span>
 - **Ben**：Deal. But I'm not carrying the pizza up six floors.
   - <span class="noteTranslation">本：成交。不过披萨我可不会给你扛上六楼。</span>
+
+</details>
+
+## 📖 读一个围绕「on top of all that」的小故事
+
+💡 **讲解要点**：
+- 故事把接连不断的意外串成一条线，每个转折都用 on top of all that 把新麻烦叠到已经够多的一堆上。
+  - The tire blew, we lost the map, and on top of all that, the phone died.（轮胎爆了，地图丢了，更糟的是手机也没电了）
+- 它只引出一件新事：后面直接接逗号和主句，不接名词、也不带从句。
+  - On top of all that, the bus never came.（除此之外，公交一直没来）
+
+<details>
+<summary>故事原文 · 去海边的周六</summary>
+
+We had planned the beach trip for weeks. On Saturday morning the car wouldn't start, so we borrowed jumper cables from a neighbor. Then the GPS sent us down a road that dead-ended at a construction site. We burned forty minutes just getting back to the highway.
+
+<p class="noteTranslation">这次海边之旅我们计划了好几周。周六一早，车打不着火，只好跟邻居借搭电线。接着导航把我们带到一条路的尽头，那儿是个工地。光掉头回到高速上就耗掉了四十分钟。</p>
+
+Halfway there, my daughter announced that she had left the bag with everyone's swimsuits at home. We bought two new ones at a gas station for twice the price. The parking lot at the beach was full, so we parked a mile away and walked in. And `on top of all that`, the wind picked up and the sand stung our legs like small stones.
+
+<p class="noteTranslation">走到一半，女儿说她把装泳衣的包落在家里了。我们只能在加油站买了两套新的，价钱翻了一倍。海滩的停车场满了，我们停在一英里外，走过去的。更糟的是，风起来了，沙子打在腿上像小石子。</p>
+
+We finally sat down with our sandwiches and a thermos of tea. `On top of all that`, a seagull took my son's hot dog right out of his hand, bun and all. My wife laughed until she had to sit down on the sand. Then she dropped her phone in the wet sand.
+
+<p class="noteTranslation">我们总算坐下，三明治和一保温壶茶都摆开了。偏偏这时候，一只海鸥把我儿子的热狗整只叼走了，连面包都没留下。我妻子笑得在沙地上坐了下去。紧接着，她把手机掉进了湿沙子里。</p>
+
+By three o'clock the sky opened. We ran for the car under the umbrella I had packed for "just in case". `On top of all that`, the tide came in and soaked the blanket we had left by the water. My son looked up and said, "Best beach day ever." I couldn't argue with him — we were all laughing in the rain.
+
+<p class="noteTranslation">三点左右，天说下就下起了大雨。我们撑着那把“以防万一”的伞往车那儿跑。更倒霉的是，涨潮了，把我们留在水边的毯子泡了个透。儿子抬头说：“史上最好的一天。”我还真没法反驳——一家人在雨里笑成一团。</p>
+
+| 故事里的位置 | 当时想表达什么 | 为什么不换别的表达 |
+|---|---|---|
+| 第 2 段 the wind picked up | 泳衣、停车、步行三件糟心事已经说完，再补一件天气上的麻烦 | 换成 also 只是并列，丢掉「又多一刀」的递进；in addition to that 太书面，与抱怨的口吻不合 |
+| 第 3 段 a seagull took my son's hot dog | 野餐时刻本该缓一口气，偏偏又来一件荒诞的倒霉事 | 换成 what's worse 更强调「更糟」，但丢掉「在已有清单之上再叠一层」的字面结构；用 then 只剩时间顺序 |
+| 第 4 段 the tide came in | 淋雨跑车已经够狼狈，再补涨潮泡了毯子 | 用 then 会变成单纯的时间顺序，读者听不到「还来一件」的口气 |
 
 </details>
