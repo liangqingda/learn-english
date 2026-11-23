@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>—</td></tr>
 <tr><td>下次复习</td><td>—</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-23 07:45</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-23 22:32</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-24 07:50</td></tr>
 </table>
 
 ## 讲解
@@ -80,3 +80,39 @@
   - On top of all that, the train was late.（除此之外，火车还晚点了）
 - that 在这里是指示代词，保持 /ðæt/，不读成关系代词的 /ðət/。
   - All that aside, we still have to finish today.（撇开这些不谈，我们今天还是得收尾）
+
+## 🎭 看一套围绕「on top of all that」的完整场景对话
+
+💡 **讲解要点**：
+- 说完一两件倒霉事之后，用 on top of all that 收最后一件，等于把新情况再叠到已经够多的一堆事上。
+  - The fridge broke, the wifi died, and on top of all that, the water got cut off.（冰箱坏了，网断了，更糟的是还停水了）
+- 它天然占清单式抱怨的末位，前面已经列过两三件，后面接的那件往往最让人泄气。
+  - I lost my wallet and missed the bus; on top of all that, it started to rain.（我丢了钱包，还错过了公交，更倒霉的是还下起雨来）
+- 正式场合不用它，同一位置换 in addition to that 或 to make matters worse。
+  - To make matters worse, the landlord never showed up.（更糟的是，房东根本没露面）
+
+<details>
+<summary>场景对话原文 · 搬家日电梯停了</summary>
+
+- **Amy**：Ben, thanks for coming. The elevator's dead and we're on the sixth floor.
+  - <span class="noteTranslation">艾米：本，谢谢你来。电梯坏了，我们还在六楼。</span>
+- **Ben**：No problem. Which boxes first?
+  - <span class="noteTranslation">本：没事儿。先搬哪个箱子？</span>
+- **Amy**：The ones with the books. Fair warning, they're stupidly heavy.
+  - <span class="noteTranslation">艾米：装书的那些。先提醒你，沉得要命。</span>
+- **Ben**：I've carried worse. Anything else going wrong today?
+  - <span class="noteTranslation">本：更沉的我都搬过。今天还有别的糟心事吗？</span>
+- **Amy**：The landlord still has my keys, and the truck is two hours late.
+  - <span class="noteTranslation">艾米：房东还攥着我的钥匙呢，搬家的车也晚了两小时。</span>
+- **Ben**：Ouch. And `on top of all that`, it's pouring.
+  - <span class="noteTranslation">本：哎哟。更绝的是外头还下着大雨。</span>
+- **Amy**：Right? And `on top of all that`, the internet guy says he can't come until Thursday.
+  - <span class="noteTranslation">艾米：是吧？而且装网的人说周四之前来不了。</span>
+- **Ben**：Okay, boxes first, complaints later. Grab the door for me.
+  - <span class="noteTranslation">本：行，先搬箱子，抱怨回头再说。帮我扶着门。</span>
+- **Amy**：You're a lifesaver. Dinner's on me.
+  - <span class="noteTranslation">艾米：你真是救星，晚饭我请。</span>
+- **Ben**：Deal. But I'm not carrying the pizza up six floors.
+  - <span class="noteTranslation">本：成交。不过披萨我可不会给你扛上六楼。</span>
+
+</details>
