@@ -7,7 +7,7 @@
 <tr><td>累计复习次数</td><td>—</td></tr>
 <tr><td>下次复习</td><td>—</td></tr>
 <tr><td>笔记生成时间</td><td>2026-11-23 07:45</td></tr>
-<tr><td>笔记更新时间</td><td>2026-11-23 07:47</td></tr>
+<tr><td>笔记更新时间</td><td>2026-11-23 22:32</td></tr>
 </table>
 
 ## 讲解
@@ -34,7 +34,8 @@
 
 🗣 **发音**：
 - 重音落在 top 和 all 上，on、of 都走弱读，整串读作 ɑn tɑp əv ɔːlˈðæt。
-- of 弱读成 /əv/，all that 连读成 /ɔːlˈðæt/，that 弱化时读 /ðət/。
+- of 弱读成 /əv/，v 有声，不读成 /ɒf/；top of 连成 /ˈtɑpəv/，像一个小词。
+- that 在这里是指示代词，通常保持 /ðæt/；只有作关系代词或连词的 that 才常弱化成 /ðət/。
 - on 在美式里读 /ɑːn/，英式读 /ɒn/。
 
 🚫 **容易混淆**：
@@ -48,3 +49,34 @@
 - She's working two jobs and looking after her mother; on top of all that, she's studying for an exam.（她打两份工、还要照顾母亲，除此之外还在准备考试）
 - On top of all that, the client moved the deadline up by a week.（除此之外，客户还把截止日期提前了一周）
 - We missed the last train, and on top of it all, my phone died.（我们错过了末班车，更倒霉的是手机还没电了）
+
+## 🎧 辨析「on top of all that」里的发音和重读
+
+| 词 | 强读 | 短语里的实际读法 | 说明 |
+|---|---|---|---|
+| on | /ɑːn/（美）、/ɒn/（英） | /ɑn/、/ɒn/ 轻读 | 介词，弱读，音高落低，不拖长 |
+| top | /tɑːp/ | /ˈtɑp/ 主重音 | 实词，整串里最响的音节 |
+| of | /ɑːv/（美）、/ɒv/（英） | /əv/ | 介词必弱读，元音塌成 schwa，v 有声 |
+| all | /ɔːl/ | /ˈɔːl/ 次重音 | 实词，第二个落点 |
+| that | /ðæt/ | /ðæt/ | 指示代词，指「那一堆事」，不缩成 /ðət/ |
+
+- 节奏是一条「轻—重—轻—重—重」的波浪：ɑn-tɑp-əv-ɔːl-ðæt，两个实词顶起来，两个介词压下去，中间没有停顿。
+- top of 连成一个词 /ˈtɑpəv/，像 toppov：p 在元音前放开，不要读成 top / 停顿 / of。
+- of all 连成 /əvɔːl/，f 一带而过，但不要吞掉整个 of。
+- 整串一口气说完，中间不插 uh 或换气；跟在 and 后面时，and 也弱读成 /ən/。
+
+🧱 **中文母语者最容易听错的三处**：
+- of 被读成 /ɒf/ 或 /ɔːf/，而原声里是 /əv/，v 有振动，听感更「软」。
+- 每个词给同等力度，结果重音全平，母语者听起来像在念单词表。
+- 把 that 弱化成 /ðət/，其实这里是指示代词，只有在 that 作关系代词或连词时才会缩成 /ðət/。
+
+💡 **讲解要点**：
+- 整串只有两个重音：top 与 all，on、of 全走弱读。
+  - On top of all that, it rained.（除此之外，还下了雨）
+  - And on top of all that, we lost the keys.（更糟的是，我们又把钥匙丢了）
+- of 必须读 /əv/，v 有声，不是 /ɒf/。
+  - She got a fine on top of all that.（除此之外，她还吃了张罚单）
+- top of 连读成 /ˈtɑpəv/，中间不能断开。
+  - On top of all that, the train was late.（除此之外，火车还晚点了）
+- that 在这里是指示代词，保持 /ðæt/，不读成关系代词的 /ðət/。
+  - All that aside, we still have to finish today.（撇开这些不谈，我们今天还是得收尾）
