@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 314,
+  "revision": 315,
   "category": "phrases",
   "records": {
     "phrases:a-bit-informal-degree": {
@@ -2036,6 +2036,58 @@
       "mastered_at": null,
       "review_history": [],
       "key": "steaming-forests-nature-writing"
+    },
+    "phrases:stock-market-crash": {
+      "id": "phrases:stock-market-crash",
+      "category": "phrases",
+      "key": "stock-market-crash",
+      "status": "learning",
+      "title": "stock market crash：股市崩盘、股灾",
+      "explanation": "stock market crash 指股价在短时间内大面积暴跌的市场事件，中文常说「股灾」「股市崩盘」。crash 在这里是可数名词：a crash / the crash / the 2008 crash；作动词时说 the market crashed、stocks crashed。搭配上用 in the crash（事情发生在崩盘之中）、during the crash（强调那段时间）、after the crash（崩盘之后），不说 on the crash。程度由轻到重：a market slump（下滑）< a sell-off（抛售）< a crash / a meltdown（全面崩盘，语气最重）。注意 crash 与 crush 不同，crush 是压碎、碾碎。语域：财经新闻、报纸标题和日常谈投资都常用。",
+      "source": "I lost half my money in the stock market crash.",
+      "example": "Many small investors never recovered from the 2008 stock market crash.",
+      "tags": [
+        "collocation",
+        "finance",
+        "news"
+      ],
+      "first_learned_at": "2026-11-24T07:24:45+08:00",
+      "last_learned_at": "2026-11-24T07:24:45+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
+    },
+    "phrases:take-a-big-hit": {
+      "id": "phrases:take-a-big-hit",
+      "category": "phrases",
+      "key": "take-a-big-hit",
+      "status": "learning",
+      "title": "take a big hit：遭受重创、损失惨重",
+      "explanation": "take a hit 原指「挨了一下打」，引申为「受到打击、遭受损失」，加 big / hard / major 强调程度。财经语境里说股价、利润、行业受损很常见。更重的说法：get wiped out（赔光、被彻底打垮）、get hammered（被狠狠打击，口语）、tank（暴跌，主语是价格或公司）。接范围用 on 或 in：take a big hit on my savings。语域：财经新闻和口语都常见，比 lose a lot of money 更有画面感。",
+      "source": "I lost half my money in the stock market crash.",
+      "example": "My retirement fund took a big hit in the crash.",
+      "tags": [
+        "finance",
+        "idiom",
+        "register"
+      ],
+      "first_learned_at": "2026-11-24T07:24:45+08:00",
+      "last_learned_at": "2026-11-24T07:24:45+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "phrases:takeout-boxes-vs-takeout": {
       "id": "phrases:takeout-boxes-vs-takeout",

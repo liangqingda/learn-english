@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "revision": 312,
+  "revision": 315,
   "category": "grammar",
   "records": {
     "grammar:a-bit-of-a-singular-countable": {
@@ -556,6 +556,32 @@
       "mastered_at": null,
       "review_history": [],
       "key": "get-down-to-preposition"
+    },
+    "grammar:half-my-money-partitive-of": {
+      "id": "grammar:half-my-money-partitive-of",
+      "category": "grammar",
+      "key": "half-my-money-partitive-of",
+      "status": "learning",
+      "title": "half my money 与 half of my money：分数词后接限定词时 of 可省略",
+      "explanation": "half、all、both、most 这类量词后接「限定词 + 名词」时，of 可以省略：half my money = half of my money、half the students = half of the students。两条边界：一是限定词在时 of 可省，但不能说 half money，裸名词前必须有限定词；二是后接代词时 of 不能省，只能说 half of it / half of them，不说 half it。作主语时动词与 of 后面的名词一致：Half of my money is gone 用单数，Half of the students are ... 用复数。",
+      "source": "I lost half my money in the stock market crash.",
+      "example": "Half of my salary goes straight to rent.",
+      "tags": [
+        "determiners",
+        "partitives",
+        "subject-verb-agreement"
+      ],
+      "first_learned_at": "2026-11-24T07:24:45+08:00",
+      "last_learned_at": "2026-11-24T07:24:45+08:00",
+      "learned_count": 1,
+      "mastery_score": 0.0,
+      "review_count": 0,
+      "high_score_streak": 0,
+      "last_reviewed_at": null,
+      "next_review_at": null,
+      "lapse_count": 0,
+      "mastered_at": null,
+      "review_history": []
     },
     "grammar:have-got-possession-present": {
       "id": "grammar:have-got-possession-present",
