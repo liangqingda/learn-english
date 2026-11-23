@@ -131,6 +131,11 @@ class MenuInvariantTest(unittest.TestCase):
                 self.assertEqual(child["kind"], "follow-up-learning")
                 self.assertIn("help yourself", child["label"])
                 self.assertNotIn("咖啡店", child["label"])
+            # practice 是方向是否出题的唯一标记：发音只能靠示范跟读，不出题组。
+            self.assertEqual(
+                {child["icon"]: child["practice"] for child in children},
+                {"🧩": True, "📚": True, "🔄": True, "✍️": True, "🎧": False},
+            )
             self.assertEqual(
                 sum(option["kind"] == "follow-up-learning" for option in options),
                 0,

@@ -44,36 +44,43 @@ REVIEW_PATHS = (
     },
 )
 
+# 每个方向都带 practice 标记：True 表示这一项要出题组并计分，False 表示只讲解、不出题。
+# 读音要靠示范跟读来练，写出来的选择题测不到口型，所以发音与重读方向只讲解。
 FOLLOW_UP_SUGGESTIONS = (
     (
         "follow-up-grammar",
         "🧩",
         "练习「{focus}」的关键语法结构",
         "follow-up-learning",
+        True,
     ),
     (
         "follow-up-vocabulary",
         "📚",
         "扩展「{focus}」相关词汇和搭配",
         "follow-up-learning",
+        True,
     ),
     (
         "follow-up-comparison",
         "🔄",
         "对比「{focus}」和相近表达",
         "follow-up-learning",
+        True,
     ),
     (
         "follow-up-production",
         "✍️",
         "用「{focus}」做翻译和改写练习",
         "follow-up-learning",
+        True,
     ),
     (
         "follow-up-pronunciation",
         "🎧",
         "辨析「{focus}」里的发音和重读",
         "follow-up-learning",
+        False,
     ),
 )
 
@@ -193,7 +200,7 @@ def _initial_focus(
 
 
 def _follow_up_group(focus: str | None, *, initial: bool = False) -> dict[str, Any]:
-    """五个练习方向挂在同一个导航父项下。
+    """五个跟进方向挂在同一个导航父项下。
 
     不再按 focus 哈希抽 2 个：候选项只有 5 个，连续取 2 只可能凑出 5 种组合，
     同一条记录反复复习时看起来就是「永远这两项」，其余方向永远见不到。
@@ -206,15 +213,16 @@ def _follow_up_group(focus: str | None, *, initial: bool = False) -> dict[str, A
             label.format(focus=target),
             "other",
             kind=kind,
+            practice=practice,
             focus=target,
             parent_id="follow-up-directions",
         )
-        for option_id, icon, label, kind in FOLLOW_UP_SUGGESTIONS
+        for option_id, icon, label, kind, practice in FOLLOW_UP_SUGGESTIONS
     ]
     return _option(
         "follow-up-directions",
         "🧭",
-        f"展开 {len(children)} 个练习方向",
+        f"展开 {len(children)} 个跟进方向",
         "other",
         kind="follow-up-directions",
         focus=target,
@@ -509,7 +517,7 @@ def _learn_options(
     suggestions = [
         suggestion
         for suggestion in FOLLOW_UP_SUGGESTIONS
-        if not (grammar_explained and suggestion[3] == "follow-up-learning" and suggestion[1] == "🧩")
+        if not (grammar_explained and suggestion[0] == "follow-up-grammar")
     ]
     options.extend(
         _option(
@@ -518,9 +526,10 @@ def _learn_options(
             label.format(focus=target),
             "other",
             kind=kind,
+            practice=practice,
             focus=target,
         )
-        for option_id, icon, label, kind in suggestions
+        for option_id, icon, label, kind, practice in suggestions
     )
     options.append(_scenario_option(focus))
     options.append(_story_option(focus))

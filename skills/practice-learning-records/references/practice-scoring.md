@@ -3,7 +3,7 @@
 
 ## 练习计分
 
-`starter-practice`、`follow-up-learning`、`error-cluster-review`、`error-cluster-review-unclustered` 生成的练习，只要有题目就一律计分：用户提交后按「评分与协调记录」的 0 至 10 分口径逐题判定再综合评分。练习通常横跨多个子点，按本轮题组的整体掌握度评分，不做「评分自检」里那条以单一目标知识点为锚点的判定。它们与普通复习的唯一区别是**得分的落盘范围**——得分只写进 `learning-record-notes/` 的 Markdown 笔记；错题与新知识点仍按下文照常入库：
+`starter-practice`、`follow-up-learning`、`error-cluster-review`、`error-cluster-review-unclustered` 生成的练习，只要有题目就一律计分：用户提交后按「评分与协调记录」的 0 至 10 分口径逐题判定再综合评分。练习通常横跨多个子点，按本轮题组的整体掌握度评分，不做「评分自检」里那条以单一目标知识点为锚点的判定。菜单项标记为 `practice: false` 的方向不出题目，因此不进入本节流程，也没有得分可写。它们与普通复习的唯一区别是**得分的落盘范围**——得分只写进 `learning-record-notes/` 的 Markdown 笔记；错题与新知识点仍按下文照常入库：
 
 - 不调用 `complete-review`，不改 `learning-records/`、`mastered-learning-records/`：分数、状态、复习次数、逐次历史、下次复习时间都不变，一次练习不会把记录升级成 `familiar` / `mastered`。
 - 仍按仓库根目录 `AGENTS.md` 的「Exercise and dialogue error recording」用一次 `batch-upsert` 保存本轮实际展示并已讲解的可复用错误；`follow-up-learning` 引入的新稳定知识点照旧单独保存。

@@ -1,6 +1,6 @@
 ---
 name: practice-learning-records
-description: 从规范学习记录中选择到期或低分知识点开展复习，按回答记录 0 至 10 分，并在一次协调写操作中保存评分、状态变化和实际错题；有习题的练习项（`starter-practice`、`follow-up-learning`、两个错题聚类练习）也按 0 至 10 计分，但得分只写进 `learning-record-notes/` 的笔记、不写规范记录；也支持复习已标熟或已掌握知识点、查看历史统计、基于已掌握知识点生成/持久化/续答/重做/评分四六级与 IELTS 风格等考试套题，以及按用户给出的复习笔记相对路径或知识点记录 ID 直接学习那一个知识点。当用户消息去除首尾空白后仅为中文“你好”或“复习”，仅为单独的英文单词 review、hi 或 practice（忽略大小写），或仅为一条复习笔记的相对路径（形如 `learning-record-notes/<category>/<category>-<slug>.md`），或仅为一条知识点记录 ID（形如 `phrases:not-any-more-in-negative`）时必须使用；其中 practice 跳过菜单、直接从综合复习范围随机抽一条记录出题，笔记路径与记录 ID 都跳过菜单、直接对那一个知识点出题；在本 Skill 打开的复习或套题流程中，用户回复最近菜单中的数字或答案时也使用。除 review、hi、practice、笔记路径与记录 ID 之外的英文输入（含 hello 等单词）一律由 learn-from-english 讲解，本 Skill 不拦截其它英文触发词。
+description: 从规范学习记录中选择到期或低分知识点开展复习，按回答记录 0 至 10 分，并在一次协调写操作中保存评分、状态变化和实际错题；有习题的练习项（`starter-practice`、标记 `practice: true` 的 `follow-up-learning`、两个错题聚类练习）也按 0 至 10 计分，但得分只写进 `learning-record-notes/` 的笔记、不写规范记录；也支持复习已标熟或已掌握知识点、查看历史统计、基于已掌握知识点生成/持久化/续答/重做/评分四六级与 IELTS 风格等考试套题，以及按用户给出的复习笔记相对路径或知识点记录 ID 直接学习那一个知识点。当用户消息去除首尾空白后仅为中文“你好”或“复习”，仅为单独的英文单词 review、hi 或 practice（忽略大小写），或仅为一条复习笔记的相对路径（形如 `learning-record-notes/<category>/<category>-<slug>.md`），或仅为一条知识点记录 ID（形如 `phrases:not-any-more-in-negative`）时必须使用；其中 practice 跳过菜单、直接从综合复习范围随机抽一条记录出题，笔记路径与记录 ID 都跳过菜单、直接对那一个知识点出题；在本 Skill 打开的复习或套题流程中，用户回复最近菜单中的数字或答案时也使用。除 review、hi、practice、笔记路径与记录 ID 之外的英文输入（含 hello 等单词）一律由 learn-from-english 讲解，本 Skill 不拦截其它英文触发词。
 ---
 
 # 复习英语学习记录
@@ -18,7 +18,7 @@ description: 从规范学习记录中选择到期或低分知识点开展复习�
 | 讲解或练习引入了新的稳定知识点，要按 `batch-upsert` 入库 | `references/knowledge-recording.md` |
 | 某个写操作失败，要决定重试还是放弃 | `references/failure-recovery.md` |
 | 用户回复最近菜单里的数字、要按 option `kind` 分派 | `references/menu-dispatch.md` |
-| 一轮练习（`starter-practice` / `follow-up-learning` / 错题聚类练习）计分并只写笔记 | `references/practice-scoring.md` |
+| 一轮练习（`starter-practice` / `practice: true` 的 `follow-up-learning` / 错题聚类练习）计分并只写笔记 | `references/practice-scoring.md` |
 | 用户整条消息只是一条复习笔记的相对路径，或一条知识点记录 ID | `references/note-path-entry.md`（共用步骤）、`references/record-id-entry.md`（记录 ID 的定位差异） |
 
 只走普通复习、练习计分、写笔记和给菜单的轮次不读这些文件。
@@ -100,7 +100,7 @@ payload 只有四段，缺省段跳过：
 
 ## 练习计分
 
-`starter-practice`、`follow-up-learning`、`error-cluster-review`、`error-cluster-review-unclustered` 的题组照常按 0 至 10 计分，但得分只写进 `learning-record-notes/` 的笔记，不改 `learning-records/`、`mastered-learning-records/`；笔记锚点、`分类 · 状态变化` 的写与不写、错题入库与后续菜单见 `references/practice-scoring.md`。记录仍在而笔记文件缺失（被 `delete-note --keep-record` 删掉或从未建过）时，按该文件「笔记锚点」的重建顺序先建文件再落本轮，`note does not exist` 不等于这轮不写笔记。
+`starter-practice`、标记 `practice: true` 的 `follow-up-learning`、`error-cluster-review`、`error-cluster-review-unclustered` 的题组照常按 0 至 10 计分，但得分只写进 `learning-record-notes/` 的笔记，不改 `learning-records/`、`mastered-learning-records/`；笔记锚点、`分类 · 状态变化` 的写与不写、错题入库与后续菜单见 `references/practice-scoring.md`。记录仍在而笔记文件缺失（被 `delete-note --keep-record` 删掉或从未建过）时，按该文件「笔记锚点」的重建顺序先建文件再落本轮，`note does not exist` 不等于这轮不写笔记。
 
 ## 选择复习记录
 
@@ -303,5 +303,5 @@ python3 skills/learn-from-english/scripts/learning_records.py stats --period 30d
 - `learning-record-notes/` 下的笔记是可读副本，不是规范数据源：不参与 `validate`、统计、抽题和调度，删除或缺失不影响任何评分、状态与下次复习时间；也不得从笔记反向修改 `learning-records/`、`mastered-learning-records/` 或 `exam-papers/`。
 - `follow-up-learning` 的菜单选择本身不增加复习次数；只有实际引入并写入的新知识点才增加对应学习记录的 `learned_count` 或创建新记录。
 - 重复学习同一知识点会增加 `learned_count`；只用更丰富的新内容补全较弱字段并合并标签，不用较弱内容覆盖完整讲解。
-- 每个复习题组只调用一次 `complete-review`，不能按小题重复计分；练习轮次（`starter-practice`、`follow-up-learning`、错题聚类练习）不调用 `complete-review`，得分只写笔记，见「练习计分」。
+- 每个复习题组只调用一次 `complete-review`，不能按小题重复计分；练习轮次（`starter-practice`、`practice: true` 的 `follow-up-learning`、错题聚类练习）不调用 `complete-review`，得分只写笔记，见「练习计分」。
 - 数据错误时运行 `validate`；只在用户明确要求修复时运行 `repair --dry-run` 并先展示结果。

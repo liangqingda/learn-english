@@ -22,7 +22,7 @@ description: 当用户发送英文单词、短语、句子、段落、对话、�
 3. 解释这些内容为什么这样使用。
 4. 输入是单词或短语时，必须给出简短的历史、地域或文化背景与来源结论；没有值得展开的特定背景时，明确说明这一点。
 5. 给出少量可以迁移到其他场景的例子。
-6. 若本轮可以显示正常菜单，运行 `python3 skills/learn-from-english/scripts/learning_records.py menu --context learn --focus "<本轮核心表达>"`，严格按返回的 `options` 顺序、`label` 原文与 `group` 渲染菜单；本轮已经实质讲解过语法时追加 `--grammar-explained`，跳过通用语法入口。历史试卷入口已由该命令合并返回，不再单独运行 `paper-menu`。
+6. 若本轮可以显示正常菜单，运行 `python3 skills/learn-from-english/scripts/learning_records.py menu --context learn --focus "<本轮核心表达>"`，严格按返回的 `options` 顺序、`label` 原文与 `group` 渲染菜单；本轮已经实质讲解过语法时追加 `--grammar-explained`，跳过通用语法入口。历史试卷入口已由该命令合并返回，不再单独运行 `paper-menu`。选项带 `practice: false` 时（例如发音与重读方向），用户选中后只讲解、不出习题、不计分，把讲解要点写进文件级小节后照常给下一菜单；其余选项的作答、计分与落盘按 `skills/practice-learning-records/references/menu-dispatch.md` 分派。
 
 在完成正文并发送回复之前，按照“记录本轮知识点”流程用一次批量写操作保存本轮实际讲解的内容，再根据是否有未作答练习决定是否生成快捷菜单。记录失败不得阻断教学回复，但必须按失败恢复流程处理。
 
